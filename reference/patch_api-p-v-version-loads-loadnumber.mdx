@@ -1,0 +1,70 @@
+---
+title: "Update load"
+openapi: "PATCH /api/p/v{version}/loads/{loadNumber}"
+---
+
+The Update Load endpoint applies a partial (PATCH) update to an existing load. Today the only writable field is the **Order Number** (the partner-facing "Shipment Id"); the payload shape allows future writable fields to be added without a breaking change. Fields that are omitted from the body are left unchanged.
+
+Updates use optimistic concurrency: you must send the load's current `ETag` in an `If-Match` header. The current `ETag` is returned on the `ETag` response header of this endpoint and of the load read endpoints. For more information on how versioning works and how to include it in your requests, please refer to the [Versioning](/docs/versioning) page.
+
+***
+
+### Request Parameters
+
+The following parameters are available in the URL path:
+
+| Parameter  | Type   | Required | Description                            |
+| ---------- | ------ | -------- | -------------------------------------- |
+| version    | String | Yes      | The version of the API.                |
+| loadNumber | String | Yes      | The load number of the load to update. |
+
+The following header is required:
+
+| Header   | Type   | Required | Description                                                                                            |
+| -------- | ------ | -------- | ------------------------------------------------------------------------------------------------------ |
+| If-Match | String | Yes      | The load's current `ETag`, for optimistic concurrency. If omitted, the request is rejected with `428`. |
+
+***
+
+### Request Body
+
+| Field       | Type   | Required | Description                                                                                                                             |
+| ----------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| OrderNumber | String | No       | The partner-facing Order Number ("Shipment Id"). Must be 30 characters or fewer. Omit to leave it unchanged; a blank value is rejected. |
+
+***
+
+### Example CURL Request
+
+```bash
+curl --location --request PATCH 'https://integrations.alvys.com/api/p/v1/loads/{loadNumber}' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+--header 'Content-Type: application/json' \
+--header 'If-Match: "00000000-0000-0000-0000-000000000001"' \
+--data-raw '{
+  "OrderNumber": "SHIP-100245"
+}'
+```
+
+Replace `{loadNumber}` with the actual load number, the `If-Match` value with the load's current `ETag`, and `YOUR_ACCESS_TOKEN` with your actual Bearer token.
+
+***
+
+### Response
+
+On success the endpoint returns the updated load (the same object shape as [Get Loads](/reference/get_api-p-v-version-loads)), and the new optimistic-concurrency token on the `ETag` response header.
+
+***
+
+### Status Codes
+
+| Code | Description                                                                                  |
+| ---- | -------------------------------------------------------------------------------------------- |
+| 200  | The load was updated; the response body contains the updated load.                           |
+| 400  | The request body failed validation (e.g., Order Number longer than 30 characters or blank).  |
+| 401  | Authentication failed or the token is missing.                                               |
+| 403  | The token is not authorized to update loads.                                                 |
+| 404  | No load was found for the given load number.                                                 |
+| 409  | The update conflicts with the current state of the load.                                     |
+| 412  | The `If-Match` ETag did not match the load's current version (it changed since you read it). |
+| 428  | The `If-Match` header was not provided.                                                      |

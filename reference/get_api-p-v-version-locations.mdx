@@ -1,0 +1,96 @@
+---
+title: "Get location"
+openapi: "GET /api/p/v{version}/locations"
+---
+
+The endpoint for retrieving **a single location** requires specifying the API **version** in the path and **one** identifier in the query: either `id` **or** `companyNumber`. For details on how versioning works, see the [Versioning](/docs/versioning) page.
+
+### Request Parameters
+
+**Path parameters**
+
+| Parameter     | Type   | Required               | Description                                                          |
+| ------------- | ------ | ---------------------- | -------------------------------------------------------------------- |
+| version       | String | Yes                    | The API version to use.                                              |
+| id            | String | Conditionally required | The unique Location ID. Required if `companyNumber` is not provided. |
+| companyNumber | String | Conditionally required | The company number. Required if `id` is not provided.                |
+
+> Exactly **one** of `id` or `companyNumber` must be provided.
+
+#### Example cURL requests
+
+Lookup by **id**:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/locations?id=120f97b9-1aa2-4201-b1aa-24...' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Lookup by **companyNumber**:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/locations?companyNumber=MGD0012312345' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+### Response Parameters
+
+| Parameter               | Type              | Description                                                                               |
+| ----------------------- | ----------------- | ----------------------------------------------------------------------------------------- |
+| Id                      | String            | Unique location identifier.                                                               |
+| Name                    | String            | Location name.                                                                            |
+| CompanyNumber           | String            | Company number for this location. This is provided when uploading files for that company. |
+| Type                    | String            | Location type (e.g., Terminal, Shipper/Consignee, Cold Warehouse, Dry Warehouse).         |
+| Status                  | String            | Location status (e.g., Active, Disabled, Inactive).                                       |
+| PhysicalAddress         | Object            | Address block.                                                                            |
+| PhysicalAddress.Street  | String            | Street line.                                                                              |
+| PhysicalAddress.City    | String            | City.                                                                                     |
+| PhysicalAddress.State   | String            | State/Province.                                                                           |
+| PhysicalAddress.ZipCode | String            | ZIP/Postal code.                                                                          |
+| Email                   | Array of String   | Email addresses.                                                                          |
+| Phone                   | Array of String   | Phone numbers.                                                                            |
+| Fax                     | String            | Fax number.                                                                               |
+| DateCreated             | String (DateTime) | Creation timestamp (UTC).                                                                 |
+| ExternalId              | String            | External reference ID (if any).                                                           |
+| Notes                   | Array of Object   | Notes attached to the location.                                                           |
+| Notes\[].id             | String            | Note identifier.                                                                          |
+| Notes\[].Description    | String            | Note text.                                                                                |
+| Notes\[].NoteType       | String            | Type/category of the note.                                                                |
+| Notes\[].Time           | String (DateTime) | Timestamp of the note (UTC).                                                              |
+| Notes\[].User           | String            | Author/user who added the note.                                                           |
+
+#### Example Response
+
+```json
+{
+  "Id": "loc-45678",
+  "Name": "Alvys Teminal Group LLC",
+  "CompanyNumber": "LP-12345",
+  "Type": "Terminal",
+  "Status": "Active",
+  "PhysicalAddress": {
+    "Street": "001 Main St",
+    "City": "Dallas",
+    "State": "TX",
+    "ZipCode": "70000"
+  },
+  "Email": ["terminal@alvys.com"],
+  "Phone": ["+1-123-456-4567"],
+  "Fax": null,
+  "DateCreated": "2025-09-08T16:01:26.908Z",
+  "ExternalId": "EXT-001",
+  "Notes": [
+    {
+      "id": "n-001",
+      "Description": "24/7 gate access",
+      "NoteType": "General",
+      "Time": "2025-09-08T18:10:00Z",
+      "User": "lidia@alvys.com"
+    }
+  ]
+}
+```
+
+#### Rate Limits
+
+All endpoints are subject to platform rate limits. See [Rate Limits](/docs/rate-limits).

@@ -1,0 +1,103 @@
+---
+title: "Security & Signature Verification"
+---
+
+All webhook event deliveries are signed to ensure authenticity and integrity.
+
+Your endpoint must validate the signature before processing any event.
+
+Verification requests (`webhook.verification`) are **not signed**.
+
+### Transport Requirements
+
+Webhook endpoints must:
+
+* Use HTTPS
+* Support TLS 1.2 or higher
+* Present a valid certificate
+
+Requests are delivered only over secure connections.
+
+### Signature Header
+
+Each event delivery includes the header:
+
+```
+X-Alvys-Signature
+```
+
+Format:
+
+```
+t={timestamp},v1={signature}
+```
+
+During secret regeneration, the header may include two signatures:
+
+```
+t={timestamp},v1={new_signature},v0={previous_signature}
+```
+
+Where:
+
+* `t` is the Unix timestamp (seconds)
+* `v1` is generated using the current secret
+* `v0` is generated using the previous secret during the transition window
+
+### Signed Payload Format
+
+The signature is generated from:
+
+```
+{timestamp}.{eventId}.{raw_request_body}
+```
+
+Important:
+
+* Use the exact raw request body.
+* Do not reformat or reserialize JSON before verification.
+* Any change to whitespace or formatting will invalidate the signature.
+
+### Verification Process
+
+To validate a delivery:
+
+1. Extract the timestamp from the `X-Alvys-Signature` header.
+2. Extract the signature value.
+3. Read the raw request body exactly as received.
+4. Construct the signed payload string.
+5. Compute an HMAC-SHA256 hash using your webhook secret.
+6. Compare the computed value to the signature(s) provided.
+7. Process the event only if a match is found.
+
+Signature comparison should use constant-time comparison to prevent timing attacks.
+
+### Replay Protection
+
+It is recommended to reject requests where:
+
+```
+|current_time - timestamp| > 5 minutes
+```
+
+This helps reduce replay risk.
+
+### Secret Management
+
+Each webhook has a unique signing secret.
+
+The secret:
+
+* Is generated when the webhook is created.
+* Can be regenerated using the **Regenerate Secret Key** option in the UI.
+* Should be stored securely.
+* Must never be exposed in client-side code or logs.
+
+### If Signature Validation Fails
+
+If the signature cannot be verified:
+
+* Return HTTP `401 Unauthorized` .
+* Do not process the event.
+
+Signature validation must occur before executing any business logic.

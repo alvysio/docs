@@ -1,0 +1,1582 @@
+[
+  {
+    "source_url": "https://docs.alvys.com/changelog/alvys-webhooks-now-available-for-tender-lifecycle-events",
+    "source_path": "changelog/alvys-webhooks-now-available-for-tender-lifecycle-events",
+    "normalized_path": "changelog",
+    "source_h1": "Alvys Webhooks Now Available For Tender Lifecycle Events",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/carrier-endpoints-added-to-public-api",
+    "source_path": "changelog/carrier-endpoints-added-to-public-api",
+    "normalized_path": "changelog",
+    "source_h1": "Carrier Endpoints Added To Public Api",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/document-upload-endpints-now-available-in-public-api",
+    "source_path": "changelog/document-upload-endpints-now-available-in-public-api",
+    "normalized_path": "changelog",
+    "source_h1": "Document Upload Endpints Now Available In Public Api",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/driver-status-visibility-enhancement",
+    "source_path": "changelog/driver-status-visibility-enhancement",
+    "normalized_path": "changelog",
+    "source_h1": "Driver Status Visibility Enhancement",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/enhanced-carrier-payment-details-in-trips-endpoints",
+    "source_path": "changelog/enhanced-carrier-payment-details-in-trips-endpoints",
+    "normalized_path": "changelog",
+    "source_h1": "Enhanced Carrier Payment Details In Trips Endpoints",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/enhanced-driver-pay-visibility-in-trips-endpoint",
+    "source_path": "changelog/enhanced-driver-pay-visibility-in-trips-endpoint",
+    "normalized_path": "changelog",
+    "source_h1": "Enhanced Driver Pay Visibility In Trips Endpoint",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/enhanced-fuel-endpoints-with-transaction-date-and-quantity-details",
+    "source_path": "changelog/enhanced-fuel-endpoints-with-transaction-date-and-quantity-details",
+    "normalized_path": "changelog",
+    "source_h1": "Enhanced Fuel Endpoints With Transaction Date And Quantity Details",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/enhancements-to-load-management-with-new-assignment-fields",
+    "source_path": "changelog/enhancements-to-load-management-with-new-assignment-fields",
+    "normalized_path": "changelog",
+    "source_h1": "Enhancements To Load Management With New Assignment Fields",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/expose-carrierpaymentonhold-field-in-trips-endpoints",
+    "source_path": "changelog/expose-carrierpaymentonhold-field-in-trips-endpoints",
+    "normalized_path": "changelog",
+    "source_h1": "Expose Carrierpaymentonhold Field In Trips Endpoints",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/exposing-asset-events-endpoints",
+    "source_path": "changelog/exposing-asset-events-endpoints",
+    "normalized_path": "changelog",
+    "source_h1": "Exposing Asset Events Endpoints",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/exposing-deleted-loads-and-trips-in-the-public-api-only-when-includedeleted-flag-is-true",
+    "source_path": "changelog/exposing-deleted-loads-and-trips-in-the-public-api-only-when-includedeleted-flag-is-true",
+    "normalized_path": "changelog",
+    "source_h1": "Exposing Deleted Loads And Trips In The Public Api Only When Includedeleted Flag Is True",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/granular-accessorials-breakdown-customers-carriers-drivers",
+    "source_path": "changelog/granular-accessorials-breakdown-customers-carriers-drivers",
+    "normalized_path": "changelog",
+    "source_h1": "Granular Accessorials Breakdown Customers Carriers Drivers",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/improved-trip-mileage-accuracy-for-split-loads",
+    "source_path": "changelog/improved-trip-mileage-accuracy-for-split-loads",
+    "normalized_path": "changelog",
+    "source_h1": "Improved Trip Mileage Accuracy For Split Loads",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/including-updatedat-and-updatedby-to-load-and-trip-endpoints",
+    "source_path": "changelog/including-updatedat-and-updatedby-to-load-and-trip-endpoints",
+    "normalized_path": "changelog",
+    "source_h1": "Including Updatedat And Updatedby To Load And Trip Endpoints",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/introduced-load-office-to-public-api",
+    "source_path": "changelog/introduced-load-office-to-public-api",
+    "normalized_path": "changelog",
+    "source_h1": "Introduced Load Office To Public Api",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/introducing-new-response-field-loadtype-to-distinguish-between-revenue-and-non-revenue-loads",
+    "source_path": "changelog/introducing-new-response-field-loadtype-to-distinguish-between-revenue-and-non-revenue-loads",
+    "normalized_path": "changelog",
+    "source_h1": "Introducing New Response Field Loadtype To Distinguish Between Revenue And Non Revenue Loads",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/load-rates-enhancements",
+    "source_path": "changelog/load-rates-enhancements",
+    "normalized_path": "changelog",
+    "source_h1": "Load Rates Enhancements",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/new-dispatch-preferences-endpoint",
+    "source_path": "changelog/new-dispatch-preferences-endpoint",
+    "normalized_path": "changelog",
+    "source_h1": "New Dispatch Preferences Endpoint",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/new-endpoints-for-company-location-details",
+    "source_path": "changelog/new-endpoints-for-company-location-details",
+    "normalized_path": "changelog",
+    "source_h1": "New Endpoints For Company Location Details",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/new-endpoints-for-customer-data-management",
+    "source_path": "changelog/new-endpoints-for-customer-data-management",
+    "normalized_path": "changelog",
+    "source_h1": "New Endpoints For Customer Data Management",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/new-endpoints-for-managing-deductions",
+    "source_path": "changelog/new-endpoints-for-managing-deductions",
+    "normalized_path": "changelog",
+    "source_h1": "New Endpoints For Managing Deductions",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/new-endpoints-for-visibility-public-api",
+    "source_path": "changelog/new-endpoints-for-visibility-public-api",
+    "normalized_path": "changelog",
+    "source_h1": "New Endpoints For Visibility Public Api",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/new-public-api-endpoints-for-trips-and-carriers",
+    "source_path": "changelog/new-public-api-endpoints-for-trips-and-carriers",
+    "normalized_path": "changelog",
+    "source_h1": "New Public Api Endpoints For Trips And Carriers",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/new-token-endpoint-with-granular-api-access",
+    "source_path": "changelog/new-token-endpoint-with-granular-api-access",
+    "normalized_path": "changelog",
+    "source_h1": "New Token Endpoint With Granular Api Access",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/per-entity-document-webhooks-for-loads-trips-drivers-carriers-trucks-trailers",
+    "source_path": "changelog/per-entity-document-webhooks-for-loads-trips-drivers-carriers-trucks-trailers",
+    "normalized_path": "changelog",
+    "source_h1": "Per Entity Document Webhooks For Loads Trips Drivers Carriers Trucks Trailers",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/power-bi-file-updated",
+    "source_path": "changelog/power-bi-file-updated",
+    "normalized_path": "changelog",
+    "source_h1": "Power Bi File Updated",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/public-api-carrier-customer-payments-enhancements",
+    "source_path": "changelog/public-api-carrier-customer-payments-enhancements",
+    "normalized_path": "changelog",
+    "source_h1": "Public Api Carrier Customer Payments Enhancements",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/public-api-customer-write-endpoints-create-update-delete",
+    "source_path": "changelog/public-api-customer-write-endpoints-create-update-delete",
+    "normalized_path": "changelog",
+    "source_h1": "Public Api Customer Write Endpoints Create Update Delete",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/public-api-enhancements-for-loads-trips-carriers-tenders-and-core-response-schemas",
+    "source_path": "changelog/public-api-enhancements-for-loads-trips-carriers-tenders-and-core-response-schemas",
+    "normalized_path": "changelog",
+    "source_h1": "Public Api Enhancements For Loads Trips Carriers Tenders And Core Response Schemas",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/public-api-now-supports-document-fetching-across-core-entities",
+    "source_path": "changelog/public-api-now-supports-document-fetching-across-core-entities",
+    "normalized_path": "changelog",
+    "source_h1": "Public Api Now Supports Document Fetching Across Core Entities",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/public-api-update-accurate-pickup-delivery-timestamps",
+    "source_path": "changelog/public-api-update-accurate-pickup-delivery-timestamps",
+    "normalized_path": "changelog",
+    "source_h1": "Public Api Update Accurate Pickup Delivery Timestamps",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/public-api-webhook-enhancements-delivery-attempts-status-reason-and-delivery-log-export",
+    "source_path": "changelog/public-api-webhook-enhancements-delivery-attempts-status-reason-and-delivery-log-export",
+    "normalized_path": "changelog",
+    "source_h1": "Public Api Webhook Enhancements Delivery Attempts Status Reason And Delivery Log Export",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/token-endpoint-enhancement-json-support-added-stricter-validation-enforced",
+    "source_path": "changelog/token-endpoint-enhancement-json-support-added-stricter-validation-enforced",
+    "normalized_path": "changelog",
+    "source_h1": "Token Endpoint Enhancement Json Support Added Stricter Validation Enforced",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/trip-search-enhancement-for-include-deleted-records",
+    "source_path": "changelog/trip-search-enhancement-for-include-deleted-records",
+    "normalized_path": "changelog",
+    "source_h1": "Trip Search Enhancement For Include Deleted Records",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/trip-temperature-required-equipment-fields-added-to-trip-response-body",
+    "source_path": "changelog/trip-temperature-required-equipment-fields-added-to-trip-response-body",
+    "normalized_path": "changelog",
+    "source_h1": "Trip Temperature Required Equipment Fields Added To Trip Response Body",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/trips-endpoint-enhancement-dispatcherid-added",
+    "source_path": "changelog/trips-endpoint-enhancement-dispatcherid-added",
+    "normalized_path": "changelog",
+    "source_h1": "Trips Endpoint Enhancement Dispatcherid Added",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/trips-endpoint-update-datereleased-field-added",
+    "source_path": "changelog/trips-endpoint-update-datereleased-field-added",
+    "normalized_path": "changelog",
+    "source_h1": "Trips Endpoint Update Datereleased Field Added",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/update-a-loads-order-number-via-the-public-api",
+    "source_path": "changelog/update-a-loads-order-number-via-the-public-api",
+    "normalized_path": "changelog",
+    "source_h1": "Update A Loads Order Number Via The Public Api",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/update-for-customer-rate-details-field",
+    "source_path": "changelog/update-for-customer-rate-details-field",
+    "normalized_path": "changelog",
+    "source_h1": "Update For Customer Rate Details Field",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/updated-loadnumber-search-limit",
+    "source_path": "changelog/updated-loadnumber-search-limit",
+    "normalized_path": "changelog",
+    "source_h1": "Updated Loadnumber Search Limit",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/webhook-events-for-general-load-trip-updates",
+    "source_path": "changelog/webhook-events-for-general-load-trip-updates",
+    "normalized_path": "changelog",
+    "source_h1": "Webhook Events For General Load Trip Updates",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/webhook-events-for-load-trip-status-updates",
+    "source_path": "changelog/webhook-events-for-load-trip-status-updates",
+    "normalized_path": "changelog",
+    "source_h1": "Webhook Events For Load Trip Status Updates",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/changelog/welcome-to-alvys",
+    "source_path": "changelog/welcome-to-alvys",
+    "normalized_path": "changelog",
+    "source_h1": "Welcome To Alvys",
+    "converted_file": "changelog.mdx",
+    "nav_section": "changelog",
+    "status": "done",
+    "notes": "Consolidated into changelog.mdx as an <Update> block; original URL redirects to /changelog."
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/alvys-data-import-template-quick-setup-guide",
+    "normalized_path": "docs/alvys-data-import-template-quick-setup-guide",
+    "source_h1": "Connecting to Google Sheets",
+    "converted_file": "docs/alvys-data-import-template-quick-setup-guide.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/alvys-data-import-template-quick-setup-guide"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/authentication-1",
+    "normalized_path": "docs/authentication-1",
+    "source_h1": "Authentication",
+    "converted_file": "docs/authentication-1.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/authentication-1"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/authentication-2",
+    "normalized_path": "docs/authentication-2",
+    "source_h1": "Authentication and Global Permissions",
+    "converted_file": "docs/authentication-2.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/authentication-2"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/base-url",
+    "normalized_path": "docs/base-url",
+    "source_h1": "Base URL",
+    "converted_file": "docs/base-url.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/base-url"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/connecting-power-bi-to-alvys-public-api-guide",
+    "normalized_path": "docs/connecting-power-bi-to-alvys-public-api-guide",
+    "source_h1": "Connecting to Power BI",
+    "converted_file": "docs/connecting-power-bi-to-alvys-public-api-guide.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/connecting-power-bi-to-alvys-public-api-guide"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/create-queries-and-retrieve-data-from-the-alvys-api",
+    "normalized_path": "docs/create-queries-and-retrieve-data-from-the-alvys-api",
+    "source_h1": "Create Queries and Retrieve Data from the Alvys API",
+    "converted_file": "docs/create-queries-and-retrieve-data-from-the-alvys-api.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/create-queries-and-retrieve-data-from-the-alvys-api"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/dates-timestamps",
+    "normalized_path": "docs/dates-timestamps",
+    "source_h1": "Dates & Timestamps",
+    "converted_file": "docs/dates-timestamps.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/dates-timestamps"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/getting-started",
+    "normalized_path": "docs/getting-started",
+    "source_h1": "Getting Started with Alvys",
+    "converted_file": "docs/getting-started.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/getting-started"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/importing-the-preconfigured-alvys-public-apipbix-file",
+    "normalized_path": "docs/importing-the-preconfigured-alvys-public-apipbix-file",
+    "source_h1": "Importing the Preconfigured Alvys Public API.pbix File",
+    "converted_file": "docs/importing-the-preconfigured-alvys-public-apipbix-file.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/importing-the-preconfigured-alvys-public-apipbix-file"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/overview",
+    "normalized_path": "docs/overview",
+    "source_h1": "Overview",
+    "converted_file": "docs/overview.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/overview"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/power-bi-template-file-fast-setup-guide",
+    "normalized_path": "docs/power-bi-template-file-fast-setup-guide",
+    "source_h1": "Power BI Template File: Fast Setup Guide",
+    "converted_file": "docs/power-bi-template-file-fast-setup-guide.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/power-bi-template-file-fast-setup-guide"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/rate-limits",
+    "normalized_path": "docs/rate-limits",
+    "source_h1": "Rate Limits",
+    "converted_file": "docs/rate-limits.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/rate-limits"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/response-codes",
+    "normalized_path": "docs/response-codes",
+    "source_h1": "Response Codes",
+    "converted_file": "docs/response-codes.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/response-codes"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/timestamps",
+    "normalized_path": "docs/timestamps",
+    "source_h1": "Timestamps",
+    "converted_file": "docs/timestamps.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/timestamps"
+  },
+  {
+    "source_url": "https://docs.alvys.com/docs/versioning",
+    "normalized_path": "docs/versioning",
+    "source_h1": "Versioning",
+    "converted_file": "docs/versioning.mdx",
+    "nav_section": "docs",
+    "status": "done",
+    "notes": "",
+    "source_path": "docs/versioning"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/authentication",
+    "normalized_path": "reference/authentication",
+    "source_h1": "Authentication",
+    "converted_file": "reference/authentication.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/authentication"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/delete_api-p-v-version-customers-id",
+    "normalized_path": "reference/delete_api-p-v-version-customers-id",
+    "source_h1": "Delete customer",
+    "converted_file": "reference/delete_api-p-v-version-customers-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/delete_api-p-v-version-customers-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/delete_api-p-v-version-deductions-id",
+    "normalized_path": "reference/delete_api-p-v-version-deductions-id",
+    "source_h1": "Delete deduction",
+    "converted_file": "reference/delete_api-p-v-version-deductions-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/delete_api-p-v-version-deductions-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/delete_api-p-v-version-loads-loadnumber-notes-noteid",
+    "normalized_path": "reference/delete_api-p-v-version-loads-loadnumber-notes-noteid",
+    "source_h1": "Delete load note",
+    "converted_file": "reference/delete_api-p-v-version-loads-loadnumber-notes-noteid.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/delete_api-p-v-version-loads-loadnumber-notes-noteid"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/delete_api-p-v-version-trips-tripid-stops-stopid-arrival",
+    "normalized_path": "reference/delete_api-p-v-version-trips-tripid-stops-stopid-arrival",
+    "source_h1": "Clear stop arrival",
+    "converted_file": "reference/delete_api-p-v-version-trips-tripid-stops-stopid-arrival.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/delete_api-p-v-version-trips-tripid-stops-stopid-arrival"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/delete_api-p-v-version-webhooks-id",
+    "normalized_path": "reference/delete_api-p-v-version-webhooks-id",
+    "source_h1": "Delete webhook",
+    "converted_file": "reference/delete_api-p-v-version-webhooks-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/delete_api-p-v-version-webhooks-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/event-delivery-reliability",
+    "normalized_path": "reference/event-delivery-reliability",
+    "source_h1": "Event Delivery & Reliability",
+    "converted_file": "reference/event-delivery-reliability.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/event-delivery-reliability"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-carriers-carrierid-documents",
+    "normalized_path": "reference/get_api-p-v-version-carriers-carrierid-documents",
+    "source_h1": "List carrier documents",
+    "converted_file": "reference/get_api-p-v-version-carriers-carrierid-documents.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-carriers-carrierid-documents"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-carriers-id",
+    "normalized_path": "reference/get_api-p-v-version-carriers-id",
+    "source_h1": "Get carrier",
+    "converted_file": "reference/get_api-p-v-version-carriers-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-carriers-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-customers",
+    "normalized_path": "reference/get_api-p-v-version-customers",
+    "source_h1": "List customers",
+    "converted_file": "reference/get_api-p-v-version-customers.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-customers"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-deductions-id",
+    "normalized_path": "reference/get_api-p-v-version-deductions-id",
+    "source_h1": "Get deduction",
+    "converted_file": "reference/get_api-p-v-version-deductions-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-deductions-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-drivers-driverid-documents",
+    "normalized_path": "reference/get_api-p-v-version-drivers-driverid-documents",
+    "source_h1": "List driver documents",
+    "converted_file": "reference/get_api-p-v-version-drivers-driverid-documents.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-drivers-driverid-documents"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-drivers-id",
+    "normalized_path": "reference/get_api-p-v-version-drivers-id",
+    "source_h1": "Get driver",
+    "converted_file": "reference/get_api-p-v-version-drivers-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-drivers-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-drivers",
+    "normalized_path": "reference/get_api-p-v-version-drivers",
+    "source_h1": "List drivers",
+    "converted_file": "reference/get_api-p-v-version-drivers.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-drivers"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-fuel-id",
+    "normalized_path": "reference/get_api-p-v-version-fuel-id",
+    "source_h1": "Get fuel transaction",
+    "converted_file": "reference/get_api-p-v-version-fuel-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-fuel-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-invoices",
+    "normalized_path": "reference/get_api-p-v-version-invoices",
+    "source_h1": "Get invoice",
+    "converted_file": "reference/get_api-p-v-version-invoices.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-invoices"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-loads-loadnumber-documents",
+    "normalized_path": "reference/get_api-p-v-version-loads-loadnumber-documents",
+    "source_h1": "List load documents",
+    "converted_file": "reference/get_api-p-v-version-loads-loadnumber-documents.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-loads-loadnumber-documents"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-loads-loadnumber-notes",
+    "normalized_path": "reference/get_api-p-v-version-loads-loadnumber-notes",
+    "source_h1": "List load notes",
+    "converted_file": "reference/get_api-p-v-version-loads-loadnumber-notes.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-loads-loadnumber-notes"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-loads",
+    "normalized_path": "reference/get_api-p-v-version-loads",
+    "source_h1": "Get load",
+    "converted_file": "reference/get_api-p-v-version-loads.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-loads"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-locations",
+    "normalized_path": "reference/get_api-p-v-version-locations",
+    "source_h1": "Get location",
+    "converted_file": "reference/get_api-p-v-version-locations.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-locations"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-maintenance-id",
+    "normalized_path": "reference/get_api-p-v-version-maintenance-id",
+    "source_h1": "Get maintenance record",
+    "converted_file": "reference/get_api-p-v-version-maintenance-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-maintenance-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-tenders-tenderid",
+    "normalized_path": "reference/get_api-p-v-version-tenders-tenderid",
+    "source_h1": "Get tender",
+    "converted_file": "reference/get_api-p-v-version-tenders-tenderid.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-tenders-tenderid"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-tolls-id",
+    "normalized_path": "reference/get_api-p-v-version-tolls-id",
+    "source_h1": "Get toll transaction",
+    "converted_file": "reference/get_api-p-v-version-tolls-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-tolls-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-trailers-id",
+    "normalized_path": "reference/get_api-p-v-version-trailers-id",
+    "source_h1": "Get trailer",
+    "converted_file": "reference/get_api-p-v-version-trailers-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-trailers-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-trailers-trailerid-documents",
+    "normalized_path": "reference/get_api-p-v-version-trailers-trailerid-documents",
+    "source_h1": "List trailer documents",
+    "converted_file": "reference/get_api-p-v-version-trailers-trailerid-documents.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-trailers-trailerid-documents"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-trailers",
+    "normalized_path": "reference/get_api-p-v-version-trailers",
+    "source_h1": "List trailers",
+    "converted_file": "reference/get_api-p-v-version-trailers.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-trailers"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-trips-tripid-documents",
+    "normalized_path": "reference/get_api-p-v-version-trips-tripid-documents",
+    "source_h1": "List trip documents",
+    "converted_file": "reference/get_api-p-v-version-trips-tripid-documents.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-trips-tripid-documents"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-trips-tripid-stops-stopid",
+    "normalized_path": "reference/get_api-p-v-version-trips-tripid-stops-stopid",
+    "source_h1": "Get trip stop",
+    "converted_file": "reference/get_api-p-v-version-trips-tripid-stops-stopid.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-trips-tripid-stops-stopid"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-trips-tripid-stops",
+    "normalized_path": "reference/get_api-p-v-version-trips-tripid-stops",
+    "source_h1": "List trip stops",
+    "converted_file": "reference/get_api-p-v-version-trips-tripid-stops.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-trips-tripid-stops"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-trips",
+    "normalized_path": "reference/get_api-p-v-version-trips",
+    "source_h1": "Get trip",
+    "converted_file": "reference/get_api-p-v-version-trips.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-trips"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-trucks-id",
+    "normalized_path": "reference/get_api-p-v-version-trucks-id",
+    "source_h1": "Get truck",
+    "converted_file": "reference/get_api-p-v-version-trucks-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-trucks-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-trucks-truckid-documents",
+    "normalized_path": "reference/get_api-p-v-version-trucks-truckid-documents",
+    "source_h1": "List truck documents",
+    "converted_file": "reference/get_api-p-v-version-trucks-truckid-documents.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-trucks-truckid-documents"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-trucks",
+    "normalized_path": "reference/get_api-p-v-version-trucks",
+    "source_h1": "List trucks",
+    "converted_file": "reference/get_api-p-v-version-trucks.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-trucks"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-users-list",
+    "normalized_path": "reference/get_api-p-v-version-users-list",
+    "source_h1": "List users",
+    "converted_file": "reference/get_api-p-v-version-users-list.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-users-list"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-visibility-inbound-loadnumber-history",
+    "normalized_path": "reference/get_api-p-v-version-visibility-inbound-loadnumber-history",
+    "source_h1": "Get inbound visibility history",
+    "converted_file": "reference/get_api-p-v-version-visibility-inbound-loadnumber-history.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-visibility-inbound-loadnumber-history"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-visibility-outbound-loadnumber-history",
+    "normalized_path": "reference/get_api-p-v-version-visibility-outbound-loadnumber-history",
+    "source_h1": "Get outbound visibility history",
+    "converted_file": "reference/get_api-p-v-version-visibility-outbound-loadnumber-history.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-visibility-outbound-loadnumber-history"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-webhooks-event-types",
+    "normalized_path": "reference/get_api-p-v-version-webhooks-event-types",
+    "source_h1": "Get event types",
+    "converted_file": "reference/get_api-p-v-version-webhooks-event-types.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-webhooks-event-types"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-webhooks-id",
+    "normalized_path": "reference/get_api-p-v-version-webhooks-id",
+    "source_h1": "Get webhook",
+    "converted_file": "reference/get_api-p-v-version-webhooks-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-webhooks-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-webhooks-webhookid-delivery-logs-export",
+    "normalized_path": "reference/get_api-p-v-version-webhooks-webhookid-delivery-logs-export",
+    "source_h1": "Export delivery logs",
+    "converted_file": "reference/get_api-p-v-version-webhooks-webhookid-delivery-logs-export.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-webhooks-webhookid-delivery-logs-export"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-webhooks-webhookid-delivery-logs-logid",
+    "normalized_path": "reference/get_api-p-v-version-webhooks-webhookid-delivery-logs-logid",
+    "source_h1": "Get delivery log detail",
+    "converted_file": "reference/get_api-p-v-version-webhooks-webhookid-delivery-logs-logid.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-webhooks-webhookid-delivery-logs-logid"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-webhooks-webhookid-delivery-logs",
+    "normalized_path": "reference/get_api-p-v-version-webhooks-webhookid-delivery-logs",
+    "source_h1": "List delivery logs",
+    "converted_file": "reference/get_api-p-v-version-webhooks-webhookid-delivery-logs.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-webhooks-webhookid-delivery-logs"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-webhooks-webhookid-health",
+    "normalized_path": "reference/get_api-p-v-version-webhooks-webhookid-health",
+    "source_h1": "Get webhook health metrics",
+    "converted_file": "reference/get_api-p-v-version-webhooks-webhookid-health.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-webhooks-webhookid-health"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/get_api-p-v-version-webhooks",
+    "normalized_path": "reference/get_api-p-v-version-webhooks",
+    "source_h1": "List webhooks",
+    "converted_file": "reference/get_api-p-v-version-webhooks.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/get_api-p-v-version-webhooks"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/overview",
+    "normalized_path": "reference/overview",
+    "source_h1": "Overview",
+    "converted_file": "reference/overview.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/overview"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/patch_api-p-v-version-customers-id",
+    "normalized_path": "reference/patch_api-p-v-version-customers-id",
+    "source_h1": "Update customer",
+    "converted_file": "reference/patch_api-p-v-version-customers-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/patch_api-p-v-version-customers-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/patch_api-p-v-version-loads-loadnumber",
+    "normalized_path": "reference/patch_api-p-v-version-loads-loadnumber",
+    "source_h1": "Update load",
+    "converted_file": "reference/patch_api-p-v-version-loads-loadnumber.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/patch_api-p-v-version-loads-loadnumber"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-carriers-carrierid-document",
+    "normalized_path": "reference/post_api-p-v-version-carriers-carrierid-document",
+    "source_h1": "Upload carrier document",
+    "converted_file": "reference/post_api-p-v-version-carriers-carrierid-document.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-carriers-carrierid-document"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-carriers-search",
+    "normalized_path": "reference/post_api-p-v-version-carriers-search",
+    "source_h1": "Search carriers",
+    "converted_file": "reference/post_api-p-v-version-carriers-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-carriers-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-customers-search",
+    "normalized_path": "reference/post_api-p-v-version-customers-search",
+    "source_h1": "Search customers",
+    "converted_file": "reference/post_api-p-v-version-customers-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-customers-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-customers",
+    "normalized_path": "reference/post_api-p-v-version-customers",
+    "source_h1": "Create customer",
+    "converted_file": "reference/post_api-p-v-version-customers.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-customers"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-deductions-once",
+    "normalized_path": "reference/post_api-p-v-version-deductions-once",
+    "source_h1": "Create one-time deduction",
+    "converted_file": "reference/post_api-p-v-version-deductions-once.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-deductions-once"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-deductions-search",
+    "normalized_path": "reference/post_api-p-v-version-deductions-search",
+    "source_h1": "Search deductions",
+    "converted_file": "reference/post_api-p-v-version-deductions-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-deductions-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-dispatchpreferences-search",
+    "normalized_path": "reference/post_api-p-v-version-dispatchpreferences-search",
+    "source_h1": "Search dispatch preferences",
+    "converted_file": "reference/post_api-p-v-version-dispatchpreferences-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-dispatchpreferences-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-drivers-driverid-document",
+    "normalized_path": "reference/post_api-p-v-version-drivers-driverid-document",
+    "source_h1": "Upload driver document",
+    "converted_file": "reference/post_api-p-v-version-drivers-driverid-document.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-drivers-driverid-document"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-drivers-events-search",
+    "normalized_path": "reference/post_api-p-v-version-drivers-events-search",
+    "source_h1": "Search driver events",
+    "converted_file": "reference/post_api-p-v-version-drivers-events-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-drivers-events-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-drivers-search",
+    "normalized_path": "reference/post_api-p-v-version-drivers-search",
+    "source_h1": "Search drivers",
+    "converted_file": "reference/post_api-p-v-version-drivers-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-drivers-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-fuel-search",
+    "normalized_path": "reference/post_api-p-v-version-fuel-search",
+    "source_h1": "Search fuel transactions",
+    "converted_file": "reference/post_api-p-v-version-fuel-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-fuel-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-invoices-carrier-invoice",
+    "normalized_path": "reference/post_api-p-v-version-invoices-carrier-invoice",
+    "source_h1": "Create carrier invoice",
+    "converted_file": "reference/post_api-p-v-version-invoices-carrier-invoice.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-invoices-carrier-invoice"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-invoices-carrier-payments",
+    "normalized_path": "reference/post_api-p-v-version-invoices-carrier-payments",
+    "source_h1": "Record carrier payment",
+    "converted_file": "reference/post_api-p-v-version-invoices-carrier-payments.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-invoices-carrier-payments"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-invoices-customer-payments",
+    "normalized_path": "reference/post_api-p-v-version-invoices-customer-payments",
+    "source_h1": "Record customer payment",
+    "converted_file": "reference/post_api-p-v-version-invoices-customer-payments.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-invoices-customer-payments"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-invoices-financing",
+    "normalized_path": "reference/post_api-p-v-version-invoices-financing",
+    "source_h1": "Record invoice financing",
+    "converted_file": "reference/post_api-p-v-version-invoices-financing.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-invoices-financing"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-invoices-search",
+    "normalized_path": "reference/post_api-p-v-version-invoices-search",
+    "source_h1": "Search invoices",
+    "converted_file": "reference/post_api-p-v-version-invoices-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-invoices-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-loads-loadnumber-document",
+    "normalized_path": "reference/post_api-p-v-version-loads-loadnumber-document",
+    "source_h1": "Upload load document",
+    "converted_file": "reference/post_api-p-v-version-loads-loadnumber-document.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-loads-loadnumber-document"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-loads-loadnumber-notes",
+    "normalized_path": "reference/post_api-p-v-version-loads-loadnumber-notes",
+    "source_h1": "Create load note",
+    "converted_file": "reference/post_api-p-v-version-loads-loadnumber-notes.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-loads-loadnumber-notes"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-loads-search",
+    "normalized_path": "reference/post_api-p-v-version-loads-search",
+    "source_h1": "Search loads",
+    "converted_file": "reference/post_api-p-v-version-loads-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-loads-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-locations-search",
+    "normalized_path": "reference/post_api-p-v-version-locations-search",
+    "source_h1": "Search locations",
+    "converted_file": "reference/post_api-p-v-version-locations-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-locations-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-maintenance-search",
+    "normalized_path": "reference/post_api-p-v-version-maintenance-search",
+    "source_h1": "Search maintenance records",
+    "converted_file": "reference/post_api-p-v-version-maintenance-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-maintenance-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-tenders-cancel",
+    "normalized_path": "reference/post_api-p-v-version-tenders-cancel",
+    "source_h1": "Cancel tenders",
+    "converted_file": "reference/post_api-p-v-version-tenders-cancel.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-tenders-cancel"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-tenders-search",
+    "normalized_path": "reference/post_api-p-v-version-tenders-search",
+    "source_h1": "Search tenders",
+    "converted_file": "reference/post_api-p-v-version-tenders-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-tenders-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-tenders-tenderid-accept-cancel",
+    "normalized_path": "reference/post_api-p-v-version-tenders-tenderid-accept-cancel",
+    "source_h1": "Accept tender cancellation",
+    "converted_file": "reference/post_api-p-v-version-tenders-tenderid-accept-cancel.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-tenders-tenderid-accept-cancel"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-tenders-tenderid-accept-updates",
+    "normalized_path": "reference/post_api-p-v-version-tenders-tenderid-accept-updates",
+    "source_h1": "Accept tender updates",
+    "converted_file": "reference/post_api-p-v-version-tenders-tenderid-accept-updates.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-tenders-tenderid-accept-updates"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-tenders-tenderid-accept",
+    "normalized_path": "reference/post_api-p-v-version-tenders-tenderid-accept",
+    "source_h1": "Accept tender",
+    "converted_file": "reference/post_api-p-v-version-tenders-tenderid-accept.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-tenders-tenderid-accept"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-tenders-tenderid-reject",
+    "normalized_path": "reference/post_api-p-v-version-tenders-tenderid-reject",
+    "source_h1": "Reject tender",
+    "converted_file": "reference/post_api-p-v-version-tenders-tenderid-reject.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-tenders-tenderid-reject"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-tenders-update",
+    "normalized_path": "reference/post_api-p-v-version-tenders-update",
+    "source_h1": "Update tender",
+    "converted_file": "reference/post_api-p-v-version-tenders-update.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-tenders-update"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-tenders",
+    "normalized_path": "reference/post_api-p-v-version-tenders",
+    "source_h1": "Create tender",
+    "converted_file": "reference/post_api-p-v-version-tenders.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-tenders"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-tolls-search",
+    "normalized_path": "reference/post_api-p-v-version-tolls-search",
+    "source_h1": "Search toll transactions",
+    "converted_file": "reference/post_api-p-v-version-tolls-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-tolls-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-trailers-events-search",
+    "normalized_path": "reference/post_api-p-v-version-trailers-events-search",
+    "source_h1": "Search trailer events",
+    "converted_file": "reference/post_api-p-v-version-trailers-events-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-trailers-events-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-trailers-search",
+    "normalized_path": "reference/post_api-p-v-version-trailers-search",
+    "source_h1": "Search trailers",
+    "converted_file": "reference/post_api-p-v-version-trailers-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-trailers-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-trailers-trailerid-document",
+    "normalized_path": "reference/post_api-p-v-version-trailers-trailerid-document",
+    "source_h1": "Upload trailer document",
+    "converted_file": "reference/post_api-p-v-version-trailers-trailerid-document.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-trailers-trailerid-document"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-trips-search",
+    "normalized_path": "reference/post_api-p-v-version-trips-search",
+    "source_h1": "Search trips",
+    "converted_file": "reference/post_api-p-v-version-trips-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-trips-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-trips-tripid-document",
+    "normalized_path": "reference/post_api-p-v-version-trips-tripid-document",
+    "source_h1": "Upload trip document",
+    "converted_file": "reference/post_api-p-v-version-trips-tripid-document.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-trips-tripid-document"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-trucks-events-search",
+    "normalized_path": "reference/post_api-p-v-version-trucks-events-search",
+    "source_h1": "Search truck events",
+    "converted_file": "reference/post_api-p-v-version-trucks-events-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-trucks-events-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-trucks-search",
+    "normalized_path": "reference/post_api-p-v-version-trucks-search",
+    "source_h1": "Search trucks",
+    "converted_file": "reference/post_api-p-v-version-trucks-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-trucks-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-trucks-truckid-document",
+    "normalized_path": "reference/post_api-p-v-version-trucks-truckid-document",
+    "source_h1": "Upload truck document",
+    "converted_file": "reference/post_api-p-v-version-trucks-truckid-document.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-trucks-truckid-document"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-users-search",
+    "normalized_path": "reference/post_api-p-v-version-users-search",
+    "source_h1": "Search users",
+    "converted_file": "reference/post_api-p-v-version-users-search.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-users-search"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-visibility-outbound-errors",
+    "normalized_path": "reference/post_api-p-v-version-visibility-outbound-errors",
+    "source_h1": "Search outbound visibility errors",
+    "converted_file": "reference/post_api-p-v-version-visibility-outbound-errors.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-visibility-outbound-errors"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-webhooks-id-disable",
+    "normalized_path": "reference/post_api-p-v-version-webhooks-id-disable",
+    "source_h1": "Disable webhook",
+    "converted_file": "reference/post_api-p-v-version-webhooks-id-disable.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-webhooks-id-disable"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-webhooks-id-enable",
+    "normalized_path": "reference/post_api-p-v-version-webhooks-id-enable",
+    "source_h1": "Enable webhook",
+    "converted_file": "reference/post_api-p-v-version-webhooks-id-enable.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-webhooks-id-enable"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-webhooks-id-reveal-secret",
+    "normalized_path": "reference/post_api-p-v-version-webhooks-id-reveal-secret",
+    "source_h1": "Reveal webhook secret",
+    "converted_file": "reference/post_api-p-v-version-webhooks-id-reveal-secret.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-webhooks-id-reveal-secret"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-webhooks-id-rotate-secret",
+    "normalized_path": "reference/post_api-p-v-version-webhooks-id-rotate-secret",
+    "source_h1": "Rotate secret",
+    "converted_file": "reference/post_api-p-v-version-webhooks-id-rotate-secret.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-webhooks-id-rotate-secret"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-webhooks-id-test",
+    "normalized_path": "reference/post_api-p-v-version-webhooks-id-test",
+    "source_h1": "Test webhook delivery",
+    "converted_file": "reference/post_api-p-v-version-webhooks-id-test.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-webhooks-id-test"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-webhooks-id-verify",
+    "normalized_path": "reference/post_api-p-v-version-webhooks-id-verify",
+    "source_h1": "Verify webhook ownership",
+    "converted_file": "reference/post_api-p-v-version-webhooks-id-verify.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-webhooks-id-verify"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/post_api-p-v-version-webhooks",
+    "normalized_path": "reference/post_api-p-v-version-webhooks",
+    "source_h1": "Create webhook subscription",
+    "converted_file": "reference/post_api-p-v-version-webhooks.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/post_api-p-v-version-webhooks"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/put_api-p-v-version-trips-tripid-stops-stopid-appointment",
+    "normalized_path": "reference/put_api-p-v-version-trips-tripid-stops-stopid-appointment",
+    "source_h1": "Set stop appointment",
+    "converted_file": "reference/put_api-p-v-version-trips-tripid-stops-stopid-appointment.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/put_api-p-v-version-trips-tripid-stops-stopid-appointment"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/put_api-p-v-version-trips-tripid-stops-stopid-arrival",
+    "normalized_path": "reference/put_api-p-v-version-trips-tripid-stops-stopid-arrival",
+    "source_h1": "Record stop arrival",
+    "converted_file": "reference/put_api-p-v-version-trips-tripid-stops-stopid-arrival.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/put_api-p-v-version-trips-tripid-stops-stopid-arrival"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/put_api-p-v-version-trips-tripid-stops-stopid-departure",
+    "normalized_path": "reference/put_api-p-v-version-trips-tripid-stops-stopid-departure",
+    "source_h1": "Record stop departure",
+    "converted_file": "reference/put_api-p-v-version-trips-tripid-stops-stopid-departure.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/put_api-p-v-version-trips-tripid-stops-stopid-departure"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/put_api-p-v-version-webhooks-id",
+    "normalized_path": "reference/put_api-p-v-version-webhooks-id",
+    "source_h1": "Update webhook",
+    "converted_file": "reference/put_api-p-v-version-webhooks-id.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/put_api-p-v-version-webhooks-id"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/security-signature-verification",
+    "normalized_path": "reference/security-signature-verification",
+    "source_h1": "Security & Signature Verification",
+    "converted_file": "reference/security-signature-verification.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/security-signature-verification"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/tenders",
+    "normalized_path": "reference/tenders",
+    "source_h1": "Tenders",
+    "converted_file": "reference/tenders.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/tenders"
+  },
+  {
+    "source_url": "https://docs.alvys.com/reference/webhook-lifecycle-configuration",
+    "normalized_path": "reference/webhook-lifecycle-configuration",
+    "source_h1": "Webhook Lifecycle & Configuration",
+    "converted_file": "reference/webhook-lifecycle-configuration.mdx",
+    "nav_section": "reference",
+    "status": "done",
+    "notes": "",
+    "source_path": "reference/webhook-lifecycle-configuration"
+  }
+]

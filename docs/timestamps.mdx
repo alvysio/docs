@@ -1,0 +1,51 @@
+---
+title: "Timestamps"
+---
+
+Alvys primarily uses two formats for handling date-time values in its system:
+
+* Standard Timestamps (UTC-based):
+  * Stored in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html)  compliant [RFC 3339](https://tools.ietf.org/html/rfc3339)  format using `DateTimeOffset` objects.
+  * Always returned in Coordinated Universal Time (UTC).
+* Localized Timestamps for Specific Use Cases
+  * In some instances, such as location normalization, timestamps are returned in the local stop time of the event.
+  * These timestamps include the appropriate timezone offsets to maintain accuracy.
+
+<br />
+
+## Examples of Date Time Conversions
+
+<Info>
+  Note
+
+  The examples below will be in Python3 programming language, please install the following dependencies before executing the functions.
+
+  [pytz](https://pypi.org/project/pytz/)\
+  [dateutil](https://dateutil.readthedocs.io/en/stable/)
+  [datetime](https://pypi.org/project/DateTime/)
+</Info>
+
+The function below will convert the date-time in RFC 339 format to the specified timezone.\
+Function Usage: `convert\_timezone('2025-01-27T07:06:25Z', 'US/Eastern')`
+
+```python
+def convert_timezone(time_value, target_time_zone):
+    """
+    Converts time in RFC 3339 format into the specified timezone.
+    :param time_value: time in RFC 3339 (Example: '2020-01-27T07:06:25Z')
+    :param target_time_zone: Example 'US/Central', 'US/Pacific' etc.)
+    :return: converted time in string format
+
+    Function Usage: convert_timezone('2025-01-27T07:06:25Z', 'US/Eastern')
+    """
+    parsed_t = dp.parse(time_value)
+    time_in_seconds = parsed_t.timestamp()
+    fmt = '%Y-%m-%d %H:%M:%S %Z%z'
+    target_zone = pytz.timezone(target_time_zone)
+    time_from_utc = datetime.fromtimestamp(time_in_seconds, tz=timezone.utc)
+    time_from = time_from_utc.astimezone(target_zone)
+    time_from.strftime(fmt)
+    time_to_utc = datetime.fromtimestamp(time_in_seconds, tz=timezone.utc)
+    converted_time = time_to_utc.astimezone(tz=pytz.timezone(target_time_zone))
+    return converted_time
+```

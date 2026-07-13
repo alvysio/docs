@@ -1,0 +1,86 @@
+---
+title: "Rate Limits"
+---
+
+Alvys APIs employ rate limits to ensure fair usage and protect our infrastructure from excessive requests, preventing potential abuse and maintaining consistent performance. This document outlines the global and endpoint-specific rate limits applied to API usage. If you exceed any of the rate limits described below, Alvys will respond with a 429 error code.
+
+<Info>
+  Ad-Hoc Rate Limit Changes
+
+  **Note:** Alvys reserves the right to adjust rate limits as necessary to protect our system. Although changes are infrequent, we aim to provide prior notice whenever possible.
+</Info>
+
+## Global Rate Limits
+
+These limits apply to all API endpoints, with some endpoints having more restrictive limits. Refer to the "Endpoint-Level Rate Limits" section for specific details.
+
+* **Per token**:  Each API access token may make up to 10 API requests per second
+* **Per organization**: Each organization may make up to 50 API requests per second
+
+In other words, a single API token can only make 10 requests per second. An organization may have multiple API tokens, but collectively, an organization can only make 50 requests per second.
+
+## Endpoint-Level Rate Limits
+
+Some endpoints have specific rate limits to manage traffic and ensure fair usage. These limits override the global rate limits where specified. For endpoints without specific rules, default rate limits apply as outlined below. The table provides details on rate limits, periods, responses, and actions taken when limits are exceeded.
+
+#### Key Definitions
+
+* **Rate Limit:** The maximum number of requests allowed within the specified period.
+* **Period:** The duration in which the rate limit applies. For example, "1 minute" means the limit resets every minute.
+* **Response:** The HTTP status code returned when the rate limit is exceeded.
+* **Action:** The action taken when the rate limit is exceeded, typically resulting in blocking further requests until the period resets.
+
+| **Endpoint**                                   | **Threshold**              | **Period**    | **Response**              | **Action** |
+| ---------------------------------------------- | -------------------------- | ------------- | ------------------------- | ---------- |
+| **Default (All other endpoints)**              | **10 requests per minute** | **3 minutes** | **429 Too Many Requests** | **Block**  |
+| GET /api/p/v\{version}/drivers/\{id}           | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| GET /api/p/v\{version}/drivers                 | 5 requests per minute      | 1 minute      | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/drivers/search         | 10 requests per minute     | 1 minute      | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/drivers/events/search  | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| GET /api/p/v\{version}/fuel/\{id}              | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/fuel/search            | 5 requests per minute      | 1 minute      | 429 Too Many Requests     | Block      |
+| GET /api/p/v\{version}/invoices                | 5 requests per minute      | 3 minutes     | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/invoices/search        | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| GET /api/p/v\{version}/loads                   | 5 requests per minute      | 3 minutes     | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/loads/search           | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| GET /api/p/v\{version}/maintenance/\{id}       | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/maintenance/search     | 10 requests per minute     | 1 minute      | 429 Too Many Requests     | Block      |
+| GET /api/p/v\{version}/tolls/\{id}             | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/tolls/search           | 10 requests per minute     | 1 minute      | 429 Too Many Requests     | Block      |
+| GET /api/p/v\{version}/trailers/\{id}          | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| GET /api/p/v\{version}/trailers                | 5 requests per minute      | 3 minutes     | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/trailers/search        | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/trailers/events/search | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| GET /api/p/v\{version}/trips                   | 5 requests per minute      | 3 minutes     | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/trips/search           | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| GET /api/p/v\{version}/trucks/\{id}            | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| GET /api/p/v\{version}/trucks                  | 5 requests per minute      | 3 minutes     | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/trucks/search          | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/trucks/events/search   | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+| GET /api/p/v\{version}/users/list              | 5 requests per minute      | 3 minutes     | 429 Too Many Requests     | Block      |
+| POST /api/p/v\{version}/users/search           | 10 requests per minute     | 3 minutes     | 429 Too Many Requests     | Block      |
+
+#### Default Rate Limiting Rules
+
+For all endpoints without specific rate limits defined, the following default rate limiting rules apply:
+
+* **Rule Name:** Default Rate Limiting
+* **URL Path:** `/api/*`
+* **Threshold:** 10 requests per minute
+* **Burst:** 1 request in the first second
+* **Action:** Block
+* **Period:** 3 minutes
+* **Response:** 429 Too Many Requests
+* **Custom Response:** Include `Retry-After: 60` header
+
+## Handling Rate Limits
+
+When an application exceeds the specified rate limit, the API will respond with a **429 Too Many Requests** status code. The response includes a `Retry-After` header, indicating the time in seconds before the client can retry the request. Respecting this header is essential to avoid further rate limiting and ensure continued access to the API.
+
+#### Example Response Header
+
+| Header      | Description                                                                |
+| :---------- | :------------------------------------------------------------------------- |
+| Retry-After | Suggested wait time (in seconds) before retrying (e.g., `Retry-After: 60`) |
+
+You should respect the Retry-After header to properly delay further requests and avoid triggering additional rate limits. Adhering to these rate limits helps maintain the stability and reliability of Alvys API services. For further inquiries or support, please contact our technical support team.

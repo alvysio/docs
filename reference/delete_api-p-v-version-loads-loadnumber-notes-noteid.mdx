@@ -1,0 +1,24 @@
+---
+title: "Delete load note"
+openapi: "DELETE /api/p/v{version}/loads/{loadNumber}/notes/{noteId}"
+---
+
+Delete a specific note associated with a load.
+
+### Path Parameters
+
+| Name       | Type   | Required | Description                                      |
+| ---------- | ------ | -------- | ------------------------------------------------ |
+| loadNumber | string | Yes      | The unique number identifying the load.          |
+| noteId     | string | Yes      | The unique identifier of the note to delete.     |
+| version    | string | Yes      | API version (e.g., `2.0`). Default value: `2.0`. |
+
+### Responses
+
+#### 204 No Content
+
+Returned when the note is successfully deleted. The response body is empty.
+
+#### 404 Not Found
+
+Returned when the specified `loadNumber` or `noteId` does not exist. The response body is empty.

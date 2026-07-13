@@ -1,0 +1,98 @@
+---
+title: "Record customer payment"
+openapi: "POST /api/p/v{version}/invoices/customer-payments"
+---
+
+This endpoint allows external systems to post customer payments into Alvys and apply them to the corresponding load.
+
+### Path Parameters
+
+| Parameter | Type   | Required | Description               |
+| --------- | ------ | -------- | ------------------------- |
+| version   | string | Yes      | API version (e.g., `1.0`) |
+
+### Request Body
+
+Content-Type: `application/json-patch+json`
+
+| Field           | Type               | Required | Description                                                    |
+| --------------- | ------------------ | -------- | -------------------------------------------------------------- |
+| LoadNumber      | string             | Yes      | Load number the payment should be applied to                   |
+| Amount          | object             | Yes      | Payment amount object                                          |
+| Amount.Amount   | number             | Yes      | Payment amount value                                           |
+| Amount.Currency | integer            | Yes      | Currency identifier                                            |
+| CheckNumber     | string             | No       | Check number if the payment method uses a check                |
+| InvoiceNumber   | string             | No       | Invoice number associated with the payment                     |
+| Note            | string             | No       | Additional note related to the payment                         |
+| PaymentDate     | string (date-time) | Yes      | Date when the payment was made                                 |
+| PaymentMethod   | string             | No       | Payment method used (for example Check, ACH, Wire)             |
+| ReferenceNumber | string             | Yes      | External reference number for idempotency and payment tracking |
+
+### Example Request
+
+```json
+{
+  "LoadNumber": "string",
+  "Amount": {
+    "Amount": 0,
+    "Currency": 0
+  },
+  "PaymentDate": "2026-03-16T13:57:56.427Z",
+  "ReferenceNumber": "string",
+  "InvoiceNumber": "string",
+  "PaymentMethod": "string",
+  "CheckNumber": "string",
+  "Note": "string"
+}
+```
+
+### Response Body
+
+| Field                  | Type    | Description                                    |
+| ---------------------- | ------- | ---------------------------------------------- |
+| Id                     | string  | Unique identifier of the recorded payment      |
+| LoadNumber             | string  | Load number the payment was applied to         |
+| Status                 | string  | Current load status after applying the payment |
+| TotalPaid              | object  | Total amount paid by the customer to date      |
+| TotalPaid.Amount       | number  | Monetary amount                                |
+| TotalPaid.Currency     | integer | Currency identifier                            |
+| TotalBillable          | object  | Total billable amount for the load             |
+| TotalBillable.Amount   | number  | Monetary amount                                |
+| TotalBillable.Currency | integer | Currency identifier                            |
+
+### Notes
+
+* This endpoint records **customer payments against loads**.
+* The request body content type exposed by the API is `application/json-patch+json`.
+* `ReferenceNumber` is required and is used for **idempotency**. Repeating the same `ReferenceNumber` for the same load returns the original payment instead of creating a duplicate.
+* This endpoint accepts payments only when the load is in one of these statuses:
+
+  * `Invoiced`
+  * `Completed`
+  * `Financed`
+* Loads in non-payable statuses such as `Dispatched` are rejected with:
+
+```text
+400 Bad Request
+Load must be in one of: Invoiced, Completed, Financed.
+```
+
+* If the `LoadNumber` does not exist, the endpoint returns:
+
+```text
+404 Not Found
+```
+
+* If `Amount.Amount` is negative or zero, the endpoint returns:
+
+```text
+400 Bad Request
+Amount must be greater than zero.
+```
+
+* If `ReferenceNumber` is empty or omitted, the endpoint returns:
+
+```text
+400 Bad Request
+The ReferenceNumber field is required.
+```

@@ -1,0 +1,144 @@
+---
+title: "Update customer"
+openapi: "PATCH /api/p/v{version}/customers/{id}"
+---
+
+The Update Customer endpoint applies a partial update (RFC 7396 JSON Merge Patch) to an existing business company. Send only the fields you want to change; omitted fields keep their persisted values. For more information on how versioning works and how to include it in your requests, please refer to the [Versioning](/docs/versioning) page.
+
+This endpoint uses optimistic concurrency. You must send the customer's current `ETag` in an `If-Match` header. The token is returned on the `ETag` response header of a GET, and in the body of a create/update response. If the token does not match the current record the request fails with `412 Precondition Failed`; refetch with GET to obtain a fresh value and retry.
+
+***
+
+### Request Parameters
+
+The following parameters are required in the URL path:
+
+| Parameter | Type   | Required | Description                            |
+| --------- | ------ | -------- | -------------------------------------- |
+| version   | String | Yes      | The version of the API.                |
+| id        | String | Yes      | The unique identifier of the customer. |
+
+The following header is required:
+
+| Header   | Required | Description                                       |
+| -------- | -------- | ------------------------------------------------- |
+| If-Match | Yes      | The current `ETag` of the customer being updated. |
+
+***
+
+### Request Body
+
+All fields are optional. Provide only the fields you want to change.
+
+| Field                  | Type            | Required | Description                                                                       |
+| ---------------------- | --------------- | -------- | --------------------------------------------------------------------------------- |
+| Name                   | String          | No       | The customer name. Must be 200 characters or fewer. Cannot be blank when present. |
+| Type                   | String          | No       | The customer type. One of "Customer" or "Broker/3PL".                             |
+| CompanyNumber          | String          | No       | A reference/registration number for the company. Must be 32 characters or fewer.  |
+| Status                 | String          | No       | The customer status. One of "Active" or "Inactive".                               |
+| BillingAddress         | Object          | No       | The billing address of the customer.                                              |
+| BillingAddress.Street  | String          | No       | The street line of the billing address.                                           |
+| BillingAddress.City    | String          | No       | The city of the billing address.                                                  |
+| BillingAddress.State   | String          | No       | The state of the billing address.                                                 |
+| BillingAddress.Zip     | String          | No       | The postal code of the billing address.                                           |
+| BillingAddress.Country | String          | No       | ISO country code of the billing address. Defaults to "US".                        |
+| Email                  | Array of String | No       | A list of email addresses associated with the customer.                           |
+| Phone                  | Array of String | No       | A list of phone numbers associated with the customer.                             |
+| Fax                    | String          | No       | The fax number of the customer.                                                   |
+| ExternalId             | String          | No       | An external reference identifier. Must be 100 characters or fewer.                |
+
+***
+
+### Example CURL Request
+
+```bash
+curl --location --request PATCH 'https://integrations.alvys.com/api/p/v1/customers/01fec4d332ed49ff96595c8d4434ea96' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+--header 'Content-Type: application/json' \
+--header 'If-Match: "00000000-0000-0000-0000-000000000001"' \
+--data-raw '{
+  "Status": "Inactive"
+}'
+```
+
+Replace `YOUR_ACCESS_TOKEN` with your actual Bearer token and `If-Match` with the customer's current `ETag`.
+
+***
+
+### Response Fields
+
+A successful request returns the updated customer. The new optimistic-concurrency token is returned on the `ETag` response header and in the `ETag` body field.
+
+| Field                  | Type               | Description                                             |
+| ---------------------- | ------------------ | ------------------------------------------------------- |
+| Id                     | String             | The unique identifier of the customer.                  |
+| ETag                   | String             | The optimistic-concurrency token after the update.      |
+| Name                   | String             | The name of the customer.                               |
+| CompanyNumber          | String             | The company number of the customer.                     |
+| Type                   | String             | The type of customer ("Customer" or "Broker/3PL").      |
+| Status                 | String             | The raw persisted status of the customer.               |
+| BillingAddress         | Object             | The billing address of the customer.                    |
+| BillingAddress.Street  | String             | The street line of the billing address.                 |
+| BillingAddress.City    | String             | The city of the billing address.                        |
+| BillingAddress.State   | String             | The state of the billing address.                       |
+| BillingAddress.ZipCode | String             | The postal code of the billing address.                 |
+| Email                  | Array              | A list of email addresses associated with the customer. |
+| Phone                  | Array              | A list of phone numbers associated with the customer.   |
+| Fax                    | String             | The fax number of the customer.                         |
+| DateCreated            | String (Date-Time) | The date and time when the customer was created.        |
+| DateModified           | String (Date-Time) | The date and time of this update.                       |
+| InvoicingInformation   | Object             | The invoicing information for the customer.             |
+| ExternalId             | String             | The external identifier associated with the customer.   |
+
+***
+
+### Example Response
+
+**200 OK**
+
+```json
+{
+  "Id": "01fec4d332ed49ff96595c8d4434ea96",
+  "ETag": "\"00000000-0000-0000-0000-000000000002\"",
+  "Name": "Acme Logistics",
+  "CompanyNumber": "ACME-001",
+  "Type": "Broker/3PL",
+  "Status": "Inactive",
+  "BillingAddress": {
+    "Street": "123 Main St",
+    "City": "Dallas",
+    "State": "TX",
+    "ZipCode": "75201"
+  },
+  "Email": ["billing@acme.example"],
+  "Phone": ["+1-214-555-0100"],
+  "Fax": null,
+  "DateCreated": "2025-09-08T19:38:34.529Z",
+  "DateModified": "2025-09-09T11:02:10.118Z",
+  "InvoicingInformation": null,
+  "ExternalId": "EXT-ACME-001"
+}
+```
+
+***
+
+### Status Codes
+
+| Status | Meaning                                                                                     |
+| ------ | ------------------------------------------------------------------------------------------- |
+| 200    | The customer was updated.                                                                   |
+| 400    | The request body failed validation.                                                         |
+| 401    | The request was not authenticated.                                                          |
+| 403    | The caller lacks permission to update customers.                                            |
+| 404    | No customer with the given `id` exists.                                                     |
+| 409    | The update would collide with another customer's unique values.                             |
+| 412    | The supplied `If-Match` token did not match the current record. Refetch with GET and retry. |
+| 428    | The `If-Match` header is required but was not provided.                                     |
+
+***
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request by completing the fields for the parameters below. As you fill out the parameters, the CURL command on the right side of the page will be automatically updated.

@@ -1,0 +1,6 @@
+---
+title: "Export delivery logs"
+openapi: "GET /api/p/v{version}/webhooks/{webhookId}/delivery-logs/export"
+---
+
+Downloads delivery logs as CSV or JSON using the same filters as the list endpoint. Format resolution: (1) optional query parameter `<c>`Format=csv`</c>` or `<c>`Format=json`</c>` overrides everything when present; (2) otherwise the `<c>`Accept`</c>` header is used (`<c>`text/csv`</c>`, `<c>`application/csv`</c>`, `<c>`application/json`</c>`, or `<c>`*+json`</c>`); (3) otherwise the response defaults to JSON. Page (0-based) is the last list page index to include: pages 0 through Page are read, each with PageSize items (max 100, default 50), up to 25,000 rows total. This matches the delivery-log UI, which sends the highest page the user has loaded. Page=0 exports only the first page.

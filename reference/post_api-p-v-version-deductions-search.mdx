@@ -1,0 +1,120 @@
+---
+title: "Search deductions"
+openapi: "POST /api/p/v{version}/deductions/search"
+---
+
+This endpoint provides detailed information about each deduction that matches the specified search criteria, enabling efficient management and retrieval of deduction records.
+
+Deductions are asset-specific financial adjustments and can be associated with either a driver or a truck, but not both simultaneously.
+
+***
+
+### Request Body Parameters
+
+The following parameters are accepted in the request body:
+
+| Parameter       | Type               | Required      | Description                                                                                                                                                           |
+| --------------- | ------------------ | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Page            | Integer            | Yes           | The page number to retrieve. Default is `0`.                                                                                                                          |
+| PageSize        | Integer            | Yes           | The number of items per page. Must be greater than 0.                                                                                                                 |
+| DateRange       | Object             | Conditionally | The date range to filter by. This field is required if the other conditionally required fields are left empty.                                                        |
+| DateRange.Start | String (Date-Time) | Yes           | Start of the date range (UTC). Required when `DateRange` is supplied.                                                                                                 |
+| DateRange.End   | String (Date-Time) | No            | End of the date range (UTC).                                                                                                                                          |
+| DriverId        | String             | Conditionally | Required when filtering by driver. Must not be provided together with TruckId. This field is required if the other conditionally required fields are left empty.      |
+| TruckId         | String             | Conditionally | Required when filtering by truck. Must not be provided together with DriverId. This field is required if the other conditionally required fields are left empty.      |
+| OwnerOperatorId | String             | Conditionally | Optional — used only to filter by the current owner of the asset (Driver or Truck). This field is required if the other conditionally required fields are left empty. |
+| IncludePaid     | Boolean            | Yes           | When `true`, includes already paid deductions. Default: `false`.                                                                                                      |
+
+<br />
+
+### Example CURL Request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/deductions/search' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+--header 'Content-Type: application/json' \
+--data '{
+  "Page": 0,
+  "PageSize": 100,
+  "DateRange": {
+    "Start": "2025-10-07T00:00:00Z",
+    "End": "2025-10-09T23:59:59Z"
+  },
+  "DriverId": "DR2517534557938191",
+  "OwnerOperatorId": "DR251652563453445290",
+  "IncludePaid": true
+}'
+```
+
+***
+
+### Response Body Parameters
+
+The following parameters are included in the response body:
+
+| Parameter                | Type               | Required      | Description                                                     |
+| ------------------------ | ------------------ | ------------- | --------------------------------------------------------------- |
+| Page                     | Integer            | No            | The current page of the response.                               |
+| PageSize                 | Integer            | Yes           | The number of items per page.                                   |
+| Total                    | Integer            | Yes           | The total number of deduction records matching the criteria.    |
+| Items\[]                 | Array              | Yes           | The list of deduction records.                                  |
+| Items\[].Id              | String             | Yes           | The unique identifier of the deduction.                         |
+| Items\[].Type            | String             | Yes           | Type of record (`"Deduction"`).                                 |
+| Items\[].GroupId         | String             | Yes           | Group ID if the deduction belongs to a recurring group or rule. |
+| Items\[].Description     | String             | Yes           | Description of the deduction.                                   |
+| Items\[].Category        | String             | Yes           | Deduction category (e.g., Fuel, Advance, Drug Test).            |
+| Items\[].Amount.Amount   | Number             | Yes           | Deduction amount (negative for deductions).                     |
+| Items\[].Amount.Currency | Integer            | Yes           | ISO numeric currency code (e.g., 840 for USD).                  |
+| Items\[].DriverId        | String             | Conditionally | The Driver ID linked to the deduction.                          |
+| Items\[].TruckId         | String             | Conditionally | The Truck ID linked to the deduction.                           |
+| Items\[].OwnerOperatorId | String             | No            | The Owner Operator ID of truck or driver.                       |
+| Items\[].Date            | String (Date)      | Yes           | The effective date of the deduction (date only, without time).  |
+| Items\[].IsPaid          | Boolean            | No            | Indicates whether the deduction has been paid.                  |
+| Items\[].CreatedAt       | String (Date-Time) | No            | Timestamp when the deduction was created (UTC).                 |
+| Items\[].CreatedBy       | String             | No            | Client ID or User ID of the person who created the deduction.   |
+
+***
+
+### Example Response
+
+```json
+{
+  "Page": 0,
+  "PageSize": 100,
+  "Total": 1,
+  "Items": [
+    {
+      "Id": "00000000-dd44-0000-0000-8a1fa91b607a",
+      "Type": "Deduction",
+      "GroupId": "344571de-57b4-4163-a0cc-d7981fa65994",
+      "Description": "Drug Test Detais",
+      "Category": "Drug Test",
+      "Amount": {
+        "Amount": -50,
+        "Currency": 840
+      },
+      "DriverId": "DR2517534557938191",
+      "OwnerOperatorId": "DR25165000003445290",
+      "Date": "2025-10-07",
+      "IsPaid": false,
+      "CreatedAt": "2025-10-09T08:30:54.873Z",
+      "CreatedBy": "MhAeS5345435fbvccvbfUdTdXOMgVSGyp"
+    }
+  ]
+}
+```
+
+***
+
+### Versioning
+
+The `version` parameter in the URL path specifies which version of the API you are using.
+Including the version number ensures that your integration remains stable as the API evolves.
+For more details, refer to the [Versioning](/docs/versioning) page.
+
+***
+
+### Rate Limits
+
+All endpoints are subject to standard rate limits to ensure consistent API performance.
+For details, see the [Rate Limits](/docs/rate-limits) section.

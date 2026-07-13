@@ -1,0 +1,102 @@
+---
+title: "Upload load document"
+openapi: "POST /api/p/v{version}/loads/{loadNumber}/document"
+---
+
+Upload multipart/form-data. One file per request. Max file size 10 MB.
+Allowed document types: Customer Rate and Load Confirmation, Customer Load Confirmation, Customer Rate Confirmation, Signed Customer Rate Confirmation, Proof of Delivery, Proof of Pickup, Bill of Lading, Shipping Labels.
+Allowed MIME types: application/pdf, image/jpeg, image/png.
+
+Upload a document to a specific **load**. Supports `multipart/form-data`. Each request must contain exactly one file.
+
+* **Max file size:** 25 MB
+* **Allowed MIME types:** `application/pdf`, `image/jpeg`, `image/png`, `image/gif`
+* **Allowed Document Types:** Customer Rate and Load Confirmation, Customer Load Confirmation, Customer Rate Confirmation, Signed Customer Rate Confirmation, Proof of Delivery, Proof of Pickup, Bill of Lading, Shipping Labels
+
+***
+
+### Parameters
+
+| Parameter    | In   | Type   | Required | Description               |
+| ------------ | ---- | ------ | -------- | ------------------------- |
+| `loadNumber` | path | string | Yes      | Public load number        |
+| `version`    | path | string | Yes      | API version (e.g., `2.0`) |
+
+***
+
+### Request Body
+
+`multipart/form-data`
+
+| Parameter      | Type   | Required | Description                                                                  |
+| -------------- | ------ | -------- | ---------------------------------------------------------------------------- |
+| `File`         | binary | Yes      | The file to upload (PDF, JPEG, PNG, GIF). Max size 25 MB.                    |
+| `FileName`     | string | No       | Optional custom filename (if omitted, filename is taken from multipart part) |
+| `DocumentType` | string | Yes      | The type of document. Must match one of the allowed document types.          |
+
+***
+
+#### Example Request (cURL)
+
+```bash
+curl -X POST "{{host}}/api/p/v2.0/loads/{loadNumber}/document" \
+  -H "Authorization: Bearer $TOKEN" \
+  -F "File=@POD.pdf" \
+  -F "DocumentType=Proof of Delivery"
+```
+
+***
+
+### Response Body
+
+| Name             | Type    | Description                                                               |
+| ---------------- | ------- | ------------------------------------------------------------------------- |
+| `id`             | string  | Unique identifier of the uploaded document                                |
+| `AttachmentPath` | string  | File name/path assigned on upload + timestamp suffix (e.g., `1757343192`) |
+| `AttachmentType` | string  | Type of document (matches `DocumentType`)                                 |
+| `AttachmentSize` | integer | Size of the file in bytes                                                 |
+| `UploadedAt`     | string  | UTC timestamp when the file was uploaded (ISO 8601)                       |
+| `ParentId`       | string  | Identifier of the parent entity (the `{loadNumber}`)                      |
+| `ParentType`     | string  | Entity type the document is attached to (`Load`)                          |
+
+#### Example Response
+
+**200 OK**
+
+```json
+{
+  "id": "a1b2c3d4-005e-4903-a4ee-45ca5e86411a",
+  "AttachmentPath": "ProofOfDelivery-1757343192.pdf",
+  "AttachmentType": "Proof of Delivery",
+  "AttachmentSize": 5245329,
+  "UploadedAt": "2025-09-09T08:26:03.194Z",
+  "ParentId": "1006321",
+  "ParentType": "Load"
+}
+```
+
+#### 404 Not Found
+
+404 Not Found is returned in two cases:
+
+1. No load with the given ID exists for your tenant.
+2. A load record exists but has no associated trips (abandoned creation). These loads are treated as non-existent by the API.
+
+On the right side, you can see examples of different error codes by clicking **Example** and selecting the response code.
+
+***
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes.
+For detailed information, see the Rate Limits section.
+
+***
+
+### Try It Out
+
+This page is interactive, allowing you to try a request by specifying the **API version** and **loadNumber** in the URL path.
+
+As you fill out the parameters, the cURL command on the right side of the page will be automatically updated. Alternatively, you can directly edit the cURL command.
+
+Don’t forget to authorize yourself before trying a request.

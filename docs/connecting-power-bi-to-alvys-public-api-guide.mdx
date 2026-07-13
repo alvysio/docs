@@ -1,0 +1,83 @@
+---
+title: "Connecting to Power BI"
+sidebarTitle: "Overview"
+---
+
+Connecting Power BI to Alvys Public API Guide
+
+## **Introduction**
+
+This guide focuses on connecting **Power BI** to the **Alvys Public API** using **POST methods** for advanced data searches. POST requests enable detailed filtering, date ranges, and status-based queries, offering more dynamic interaction than basic GET requests. You'll learn to set up advanced queries in Power BI to retrieve data efficiently from the Alvys Public API.
+
+### **Getting Started**
+
+This guide walks you through connecting Power BI to the Alvys Public API for dynamic data retrieval. It includes preconditions, setup steps, query examples, and a downloadable [Alvys Public API.pbix file](/docs/importing-the-preconfigured-alvys-public-apipbix-file). While the focus is on establishing the connection, you'll be ready to create reports and visualizations afterward.
+
+By following this guide, you will retrieve an access token from the Alvys API, use it to interact with endpoints like Loads and Drivers, and create advanced Power BI queries for dynamic data retrieval.
+
+<Info>
+  What You Will Find in This Guide
+
+  * **Preconditions and Requirements**: What you need to get started.
+  * **Detailed Step-by-Step Instructions**: From generating the token to querying data endpoints.
+  * **Common Queries and Examples**: Loads, Drivers, Fuel, and more.
+</Info>
+
+❓ Why Do We Need These Queries for Connecting Power BI to the Alvys Public API?
+
+Currently, Power BI supports connecting to APIs using the **GET method** through a simple web connection, making it straightforward to retrieve data. However, the **POST method**, essential for handling more advanced queries like the Search endpoints in the Alvys Public API, requires additional setup and customization.
+
+This guide focuses on configuring data retrieval using the **POST method**, enabling users to perform more detailed and powerful searches.
+
+<br />
+
+<Warning>
+  Pre-requisites
+</Warning>
+
+Before you begin, ensure the following:
+
+1. **Alvys API Credentials**:
+   * **Client ID**: A unique identifier for your API client.
+   * **Tenant ID**: Represents your account/organization in Alvys.
+   * **Client Secret**: A secure key that acts as a password for API authentication.\
+     These credentials can be found in the Alvys Platform under **Profile > Management > API**.
+
+![](https://files.readme.io/eda6b540b947c8aba6cead7ba14b141569d4e5ea4a152d99fb038aff2b922ebf-image.png)
+
+<br />
+
+2. **Power BI Desktop Installed**: Ensure you have the latest version of **Power BI Desktop**.
+   * [Download Power BI](https://powerbi.microsoft.com/desktop/).
+3. **Power BI - Settings**:
+   * Disable privacy checks to avoid Formula.Firewall errors:
+     * Go to **File > Options and Settings > Options > Privacy (Current File)**.
+     * Select **Ignore Privacy Levels and potentially improve performance**.
+
+![](https://files.readme.io/2e6b6a4f84cf181891115f17861ba949f74e4d4d78e477ff345efdcf0dadc054-image.png)
+
+<br />
+
+4. An **API Token is Mandatory**: To authenticate every request to the Alvys API, a valid access token is required. In this guide, we will show you how to automatically generate this token and pass it to subsequent queries. Using the credentials provided earlier (your `tenant_id`, `client_id`, and `client_secret`), we will create an `access_token` in our first query, which will then allow us to access other API endpoints.
+
+### **API Queries Available in This Guide**
+
+You will find Power BI query examples for the following API endpoints:
+
+* **Loads Search**: Retrieve a list of loads with filtering options.
+* **Drivers Search**: Query driver details by status or fleet.
+* **Fuel Search**: Access fuel transaction history.
+* **Invoices Search**: Query invoice details by date or status.
+* **Maintenance Search**: Access maintenance records.
+* **Toll Search**: Retrieve toll transaction details.
+* **Trailers Search**: Query trailer status and fleet data.
+* **Trips Search**: Retrieve trip data.
+* **Trucks Search**: Query truck details by fleet or registration.
+* **Customer Search**: Retrieve active customer details.
+* **Visibility Search**: Query visibility logs or errors.
+
+<br />
+
+### Retrieving Alvys Public API Data using Advanced Queries
+
+You have two options to get started: you can follow this guide to create your own queries step by step, or you can import the preconfigured `Alvys Public API.pbix` file, which includes default queries. However, if you choose to import the file, you'll need to replace the credentials in the `AccessToken` query with your own API credentials. Both options are described below.

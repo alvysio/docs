@@ -1,0 +1,153 @@
+---
+title: "Record stop arrival"
+openapi: "PUT /api/p/v{version}/trips/{tripId}/stops/{stopId}/arrival"
+---
+
+This endpoint marks the stop as **arrived** and updates the stop’s `ArrivedAt` timestamp.\
+The `ArrivedAt` field is required and must contain a valid ISO-8601 UTC datetime.
+
+The response returns the **updated stop object**.
+
+***
+
+### Endpoint
+
+```
+PUT /api/p/v{version}/trips/{tripId}/stops/{stopId}/arrival
+```
+
+***
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                    |
+| --------- | ------ | -------- | ------------------------------ |
+| version   | string | Yes      | API version (e.g. `1.0`).      |
+| tripId    | string | Yes      | Unique identifier of the trip. |
+| stopId    | string | Yes      | Unique identifier of the stop. |
+
+***
+
+### Request Body
+
+| Field     | Type              | Required | Description                                   |
+| --------- | ----------------- | -------- | --------------------------------------------- |
+| ArrivedAt | string (datetime) | Yes      | Arrival timestamp in **ISO-8601 UTC format**. |
+
+***
+
+### Example Request Body
+
+```json
+{
+  "ArrivedAt": "2026-03-16T12:34:30.277Z"
+}
+```
+
+***
+
+### Example CURL request
+
+```bash
+curl --location --request PUT 'https://integrations.alvys.com/api/p/v1/trips/{tripId}/stops/{stopId}/arrival' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+--header 'Content-Type: application/json' \
+--data '{
+  "ArrivedAt": "2026-03-16T12:34:30.277Z"
+}'
+```
+
+***
+
+### Response Parameters
+
+| Parameter                 | Type              | Description                                           |
+| ------------------------- | ----------------- | ----------------------------------------------------- |
+| Id                        | string            | Unique identifier of the stop.                        |
+| Address.Street            | string            | Street address of the stop location.                  |
+| Address.City              | string            | City of the stop location.                            |
+| Address.State             | string            | State of the stop location.                           |
+| Address.ZipCode           | string            | ZIP code of the stop location.                        |
+| AppointmentConfirmed      | boolean           | Indicates whether the appointment has been confirmed. |
+| AppointmentDate           | string (datetime) | Appointment date and time for the stop.               |
+| AppointmentRequested      | boolean           | Indicates whether an appointment has been requested.  |
+| ArrivedAt                 | string (datetime) | Timestamp when the stop was marked as arrived (UTC).  |
+| DepartedAt                | string (datetime) | Timestamp when the stop was departed (UTC).           |
+| ScheduleType              | string            | Schedule type (`APPT` or `FCFS`).                     |
+| LoadingType               | string            | Loading type (`Live`, `Drop`, `Hook`, etc.).          |
+| StopType                  | string            | Type of stop (`Pickup`, `Delivery`, `Waypoint`).      |
+| Status                    | string            | Operational status of the stop.                       |
+| Coordinates.Latitude      | string            | Latitude of the stop location.                        |
+| Coordinates.Longitude     | string            | Longitude of the stop location.                       |
+| References\[]             | array             | List of references associated with the stop.          |
+| References\[].Id          | string            | Reference identifier.                                 |
+| References\[].ReferenceId | string            | External reference identifier.                        |
+| References\[].Name        | string            | Name of the reference field.                          |
+| References\[].Value       | string            | Value of the reference.                               |
+| References\[].Type        | string            | Type of reference.                                    |
+| References\[].Access      | string            | Access level.                                         |
+| References\[].Origin      | string            | Origin of the reference.                              |
+| CompanyId                 | string            | Identifier of the company associated with the stop.   |
+| CompanyNumber             | string            | Company registration or identification number.        |
+| CompanyName               | string            | Company name associated with the stop.                |
+
+***
+
+### Example Response
+
+```json
+{
+  "AppointmentRequested": true,
+  "AppointmentConfirmed": true,
+  "AppointmentDate": "2026-03-16T12:34:30.277Z",
+  "ScheduleType": "string",
+  "LoadingType": "string",
+  "Id": "string",
+  "Address": {
+    "Street": "string",
+    "City": "string",
+    "State": "string",
+    "ZipCode": "string"
+  },
+  "Coordinates": {
+    "Latitude": "string",
+    "Longitude": "string"
+  },
+  "Status": "string",
+  "StopType": "string",
+  "ArrivedAt": "2026-03-16T12:34:30.277Z",
+  "DepartedAt": "2026-03-16T12:34:30.277Z",
+  "References": [
+    {
+      "Id": "string",
+      "ReferenceId": "string",
+      "Name": "string",
+      "Value": "string",
+      "Type": "string",
+      "Access": "string",
+      "Origin": "string"
+    }
+  ],
+  "CompanyId": "string",
+  "CompanyNumber": "string",
+  "CompanyName": "string"
+}
+```
+
+***
+
+### Status Codes
+
+| Status Code     | Description                               |
+| --------------- | ----------------------------------------- |
+| 200 OK          | Stop arrival successfully recorded.       |
+| 400 Bad Request | Invalid request body or timestamp format. |
+| 404 Not Found   | Trip or stop could not be found.          |
+
+***
+
+### Rate Limits
+
+All endpoints are subject to API rate limits to ensure service stability and protect against traffic spikes.
+
+Refer to the **Rate Limits** documentation for more information.

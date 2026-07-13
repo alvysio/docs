@@ -1,0 +1,75 @@
+---
+title: "Get maintenance record"
+openapi: "GET /api/p/v{version}/maintenance/{id}"
+---
+
+The GET Maintenance by ID API endpoint allows you to retrieve detailed information about a specific maintenance record using its unique ID. This endpoint provides comprehensive data about the maintenance record, facilitating effective asset management and tracking within the Alvys system.
+
+### Request Parameters
+
+The following parameters are required in the URL path:
+
+| Parameter | Type   | Required | Description                                      |
+| --------- | ------ | -------- | ------------------------------------------------ |
+| version   | String | Yes      | The API version to use.                          |
+| id        | String | Yes      | The unique identifier of the maintenance record. |
+
+#### Example CURL request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/maintenance/{id}' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `{version}` with the API version number, `{id}` with the actual maintenance ID, and `YOUR_ACCESS_TOKEN` with your actual Bearer token:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/maintenance/123456789a-00b0-00ae-0000-0e01234567e6f' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...'
+```
+
+### Response Parameters
+
+The following table lists the parameters included in the response for maintenance-related requests:
+
+| Parameter                | Type               | Required | Description                                                           |
+| ------------------------ | ------------------ | -------- | --------------------------------------------------------------------- |
+| Id                       | String             | Yes      | The unique identifier of the maintenance record.                      |
+| PO                       | String             | No       | The purchase order number associated with the maintenance.            |
+| Reference                | String             | No       | A reference string for the maintenance record.                        |
+| RelatedAsset             | Object             | No       | Details about the related asset for the maintenance.                  |
+| RelatedAsset.AssetId     | String             | No       | The unique identifier of the asset.                                   |
+| RelatedAsset.AssetNumber | String             | No       | The asset number.                                                     |
+| RelatedAsset.AssetType   | String             | No       | The type of asset (e.g., Truck, Trailer).                             |
+| Category                 | Object             | No       | The category of the maintenance work.                                 |
+| Category.Id              | String             | No       | The unique identifier of the category.                                |
+| Category.Name            | String             | No       | The name of the category.                                             |
+| Description              | String             | No       | A description of the maintenance work.                                |
+| Comments                 | String             | No       | Additional comments or notes about the maintenance.                   |
+| Amount                   | Object             | No       | The total amount for the maintenance work.                            |
+| Amount.Amount            | Number             | No       | The amount value.                                                     |
+| Amount.Currency          | Integer            | No       | The currency identifier of the amount (Money = { Amount, Currency }). |
+| RepairShop               | Object             | No       | Information about the repair shop.                                    |
+| RepairShop.Id            | String             | No       | The unique identifier of the repair shop.                             |
+| RepairShop.Name          | String             | No       | The name of the repair shop.                                          |
+| Reminders                | Array              | No       | A list of reminders associated with the maintenance.                  |
+| Reminders.id             | String             | No       | The unique identifier of the reminder.                                |
+| Reminders.DueDate        | String (Date-Time) | No       | The due date for the reminder.                                        |
+| CreatedAt                | String (Date-Time) | Yes      | The date and time when the maintenance record was created.            |
+| CreatedBy                | String             | No       | The user who created the maintenance record.                          |
+| ModifiedAt               | String (Date-Time) | No       | The date and time when the maintenance record was last modified.      |
+| ModifiedBy               | String             | No       | The user who last modified the maintenance record.                    |
+
+#### Example Response
+
+On the right side, you can see examples of different error codes by clicking "Example" and selecting the response code.
+
+![](https://files.readme.io/75211c3-Retrieve_Maintenance_by_ID.gif)
+
+<br />
+
+#### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request by providing the driver ID in the URL path. As you fill out the parameters, the Curl command on the right side of the page will be automatically updated. Alternatively, you can directly edit the Curl command. Make sure to authorize yourself before trying a request.

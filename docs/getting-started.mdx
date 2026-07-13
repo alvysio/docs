@@ -1,0 +1,53 @@
+---
+title: "Getting Started with Alvys"
+---
+
+This page will help you get started with Alvys. You'll be up and running in a jiffy!
+
+<Note>
+  **As of June 2025, Alvys** has updated how we issue access tokens, bringing **improved security** and a **more fine-grained permission model**. The core OAuth 2.0 flow remains the same, but the token request endpoint has changed. The legacy `/authentication/{tenant_id}/token`-based method will be deprecated soon.
+</Note>
+
+<br />
+
+### Create Client Application
+
+To begin, create a new application from the Alvys Admin page. This will allow you to generate a `client_id` and `client_secret`.
+
+* `client_id`: The unique identifier assigned to this application or caller.
+* `client_secret`: A confidential token also provided by Alvys upon application registration.
+
+***
+
+### Getting an Access Token
+
+Once you’ve created your credentials, you’ll use them to retrieve a bearer token. This token is then passed in the `Authorization` header of every API request.
+
+#### ✅ Prerequisites
+
+Before requesting an access token, ensure you have the following:
+
+* **Client ID** and **Client Secret** (from the Admin Portal)
+* The **API Audience**: `https://api.alvys.com/public/`
+* The correct **grant\_type**: `client_credentials`
+
+### Token URL (Current)
+
+```
+https://auth.alvys.com/oauth/token
+
+```
+
+### Request Body
+
+```json
+{
+  "client_id": "YOUR_CLIENT_ID",
+  "client_secret": "YOUR_CLIENT_SECRET",
+  "audience": "https://api.alvys.com/public/",
+  "grant_type": "client_credentials"
+}
+
+```
+
+For detailed information, please visit our [Authentication ](/docs/authentication-1)page.

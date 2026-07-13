@@ -1,0 +1,98 @@
+---
+title: "Upload driver document"
+openapi: "POST /api/p/v{version}/drivers/{driverId}/document"
+---
+
+Upload multipart/form-data. One file per request. Max file size 10 MB.
+Allowed document types: License, Medical, Driver License, Driver Sheet, Drug Test, Operating Authority, Completed W9 Tax Form (W9 Form), Other Documents.
+Allowed MIME types: application/pdf, image/jpeg, image/png.
+
+Upload a document to a specific driver record. Supports `multipart/form-data`. Each request must contain exactly one file.
+
+* **Max file size:** 25 MB
+* **Allowed MIME types:** `application/pdf`, `image/jpeg`, `image/png`, `image/gif`
+* **Allowed Document Types:** License, DriverLicense, DriverSheet, Drug Test, Medical *(suggested rename: Medical Card)*, Operating Authority, Completed W9 Tax Form (W9 Form), Other Documents
+
+***
+
+### Parameters
+
+| Parameter  | In   | Type   | Required | Description                     |
+| ---------- | ---- | ------ | -------- | ------------------------------- |
+| `driverId` | path | string | Yes      | Unique identifier of the driver |
+| `version`  | path | string | Yes      | API version (e.g., `1.0`)       |
+
+***
+
+### Request Body
+
+`multipart/form-data`
+
+| Parameter      | Type   | Required | Description                                                                  |
+| -------------- | ------ | -------- | ---------------------------------------------------------------------------- |
+| `File`         | binary | Yes      | The file to upload (PDF, JPEG, PNG). Max size 25 MB.                         |
+| `FileName`     | string | No       | Optional custom filename (if omitted, filename is taken from multipart part) |
+| `DocumentType` | string | Yes      | The type of document. Must match one of the allowed document types.          |
+
+***
+
+#### Example Request (cURL)
+
+```bash
+curl -X POST "{{host}}/api/p/v1/drivers/{driverId}/document" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: multipart/form-data" \
+  -F "File=@Driver_License.pdf" \
+  -F "DocumentType=License"
+```
+
+***
+
+### Response Body
+
+| Name             | Type    | Description                                                                 |
+| ---------------- | ------- | --------------------------------------------------------------------------- |
+| `id`             | string  | Unique identifier of the uploaded document                                  |
+| `AttachmentPath` | string  | File name/path assigned on upload + timestamp suffix (1757343192)           |
+| `AttachmentType` | string  | Type of document (matches `DocumentType`)                                   |
+| `AttachmentSize` | integer | Size of the file in bytes                                                   |
+| `UploadedAt`     | string  | UTC timestamp when the file was uploaded                                    |
+| `ParentId`       | string  | Identifier of the parent entity (e.g., driverId, loadNumber, tripId)        |
+| `ParentType`     | string  | Entity type the document is attached to (e.g., Driver, Load, Trip, Trailer) |
+
+#### Example Response
+
+**200 OK**
+
+```json
+{
+  "id": "4b5c38bd-005e-4903-a4ee-45ca5e86411a",
+  "AttachmentPath": "DriverLicense-1757343192.pdf",
+  "AttachmentType": "License",
+  "AttachmentSize": 5245329,
+  "UploadedAt": "2025-09-09T08:26:03.194Z",
+  "ParentId": "DR12345",
+  "ParentType": "Driver"
+}
+```
+
+<br />
+
+On the right side, you can see examples of different error codes by clicking **Example** and selecting the response code.
+
+***
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes.
+For detailed information, see the [Rate Limits](/docs/rate-limits) section.
+
+***
+
+### Try It Out
+
+This page is interactive, allowing you to try a request by specifying the **API version** and **driverId** in the URL path.
+
+As you fill out the parameters, the cURL command on the right side of the page will be automatically updated. Alternatively, you can directly edit the cURL command.
+
+⚠️ Don’t forget: make sure to **authorize yourself** before trying a request.

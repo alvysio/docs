@@ -1,0 +1,91 @@
+---
+title: "Search customers"
+openapi: "POST /api/p/v{version}/customers/search"
+---
+
+The endpoint for searching customers allows you to retrieve a paginated list of customer records based on specific filters and criteria. It requires specifying mandatory parameters like page number, page size, and statuses in the request body, ensuring precise and efficient querying. Optional filters such as date range provide additional control over the search results. For more information on how versioning works and how to include it in your requests, please refer to the [Versioning](/docs/versioning) page.
+
+### Request Body Parameters
+
+The following parameters are available in the request body:
+
+| Parameter              | Type               | Required | Description                                              |
+| ---------------------- | ------------------ | -------- | -------------------------------------------------------- |
+| Page                   | Integer            | Yes      | The page number for pagination.                          |
+| PageSize               | Integer            | Yes      | The number of records to retrieve per page.              |
+| Statuses               | Array              | Yes      | List of customer statuses to filter by (e.g., "Active"). |
+| CreatedDateRange       | Object             | No       | The date range for filtering created customers.          |
+| CreatedDateRange.Start | String (Date-Time) | No       | The start date for filtering.                            |
+| CreatedDateRange.End   | String (Date-Time) | No       | The end date for filtering.                              |
+
+***
+
+#### Example CURL Request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/customers/search' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "Page": 0,
+  "PageSize": 100,
+  "Statuses": ["Active"],
+  "CreatedDateRange": {
+    "Start": "2024-11-08T19:38:34.529Z",
+    "End": "2024-11-08T19:38:34.529Z"
+  }
+}'
+```
+
+Replace `YOUR_ACCESS_TOKEN` with your actual Bearer token. Adjust the `page`, `pageSize`, and date range as needed.
+
+### Response Fields
+
+The following fields are returned in the response:
+
+| Field                                   | Type               | Description                                                                                                 |
+| --------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------- |
+| Page                                    | Integer            | The current page number of the response.                                                                    |
+| PageSize                                | Integer            | The number of records returned per page.                                                                    |
+| Total                                   | Integer            | The total number of customer records available.                                                             |
+| Id                                      | String             | The unique identifier of the customer.                                                                      |
+| Name                                    | String             | The name of the customer.                                                                                   |
+| CompanyNumber                           | String             | The company number of the customer. A customer-provided reference or registration number for their company. |
+| Type                                    | String             | The type of customer (e.g., "Customer" or "Broker/3PL").                                                    |
+| Status                                  | String             | The status of the customer. Either "Active" or "Inactive".                                                  |
+| BillingAddress                          | Object             | The billing address of the customer.                                                                        |
+| BillingAddress.Street                   | String             | The street address of the billing location.                                                                 |
+| BillingAddress.City                     | String             | The city of the billing address.                                                                            |
+| BillingAddress.State                    | String             | The state of the billing address.                                                                           |
+| BillingAddress.ZipCode                  | String             | The postal code of the billing address.                                                                     |
+| Email                                   | Array              | A list of email addresses associated with the customer.                                                     |
+| Phone                                   | Array              | A list of phone numbers associated with the customer.                                                       |
+| Fax                                     | String             | The fax number of the customer.                                                                             |
+| DateCreated                             | String (Date-Time) | The date and time when the customer was created.                                                            |
+| InvoicingInformation                    | Object             | The invoicing information for the customer.                                                                 |
+| InvoicingInformation.Address            | Object             | The address used for invoicing.                                                                             |
+| InvoicingInformation.Address.Street     | String             | The street address for invoicing.                                                                           |
+| InvoicingInformation.Address.City       | String             | The city of the invoicing address.                                                                          |
+| InvoicingInformation.Address.State      | String             | The state of the invoicing address.                                                                         |
+| InvoicingInformation.Address.ZipCode    | String             | The postal code of the invoicing address.                                                                   |
+| InvoicingInformation.EmailAddresses     | Array              | Email addresses used for invoicing.                                                                         |
+| InvoicingInformation.PhoneNumber        | String             | The phone number used for invoicing.                                                                        |
+| InvoicingInformation.InvoicingName      | String             | The name used for invoicing.                                                                                |
+| InvoicingInformation.InvoicingNameAlias | String             | The alias for the invoicing name.                                                                           |
+| InvoicingInformation.PaymentType        | String             | The payment type for invoicing.                                                                             |
+| InvoicingInformation.PaymentTermsInDays | Integer            | The payment terms, in days.                                                                                 |
+| ExternalId                              | String             | The external identifier associated with the customer.                                                       |
+| Contacts                                | Array              | A list of contacts associated with the customer.                                                            |
+| SalesAgentId                            | String             | The identifier of the assigned sales agent.                                                                 |
+| Notes                                   | Array              | A list of notes related to the customer.                                                                    |
+| Notes.id                                | String             | The unique identifier of the note.                                                                          |
+| Notes.Description                       | String             | The description of the note.                                                                                |
+| Notes.NoteType                          | String             | The type of the note.                                                                                       |
+| Notes.Time                              | String (Date-Time) | The time the note was created.                                                                              |
+| Notes.User                              | String             | The user who created the note.                                                                              |
+
+### Rate Limits
+
+All endpoints are subject to rate limits to ensure stability and performance. For more information, refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request by completing the fields for the parameters below. As you fill out the parameters, the CURL command on the right side of the page will be automatically updated. Alternatively, you can fork our [Public API Postman Collection](https://app.getpostman.com/run-collection/39138316-54c493c3-15e5-4fd7-a651-6e45b308548f?action=collection%2Ffork\&source=rip_markdown\&collection-url=entityId%3D39138316-54c493c3-15e5-4fd7-a651-6e45b308548f%26entityType%3Dcollection%26workspaceId%3Dc0255544-5964-4c52-9d24-05b30a9b021c) directly. Make sure to authorize yourself before trying a request.

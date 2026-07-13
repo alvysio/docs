@@ -1,0 +1,86 @@
+---
+title: "Get fuel transaction"
+openapi: "GET /api/p/v{version}/fuel/{id}"
+---
+
+The endpoint for retrieving fuel information by ID requires specifying the fuel entry's unique ID and the API version in the URL path. This ensures that your application interacts with the correct version of the API, providing stability and compatibility as the API evolves. For more information on how versioning works and how to include it in your requests, please refer to the [Versioning](/docs/versioning) page.
+
+### Request Parameters
+
+The following parameters are required in the URL path:
+
+| Parameter | Type   | Required | Description                              |
+| --------- | ------ | -------- | ---------------------------------------- |
+| version   | String | Yes      | The API version to use.                  |
+| id        | String | Yes      | The unique identifier of the fuel entry. |
+
+#### Example CURL request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/fuel/{id}' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `{version}` with the API version number, `{id}` with the actual fuel ID, and `YOUR_ACCESS_TOKEN` with your actual Bearer token:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/fuel/43000ba1-b001-408d-b00f-c00f8004add' \
+--header 'Authorization: Bearer eLOETt0hFmWxz_1VBt_oYx9YuSVTWCbZjjNUz8DTKN_EPhH12hs3al...'
+```
+
+### Response Parameters
+
+The following table lists the parameters included in the response for the fuel-related request:
+
+| Parameter              | Type               | Description                                                      |
+| ---------------------- | ------------------ | ---------------------------------------------------------------- |
+| Id                     | String             | The unique identifier of the fuel transaction.                   |
+| TransactionId          | String             | The transaction ID.                                              |
+| SubsidiaryId           | String             | The subsidiary ID associated with the transaction.               |
+| SubsidiaryName         | String             | The name of the subsidiary associated with the transaction.      |
+| TruckId                | String             | The unique identifier of the truck.                              |
+| TruckNumber            | String             | The truck number associated with the transaction.                |
+| DriverId               | String             | The unique identifier of the driver.                             |
+| DriverName             | String             | The name of the driver.                                          |
+| OwnerOperatorId        | String             | The unique identifier of the owner-operator.                     |
+| OwnerOperatorName      | String             | The name of the owner-operator.                                  |
+| Source                 | String             | The name of the fuel card provider.                              |
+| Type                   | String             | The raw fuel type provided by the fuel provider.                 |
+| Category               | String             | The internal fuel category (e.g., Diesel, DEF, Cash Advance).    |
+| Description            | String             | The fuel product description provided by the fuel card provider. |
+| Location               | Object             | The location details of the transaction.                         |
+| Location.Id            | String             | The unique identifier of the location.                           |
+| Location.Name          | String             | The name of the location.                                        |
+| Location.City          | String             | The city of the location.                                        |
+| Location.State         | String             | The state of the location.                                       |
+| Location.Address       | String             | The address of the location.                                     |
+| Location.Country       | String             | The country of the location.                                     |
+| FuelTotal              | Object             | The total fuel amount.                                           |
+| FuelTotal.Amount       | Number             | The amount of fuel.                                              |
+| FuelTotal.Currency     | Integer            | The currency of the fuel amount.                                 |
+| Fees                   | Object             | The total fees.                                                  |
+| Fees.Amount            | Number             | The amount of fees.                                              |
+| Fees.Currency          | Integer            | The currency of the fees amount.                                 |
+| Discounts              | Object             | The total discounts.                                             |
+| Discounts.Amount       | Number             | The amount of discounts.                                         |
+| Discounts.Currency     | Integer            | The currency of the discounts amount.                            |
+| Advances               | Object             | The total advances.                                              |
+| Advances.Amount        | Number             | The amount of advances.                                          |
+| Advances.Currency      | Integer            | The currency of the advances amount.                             |
+| Total                  | Object             | The total amount including fuel, fees, discounts, and advances.  |
+| Total.Amount           | Number             | The total amount.                                                |
+| Total.Currency         | Integer            | The currency of the total amount.                                |
+| Quantity               | Object             | Details of the fuel quantity purchased.                          |
+| Quantity.Value         | Number             | The numeric value of the fuel purchased.                         |
+| Quantity.UnitOfMeasure | String             | The unit of measure (e.g., Gallons).                             |
+| TransactionDate        | String (date-time) | The date and time of the fuel transaction.                       |
+
+#### Example Response
+
+On the right side, you can see examples of different error codes by clicking "Example" and selecting the response code.
+
+#### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request by specifying the API version and fuel ID in the URL path. As you fill out the parameters, the Curl command on the right side of the page will be automatically updated. Alternatively, you can directly edit the Curl command. Make sure to authorize yourself before trying a request.

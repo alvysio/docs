@@ -1,0 +1,47 @@
+---
+title: "List load notes"
+openapi: "GET /api/p/v{version}/loads/{loadNumber}/notes"
+---
+
+Retrieve all notes associated with a specific load.
+
+Notes may include operational comments, internal updates, or other annotations added during the lifecycle of the load.
+
+### Path Parameters
+
+| Name       | Type   | Required | Description                                      |
+| ---------- | ------ | -------- | ------------------------------------------------ |
+| loadNumber | string | Yes      | The unique number identifying the load.          |
+| version    | string | Yes      | API version (e.g., `2.0`). Default value: `2.0`. |
+
+### Response
+
+#### 200 OK
+
+Returns the list of notes associated with the specified load.
+
+```json
+[
+  {
+    "CreatedAt": "2026-03-16T12:51:57.916Z",
+    "CreatedBy": "string",
+    "CreatedById": "string",
+    "Description": "string",
+    "Id": "string",
+    "NoteType": "string"
+  }
+]
+```
+
+### Response Body Parameters
+
+| Name        | Type     | Description                                                        |
+| ----------- | -------- | ------------------------------------------------------------------ |
+| CreatedAt   | datetime | The timestamp when the note was created.                           |
+| CreatedBy   | string   | The user or system that created the note.                          |
+| CreatedById | string   | The unique identifier of the user or system that created the note. |
+| Description | string   | The text content of the note.                                      |
+| Id          | string   | Unique identifier of the note.                                     |
+| NoteType    | string   | The category or type of the note.                                  |
+
+<br />

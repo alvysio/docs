@@ -1,0 +1,91 @@
+---
+title: "Get deduction"
+openapi: "GET /api/p/v{version}/deductions/{id}"
+---
+
+This endpoint retrieves detailed information about a specific deduction record by its unique identifier.
+Use this method to view all deduction details including amount, category, associated driver or truck, payment status, and creation metadata.
+
+Deductions are asset-specific financial adjustments and can be associated with either a driver or a truck, but not both simultaneously.
+
+***
+
+### Request Parameters
+
+The following parameters are required in the URL path or query:
+
+| Parameter | Type   | Required | Description                                                |
+| --------- | ------ | -------- | ---------------------------------------------------------- |
+| version   | String | Yes      | The API version to use.                                    |
+| id        | String | Yes      | The unique identifier (`Id`) of the deduction to retrieve. |
+
+***
+
+### Example CURL Request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/deductions/00000000-dd44-0000-0000-8a1fa91b607a' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+***
+
+### Response Body Parameters
+
+The following parameters are included in the response body:
+
+| Parameter       | Type               | Required      | Description                                                     |
+| --------------- | ------------------ | ------------- | --------------------------------------------------------------- |
+| Id              | String             | Yes           | The unique identifier of the deduction.                         |
+| Type            | String             | Yes           | Type of record (`"Deduction"`).                                 |
+| GroupId         | String             | Yes           | Group ID if the deduction belongs to a recurring group or rule. |
+| Description     | String             | Yes           | Description of the deduction.                                   |
+| Category        | String             | Yes           | Deduction category (e.g., Fuel, Advance, Drug Test).            |
+| Amount.Amount   | Number             | Yes           | Deduction amount (negative for deductions).                     |
+| Amount.Currency | Integer            | Yes           | ISO numeric currency code (e.g., 840 for USD).                  |
+| DriverId        | String             | Conditionally | The Driver ID linked to the deduction.                          |
+| TruckId         | String             | Conditionally | The Truck ID linked to the deduction.                           |
+| OwnerOperatorId | String             | No            | The Owner Operator ID of the truck or driver.                   |
+| Date            | String (Date)      | Yes           | The effective date of the deduction (date only, without time).  |
+| IsPaid          | Boolean            | No            | Indicates whether the deduction has been paid.                  |
+| CreatedAt       | String (Date-Time) | No            | Timestamp when the deduction was created (UTC).                 |
+| CreatedBy       | String             | No            | Client ID or User ID of the person who created the deduction.   |
+
+***
+
+### Example Response
+
+```json
+{
+  "Id": "00000000-dd44-0000-0000-8a1fa91b607a",
+  "Type": "Deduction",
+  "GroupId": "344571de-57b4-4163-a0cc-d7981fa65994",
+  "Description": "Drug Test Fee",
+  "Category": "Drug Test",
+  "Amount": {
+    "Amount": -50,
+    "Currency": 840
+  },
+  "DriverId": "DR2517534557938191",
+  "OwnerOperatorId": "DR25165000003445290",
+  "Date": "2025-10-07",
+  "IsPaid": false,
+  "CreatedAt": "2025-10-09T08:30:54.873Z",
+  "CreatedBy": "MhAeS5345435fbvccvbfUdTdXOMgVSGyp"
+}
+```
+
+***
+
+### Versioning
+
+The `version` parameter in the URL path specifies which version of the API you are using.
+Including the version number ensures that your integration remains stable as the API evolves.
+For more details, refer to the [Versioning](/docs/versioning) page.
+
+***
+
+### Rate Limits
+
+All endpoints are subject to standard rate limits to ensure consistent API performance.
+For details, see the [Rate Limits](/docs/rate-limits) section.

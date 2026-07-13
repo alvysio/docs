@@ -1,0 +1,65 @@
+---
+title: "Delete customer"
+openapi: "DELETE /api/p/v{version}/customers/{id}"
+---
+
+The Delete Customer endpoint soft-deletes (deactivates) a business company. It sets the customer's `Status` to `Inactive`; the record stays visible on GET and search. To reactivate it, send a PATCH with `Status: Active`. For more information on how versioning works and how to include it in your requests, please refer to the [Versioning](/docs/versioning) page.
+
+This endpoint uses optimistic concurrency. You must send the customer's current `ETag` in an `If-Match` header. The token is returned on the `ETag` response header of a GET, and in the body of a create/update response. If the token does not match the current record the request fails with `412 Precondition Failed`; refetch with GET to obtain a fresh value and retry.
+
+***
+
+### Request Parameters
+
+The following parameters are required in the URL path:
+
+| Parameter | Type   | Required | Description                            |
+| --------- | ------ | -------- | -------------------------------------- |
+| version   | String | Yes      | The version of the API.                |
+| id        | String | Yes      | The unique identifier of the customer. |
+
+The following header is required:
+
+| Header   | Required | Description                                       |
+| -------- | -------- | ------------------------------------------------- |
+| If-Match | Yes      | The current `ETag` of the customer being deleted. |
+
+***
+
+### Example CURL Request
+
+```bash
+curl --location --request DELETE 'https://integrations.alvys.com/api/p/v1/customers/01fec4d332ed49ff96595c8d4434ea96' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+--header 'If-Match: "00000000-0000-0000-0000-000000000002"'
+```
+
+Replace `YOUR_ACCESS_TOKEN` with your actual Bearer token and `If-Match` with the customer's current `ETag`.
+
+***
+
+### Response
+
+On success the endpoint returns `204 No Content` with an empty body.
+
+***
+
+### Status Codes
+
+| Status | Meaning                                                                                     |
+| ------ | ------------------------------------------------------------------------------------------- |
+| 204    | The customer was deactivated.                                                               |
+| 401    | The request was not authenticated.                                                          |
+| 403    | The caller lacks permission to delete customers.                                            |
+| 404    | No customer with the given `id` exists.                                                     |
+| 409    | The operation conflicted with the current state of the record.                              |
+| 412    | The supplied `If-Match` token did not match the current record. Refetch with GET and retry. |
+| 428    | The `If-Match` header is required but was not provided.                                     |
+
+***
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request by completing the fields for the parameters below. As you fill out the parameters, the CURL command on the right side of the page will be automatically updated.

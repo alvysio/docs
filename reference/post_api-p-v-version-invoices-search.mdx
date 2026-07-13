@@ -1,0 +1,163 @@
+---
+title: "Search invoices"
+openapi: "POST /api/p/v{version}/invoices/search"
+---
+
+The Search Invoices endpoint allows you to search and retrieve a list of invoices based on various criteria such as invoiced date range, paid date range, status, and associated load numbers. To ensure compatibility and stability, it is essential to include the correct version number in the URL path when making a request. For more information on versioning, refer to the [Versioning](/docs/versioning) page.
+
+### Request Parameters
+
+The following parameters are required in the URL path:
+
+| Parameter | Type   | Required | Description                       |
+| --------- | ------ | -------- | --------------------------------- |
+| version   | String | Yes      | The API version to interact with. |
+
+#### Request Body
+
+The following fields are required in the request body:
+
+| Parameter               | Type               | Required      | Description                                                                                                                                      |
+| ----------------------- | ------------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Page                    | Integer            | Yes           | The page number for pagination.                                                                                                                  |
+| PageSize                | Integer            | Yes           | The number of records per page for pagination.                                                                                                   |
+| InvoicedDateRange       | Object             | Conditionally | The range of invoiced dates to filter the results. This field is required if the other conditionally required fields are left empty.             |
+| InvoicedDateRange.Start | String (Date-Time) | Conditionally | The start date for the invoiced date range. This field is required if the other conditionally required fields are left empty.                    |
+| InvoicedDateRange.End   | String (Date-Time) | Conditionally | The end date for the invoiced date range. This field is required if the other conditionally required fields are left empty.                      |
+| InvoiceSentRange        | Object             | Conditionally | The range of invoice sent dates to filter the results. This field is required if the other conditionally required fields are left empty.         |
+| InvoiceSentRange.Start  | String (Date-Time) | Conditionally | The start date for the invoice sent date range. This field is required if the other conditionally required fields are left empty.                |
+| InvoiceSentRange.End    | String (Date-Time) | Conditionally | The end date for the invoice sent date range. This field is required if the other conditionally required fields are left empty.                  |
+| PaidDateRange           | Object             | Conditionally | The range of paid dates to filter the results. This field is required if the other conditionally required fields are left empty.                 |
+| PaidDateRange.Start     | String (Date-Time) | Conditionally | The start date for the paid date range. This field is required if the other conditionally required fields are left empty.                        |
+| PaidDateRange.End       | String (Date-Time) | Conditionally | The end date for the paid date range. This field is required if the other conditionally required fields are left empty.                          |
+| Status                  | Array of Strings   | Conditionally | A list of invoice statuses to filter the results. This field is required if the other conditionally required fields are left empty.              |
+| LoadNumbers             | Array of Strings   | Conditionally | A list of load numbers associated with the invoices. This field is required if the other conditionally required fields are left empty.           |
+| PONumbers               | Array of Strings   | Conditionally | A list of purchase order numbers associated with the invoices. This field is required if the other conditionally required fields are left empty. |
+| OrderNumbers            | Array of Strings   | Conditionally | A list of order numbers associated with the invoices. This field is required if the other conditionally required fields are left empty.          |
+| CustomerId              | String             | Conditionally | The customer ID to filter the results. This field is required if the other conditionally required fields are left empty.                         |
+
+#### Example CURL request
+
+Use the Current API version number and make sure to replace the Authorization header value with your actual Bearer token for the request:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/invoices/search' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaWQiOiJBT...' \
+--header 'Content-Type: application/json' \
+--data '{
+  "Page": 0,
+  "PageSize": 100,
+  "InvoicedDateRange": {
+     "Start": "2023-08-02T09:53:34.251Z",
+     "End": "2024-08-02T09:53:34.251Z"
+  },
+  "PaidDateRange": {
+     "Start": "2023-08-02T09:53:34.251Z",
+     "End": "2024-08-02T09:53:34.251Z"
+  },
+  "Status": [
+     "Paid"
+  ],
+  "LoadNumbers": [
+     "123456789"
+  ],
+  "CustomerId": ""
+}'
+```
+
+### Response Parameters
+
+The following table lists the parameters included in the response for invoice-related requests.
+
+| Parameter                              | Type               | Description                                                    |
+| -------------------------------------- | ------------------ | -------------------------------------------------------------- |
+| Page                                   | Integer            | The current page number of the result set.                     |
+| PageSize                               | Integer            | The number of records per page.                                |
+| Total                                  | Integer            | The total number of records matching the search criteria.      |
+| Items                                  | Array of Objects   | The list of invoices that match the search criteria.           |
+| Items.Id                               | String             | The unique identifier of the invoice.                          |
+| Items.Number                           | String             | The invoice number.                                            |
+| Items.Type                             | String             | The type of the invoice (e.g., Standard, Credit Memo).         |
+| Items.Status                           | String             | The current status of the invoice (e.g., Open, Paid, Overdue). |
+| Items.CreatedDate                      | String (Date-Time) | The date and time when the invoice was created.                |
+| Items.InvoicedDate                     | String (Date-Time) | The date and time when the invoice was issued.                 |
+| Items.DueDate                          | String (Date-Time) | The due date for the invoice payment.                          |
+| Items.PaidDate                         | String (Date-Time) | The date when the invoice was fully paid.                      |
+| Items.Total                            | Object             | The total amount of the invoice.                               |
+| Items.Total.Amount                     | Number             | The monetary value of the total amount.                        |
+| Items.Total.Currency                   | Integer            | The currency in which the invoice is issued.                   |
+| Items.AmountPaid                       | Object             | The amount that has been paid towards the invoice.             |
+| Items.AmountPaid.Amount                | Number             | The monetary value of the amount paid.                         |
+| Items.AmountPaid.Currency              | Integer            | The currency in which the payment was made.                    |
+| Items.RemainingBalance                 | Object             | The remaining balance due on the invoice.                      |
+| Items.RemainingBalance.Amount          | Number             | The monetary value of the remaining balance.                   |
+| Items.RemainingBalance.Currency        | Integer            | The currency in which the balance is due.                      |
+| Items.OverPaymentAmount                | Object             | The overpayment amount if any.                                 |
+| Items.OverPaymentAmount.Amount         | Number             | The monetary value of the overpayment.                         |
+| Items.OverPaymentAmount.Currency       | Integer            | The currency in which the overpayment was made.                |
+| Items.IsSubmitted                      | Boolean            | Indicates if the invoice has been submitted.                   |
+| Items.LastSendDate                     | String (Date-Time) | The last date and time when the invoice was sent.              |
+| Items.SupplementalInvoiceType          | String             | The type of supplemental invoice if applicable.                |
+| Items.Vendor                           | Object             | Vendor details associated with the invoice.                    |
+| Items.Vendor.Id                        | String             | The unique identifier of the vendor.                           |
+| Items.Vendor.Name                      | String             | The name of the vendor.                                        |
+| Items.Vendor.RemitAddress              | Object             | The remit address of the vendor.                               |
+| Items.Vendor.RemitAddress.Street       | String             | The street address of the vendor.                              |
+| Items.Vendor.RemitAddress.City         | String             | The city of the vendor's address.                              |
+| Items.Vendor.RemitAddress.State        | String             | The state of the vendor's address.                             |
+| Items.Vendor.RemitAddress.ZipCode      | String             | The zip code of the vendor's address.                          |
+| Items.Vendor.RemitEmail                | String             | The email address for remittances to the vendor.               |
+| Items.Vendor.RemitPhone                | String             | The phone number for remittances to the vendor.                |
+| Items.Customer                         | Object             | Customer details associated with the invoice.                  |
+| Items.Customer.Id                      | String             | The unique identifier of the customer.                         |
+| Items.Customer.Name                    | String             | The name of the customer.                                      |
+| Items.Customer.EmailAddresses          | Array of Strings   | The list of email addresses for the customer.                  |
+| Items.Customer.PhoneNumbers            | Array of Strings   | The list of phone numbers for the customer.                    |
+| Items.Customer.BillingAddress          | Object             | The billing address of the customer.                           |
+| Items.Customer.BillingAddress.Street   | String             | The street address of the customer.                            |
+| Items.Customer.BillingAddress.City     | String             | The city of the customer's billing address.                    |
+| Items.Customer.BillingAddress.State    | String             | The state of the customer's billing address.                   |
+| Items.Customer.BillingAddress.ZipCode  | String             | The zip code of the customer's billing address.                |
+| Items.Customer.ShippingAddress         | Object             | The shipping address of the customer.                          |
+| Items.Customer.ShippingAddress.Street  | String             | The street address of the customer.                            |
+| Items.Customer.ShippingAddress.City    | String             | The city of the customer's shipping address.                   |
+| Items.Customer.ShippingAddress.State   | String             | The state of the customer's shipping address.                  |
+| Items.Customer.ShippingAddress.ZipCode | String             | The zip code of the customer's shipping address.               |
+| Items.LineItems                        | Array of Objects   | The line items included in the invoice.                        |
+| Items.LineItems.Id                     | String             | The unique identifier of the line item.                        |
+| Items.LineItems.Name                   | String             | The name of the line item.                                     |
+| Items.LineItems.Amount                 | Object             | The amount associated with the line item.                      |
+| Items.LineItems.Amount.Amount          | Number             | The monetary value of the line item.                           |
+| Items.LineItems.Amount.Currency        | Integer            | The currency in which the line item is priced.                 |
+| Items.LineItems.Rate                   | Object             | The rate details for the line item.                            |
+| Items.LineItems.Rate.UnitOfMeasurement | String             | The unit of measurement for the rate (e.g., hours, miles).     |
+| Items.LineItems.Rate.Units             | Number             | The number of units billed.                                    |
+| Items.LineItems.Rate.Rate              | Number             | The rate per unit.                                             |
+| Items.LineItems.LoadNumber             | String             | The load number associated with the line item.                 |
+| Items.LineItems.CustomerId             | String             | The customer ID associated with the line item.                 |
+| Items.LineItems.Category               | String             | The category of the line item.                                 |
+| Items.Loads                            | Array of Objects   | The loads associated with the invoice.                         |
+| Items.Loads.Id                         | String             | The unique identifier of the load.                             |
+| Items.Loads.LoadNumber                 | String             | The load number associated with the invoice.                   |
+| Items.Loads.SubsidiaryName             | String             | The name of the subsidiary associated with the load.           |
+| Items.Loads.Source                     | String             | The source of the load.                                        |
+| Items.Loads.OrderNumber                | String             | The order number associated with the load.                     |
+| Items.Loads.PONumber                   | String             | The purchase order number associated with the load.            |
+| Items.Payments                         | Array of Objects   | The payments made against the invoice.                         |
+| Items.Payments.Id                      | String             | The unique identifier of the payment.                          |
+| Items.Payments.PaymentDate             | String (Date-Time) | The date and time when the payment was made.                   |
+| Items.Payments.Amount                  | Object             | The amount paid in the payment.                                |
+| Items.Payments.Amount.Amount           | Number             | The monetary value of the payment.                             |
+| Items.Payments.Amount.Currency         | Integer            | The currency in which the payment was made.                    |
+| Items.Payments.CheckNumber             | String             | The check number associated with the payment.                  |
+| Items.Payments.PaymentReference        | String             | The payment reference number.                                  |
+
+#### Example Response
+
+On the right side, you can see examples of different error codes by clicking "Example" and selecting the response code.
+
+#### Rate Limits
+
+This endpoint is subject to standard rate limiting. The default rate limit is 10 requests per minute. For more information, refer to the [Rate Limits](/docs/rate-limits) page.
+
+This page is interactive, allowing you to try a request by specifying the API version in the URL path and providing the necessary request body. As you fill out the parameters, the Curl command on the right side of the page will be automatically updated. Alternatively, you can directly edit the Curl command. Make sure to authorize yourself before trying a request.

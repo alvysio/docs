@@ -1,0 +1,280 @@
+---
+title: "Search trucks"
+openapi: "POST /api/p/v{version}/trucks/search"
+---
+
+This endpoint provides detailed information about each truck that matches the search criteria, facilitating efficient management and retrieval of truck records.
+
+### Request Parameters
+
+The following parameter is required in the URL path:
+
+| Parameter | Type   | Required | Description                             |
+| --------- | ------ | -------- | --------------------------------------- |
+| version   | String | Yes      | The version of the API being requested. |
+
+#### Request Body
+
+The request body must include the following parameters to filter the search results.
+
+`<Table>`
+  <thead>
+    <tr>
+      <th>
+        Parameter
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Required
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Page
+      </td>
+
+      <td>
+        Integer
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        The page number of the results to retrieve.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        PageSize
+      </td>
+
+      <td>
+        Integer
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        The number of results per page.\
+        PageSize must be greater than 0.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Status
+      </td>
+
+      <td>
+        Array of Strings
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        A list of truck statuses to filter by.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        TruckNumber
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Conditionally
+      </td>
+
+      <td>
+        The truck number to search for. This field is required if the other conditionally required fields are left empty.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        FleetName
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Conditionally
+      </td>
+
+      <td>
+        The fleet name to filter by. This field is required if the other conditionally required fields are left empty.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        VinNumber
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Conditionally
+      </td>
+
+      <td>
+        The Vehicle Identification Number (VIN) to search for. This field is required if the other conditionally required fields are left empty.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        IsActive
+      </td>
+
+      <td>
+        Boolean
+      </td>
+
+      <td>
+        Conditionally
+      </td>
+
+      <td>
+        Filter by active status (true for active, false for inactive). This field is required if the other conditionally required fields are left empty.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        RegisteredName
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Conditionally
+      </td>
+
+      <td>
+        The registered name of the truck to search for. This field is required if the other conditionally required fields are left empty.
+      </td>
+    </tr>
+  </tbody>
+`</Table>`
+
+#### Example CURL request
+
+Use the Current API version number and make sure to replace the Authorization header value with your actual Bearer token for the request:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/trucks/search' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ....' \
+--header 'Content-Type: application/json' \
+--data '{
+  "Page": 0,
+  "PageSize": 100,
+  "Status": [
+      "Active"
+  ],
+  "TruckNumber": "",
+  "FleetName": "",
+  "VinNumber": "",
+  "IsActive": true,
+  "RegisteredName": ""
+}'
+```
+
+### Response Parameters
+
+The following table lists the parameters included in the response for truck-related requests.
+
+| Parameter                                | Type               | Description                                                      |
+| ---------------------------------------- | ------------------ | ---------------------------------------------------------------- |
+| Page                                     | Integer            | The current page number of the results.                          |
+| PageSize                                 | Integer            | The number of results per page.                                  |
+| Total                                    | Integer            | The total number of results available.                           |
+| Items                                    | Array of Objects   | The list of truck objects matching the search criteria.          |
+| Items.Id                                 | String             | The unique identifier of the truck.                              |
+| Items.TruckNum                           | String             | The truck number.                                                |
+| Items.VinNumber                          | String             | The Vehicle Identification Number (VIN) of the truck.            |
+| Items.Year                               | Integer            | The manufacturing year of the truck.                             |
+| Items.Make                               | String             | The manufacturer of the truck.                                   |
+| Items.Model                              | String             | The model of the truck.                                          |
+| Items.LicenseNum                         | String             | The license plate number of the truck.                           |
+| Items.LicenseState                       | String             | The state that issued the truck's license plate.                 |
+| Items.LicenseCountry                     | String             | The country where the truck is licensed (USA, Canada, Mexico).   |
+| Items.PlateExpirationDate                | String (Date-Time) | The expiration date of the truck's license plate.                |
+| Items.LicenseExpirationDate              | String (Date-Time) | The expiration date of the truck's license.                      |
+| Items.Status                             | String             | The current status of the truck (e.g., Active).                  |
+| Items.SubsidiaryId                       | String             | The subsidiary ID associated with the truck.                     |
+| Items.NumberOfAxles                      | Integer            | The number of axles on the truck.                                |
+| Items.Fleet                              | Object             | The fleet details associated with the truck.                     |
+| Items.Fleet.Id                           | String             | The unique identifier of the fleet.                              |
+| Items.Fleet.Name                         | String             | The name of the fleet.                                           |
+| Items.Fleet.InvoiceNumberPrefix          | String             | The invoice number prefix for the fleet.                         |
+| Items.GrossWeight                        | Object             | The gross weight details of the truck.                           |
+| Items.GrossWeight.Value                  | Integer            | The value of the gross weight.                                   |
+| Items.GrossWeight.UnitOfMeasure          | String             | The unit of measure for the gross weight (e.g., Kilograms).      |
+| Items.EmptyWeight                        | Object             | The empty weight details of the truck.                           |
+| Items.EmptyWeight.Value                  | Integer            | The value of the empty weight.                                   |
+| Items.EmptyWeight.UnitOfMeasure          | String             | The unit of measure for the empty weight (e.g., Kilograms).      |
+| Items.Color                              | String             | The color of the truck.                                          |
+| Items.FuelType                           | String             | The type of fuel used by the truck.                              |
+| Items.FuelCards                          | Array of Objects   | The list of fuel cards associated with the truck.                |
+| Items.FuelCards.id                       | String             | The unique identifier of the fuel card.                          |
+| Items.FuelCards.CardNumber               | String             | The card number of the fuel card.                                |
+| Items.FuelCards.Provider                 | String             | The provider of the fuel card.                                   |
+| Items.FuelCards.DeductFuel               | Boolean            | Indicates if fuel costs are deducted.                            |
+| Items.FuelCards.ApplyFuelDiscount        | Boolean            | Indicates if a fuel discount is applied.                         |
+| Items.FuelCards.DeductFromId             | String             | The ID from which fuel costs are deducted.                       |
+| Items.FuelCards.DeductFromName           | String             | The name from which fuel costs are deducted.                     |
+| Items.FuelCards.DeductFromSubsidiary     | String             | The subsidiary from which fuel costs are deducted.               |
+| Items.FuelCards.DeductFromContractorType | String             | The contractor type from which fuel costs are deducted.          |
+| Items.InsuranceCompany                   | String             | The insurance company of the truck.                              |
+| Items.InsurancePolicyNumber              | String             | The insurance policy number.                                     |
+| Items.InsuranceExpirationDate            | String (Date-Time) | The expiration date of the insurance policy.                     |
+| Items.InspectionExpirationDate           | String (Date-Time) | The expiration date of the truck's inspection.                   |
+| Items.Notes                              | Array of Objects   | An optional list of notes related to the truck.                  |
+| Items.Notes.id                           | String             | The unique identifier of the note.                               |
+| Items.Notes.Description                  | String             | The description of the note.                                     |
+| Items.Notes.NoteType                     | String             | The type of note.                                                |
+| Items.Notes.Time                         | String (Date-Time) | The time the note was created.                                   |
+| Items.Notes.User                         | String             | The user who created the note.                                   |
+| Items.References                         | Array of Objects   | An optional list of custom references associated with the truck. |
+| Items.CreatedAt                          | String (Date-Time) | The date and time when the truck record was created.             |
+
+#### Example Response
+
+On the right side, you can see examples of different error codes by clicking "Example" and selecting the response code.
+
+![](https://files.readme.io/1b4c328-Search_Trucks.gif)
+
+#### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request without any parameters. The Curl command on the right side of the page will be automatically updated. Alternatively, you can directly edit the Curl command. Make sure to authorize yourself before trying a request.

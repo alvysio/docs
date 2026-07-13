@@ -1,0 +1,128 @@
+---
+title: "Create carrier invoice"
+openapi: "POST /api/p/v{version}/invoices/carrier-invoice"
+---
+
+This endpoint allows factoring or payment platforms to push carrier invoices directly into Alvys and associate them with the relevant trip.
+
+The request uses `multipart/form-data` and must contain exactly one file.
+
+### Path Parameters
+
+| Parameter | Type   | Required | Description               |
+| --------- | ------ | -------- | ------------------------- |
+| version   | string | Yes      | API version (e.g., `1.0`) |
+
+### Request Body
+
+Content-Type: `multipart/form-data`
+
+| Parameter            | Type   | Required | Description                                                              |
+| -------------------- | ------ | -------- | ------------------------------------------------------------------------ |
+| File                 | binary | Yes      | Carrier invoice document file                                            |
+| TripId               | string | Yes      | Identifier of the trip the invoice belongs to                            |
+| CarrierInvoiceNumber | string | No       | Carrier-provided invoice number                                          |
+| PaymentType          | string | No       | Payment type for the carrier invoice (e.g., `Standard Pay`, `Quick Pay`) |
+
+***
+
+### Example Request (cURL)
+
+```bash
+curl -X POST "{{host}}/api/p/v1/invoices/carrier-invoice" \
+  -H "Authorization: Bearer $TOKEN" \
+  -F "File=@carrier_invoice.pdf" \
+  -F "TripId=trip_12345" \
+  -F "CarrierInvoiceNumber=INV-93842" \
+  -F "PaymentType=Standard Pay"
+```
+
+***
+
+### Responses
+
+#### 200 OK
+
+Returns metadata for the uploaded carrier invoice attachment.
+
+#### 400 Bad Request
+
+Returned when required fields are missing or the multipart request is invalid.
+
+#### 401 Unauthorized
+
+Returned when authentication is missing or invalid.
+
+#### 403 Forbidden
+
+Returned when access to this endpoint is not allowed.
+
+#### 404 Not Found
+
+Returned when the specified `TripId` does not exist.
+
+#### 413 Content Too Large
+
+Returned when the uploaded file exceeds the allowed size limit.
+
+#### 415 Unsupported Media Type
+
+Returned when the uploaded file type is not supported.
+
+### Response Body
+
+| Field          | Type    | Description                                             |
+| -------------- | ------- | ------------------------------------------------------- |
+| id             | string  | Unique identifier of the uploaded document              |
+| AttachmentPath | string  | File path or filename assigned during upload            |
+| AttachmentType | string  | Type of the uploaded document                           |
+| AttachmentSize | integer | File size in bytes                                      |
+| UploadedAt     | string  | UTC timestamp when the file was uploaded                |
+| ParentId       | string  | Identifier of the parent entity (TripId)                |
+| ParentType     | string  | Entity type the document is attached to                 |
+| UploadedBy     | string  | Identifier of the user or system that uploaded the file |
+| DownloadUrl    | string  | Temporary URL to download the uploaded file             |
+| ExpiresAt      | string  | Expiration timestamp for the download URL               |
+
+***
+
+### Example Response
+
+```json
+{
+  "id": "string",
+  "AttachmentPath": "string",
+  "AttachmentType": "string",
+  "AttachmentSize": 0,
+  "UploadedAt": "2026-03-16T13:45:12.539Z",
+  "ParentId": "string",
+  "ParentType": "string",
+  "UploadedBy": "string",
+  "DownloadUrl": "string",
+  "ExpiresAt": "2026-03-16T13:45:12.539Z"
+}
+```
+
+***
+
+### Notes
+
+* The request must include exactly **one file**.
+* The uploaded document will be associated with the specified **TripId**.
+* This endpoint is typically used by **factoring or payment platforms** to submit carrier invoices programmatically.
+* Response schema uses the standard `AttachmentResponse` model.
+* Supports `multipart/form-data` upload only.
+
+Example integration use case:
+
+Carriers upload invoices to a factoring/payment platform (e.g., **EPay**), which then pushes the invoice to Alvys via this endpoint so the invoice is attached to the relevant trip.
+
+***
+
+### Validation Notes
+
+`PaymentType` currently accepts any string value. If the provided value does not match a configured payment type, the system defaults to **30-day payment terms**.
+
+Recommended improvement:
+
+The API should validate `PaymentType` against configured carrier payment terms and return **400 Bad Request** when an invalid value is provided.

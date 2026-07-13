@@ -1,0 +1,118 @@
+---
+title: "Authentication and Global Permissions"
+---
+
+To interact with the Alvys API, you must first retrieve an access token using your API credentials. This token is required for authenticating all subsequent API queries.
+
+## Authentication
+
+### **Create an Access Token Query**:
+
+* Open Power BI Desktop and go to **Home > Transform Data >Transform Data**.
+
+![](https://files.readme.io/04506be861f8d5c70749289eda1fa8f7fc8b7632c666149e38397f02c0dff009-image.png)
+
+**Setup API Credentials in Manage Parameters**
+
+* In Power BI, go to the top ribbon, select **Transform Data > Manage Parameters**.
+* **Ensure You Have the Following Parameters**:
+  * `client_id`: The client ID provided by Alvys.
+  * `client_secret`: The client secret provided by Alvys.
+* **Create New Parameters if Not Present**:
+  * If these parameters are not already available:
+    * Click **New** to create a new parameter.
+    * Use the exact names: `client_id` and `client_secret`.
+* Replace the **Current Value** of each parameter with your respective credentials.
+
+> ❗️ Important: Ensure the parameter names match exactly as defined here. If you use different names, you must update them in the `AccessToken` query accordingly.
+
+* Once you've entered your credentials, click **OK** and then **Close & Apply** to save the changes.
+
+![](https://files.readme.io/5bab4fc476dd49a078fdf41ab2e1878c7867b20bc3d7c406a77f0798afaf2789-image.png)
+
+<br />
+
+* **Add a New Blank Query**:
+
+To add a new query, you have two options:
+
+1. **From the Ribbon**: Go to **Home > New Source > Blank Query**.
+
+   ![](https://files.readme.io/a5f24fbdacf105048247a3dfb54f4cc66d95b1d374e1888ddf1cf42c4d3f27d3-image.png)
+
+   <br />
+
+2. **From the Queries Pane**: Right-click on any existing query (or in the empty space under the list of queries) and select **New Query > Blank Query**.
+
+   ![](https://files.readme.io/db408f83a5f08a0dc8a2e0c1daf0012cfb0e813013ad18116e0e9a9d2eaaf558-image.png)
+
+   <br />
+
+<br />
+
+1. Rename the query to `AccessToken`.  In the **Queries Pane**, right-click on the newly created query and select **Rename**.
+
+> ❗️ 📢 **Use exactly this name. The name will be referenced by other queries that require this token for authentication.**
+
+![](https://files.readme.io/713d2401dd30f998bd1428588c33db6594849d451a75f6ca6afd6db2ad3a8099-image.png)
+
+<br />
+
+* In the Advanced Editor, add the code below.
+
+```
+let  
+    // Define the token endpoint  
+    url = "https://auth.alvys.com/oauth/token",
+
+// URL-encode the client_secret, NOTE: should be used parameters Name for client_secret)
+    
+encodedClientSecret = Uri.EscapeDataString(client_secret),
+
+// Construct the form data as a URL-encoded string
+formData = "client_id=" & client_id & "&" &
+           "client_secret=" & encodedClientSecret & "&" &
+           "audience=" & Uri.EscapeDataString("https://api.alvys.com/public/") & "&" &
+           "grant_type=client_credentials",
+
+// Make the POST request
+binaryFormData = Text.ToBinary(formData),
+response = Web.Contents(url, [
+    Headers = [
+        #"Content-Type" = "application/x-www-form-urlencoded"
+    ],
+    Content = binaryFormData
+]),
+
+// Parse the JSON response to extract the token
+jsonResponse = Json.Document(response),
+accessToken = jsonResponse[access_token]
+
+in  
+    accessToken
+```
+
+Save and close the query.
+
+* **Expected Result**: The `AccessToken` query will return the `accessToken`, which can be dynamically used in other API queries.
+
+![](https://files.readme.io/7bc0c1b02ac8d58797c5d663dd545c36e0e2dfe7d5f93bf3cb6a5f3133f5dea7-image.png)
+
+<br />
+
+### Authentication and Global Permissions
+
+The first time you attempt to connect to the Alvys API in Power BI, you will be prompted to authenticate. Follow these steps to configure the required settings:
+
+1. Choose **Anonymous** for the Web API connection.
+2. **Click Connect.** Once these settings are selected, click **Connect** to proceed.
+
+![](https://files.readme.io/da49461608a49ae2cffcc8c3c08f440a76560b66a8b43d43949658e6dc0a54c6-image.png)
+
+3. **Privacy Level**: Click on the Data source settings > Global permissions > Edit permissions >   in the Privacy Level dropdown, ensure the privacy level is set appropriately (e.g., Organizational or Public) for your environment.
+
+![](https://files.readme.io/8102ec13f453ae9de5491c6a91fc1c87e1cf19feab9205a24daec240de11b84f-image.png)
+
+<br />
+
+> Note: You might be prompted to repeat this process for other endpoints if they are accessed for the first time. Ensure the same settings are applied for consistency across all queries.

@@ -1,0 +1,115 @@
+---
+title: "Record invoice financing"
+openapi: "POST /api/p/v{version}/invoices/financing"
+---
+
+This endpoint records a financing transaction for a load.
+
+Financing represents funds advanced against an invoice, typically by a factoring provider.
+
+### Path Parameters
+
+| Parameter | Type   | Required | Description               |
+| --------- | ------ | -------- | ------------------------- |
+| version   | string | Yes      | API version (e.g., `1.0`) |
+
+### Request Body
+
+Content-Type: `application/json-patch+json`
+
+| Field               | Type               | Required | Description                                                                     |
+| ------------------- | ------------------ | -------- | ------------------------------------------------------------------------------- |
+| LoadNumber          | string             | Yes      | Load number the financing should be applied to                                  |
+| AmountFunded        | number             | Yes      | Amount funded for the load                                                      |
+| Fee                 | number             | No       | Financing fee associated with the transaction                                   |
+| DateFunded          | string (date-time) | No       | Date when the financing was issued. Defaults to the current UTC time if omitted |
+| ReserveEscrowAmount | number             | No       | Amount retained in reserve or escrow                                            |
+| ReferenceNumber     | string             | Yes      | External reference number used for idempotency and tracking                     |
+
+### Example Request
+
+```json id="gk3w1f"
+{
+  "LoadNumber": "string",
+  "AmountFunded": 0,
+  "Fee": 0,
+  "DateFunded": "2026-03-16T14:15:18.848Z",
+  "ReserveEscrowAmount": 0,
+  "ReferenceNumber": "string"
+}
+```
+
+### Response Body
+
+| Field       | Type   | Description                                      |
+| ----------- | ------ | ------------------------------------------------ |
+| LoadNumber  | string | Load number the financing was applied to         |
+| Status      | string | Current load status after applying the financing |
+| TotalFunded | object | Total amount funded for the load                 |
+| TotalFees   | object | Total financing fees recorded for the load       |
+
+#### Money Object
+
+| Field    | Type    | Description         |
+| -------- | ------- | ------------------- |
+| Amount   | number  | Monetary amount     |
+| Currency | integer | Currency identifier |
+
+### Example Response
+
+```json id="s4p2md"
+{
+  "LoadNumber": "string",
+  "Status": "string",
+  "TotalFunded": {
+    "Amount": 0,
+    "Currency": 0
+  },
+  "TotalFees": {
+    "Amount": 0,
+    "Currency": 0
+  }
+}
+```
+
+### Related Load Fields Updated After Successful Financing
+
+Successful requests may update the related load status to `Financed` and increase cumulative funded / fee totals used for load payment and factoring workflows.
+
+### Notes
+
+* This endpoint records **financing transactions for loads**.
+* The request body content type exposed by the API is `application/json-patch+json`.
+* `ReferenceNumber` is required and used for **idempotency**. Repeating the same `ReferenceNumber` for the same load returns the original financing record instead of creating a duplicate.
+* Successful financing requests may update the related load to financing-related status values such as `Financed`.
+* Financing can only be recorded when the load is in one of the following statuses:
+
+  * `Invoiced`
+  * `Completed`
+  * `Financed`
+* Loads in non-payable statuses such as `Dispatched` are rejected with:
+
+```text id="v1s9zr"
+400 Bad Request
+Load must be in one of: Invoiced, Completed, Financed.
+```
+
+* If the `LoadNumber` does not exist, the endpoint returns:
+
+```text id="hys8u4"
+404 Not Found
+```
+
+* If `AmountFunded` is negative or zero, the endpoint returns:
+
+```text id="fzk6t1"
+400 Bad Request
+AmountFunded must be greater than zero.
+```
+
+* If `Fee` is negative, the endpoint returns:
+
+```text id="vyu1tc"
+400 Bad Request
+Fee cannot be negative.
+```

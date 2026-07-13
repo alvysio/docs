@@ -1,0 +1,539 @@
+---
+title: "Cancel tenders"
+openapi: "POST /api/p/v{version}/tenders/cancel"
+---
+
+# OpenAPI definition
+
+```json
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alvys",
+    "description": "Alvys provides a robust set of REST APIs to allow you to integrate Alvys into virtually any platform. These APIs cover most of Alvys' major product areas with additional endpoints being added regularly based on customer requests.",
+    "contact": {
+      "name": "Alvys Support",
+      "url": "https://www.alvys.com/resources/contact/"
+    },
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://integrations.alvys.com",
+      "description": "Public API Server"
+    },
+    {
+      "url": "https://api.alvys.com/",
+      "description": "Public API Server"
+    }
+  ],
+  "paths": {
+    "/api/p/v{version}/tenders/cancel": {
+      "post": {
+        "tags": [
+          "Tenders"
+        ],
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "API version (e.g., 1.0)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.0",
+              "example": "1.0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.InboundTenderRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.InboundTenderRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.InboundTenderRequest"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.InboundTenderRequest"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Cancel tenders",
+        "security": [
+          {
+            "Public": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Alvys.Models.Tenders.Request.CreateTenderEntityRequest": {
+        "type": "object",
+        "properties": {
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "IdCodeQualifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "IdCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "N1Qualifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "Street": {
+            "type": "string",
+            "nullable": true
+          },
+          "City": {
+            "type": "string",
+            "nullable": true
+          },
+          "PostalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "CountryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "Phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "State": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Tenders.Request.CreateTenderEquipmentRequest": {
+        "type": "object",
+        "properties": {
+          "Number": {
+            "type": "string",
+            "nullable": true
+          },
+          "Length": {
+            "type": "string",
+            "nullable": true
+          },
+          "Type": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Tenders.Request.CreateTenderOrderDetailRequest": {
+        "type": "object",
+        "properties": {
+          "Quantity": {
+            "type": "string",
+            "nullable": true
+          },
+          "WeightUnitCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "Weight": {
+            "type": "string",
+            "nullable": true
+          },
+          "ReferenceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "PoNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "VolumeUnitQualifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "Volume": {
+            "type": "string",
+            "nullable": true
+          },
+          "UnitBasisForMeasurement": {
+            "type": "string",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Tenders.Request.CreateTenderReferenceRequest": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "Qualifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Tenders.Request.CreateTenderStopRequest": {
+        "required": [
+          "Type"
+        ],
+        "type": "object",
+        "properties": {
+          "Type": {
+            "type": "string"
+          },
+          "Entity": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.CreateTenderEntityRequest"
+              }
+            ],
+            "nullable": true
+          },
+          "SequenceNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "Orders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.CreateTenderOrderDetailRequest"
+            },
+            "nullable": true
+          },
+          "References": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.CreateTenderReferenceRequest"
+            },
+            "nullable": true
+          },
+          "WeightQualifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "ScheduledArrivalStart": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ScheduledArrivalEnd": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ScheduledAppointment": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "StopReasonCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Tenders.Request.InboundTenderRequest": {
+        "required": [
+          "ReceiverGsId",
+          "ReceiverIsaId",
+          "ReceiverIsaIdQualifier",
+          "SCAC",
+          "SenderGsId",
+          "SenderIsaId",
+          "SenderIsaIdQualifier",
+          "ShipmentId",
+          "Stops"
+        ],
+        "type": "object",
+        "properties": {
+          "SenderIsaId": {
+            "type": "string"
+          },
+          "SenderIsaIdQualifier": {
+            "type": "string"
+          },
+          "SenderGsId": {
+            "type": "string"
+          },
+          "ReceiverIsaId": {
+            "type": "string"
+          },
+          "ReceiverIsaIdQualifier": {
+            "type": "string"
+          },
+          "ReceiverGsId": {
+            "type": "string"
+          },
+          "SCAC": {
+            "type": "string"
+          },
+          "ShipmentId": {
+            "type": "string"
+          },
+          "Stops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.CreateTenderStopRequest"
+            }
+          },
+          "Equipment": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.CreateTenderEquipmentRequest"
+              }
+            ],
+            "nullable": true
+          },
+          "Entities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.CreateTenderEntityRequest"
+            },
+            "nullable": true
+          },
+          "PaymentMethod": {
+            "type": "string",
+            "nullable": true
+          },
+          "QtyPallets": {
+            "type": "string",
+            "nullable": true
+          },
+          "Weight": {
+            "type": "string",
+            "nullable": true
+          },
+          "WeightUnitCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "WeightQualifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "Volume": {
+            "type": "string",
+            "nullable": true
+          },
+          "VolumeUnitCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "VolumeQualifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "Rate": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ExpirationDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "References": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.CreateTenderReferenceRequest"
+            },
+            "nullable": true
+          },
+          "RoutingSequenceCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "TransportationMethodTypeCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Microsoft.AspNetCore.Mvc.ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "Status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "Instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {}
+      },
+      "Microsoft.AspNetCore.Mvc.ValidationProblemDetails": {
+        "required": [
+          "Errors"
+        ],
+        "type": "object",
+        "properties": {
+          "Errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "Status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "Instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {}
+      }
+    },
+    "securitySchemes": {
+      "Public": {
+        "type": "apiKey",
+        "description": "JWT token needed to access the endpoints. (eg.) Bearer: <token>",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
+}
+```

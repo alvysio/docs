@@ -1,0 +1,140 @@
+---
+title: "List trip stops"
+openapi: "GET /api/p/v{version}/trips/{tripId}/stops"
+---
+
+Each stop contains scheduling information, location details, operational timestamps (arrival and departure), and optional references such as PO numbers or other identifiers.
+
+### Endpoint
+
+```
+GET /api/p/v{version}/trips/{tripId}/stops
+```
+
+### Request Parameters
+
+The following parameters are required in the URL path:
+
+| Parameter | Type   | Required | Description                    |
+| --------- | ------ | -------- | ------------------------------ |
+| version   | String | Yes      | The API version to use.        |
+| tripId    | String | Yes      | Unique identifier of the trip. |
+
+### Example CURL request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/trips/{tripId}/stops' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace:
+
+* `{version}` with the API version (for example `1`)
+* `{tripId}` with the actual trip ID
+* `YOUR_ACCESS_TOKEN` with your Bearer token
+
+Example:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/trips/000c3a9bf0000000bf000d000e000a0b/stops' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ...'
+```
+
+***
+
+### Response Parameters
+
+| Parameter                 | Type              | Required | Description                                                                                                |
+| ------------------------- | ----------------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| Id                        | string            | Yes      | Unique identifier of the stop.                                                                             |
+| Address.Street            | string            | No       | Street address of the stop location.                                                                       |
+| Address.City              | string            | No       | City of the stop location.                                                                                 |
+| Address.State             | string            | No       | State of the stop location.                                                                                |
+| Address.ZipCode           | string            | No       | ZIP code of the stop location.                                                                             |
+| AppointmentConfirmed      | boolean           | No       | Indicates whether the appointment has been confirmed.                                                      |
+| AppointmentDate           | string (datetime) | No       | Appointment date/time when `scheduleType = APPT`.                                                          |
+| AppointmentRequested      | boolean           | No       | Indicates whether an appointment has been requested.                                                       |
+| ArrivedAt                 | string (datetime) | No       | Timestamp when the stop was arrived at (UTC).                                                              |
+| CompanyId                 | string            | No       | Unique identifier of the company associated with the stop.                                                 |
+| CompanyName               | string            | No       | Name of the company associated with the stop.                                                              |
+| CompanyNumber             | string            | No       | Company registration or identification number.                                                             |
+| Coordinates.Latitude      | string            | No       | Latitude of the stop location.                                                                             |
+| Coordinates.Longitude     | string            | No       | Longitude of the stop location.                                                                            |
+| DepartedAt                | string (datetime) | No       | Timestamp when the stop was departed from (UTC).                                                           |
+| LoadingType               | string            | No       | Loading type at the stop (for example `Live`, `Drop`, `Hook`, `Drop&Hook`).                                |
+| References\[]             | array             | No       | List of references associated with the stop.                                                               |
+| References\[].Access      | string            | No       | Access level of the reference (`Internal`, `Public`).                                                      |
+| References\[].Id          | string            | No       | Unique identifier of the reference.                                                                        |
+| References\[].Name        | string            | No       | Name of the reference field.                                                                               |
+| References\[].Origin      | string            | No       | Origin of the reference (for example `Manual`, `Integration`).                                             |
+| References\[].ReferenceId | string            | No       | External reference identifier.                                                                             |
+| References\[].Type        | string            | No       | Reference type (for example `Text`, `Date`).                                                               |
+| References\[].Value       | string            | No       | Value of the reference.                                                                                    |
+| ScheduleType              | string            | No       | Schedule type of the stop (`APPT` or `FCFS`).                                                              |
+| Status                    | string            | No       | Current operational status of the stop.                                                                    |
+| StopType                  | string            | No       | Type of stop (for example `Pickup`, `Delivery`, `Waypoint`).                                               |
+| StopWindow\.Begin         | string (datetime) | No       | Start of the delivery window when `scheduleType = FCFS`.                                                   |
+| StopWindow\.End           | string (datetime) | No       | End of the delivery window when `scheduleType = FCFS`.                                                     |
+| $type                     | string            | No       | Polymorphic type discriminator for the stop representation (`appointment`, `delivery_window`, `waypoint`). |
+
+### Example Response
+
+```json
+[
+  {
+    "AppointmentRequested": true,
+    "AppointmentConfirmed": true,
+    "AppointmentDate": "2026-03-16T11:05:40.106Z",
+    "ScheduleType": "APPT",
+    "LoadingType": "Live",
+    "Id": "string",
+    "Address": {
+      "Street": "123 Industrial Rd",
+      "City": "Dallas",
+      "State": "TX",
+      "ZipCode": "75201"
+    },
+    "Coordinates": {
+      "Latitude": "32.7767",
+      "Longitude": "-96.7970"
+    },
+    "Status": "Open",
+    "StopType": "Pickup",
+    "ArrivedAt": "2026-03-16T11:05:40.106Z",
+    "DepartedAt": "2026-03-16T11:45:40.106Z",
+    "References": [
+      {
+        "Id": "string",
+        "ReferenceId": "PO123456",
+        "Name": "PO Number",
+        "Value": "PO123456",
+        "Type": "Text",
+        "Access": "Public",
+        "Origin": "Manual"
+      }
+    ],
+    "CompanyId": "string",
+    "CompanyNumber": "GT530",
+    "CompanyName": "Alvys Distribution",
+    "$type": "appointment"
+  }
+]
+```
+
+### Status Codes
+
+| Status Code   | Description                            |
+| ------------- | -------------------------------------- |
+| 200 OK        | Trip stops successfully retrieved.     |
+| 404 Not Found | Trip does not exist or is not visible. |
+
+### Versioning
+
+The `version` parameter in the URL path specifies which version of the API you are using. Including the version ensures that your integration interacts with the correct API contract and remains compatible as the API evolves.
+
+### Rate Limits
+
+All endpoints are subject to API rate limits to ensure service stability and protect against traffic spikes.\
+Refer to the **Rate Limits** documentation for more information.
+
+<br />

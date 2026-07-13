@@ -1,0 +1,95 @@
+---
+title: "List trucks"
+openapi: "GET /api/p/v{version}/trucks"
+---
+
+The endpoint for list all trucks requires specifying the API version in the URL path. Including the version number ensures that your application interacts with the correct version of the API, providing stability and compatibility as the API evolves. For more information on how versioning works and how to include it in your requests, please refer to the [Versioning](/docs/versioning) page.
+
+### Request Parameters
+
+The following parameter is required in the URL path:
+
+| Parameter | Type   | Required | Description                             |
+| --------- | ------ | -------- | --------------------------------------- |
+| version   | String | Yes      | The version of the API being requested. |
+
+#### Example CURL request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/trucks' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `{version}` with the API version number and `YOUR_ACCESS_TOKEN` with your actual Bearer token.
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/trucks' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ...'
+```
+
+### Response Parameters
+
+The following table lists the parameters included in the response for truck-related requests.
+
+| Parameter                          | Type               | Description                                                      |
+| ---------------------------------- | ------------------ | ---------------------------------------------------------------- |
+| Id                                 | String             | The unique identifier of the truck.                              |
+| TruckNum                           | String             | The truck number.                                                |
+| VinNumber                          | String             | The Vehicle Identification Number (VIN) of the truck.            |
+| Year                               | Integer            | The manufacturing year of the truck.                             |
+| Make                               | String             | The manufacturer of the truck.                                   |
+| Model                              | String             | The model of the truck.                                          |
+| LicenseNum                         | String             | The license plate number of the truck.                           |
+| LicenseState                       | String             | The state that issued the truck's license plate.                 |
+| LicenseCountry                     | String             | The country where the truck is licensed (USA, Canada, Mexico).   |
+| PlateExpirationDate                | String (Date-Time) | The expiration date of the truck's license plate.                |
+| LicenseExpirationDate              | String (Date-Time) | The expiration date of the truck's license.                      |
+| Status                             | String             | The current status of the truck (e.g., Active).                  |
+| SubsidiaryId                       | String             | The subsidiary ID associated with the truck.                     |
+| NumberOfAxles                      | Integer            | The number of axles on the truck.                                |
+| Fleet                              | Object             | The fleet details associated with the truck.                     |
+| Fleet.Id                           | String             | The unique identifier of the fleet.                              |
+| Fleet.Name                         | String             | The name of the fleet.                                           |
+| Fleet.InvoiceNumberPrefix          | String             | The invoice number prefix for the fleet.                         |
+| GrossWeight                        | Object             | The gross weight details of the truck.                           |
+| GrossWeight.Value                  | Integer            | The value of the gross weight.                                   |
+| GrossWeight.UnitOfMeasure          | String             | The unit of measure for the gross weight (e.g., Kilograms).      |
+| EmptyWeight                        | Object             | The empty weight details of the truck.                           |
+| EmptyWeight.Value                  | Integer            | The value of the empty weight.                                   |
+| EmptyWeight.UnitOfMeasure          | String             | The unit of measure for the empty weight (e.g., Kilograms).      |
+| Color                              | String             | The color of the truck.                                          |
+| FuelType                           | String             | The type of fuel used by the truck.                              |
+| FuelCards                          | Array of Objects   | The list of fuel cards associated with the truck.                |
+| FuelCards.id                       | String             | The unique identifier of the fuel card.                          |
+| FuelCards.CardNumber               | String             | The card number of the fuel card.                                |
+| FuelCards.Provider                 | String             | The provider of the fuel card.                                   |
+| FuelCards.DeductFuel               | Boolean            | Indicates if fuel costs are deducted.                            |
+| FuelCards.ApplyFuelDiscount        | Boolean            | Indicates if a fuel discount is applied.                         |
+| FuelCards.DeductFromId             | String             | The ID from which fuel costs are deducted.                       |
+| FuelCards.DeductFromName           | String             | The name from which fuel costs are deducted.                     |
+| FuelCards.DeductFromSubsidiary     | String             | The subsidiary from which fuel costs are deducted.               |
+| FuelCards.DeductFromContractorType | String             | The contractor type from which fuel costs are deducted.          |
+| InsuranceCompany                   | String             | The insurance company of the truck.                              |
+| InsurancePolicyNumber              | String             | The insurance policy number.                                     |
+| InsuranceExpirationDate            | String (Date-Time) | The expiration date of the insurance policy.                     |
+| InspectionExpirationDate           | String (Date-Time) | The expiration date of the truck's inspection.                   |
+| Notes                              | Array of Objects   | An optional list of notes related to the truck.                  |
+| Notes.id                           | String             | The unique identifier of the note.                               |
+| Notes.Description                  | String             | The description of the note.                                     |
+| Notes.NoteType                     | String             | The type of note.                                                |
+| Notes.Time                         | String (Date-Time) | The time the note was created.                                   |
+| Notes.User                         | String             | The user who created the note.                                   |
+| References                         | Array of Objects   | An optional list of custom references associated with the truck. |
+| CreatedAt                          | String (Date-Time) | The date and time when the truck record was created.             |
+
+#### Example Response
+
+On the right side, you can see examples of different error codes by clicking "Example" and selecting the response code.
+
+![](https://files.readme.io/3c5c906-List_all_tracks.gif)
+
+#### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](#rate-limits) section.
+
+This page is interactive, allowing you to try a request without any parameters. The Curl command on the right side of the page will be automatically updated. Alternatively, you can directly edit the Curl command. Make sure to authorize yourself before trying a request.

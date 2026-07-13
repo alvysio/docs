@@ -1,0 +1,77 @@
+---
+title: "List truck documents"
+openapi: "GET /api/p/v{version}/trucks/{truckId}/documents"
+---
+
+Retrieve all uploaded documents associated with a specific **Truck** by its unique `truckId`.
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                     |
+| --------- | ------ | -------- | ------------------------------- |
+| version   | String | Yes      | API version to use.             |
+| truckId   | String | Yes      | Unique identifier of the truck. |
+
+### Example cURL Request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/trucks/{truckId}/documents' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `{version}` with the API version, `{truckId}` with the actual truck ID, and `YOUR_ACCESS_TOKEN` with a valid token.
+
+### Response Body
+
+Array of document objects:
+
+| Name           | Type    | Description                                                         |
+| -------------- | ------- | ------------------------------------------------------------------- |
+| id             | string  | Unique identifier of the document.                                  |
+| AttachmentPath | string  | File name and extension assigned on upload (with timestamp suffix). |
+| AttachmentType | string  | Type of document (e.g., Registration, Insurance).                   |
+| AttachmentSize | integer | Size of the file in bytes.                                          |
+| UploadedAt     | string  | UTC timestamp when the file was uploaded (ISO 8601).                |
+| ParentId       | string  | Identifier of the parent entity (`truckId`).                        |
+| ParentType     | string  | Entity type the document is attached to (`Truck`).                  |
+| UploadedBy     | string  | User ID if uploaded via UI, or Client ID if uploaded via API.       |
+| DownloadUrl    | string  | **Time-limited link (10 minutes) to download the document.**        |
+| ExpiresAt      | string  | Expiration timestamp of the `DownloadUrl` (ISO 8601).               |
+
+***
+
+### Example Response (200 OK)
+
+```json
+[
+  {
+    "id": "7b000001-c2f1-4a6a-92cf-24e6e00d00cd",
+    "AttachmentPath": "Inspection-1759237626.pdf",
+    "AttachmentType": "Inspection Certificate",
+    "AttachmentSize": 128000,
+    "UploadedAt": "2025-09-30T16:07:07+00:00",
+    "ParentId": "TR0008002833900000000",
+    "ParentType": "Truck",
+    "UploadedBy": "7190000eecc3408e90d7000f4ece0e00",
+    "DownloadUrl": "https://alvysqastorage.blob.core.windows.net/tl743/InspectionCertificate-1759237626.pdf?...",
+    "ExpiresAt": "2025-09-30T16:19:15.9506343+00:00"
+  }
+]
+```
+
+***
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes.
+For detailed information, see the [Rate Limits](/docs/rate-limits) section.
+
+***
+
+### Try It Out
+
+This page is interactive, allowing you to try a request by specifying the **API version** and **truckId** in the URL path.
+
+As you fill out the parameters, the cURL command on the right side of the page will be automatically updated. Alternatively, you can directly edit the cURL command.
+
+⚠️ Don’t forget: make sure to **authorize yourself** before trying a request.

@@ -1,0 +1,75 @@
+---
+title: "List trip documents"
+openapi: "GET /api/p/v{version}/trips/{tripId}/documents"
+---
+
+Retrieve all uploaded documents associated with a specific **Trip** by its unique `tripId`.
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                    |
+| --------- | ------ | -------- | ------------------------------ |
+| version   | String | Yes      | API version to use.            |
+| tripId    | String | Yes      | Unique identifier of the trip. |
+
+### Example cURL Request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/trips/{tripId}/documents' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `{version}` with the API version, `{tripId}` with the actual trip ID, and `YOUR_ACCESS_TOKEN` with a valid token.
+
+### Response Body
+
+Array of document objects:
+
+| Name           | Type    | Description                                                         |
+| -------------- | ------- | ------------------------------------------------------------------- |
+| id             | string  | Unique identifier of the document.                                  |
+| AttachmentPath | string  | File name and extension assigned on upload (with timestamp suffix). |
+| AttachmentType | string  | Type of document (e.g., Trip Manifes, Proof of Delivery).           |
+| AttachmentSize | integer | Size of the file in bytes.                                          |
+| UploadedAt     | string  | UTC timestamp when the file was uploaded.                           |
+| ParentId       | string  | Identifier of the parent entity (`tripId`).                         |
+| ParentType     | string  | Entity type the document is attached to (`Trip`).                   |
+| UploadedBy     | string  | User ID if uploaded via UI, or Client ID if uploaded via API.       |
+| DownloadUrl    | string  | Time-limited link (10 minutes) to download the document.            |
+| ExpiresAt      | string  | Expiration timestamp of the `DownloadUrl`.                          |
+
+### Example Response (200 OK)
+
+```json
+[
+  {
+    "id": "fe8b7d62-bc61-421e-b8b2-208bc9f7a34c",
+    "AttachmentPath": "TripManifes-1759237626.pdf",
+    "AttachmentType": "Trip Manifes",
+    "AttachmentSize": 83200,
+    "UploadedAt": "2025-09-30T15:07:07+00:00",
+    "ParentId": "T98765",
+    "ParentType": "Trip",
+    "UploadedBy": "7190175eecc3408e90d7173f4ece0e59",
+    "DownloadUrl": "https://alvysqastorage.blob.core.windows.net/tl743/Manifes-1759237626.pdf?...",
+    "ExpiresAt": "2025-09-30T15:18:15.9506343+00:00"
+  }
+]
+```
+
+***
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes.
+For detailed information, see the [Rate Limits](/docs/rate-limits) section.
+
+***
+
+### Try It Out
+
+This page is interactive, allowing you to try a request by specifying the **API version** and **tripId** in the URL path.
+
+As you fill out the parameters, the cURL command on the right side of the page will be automatically updated. Alternatively, you can directly edit the cURL command.
+
+⚠️ Don’t forget: make sure to **authorize yourself** before trying a request.

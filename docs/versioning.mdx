@@ -1,0 +1,62 @@
+---
+title: "Versioning"
+---
+
+## How Versioning Works
+
+Alvys uses a versioning system to manage changes in our API, especially when those changes are not backward-compatible. This approach ensures that your applications can continue to operate reliably, even as we introduce new features and improvements. Our versions follow a semantic versioning format, marked as v.\{major}.\{minor}.\{patch} (e.g., v1.2.0). Below are the key highlights of our versioning strategy:
+
+* When new endpoints are added to the API, they are accessible by all existing API versions by default. This ensures that new features can be adopted without requiring immediate changes to version numbers.
+* Integrations using OAuth 2.0 will automatically use the latest API version when obtaining an access token, unless a specific version is specified in the request header.
+
+## Current API Version
+
+* Version in Use: All API requests must use v1. This ensures compatibility and access to the latest features and functionality supported in the `v1` version of our API.
+* Example:  `GET /api/p/v1/{resource}`\
+  *Replace`{resource}` with the specific endpoint you are calling, such as `drivers`, `loads`, etc.*
+
+### Understanding Semantic Versioning
+
+* **Major Version** (`v1`, `v2`): Introduced for backward-incompatible changes. Examples include removing or renaming fields, changing response structures, or altering existing functionality that could break existing integrations.
+* **Minor Version** (`v1.1`, `v1.2`): Used for backward-compatible feature additions or enhancements that do not break existing functionality. Examples include adding new optional parameters or endpoints.
+* **Patch Version** (`v1.0.1`, `v1.0.2`): Issued for backward-compatible bug fixes or minor changes that do not affect API functionality.
+
+## Changing API Versions
+
+There are two ways API versions can be selected or changed:
+
+* **Route Parameters** - For specified endpoints, you are required to provide the version key in the route, e.g., `/api/{controller}/{version}/action`.
+* **HTTP Header** - Versions can be overridden by providing the `api-version` HTTP header with your request. We recommend always passing this header value for your API requests to confirm your integration is using the intended API version.
+
+#### Example URL Format
+
+* Basic endpoint with version in URL: `https://integrations.alvys.com/api/p/v1/drivers`
+* To explicitly set the version via HTTP header:
+
+  ```http
+  GET /drivers
+  Host: integrations.alvys.com
+  api-version: v1
+  ```
+
+## Backwards Incompatible Changes
+
+Alvys use major version changes for the API for any of the following types of changes:
+
+* Adding required request body fields, request body field values, or query parameters.
+* Removing allowed request body fields, request body field values, query parameters, or query parameter values.
+* Reducing documented rate limits per endpoint, per token, or per organization.
+* Renaming request/response body fields, request body field values, query parameters, or query parameter values.
+* Renaming or removing valid values for enumerated fields (e.g., different options for types of safety events).
+* Changing the data type of a field (e.g., from string to int).
+* Changing the nested JSON structure of requests/responses
+* Changing the expected payload of a response (e.g., returning active and inactive drivers versus just active)
+* Deprecating access to certain endpoints.
+
+## Backwards Compatible Changes
+
+Alvys does not version the API for the following types of changes. This list is not exhaustive and explains the most common non-breaking changes:
+
+* Changing the error message of an API endpoint's error.
+* Changing the structure of a field's string value returned in a response body.
+* Introducing additional optional (nullable) structure fields.

@@ -1,0 +1,96 @@
+---
+title: "Upload trailer document"
+openapi: "POST /api/p/v{version}/trailers/{trailerId}/document"
+---
+
+Upload multipart/form-data. One file per request. Max file size 10 MB.
+Allowed document types: Motor Vehicle Record, Vehicle Image, Inspection Certificate, Certificate of Insurance (COI), Insurance Certificate, Other Documents.
+Allowed MIME types: application/pdf, image/jpeg, image/png.
+
+Upload a document to a specific **trailer**. Supports `multipart/form-data`. Each request must contain exactly one file.
+
+* **Max file size:** 25 MB
+* **Allowed MIME types:** `application/pdf`, `image/jpeg`, `image/png`
+* **Allowed Document Types:** Motor Vehicle Record, Vehicle Image, Inspection Certificate, Certificate of Insurance (COI), Insurance Certificate, Other Documents
+
+***
+
+### Parameters
+
+| Parameter   | In   | Type   | Required | Description                  |
+| ----------- | ---- | ------ | -------- | ---------------------------- |
+| `trailerId` | path | string | Yes      | Unique identifier of trailer |
+| `version`   | path | string | Yes      | API version (e.g., `1.0`)    |
+
+***
+
+### Request Body
+
+`multipart/form-data`
+
+| Parameter      | Type   | Required | Description                                                                  |
+| -------------- | ------ | -------- | ---------------------------------------------------------------------------- |
+| `File`         | binary | Yes      | The file to upload (PDF, JPEG, PNG). Max size 25 MB.                         |
+| `FileName`     | string | No       | Optional custom filename (if omitted, filename is taken from multipart part) |
+| `DocumentType` | string | Yes      | The type of document. Must match one of the allowed document types.          |
+
+***
+
+#### Example Request (cURL)
+
+```bash
+curl -X POST "{{host}}/api/p/v1/trailers/{trailerId}/document" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: multipart/form-data" \
+  -F "File=@COI.pdf" \
+  -F "DocumentType=Certificate of Insurance (COI)"
+```
+
+***
+
+### Response Body
+
+| Name             | Type    | Description                                                               |
+| ---------------- | ------- | ------------------------------------------------------------------------- |
+| `id`             | string  | Unique identifier of the uploaded document                                |
+| `AttachmentPath` | string  | File name/path assigned on upload + timestamp suffix (e.g., `1757343192`) |
+| `AttachmentType` | string  | Type of document (matches `DocumentType`)                                 |
+| `AttachmentSize` | integer | Size of the file in bytes                                                 |
+| `UploadedAt`     | string  | UTC timestamp when the file was uploaded (ISO 8601)                       |
+| `ParentId`       | string  | Identifier of the parent entity (the `{trailerId}`)                       |
+| `ParentType`     | string  | Entity type the document is attached to (`Trailer`)                       |
+
+#### Example Response
+
+**200 OK**
+
+```json
+{
+  "id": "c3f0a7d2-005e-4903-a4ee-45ca5e86411a",
+  "AttachmentPath": "COI-1757343192.pdf",
+  "AttachmentType": "Certificate of Insurance (COI)",
+  "AttachmentSize": 1048576,
+  "UploadedAt": "2025-09-09T08:26:03.194Z",
+  "ParentId": "trl-12345",
+  "ParentType": "Trailer"
+}
+```
+
+On the right side, you can see examples of different error codes by clicking **Example** and selecting the response code.
+
+***
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes.
+For detailed information, see the [Rate Limits](/docs/rate-limits) section.
+
+***
+
+### Try It Out
+
+This page is interactive, allowing you to try a request by specifying the **API version** and **trailerId** in the URL path.
+
+As you fill out the parameters, the cURL command on the right side of the page will be automatically updated. Alternatively, you can directly edit the cURL command.
+
+⚠️ Don’t forget: make sure to **authorize yourself** before trying a request.

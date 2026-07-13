@@ -1,0 +1,2282 @@
+---
+title: "Changelog"
+description: "Product updates and announcements for the Alvys Public API."
+rss: true
+---
+
+{/* source: /changelog/new-public-api-endpoints-for-trips-and-carriers */}
+<Update label="June 19, 2026" description="New Public API Endpoints for Trips and Carriers" tags={["Added", "Carriers", "Trips"]}>
+  We've added Public API support for assigning carriers to trips, dispatching trips, searching trips by assigned equipment, updating carrier status, and reading carrier contacts — so partners can run more of the dispatch and carrier workflow programmatically.
+
+  ## What's New
+
+  * **Assign a carrier to a trip** — assign a carrier, and optionally a driver, truck, and trailer, to a trip.
+  * **Dispatch a trip** — dispatch a covered trip so dispatch can be triggered from your own workflow.
+  * **Filter trips by driver, truck, or trailer** — narrow trip search to a specific driver or piece of equipment.
+  * **Update a carrier's status** — set a carrier's status (e.g. Active, Do Not Load) to keep records in sync with your compliance and vetting systems.
+  * **Carrier contacts in the carrier response** — read carrier contact details without extra calls.
+
+  ## What Changes
+
+  * All changes are additive and backward compatible.
+  * The new trip filters (`driverId`, `truckId`, `trailerId`) are optional. Each is valid on its own or alongside existing search parameters; `driverId` matches primary, secondary, and owner-operator assignments.
+  * Carrier responses now include a `Contacts` collection (name, email, phone, mobile, title, and a primary-contact flag) on both the get-by-id and search responses.
+  * Assigning a carrier requires `carrierId` and `dispatcherId`; `driver2Id` cannot be sent without `driver1Id`. Assets are referenced by id — resolve them via their search endpoints first.
+  * Dispatch requires the trip to be **Covered** (carrier and assets assigned); otherwise the request is rejected.
+  * Updating carrier status supports optimistic concurrency via the `If-Match` header and returns a fresh `ETag` for the next update.
+
+  ## Endpoints Affected
+
+  * `POST /p/v1.0/trips/{tripId}/assign` *(new)* — assign a carrier and optional assets; returns the updated trip.
+  * `POST /p/v1.0/trips/{tripId}/dispatch` *(new)* — dispatch a covered trip; returns the updated trip.
+  * `POST /p/v1.0/trips/search` *(updated)* — now accepts `driverId`, `truckId`, and `trailerId` filters.
+  * `PATCH /p/v1.0/carriers/{carrierId}/status` *(new)* — update a carrier's status; returns `204 No Content` with a fresh `ETag`.
+  * `GET /p/v1.0/carriers/{id}` and `POST /p/v1.0/carriers/search` *(updated)* — responses now include `Contacts`.
+
+  <br />
+</Update>
+
+{/* source: /changelog/update-a-loads-order-number-via-the-public-api */}
+<Update label="June 3, 2026" description="Update a Load's Order Number via the Public API" tags={["Added", "Loads"]}>
+  ## What's New?
+
+  We've added a `PATCH /p/v1.0/loads/{loadNumber}` endpoint to the Public API. Partners running an external system of record (e.g. AS400) can now write their generated identifier back onto an Alvys load as the **Order Number (Shipment ID)** — programmatically, with no human in the loop.
+
+  The endpoint is a **partial update**: only the fields you send are modified, leaving everything else untouched. It's shaped so additional writable load fields can be added later without breaking the contract. In this first iteration, `orderNumber` is the only writable field.
+
+  ## What Changed?
+
+  Previously, a load's Order Number could only be set in the UI — there was no public write path. Now you can update it directly:
+
+  ```bash
+  curl --location --request PATCH 'https://integrations.alvys.com/api/p/v1.0/loads/3039979' \
+  --header 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --header 'If-Match: "8DBAC1F2E3..."' \
+  --data-raw '{
+    "orderNumber": "2026-00471"
+  }'
+  ```
+
+  A successful call returns `200 OK` with the updated load representation and a fresh `ETag`.
+
+  ## Preventing Accidental Overwrites
+
+  To help prevent one update from accidentally overwriting another, this endpoint requires the latest record version when making changes.
+
+  When you retrieve or update a record, the response includes an `ETag`. Send that value in the `If-Match` request header when making your next update.
+
+  | Scenario                                   | Response                    |
+  | ------------------------------------------ | --------------------------- |
+  | Missing `If-Match` header                  | `428 Precondition Required` |
+  | Record changed since you last retrieved it | `412 Precondition Failed`   |
+  | Update succeeds                            | `200 OK`                    |
+
+  If you receive `412 Precondition Failed`, retrieve the record again to get the latest `ETag`, then retry the update.
+
+  After a successful update, the new `ETag` is returned in both the response body and the `ETag` response header, so you can use it for the next update without making another `GET` request.
+
+  ## Validation & History
+
+  * A blank or empty Order Number is rejected with `400 Bad Request` — the same rule as the internal Order Number update.
+  * Every change is written to the load's history (the same audit trail as the UI path).
+  * EDI-originated loads are rejected. The Order Number on an EDI load is locked to the value received on the inbound tender and cannot be changed through this endpoint.
+
+  ## Endpoints Affected
+
+  `PATCH /p/v1.0/loads/{loadNumber}` is new and updates a load's Order Number.
+
+  No request or response shapes were changed for existing endpoints. This update is fully backward compatible.
+
+  ## Response Codes
+
+  | Code                        | Meaning                                                        |
+  | --------------------------- | -------------------------------------------------------------- |
+  | `200 OK`                    | Order Number updated; updated load returned with a fresh ETag. |
+  | `400 Bad Request`           | Invalid request (e.g. blank Order Number).                     |
+  | `401 / 403`                 | Authentication or permission failure.                          |
+  | `404 Not Found`             | Load not found within the caller's company.                    |
+  | `409 Conflict`              | Conflicting state.                                             |
+  | `412 Precondition Failed`   | Stale ETag.                                                    |
+  | `428 Precondition Required` | `If-Match` header missing.                                     |
+
+  <br />
+</Update>
+
+{/* source: /changelog/public-api-customer-write-endpoints-create-update-delete */}
+<Update label="May 29, 2026" description="Public API: Customer write endpoints (create, update, delete)" tags={["Added", "Customers"]}>
+  The Public API now supports **writes** on the `Customer` resource. Partners can create new customers, update existing ones, and soft-delete them directly through the API — no more read-only ceiling.
+
+  This release is **purely additive**. The existing `GET` reads and `POST /api/p/v1.0/customers/search` are unchanged.
+
+  ## What's new
+
+  | Endpoint                            | Action                           | Returns                         | Permission        |
+  | ----------------------------------- | -------------------------------- | ------------------------------- | ----------------- |
+  | `POST /api/p/v1.0/customers`        | Create                           | `201` + `CustomerWriteResponse` | `customer:create` |
+  | `PATCH /api/p/v1.0/customers/{id}`  | Update (partial, RFC 7396 merge) | `200` + `CustomerWriteResponse` | `customer:update` |
+  | `DELETE /api/p/v1.0/customers/{id}` | Soft-delete                      | `204`                           | `customer:delete` |
+
+  Applies to both business-company types: `Customer` and `Broker/3PL`.
+
+  ## Why it matters
+
+  * **Real-time CRM sync** — push customer records straight into Alvys from your TMS, ERP, or CRM instead of entering them by hand.
+  * **Conflict-safe edits** — `ETag` / `If-Match` optimistic concurrency means two concurrent edits never silently overwrite each other.
+
+  ## Create
+
+  ```http
+  POST /api/p/v1.0/customers
+  Authorization: Bearer <token with customer:create>
+  Content-Type: application/json
+
+  {
+    "Name": "Acme Logistics",
+    "Type": "Customer",
+    "CompanyNumber": "ACME-1",
+    "Status": "Active",
+    "BillingAddress": { "Street": "1 Main", "City": "City", "State": "NY", "Zip": "10001" },
+    "Email": ["billing@acme.com"],
+    "Phone": ["555-1234"]
+  }
+  ```
+
+  Returns `201 Created` with a `Response` body. The `ETag` is returned both in the body and on the response header. `Name` and `Type` are required on create; `Type` must be `Customer` or `Broker/3PL`.
+
+  ## Update (partial)
+
+  ```http
+  PATCH /api/p/v1.0/customers/{id}
+  Authorization: Bearer <token with customer:update>
+  If-Match: "etag-from-prior-read"
+
+  { "Status": "Inactive" }
+  ```
+
+  Returns `200 OK`. `PATCH` is a true partial update (RFC 7396 JSON Merge Patch) — omit any field to leave it unchanged.
+
+  ## Delete
+
+  ```http
+  DELETE /api/p/v1.0/customers/{id}
+  Authorization: Bearer <token with customer:delete>
+  If-Match: "etag-from-prior-read"
+  ```
+
+  Returns `204 No Content`. The record moves to `Status: Inactive` (soft-delete) and its `CompanyNumber` stays reserved to prevent reuse.
+
+  ## Supported writable fields
+
+  The following fields can be created or updated through the Customer write endpoints:
+
+  `Name`, `Type`, `CompanyNumber`, `Status`, `BillingAddress`, `Email`, `Phone`, `Fax`, `ExternalId`.
+
+  All other fields are read-only or managed by Alvys, including `SalesAgentId`, `Contacts`, `Notes`, `InvoicingInformation`, `Id`, `DateCreated`, and `DateModified`.
+
+  Unsupported or read-only fields included in the request body are ignored.
+
+  ## Field validation
+
+  | Field           | Validation                                                  |
+  | --------------- | ----------------------------------------------------------- |
+  | `Name`          | Required. Must not be blank. Maximum 200 characters.        |
+  | `CompanyNumber` | Maximum 32 characters. Placeholder values are not accepted. |
+  | `ExternalId`    | Maximum 100 characters.                                     |
+  | `Status`        | Must be `Active` or `Inactive`.                             |
+
+  ## Request behavior
+
+  `PATCH` and `DELETE` require the `If-Match` header.
+
+  If `If-Match` is missing, the API returns `428 Precondition Required`. If the `ETag` is outdated, the API returns `412 Precondition Failed`. Retrieve the customer again to get the latest `ETag`, then retry.
+
+  Duplicate `CompanyNumber`, `ExternalId`, or `Name` + billing ZIP code returns `409 Conflict`. The response identifies the conflicting field and existing `customerId`.
+
+  If customer writes are temporarily unavailable, the API returns `503 Service Unavailable` with `Retry-After: 3600` and the `EndpointDisabled` problem type. Customer read endpoints remain available.
+
+  ## Write and read responses
+
+  Successful `POST` and `PATCH` requests return `CustomerWriteResponse`.
+
+  The write response includes:
+
+  `Id`, `ETag`, `Name`, `CompanyNumber`, `Type`, `Status`, `BillingAddress`, `Email`, `Phone`, `Fax`, `DateCreated`, `DateModified`, `InvoicingInformation`, `ExternalId`.
+
+  For write responses, `ETag` is returned in both the response body and response header.
+
+  Existing `GET` and search endpoints are unchanged. They continue to return `CustomerResponse`, with `Status` as `Active` or `Inactive` and `ETag` in the response header only.
+
+  ## Access
+
+  Use your existing Client Credentials and add the scopes you need:
+
+  * `customer:read` — `GET` / `search`&#x20;
+  * `customer:create` — `POST`
+  * `customer:update` — `PATCH`
+  * `customer:delete` — `DELETE`
+
+  No new credential or OAuth client is required. Scopes are granted per Client Credentials in [API management](https://app.alvys.com/#/manage/public-api).
+
+  ## FAQ
+
+  **Do I need a new credential or OAuth client?**<br />No. Your existing Client Credentials works — just add the `customer:create` / `customer:update` / `customer:delete` scopes you need. `customer:read` is unchanged.
+
+  **How do I get the&#x20;**`ETag`**&#x20;for an update or delete?**
+  It's returned on the response header of any `GET`, `POST`, or `PATCH`, and additionally in the body of `POST` / `PATCH`. Use it as `If-Match` on your next mutation. On a `412`, re-`GET` for the fresh value.
+
+  **What happens if two callers update the same customer at once?**
+  The first `PATCH` wins (`200`); the second sees a stale `If-Match` and gets `412`. Re-`GET`, reapply, retry. No silent overwrite.
+
+  **Does&#x20;**`DELETE`**&#x20;actually remove the record?**
+  No — it's a soft-delete. `Status` goes to `Inactive` and the `CompanyNumber` stays reserved (a duplicate `POST` with that number returns `409`). To restore, `PATCH` with `{ "Status": "Active" }`.
+
+  **What happens if I send an unsupported field like&#x20;**`Notes`**&#x20;in the body?**
+  It's silently ignored. Only the writable fields listed above are applied.
+
+  **Does this change the existing&#x20;**`GET`**&#x20;or search response shape?**
+  No. The read surface is unchanged; this release is purely additive.
+
+  **When do I see&#x20;**`404`**&#x20;vs&#x20;**`412`**?**
+  `404` = the id does not exist in your tenant (ids in another tenant also return `404`). `412` = the id exists in your tenant but your `If-Match` is stale — re-`GET` for the current `ETag`.
+</Update>
+
+{/* source: /changelog/webhook-events-for-general-load-trip-updates */}
+<Update label="May 22, 2026" description="Webhook Events for General Load & Trip Updates" tags={["Added", "Webhooks", "Trips"]}>
+  ## What's New?
+
+  We've added two new webhook event types to the Public API: `load.changed` and `trip.changed`. Whenever an operational field (such as rates, appointments, stops, or carrier assignments) is updated on a load or trip, Alvys now pushes a real-time webhook to every active subscription that selected those events.
+
+  ## What Changed?
+
+  Previously, detecting load- and trip-level updates required polling `GET /loads` and `GET /trips` on a schedule. Now, the following event types are available alongside the existing events and can be selected when creating or editing a webhook subscription:
+
+  * `load.changed`
+  * `trip.changed`
+
+  The full list is also returned by: `GET /p/v1.0/webhooks/event-types`
+
+  ## Event Envelope
+
+  All webhook deliveries share the standard Alvys envelope. The new event types reuse it with a specific ID suffix for idempotency:
+
+  ```jsonc
+  {
+    "id": "93d579d3-6b50-4f97-8764-1ad07c3efd97-d900dc51-...-0",
+    "type": "load.changed",
+    "timestamp": "2026-05-22T09:19:52.652Z",
+    "version": "v1",
+    "data": { /* event-specific payload - see below */ }
+    // Other envelope fields are omitted from this example for brevity.
+  }
+
+  ```
+
+  The envelope `id` is unique per event and should be used as the idempotency key on the consumer side. *Note: General changes end in a&#x20;*`-0`*&#x20;suffix, while status changes end in&#x20;*`-1`*.*
+
+  ## load.changed
+
+  Triggered when a load document is created or updated. The payload carries a full Public-API load snapshot - the same shape returned by `GET /p/v1.0/loads/{loadNumber}`.
+
+  ```jsonc
+  {
+    "load": {
+      "id": "93d579d3-6b50-4f97-8764-1ad07c3efd97",
+      "loadNumber": "3039979",
+      "orderNumber": "ABC-12-007",
+      "status": "Open",
+      "loadType": "Revenue",
+      "customerRate": {
+        "amount": 1749.06,
+        "currency": 840
+      }
+      // Full Public-API load object - same fields as GET /p/v1.0/loads/{loadNumber}.
+      // Other fields (stops, charges, references, etc.) omitted here for brevity.
+    }
+  }
+
+  ```
+
+  ## trip.changed
+
+  Triggered when a trip document is created or updated. The payload carries a full Public-API trip snapshot - the same shape returned by `GET /p/v1.0/trips/{tripId}`.
+
+  ```jsonc
+  {
+    "trip": {
+      "id": "dd5ba174abe845568f5e5c2a850db8ca",
+      "tripNumber": "3039979",
+      "status": "Open",
+      "loadNumber": "3039979",
+      "orderNumber": "ABC-12-007",
+      "tripValue": {
+        "amount": 1599.06,
+        "currency": 840
+      }
+      // Full Public-API trip object - same fields as GET /p/v1.0/trips/{tripId}.
+      // Other fields (driver, truck, stops, accessorials, etc.) omitted here for brevity.
+    }
+  }
+
+  ```
+
+  ## Endpoints Affected
+
+  * `GET /p/v1.0/webhooks/event-types` now returns `load.changed` and `trip.changed`.
+  * `POST /p/v1.0/webhooks` / `PUT /p/v1.0/webhooks/{id}` accept the new event type values in the `eventTypes` array.
+
+  No request/response shapes were changed for existing endpoints. This update is fully backward compatible.
+
+  ## Why?
+
+  These events let API partners and integrations:
+
+  * React to load and trip operational changes in real time, without polling.
+  * Reduce overall API call volume on `/loads` and `/trips`.
+  * Drive downstream automations (factoring, tracking, billing) the moment an operational state changes.
+  * Keep audit trails consistent through the existing webhook Delivery Logs UI.&#x20;
+
+  <br />
+</Update>
+
+{/* source: /changelog/per-entity-document-webhooks-for-loads-trips-drivers-carriers-trucks-trailers */}
+<Update label="May 13, 2026" description="Per-Entity Document Webhooks for Loads, Trips, Drivers, Carriers, Trucks & Trailers" tags={["Added", "Webhooks", "Carriers"]}>
+  ## What's New?
+
+  Twelve new webhook event types are now available on the Public API — two for each parent entity that exposes documents through the API. Whenever a document is uploaded or removed in Alvys, the platform emits a webhook to every active subscription that selected the corresponding event.
+
+  | Event                       | Fires when                              |
+  | --------------------------- | --------------------------------------- |
+  | `load.document.uploaded`    | A new document is attached to a load    |
+  | `load.document.deleted`     | A load document is soft-deleted         |
+  | `trip.document.uploaded`    | A new document is attached to a trip    |
+  | `trip.document.deleted`     | A trip document is soft-deleted         |
+  | `driver.document.uploaded`  | A new document is attached to a driver  |
+  | `driver.document.deleted`   | A driver document is soft-deleted       |
+  | `carrier.document.uploaded` | A new document is attached to a carrier |
+  | `carrier.document.deleted`  | A carrier document is soft-deleted      |
+  | `truck.document.uploaded`   | A new document is attached to a truck   |
+  | `truck.document.deleted`    | A truck document is soft-deleted        |
+  | `trailer.document.uploaded` | A new document is attached to a trailer |
+  | `trailer.document.deleted`  | A trailer document is soft-deleted      |
+
+  Events fire regardless of write source — UI uploads, Public API uploads, mobile-app uploads, EDI document ingestion, or third-party integrations all produce the same deliveries.
+
+  Every `*.document.uploaded` event ships with a short-lived pre-signed download URL (≤ 15-minute TTL) so partners can pull the file directly from blob storage without an additional API call.
+
+  ## What Changed?
+
+  ### Subscribing
+
+  In **Settings → API → Webhooks → Create / Edit subscription**, select any combination of the new event types. The full list is also returned by `GET /p/v1.0/webhooks/event-types` for programmatic configuration.
+
+  ### Envelope (general structure)
+
+  All document webhook deliveries share the standard envelope used by `tender.*`, `load.status.changed`, and `trip.status.changed`. `id` is the deterministic idempotency key (`{documentId}-{etag}`); `etag` is also exposed as its own top-level envelope field so consumers can detect out-of-order replays for the same `documentId`.
+
+  ### `*.document.uploaded` payload (general structure)
+
+  Real production sample (`trip.document.uploaded`):
+
+  ```json
+  {
+    "id": "00000000-0000-0000-0000-000000000000-00000000-0000-0000-0000-000000000000",
+    "type": "trip.document.uploaded",
+    "timestamp": "2026-05-13T09:16:30.9797738+00:00",
+    "version": "v1",
+    "etag": "00000000-0000-0000-0000-000000000000",
+    "data": {
+      "tripId": "00000000000000000000000000000000",
+      "document": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "attachmentPath": "bol.pdf",
+        "attachmentType": "Bill of Lading",
+        "attachmentSize": 10000,
+        "uploadedAt": "2026-05-13T09:16:30.9797738+00:00",
+        "parentId": "1000000",
+        "parentType": "Trip",
+        "uploadedBy": "00000000000000000000000000000000",
+        "downloadUrl": "{url}",
+        "expiresAt": "2026-05-13T09:26:35.3227049+00:00"
+      }
+    }
+  }
+  ```
+
+  * `data.tripId` is the **trip GUID** (the natural public identifier returned by `GET /p/v1.0/trips/{tripId}`).
+  * `data.document.parentId` on a trip document is the **load number** (`"1000000"`) — matching how trip documents are stored internally and returned by `GET /loads/{loadNumber}/documents`.
+  * `attachmentType` is a **human-readable** Alvys document type (e.g. `"Bill of Lading"`, `"Proof of Delivery"`, `"Rate Confirmation"`) — same value returned by the document Public API endpoints.
+  * `uploadedBy` is the **user id** (GUID) of the uploader.
+
+  The same shape applies to the other five parent types — `data` always contains the parent's natural public identifier (`loadNumber`, `tripId`, `driverId`, `carrierId`, `truckId`, or `trailerId`) plus a `document` block. For example, `driver.document.uploaded` swaps `tripId` for `driverId`; the `document` block is identical.
+
+  ### `*.document.deleted` payload (general structure)
+
+  ```json
+  // load.document.deleted
+  {
+    "id": "00000000-0000-0000-0000-000000000000-00000000-0000-0000-0000-000000000000",
+    "type": "load.document.deleted",
+    "timestamp": "2026-05-13T16:05:22.118+00:00",
+    "version": "v1",
+    "etag": "00000000-0000-0000-0000-000000000000",
+    "data": {
+      "loadNumber": "1000000",
+      "document": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "attachmentPath": "bol.pdf",
+        "attachmentType": "Bill of Lading",
+        "attachmentSize": 10000,
+        "uploadedAt": "2026-05-13T09:16:30.9797738+00:00",
+        "uploadedBy": "00000000000000000000000000000000",
+        "parentId": "1000000",
+        "parentType": "Load"
+      }
+    }
+  }
+  ```
+
+  `downloadUrl` and `expiresAt` are omitted on delete events — the document is logically gone, so consumers should not pull bytes.
+
+  ### Behavior notes
+
+  * An event fires **only when a document is created or soft-deleted** — rename, retype, and other metadata-only edits do not generate deliveries.
+  * Pre-signed `downloadUrl` is short-lived (≤ 15 minutes). Pull the file promptly, or fall back to `GET /p/v1.0/{parent}/{parentId}/documents/{documentId}` if it expires.
+
+  ## Endpoints Affected
+
+  ### Webhook subscription management
+
+  These existing endpoints now accept the twelve new event types in their `eventTypes` array:
+
+  * `GET /p/v1.0/webhooks/event-types` — returns the full catalog including the new document event types.
+  * `POST /p/v1.0/webhooks` — create a subscription that selects any combination of the new events.
+  * `PUT /p/v1.0/webhooks/{id}` — update an existing subscription to add or remove document events.
+  * `GET /p/v1.0/webhooks/{id}` — inspect which events a subscription is selecting.
+  * `GET /p/v1.0/webhooks/{id}/deliveries` — delivery history for the new events flows through the same logs surface as `tender.*` and `*.status.changed`.
+
+  ### Document endpoints driving the events
+
+  Any write to the following document sub-resources will fire the corresponding webhook for active subscribers. **No request or response shape has changed on these endpoints** — they are listed here so you can correlate which API actions produce which events.
+
+  | Endpoint                                                     | Fires                       |
+  | ------------------------------------------------------------ | --------------------------- |
+  | `POST /p/v1.0/loads/{loadNumber}/documents`                  | `load.document.uploaded`    |
+  | `DELETE /p/v1.0/loads/{loadNumber}/documents/{documentId}`   | `load.document.deleted`     |
+  | `POST /p/v1.0/trips/{tripId}/documents`                      | `trip.document.uploaded`    |
+  | `DELETE /p/v1.0/trips/{tripId}/documents/{documentId}`       | `trip.document.deleted`     |
+  | `POST /p/v1.0/drivers/{driverId}/documents`                  | `driver.document.uploaded`  |
+  | `DELETE /p/v1.0/drivers/{driverId}/documents/{documentId}`   | `driver.document.deleted`   |
+  | `POST /p/v1.0/carriers/{carrierId}/documents`                | `carrier.document.uploaded` |
+  | `DELETE /p/v1.0/carriers/{carrierId}/documents/{documentId}` | `carrier.document.deleted`  |
+  | `POST /p/v1.0/trucks/{truckId}/documents`                    | `truck.document.uploaded`   |
+  | `DELETE /p/v1.0/trucks/{truckId}/documents/{documentId}`     | `truck.document.deleted`    |
+  | `POST /p/v1.0/trailers/{trailerId}/documents`                | `trailer.document.uploaded` |
+  | `DELETE /p/v1.0/trailers/{trailerId}/documents/{documentId}` | `trailer.document.deleted`  |
+
+  UI uploads, mobile-app uploads, EDI ingestion, and third-party integrations also produce the same events even though they don't go through the Public API endpoints above.
+
+  ### Fallback retrieval (if a `downloadUrl` expires)
+
+  If the 15-minute pre-signed `downloadUrl` expires before you fetch the file, retrieve the document through the standard authenticated endpoint:
+
+  ```
+  GET /p/v1.0/{parent}/{parentId}/documents/{documentId}
+  ```
+
+  ## Why?
+
+  Until now, retrieving newly uploaded documents required polling the document sub-resource on each parent — `/loads/{loadNumber}/documents`, `/drivers/{driverId}/documents`, and four more. With these events in place:
+
+  * ⚡ **Real-time document automation** — POD-driven invoice automation, factoring, document management, and EDI 210 invoice validation no longer wait on a poll loop.
+  * 🔁 **Lower API load** — eliminates polling traffic against six different parent endpoints.
+  * 🎯 **Subscribe narrowly** — events are scoped per entity (`load.*` vs `driver.*` vs `carrier.*` …). A factoring integration that only cares about load-side documents won't receive driver med-card updates.
+  * 🧾 **Built-in audit trail** — every delivery attempt is recorded and visible in the Webhook details page.
+  * 🔗 **Direct download** — every `*.uploaded` event carries a pre-signed download URL.
+
+  ## Who has access?
+
+  All Public API consumers with an active webhook subscription that selects any of the new event types. Subscription management requires Partner Admin / Admin / Support role under **Settings → API → Webhooks**.
+
+  ## Frequently Asked Questions (FAQ)
+
+  **Q: Do I need a new credential or scope to receive these events?** A: No. Existing webhook subscriptions can opt in by selecting the new event types.
+
+  **Q: Is the `downloadUrl` reusable?** A: It's a single short-lived pre-signed Azure Blob SAS — valid for up to 15 minutes from emission. If it expires, retrieve the document through the standard Public API endpoint instead.
+
+  **Q: Are events ordered?** A: Deliveries are best-effort ordered per document. Consumers should be **idempotent** and use the envelope `id` (`{documentId}-{_etag}`) as the idempotency key.
+
+  **Q: Can I see delivery history for these events?** A: Yes — the existing **Logs** sidebar on the webhook detail page shows every delivery attempt for these event types, with the same filtering, pagination, and CSV/JSON export as `tender.*` and status-change events.
+
+  **Q: Are document update / rename events available?** A: Not in this release. Today we emit on upload and soft-delete only. Update events may be added later as `*.document.updated` if there's customer demand.
+</Update>
+
+{/* source: /changelog/webhook-events-for-load-trip-status-updates */}
+<Update label="May 4, 2026" description="Webhook Events for Load & Trip Status Updates" tags={["Added", "Webhooks", "Trips"]}>
+  ### What's New?
+
+  We've added two new webhook event types to the Public API: **`load.status.changed`** and **`trip.status.changed`**. Whenever a load or trip transitions from one status to another (for example, `Covered → Dispatched` or `Dispatched → InTransit`), Alvys now pushes a real-time webhook to every active subscription that selected those events.
+
+  ### What Changed?
+
+  Previously, the Public API exposed webhooks only for tender lifecycle events. Detecting load- and trip-level status transitions required polling `GET /loads` and `GET /trips` on a schedule.
+
+  Now, the following event types are available alongside the existing `tender.*` events and can be selected when creating or editing a webhook subscription:
+
+  ```
+  load.status.changed
+  trip.status.changed
+  ```
+
+  The full list is also returned by:
+
+  ```
+  GET /p/v1.0/webhooks/event-types
+  ```
+
+  ### Event Envelope
+
+  All webhook deliveries share the standard Alvys envelope. The new event types reuse it without changes:
+
+  ```jsonc
+  {
+    "id": "…",
+    "type": "load.status.changed",
+    "timestamp": "2026-05-04T14:32:11.482Z",
+    "version": "1",
+    "data": { /* event-specific payload — see below */ }
+    // Other envelope fields are omitted from this example for brevity.
+  }
+  ```
+
+  The envelope `id` is unique per event and should be used as the **idempotency key** on the consumer side.
+
+  ### `load.status.changed`
+
+  Triggered when a load transitions from one status to another. The payload carries the prior + current status delta and a full Public-API load snapshot — the same shape returned by `GET /p/v1.0/loads/{loadNumber}`.
+
+  ```jsonc
+  {
+    "previousStatus": "Covered",
+    "status": "Dispatched",
+    "load": {
+      "id": "…",
+      "loadNumber": "1006321",
+      "status": "Dispatched"
+      // Full Public-API load object — same fields as GET /p/v1.0/loads/{loadNumber}.
+      // Other fields (customer, stops, charges, references, etc.) omitted here for brevity.
+    }
+  }
+  ```
+
+  ### `trip.status.changed`
+
+  Triggered when a trip transitions from one status to another. The payload carries the prior + current status delta and a full Public-API trip snapshot — the same shape returned by `GET /p/v1.0/trips/{tripId}`.
+
+  ```jsonc
+  {
+    "previousStatus": "Dispatched",
+    "status": "InTransit",
+    "trip": {
+      "id": "…",
+      "tripNumber": "T-1006321-1",
+      "status": "InTransit"
+      // Full Public-API trip object — same fields as GET /p/v1.0/trips/{tripId}.
+      // Other fields (driver, truck, stops, accessorials, etc.) omitted here for brevity.
+    }
+  }
+  ```
+
+  ### Behavior
+
+  * Events are emitted **only on actual transitions** — when `status` differs from `previousStatus`. No-op writes do not generate deliveries.
+  * `load` / `trip` may be `null` if the snapshot read fails or if the payload exceeded the size limit and was stripped. The `previousStatus` and `status` fields are always present so consumers can still react to the transition and refetch via `GET /loads/{id}` or `GET /trips/{id}` if needed.
+  * Deliveries are signed (`X-Alvys-Signature`), retried with exponential backoff, and auto-disable subscriptions after sustained failures — identical to existing `tender.*` events.
+
+  ### Endpoints Affected
+
+  * `GET /p/v1.0/webhooks/event-types` — now returns `load.status.changed` and `trip.status.changed`
+  * `POST /p/v1.0/webhooks` / `PUT /p/v1.0/webhooks/{id}` — accept the new event type values in the `eventTypes` array
+
+  No request/response shapes were changed for existing endpoints. This update is fully backward compatible.
+
+  ### Why?
+
+  These events let API partners and integrations:
+
+  * React to load and trip status changes in real time, without polling
+  * Reduce overall API call volume on `/loads` and `/trips`
+  * Drive downstream automations (factoring, tracking, billing) the moment an operational state changes
+  * Keep audit trails consistent through the existing webhook Delivery Logs UI
+
+  This update extends the Public API's webhook surface with operational lifecycle coverage while preserving the existing event envelope contract.
+</Update>
+
+{/* source: /changelog/public-api-carrier-customer-payments-enhancements */}
+<Update label="April 22, 2026" description="Public API Carrier & Customer Payments Enhancements" tags={["Added", "Carriers", "Customers"]}>
+  ### What’s New?
+
+  We’ve introduced new Public API capabilities for **carrier payments**, **customer payments**, and **financing transactions**. These additions make it easier for external payment platforms, factoring providers, and finance systems to sync financial activity directly with Alvys.
+
+  ### What Changed?
+
+  Previously, the Public API did not provide dedicated endpoints for recording these financial transactions.
+
+  Now, the API includes the following new endpoints:
+
+  ```http id="k6t1i1"
+  POST /p/v1.0/invoices/carrier-payments
+  POST /p/v1.0/invoices/customer-payments
+  POST /p/v1.0/invoices/financing
+  ```
+
+  ### Carrier Payments
+
+  Records a payment made to a carrier for a trip.
+
+  Example:
+
+  ```json id="nh6qzc"
+  {
+    "tripId": "string",
+    "amount": {
+      "value": 1000.00,
+      "currency": "USD"
+    }
+  }
+  ```
+
+  Updates trip payment fields such as `carrierPaidAt`.
+
+  ### Customer Payments
+
+  Records a payment received from a customer for a load.
+
+  Example:
+
+  ```json id="g5vqlv"
+  {
+    "loadId": "string",
+    "amount": {
+      "value": 2500.00,
+      "currency": "USD"
+    }
+  }
+  ```
+
+  Updates load payment details such as:
+
+  * `paidAt`
+  * `totalPaid`
+  * `payments[]`
+
+  ### Financing
+
+  Records financing activity such as reserve or escrow amounts for a load.
+
+  Example:
+
+  ```json id="gblx2d"
+  {
+    "loadId": "string",
+    "reserveAmount": {
+      "value": 500.00,
+      "currency": "USD"
+    },
+    "escrowAmount": {
+      "value": 200.00,
+      "currency": "USD"
+    }
+  }
+  ```
+
+  ### Endpoints Affected:
+
+  * `POST /p/v1.0/invoices/carrier-payments`
+  * `POST /p/v1.0/invoices/customer-payments`
+  * `POST /p/v1.0/invoices/financing`
+
+  ### Why?
+
+  These enhancements provide:
+
+  * Faster integration with payment and finance platforms
+  * Better automation for receivables and payables
+  * Support for factoring and escrow workflows
+  * Reduced manual entry of financial transactions
+  * Improved accounting visibility across loads and trips
+
+  This update expands the Public API’s financial integration capabilities while maintaining backward compatibility.
+</Update>
+
+{/* source: /changelog/trip-search-enhancement-for-include-deleted-records */}
+<Update label="April 17, 2026" description="Trip Search Returns Tombstones for Deleted Trips" tags={["Improved", "Trips"]}>
+  ### What’s New?
+
+  We’ve updated **Trip Search** behavior for **invisible trips created by split, re-split, and unsplit flows** when `includeDeleted: true` is used. This improves sync reliability for integrations that poll trips using `updatedSince` or `updatedAtRange`.
+
+  ### What Changed?
+
+  The default behavior is unchanged:
+
+  * when `includeDeleted` is omitted, Trip Search returns only visible, non-deleted trips
+  * when `includeDeleted=false`, Trip Search also returns only visible, non-deleted trips
+
+  The changed behavior applies only when `includeDeleted=true`.
+
+  Previously, when a load was split, superseded or hidden trips could silently disappear from API results, even when `includeDeleted=true`. This made it difficult for integrations to detect lifecycle transitions and could leave stale records in downstream systems.
+
+  Now, when `includeDeleted=true`, Trip Search returns invisible trip records as tombstones by surfacing them with `isDeleted: true`. This includes:
+
+  * superseded base trips
+  * hidden child legs from chained splits
+  * hidden child legs from split-cancel / unsplit / restore scenarios
+
+  In addition, `updatedAt` is updated when trip visibility changes, so polling by `updatedSince` or `updatedAtRange` can reliably capture these events.
+
+  ### What `isDeleted` Means
+
+  When `includeDeleted=true`:
+
+  * `isDeleted=true` means the trip is deleted or no longer visible and should be treated as inactive for sync
+  * `isDeleted=false` means the trip is a current visible leg
+
+  ### Common Scenarios
+
+  | Scenario                                         | Before                                 | After (with `includeDeleted: true`)                                                                    |
+  | ------------------------------------------------ | -------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+  | Trip `555` split into `555-1`, `555-2`           | `555` silently disappeared             | `555` is returned with `isDeleted: true`                                                               |
+  | Trip `555-2` further split into `555-3`, `555-4` | `555-2` silently disappeared           | `555-2` is returned with `isDeleted: true`                                                             |
+  | Split cancelled / unsplit / restored             | hidden split legs silently disappeared | hidden split legs are returned with `isDeleted: true`, restored active trip remains `isDeleted: false` |
+
+  ### Example
+
+  For a load with chained split behavior such as `1110758`:
+
+  | Trip        | isDeleted | Meaning                               |
+  | ----------- | --------: | ------------------------------------- |
+  | `1110758`   |    `true` | Superseded base trip                  |
+  | `1110758-1` |   `false` | Active leg                            |
+  | `1110758-2` |    `true` | Child leg superseded by a later split |
+  | `1110758-3` |   `false` | Active leg                            |
+  | `1110758-4` |   `false` | Active leg                            |
+
+  ### Endpoint Affected
+
+  ```http
+  POST /p/v1.0/trips/search
+  ```
+
+  ### Why?
+
+  This enhancement provides:
+
+  * reliable tombstone detection for invisible and superseded trips
+  * better support for `updatedSince` and `updatedAtRange` polling
+  * more consistent synchronization for split, re-split, cancel-split, and restore scenarios
+
+  <br />
+</Update>
+
+{/* source: /changelog/public-api-webhook-enhancements-delivery-attempts-status-reason-and-delivery-log-export */}
+<Update label="April 15, 2026" description="Public API Webhook Enhancements: Delivery Attempts, Status Reason, and Delivery Log Export" tags={["Added", "Webhooks"]}>
+  ### What’s New?
+
+  We’ve expanded the Public API webhook capabilities with new delivery metadata, richer event payloads, and export support for webhook delivery logs. These updates make webhook integrations easier to monitor, debug, and process safely.
+
+  ### What Changed?
+
+  Previously, webhook consumers did not receive a delivery-attempt header, visibility/status webhook payloads did not include a human-readable status reason, and there was no dedicated delivery-log export endpoint in the published schema. In addition, delivery log filters previously accepted single string values.
+
+  Now, the Public API includes the following webhook changes:
+
+  ```http
+  GET /p/v{version}/webhooks/{webhookId}/delivery-logs/export
+  ```
+
+  ### Delivery Attempt Header
+
+  Alvys now includes an `X-Alvys-Attempt` header on every outbound webhook delivery request. The value represents the delivery attempt number as an integer string.
+
+  | Header            | Type           | Description                                               |
+  | ----------------- | -------------- | --------------------------------------------------------- |
+  | `X-Alvys-Attempt` | integer string | Delivery attempt number for the outbound webhook request. |
+
+  | Value | Meaning                                       |
+  | ----- | --------------------------------------------- |
+  | `1`   | First delivery attempt                        |
+  | `2`   | First retry after 10-second backoff           |
+  | `3`   | Second retry after 30-second backoff          |
+  | `4`   | Third and final retry after 60-second backoff |
+
+  This can be used to support idempotent processing, suppress duplicate warnings, and track retry behavior.
+
+  ### `statusReason` Added to Webhook Payloads
+
+  Outbound webhook payloads for visibility and status events now include a `statusReason` field. This field provides the human-readable reason description, distinct from the reason code.
+
+  Example:
+
+  ```json
+  {
+    "statusReason": "Normal Status"
+  }
+  ```
+
+  ### Delivery Logs Export
+
+  A new webhook delivery log export endpoint is now available in the new schema: `GET /p/v{version}/webhooks/{webhookId}/delivery-logs/export`. It supports CSV and JSON export and uses the same filters as the delivery logs list endpoint. The schema description also confirms the export supports up to 25,000 rows total.
+
+  #### Query Parameters
+
+  | Parameter   | Type               | Description                                               |
+  | ----------- | ------------------ | --------------------------------------------------------- |
+  | `webhookId` | string             | Webhook identifier to export logs for.                    |
+  | `Format`    | string             | Export format. Supported values include `csv` and `json`. |
+  | `Page`      | integer            | 0-based last page index to include in the export.         |
+  | `PageSize`  | integer            | Number of rows per page. Max 100, default 50.             |
+  | `Status`    | array of strings   | Filter by one or more delivery statuses.                  |
+  | `EventType` | array of strings   | Filter by one or more webhook event types.                |
+  | `StartDate` | string (date-time) | Start of the date range.                                  |
+  | `EndDate`   | string (date-time) | End of the date range.                                    |
+
+  #### Export Behavior
+
+  The new schema documents the following format resolution behavior for the export endpoint:
+
+  1. `Format=csv` or `Format=json` in the query string takes precedence when provided.
+  2. Otherwise, the `Accept` header is used.
+  3. Otherwise, the response defaults to JSON.
+
+  ### Breaking Change: Delivery Log Filters Now Accept Arrays
+
+  The delivery logs list endpoint changed its filter shape between the old and new schema. Previously, both `Status` and `EventType` were single strings. In the new schema, both are arrays of strings.
+
+  #### Before
+
+  ```json
+  {
+    "status": "failed",
+    "eventType": "load.updated"
+  }
+  ```
+
+  #### After
+
+  ```json
+  {
+    "status": ["failed"],
+    "eventType": ["load.updated"]
+  }
+  ```
+
+  This change also applies to the export endpoint, where `Status` and `EventType` are defined as arrays.
+
+  ### Endpoints Affected
+
+  * `GET /p/v{version}/webhooks/{webhookId}/delivery-logs`
+  * `GET /p/v{version}/webhooks/{webhookId}/delivery-logs/export`
+
+  ### Why?
+
+  These enhancements provide:
+
+  * better retry visibility for webhook consumers
+  * clearer status context in outbound payloads
+  * easier export and audit of webhook delivery history
+  * more flexible filtering for delivery log queries and exports
+
+  <br />
+</Update>
+
+{/* source: /changelog/public-api-enhancements-for-loads-trips-carriers-tenders-and-core-response-schemas */}
+<Update label="April 13, 2026" description="Public API Enhancements for Loads, Trips, Carriers, Tenders, and Core Response Schemas" tags={["Improved", "Tenders", "Carriers"]}>
+  ### What’s New?
+
+  We’ve delivered additional Public API improvements across **loads**, **trips**, **carriers**, **tenders**, and several existing response schemas. These changes improve sync reliability, expose more operational data, and make related endpoints more consistent.
+
+  ### What Changed?
+
+  Previously, several important fields and behaviors were either missing from the published schema, inconsistent between related endpoints, or not fully exposed to integrations.
+
+  Now, the Public API includes the following confirmed changes:
+
+  #### Loads
+
+  Load responses now include:
+
+  ```json
+  {
+    "tenderId": "string | null",
+    "requiredEquipment": [
+      "Reefer"
+    ]
+  }
+  ```
+
+  In addition:
+
+  * orphaned loads are now treated as non-existent
+  * load search totals exclude abandoned loads with no trips
+  * load document and note operations now return `404` for orphaned loads
+
+  #### Trips
+
+  Trip responses now include:
+
+  ```json
+  {
+    "orderNumber": "string | null"
+  }
+  ```
+
+  Trip sync behavior was also improved:
+
+  * split or invisible trips can now be returned as `isDeleted: true` when `includeDeleted=true`
+  * `GET /p/v{version}/trips` now supports `includeDeleted`
+  * `POST /p/v{version}/trips/search` now allows `updatedAtRange` as the only filter
+  * load references of type `service_exception` are now exposed
+  * carrier payloads are aligned between single-trip retrieval and trip search
+
+  #### Carriers
+
+  Carrier search results now include carriers in `DoNotLoad` status, which were previously omitted even when they were referenced by trips.
+
+  #### Tenders
+
+  Tender request `references[]` objects now support a `type` field, enabling typed reference routing.
+
+  #### Additional response schema updates
+
+  The new schema also confirms additional response-model changes outside the payment-posting flows:
+
+  * `CarrierResponse` now includes:
+
+    * `PaymentMethod`
+    * `ExternalIds`
+    * `FactoringCompany`
+  * `DriverResponse`, `TruckResponse`, and `TrailerResponse` now include:
+
+    * `LicenseCountry`
+  * `FuelResponse` now includes:
+
+    * `Description`
+  * `FuelResponsePumpLocation` now includes:
+
+    * `State`
+
+  #### Trip rate schema updates
+
+  The trip rate-related schemas were expanded with additional structures and fields:
+
+  * `DriverRatePolicyResponse` now includes:
+
+    * `CustomerLineHaulDeductionRate`
+    * `PerMileRate`
+    * `PerMileDeductionRate`
+  * `PerLoadRate` now uses a dedicated `PerLoadRateDto`
+  * `MileageRateDto` now includes:
+
+    * `UseHighestTier`
+  * `PerTripRateDto` now includes:
+
+    * `Tiers`
+    * `MileageType`
+  * `PerTripRateDto.Rate` is now marked as deprecated in the schema
+
+  #### Error-response documentation updates
+
+  The new schema also adds broader error-response documentation across many existing non-webhook endpoints:
+
+  * `401 Unauthorized`
+  * `403 Forbidden`
+  * `429 Too Many Requests`
+
+  ### Why?
+
+  These enhancements provide:
+
+  * better load and trip sync reliability for polling integrations
+  * clearer identification of tender-originated loads
+  * better visibility into order linkage at the trip level
+  * more complete carrier search results
+  * stronger consistency between related trip endpoints
+  * richer master-data payloads for carriers, drivers, trucks, trailers, and fuel records
+  * more expressive trip rate schemas
+
+  <br />
+
+  <br />
+</Update>
+
+{/* source: /changelog/alvys-webhooks-now-available-for-tender-lifecycle-events */}
+<Update label="February 23, 2026" description="Alvys Webhooks Now Available for Tender Lifecycle Events" tags={["Webhooks", "Tenders"]}>
+  ## What’s New?
+
+  Alvys now supports **Webhooks** — a secure way to receive real-time event notifications directly from Alvys to your system.
+
+  Instead of polling the API for updates, your system can now subscribe to events and receive them automatically via secure HTTPS calls.
+
+  **In this initial release, Webhooks support tender-related events only.**
+  Additional event domains (such as loads or trips) will be introduced in future releases.
+
+  This version establishes the foundation layer for real-time event distribution in Alvys.
+
+  ## What You Can Do
+
+  With Webhooks, you can:
+
+  * Receive real-time **tender lifecycle events**
+  * Automatically trigger workflows in your system
+  * Improve integration speed and responsiveness
+
+  ## Included in This Release
+
+  ### Event Delivery
+
+  Alvys sends HTTPS `POST` requests to your configured endpoint whenever a subscribed **tender event** occurs.
+
+  Each delivery includes:
+
+  * Event type
+  * Unique event ID
+  * Timestamp
+  * Secure HMAC signature
+
+  Webhooks use an **at-least-once delivery model** with automatic retries to ensure reliability.
+
+  ### Automatic Retries
+
+  If your endpoint is temporarily unavailable, Alvys will retry delivery automatically.
+
+  Each event can be attempted up to four times.
+
+  Retries occur when:
+
+  * Your endpoint returns a server error (5xx)
+  * A timeout occurs
+  * A temporary network failure happens
+
+  Retries do not occur for permanent client errors (most 4xx responses).
+
+  ### Security & Verification
+
+  Webhooks include:
+
+  * HMAC-SHA256 signature verification
+  * Replay protection using timestamps
+  * HTTPS-only delivery
+  * Endpoint ownership verification during setup
+
+  This ensures events are authentic and securely transmitted.
+
+  ## Why This Matters
+
+  Webhooks enable real-time, event-driven integrations between Alvys and your systems.
+
+  This release lays the foundation for:
+
+  * EDI over API integrations
+  * Automated tender workflows
+  * Faster operational response
+  * Secure third-party integrations
+
+  Future releases will expand webhook support to additional business domains.
+
+  ## Documentation
+
+  For full implementation details, please refer to:
+
+  * **[Webhook Lifecycle & Configuration](/reference/webhook-lifecycle-configuration)**
+  * **[Event Delivery & Reliability](/reference/event-delivery-reliability)**
+  * **[Security & Signature Verification](/reference/security-signature-verification)**
+
+  These guides cover subscription setup, retry behavior, auto-disable rules, signature validation, and best practices for building robust integrations.
+
+  <br />
+
+  <Warning>
+      **Webhook Availability Notice**
+    
+    Webhooks are currently available by request.
+    To enable this functionality for your account, please contact your Customer Success Manager or Implementation Manager.
+  </Warning>
+</Update>
+
+{/* source: /changelog/trip-temperature-required-equipment-fields-added-to-trip-response-body */}
+<Update label="February 13, 2026" description="Trip Temperature & Required Equipment Fields Added to Trip Response Body" tags={["Added", "Trips"]}>
+  ### What’s New?
+
+  We’ve added two new fields to the **Trips** endpoints in the Public API: **Temperature** and **RequiredEquipment**. These fields provide visibility into temperature requirements and equipment specifications for each trip.
+
+  ### What Changed?
+
+  Previously, temperature requirements and normalized equipment requirements were not exposed in the Public API.
+
+  Now, the response includes the following new properties:
+
+  ```json
+  "Temperature": {
+    "SetpointTemperature": 70.0,
+    "SetpointTemperatureMax": 75.0,
+    "ControlMode": "Start/Stop"
+  },
+
+  "RequiredEquipment": [
+    "Reefer"
+  ]
+  ```
+
+  #### Temperature
+
+  The `Temperature` object represents the required temperature settings for temperature-controlled trips.
+
+  * **SetpointTemperature** – The required target temperature.
+  * **SetpointTemperatureMax** – Optional maximum temperature when a range is defined.
+  * **ControlMode** – Expected operational mode (`Continuous` or `Start/Stop`).
+
+  If no temperature requirement exists for the trip, this field will return `null`.
+
+  #### RequiredEquipment
+
+  The `RequiredEquipment` field is now returned as an array of equipment types required for the trip.
+
+  Examples:
+
+  ```json
+  "RequiredEquipment": ["Reefer", "Van"]
+  "RequiredEquipment": ["Van"]
+  "RequiredEquipment": ["Flatbed", "StepDeck"]
+  ```
+
+  If no equipment requirement is defined, this field will return `null`.
+
+  ### Endpoints Affected:
+
+  * `POST /api/p/{version}/trips/search`
+  * `GET /api/p/{version}/trips/{id}`
+
+  ### Why?
+
+  These additions provide:
+
+  * Improved visibility into temperature-controlled trip requirements
+  * Structured equipment data for easier validation and integration
+  * Better support for compliance workflows and custom tracking applications
+
+  This update enhances clarity and integration capabilities while maintaining backward compatibility.
+</Update>
+
+{/* source: /changelog/enhanced-driver-pay-visibility-in-trips-endpoint */}
+<Update label="October 24, 2025" description="Enhanced Driver Rates Visibility in Trips Endpoint" tags={["Added", "Visibility", "Drivers"]}>
+  ### What’s New?
+
+  We’ve introduced the new **RatesV2** structure for drivers and owner-operators in the Trips Public API.
+  This structure provides a detailed breakdown of how each driver’s pay was calculated based on applied rate rules and policies.
+
+  ### What Changed?
+
+  Previously, driver payment data under `Driver1`, `Driver2`, and `OwnerOperator` included only simple `Rates[]` arrays with limited fields (e.g., `rate`, `rateType`, `source`).
+
+  Now, the response includes a **`RatesV2`** array, containing all applied rules, their types, amounts, and computed line items.
+
+  Each `RatesV2[]` entry contains a unique `PolicyId`, `PolicyName`, and one or more detailed rate components such as:
+
+  ```json
+   "RatesV2": [
+                      {
+                          "PolicyId": "c00fda1001ec4a11100affdb0234de00",
+                          "PolicyName": "Custom Rate",
+                          "PerTripRate": {
+                              "Rate": 250.0,
+                              "RateId": "1",
+                              "RateName": "Per Trip",
+                              "LineItems": [
+                                  {
+                                      "Description": "1 trip @ $250",
+                                      "Amount": {
+                                          "Amount": 250.0,
+                                          "Currency": 840
+                                      }
+                                  }
+                              ]
+                          }
+                      },
+                      {
+                          "PolicyId": "a00fba1001ec4a11100aaddff0234de00",
+                          "PolicyName": "Public API",
+                          "TripValuePercentageRate": {
+                              "Percentage": 25.0,
+                              "RateId": "2",
+                              "RateName": "% of Trip Value",
+                              "LineItems": [
+                                  {
+                                      "Description": "25% of $3,800",
+                                      "Amount": {
+                                          "Amount": 950.0,
+                                          "Currency": 840
+                                      }
+                                  }
+                              ]
+                          }
+                      }
+                  ]
+  ```
+
+  ### Endpoints Affected
+
+  * `GET /api/p/{version}/trips`
+  * `POST /api/p/{version}/trips/search`
+
+  ### Why?
+
+  This change exposes **driver rate calculation logic** used in the Alvys UI, allowing integrators to:
+
+  * Understand which rules and policies were applied to determine each payout.
+  * Align backend integrations with the new internal pay policy engine for consistent reporting and reconciliation.
+
+  <br />
+
+  <Warning>
+    Important Note
+
+    This update is **partially backward compatible**:
+
+    * The legacy `Rates[]` field still exists and is returned in API responses.
+    * For **new trips created after migration** to Driver Settlement (DS), the `Rates[]` array will **always be empty**.
+    * For **trips created before migration**, `Rates[]` may still contain historical data, but it can be **out of sync** with `RatesV2[]` if new rates were added after migration.
+    * All current and future rate data is now provided exclusively in the **`RatesV2[]`** array.
+    * Integrations should **update their logic** to use `RatesV2[]` as the source of truth for driver and owner-operator pay details.
+    * The legacy `Rates[]` field will remain available temporarily for backward compatibility but will be **fully deprecated later**.
+
+    Each rate type (e.g., `TripValuePercentageRate`, `PerTripRate`, `MinimumPayRate`, etc.) is now provided as a structured object with additional `LineItems[]` for detailed breakdowns.
+  </Warning>
+
+  <br />
+</Update>
+
+{/* source: /changelog/new-endpoints-for-managing-deductions */}
+<Update label="October 9, 2025" description="New Endpoints for Managing Deductions" tags={["Added", "Deductions"]}>
+  ### What’s New?
+
+  A new **Deductions** module has been added to the Alvys Public API.
+  These endpoints allow integrations to create, search, retrieve, and delete deduction records associated with drivers or trucks.
+  A deduction represents an **asset-specific financial adjustment** (e.g., drug test fees, fuel advances, or reimbursements) and is always linked to a specific **DriverId** or **TruckId**, but never both.
+
+  At this stage, only **one-time (Once)** deductions are supported.
+
+  ***
+
+  ### What Changed?
+
+  **New endpoints:**
+
+  | Method   | Endpoint                              | Description                                                    |
+  | -------- | ------------------------------------- | -------------------------------------------------------------- |
+  | `GET`    | `/api/p/v{version}/deductions/{id}`   | Retrieves a deduction by its unique ID.                        |
+  | `POST`   | `/api/p/v{version}/deductions/search` | Searches deductions by date, driver, truck, or owner operator. |
+  | `POST`   | `/api/p/v{version}/deductions/once`   | Creates a one-time deduction for a driver or a truck.          |
+  | `DELETE` | `/api/p/v{version}/deductions/{id}`   | Deletes a specific deduction by its unique ID.                 |
+
+  **Validation rules:**
+
+  * A deduction must include **either `DriverId` or `TruckId`** — one of them is required.
+  * **`OwnerOperatorId`** is optional and may be used only to override the current owner of the asset. It is never the primary deduction subject.
+  * If `DriverId` is provided → the deduction appears in that driver’s deduction list.
+  * If `TruckId` is provided → the deduction appears in that truck’s deduction list.
+  * For creating a deduction, the amount must be **negative** and less than **- 1.00**.
+  * Only `"Once"` frequency is supported.
+  * Requires a valid Bearer token with the appropriate scope (`deduction:read`, `deduction:create`, or `deduction:delete`).
+
+  ***
+
+  ### Why?
+
+  This release introduces a consistent and secure way to manage **one-time deductions** through the Public API.
+  It enables automated synchronization of deduction data across financial and payroll systems while maintaining full ownership and asset context within Alvys.
+</Update>
+
+{/* source: /changelog/public-api-now-supports-document-fetching-across-core-entities */}
+<Update label="September 30, 2025" description="Public API Now Supports Document Fetching Across Core Entities" tags={["Added"]}>
+  We’ve added new **Documents retrieval endpoints** to the Public API. These endpoints allow you to retrieve uploaded documents for carriers, drivers, loads, trips, trucks, and trailers.
+
+  ***
+
+  ### What Changed?
+
+  Previously, documents were only available through internal UI and were not exposed in the Public API.
+
+  Now, the following new endpoints are available for retrieving documents associated with each entity type:
+
+  **Endpoints Added:**
+
+  `GET /api/p/{version}/carriers/{carrierId}/documents`
+
+  `GET /api/p/{version}/drivers/{driverId}/documents`
+
+  `GET /api/p/{version}/loads/{loadNumber}/documents`
+
+  `GET /api/p/{version}/trips/{tripId}/documents`
+
+  `GET /api/p/{version}/trucks/{truckId}/documents`
+
+  `GET /api/p/{version}/trailers/{trailerId}/documents`
+
+  ***
+
+  ### Response Example
+
+  Each endpoint returns an array of document objects, providing all documents linked to the specified entity. Each document includes details such as type, size, uploader, and upload time, along with a secure download link. The `DownloadUrl` is valid for 10 minutes and includes an `ExpiresAt` timestamp.
+
+  ```json
+  [
+    {
+      "id": "a314c7cd-783a-4807-8771-06406a9e490a",
+      "AttachmentPath": "Loads-1759237626.pdf",
+      "AttachmentType": "Customer Rate Confirmation",
+      "AttachmentSize": 170225,
+      "UploadedAt": "2025-09-30T13:07:07+00:00",
+      "ParentId": "3022259",
+      "ParentType": "Load",
+      "UploadedBy": "7190175eecc3408e90d7173f4ece0e59",
+      "DownloadUrl": "https://alvysqastorage.blob.core.windows.net/tl743/Loads-1759237626.pdf?...",
+      "ExpiresAt": "2025-09-30T15:12:15.9506343+00:00"
+    }
+  ]
+  ```
+
+  ***
+
+  ### Why?
+
+  This enhancement improves transparency and flexibility by making documents accessible through the Public API. It supports broader use cases, enabling external systems to integrate seamlessly with Alvys data and workflows.
+
+  <br />
+</Update>
+
+{/* source: /changelog/introduced-load-office-to-public-api */}
+<Update label="September 24, 2025" description="Introduced Load Office to Public API" tags={["Added", "Loads"]}>
+  ### What’s New?
+
+  We’ve added the **Load Office** field to the Public API. This field is now returned under the **Loads** endpoint, giving you visibility into which office a load belongs to.
+
+  ### What Changed?
+
+  Previously, the Load’s office information was not exposed in the Public API.
+
+  Now, the response includes the following new property:
+
+  ```json
+  "OfficeId": "string",
+  ```
+
+  This value corresponds to the internal Office ID associated with the load.
+
+  ### Endpoints Affected:
+
+  * `POST /api/p/{version}/loads/search`
+  * `GET /api/p/{version}/loads/{id}`
+
+  ### Why?
+
+  This change provides transparency into load ownership by office, supporting office-level reporting and integrations that require filtering or grouping loads by their assigned office.
+
+  <br />
+
+  <br />
+</Update>
+
+{/* source: /changelog/document-upload-endpints-now-available-in-public-api */}
+<Update label="September 8, 2025 · 4:28 PM" description="Document Upload Endpoints Now Available in Public API" tags={["Added"]}>
+  ### What’s New?
+
+  We added a new set of document upload endpoints that allow attaching files directly to Carriers, Drivers, Loads, Trailers, Trips, and Trucks. Each endpoint supports `multipart/form-data` uploads with validation on file size and document type.
+
+  📂**File uploads up to 25 MB** (PDF, JPEG, PNG)
+
+  🧾 **Entity-specific validation** → Each entity supports only its own `DocumentType` list (e.g., `Carrier Agreement`, `Driver License`, `Proof of Deliver`)
+
+  🗂️ **Standardized metadata** → Every upload returns `AttachmentPath`, `AttachmentType`, `AttachmentSize`, `UploadedAt`, and parent entity reference
+
+  🔑 **Authentication & scopes** → Requires valid Bearer token with read/update scope for the target entity
+
+  ***
+
+  ### What Changed?
+
+  * **New endpoints**:
+
+    * `POST /api/p/v{version}/carriers/{carrierId}/document`
+    * `POST /api/p/v{version}/drivers/{driverId}/document`
+    * `POST /api/p/v{version}/loads/{loadNumber}/document`
+    * `POST /api/p/v{version}/trailers/{trailerId}/document`
+    * `POST /api/p/v{version}/trips/{tripId}/document`
+    * `POST /api/p/v{version}/trucks/{truckId}/document`
+
+  * **Validation by entity**:
+
+    * **Carrier**→ Carrier Agreement, Carrier Application, Carrier Authority, Carrier Onboarding, Other Documents
+    * **Driver**→ License, Drug Test, Medical (suggested rename: Medical Card), W9 Form, Operating Authority, Other Documents
+    * **Truck/Trailer** → Motor Vehicle Record, Vehicle Image, Inspection Certificate, Certificate of Insurance (COI), Insurance Certificate, Other Documents
+    * **Loads**→ Customer Rate and Load Confirmation, Customer Load Confirmation, Customer Rate Confirmation, Signed Customer Rate Confirmation, Proof of Delivery, Proof of Pickup, Bill of Lading, Shipping Labels
+    * **Trips** → Proof of Delivery (POD), Bill of Lading (BOL), Carrier Rate Confirmation, Load Manifest, Trip Report, Temperature Log, Proof of Pickup, Scale Ticket, Notice of Assignment (NOA), Shipping Labels
+
+  * **Error handling standardized**:
+
+    `400` invalid `DocumentType` or file too large
+
+    `401` invalid/expired token
+
+    `403` missing scopes
+
+    `404` parent not found/deleted
+
+    `415` unsupported content type
+
+    `429` rate limit exceeded
+
+  ***
+
+  ### Example — Upload Document to Load
+
+  ```bash
+  curl -X POST "{{host}}/api/p/v1/loads/1006321/document" \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: multipart/form-data" \
+    -F "File=@Test_File.pdf" \
+    -F "DocumentType=Bill of Lading"
+  ```
+
+  **Response:**
+
+  ```json
+  {
+    "id": "4b5c38bd-005e-4903-a4ee-45ca5e86411a",
+    "AttachmentPath": "DOC-1757343192.jpeg",
+    "AttachmentType": "Bill of Lading",
+    "AttachmentSize": 5245329,
+    "UploadedAt": "2025-09-08T14:53:12Z",
+    "ParentId": "1006321",
+    "ParentType": "Load"
+  }
+  ```
+
+  ***
+
+  ### Why?
+
+  This enhancement provides a **standardized and secure way** to upload and manage documents across all core entities. By enforcing file size and type validation, plus entity-specific `DocumentType` rules, we improve **compliance and data integrity**. These endpoints also unlock automation use cases, such as auto-attaching Proof of Delivery, Insurance Certificates, or Rate Confirmations during operational workflows.
+
+  <br />
+</Update>
+
+{/* source: /changelog/new-endpoints-for-company-location-details */}
+<Update label="September 8, 2025 · 4:18 PM" description="New Endpoints for Company Location Details" tags={["Added"]}>
+  ### What’s New?
+
+  We added a new **Locations Controller** to the Public API. This lets you fetch and search company location details (e.g., Terminals, Shippers/Consignees, Cold Warehouses, Dry Warehouses).
+
+  * **Lookup by ID or Company Number**: Retrieve a single location by unique `id` or `companyNumber`.
+  * **Flexible search**: Filter by `Statuses`, `LocationIds`, or `CreatedDateRange`.
+  * **Richer details**: Get company name, type, address, contacts, and notes directly in the response.
+
+  ***
+
+  ### &#x20;What Changed?
+
+  * **New endpoints**:
+
+    * `GET /api/p/v{version}/locations` → Single location lookup by `id` or `companyNumber`.
+    * `POST /api/p/v{version}/locations/search` → Search and paginate results.
+
+  * **Response body includes**:
+
+    * Core: `Id`, `Name`, `CompanyNumber`, `Type`, `Status`
+    * Address: `PhysicalAddress { Street, City, State, ZipCode }`
+    * Contacts: `Email[]`, `Phone[]`, `Fax`
+    * Metadata: `DateCreated`, `ExternalId`
+    * Notes: `[ { Id, Description, NoteType, Time, User } ]`
+
+  * **Backward compatibility**: No changes to existing load/trip stop payloads. Stops continue to expose `companyId`, but now customers can resolve those IDs via the Locations Controller for more context.
+
+  ***
+
+  ### New Endpoints
+
+  * `GET /api/p/v{version}/locations`
+  * `POST /api/p/v{version}/locations/search`
+
+  ***
+
+  ### Why?
+
+  Stops in loads and trips previously only included a **companyId**, making it difficult to identify the company behind each stop. With this release, customers can resolve those IDs into **names, addresses, and full details**. This improves reporting precision, operational visibility, and overall usability — without breaking existing integrations.
+
+  <br />
+</Update>
+
+{/* source: /changelog/enhanced-fuel-endpoints-with-transaction-date-and-quantity-details */}
+<Update label="September 4, 2025" description="Enhanced Fuel Endpoints with Transaction Date and Quantity Details" tags={["Financials"]}>
+  ### What’s New?
+
+  We enhanced the **Fuel API endpoints** with additional fields to provide more complete transaction details:
+
+  * **TransactionDate** → Now included in all fuel transactions.
+  * **Quantity** → Each transaction includes the purchased quantity with value and unit of measure:
+
+  ```json
+  "Quantity": {
+    "Value": 7.799,
+    "UnitOfMeasure": "Gallons"
+  }
+  ```
+
+  This makes it possible to accurately calculate the total fuel purchased and improve report metrics.
+
+  <br />
+</Update>
+
+{/* source: /changelog/granular-accessorials-breakdown-customers-carriers-drivers */}
+<Update label="August 21, 2025" description="Granular Accessorials Breakdown: Customers, Carriers & Drivers" tags={["Added", "Carriers", "Customers"]}>
+  **Release Date:** August 21, 2025
+
+  ## What’s New?
+
+  We added **detailed accessorial breakdowns** to the `/loads` and `/trips` endpoints. Instead of only totals, each accessorial is now returned as its own record, giving you full visibility into charges.
+
+  * **Multi-entity support**: Accessorials are now tracked for **Customers, Carriers, Drivers, and OwnerOperators**.
+  * **EChecks integration**: Driver and OwnerOperator accessorials can include linked eCheck numbers and amounts.
+  * **Updated settlement logic**: `TotalPayable` now calculates as `Linehaul + Accessorials – EChecks`.
+
+  ## What Changed?
+
+  * **`/loads`** → `CustomerAccessorialsDetails[]` added.
+  * **`/trips`** → New detail arrays for:
+
+    * `Carrier.AccessorialsDetails[]`
+    * `Driver1.AccessorialsDetails[]`  for Driver and OwnerOperator .
+  * **Each accessorial includes**:
+
+    * Default: `Id`, `Type`, `Total { Amount, Currency }`, `Rate { Amount, Currency }`, `RateType`, `Uom`, `Quantity`
+    * Optional: `IsPaid`, `ECheckNumber`, `StopId`
+    * Audit: `CreatedAt`, `UpdatedAt`, `CreatedBy`, `UpdatedBy`
+  * **EChecks** are now returned as part of trip data when relevant.
+  * **Cancelled loads/trips** → No accessorial details returned.
+  * **Backward compatibility** → Legacy totals remain available (`CustomerAccessorials`, `Carrier.Accessorials`, `Linehaul`, etc.), so this is a non-breaking change.
+
+  ### Example — Accessorials
+
+  ```json
+  {
+    "Id": "acc-78901",
+    "Type": "Layover Pay",
+    "Total": { "Amount": 150.0, "Currency": 840 },
+    "Rate": { "Amount": 75.0, "Currency": 840 },
+    "RateType": "Time",
+    "Uom": "Hour",
+    "Quantity": 2.0,
+    "ECheckNumber": "12345",
+    "CreatedAt": "2024-07-11T14:30:00Z"
+  }
+  ```
+
+  ## Endpoints Affected
+
+  * `GET /api/p/v{version}/loads`
+  * `POST /api/p/v{version}/loads/search`
+  * `GET /api/p/v{version}/trips`
+  * `POST /api/p/v{version}/trips/search`
+
+  ## Why?
+
+  This enhancement provides **granular billing data** for all parties involved in a load or trip, including customer charges, carrier costs, driver pay, and owner-operator expenses. With eCheck tracking and updated `TotalPayable` logic, you can reconcile payments more accurately while maintaining **full backward compatibility** for existing integrations.
+</Update>
+
+{/* source: /changelog/introducing-new-response-field-loadtype-to-distinguish-between-revenue-and-non-revenue-loads */}
+<Update label="August 8, 2025" description="Introducing new response field, LoadType, to distinguish between revenue- and non-revenue loads" tags={["Added", "Loads"]}>
+  **Release Date:** August 7, 2025
+
+  **What’s New?**
+
+  We’ve added a new response field, **`LoadType`**, to distinguish between revenue- and non-revenue loads.
+
+  **What Changed?**
+
+  * **`LoadType`** now appears on load objects.
+  * Returned values: `"Revenue"` or `"Non-Revenue"`
+
+  **Endpoints Affected:**
+
+  * `GET  /api/p/{version}/loads`
+  * `POST /api/p/{version}/loads/search`
+
+  **Why?**
+
+  This field makes it easier to filter and report on revenue-generating versus non-revenue loads directly in your API integrations.
+</Update>
+
+{/* source: /changelog/exposing-deleted-loads-and-trips-in-the-public-api-only-when-includedeleted-flag-is-true */}
+<Update label="August 7, 2025" description="Exposing Deleted Loads and Trips in the Public API When `IncludeDeleted` Is True" tags={["Added", "Trips", "Loads"]}>
+  Release Date: August 7, 2025
+
+  **What’s New?**
+
+  We’ve added an optional request parameter, **`IncludeDeleted`**, so you can control whether deleted loads and trips appear in API responses.
+
+  **What Changed?**
+
+  * Previously, deleted loads and trips were never returned.
+  * You can now include **`IncludeDeleted`** (boolean, optional) in your request body:
+
+    * `true` → returns both active and deleted records.
+    * omitted or `false` → returns only active records.
+  * When `IncludeDeleted: true`, every returned record includes an **`IsDeleted`** flag:
+
+    * `"IsDeleted": true` for deleted items
+    * `"IsDeleted": false` for active items
+  * When `IncludeDeleted` is omitted or `false`, **no** `IsDeleted` flags appear (all records are active by definition).
+
+  **Endpoints Affected:**
+
+  * `POST /api/p/{version}/loads/search`
+  * `POST /api/p/{version}/trips/search`
+
+  **Why?**
+
+  This enhancement gives you direct control over including or excluding deleted records at the API level—surfacing deleted data only when needed.
+</Update>
+
+{/* source: /changelog/power-bi-file-updated */}
+<Update label="June 24, 2025" description="📝 Power BI: New Auth, Auto-Paging, and More Improvements" tags={["Improved", "Authentication", "Documentation"]}>
+  **Release date: June 2025**
+
+  ***
+
+  ### 🔐 **New Authentication**
+
+  * Now get access token via `auth.alvys.com/oauth/token` for improved security and compliance.
+  * **Old authentication method will soon be disabled**—update your credentials using the new setup instructions.
+
+  ***
+
+  ### 🔄 **Automated Pagination**
+
+  * All queries now handle **paging automatically**.
+  * Large datasets load completely, with no missing records or manual adjustments.
+  * A built-in delay mechanism helps prevent hitting API rate limits during refreshes, improving reliability for large data pulls.
+
+  ***
+
+  ### ↔️ **Nested Data Expansion**
+
+  * Data queries now **automatically expand up to 3 levels** of nested fields.
+  * All relevant API data is accessible without extra manual steps.
+
+  ***
+
+  ### 🗓️ **Automatic Field Type Conversion**
+
+  * Key fields such as dates and numbers are now automatically converted to the correct data types during import (e.g., date columns to datetime, amounts to numbers).
+  * Ensures correct filtering, calculations, and visualization in your reports without manual adjustments.
+
+  ***
+
+  ### 📦 **Loads Data Improvements**
+
+  * Loads are imported through two queries:
+
+    * **Full Import**
+    * **Incremental Updates**
+  * **Automatic deduplication** ensures only the most recent update for each load is kept.
+
+  ***
+
+  ### 🧰 **Consistent Query Structure**
+
+  * All endpoints (Loads, Trips, Users, etc.) now use a **unified paging and expansion pattern**.
+  * Makes the model easier to understand, troubleshoot, and extend.
+
+  ***
+
+  ### 📊 **New DAX & Reporting Features**
+
+  * Added several basic DAX formulas (e.g., simple sums, counts, or averages) to help users quickly analyze and familiarize themselves with their data.
+  * Created a sample weekly summary report table—aggregates core metrics by week, making it easy to spot trends over time.
+  * These examples are intended as a starting point for your own analysis—feel free to adjust or build on them as needed.
+
+  ***
+
+  ### 📘 **Improved Onboarding**
+
+  * **Step-by-step setup instructions** are included to guide you through credential updates and data loading. You can find the link to the latest file and a quick onboarding [guide here](/docs/power-bi-template-file-fast-setup-guide).
+
+  ***
+
+  *If you have questions or need help migrating, see the included instructions or contact your support team.*
+</Update>
+
+{/* source: /changelog/improved-trip-mileage-accuracy-for-split-loads */}
+<Update label="June 17, 2025" description="Improved Trips Accuracy for Split Loads" tags={["Fixed", "Trips", "Loads"]}>
+  Release Date: June 17, 2025
+
+  **What’s New?**
+
+  To improve clarity and eliminate confusion in trip reporting, we’ve updated the behavior of the Trips endpoints when handling split loads.
+
+  **What Changed?**
+
+  When a load is split into sub-trips, the original (parent) trip is no longer returned via the API. Only the active sub-trips are included in the response.
+
+  If a load has not been split, the original trip is returned as usual.
+
+  **Endpoints Affected:**
+
+  `GET /api/p/verion/trips`
+
+  `POST /api/p/verion/trips/search`
+
+  **Why?**
+
+  Previously, both the original (parent) trip and its sub-trips were returned via the API. This could lead to duplicated mileage, carrier amounts, and other values in reports unless the parent trip was manually excluded.\
+  With this update, only sub-trips are returned when a load is split — allowing customers to calculate totals (like mileage or carrier amounts) by simply summing all trips returned.
+  This change improves accuracy in any report that relies on trip-level data.
+
+  <br />
+
+  > ❗️ Important Note
+  >
+  > **This change may impact metrics in your current reports** — such as total trips, total mileage, total carrier rate, and others — **starting today.**
+  >
+  > If your reporting logic includes custom filters or scripts to automatically exclude the original *(dispatched)* trip when a load is split, those filters may now be obsolete. Since the original trip is no longer returned, continuing to exclude it may result in underreporting.
+  >
+  > Please review and update any custom reporting logic accordingly to ensure accurate totals going forward.
+</Update>
+
+{/* source: /changelog/new-token-endpoint-with-granular-api-access */}
+<Update label="June 13, 2025" description="🔐 New Token Endpoint with Granular API Access" tags={["Added", "Authentication"]}>
+  **Release Date:** June 13, 2025
+
+  ### **What’s New?**
+
+  We’ve introduced improvements to how API access is authorized to enhance security and give customers more precise control over what data and actions their integrations can access.
+
+  ### **What Changed?**
+
+  * A new token endpoint must now be used to generate access tokens:\
+    `POST https://auth.alvys.com/oauth/token`
+  * Tokens now include permission scopes (e.g.` load:read, trip:create`) that define which resources and actions the client is allowed to access
+  * Scope-based access enforcement is enabled for tokens generated via the new endpoint — requests without the proper scope will return 403 Forbidden
+  * The legacy `{tenant_id}` token endpoint is deprecated and will be shut down on July 31, 2025\
+    (tokens from this endpoint do not include scopes and are treated as read-only for now)
+
+  ### **How to Request a Token**
+
+  To request a token, send a `POST` request to the new endpoint with this JSON body:
+
+  ```json
+  {
+    "client_id": "YOUR_CLIENT_ID",
+    "client_secret": "YOUR_CLIENT_SECRET",
+    "audience": "https://api.alvys.com/public/",
+    "grant_type": "client_credentials"
+  }
+  ```
+
+  <Tip>
+    When including a "scope" field in the token request body, please note:
+
+    * The returned token will **always include all scopes** that have been granted to your client application, regardless of what you specify in the scope field.
+    * Therefore, including a `scope `field in the request **does not override or limit the access** defined by your assigned permissions in the issued token.
+    * The only functional effect of providing a `scope` field is that the token request will fail (unauthorized) if you include any scope that has not been granted to your client.
+    * If the `scope `field is omitted, the token will still include **all scopes** granted to your application.
+  </Tip>
+
+  ### **Endpoints Affected:**
+
+  * ✅ **New (required):** `POST https://auth.alvys.com/oauth/token`
+  * 🛑 **Later Deprecated:** `POST /authentication/{tenant_id}/token` (to be removed on **July 31, 2025**)
+
+  <br />
+
+  > ❗️ **Important:**
+  >
+  > The legacy `POST /authentication/{tenant_id}/token` token endpoint will be **permanently shut down on July 31, 2025**.**All integrations using this authentication flow must be updated to use the new token endpoint before this date to avoid disruption.**
+</Update>
+
+{/* source: /changelog/enhanced-carrier-payment-details-in-trips-endpoints */}
+<Update label="May 30, 2025 · 6:41 PM" description="Enhanced Carrier Rate Details in Trips Endpoints" tags={["Added", "Carriers", "Invoices"]}>
+  **Release Date**: June 3, 2025
+
+  **What’s New?**
+
+  The Carrier object in the Trips endpoints now includes additional payment breakdown fields:
+
+  * `Linehaul` — Base transportation cost.
+  * `Accessorials` — Additional charges (e.g., fuel surcharges, detention).
+  * `TotalPayable` — Full amount payable to the carrier.
+
+  Endpoints Updated:
+
+  `GET /api/p/v1/trips`
+
+  `POST /api/p/v1/trips/search`
+
+  **Why?**\
+  These additional fields provide a more detailed view of carrier payments, helping customers with more accurate reconciliation and reporting. It ensures consistency with the financial data seen in the Alvys UI and improves financial transparency in reporting.
+
+  > ❗️ **Important:**  The Rate field in the Carrier object will be deprecated in a future release.
+  >
+  > **We recommend updating reports and integrations to use the new`Linehaul`, `Accessorials`, and `TotalPayable `fields.**
+  >
+  > **This change will not happen immediately — there will be a transition period, and we will provide advance notice before the field is removed.**
+  >
+  > Please review your current usage and plan updates accordingly to ensure a smooth transition.
+</Update>
+
+{/* source: /changelog/carrier-endpoints-added-to-public-api */}
+<Update label="May 30, 2025 · 6:36 PM" description="Carrier Endpoints Added to Public API" tags={["Added", "Carriers"]}>
+  **Release Date**: June 3, 2025
+
+  **What’s New?**
+
+  Two new endpoints have been added to the Public API for Carriers and Subsidiaries:
+
+  `GET /api/p/v1/carriers/'{id}'` — Retrieve detailed carrier or subsidiary information by ID.
+
+  `POST /api/p/v1/carriers/search` — Search carriers or subsidiaries using filters such as Status, MC numbers, DOT numbers, or specific IDs.
+
+  **Why?**\
+  These new endpoints improve data accessibility and precision, allowing customers to retrieve only the carrier data they need. This enhancement supports better performance, eliminates unnecessary large data pulls, and aligns the Public API with customer operational needs.
+</Update>
+
+{/* source: /changelog/driver-status-visibility-enhancement */}
+<Update label="May 22, 2025" description="Driver Status Visibility Enhancement" tags={["Added", "Visibility", "Drivers"]}>
+  **Release Date:** May 22, 2025
+
+  **What’s Improved?**
+
+  We’ve updated the Driver endpoints in the Public API to include an `isActive` field, helping external systems easily determine whether a driver is currently active based on their operational status.
+
+  **Added Field:**
+
+  `isActive` – Indicates whether the driver is currently active.
+
+  The value of `isActive` is:
+
+  * ✅ `true` for active
+  * ❌ `false` for inactive.
+
+  **Why?**
+
+  Previously, API consumers had to interpret raw status strings to determine activity. Now, the system does that work internally and returns a clear, easy-to-use value - reducing complexity and helping teams filter or display driver activity more reliably.
+</Update>
+
+{/* source: /changelog/public-api-update-accurate-pickup-delivery-timestamps */}
+<Update label="May 14, 2025" description="Public API Update – Accurate Pickup & Delivery Timestamps" tags={["Fixed"]}>
+  **Release Date:** May 14, 2025
+
+  We’ve fixed an issue where actual pickup and delivery timestamps were incorrectly showing the values in the Public API.
+
+  ✅ What’s Fixed
+
+  `ScheduledPickupAt` and `ScheduledDeliveryAt` reflect the planned schedule
+
+  `PickupDate` and `DeliveryDate` displays actual pickup and delivery timestamp
+
+  Affected Endpoints
+
+  GET /api/p/`v{version}`/loads
+
+  POST /api/p/`v{version}`/loads/search
+
+  Note: No action is required, your integrations will now return the correct values automatically.
+</Update>
+
+{/* source: /changelog/token-endpoint-enhancement-json-support-added-stricter-validation-enforced */}
+<Update label="April 16, 2025" description="🔐 Token Endpoint Enhancement – JSON Support Added & Stricter Validation Enforced" tags={["Added", "Authentication"]}>
+  **Release Date:** April 16, 2025
+
+  **What’s New?**\
+  The `/token` authentication endpoint now supports requests with Content-Type: `application/json`, in addition to the existing `application/x-www-form-urlencoded` support.
+
+  This change applies to:
+
+  POST /api/authentication/`{tenant_id}`/token
+
+  **Why?**\
+  Supporting JSON-formatted requests improves developer experience by aligning with modern integration standards. It allows clients to choose the format that best fits their architecture and ensures consistency across API calls.
+
+  <Warning>
+    **Important:** The `/api/authentication/{tenant_id}/token` endpoint now enforces **stricter content-type validation**.\
+    Only `application/json` and `application/x-www-form-urlencoded` are supported.
+    Requests using other formats will return a **415 Unsupported Media Type** error.
+  </Warning>
+</Update>
+
+{/* source: /changelog/trips-endpoint-update-datereleased-field-added */}
+<Update label="March 26, 2025" description="Trips Endpoint Update: `ReleasedAt` Field Added" tags={["Added", "Trips"]}>
+  **Release Date:** March 27, 2025
+
+  What’s New?\
+  Added the `ReleasedAt` field to the following Public API Trips endpoints:
+
+  `GET /api/p/v{version}/trips`\
+  `POST /api/p/v{version}/trips/search`
+
+  This field indicates the timestamp when the load was marked as "Released".
+
+  Why?\
+  Exposing the `ReleasedAt` field allows customers to build more customizable and accurate reports. It ensures consistency with internal data and provides better visibility into load release timelines.
+</Update>
+
+{/* source: /changelog/expose-carrierpaymentonhold-field-in-trips-endpoints */}
+<Update label="March 25, 2025" description="Expose CarrierPaymentOnHold Field in Trips Endpoints" tags={["Added", "Carriers", "Invoices"]}>
+  **Release Date:** March 25, 2025What’s New?
+
+  Exposed the `CarrierPaymentOnHold` field in the following Public API Trips endpoints:
+
+  `GET   /api/p/v1/trips`
+
+  `POST   /api/p/v1/trips/search`
+
+  This field indicates whether a carrier’s payment is currently on hold.
+
+  **Why?**
+
+  Previously, API users couldn't determine if a carrier's payment was on hold when retrieving trip data, which created a gap in visibility. By exposing the `CarrierPaymentOnHold` field in the Trips endpoints, users can now programmatically access this critical status to support automation, financial workflows, and operational decisions.
+</Update>
+
+{/* source: /changelog/new-dispatch-preferences-endpoint */}
+<Update label="March 3, 2025" description="New Dispatch Preferences Endpoint" tags={["Added", "Dispatch"]}>
+  **Release Date:** February 28, 2025
+
+  **What’s New?**
+
+  Added a new endpoint `/api/p/v{version}/dispatchpreferences/search` to retrieve dispatch preferences based on filters such as dispatcher, driver, truck, and trailer or dates range.
+
+  **Why?**
+
+  This endpoint was introduced to improve tracking and management of dispatch preferences, enabling more efficient operations.
+</Update>
+
+{/* source: /changelog/load-rates-enhancements */}
+<Update label="February 6, 2025 · 8:55 AM" description="Load Rates Enhancements" tags={["Improved", "Loads"]}>
+  **Release Date:** February 01,  2025
+
+  **What’s Improved?**
+
+  We’ve updated the Load endpoint to include additional financial breakdowns, making rate calculations more transparent and detailed.
+
+  **Added Fields:**
+
+  * `linehaul `– Base transportation cost.
+  * `fuelSurcharge `– Fuel cost adjustments.
+  * `customerAccessorials` – Extra charges like detention or lumper fees.
+
+  Why?
+
+  Previously, cost details lacked granularity, making it harder to track financial components. These updates provide clearer visibility into load pricing, helping businesses optimize their cost management.
+</Update>
+
+{/* source: /changelog/exposing-asset-events-endpoints */}
+<Update label="February 6, 2025 · 8:48 AM" description="Exposing Asset Events Endpoints" tags={["Added"]}>
+  **Release Date:** February 01,  2025
+
+  **What’s New?**
+
+  We’ve added three new endpoints to the Public API to provide events updates on truck, driver, and trailer, improving tracking and operational visibility.
+
+  POST /api/p/v\{version}/drivers/events/search – Retrieve driver-related event history.
+
+  POST /api/p/v\{version}/trailers/events/search – Fetch events related to trailers.
+
+  POST /api/p/v\{version}/trucks/events/search – Access historical events for trucks.
+
+  **Why?**
+
+  These changes enhance the API's ability to automate asset event tracking, improve data accuracy, and streamline workflows for better resource management.
+</Update>
+
+{/* source: /changelog/updated-loadnumber-search-limit */}
+<Update label="December 13, 2024 · 6:50 PM" description="Updated LoadNumber Search Limit" tags={["Improved", "Loads"]}>
+  **Release Date**: December 16, 2024
+
+  **What's New?**:
+
+  * **Increased Limit**: The maximum number of loads allowed in the search request body has been increased from **50** to **150**.
+    * **Impact**: Users can now include more load IDs in a single search request operations.
+    * **Error Handling**: Requests exceeding 150 load IDs will return an error message.
+</Update>
+
+{/* source: /changelog/trips-endpoint-enhancement-dispatcherid-added */}
+<Update label="December 13, 2024 · 6:46 PM" description="Trips Endpoint Enhancement: DispatcherId Added" tags={["Added", "Trips", "Dispatch"]}>
+  **Release Date**: December 13, 2024
+
+  **What's New?**:
+
+  * **DispatcherId Field**: The `DispatcherId` field is now included in the response body for all trips endpoints.
+    * **Purpose**: Provides the unique identifier of the dispatcher assigned to the trip for improved data tracking and integration.
+    * **Benefits**: Enhances trip management and reporting by making dispatcher data more accessible through the API.
+</Update>
+
+{/* source: /changelog/new-endpoints-for-visibility-public-api */}
+<Update label="November 11, 2024" description="New Endpoints for Visibility Public API" tags={["Added", "Visibility"]}>
+  #### **Release Date**: November 11, 2024
+
+  ***
+
+  ### **What’s New?**
+
+  1. **Visibility Public API Endpoints**:
+     * Introduces endpoints for tracking asset locations and receiving real-time event updates.
+
+  2. **Endpoints Overview**:
+
+     * **Inbound Visibility**:
+       * **GET** `/api/p/v{version}/visibility/inbound/{loadNumber}/history`: Retrieve location update history for a specific load number.
+
+     * **Outbound Visibility**:
+       * **GET** `/api/p/v{version}/visibility/outbound/{loadNumber}/history`: Retrieve event update history sent for a specific load number.
+       * **POST** `/api/p/v{version}/visibility/outbound/errors`: Search for and manually resend failed updates using a time range filter.
+
+  ***
+
+  ### **Usage**
+
+  #### **Inbound Visibility Example**
+
+  ```json
+  GET /api/p/v{version}/visibility/inbound/{{loadNumber}}/history
+  ```
+
+  #### **Outbound Visibility Examples**
+
+  ```json
+  GET /api/p/v{version}/visibility/outbound/{{loadNumber}}/history
+  ```
+
+  #### **Search Failed Updates**:
+
+  ```json
+  POST /api/p/v{version}/visibility/outbound/errors
+  {
+    "page": 0,
+    "pageSize": 10,
+    "timeRange": {
+      "start": "2024-11-05T16:58:54.450Z",
+      "end": "2024-11-11T16:58:54.450Z"
+    }
+  }
+  ```
+
+  ### **Additional Resources**
+
+  * [API Documentation](https://dash.readme.com/project/alvys/v1.0/refs/get_api-p-v-version-visibility-inbound-loadnumber-history)
+  * [Postman Collection](https://www.postman.com/alvys-public-api-team/alvys-public-api/collection/2p0o9wj/alvys-public-api-collection)
+
+  ***
+
+  ### **Important Notes**
+
+  ⚠️ **Settings for EDI Integration**:
+
+  * All EDI-related configurations must be done within the platform. Contact the support team if assistance is required.
+
+  ***
+</Update>
+
+{/* source: /changelog/update-for-customer-rate-details-field */}
+<Update label="November 8, 2024 · 1:11 PM" description="Update for Customer Rate Details field" tags={["Improved", "Customers"]}>
+  #### **Release Date**: November 08, 2024
+
+  ***
+
+  ### **What’s New?**
+
+  1. **Update to`customerRate.amount` Field**:
+     * **Change**: The `customerRate.amount` field now includes the following:
+       * `CustomerLineHaul`
+       * `FuelSurcharge`
+       * `CustomerAccessorials`
+     * **Impact**: This ensures alignment with the total customer billable displayed in the UI, improving accuracy for billing and revenue reporting.
+
+  2. **Purpose**:
+     * Enhances the clarity and precision of customer rate charges.
+
+  ***
+
+  ### **Usage**
+
+  * The `customerRate.amount` field now reflects the total customer rate, incorporating: Linehaul, Fuel Surcharge, Accessorials).
+
+  **Example Calculation**:
+
+  ```json
+  "CustomerRate": {
+                  "Amount": 5168.0,
+                  "Currency": 840
+              },
+  ```
+
+  ***
+
+  ### **Endpoints Impacted**
+
+  * **GET** `/api/p/v{version}/loads`: [View Documentation](/reference/get_api-p-v-version-loads)
+  * **POST** `/api/p/v{version}/loads/search`: [View Documentation](/reference/post_api-p-v-version-loads-search)
+
+  ***
+
+  ### **Important Note**
+
+  ⚠️ **If you relied on the previous`customerRate.amount` value for revenue reporting, please review your integration. This change corrects the calculation to include Customer Accessorials, which were previously excluded.**
+
+  ***
+</Update>
+
+{/* source: /changelog/new-endpoints-for-customer-data-management */}
+<Update label="November 8, 2024 · 1:07 PM" description="New Endpoints for Customer Data Management" tags={["Added", "Customers"]}>
+  #### **Release Date**: November 11, 2024
+
+  ***
+
+  ### **What’s New?**
+
+  1. **New GET and POST Endpoints Introduced**:
+
+     * **GET Endpoint**:
+
+       * **`/api/p/v{version}/customers`**: Retrieves detailed customer profiles, including contact information and associated data, by `id` or `companyNumber`.
+
+       **Example Request**:
+
+       ```json
+       GET /api/p/v{version}/customers?id=12345
+       //or
+       //GET /api/p/v{version}/customers?companyNumber=12345
+       ```
+
+     * **POST Endpoint**:
+
+       * **`/api/p/v{version}/customers/search`**: Supports advanced filtered searches for customer records by status, or date range. Includes pagination for optimized data access.
+
+       **Example Request**:
+
+       ```json
+       POST /api/p/v{version}/customers/search
+       {
+         "page": 0,
+         "pageSize": 100,
+         "statuses": [
+           "Active"
+         ],
+         "createdDateRange": {
+       //     "start": "2024-11-08T19:38:34.529Z",
+       //     "end": "2024-11-08T19:38:34.529Z"
+         }
+       }
+       ```
+
+  ***
+
+  ### **Purpose**
+
+  * Provides flexibility for retrieving and searching customer data.
+  * Enables streamlined workflows for integration, automation, and reporting.
+
+  ***
+
+  ### **Additional Resources:**
+
+  * [API Documentation](/reference/get_api-p-v-version-customers)
+  * [Postman Collection](https://app.getpostman.com/run-collection/39138316-54c493c3-15e5-4fd7-a651-6e45b308548f?action=collection%2Ffork\&source=rip_markdown\&collection-url=entityId%3D39138316-54c493c3-15e5-4fd7-a651-6e45b308548f%26entityType%3Dcollection%26workspaceId%3Dc0255544-5964-4c52-9d24-05b30a9b021c)
+
+  ***
+</Update>
+
+{/* source: /changelog/enhancements-to-load-management-with-new-assignment-fields */}
+<Update label="October 18, 2024 · 11:49 AM" description="Enhancements to Load Management with New Assignment Fields" tags={["Added", "Loads"]}>
+  ### **What’s New?**
+
+  1. **New Fields Added to Load Endpoints response body**:
+     * **`customerServiceRepId`**: Customer Service Representative assigned to the load.
+     * **`customerSalesAgentId`**: Customer Sales Agent responsible for the load.
+     * **`customerSalesManagerId`**: Customer Sales Manager assigned to the load.
+     * **`customerLoadPlannerId`**:  Customer Sales Manager assigned to the load.
+     * **`carrierSalesAgentId`**: Carrier Sales Agent assigned to the load, enabling customers to attribute credit and calculate commissions for securing the carrier.
+
+  2. **Purpose**:
+     * Enhances transparency in load assignments.
+     * Streamlines tender management and load tracking processes.
+
+  ***
+</Update>
+
+{/* source: /changelog/including-updatedat-and-updatedby-to-load-and-trip-endpoints */}
+<Update label="October 18, 2024 · 5:43 AM" description="Including `UpdatedAt` and `UpdatedBy` to Load and Trip Endpoints" tags={["Added", "Trips", "Loads"]}>
+  #### **Release Date**: October 18, 2024
+
+  ***
+
+  ### **What’s New?**
+
+  1. **New Fields Added to Load and Trip Endpoints**:
+
+     * **`UpdatedAt`**: Timestamp of the last modification.
+     * **`UpdatedBy`**: User ID responsible for the last update.
+
+  2. **New Parameters Added to Load and Trip Search body**:
+     * `UpdatedAtRange`: Search by update timestamps using `start` or `end` date.
+     * `UpdatedBy`: Search by the user who made updates.
+
+  ```json
+  {
+      "updatedAtRange": {
+          "start": "2024-10-18T04:38:53.470Z",
+          "end": "2024-10-19T04:38:53.470Z"
+      },
+      "updatedBy": "user123"
+  }
+  ```
+
+  3. **Conditionally Mandatory Parameters**\
+     At least **one search parameter** from the list of conditionally mandatory parameters must be provided. If no parameter is included, the following error message will be returned:
+
+  ```json
+  {
+      "Status": [
+          "At least one search parameter must be provided"
+      ],
+      "PONumbers": [
+          "At least one search parameter must be provided"
+      ],
+      "UpdatedBy": [
+          "At least one search parameter must be provided"
+      ],
+      "CustomerId": [
+          "At least one search parameter must be provided"
+      ],
+      "LoadNumbers": [
+          "At least one search parameter must be provided"
+      ],
+      "OrderNumbers": [
+          "At least one search parameter must be provided"
+      ]
+  }
+  ```
+</Update>
+
+{/* source: /changelog/welcome-to-alvys */}
+<Update label="July 5, 2024" description="Public API Initial Offering" tags={["Added"]}>
+  We're excited to announce the initial offering of the Alvys Public API! This release marks a new era of integration and customization for our platform.
+
+  Highlights:
+
+  * **Public API Launch**: Our Public API is now available, providing developers with secure and flexible access to Alvys' core functionalities.
+  * **Comprehensive Documentation**: Extensive guides and resources are available to facilitate smooth integration and implementation.
+  * **Key Features**: The API includes endpoints for users, trucks, trailers, drivers, loads and trips, and more, designed to allow for easy extraction of data from Alvys.
+
+  *Note: This is the initial release of our Public API, and we are committed to continuously expanding and improving its capabilities. Feedback and suggestions are welcome as we refine and grow our offerings.*
+
+  Stay tuned for more updates and features! 🚀
+</Update>

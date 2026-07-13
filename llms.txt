@@ -1,0 +1,125 @@
+# Alvys Documentation
+
+> Explore Alvys public API for seamless integration into your applications. Access powerful tools and data effortlessly. Enhance your projects with Alvys API today!
+
+## Guides
+- [Overview](/docs/overview.md)
+- [Getting Started with Alvys](/docs/getting-started.md): This page will help you get started with Alvys. You'll be up and running in a jiffy!
+- [Authentication](/docs/authentication-1.md): This page explains how to authenticate with the Alvys Public API using the OAuth 2.0 Client Credentials flow.
+- [Base URL](/docs/base-url.md)
+- [Versioning](/docs/versioning.md)
+- [Dates & Timestamps](/docs/dates-timestamps.md)
+- [Rate Limits](/docs/rate-limits.md)
+- [Response Codes](/docs/response-codes.md)
+- [Timestamps](/docs/timestamps.md)
+- [Connecting to Power BI](/docs/connecting-power-bi-to-alvys-public-api-guide.md): Connecting Power BI to Alvys Public API Guide
+- [Authentication and Global Permissions](/docs/authentication-2.md): To interact with the Alvys API, you must first retrieve an access token using your API credentials. This token is required for authenticating all subsequent API queries.
+- [Create Queries and Retrieve Data from the Alvys API](/docs/create-queries-and-retrieve-data-from-the-alvys-api.md): Once you have the AccessToken, you can use it to query various API endpoints.
+- [Importing the Preconfigured Alvys Public API.pbix File](/docs/importing-the-preconfigured-alvys-public-apipbix-file.md)
+- [Power BI Template File: Fast Setup Guide](/docs/power-bi-template-file-fast-setup-guide.md)
+- [Connecting to Google Sheets](/docs/alvys-data-import-template-quick-setup-guide.md): (Public API → Google Sheets)
+
+## API Reference
+- [Authentication](/reference/authentication.md): This page explains how to authenticate with the Alvys Public API using the OAuth 2.0 Client Credentials flow.
+- [Tenders](/reference/tenders.md): This page provides a practical guide for EDI providers, middleware vendors, and advanced customers on how to map common EDI workflows to the Alvys Public Tender APIs. It explains how to translate classic EDI transactions (204, 990, 214, 210) into Alvys REST calls and webhook-driven lifecycle events, and outlines the integration patterns required to build reliable, production-grade EDI integrations with Alvys.
+- [List carrier documents](/reference/get_api-p-v-version-carriers-carrierid-documents.md)
+- [Get carrier](/reference/get_api-p-v-version-carriers-id.md)
+- [Upload carrier document](/reference/post_api-p-v-version-carriers-carrierid-document.md): Upload multipart/form-data. One file per request. Max file size 10 MB. Allowed document types: Carrier Agreement, Carrier Application, Carrier Authority, Carrier Onboarding, Other Documents. Allowed MIME types: application/pdf, image/jpeg, image/png.
+- [Search carriers](/reference/post_api-p-v-version-carriers-search.md)
+- [List customers](/reference/get_api-p-v-version-customers.md)
+- [Create customer](/reference/post_api-p-v-version-customers.md)
+- [Search customers](/reference/post_api-p-v-version-customers-search.md)
+- [Update customer](/reference/patch_api-p-v-version-customers-id.md)
+- [Delete customer](/reference/delete_api-p-v-version-customers-id.md)
+- [Get deduction](/reference/get_api-p-v-version-deductions-id.md)
+- [Create one-time deduction](/reference/post_api-p-v-version-deductions-once.md)
+- [Search deductions](/reference/post_api-p-v-version-deductions-search.md)
+- [Delete deduction](/reference/delete_api-p-v-version-deductions-id.md)
+- [Search dispatch preferences](/reference/post_api-p-v-version-dispatchpreferences-search.md)
+- [List drivers](/reference/get_api-p-v-version-drivers.md)
+- [List driver documents](/reference/get_api-p-v-version-drivers-driverid-documents.md)
+- [Get driver](/reference/get_api-p-v-version-drivers-id.md)
+- [Upload driver document](/reference/post_api-p-v-version-drivers-driverid-document.md): Upload multipart/form-data. One file per request. Max file size 10 MB. Allowed document types: License, Medical, Driver License, Driver Sheet, Drug Test, Operating Authority, Completed W9 Tax Form (W9 Form), Other Documents. Allowed MIME types: application/pdf, image/jpeg, image/png.
+- [Search driver events](/reference/post_api-p-v-version-drivers-events-search.md)
+- [Search drivers](/reference/post_api-p-v-version-drivers-search.md)
+- [Get fuel transaction](/reference/get_api-p-v-version-fuel-id.md)
+- [Search fuel transactions](/reference/post_api-p-v-version-fuel-search.md)
+- [Get invoice](/reference/get_api-p-v-version-invoices.md)
+- [Create carrier invoice](/reference/post_api-p-v-version-invoices-carrier-invoice.md)
+- [Record carrier payment](/reference/post_api-p-v-version-invoices-carrier-payments.md)
+- [Record customer payment](/reference/post_api-p-v-version-invoices-customer-payments.md)
+- [Record invoice financing](/reference/post_api-p-v-version-invoices-financing.md)
+- [Search invoices](/reference/post_api-p-v-version-invoices-search.md)
+- [Get load](/reference/get_api-p-v-version-loads.md)
+- [List load documents](/reference/get_api-p-v-version-loads-loadnumber-documents.md)
+- [List load notes](/reference/get_api-p-v-version-loads-loadnumber-notes.md)
+- [Upload load document](/reference/post_api-p-v-version-loads-loadnumber-document.md): Upload multipart/form-data. One file per request. Max file size 10 MB. Allowed document types: Customer Rate and Load Confirmation, Customer Load Confirmation, Customer Rate Confirmation, Signed Customer Rate Confirmation, Proof of Delivery, Proof of Pickup, Bill of Lading, Shipping Labels. Allowed MIME types: application/pdf, image/jpeg, image/png.
+- [Create load note](/reference/post_api-p-v-version-loads-loadnumber-notes.md)
+- [Search loads](/reference/post_api-p-v-version-loads-search.md)
+- [Update load](/reference/patch_api-p-v-version-loads-loadnumber.md)
+- [Delete load note](/reference/delete_api-p-v-version-loads-loadnumber-notes-noteid.md)
+- [Get location](/reference/get_api-p-v-version-locations.md)
+- [Search locations](/reference/post_api-p-v-version-locations-search.md)
+- [Get maintenance record](/reference/get_api-p-v-version-maintenance-id.md)
+- [Search maintenance records](/reference/post_api-p-v-version-maintenance-search.md)
+- [Get tender](/reference/get_api-p-v-version-tenders-tenderid.md)
+- [Create tender](/reference/post_api-p-v-version-tenders.md)
+- [Cancel tenders](/reference/post_api-p-v-version-tenders-cancel.md)
+- [Search tenders](/reference/post_api-p-v-version-tenders-search.md)
+- [Accept tender](/reference/post_api-p-v-version-tenders-tenderid-accept.md)
+- [Accept tender cancellation](/reference/post_api-p-v-version-tenders-tenderid-accept-cancel.md)
+- [Accept tender updates](/reference/post_api-p-v-version-tenders-tenderid-accept-updates.md)
+- [Reject tender](/reference/post_api-p-v-version-tenders-tenderid-reject.md)
+- [Update tender](/reference/post_api-p-v-version-tenders-update.md)
+- [Get toll transaction](/reference/get_api-p-v-version-tolls-id.md)
+- [Search toll transactions](/reference/post_api-p-v-version-tolls-search.md)
+- [List trailers](/reference/get_api-p-v-version-trailers.md)
+- [Get trailer](/reference/get_api-p-v-version-trailers-id.md)
+- [List trailer documents](/reference/get_api-p-v-version-trailers-trailerid-documents.md)
+- [Search trailer events](/reference/post_api-p-v-version-trailers-events-search.md)
+- [Search trailers](/reference/post_api-p-v-version-trailers-search.md)
+- [Upload trailer document](/reference/post_api-p-v-version-trailers-trailerid-document.md): Upload multipart/form-data. One file per request. Max file size 10 MB. Allowed document types: Motor Vehicle Record, Vehicle Image, Inspection Certificate, Certificate of Insurance (COI), Insurance Certificate, Other Documents. Allowed MIME types: application/pdf, image/jpeg, image/png.
+- [Get trip](/reference/get_api-p-v-version-trips.md)
+- [List trip documents](/reference/get_api-p-v-version-trips-tripid-documents.md)
+- [List trip stops](/reference/get_api-p-v-version-trips-tripid-stops.md)
+- [Get trip stop](/reference/get_api-p-v-version-trips-tripid-stops-stopid.md)
+- [Search trips](/reference/post_api-p-v-version-trips-search.md)
+- [Upload trip document](/reference/post_api-p-v-version-trips-tripid-document.md): Upload multipart/form-data. One file per request. Max file size 25 MB. Allowed document types: Proof of Delivery, Bill of Lading, Carrier Rate Confirmation, Load Manifest, Trip Report, Temp. Log, Proof of Pickup, Scale Ticket, Notice of Assignment, NOA, Shipping Labels. Allowed MIME types: application/pdf, image/jpeg, image/png.
+- [Set stop appointment](/reference/put_api-p-v-version-trips-tripid-stops-stopid-appointment.md)
+- [Record stop arrival](/reference/put_api-p-v-version-trips-tripid-stops-stopid-arrival.md)
+- [Record stop departure](/reference/put_api-p-v-version-trips-tripid-stops-stopid-departure.md)
+- [Clear stop arrival](/reference/delete_api-p-v-version-trips-tripid-stops-stopid-arrival.md)
+- [List trucks](/reference/get_api-p-v-version-trucks.md)
+- [Get truck](/reference/get_api-p-v-version-trucks-id.md)
+- [List truck documents](/reference/get_api-p-v-version-trucks-truckid-documents.md)
+- [Search truck events](/reference/post_api-p-v-version-trucks-events-search.md)
+- [Search trucks](/reference/post_api-p-v-version-trucks-search.md)
+- [Upload truck document](/reference/post_api-p-v-version-trucks-truckid-document.md): Upload multipart/form-data. One file per request. Max file size 10 MB. Allowed document types: Motor Vehicle Record, Vehicle Image, Inspection Certificate, Certificate of Insurance (COI), Insurance Certificate, Other Documents. Allowed MIME types: application/pdf, image/jpeg, image/png.
+- [List users](/reference/get_api-p-v-version-users-list.md)
+- [Search users](/reference/post_api-p-v-version-users-search.md)
+- [Get inbound visibility history](/reference/get_api-p-v-version-visibility-inbound-loadnumber-history.md)
+- [Get outbound visibility history](/reference/get_api-p-v-version-visibility-outbound-loadnumber-history.md)
+- [Search outbound visibility errors](/reference/post_api-p-v-version-visibility-outbound-errors.md)
+- [Overview](/reference/overview.md)
+- [Event Delivery & Reliability](/reference/event-delivery-reliability.md)
+- [Security & Signature Verification](/reference/security-signature-verification.md)
+- [Webhook Lifecycle & Configuration](/reference/webhook-lifecycle-configuration.md)
+- [List webhooks](/reference/get_api-p-v-version-webhooks.md): Returns paginated webhook subscriptions. Default size: 50. Ordered by creation date (newest first).
+- [Get event types](/reference/get_api-p-v-version-webhooks-event-types.md): Returns all available webhook event types
+- [Get webhook](/reference/get_api-p-v-version-webhooks-id.md): Returns a specific webhook by ID
+- [List delivery logs](/reference/get_api-p-v-version-webhooks-webhookid-delivery-logs.md): Returns paginated delivery logs for a webhook with optional status, event type, and date range filters.
+- [Export delivery logs](/reference/get_api-p-v-version-webhooks-webhookid-delivery-logs-export.md): Downloads delivery logs as CSV or JSON using the same filters as the list endpoint. Format resolution: (1) optional query parameter <c>Format=csv</c> or <c>Format=json</c> overrides everything when present; (2) otherwise the <c>Accept</c> header is used (<c>text/csv</c>, <c>application/csv</c>, <c>application/json</c>, or <c>*+json</c>); (3) otherwise the response defaults to JSON. Page (0-based) is the last list page index to include: pages 0 through Page are read, each with PageSize items (max 100, default 50), up to 25,000 rows total. This matches the delivery-log UI, which sends the highest page the user has loaded. Page=0 exports only the first page.
+- [Get delivery log detail](/reference/get_api-p-v-version-webhooks-webhookid-delivery-logs-logid.md): Returns full detail of a single delivery attempt including response body and entity metadata.
+- [Get webhook health metrics](/reference/get_api-p-v-version-webhooks-webhookid-health.md): Returns aggregated delivery health metrics for a webhook over 1, 7, or 30 days.
+- [Create webhook subscription](/reference/post_api-p-v-version-webhooks.md): Creates a new webhook subscription. **Note:** You must verify the HMAC-SHA256 signature using the raw request body.
+- [Disable webhook](/reference/post_api-p-v-version-webhooks-id-disable.md): Disables a webhook subscription
+- [Enable webhook](/reference/post_api-p-v-version-webhooks-id-enable.md): Enables a disabled webhook subscription
+- [Reveal webhook secret](/reference/post_api-p-v-version-webhooks-id-reveal-secret.md): Decrypts and returns the webhook secret in plaintext
+- [Rotate secret](/reference/post_api-p-v-version-webhooks-id-rotate-secret.md): Generates a new webhook secret while maintaining backward compatibility
+- [Test webhook delivery](/reference/post_api-p-v-version-webhooks-id-test.md): Sends a signed test payload to the configured URL to verify signature logic.
+- [Verify webhook ownership](/reference/post_api-p-v-version-webhooks-id-verify.md): Verifies webhook endpoint ownership using challenge-response mechanism
+- [Update webhook](/reference/put_api-p-v-version-webhooks-id.md): Updates a webhook subscription. Supports RFC 7232 optimistic concurrency via `If-Match`.
+- [Delete webhook](/reference/delete_api-p-v-version-webhooks-id.md): Soft-deletes a webhook subscription.Supports RFC 7232 optimistic concurrency via `If-Match`.
+
+## Changelog
+- [Changelog](/changelog.md): Product updates and announcements for the Alvys Public API.
