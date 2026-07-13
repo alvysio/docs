@@ -1,55 +1,130 @@
-# Mintlify Starter Kit
+# Alvys API Documentation (Mintlify)
 
-Use the starter kit to get your docs deployed and ready to customize.
+Alvys Public API and MCP documentation for [alvys.mintlify.io](https://alvys.mintlify.io/), published from this repo via the Mintlify GitHub App on every push to `main`.
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+This repo is the **Mintlify POC publish target** for the self-healing documentation loop ([backend#36139](https://github.com/alvysio/backend/pull/36139)). The workflow currently targets `alvysio/api-docs` (ReadMe); it will be retargeted here once this scaffold lands.
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
+## Local development
 
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
-
-## AI-assisted writing
-
-Set up your AI coding tool to work with Mintlify:
+Install the [Mintlify CLI](https://www.npmjs.com/package/mint):
 
 ```bash
-npx skills add https://mintlify.com/docs
-```
-
-This command installs Mintlify's documentation skill for your configured AI tools like Claude Code, Cursor, Windsurf, and others. The skill includes component reference, writing standards, and workflow guidance.
-
-See the [AI tools guides](/ai-tools) for tool-specific setup.
-
-## Development
-
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
-
-```
 npm i -g mint
 ```
 
-Run the following command at the root of your documentation, where your `docs.json` is located:
+Preview at the repo root (where `docs.json` lives):
 
-```
+```bash
 mint dev
 ```
 
-View your local preview at `http://localhost:3000`.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Publishing changes
+Validate configuration and OpenAPI:
 
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
+```bash
+mint validate
+```
 
-## Need help?
+## Publishing
 
-### Troubleshooting
+The Mintlify GitHub App is installed on `alvysio/docs`. Pushes to `main` auto-deploy to [alvys.mintlify.io](https://alvys.mintlify.io/).
 
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
+## Repository layout
 
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+```
+docs.json                 # Site config: branding, nav tabs, OpenAPI binding
+index.mdx                 # Landing page
+docs/                     # Guides (Documentation tab)
+  getting-started.mdx
+  authentication.mdx
+  versioning.mdx
+  base-url.mdx
+openapi/
+  alvys.json              # OpenAPI 3.0 spec — drives API Reference tab
+ai-agents/                # MCP catalog (AI & Agents tab)
+  mcp.mdx
+  available-mcp-tools.mdx
+changelog/
+  index.mdx               # Release notes — agent prepends new entries here
+logo/                     # light.svg / dark.svg (Alvys wordmarks)
+AGENTS.md                 # Agent authoring rules for this repo
+```
+
+### Navigation tabs
+
+| Tab | Source |
+| --- | --- |
+| **Documentation** | `index.mdx`, `docs/*.mdx` |
+| **API Reference** | Auto-generated from `openapi/alvys.json` |
+| **AI & Agents** | `ai-agents/*.mdx` |
+| **Changelog** | `changelog/index.mdx` |
+
+### Page format (Mintlify MDX)
+
+Every page is an `.mdx` file with YAML frontmatter:
+
+```mdx
+---
+title: "Page title"
+description: "One-line summary for SEO and AI indexing"
+---
+
+Body in MDX. Use Mintlify components: Note, Warning, Tip, Card, CardGroup, Columns, Steps.
+```
+
+**Do not** use ReadMe-specific frontmatter (`excerpt`, `hidden`, `deprecated`, `metadata`, `next`, `api_config`).
+
+### Changelog path
+
+Self-healing agent: **prepend** new dated sections to `changelog/index.mdx` (newest first). Do not create separate changelog files unless we adopt Mintlify's multi-page changelog pattern later.
+
+### MCP catalog path
+
+- Overview: `ai-agents/mcp.mdx`
+- Tool table: `ai-agents/available-mcp-tools.mdx`
+
+When new MCP tools ship, update the domain tables in `available-mcp-tools.mdx` and cross-link from `mcp.mdx`.
+
+### OpenAPI / API reference
+
+Endpoint pages are **auto-generated** from `openapi/alvys.json`. To document a new endpoint:
+
+1. Update `openapi/alvys.json` (synced from the Public API spec in `alvysio/api-docs/reference/alvys.json` today).
+2. Mintlify regenerates pages on deploy — no per-endpoint MDX unless adding `x-mint: content` in the spec.
+
+## ReadMe → Mintlify format deltas (for `docs-sync` retarget)
+
+When porting content from `alvysio/api-docs` (ReadMe Git Sync):
+
+| ReadMe (`api-docs`) | Mintlify (`docs`) |
+| --- | --- |
+| `docs/Documentation/*.md` | `docs/*.mdx` |
+| `docs/AI & Agents/mcp/*.md` | `ai-agents/*.mdx` |
+| `reference/Alvys/**/*.md` with `api:` frontmatter | Prefer OpenAPI in `openapi/alvys.json`; use `x-mint: content` for per-endpoint prose |
+| `reference/_order.yaml`, `docs/**/_order.yaml` | `docs.json` navigation `tabs` / `groups` / `pages` |
+| ReadMe `<Callout icon="…" theme="…">` | Mintlify `<Note>`, `<Warning>`, `<Tip>` (or `<Callout>` where supported) |
+| ReadMe `<Cards>` / `<Card href="…">` | Mintlify `<CardGroup>` / `<Card>` |
+| `docs.alvys.com/docs/authentication-1` slugs | `/docs/authentication` (drop numeric suffixes) |
+| `excerpt` frontmatter | `description` frontmatter |
+| Hosted ReadMe images (`files.readme.io/...`) | Re-host or replace; do not depend on ReadMe CDN long-term |
+| Changelog in ReadMe | `changelog/index.mdx` prepend pattern |
+
+### Agent write targets (post-retarget)
+
+| Change type | File(s) |
+| --- | --- |
+| New guide | `docs/<slug>.mdx` + add to `docs.json` Documentation group |
+| API endpoint | `openapi/alvys.json` |
+| MCP tool | `ai-agents/available-mcp-tools.mdx` |
+| Release note | Prepend to `changelog/index.mdx` |
+| Nav change | `docs.json` only |
+
+## AI indexing
+
+Mintlify auto-hosts `/llms.txt` and `/llms-full.txt` on deploy. A curated `llms.txt` at the repo root overrides the auto-generated index when present.
+
+## Related repos
+
+- [`alvysio/api-docs`](https://github.com/alvysio/api-docs) — ReadMe Public API docs (current production at docs.alvys.com)
+- [`alvysio/backend`](https://github.com/alvysio/backend) — self-healing docs workflow (PR #36139)

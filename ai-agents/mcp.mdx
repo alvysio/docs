@@ -1,0 +1,105 @@
+---
+title: "MCP"
+description: "Connect AI agents to Alvys through the Model Context Protocol (MCP) server."
+---
+
+Integrate Alvys capabilities using the **Model Context Protocol (MCP)** server.
+
+The MCP server provides tools that AI agents use to interact with the Alvys Public API. Unlike raw API integration, the MCP server gives your AI client a single, discoverable, and permissioned surface. Every tool call is authenticated with your Alvys credentials, scoped to your tenant, and audited.
+
+<Warning>
+  **Internal beta**
+
+  The Alvys MCP server is currently in **beta**. Access is granted on request — contact your account representative (existing customers) or the Alvys Partnership team (ISVs). During beta, the server exposes **read-only** tools.
+</Warning>
+
+## What is MCP?
+
+Model Context Protocol is an open standard that gives AI assistants a live connection to external tools and data. Your AI client connects directly to Alvys and can search, read, and (where permitted) act on operational data in real time.
+
+The Alvys MCP server sits in front of the [Alvys Public API](/docs/getting-started). It adds:
+
+- **Authentication** — every request carries an Auth0 bearer token.
+- **Tenant isolation** — your company is resolved from the token, never from agent input.
+- **Per-tool permissions** — each tool requires a specific scope (for example `load:read`).
+- **Read / Write / Destructive classification** — write and destructive tools are gated and off by default.
+- **Auditing and rate limits** — every tool call is logged and throttled.
+
+## Who it's for
+
+| You are… | Use MCP to… |
+| --- | --- |
+| A **developer** | Give Claude, Cursor, or a custom agent live access to loads, trips, drivers, and carriers without hand-writing API calls. |
+| A **business owner / ops** | Ask an AI assistant natural-language questions about your operation. |
+| A **platform / ISV** | Connect agents to Alvys to automate dispatch, carrier onboarding, tracking, and settlement workflows. |
+
+## Connecting to Alvys's MCP server
+
+The Alvys MCP server is a **remote MCP server** using the MCP Streamable HTTP transport.
+
+### Server URL
+
+| Environment | MCP Server URL |
+| --- | --- |
+| **Production** | `https://mcp.alvys.com/mcp` |
+
+### Option 1 — Interactive login (recommended for AI apps)
+
+Best for human-facing clients that support remote MCP servers with OAuth (Claude.ai, Claude Desktop, Cursor, Continue.dev).
+
+1. Add a new **remote / custom MCP server** in your client and paste the server URL.
+2. Your client discovers the login flow via OAuth metadata (`/.well-known/oauth-protected-resource/mcp`).
+3. Complete the Alvys login in the browser and select your **organization** if prompted.
+
+#### Example — Cursor (`mcp.json`)
+
+```json
+{
+  "mcpServers": {
+    "alvys": {
+      "url": "https://mcp.alvys.com/mcp"
+    }
+  }
+}
+```
+
+### Option 2 — Machine-to-machine (headless automation)
+
+Best for server-to-server agents with no human in the loop. Reuses OAuth 2.0 **client-credentials** from the Public API.
+
+1. Create an Alvys API application in **Admin → API Access**. See [Authentication](/docs/authentication).
+2. Request an access token from `https://auth.alvys.com/oauth/token`.
+3. Pass the token in the `Authorization: Bearer YOUR_ACCESS_TOKEN` header on MCP requests.
+
+### Verifying the connection
+
+Ask your MCP client to **list available tools**, or issue an MCP `tools/list` call. See [Available MCP Tools](/ai-agents/available-mcp-tools) for the full catalog.
+
+```bash
+curl -sD - -X POST https://mcp.alvys.com/mcp \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'
+```
+
+## Permissions and safety
+
+The MCP server enforces the **same scope model** as the Public API. Tools are classified:
+
+| Tier | Examples | Availability |
+| --- | --- | --- |
+| **Read** | `loads_search`, `drivers_get_by_id` | Always available |
+| **Write** | `tenders_create`, `trips_assign` | Disabled during beta |
+| **Destructive** | cancel / void actions | Disabled by default |
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Available MCP Tools" icon="list" href="/ai-agents/available-mcp-tools">
+    Full tool catalog grouped by domain with required scopes.
+  </Card>
+  <Card title="Authentication" icon="key" href="/docs/authentication">
+    Create credentials and issue access tokens.
+  </Card>
+</CardGroup>
