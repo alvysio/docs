@@ -43,6 +43,13 @@
             ]
           },
           {
+            "group": "AI & Agents",
+            "pages": [
+              "docs/mcp",
+              "docs/available-mcp-tools"
+            ]
+          },
+          {
             "group": "Use Cases",
             "pages": [
               {
@@ -238,6 +245,7 @@
             "pages": [
               "reference/overview",
               "reference/event-delivery-reliability",
+              "reference/change-diffs",
               "reference/security-signature-verification",
               "reference/webhook-lifecycle-configuration",
               "reference/get_api-p-v-version-webhooks",

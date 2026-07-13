@@ -1,0 +1,132 @@
+---
+title: "Available MCP Tools"
+description: "The full catalog of tools exposed by the Alvys MCP server, grouped by domain, with the permission each one requires."
+---
+
+This page lists every tool the Alvys [MCP server](/docs/mcp) exposes to AI agents. Each tool maps 1:1 to an Alvys Public API capability and requires a specific permission (scope). Your token must carry that scope for the call to succeed.
+
+**Tool tiers**
+
+* **Read** — retrieve data. Always available.
+* **Write** — create or update data. Disabled during beta.
+
+Scopes use the `{resource}:{action}` convention and match the [Public API scope catalog](/docs/authentication-1#available-scopes). Assign them to your application in **Admin → API Access**.
+
+<Warning>
+  During beta, the server is **read-only**. Write tools (marked below) are disabled.
+</Warning>
+
+***
+
+## Loads
+
+| Tool | Tier | Scope | Description |
+| --- | --- | --- | --- |
+| `loads_search` | Read | `load:read` | Search loads by status, load number, order number, and/or customer id. |
+| `loads_get_by_id` | Read | `load:read` | Fetch a single load including stops, charges, and assignment. |
+
+## Trips
+
+| Tool | Tier | Scope | Description |
+| --- | --- | --- | --- |
+| `trips_search` | Read | `trip:read` | Search trips by status, load number, or trip number. |
+| `trips_get_by_id` | Read | `trip:read` | Fetch a single trip including its ordered stops. |
+| `trips_update_stop_status` | Write | `stop:update` | Record arrival, departure, or appointment on a trip stop. |
+| `trips_assign` | Write | `trip:update` | Assign a carrier, driver, and equipment to a trip. |
+
+## Drivers
+
+| Tool | Tier | Scope | Description |
+| --- | --- | --- | --- |
+| `drivers_search` | Read | `driver:read` | Search drivers by name or ELD duty status. |
+| `drivers_get_by_id` | Read | `driver:read` | Fetch a single driver record. |
+| `drivers_events_search` | Read | `driver:read` | Fetch a driver's ELD / duty event history over a date range. |
+
+## Carriers
+
+| Tool | Tier | Scope | Description |
+| --- | --- | --- | --- |
+| `carriers_search` | Read | `carrier:read` | Search carriers by status, MC number, or DOT number. |
+| `carriers_get_by_id` | Read | `carrier:read` | Fetch a single carrier including insurance and authority data. |
+| `carriers_documents_get` | Read | `carrier:read` | List documents on file for a carrier. |
+| `carriers_set_status` | Write | `carrier:update` | Change a carrier's status (e.g. activate after onboarding). |
+| `carriers_document_upload` | Write | `carrier:update` | Upload a carrier onboarding document. |
+
+## Customers
+
+| Tool | Tier | Scope | Description |
+| --- | --- | --- | --- |
+| `customers_search` | Read | `customer:read` | Search customers by status. |
+| `customers_get_by_id` | Read | `customer:read` | Fetch a single customer including contacts and billing address. |
+| `customers_create` | Write | `customer:create` | Create a new customer. |
+
+## Trucks & Trailers
+
+| Tool | Tier | Scope | Description |
+| --- | --- | --- | --- |
+| `trucks_search` | Read | `truck:read` | Search trucks (power units) by unit number or status. |
+| `trucks_get_by_id` | Read | `truck:read` | Fetch a single truck by id. |
+| `trailers_search` | Read | `trailer:read` | Search trailers by unit number or status. |
+| `trailers_get_by_id` | Read | `trailer:read` | Fetch a single trailer by id. |
+
+## Invoices, Fuel & Payments
+
+| Tool | Tier | Scope | Description |
+| --- | --- | --- | --- |
+| `invoices_search` | Read | `invoice:read` | Search invoices by customer, status, load number, or order number. |
+| `invoices_get_by_id` | Read | `invoice:read` | Fetch a single invoice including line items. |
+| `fuel_transactions_search` | Read | `fuel:read` | Query fuel transactions by truck unit and/or date range. |
+| `invoices_record_carrier_payment` | Write | `invoice:update` | Record a payment to a carrier against a trip. |
+| `invoices_record_customer_payment` | Write | `invoice:update` | Record a payment received from a customer against a load. |
+| `invoices_record_financing` | Write | `invoice:update` | Record a factoring / financing transaction. |
+
+## Visibility & Tracking
+
+| Tool | Tier | Scope | Description |
+| --- | --- | --- | --- |
+| `visibility_inbound_history` | Read | `visibility:read` | Fetch inbound tracking events for a load. |
+| `visibility_outbound_history` | Read | `visibility:read` | Fetch outbound tracking events for a load. |
+
+## Deductions
+
+| Tool | Tier | Scope | Description |
+| --- | --- | --- | --- |
+| `deductions_search` | Read | `deduction:read` | Search deductions for a driver, truck, or owner-operator. |
+| `deductions_get_by_id` | Read | `deduction:read` | Fetch a single deduction by id. |
+
+## Tenders
+
+| Tool | Tier | Scope | Description |
+| --- | --- | --- | --- |
+| `tenders_search` | Read | `tender:read` | Search inbound tenders by status, load number, or shipment id. |
+| `tenders_get_by_id` | Read | `tender:read` | Fetch a single inbound tender. |
+| `tenders_create` | Write | `tender:create` | Create (ingest) a new inbound tender. |
+| `tenders_accept` | Write | `tender:update` | Accept an inbound tender, linking each stop to a company. |
+| `tenders_accept_updates` | Write | `tender:update` | Accept all pending updates on a tender. |
+| `tenders_reject` | Write | `tender:update` | Reject an inbound tender. |
+| `tenders_accept_cancel` | Write | `tender:update` | Accept a tender cancellation. |
+
+***
+
+## Error handling
+
+Tool calls return a structured error when they cannot complete. Common cases:
+
+| Condition | What it means |
+| --- | --- |
+| **Missing scope** | Your token does not carry the tool's required permission. Add the scope in **Admin → API Access** and re-issue the token. |
+| **Write tool disabled** | The tool is a write/destructive action disabled during beta. |
+| **Rate limited** | You exceeded the per-token request limit. Back off and retry. |
+| **Response too large** | The result exceeded the size cap. Narrow your search filters or paginate. |
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Model Context Protocol" href="/docs/mcp" icon="plug">
+    Overview and connection setup for the Alvys MCP server.
+  </Card>
+
+  <Card title="Authentication" href="/docs/authentication-1" icon="key">
+    Create credentials and issue access tokens with the right scopes.
+  </Card>
+</CardGroup>

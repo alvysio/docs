@@ -12,6 +12,8 @@
 - [Rate Limits](/docs/rate-limits.md)
 - [Response Codes](/docs/response-codes.md)
 - [Timestamps](/docs/timestamps.md)
+- [MCP](/docs/mcp.md): Connect AI agents directly to Alvys through the Model Context Protocol (MCP) server — a governed, authenticated gateway to the Alvys Public API.
+- [Available MCP Tools](/docs/available-mcp-tools.md): The full catalog of tools exposed by the Alvys MCP server, grouped by domain, with the permission each one requires.
 - [Connecting to Power BI](/docs/connecting-power-bi-to-alvys-public-api-guide.md): Connecting Power BI to Alvys Public API Guide
 - [Authentication and Global Permissions](/docs/authentication-2.md): To interact with the Alvys API, you must first retrieve an access token using your API credentials. This token is required for authenticating all subsequent API queries.
 - [Create Queries and Retrieve Data from the Alvys API](/docs/create-queries-and-retrieve-data-from-the-alvys-api.md): Once you have the AccessToken, you can use it to query various API endpoints.
@@ -102,6 +104,7 @@
 - [Search outbound visibility errors](/reference/post_api-p-v-version-visibility-outbound-errors.md)
 - [Overview](/reference/overview.md)
 - [Event Delivery & Reliability](/reference/event-delivery-reliability.md)
+- [Change Diffs (data.diff)](/reference/change-diffs.md)
 - [Security & Signature Verification](/reference/security-signature-verification.md)
 - [Webhook Lifecycle & Configuration](/reference/webhook-lifecycle-configuration.md)
 - [List webhooks](/reference/get_api-p-v-version-webhooks.md): Returns paginated webhook subscriptions. Default size: 50. Ordered by creation date (newest first).
