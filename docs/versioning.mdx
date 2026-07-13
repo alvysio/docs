@@ -1,0 +1,59 @@
+---
+title: "Versioning"
+description: "How the Alvys Public API is versioned and how to include the version in requests."
+---
+
+## How versioning works
+
+Alvys uses a versioning system to manage changes in our API, especially when those changes are not backward-compatible. Versions follow semantic versioning as `v.{major}.{minor}.{patch}` (for example, `v1.2.0`).
+
+- When new endpoints are added, they are accessible by all existing API versions by default.
+- Integrations using OAuth 2.0 use the latest API version when obtaining an access token, unless a specific version is specified in the request header.
+
+## Current API version
+
+- **Version in use:** All API requests must use `v1.0` in the path (for example `GET /api/p/v1.0/loads`).
+- **Example:** `GET /api/p/v1.0/{resource}` — replace `{resource}` with `drivers`, `loads`, and so on.
+
+### Understanding semantic versioning
+
+- **Major version** (`v1`, `v2`): Backward-incompatible changes — removing fields, changing response structures, or altering behavior that breaks existing integrations.
+- **Minor version** (`v1.1`, `v1.2`): Backward-compatible feature additions — new optional parameters or endpoints.
+- **Patch version** (`v1.0.1`, `v1.0.2`): Backward-compatible bug fixes.
+
+## Changing API versions
+
+There are two ways API versions can be selected:
+
+- **Route parameters** — Include the version in the URL path: `/api/p/v1.0/drivers`.
+- **HTTP header** — Override with the `api-version` header. We recommend always passing this header to confirm your integration uses the intended version.
+
+### Example
+
+```
+GET /api/p/v1.0/drivers
+Host: integrations.alvys.com
+api-version: v1
+```
+
+## Backwards incompatible changes
+
+Alvys uses major version changes for:
+
+- Adding required request body fields, field values, or query parameters.
+- Removing allowed request body fields, query parameters, or parameter values.
+- Reducing documented rate limits.
+- Renaming request/response fields or query parameters.
+- Renaming or removing enumerated field values.
+- Changing field data types or nested JSON structures.
+- Changing expected response payloads.
+- Deprecating access to endpoints.
+
+## Backwards compatible changes
+
+Alvys does not version the API for:
+
+- Changing error messages.
+- Changing the structure of a field's string value in a response.
+- Introducing additional optional (nullable) fields.
+- Other non-breaking fixes and enhancements.

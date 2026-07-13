@@ -1,0 +1,27 @@
+# Alvys API
+
+> Unlock the full potential of your logistics operations with the Alvys API. Public REST API and MCP documentation for integrators and AI agents.
+
+## Documentation
+
+- [Home](https://alvys.mintlify.io/): Alvys Public API overview and quick paths
+- [Getting Started](https://alvys.mintlify.io/docs/getting-started): Create credentials and make your first API call
+- [Authentication](https://alvys.mintlify.io/docs/authentication): OAuth 2.0 Client Credentials and scopes
+- [Versioning](https://alvys.mintlify.io/docs/versioning): API version selection and compatibility
+- [Base URL](https://alvys.mintlify.io/docs/base-url): Production URL format
+
+## API Reference
+
+- [OpenAPI spec](https://alvys.mintlify.io/openapi/alvys.json): Full Public API specification
+- [Loads](https://alvys.mintlify.io/api-reference/loads): Load search and retrieval
+- [Drivers](https://alvys.mintlify.io/api-reference/drivers): Driver records and events
+- [Carriers](https://alvys.mintlify.io/api-reference/carriers): Carrier search and profiles
+
+## AI & Agents
+
+- [MCP overview](https://alvys.mintlify.io/ai-agents/mcp): Connect AI agents to Alvys
+- [Available MCP Tools](https://alvys.mintlify.io/ai-agents/available-mcp-tools): Full tool catalog with scopes
+
+## Changelog
+
+- [Changelog](https://alvys.mintlify.io/changelog): Public API and MCP release notes
