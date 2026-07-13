@@ -3686,6 +3686,7 @@
           "Invoices"
         ],
         "summary": "Record carrier payment",
+        "description": "Record a carrier payment against a trip. Idempotent on `ReferenceNumber` — re-submitting the same reference returns the current state without creating a duplicate payment.\n\nWhen recorded payments fully cover the carrier payable, the trip transitions to `Completed`. Partial payments leave the trip status unchanged.",
         "parameters": [
           {
             "name": "version",
@@ -15934,7 +15935,6 @@
       "Alvys.Models.Invoices.Request.CarrierPaymentRequest": {
         "required": [
           "Amount",
-          "MarkAsPaid",
           "PaymentDate",
           "ReferenceNumber",
           "TripId"
@@ -15942,7 +15942,8 @@
         "type": "object",
         "properties": {
           "TripId": {
-            "type": "string"
+            "type": "string",
+            "description": "Identifier of the trip for which the carrier payment is being recorded."
           },
           "Amount": {
             "allOf": [
@@ -15969,9 +15970,6 @@
           "Note": {
             "type": "string",
             "nullable": true
-          },
-          "MarkAsPaid": {
-            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -16147,7 +16145,8 @@
             "type": "string"
           },
           "Status": {
-            "type": "string"
+            "type": "string",
+            "description": "Current trip status after the payment is applied. When payments fully cover the carrier payable, this is `Completed`."
           },
           "CarrierPayments": {
             "type": "array",
