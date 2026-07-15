@@ -1,0 +1,81 @@
+---
+title: "Expired Insurance Error When Assigning a Carrier"
+description: "Learn why Alvys blocks assignment when a carrier is missing or expired on a required insurance type, and how to resolve it with a supervisor override or by updating the carrier's COI."
+---
+
+<Note>
+  📋 **Applies to:** All users; override requires **"OverrideCarrierRestriction"** permission
+
+  **Module:** Loads
+
+  **Last reviewed:** 2026-07 · **Owner:** Support
+
+  When assigning a carrier to a trip, Alvys may block the assignment if the carrier is missing or expired on an insurance type that your subsidiary requires. This article explains when the check runs and how to resolve it.
+</Note>
+
+## Symptom
+
+When you assign an external carrier to a trip, Alvys blocks the assignment and displays: "Cannot assign this carrier: insurance has expired. Supervisor/manager approval is required to proceed."
+
+The block runs whether you assign from the trip page, the dispatch planner, or the planner's bulk-assign action, so a carrier that fails the check cannot be assigned by any of those paths without an override.
+
+## Cause
+
+Your subsidiary is opted into carrier-insurance enforcement, and the carrier you selected is missing at least one required Certificate of Insurance (COI) type, or every policy Alvys has on file for that type has already expired.
+
+Alvys evaluates the check like this:
+
+- **Subsidiary required insurance types** — enforcement is per subsidiary. Alvys reads the subsidiary that the trip is being tendered as and pulls its configured required insurance types.
+- **No required types configured** — if the subsidiary has no required insurance types set, the check is skipped and the carrier can be assigned even with an expired COI. This is intentional: tenants opt in to enforcement by configuring requirements on the subsidiary.
+- **Carrier COI on file** — for each required type, Alvys looks for at least one policy of that type on the carrier that is either not yet expired or has no expiration date. If any required type has no valid policy, the assignment is blocked.
+- **Subsidiary (in-house) carriers** — assignments to your own subsidiary carriers are not blocked by this check.
+
+## Resolution
+
+Choose whichever fits the situation:
+
+<Steps>
+  <Step title="Update the carrier's Certificate of Insurance">
+    Ask the carrier to send an updated COI and refresh the insurance record on their carrier profile so at least one policy of each required type is current. Once the COI is on file and not expired, the assignment goes through without an override.
+  </Step>
+  <Step title="Use a supervisor override for a one-time assignment">
+    A user with the **"OverrideCarrierRestriction"** permission (shown as **"Override Carrier Restriction"** in Administration, Permissions) can approve the assignment directly.
+
+    1. Identify a user in your organization who has the **"OverrideCarrierRestriction"** permission.
+    2. Ask that user to review the carrier's insurance status and confirm whether proceeding is appropriate.
+    3. Have the authorized user complete the override step in the assign-carrier dialog to allow the assignment.
+  </Step>
+</Steps>
+
+<Tip>
+  The override only allows this specific assignment. The carrier's COI on file is unchanged and future assignments will continue to be blocked until the carrier's insurance is refreshed.
+</Tip>
+
+## If That Didn't Work
+
+- If assignments are being blocked when you did not expect enforcement, check the subsidiary's required insurance types configuration — an empty list turns the check off for that subsidiary.
+- If the override option does not appear in the assign-carrier dialog, or no user in your organization has the **"OverrideCarrierRestriction"** permission, contact Alvys support.
+
+## FAQs
+
+**Q: How is this different from the compliance-status override error (Highway, RMIS, MCP)?**
+
+**A:** They are two independent checks. The compliance-status check looks at the carrier's status with your verification provider (Highway, RMIS, or MCP). This insurance check looks at the carrier's COI on file in Alvys against the required insurance types on the tender-as subsidiary. A carrier can pass one and fail the other; both must pass — or be overridden — for assignment to proceed.
+
+**Q: Why does one of my subsidiaries block expired COIs and another does not?**
+
+**A:** Enforcement is per subsidiary. Whichever subsidiary you're tendering the load as determines whether the check runs and which insurance types are required.
+
+**Q: The carrier still has an old expired policy on file next to a current one — will that block the assignment?**
+
+**A:** No. For each required type, Alvys checks whether the carrier has at least one currently-valid policy. Historical expired policies alongside a current renewal do not cause a block.
+
+**Q: Does this apply to bulk assign from the dispatch planner?**
+
+**A:** Yes. The same check runs per trip during a bulk assign. Trips whose carrier passes the check are assigned; trips that would fail the check return a "insurance has expired" error and are not assigned unless the user has the override permission.
+
+## Go Deeper
+
+- [Override Authorization Error When Assigning a Carrier](/help/loads-trips/override-authorization-error-when-assigning-a-carrier)
+- [Dispatch Planner](/help/loads-trips/dispatch-planner)
+- [Carrier Verification](/help/asset-fleet/how-to-verify-a-motor-carrier-in-alvys)

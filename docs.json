@@ -591,6 +591,7 @@
                   "help/loads-trips/2-owner-operators-cannot-be-assigned-to-a-trip",
                   "help/loads-trips/loads-stay-under-company-driver-after-a-driver-s-status-changes-to-owner-operator",
                   "help/loads-trips/override-authorization-error-when-assigning-a-carrier",
+                  "help/loads-trips/expired-insurance-error-when-assigning-a-carrier",
                   "help/loads-trips/dispatch-planner",
                   "help/loads-trips/how-to-add-roles-to-loads-and-trips",
                   "help/loads-trips/previous-trip-and-last-location-on-the-load-details-page",

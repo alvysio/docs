@@ -4,6 +4,27 @@ description: "Release notes and updates for the Alvys Public API, webhooks, MCP 
 rss: true
 ---
 
+<Update label="July 15, 2026" description="Expired-COI Block on Carrier Assignment (Opt-In per Subsidiary)" tags={["Added", "Carriers", "Trips"]}>
+  Assigning an external carrier to a trip is now blocked when the carrier is missing or expired on an insurance type that the tender-as subsidiary requires. Users with the **"OverrideCarrierRestriction"** permission can approve the assignment on the spot.
+
+  ## What's New
+
+  * A server-side check runs on interactive assignment paths — the trip page, the dispatch planner, and the planner's bulk-assign action — so a carrier that fails the check cannot be assigned by any of those paths without an override.
+  * Enforcement is **opt-in per subsidiary**: if the tender-as subsidiary has no required insurance types configured, the check is skipped and the assignment proceeds. Tenants enable enforcement by configuring required types on the subsidiary.
+  * For each required type, the carrier passes if it has **at least one currently-valid policy** on file (a policy with no expiration date counts as valid). Historical expired policies alongside a current renewal do not cause a block.
+  * Assignments to your own subsidiary carriers are not affected.
+
+  ## What Changes
+
+  * When the check blocks an assignment, the dialog shows: "Cannot assign this carrier: insurance has expired. Supervisor/manager approval is required to proceed."
+  * Automated ingestion paths — EDI inbound-tender assignment, bulk load import, and the Public API — are intentionally not gated by this check. Integrator and ingestion flows are unaffected.
+  * The Public API and MCP tool catalog are unchanged.
+
+  <Note>
+    See [Expired Insurance Error When Assigning a Carrier](/help/loads-trips/expired-insurance-error-when-assigning-a-carrier) for the end-user workflow and how the check differs from the existing compliance-status override.
+  </Note>
+</Update>
+
 <Update label="July 13, 2026" description="Carrier Payment Trip Status Fix (ACC-1677)" tags={["Fixed", "Invoices", "MCP"]}>
   Released with the [Week of July 6–13 platform fixes](https://app.notion.com/p/39ca5b0d388a812e9db2e30d7b9526aa).
 
