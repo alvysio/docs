@@ -1,0 +1,140 @@
+---
+title: "Clear stop arrival"
+openapi: "DELETE /api/p/v{version}/trips/{tripId}/stops/{stopId}/arrival"
+---
+
+## Clear Stop Arrival
+
+Clears the recorded arrival time for a specific stop within a trip.
+
+This endpoint removes the `ArrivedAt` timestamp from the stop, effectively marking the stop as **not yet arrived**.
+
+The response returns the **updated stop object** after the arrival timestamp has been cleared.
+
+***
+
+### Endpoint
+
+```
+DELETE /api/p/v{version}/trips/{tripId}/stops/{stopId}/arrival
+```
+
+***
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                    |
+| --------- | ------ | -------- | ------------------------------ |
+| version   | string | Yes      | API version (e.g. `1.0`).      |
+| tripId    | string | Yes      | Unique identifier of the trip. |
+| stopId    | string | Yes      | Unique identifier of the stop. |
+
+***
+
+### Example CURL request
+
+```bash
+curl --location --request DELETE 'https://integrations.alvys.com/api/p/v1/trips/{tripId}/stops/{stopId}/arrival' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace:
+
+* `{version}` with the API version (for example `1`)
+* `{tripId}` with the actual trip ID
+* `{stopId}` with the stop ID
+* `YOUR_ACCESS_TOKEN` with your Bearer token
+
+***
+
+### Response Parameters
+
+| Parameter                 | Type              | Description                                                                                              |
+| ------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------- |
+| Id                        | string            | Unique identifier of the stop.                                                                           |
+| Address.Street            | string            | Street address of the stop location.                                                                     |
+| Address.City              | string            | City of the stop location.                                                                               |
+| Address.State             | string            | State of the stop location.                                                                              |
+| Address.ZipCode           | string            | ZIP code of the stop location.                                                                           |
+| AppointmentConfirmed      | boolean           | Indicates whether the appointment has been confirmed.                                                    |
+| AppointmentDate           | string (datetime) | Appointment date and time for the stop.                                                                  |
+| AppointmentRequested      | boolean           | Indicates whether an appointment has been requested.                                                     |
+| ArrivedAt                 | string (datetime) | Timestamp when the stop was marked as arrived (UTC). This value will be **null after clearing arrival**. |
+| DepartedAt                | string (datetime) | Timestamp when the stop was departed (UTC).                                                              |
+| ScheduleType              | string            | Schedule type (`APPT` or `FCFS`).                                                                        |
+| LoadingType               | string            | Loading type (`Live`, `Drop`, `Hook`, etc.).                                                             |
+| StopType                  | string            | Type of stop (`Pickup`, `Delivery`, `Waypoint`).                                                         |
+| Status                    | string            | Operational status of the stop.                                                                          |
+| Coordinates.Latitude      | string            | Latitude of the stop location.                                                                           |
+| Coordinates.Longitude     | string            | Longitude of the stop location.                                                                          |
+| References\[]             | array             | List of references associated with the stop.                                                             |
+| References\[].Id          | string            | Reference identifier.                                                                                    |
+| References\[].ReferenceId | string            | External reference identifier.                                                                           |
+| References\[].Name        | string            | Name of the reference field.                                                                             |
+| References\[].Value       | string            | Value of the reference.                                                                                  |
+| References\[].Type        | string            | Type of reference.                                                                                       |
+| References\[].Access      | string            | Access level (`Public`, `Internal`).                                                                     |
+| References\[].Origin      | string            | Origin of the reference.                                                                                 |
+| CompanyId                 | string            | Identifier of the company associated with the stop.                                                      |
+| CompanyNumber             | string            | Company registration or identification number.                                                           |
+| CompanyName               | string            | Company name associated with the stop.                                                                   |
+
+***
+
+### Example Response
+
+```json
+{
+  "AppointmentRequested": true,
+  "AppointmentConfirmed": true,
+  "AppointmentDate": "2026-03-16T12:35:48.148Z",
+  "ScheduleType": "string",
+  "LoadingType": "string",
+  "Id": "string",
+  "Address": {
+    "Street": "string",
+    "City": "string",
+    "State": "string",
+    "ZipCode": "string"
+  },
+  "Coordinates": {
+    "Latitude": "string",
+    "Longitude": "string"
+  },
+  "Status": "string",
+  "StopType": "string",
+  "ArrivedAt": null,
+  "DepartedAt": "2026-03-16T12:35:48.148Z",
+  "References": [
+    {
+      "Id": "string",
+      "ReferenceId": "string",
+      "Name": "string",
+      "Value": "string",
+      "Type": "string",
+      "Access": "string",
+      "Origin": "string"
+    }
+  ],
+  "CompanyId": "string",
+  "CompanyNumber": "string",
+  "CompanyName": "string"
+}
+```
+
+***
+
+### Status Codes
+
+| Status Code   | Description                                  |
+| ------------- | -------------------------------------------- |
+| 200 OK        | Stop arrival timestamp successfully cleared. |
+| 404 Not Found | Trip or stop could not be found.             |
+
+***
+
+### Rate Limits
+
+All endpoints are subject to API rate limits to ensure service stability and protect against traffic spikes.
+
+Refer to the **Rate Limits** documentation for more information.

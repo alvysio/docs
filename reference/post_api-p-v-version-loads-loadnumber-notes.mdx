@@ -1,0 +1,50 @@
+---
+title: "Create load note"
+openapi: "POST /api/p/v{version}/loads/{loadNumber}/notes"
+---
+
+Create a new note associated with a specific load.
+
+Notes can be used to store operational comments, updates, or other annotations related to the load.
+
+### Path Parameters
+
+| Name       | Type   | Required | Description                                      |
+| ---------- | ------ | -------- | ------------------------------------------------ |
+| loadNumber | string | Yes      | The unique number identifying the load.          |
+| version    | string | Yes      | API version (e.g., `2.0`). Default value: `2.0`. |
+
+### Request Body
+
+```json
+{
+  "Id": "string",
+  "Description": "string",
+  "NoteType": "string"
+}
+```
+
+### Request Body Parameters
+
+| Name        | Type   | Required | Description                                                                                                           |
+| ----------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------- |
+| Id          | string | Yes      | Unique identifier of the note.                                                                                        |
+| Description | string | Yes      | The text content of the note. Maximum 4000 characters.                                                                |
+| NoteType    | string | Yes      | The category or type of the note. Maximum 50 characters. Must be one of: `System`, `General`, `Assignment`, `Safety`. |
+
+### Responses
+
+#### 201 Created
+
+Returned when a new note is successfully created.
+
+```json
+{
+  "CreatedAt": "2026-03-16T12:54:26.203Z",
+  "CreatedBy": "string",
+  "CreatedById": "string",
+  "Description": "string",
+  "Id": "string",
+  "NoteType": "string"
+}
+```

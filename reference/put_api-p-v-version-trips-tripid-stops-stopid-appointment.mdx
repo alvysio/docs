@@ -1,0 +1,191 @@
+---
+title: "Set stop appointment"
+openapi: "PUT /api/p/v{version}/trips/{tripId}/stops/{stopId}/appointment"
+---
+
+Updates the scheduling information for a specific stop within a trip.
+
+This endpoint allows updating the stop appointment details including:
+
+* schedule type
+* loading type
+* appointment date
+* appointment request / confirmation flags
+* delivery window (for FCFS stops)
+
+The response returns the **updated stop object**.
+
+***
+
+### Endpoint
+
+```
+PUT /api/p/v{version}/trips/{tripId}/stops/{stopId}/appointment
+```
+
+***
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                    |
+| --------- | ------ | -------- | ------------------------------ |
+| version   | string | Yes      | API version (e.g. `1.0`).      |
+| tripId    | string | Yes      | Unique identifier of the trip. |
+| stopId    | string | Yes      | Unique identifier of the stop. |
+
+***
+
+### Request Body
+
+| Field                | Type              | Required    | Description                                                                                                                                               |
+| -------------------- | ----------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ScheduleType         | string            | Yes         | Schedule type of the stop (`APPT` or `FCFS`).                                                                                                             |
+| LoadingType          | string            | Yes         | Loading type (`Live`, `Drop`, `Hook`, `Drop&Hook`).                                                                                                       |
+| AppointmentDate      | string (datetime) | Conditional | Appointment date and time in **ISO-8601 UTC format**. Required when `ScheduleType = APPT`.                                                                |
+| AppointmentRequested | boolean           | Yes         | Indicates whether an appointment has been requested.                                                                                                      |
+| AppointmentConfirmed | boolean           | Yes         | Indicates whether the appointment has been confirmed.                                                                                                     |
+| WindowBegin          | string (datetime) | Conditional | Start of the delivery window in **ISO-8601 UTC format**. Required when `ScheduleType = FCFS`.                                                             |
+| WindowEnd            | string (datetime) | No          | End of the delivery window in **ISO-8601 UTC format**. Used when `ScheduleType = FCFS`. If provided alongside `WindowBegin`, must be after `WindowBegin`. |
+
+<Warning>
+    **Conditional validation rules:**
+  
+  * If `ScheduleType = APPT`, you must provide `AppointmentDate`.
+  * If `ScheduleType = FCFS`, you must provide `WindowBegin`.
+  * If both `WindowBegin` and `WindowEnd` are provided, `WindowBegin` must be earlier than `WindowEnd`.
+</Warning>
+
+***
+
+### Example Request Body
+
+```json
+{
+  "ScheduleType": "string",
+  "LoadingType": "string",
+  "AppointmentDate": "string",
+  "AppointmentRequested": true,
+  "AppointmentConfirmed": true,
+  "WindowBegin": "string",
+  "WindowEnd": "string"
+}
+```
+
+***
+
+### Example CURL request
+
+```bash
+curl --location --request PUT 'https://integrations.alvys.com/api/p/v1/trips/{tripId}/stops/{stopId}/appointment' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+--header 'Content-Type: application/json' \
+--data '{
+  "ScheduleType": "APPT",
+  "LoadingType": "Live",
+  "AppointmentDate": "2026-03-16T12:45:43.262Z",
+  "AppointmentRequested": true,
+  "AppointmentConfirmed": true
+}'
+```
+
+Replace:
+
+* `{version}` with the API version (for example `1`)
+* `{tripId}` with the actual trip ID
+* `{stopId}` with the stop ID
+* `YOUR_ACCESS_TOKEN` with your Bearer token
+
+***
+
+### Response Parameters
+
+| Parameter                 | Type              | Description                                           |
+| ------------------------- | ----------------- | ----------------------------------------------------- |
+| Id                        | string            | Unique identifier of the stop.                        |
+| Address.Street            | string            | Street address of the stop location.                  |
+| Address.City              | string            | City of the stop location.                            |
+| Address.State             | string            | State of the stop location.                           |
+| Address.ZipCode           | string            | ZIP code of the stop location.                        |
+| AppointmentConfirmed      | boolean           | Indicates whether the appointment has been confirmed. |
+| AppointmentDate           | string (datetime) | Appointment date and time for the stop.               |
+| AppointmentRequested      | boolean           | Indicates whether an appointment has been requested.  |
+| ArrivedAt                 | string (datetime) | Timestamp when the stop was marked as arrived (UTC).  |
+| DepartedAt                | string (datetime) | Timestamp when the stop was marked as departed (UTC). |
+| ScheduleType              | string            | Schedule type (`APPT` or `FCFS`).                     |
+| LoadingType               | string            | Loading type (`Live`, `Drop`, `Hook`, etc.).          |
+| StopType                  | string            | Type of stop (`Pickup`, `Delivery`, `Waypoint`).      |
+| Status                    | string            | Operational status of the stop.                       |
+| Coordinates.Latitude      | string            | Latitude of the stop location.                        |
+| Coordinates.Longitude     | string            | Longitude of the stop location.                       |
+| References\[]             | array             | List of references associated with the stop.          |
+| References\[].Id          | string            | Reference identifier.                                 |
+| References\[].ReferenceId | string            | External reference identifier.                        |
+| References\[].Name        | string            | Name of the reference field.                          |
+| References\[].Value       | string            | Value of the reference.                               |
+| References\[].Type        | string            | Type of reference.                                    |
+| References\[].Access      | string            | Access level (`Public`, `Internal`).                  |
+| References\[].Origin      | string            | Origin of the reference.                              |
+| CompanyId                 | string            | Identifier of the company associated with the stop.   |
+| CompanyNumber             | string            | Company registration or identification number.        |
+| CompanyName               | string            | Company name associated with the stop.                |
+
+***
+
+### Example Response
+
+```json
+{
+  "AppointmentRequested": true,
+  "AppointmentConfirmed": true,
+  "AppointmentDate": "2026-03-16T12:45:43.262Z",
+  "ScheduleType": "string",
+  "LoadingType": "string",
+  "Id": "string",
+  "Address": {
+    "Street": "string",
+    "City": "string",
+    "State": "string",
+    "ZipCode": "string"
+  },
+  "Coordinates": {
+    "Latitude": "string",
+    "Longitude": "string"
+  },
+  "Status": "string",
+  "StopType": "string",
+  "ArrivedAt": "2026-03-16T12:45:43.262Z",
+  "DepartedAt": "2026-03-16T12:45:43.262Z",
+  "References": [
+    {
+      "Id": "string",
+      "ReferenceId": "string",
+      "Name": "string",
+      "Value": "string",
+      "Type": "string",
+      "Access": "string",
+      "Origin": "string"
+    }
+  ],
+  "CompanyId": "string",
+  "CompanyNumber": "string",
+  "CompanyName": "string"
+}
+```
+
+***
+
+### Status Codes
+
+| Status Code     | Description                            |
+| --------------- | -------------------------------------- |
+| 200 OK          | Stop appointment successfully updated. |
+| 400 Bad Request | Invalid request body.                  |
+| 404 Not Found   | Trip or stop could not be found.       |
+
+***
+
+### Rate Limits
+
+All endpoints are subject to API rate limits to ensure service stability and protect against traffic spikes.
+
+Refer to the **Rate Limits** documentation for more information.

@@ -1,0 +1,92 @@
+---
+title: "Record carrier payment"
+openapi: "POST /api/p/v{version}/invoices/carrier-payments"
+---
+
+This endpoint allows external systems (for example factoring or payment platforms) to record a carrier payment against a trip in Alvys.
+
+### Path Parameters
+
+| Parameter | Type   | Required | Description               |
+| --------- | ------ | -------- | ------------------------- |
+| version   | string | Yes      | API version (e.g., `1.0`) |
+
+### Request Body
+
+Content-Type: `application/json-patch+json`
+
+| Field           | Type               | Required | Description                                                            |
+| --------------- | ------------------ | -------- | ---------------------------------------------------------------------- |
+| TripId          | string             | Yes      | Identifier of the trip for which the carrier payment is being recorded |
+| Amount          | object             | Yes      | Payment amount object                                                  |
+| Amount.Amount   | number             | Yes      | Payment amount value                                                   |
+| Amount.Currency | integer            | Yes      | Currency identifier                                                    |
+| PaymentDate     | string (date-time) | Yes      | Date when the payment was made                                         |
+| ReferenceNumber | string             | Yes      | External reference number for the payment                              |
+| PaymentMethod   | string             | No       | Payment method used (e.g., Check, ACH, Wire)                           |
+| CheckNumber     | string             | No       | Check number if payment method is check                                |
+| Note            | string             | No       | Additional note related to the payment                                 |
+| MarkAsPaid      | boolean            | No       | Indicates whether the trip should be marked as fully paid              |
+
+### Example Request
+
+```json
+{
+  "TripId": "string",
+  "Amount": {
+    "Amount": 0,
+    "Currency": 0
+  },
+  "PaymentDate": "2026-03-16T13:48:19.920Z",
+  "ReferenceNumber": "string",
+  "PaymentMethod": "string",
+  "CheckNumber": "string",
+  "Note": "string",
+  "MarkAsPaid": true
+}
+```
+
+### Response Body
+
+| Field           | Type   | Description                                    |
+| --------------- | ------ | ---------------------------------------------- |
+| TripId          | string | Identifier of the trip                         |
+| TripNumber      | string | Trip number associated with the payment        |
+| Status          | string | Current trip status                            |
+| CarrierPayments | array  | List of carrier payments recorded for the trip |
+
+#### CarrierPayments Object
+
+| Field           | Type    | Description                        |
+| --------------- | ------- | ---------------------------------- |
+| Id              | string  | Unique identifier of the payment   |
+| Amount          | object  | Payment amount object              |
+| Amount.Amount   | number  | Payment amount value               |
+| Amount.Currency | integer | Currency identifier                |
+| PaymentDate     | string  | Date when the payment was recorded |
+| ReferenceNumber | string  | Payment reference number           |
+| PaymentMethod   | string  | Payment method used                |
+| CheckNumber     | string  | Check number if applicable         |
+
+### Example Response
+
+```json
+{
+  "TripId": "string",
+  "TripNumber": "string",
+  "Status": "string",
+  "CarrierPayments": [
+    {
+      "Id": "string",
+      "Amount": {
+        "Amount": 0,
+        "Currency": 0
+      },
+      "PaymentDate": "2026-03-16T13:48:19.924Z",
+      "ReferenceNumber": "string",
+      "PaymentMethod": "string",
+      "CheckNumber": "string"
+    }
+  ]
+}
+```

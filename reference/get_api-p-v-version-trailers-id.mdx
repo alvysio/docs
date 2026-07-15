@@ -1,0 +1,76 @@
+---
+title: "Get trailer"
+openapi: "GET /api/p/v{version}/trailers/{id}"
+---
+
+This endpoint allows you to search for trailers within the Alvys system based on various criteria such as status, trailer number, fleet name, and VIN number. The version parameter in the URL path specifies which version of the API you are using. Including the version number ensures that your application interacts with the correct version of the API, providing stability and compatibility as the API evolves. For more information on how versioning works and how to include it in your requests, please refer to the [Versioning](/docs/versioning) page.
+
+### Request Parameters
+
+The following parameters are required in the URL path:
+
+| Parameter | Type   | Required | Description                           |
+| --------- | ------ | -------- | ------------------------------------- |
+| version   | String | Yes      | The API version to use.               |
+| id        | String | Yes      | The unique identifier of the trailer. |
+
+#### Example CURL request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/trailers/{trailerId}' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `{version}` with the API version number, `{trailerId}` with the actual trailer ID, and `YOUR_ACCESS_TOKEN` with your actual Bearer token.
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/trailers/TL2512345678951234569' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ....'
+```
+
+### Response Parameters
+
+The following table lists the parameters included in the response for trailer-related requests:
+
+| Parameter                 | Type               | Required | Description                                                        |
+| ------------------------- | ------------------ | -------- | ------------------------------------------------------------------ |
+| Id                        | String             | Yes      | The unique identifier of the trailer.                              |
+| TrailerNum                | String             | No       | The trailer number associated with the trailer.                    |
+| Fleet                     | Object             | No       | The fleet information associated with the trailer.                 |
+| Fleet.Id                  | String             | No       | The unique identifier of the fleet.                                |
+| Fleet.Name                | String             | No       | The name of the fleet.                                             |
+| Fleet.InvoiceNumberPrefix | String             | No       | The invoice number prefix for the fleet.                           |
+| Year                      | Integer            | No       | The manufacturing year of the trailer.                             |
+| Make                      | String             | No       | The make of the trailer.                                           |
+| LicenseNum                | String             | No       | The license number of the trailer.                                 |
+| LicenseState              | String             | No       | The state where the trailer is licensed.                           |
+| LicenseCountry            | String             | No       | The country where the trailer is licensed (USA, Canada, Mexico).   |
+| PlateExpiresAt            | String (Date)      | No       | The expiration date of the trailer's plate.                        |
+| LicenseExpiresAt          | String (Date)      | No       | The expiration date of the trailer's license (registration).       |
+| VinNum                    | String             | No       | The Vehicle Identification Number (VIN) of the trailer.            |
+| Status                    | String             | No       | The current status of the trailer.                                 |
+| SubsidiaryId              | String             | No       | The subsidiary ID associated with the trailer.                     |
+| EquipmentType             | String             | No       | The type of equipment of the trailer.                              |
+| EquipmentSize             | String             | No       | The size of the equipment.                                         |
+| Capacity                  | Object             | No       | The capacity information of the trailer.                           |
+| Capacity.Pallets          | Integer            | No       | The number of pallets the trailer can carry.                       |
+| Capacity.Weight           | Integer            | No       | The weight capacity of the trailer.                                |
+| InsuranceCompany          | String             | No       | The name of the insurance company.                                 |
+| InsurancePolicyNumber     | String             | No       | The insurance policy number.                                       |
+| InsuranceExpiresAt        | String (Date)      | No       | The expiration date of the insurance policy.                       |
+| InspectionExpiresAt       | String (Date)      | No       | The expiration date of the trailer's inspection.                   |
+| Notes                     | Array              | No       | An optional list of notes related to the trailer.                  |
+| References                | Array              | No       | An optional list of custom references associated with the trailer. |
+| CreatedAt                 | String (Date-Time) | Yes      | The date and time when the trailer was created in Alvys.           |
+
+#### Example Response
+
+On the right side, you can see examples of different error codes by clicking "Example" and selecting the response code.
+
+![](https://files.readme.io/dcc8560-List_all_Trailers.gif)
+
+#### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request by providing the trailer ID in the URL path. As you fill out the parameters, the Curl command on the right side of the page will be automatically updated. Alternatively, you can directly edit the Curl command. Make sure to authorize yourself before trying a request.

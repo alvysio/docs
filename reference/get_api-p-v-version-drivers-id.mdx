@@ -1,0 +1,81 @@
+---
+title: "Get driver"
+openapi: "GET /api/p/v{version}/drivers/{id}"
+---
+
+The endpoint for retrieving a driver by ID requires specifying the driver's unique ID and the API version in the URL path. This ensures that your application interacts with the correct driver's data and the appropriate version of the API, providing stability and compatibility as the API evolves. For more information on how versioning works and how to include it in your requests, please refer to the [Versioning](/docs/versioning) page.
+
+### Request Parameters
+
+The following parameters are required in the URL path:
+
+| Parameter | Type   | Required | Description                                |
+| --------- | ------ | -------- | ------------------------------------------ |
+| version   | String | Yes      | The API version to use.                    |
+| id        | String | Yes      | The unique Alvys identifier of the driver. |
+
+#### Example CURL request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/drivers/{id}' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `{version}` with the API version number, `{id}` with the actual driver ID, and `YOUR_ACCESS_TOKEN` with your actual Bearer token:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/drivers/DR123456789' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaWQiOiJBTDM2MyIsInZlc...'
+```
+
+### Response Parameters
+
+The following table lists the parameters included in the response for driver-related requests.
+
+| Parameter         | Type               | Description                                                                                                 |
+| ----------------- | ------------------ | ----------------------------------------------------------------------------------------------------------- |
+| Id                | String             | The unique identifier of the driver.                                                                        |
+| EmployeeId        | String             | The employee ID of the driver.                                                                              |
+| PhoneNumber       | String             | The phone number of the driver.                                                                             |
+| UserId            | String             | The user ID associated with the driver.                                                                     |
+| Email             | String             | The email address of the driver.                                                                            |
+| Name              | String             | The name of the driver.                                                                                     |
+| Type              | String             | The type of driver (COMPANY, OWNER\_OPERATOR, CONTRACTOR, EXTERNAL).                                        |
+| SubsidiaryId      | String             | The subsidiary ID to which the driver belongs.                                                              |
+| Address           | Object             | The address details of the driver.                                                                          |
+| Address.Street    | String             | The street address of the driver.                                                                           |
+| Address.City      | String             | The city of the driver's address.                                                                           |
+| Address.State     | String             | The state of the driver's address.                                                                          |
+| Address.ZipCode   | String             | The zip code of the driver's address.                                                                       |
+| Status            | String             | The current status of the driver (e.g., "SLEEPING", "DRIVING", "ON DUTY", "OFF DUTY", "ONLINE", "OFFLINE"). |
+| IsActive          | Boolean            | Indicates if the driver is currently active                                                                 |
+| LicenseNum        | String             | The driver's license number.                                                                                |
+| LicenseState      | String             | The state that issued the driver's license.                                                                 |
+| LicenseCountry    | String             | The country where the driver's license was issued (USA, Canada, Mexico).                                    |
+| LicenseExpiresAt  | String (Date-Time) | The expiration date of the driver's license.                                                                |
+| MedicalExpiresAt  | String (Date-Time) | The expiration date of the driver's medical certificate.                                                    |
+| HiredAt           | String (Date-Time) | The date when the driver was hired.                                                                         |
+| TerminatedAt      | String (Date-Time) | The date when the driver was terminated, if applicable.                                                     |
+| Notes             | Array              | An optional list of notes related to the driver.                                                            |
+| Notes.id          | String             | The unique identifier of the note.                                                                          |
+| Notes.Description | String             | The description of the note.                                                                                |
+| Notes.NoteType    | String             | The type of the note.                                                                                       |
+| Notes.Time        | String (Date-Time) | The time the note was created.                                                                              |
+| Notes.User        | String             | The user who created the note.                                                                              |
+| Fleet             | Object             | The fleet information associated with the driver.                                                           |
+| Fleet.Id          | String             | The unique identifier of the fleet.                                                                         |
+| Fleet.Name        | String             | The name of the fleet.                                                                                      |
+| References        | Array              | An optional list of custom references associated with the driver.                                           |
+| CreatedAt         | String (Date-Time) | The date and time when the driver was created in Alvys.                                                     |
+
+#### Example Response
+
+On the right side, you can see examples of different error codes by clicking "Example" and selecting the response code.
+
+![](https://files.readme.io/10da8d7-Get_driver_by_ID.gif)
+
+#### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request by providing the driver ID in the URL path. As you fill out the parameters, the Curl command on the right side of the page will be automatically updated. Alternatively, you can directly edit the Curl command. Make sure to authorize yourself before trying a request.

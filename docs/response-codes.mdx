@@ -1,0 +1,24 @@
+---
+title: "Response Codes"
+---
+
+All API requests will respond with an appropriate HTTP status code. Your API client should handle each response class differently:
+
+* **2XX** Successful responses
+* **4XX** Client error responses indicate an issue with the request, such as missing parameters or invalid value. Modify the request before retrying.
+* **5XX** Server error responses indicate a temporary issue on Alvy's side. Retry the request after some time. *If issues persist, please reach out to support for further assistance.*
+
+## Error Codes
+
+Alvys uses conventional HTTP response codes to indicate the success or failure of an API request. Below is a table of error codes to help you debug. The error response body may include an error message, but avoid hard-coding against specific messages, as Alvys reserves the right to change the error message without auto-incrementing the API version. Only use error messages for debugging purposes.
+
+| Status Code | Description                                                                                                                                                                                                                                                                                                                       |
+| :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 400         | **Bad Request** - General client error, possibly malformed data. Common error messages include: "Configuration limit exceeded" (e.g., system limits on creating more objects like users, drivers, and documents). Contact Support to request increases.                                                                           |
+| 401         | **Unauthenticated** - The API key is missing or invalid.                                                                                                                                                                                                                                                                          |
+| 403         | **Permission Denied** - You do not have access to the requested resource.                                                                                                                                                                                                                                                         |
+| 404         | **Not Found** - The API endpoint is invalid, or a path parameter is missing or invalid (e.g., id in /drivers/\{id}).                                                                                                                                                                                                              |
+| 405         | **Method Not Allowed** - The API endpoint does not accept that HTTP method.                                                                                                                                                                                                                                                       |
+| 415         | **Unsupported Media Type** - The request's `Content-Type` is not supported by this endpoint. Only `application/json` and `application/x-www-form-urlencoded` are accepted.                                                                                                                                                        |
+| 429         | **Too Many Requests** - The client has reached or exceeded a rate limit, a usage limit, or the server is overloaded. See [Rate Limits](/docs/rate-limits) for suggestions on retry patterns.                                                                                                                                        |
+| 5XX         | **Internal Server Errors** - something went wrong with Alvys' servers. These responses are likely momentary errors (e.g., temporary unavailability), and as a result, requests should be retried using exponential backoff. Note that the body of these responses follows the `application/problem+json` (ProblemDetails) format. |

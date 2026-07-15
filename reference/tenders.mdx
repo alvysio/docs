@@ -1,0 +1,66 @@
+---
+title: "Tenders"
+---
+
+This page provides a practical guide for EDI providers, middleware vendors, and advanced customers on how to map common EDI workflows to the Alvys Public Tender APIs. It explains how to translate classic EDI transactions (204, 990, 214, 210) into Alvys REST calls and webhook-driven lifecycle events, and outlines the integration patterns required to build reliable, production-grade EDI integrations with Alvys.
+
+Alvys provides a set of Public REST APIs and event-driven webhooks designed to help external EDI providers, middleware platforms, and customers build custom EDI integrations into the Alvys TMS. These interfaces enable you to programmatically:
+
+* Create and manage inbound tenders (EDI 204) via REST
+* Receive near real-time shipment lifecycle updates (EDI 214) via webhooks
+* Fetch invoice details after submission (EDI 210) via REST + invoice events
+
+These APIs are intended to let partners translate between classic EDI transactions (204/214/210/990/997) and Alvys-native objects and workflows (tenders, tender updates, cancellations, acceptance workflows, status events, and invoices).
+
+<Info>
+  Getting API Access
+
+  * Existing Alvys customers can obtain API access by contacting their account representative.
+  * Independent Software Vendors (ISV) should contact the Alvys Partnership team.
+</Info>
+
+## API Workflow Guide (EDI → Alvys Mapping)
+
+This section maps common EDI workflows to the corresponding Alvys Public API endpoints. It is intended for EDI providers and middleware vendors who translate inbound and outbound EDI transactions into Alvys-native tender and shipment operations.
+
+Use this guide as a decision table when implementing integrations:
+
+* Identify the EDI transaction or business intent (e.g., new tender, update, cancel, accept).
+* Call the appropriate REST endpoint to express that intent to Alvys.
+* Rely on Alvys webhooks to confirm the authoritative outcome of the operation.
+* Emit outbound EDI (990/214/210/997) only after the corresponding Alvys state change is confirmed.
+
+### Design Principles
+
+* **REST expresses intent; webhooks confirm outcome.**
+  A successful REST response indicates the request was received, not that the workflow is complete.
+* **Expect retries and duplicates.**
+  EDI networks frequently resend transactions. Always use Idempotency-Key for unsafe POSTs and deduplicate webhook deliveries by EventId.
+* **Model state explicitly.**
+  Tenders may be pending, accepted, rejected, cancelled, expired, or awaiting update approval. Do not assume immediate state transitions.
+* **Treat Alvys as the system of record.**
+  When conflicts arise, reconcile by fetching the tender (GET /tenders/:tenderId) and honoring the returned state and ETag.
+
+The table below outlines the canonical mapping between EDI workflows and Alvys Public API operations, along with important integration considerations for each step.
+
+| EDI workflow (common)                                 | Typical direction              | When to call (trigger)                                                                             | Alvys Public API endpoint(s)                               | Primary purpose in Alvys                                | Integration notes (idempotency / concurrency)                                                                                                                                                           |
+| ----------------------------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **204\_00 — New Load Tender**                         | Shipper → Carrier (via vendor) | You receive a new 204 and want it represented as an inbound tender in Alvys                        | `POST /api/p/v{version}/tenders`                           | Create an inbound tender record                         | Use `Idempotency-Key` to prevent duplicate creates (EDI resends are common). Validate required fields before calling.                                                                                   |
+| **204\_04 — Tender Change / Update**                  | Shipper → Carrier              | You receive a 204 update (appointments, stops, rate, equipment, references) for an existing tender | `POST /api/p/v{version}/tenders/update`                    | Submit a change-set against an existing tender          | Treat updates as “pending” until applied/accepted (implementation-dependent). Use `Idempotency-Key` for safe retry. If the route requires concurrency, include `If-Match` with the current `ETag`.      |
+| **204\_01 — Cancel Tender**                           | Shipper → Carrier              | You receive a cancellation for an existing tender                                                  | `POST /api/p/v{version}/tenders/cancel`                    | Request cancellation of a tender                        | Use `Idempotency-Key` to avoid duplicate cancel requests. If cancellation must be concurrency-protected, include `If-Match` with the current `ETag`.                                                    |
+| **990 — Accept Tender (carrier acceptance)**          | Carrier → Shipper              | Carrier acceptance occurs in Alvys and you need to reflect/confirm acceptance in your integration  | `POST /api/p/v{version}/tenders/{tenderId}/accept`         | Mark tender accepted (optionally attach/link to a load) | **Requires** current `ETag` + `If-Match` (optimistic concurrency) if enabled. A vendor should only “drive” acceptance via API if the workflow is designed for it (vs. acceptance happening only in UI). |
+| **990 — Reject Tender**                               | Carrier → Shipper              | Carrier rejects tender and you must record that disposition                                        | `POST /api/p/v{version}/tenders/{tenderId}/reject`         | Mark tender rejected with a reason                      | Typically **requires** `ETag` + `If-Match`. Ensure your rejection reason mapping matches the shipper’s implementation guide expectations.                                                               |
+| **204\_04 acceptance — Apply/Accept Pending Updates** | Carrier → Shipper              | A tender has pending updates that must be applied/accepted                                         | `POST /api/p/v{version}/tenders/{tenderId}/accept-updates` | Apply pending change-set(s) to the tender               | Typically **requires** `ETag` + `If-Match`. If updates are partial/selected, ensure you pass the intended change identifiers (if supported).                                                            |
+| **204\_01 confirmation — Accept/Confirm Cancel**      | Carrier → Shipper              | Cancellation is requested and must be confirmed/accepted in workflow                               | `POST /api/p/v{version}/tenders/{tenderId}/accept-cancel`  | Confirm tender cancellation (workflow-dependent)        | Typically **requires** `ETag` + `If-Match`. Only applicable if cancellation is a two-step workflow (request → confirm).                                                                                 |
+| **Lookup — Get Tender by ID**                         | Vendor internal utility        | You need full canonical tender state (or to reconcile after retries/conflicts)                     | `GET /api/p/v{version}/tenders/{tenderId}`                 | Retrieve the tender (optionally with includes)          | Capture `ETag` for subsequent state changes (`If-Match`). Use `If-None-Match` for cache-friendly polling/reconciliation if supported.                                                                   |
+| **Lookup — Search Tenders**                           | Vendor internal utility        | You need to find tenders by external reference, status, or time window                             | `POST /api/p/v{version}/tenders/search`                    | Search tenders using rich filters                       | Prefer searching by your **external tender identifier** to correlate EDI → Alvys. Useful for replay/recovery jobs and operational dashboards.                                                           |
+
+### 🧪 Troubleshooting
+
+* ✅ Double-check your `client_id`, `client_secret`, and `audience`
+* ✅ Ensure scopes are correctly assigned in API Access- Admin Portal
+* ✅ Validate that the client is active and not expired
+* ✅ Use only supported content types: `application/json` or `application/x-www-form-urlencoded`
+* For technical support: `<support@alvys.com>`
+
+<br />

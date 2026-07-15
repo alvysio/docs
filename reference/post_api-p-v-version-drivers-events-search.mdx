@@ -1,0 +1,75 @@
+---
+title: "Search driver events"
+openapi: "POST /api/p/v{version}/drivers/events/search"
+---
+
+This endpoint provides detailed information about driver events that match the search criteria, enabling efficient tracking and management of driver-related activities.
+
+### Request Parameters
+
+The following parameter is required in the URL path:
+
+| Parameter | Type   | Required | Description             |
+| --------- | ------ | -------- | ----------------------- |
+| version   | String | Yes      | The API version to use. |
+
+#### Request Body Parameters
+
+The following parameters are required in the request body:
+
+| Parameter | Type              | Required | Description                                     |
+| --------- | ----------------- | -------- | ----------------------------------------------- |
+| StartDate | String (DateTime) | Yes      | The start date-time for the event search range. |
+| EndDate   | String (DateTime) | No       | The end date-time for the event search range.   |
+| DriverIds | Array of Strings  | Yes      | The list of driver IDs to filter driver events. |
+
+#### Example CURL request
+
+Use the current API version number and ensure you replace the Authorization header value with your actual Bearer token for the request:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/drivers/events/search' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ...' \
+--header 'Content-Type: application/json' \
+--data '{
+  "StartDate": "2025-02-06T06:50:20.471Z",
+  "EndDate": "2025-02-06T06:50:20.471Z",
+  "DriverIds": [
+    "string"
+  ]
+}'
+```
+
+### Response Parameters
+
+The following table lists the parameters included in the response for driver events requests.
+
+| Parameter       | Type              | Required | Description                                         |
+| --------------- | ----------------- | -------- | --------------------------------------------------- |
+| Id              | String            | Yes      | The unique identifier of the driver event.          |
+| DriverId        | String            | Yes      | The unique identifier of the driver.                |
+| EventType       | String            | Yes      | The type of event (e.g., Vacation, Restart, Other). |
+| Description     | String            | No       | A detailed description of the event.                |
+| StartDate       | String (DateTime) | Yes      | The start date-time of the event.                   |
+| EndDate         | String (DateTime) | Yes      | The end date-time of the event.                     |
+| Address         | Object            | No       | The location details associated with the event.     |
+| Address.Street  | String            | No       | The street address where the event occurred.        |
+| Address.City    | String            | No       | The city where the event took place.                |
+| Address.State   | String            | No       | The state where the event took place.               |
+| Address.ZipCode | String            | No       | The ZIP code of the event location.                 |
+| CreatedBy       | String            | Yes      | The user who created the event record.              |
+| CreatedAt       | String (DateTime) | Yes      | The timestamp for when the event was created.       |
+
+#### Versioning
+
+The version parameter in the URL path specifies which version of the API you are using. Including the version number ensures that your application interacts with the correct version of the API, providing stability and compatibility as the API evolves. For more information on how versioning works and how to include it in your requests, please refer to the [Versioning](/docs/versioning) page.
+
+#### Example Response
+
+On the right side, you can see examples of different error codes by clicking "Example" and selecting the response code.
+
+#### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request by specifying the API version in the URL path and providing the necessary request body. As you fill out the parameters, the Curl command on the right side of the page will be automatically updated. Alternatively, you can fork our [Public API Postman Collection](https://app.getpostman.com/run-collection/39138316-54c493c3-15e5-4fd7-a651-6e45b308548f?action=collection%2Ffork\&source=rip_markdown\&collection-url=entityId%3D39138316-54c493c3-15e5-4fd7-a651-6e45b308548f%26entityType%3Dcollection%26workspaceId%3Dc0255544-5964-4c52-9d24-05b30a9b021c) directly. Make sure to authorize yourself before trying a request.

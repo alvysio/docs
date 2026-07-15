@@ -1,0 +1,140 @@
+---
+title: "Connecting to Google Sheets"
+---
+
+(Public API → Google Sheets)
+
+Quickly connect your Alvys account and import live operational data — **Loads, Trips, Customers, Drivers, Carriers, Invoices, and more** — directly into **Google Sheets**.
+No coding or manual exports required.
+
+***
+
+## ⚙️ Step 1. Download the Alvys API → Google Sheets Import Template
+
+Click the link below to make your own copy of the file in Google Sheets:
+
+<Note>
+    `<Anchor label="👉 **Make a Copy in Google Drive**" target="_blank" href="https://docs.google.com/spreadsheets/d/11HyDR1nf8U0MNahMPUp6_e5XpkDGeJIBXs7W5oBlVCA/copy">`👉 **Make a Copy in Google Drive**`</Anchor>`
+</Note>
+
+`<Image border={false} src="https://files.readme.io/ccca9fbcecc123486c3098b9b970d76ae410c1a0b8b1ac7ee06dc94a577fca27-image.png" />`
+
+* Once you click “**Make a copy**”,
+  * The file will be added to your own Google Drive.
+  * The attached Apps Script functionality will also be copied.
+  * You can immediately open and start using it in Google Sheets.
+
+<Warning>
+    Make a Copy in Google Drive. The first time you open it, Google Sheets will ask you to grant permissions.
+    Click Continue → Allow all — this enables the secure connection to the Alvys Public API.
+    You may need to reload the file once after granting access.
+</Warning>
+
+1. `<Image border={false} src="https://files.readme.io/74cddca63dc9ddc62c924df91fd5a7df65f2eeae6969639584a4cf8ed9ebc19c-image.png" />`
+
+   After granting access, reload the file once if requested.
+2. After saving, you’ll see the **Welcome Sheet**.
+
+> “This file connects directly to the Alvys Public API.
+> Use it to import live operational data — including Loads, Trips, Customers, Drivers, Carriers, and more — directly into Google Sheets.”
+
+***
+
+## 🔑 **Step 2. Get Your Client Credentials**
+
+Your credentials are available in your Alvys portal:
+🔗 [**Alvys Portal → API Access page**](https://app.alvys.com/#/manage/public-api)
+
+Copy your:
+
+* **Client ID**
+* **Client Secret**
+* **Tenant ID**
+
+<Warning>
+    Important: Make sure your application credentials has all required **read permissions.**
+    Missing read scopes will result in incomplete or failed imports
+</Warning>
+
+Then in the Google Sheet:
+
+`<Image border={false} src="https://files.readme.io/cb29b7fa9a5876d1839770fd171bc8c379ffe07c86062f17eeba2eda153845ae-image.png" />`
+
+1. Go to **Alvys → Configure…**
+2. Paste your credentials and click **Save**
+
+✅ Your credentials are stored privately in your file.
+
+<Note>
+    The Client Secret is hidden from view after saving and securely stored within the sheet’s script properties.
+    Collaborators who use the file can see imported data, but only the file owner or editors with Apps Script access could technically view stored credentials.
+</Note>
+
+***
+
+## 🔄 **Step 3. Import Your Data**
+
+Use the **Alvys** menu in the top toolbar to start importing.
+
+`<Image border={false} src="https://files.readme.io/6a60b5735becdd9e961b8c1c64822eaa9a7b41ce29b2f63c14bf19568c3fe1c3-image.png" />`
+
+`<Table>`
+  <thead>
+    <tr>
+      <th>
+        Action
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        **📦 Full Import (🧹 Full replace)**
+      </td>
+
+      <td>
+        Loads all records from scratch and replaces existing data.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        **🔁 Sync (Incremental update)**
+      </td>
+
+      <td>
+        Imports only records changed since the last sync (using `updatedAt`
+        and `daysBack `).
+      </td>
+    </tr>
+  </tbody>
+`</Table>`
+
+Each dataset (*Loads*, *Trips*, *Customers*, *Drivers*, *Carriers*, etc.) appears in its own tab.
+Check the **Log** tab for import time, status, and record count.
+
+***
+
+## 🕒 **Step 4. (Optional) Enable Automatic Sync**
+
+To keep your Loads and Trips updated automatically:
+
+1. Go to **Alvys → Configure Auto Sync…**
+2. Choose how often it should run (e.g., every 6 hours).
+3. A background trigger will fetch records updated within the past *(Frequency + 1 hour)*.
+
+***
+
+## 💡 **Tips & Notes**
+
+* ✅ Use **Full Import** the first time you connect.
+* ⚡ Then switch to **Incremental Sync** for faster updates.
+* 🔐 Your credentials stay private in your own sheet.
+* ⏳ The sidebar may take **2–6 seconds** to open — that’s normal.
+* ⚠️For large data imports, run each entity (Loads, Trips, Customers, etc.) manually and one at a time — wait for each to finish before starting another.
+* ⚠️ Google Sheets has a fixed runtime limit defined by Google. If you’re importing high-volume data, allow each import to complete or split the process into smaller batches.

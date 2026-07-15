@@ -1,0 +1,146 @@
+---
+title: "Search carriers"
+openapi: "POST /api/p/v{version}/carriers/search"
+---
+
+The Search Carriers API endpoint helps users retrieve carrier or subsidiary details efficiently by filtering through available data using IDs, MC numbers, DOT numbers, and Status. This functionality provides quick access to essential carrier information without needing to query the full dataset.
+
+***
+
+### Request Parameters
+
+The following parameter is required in the URL path:
+
+| **Parameter** | **Type** | **Required** | **Description**                         |
+| ------------- | -------- | ------------ | --------------------------------------- |
+| version       | String   | Yes          | The version of the API being requested. |
+
+***
+
+### Request Body
+
+The request body must include the following parameters:
+
+| **Parameter** | **Type**                | **Required**  | **Description**                                                                                                                                                                                                                       |
+| ------------- | ----------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Page          | Number                  | Yes           | The page number for pagination (starts from 0).                                                                                                                                                                                       |
+| PageSize      | Number                  | Yes           | The number of results per page. PageSize must be greater than 0 and cannot be greater than 200.                                                                                                                                       |
+| Status        | Array of Strings        | Conditionally | Filter by carrier or subsidiary status (e.g., Pending, Active, Packet Sent, Packet Completed, Do Not Load, Expired Insurance, Interested, Invited). This field is required if the other conditionally required fields are left empty. |
+| Ids           | Array of Strings (UUID) | Conditionally | Filter by specific carrier or subsidiary IDs. This field is required if the other conditionally required fields are left empty.                                                                                                       |
+| McNumbers     | Array of Strings        | Conditionally | Filter by MC (Motor Carrier) numbers. This field is required if the other conditionally required fields are left empty.                                                                                                               |
+| DotNumbers    | Array of Strings        | Conditionally | Filter by USDOT numbers. This field is required if the other conditionally required fields are left empty.                                                                                                                            |
+
+At least one filter field (`Status`, `Ids`, `McNumbers`, `DotNumbers`) must be provided along with pagination fields.
+
+### Example CURL Request
+
+Use the current API version number and replace the Authorization header value with your actual Bearer token:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/carriers/search' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ....' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "Page": 0,
+  "PageSize": 100,
+  "Status": ["Active", "Pending", "Do Not Load"],
+  "Ids": ["2e17c4d3-202d-4f27-b2fa-711c57435c5b"],
+  "McNumbers": ["1269221"],
+  "DotNumbers": ["4204692"]
+}'
+```
+
+### Response Parameters
+
+The response contains a list of carriers or subsidiaries matching the search criteria, each represented by the following parameters:
+
+| **Parameter**                | **Type**           | **Description**                                                                                                                                          |
+| ---------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Page                         | Number             | The current page number.                                                                                                                                 |
+| PageSize                     | Number             | The number of items per page.                                                                                                                            |
+| Total                        | Number             | The total number of matching items.                                                                                                                      |
+| Id                           | String (UUID)      | The unique identifier of the carrier or subsidiary.                                                                                                      |
+| Name                         | String             | The name of the carrier or subsidiary.                                                                                                                   |
+| Address                      | Object             | The address details (Street, City, State, ZipCode).                                                                                                      |
+| Address.Street               | String             | The street of the carrier’s address.                                                                                                                     |
+| Address.City                 | String             | The city of the carrier’s address.                                                                                                                       |
+| Address.State                | String             | The state of the carrier’s address.                                                                                                                      |
+| Address.ZipCode              | String             | The zip code of the carrier’s address.                                                                                                                   |
+| McNum                        | String             | The MC (Motor Carrier) number.                                                                                                                           |
+| UsDotNum                     | String             | The USDOT number.                                                                                                                                        |
+| ExternalName                 | String             | External/QuickBooks name for accounting integration. Null if not set.                                                                                    |
+| ExternalAccountReference     | String             | External/QuickBooks account reference. Null if not set or not available.                                                                                 |
+| Type                         | String             | Type of the entity (e.g., Carrier, Subsidiary).                                                                                                          |
+| Status                       | String             | Current status of the carrier or subsidiary (e.g., Pending, Active, Packet Sent, Packet Completed, Do Not Load, Expired Insurance, Interested, Invited). |
+| ExternalComplianceStatus     | String             | External compliance certification status (e.g., RMIS or MCP). Null if not set.                                                                           |
+| CreatedAt                    | String (Date-Time) | The creation date of the carrier/subsidiary record.                                                                                                      |
+| CreatedBy                    | String             | The user who created the carrier. Null if not set.                                                                                                       |
+| Source                       | String             | Source of carrier data (e.g., import, manual). Null if not set.                                                                                          |
+| UpdatedAt                    | String (Date-Time) | The date and time of the last update. Null if not set.                                                                                                   |
+| Notes                        | Array of Objects   | A list of notes about the carrier. Null or empty if not set.                                                                                             |
+| SalesAgentId                 | String             | The assigned sales agent ID. Null if not set.                                                                                                            |
+| ExternalIds                  | Array of Objects   | External ID settings mapped from all external accounting ID settings. Null if none set.                                                                  |
+| PaymentMethod                | String             | Payment method for the carrier (e.g., "Factoring Company", "Direct Deposit", "Check"). Null if not set.                                                  |
+| FactoringCompany             | Object             | Factoring company details if the carrier uses factoring. Null if not using factoring.                                                                    |
+| PaymentProvider              | Object             | Payment provider integration mapped to this carrier (e.g. TriumphPay). Null if not set.                                                                  |
+| Contacts                     | Array of Objects   | Carrier contacts (name, email, phone, mobile, title). Null or empty if the carrier has no contacts.                                                      |
+| InsuranceInfo                | Array of Objects   | A list of insurance policies associated with the carrier.                                                                                                |
+| InsuranceInfo.Type           | String             | The type of insurance (e.g., Auto, Cargo, General, Workers Compensation).                                                                                |
+| InsuranceInfo.PolicyNumber   | String             | The insurance policy number.                                                                                                                             |
+| InsuranceInfo.IssueDate      | String (Date-Time) | The issue date of the insurance policy.                                                                                                                  |
+| InsuranceInfo.ExpirationDate | String (Date-Time) | The expiration date of the insurance policy.                                                                                                             |
+| InsuranceInfo.Amount         | Number             | The coverage amount of the insurance policy.                                                                                                             |
+| InsuranceInfo.Agent          | Object             | Information about the insurance agent.                                                                                                                   |
+| InsuranceInfo.Agent.Company  | String             | The name of the agent’s company.                                                                                                                         |
+| InsuranceInfo.Agent.Name     | String             | The name of the insurance agent.                                                                                                                         |
+| InsuranceInfo.Agent.Contact  | Object             | Contact details for the insurance agent (name, email, phone, mobile, title).                                                                             |
+| InsuranceInfo.Notes          | String             | Notes associated with the insurance policy.                                                                                                              |
+
+### Example Response
+
+```json
+{
+  "Page": 0,
+  "PageSize": 100,
+  "Total": 1,
+  "Items": [
+    {
+      "Id": "6c7f5ee3-f44c-4c19-92bf-89cfbd5d87a0",
+      "Name": "EVENT PRO LOGISTICS",
+      "Address": {
+        "Street": "3749 E 150 S",
+        "City": "TIPTON",
+        "State": "IN",
+        "ZipCode": "46072"
+      },
+      "McNum": "63504",
+      "UsDotNum": "4204692",
+      "Type": "Subsidiary",
+      "Status": "Do Not Load",
+      "CreatedAt": "2024-04-02T08:42:31.269118+00:00",
+      "InsuranceInfo": [
+        {
+          "Type": "Auto",
+          "PolicyNumber": "2445",
+          "IssueDate": "2024-11-14T00:00:00+00:00",
+          "ExpirationDate": "2030-11-14T00:00:00+00:00",
+          "Amount": 0.0,
+          "Agent": {
+            "Company": "PG Company",
+            "Name": ""
+          },
+          "Notes": ""
+        }
+      ]
+    }
+  ]
+}
+```
+
+<br />
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the Rate Limits section.
+
+This page is interactive, allowing you to try a request by completing the fields for the parameters below. As you fill out the parameters, the CURL command on the right side of the page will be automatically updated.

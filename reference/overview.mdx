@@ -1,0 +1,19 @@
+---
+title: "Overview"
+---
+
+Webhooks let your system receive real-time updates from Alvys when business events occur.
+
+Instead of polling the API, Alvys sends an HTTPS POST request to your configured endpoint whenever a subscribed event is triggered.
+
+Webhooks are configured per Subsidiary. Each Subsidiary maintains its own set of webhook subscriptions.
+
+All deliveries:
+
+* Use HTTPS (TLS 1.2+)
+* Are signed using HMAC-SHA256
+* Follow an at-least-once delivery model
+* Are retried automatically on transient failure
+* Are disabled automatically after repeated delivery failures
+
+To integrate successfully, your endpoint must verify signatures, handle retries safely, and implement idempotency.

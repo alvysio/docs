@@ -1,0 +1,201 @@
+---
+title: "Change Diffs (data.diff)"
+---
+
+`load.changed` and `trip.changed` events carry the **full current snapshot** of the load or trip in `data`. In addition, they can include an optional `data.diff` node that tells you **what changed** — and, if you opt in, **what the value was before**.
+
+This lets a consumer decide whether a change is relevant and apply just the delta, instead of re-importing the whole record on every event.
+
+<Info>
+  `data.diff` is only present on `load.changed` and `trip.changed`. It is **never** included on `*.status.changed` events, and it is **omitted on the first event for a record** (create), where there is no prior state to compare against.
+</Info>
+
+## Shape
+
+```json
+{
+  "type": "load.changed",
+  "data": {
+    "load": { "...": "full current snapshot" },
+    "diff": {
+      "changes": [ { "kind": "…", "target": { "type": "…", "id": "…" } } ],
+      "previousAttributes": { "…": "previous values (opt-in)" }
+    }
+  }
+}
+```
+
+`data.diff` has two independent parts:
+
+| Node | Answers | Availability |
+| --- | --- | --- |
+| `changes` | *Which* things changed? | Always present on `load.changed` / `trip.changed` when something meaningful changed |
+| `previousAttributes` | What was the value *before*? | Opt-in per subscription (see [Enabling previous values](#enabling-previous-values)) |
+
+---
+
+## `data.diff.changes`
+
+`changes` is an array of objects, each `{ kind, target? }`:
+
+* **`kind`** — a domain-named change type from a fixed vocabulary (for example `StatusChanged`, `RateChanged`, `StopReordered`). Kind names describe business concepts — they never expose internal field names or JSON paths.
+* **`target`** — present **only** when the change is scoped to an identified sub-entity. It is `{ type, id }`:
+  * `type` — a closed set: `Stop` or `Field`.
+  * `id` — the **stable** identity of that sub-entity as it appears in the snapshot (for a stop, its `StopId` — never a positional array index).
+
+Entity-level changes omit `target`; sub-entity changes carry it.
+
+```json
+"changes": [
+  { "kind": "StatusChanged" },
+  { "kind": "CarrierRateChanged" },
+  { "kind": "StopAddressChanged",  "target": { "type": "Stop",  "id": "abc123" } },
+  { "kind": "AppointmentChanged",  "target": { "type": "Stop",  "id": "abc123" } },
+  { "kind": "FieldChanged",        "target": { "type": "Field", "id": "PONumber" } }
+]
+```
+
+The vocabulary is **closed per entity** — only the kinds below are emitted today. Loads and trips have separate lists; a kind that exists on one entity is not necessarily valid on the other (for example `CarrierRateChanged` is trip-only).
+
+**`load.changed`:** `StatusChanged`, `RateChanged`, `FuelSurchargeChanged`, `AccessorialsChanged`, `MileageChanged`, `InvoicedChanged`, `PaymentRecorded`, `InvoicingChanged`, `CustomerChanged`, `ContractChanged`, `ScheduleChanged`, `DueDateChanged`, `Delivered`, `DimensionsChanged`, `CommodityChanged`, `NotesChanged`, `ReferencesChanged`, `FieldChanged`.
+
+**`trip.changed`:** `StatusChanged`, `ReleasedChanged`, `DispatchChanged`, `CarrierChanged`, `CarrierPayOnHoldChanged`, `DriverChanged`, `TruckChanged`, `TrailerChanged`, `TemperatureChanged`, `CarrierRateChanged`, `TripValueChanged`, `FuelSurchargeChanged`, `DriverRatesChanged`, `CarrierPaymentRecorded`, `DueDateChanged`, `StopAdded`, `StopRemoved`, `StopReordered`, `StopAddressChanged`, `StopTypeChanged`, `StopCommodityChanged`, `StopNotesChanged`, `StopReferencesChanged`, `StopInstructionsChanged`, `AppointmentChanged`, `ScheduleChanged`, `ArrivalRecorded`, `DepartureRecorded`, `StopStatusChanged`, `PickedUp`, `Delivered`, `MileageChanged`, `TenderChanged`, `ReferencesChanged`, `FieldChanged`.
+
+Stop-scoped kinds (`StopAddressChanged`, `AppointmentChanged`, …) carry `target: { type: "Stop", id: "<StopId>" }`.
+
+<Warning>
+  The change-kind vocabulary is curated and may grow over time. Treat `changes` as a **filtering hint only** — it is never authoritative and never suppresses an event. Always tolerate change kinds you don't recognize (ignore them), and never assume the snapshot didn't change just because a kind is missing.
+</Warning>
+
+### `FieldChanged` and the allow-list
+
+Some business values change without a dedicated semantic kind. These surface through a single `FieldChanged` kind whose `target` is `{ "type": "Field", "id": "<ResponsePropertyName>" }`.
+
+`FieldChanged` fires only for an explicit allow-list of fields. In v1:
+
+| Entity | `target.id` in `changes` | JSON key in snapshot / `previousAttributes` |
+| --- | --- | --- |
+| Load | `OrderNumber`, `PONumber` | `orderNumber`, `poNumber` |
+| Trip | *(none in v1)* | — |
+
+<Info>
+  `FieldChanged` `target.id` uses the **API model property name** (PascalCase, e.g. `PONumber`). The snapshot and `previousAttributes` serialize the same fields in **JSON camelCase** (e.g. `poNumber`). Do not use `target.id` as a direct key into the payload — correlate by field identity (or normalize casing in your client).
+</Info>
+
+### When `changes` is present
+
+* An **empty or absent** `changes` array means nothing meaningful changed. Bookkeeping/noise fields (for example `updatedAt`, `version`, ETag, internal sync hashes) never produce a `changes` entry.
+* `changes` is omitted on create.
+
+---
+
+## `data.diff.previousAttributes`
+
+`previousAttributes` carries the **previous value of every changed field that is visible on the public response**, keyed by response field name — so keys line up 1:1 with the snapshot in the same payload. This lets a state-mirroring consumer apply deltas without a full reconcile.
+
+It is **opt-in** per subscription — see [Enabling previous values](#enabling-previous-values).
+
+### Rules
+
+* **Keyed collections** (any array of `id`-bearing elements — stops, references, charge lines, …) are diffed by stable `id`, recursively:
+  * `removed` — the full previous element (no longer in the snapshot).
+  * `changed` — a sparse `{ id, ...previous values }` (recurses into the element's own keyed sub-collections).
+  * `added` — `{ id }` only. The new values are already in the snapshot; the `id` lets you locate and insert it.
+* Every other changed field carries its whole previous value. Arrays of scalars / id-less objects are treated as opaque (the whole previous array is returned).
+* **Audit fields are included.** Unlike `changes`, `previousAttributes` does include fields such as `updatedAt`, so the channel always confirms a real write happened.
+* `previousAttributes` is emitted **whenever the current and previous responses differ**, independently of `changes`. A response-only delta can therefore produce `"changes": []` alongside a populated `previousAttributes`.
+* It is **omitted** on create and when the two images are identical.
+* A field appears here only if it is part of the public response. A change detected on a field that is not exposed on the response still signals via `changes` but carries no value in `previousAttributes`.
+
+---
+
+## Enabling previous values
+
+`data.diff.changes` is delivered to every subscriber on `load.changed` and `trip.changed` events. `data.diff.previousAttributes` is **opt-in** and delivered only to subscriptions that request it.
+
+* **Dashboard:** enable **Include previous values** on the webhook (see [Webhook Lifecycle & Configuration](/reference/webhook-lifecycle-configuration)).
+* **API:** set `IncludePreviousAttributes` to `true` when creating or updating the subscription (see [Create webhook](/reference/post_api-p-v-version-webhooks)). Defaults to `false`.
+
+---
+
+## Delivery model — one action can produce several events
+
+Alvys sends **one webhook per underlying write** — deliveries are never merged or de-duplicated. As a result, a single user action can produce more than one event:
+
+* **Parent cascades.** Editing a value on a trip re-saves its parent load (and some load edits re-save related records). For example, changing Paid Loaded Miles on a trip produces a `trip.changed` carrying `MileageChanged` **and** a companion `load.changed` whose `changes` is `[]` (only `updatedAt` differs) — the load's public content genuinely didn't change.
+* **Batched, concurrent writes.** Events are delivered as the store commits them, in batches. A single burst can contain writes for **different records, and from different users**, that happened at the same time — they are not necessarily related to one another.
+
+<Warning>
+  Always key off `data` (the entity and its `id`) and `changes` — **never assume every delivery in a time window belongs to the same action**. A reliable filter: ignore any delivery where `changes` is empty (and, if you opted into previous values, where `previousAttributes` contains only `updatedAt`).
+</Warning>
+
+---
+
+## Worked examples
+
+### A field change on a load (`FieldChanged`)
+
+Setting the PO number on a load from the dashboard. `PONumber` is on the Load allow-list, so it surfaces as `FieldChanged`; the previous value was empty (`null`). This is a single `load.changed` — editing a load field re-saves only the load:
+
+```json
+{
+  "type": "load.changed",
+  "data": {
+    "load": {
+      "loadNumber": "1008222",
+      "orderNumber": "783068797",
+      "poNumber": "666783068797",
+      "...": "full current snapshot"
+    },
+    "diff": {
+      "changes": [
+        { "kind": "FieldChanged", "target": { "type": "Field", "id": "PONumber" } }
+      ],
+      "previousAttributes": {
+        "poNumber": null,
+        "updatedAt": "2026-07-03T14:26:11Z"
+      }
+    }
+  }
+}
+```
+
+One glance tells the consumer the PO number changed and was previously unset (`null`) — no snapshot cache, no full re-sync.
+
+### A trip field edit and its parent cascade
+
+Changing Paid Loaded Miles from 500 to 400 on a trip delivers **two** events — the meaningful `trip.changed` plus a content-free `load.changed` cascade. (`MileageChanged` covers trip mileage fields including paid/loaded miles.)
+
+```json
+// trip.changed — the meaningful one
+"diff": {
+  "changes": [ { "kind": "MileageChanged" } ],
+  "previousAttributes": {
+    "loadedMileage": { "distance": { "value": 500 }, "source": "Manual" },
+    "updatedAt": "2026-07-03T13:55:16Z"
+  }
+}
+
+// load.changed — parent cascade, safely ignorable
+"diff": { "changes": [], "previousAttributes": { "updatedAt": "2026-07-03T13:55:16Z" } }
+```
+
+`previousAttributes` lists every response field that changed. This edit updates `loadedMileage`; `totalMileage` may also appear when the platform recalculates it from the same action.
+
+The `trip.changed` carries the real change; the `load.changed` has empty `changes` because the load's public content didn't change — filter it out.
+
+### Keyed collections in `previousAttributes`
+
+When stops or their references change, `previousAttributes` diffs the collection by stable `id` — `removed` / `changed` / `added`:
+
+```json
+"diff": {
+  "changes": [ { "kind": "StopReferencesChanged", "target": { "type": "Stop", "id": "6fe6…" } } ],
+  "previousAttributes": {
+    "stops": { "changed": [ { "id": "6fe6…", "references": { "removed": [ { "id": "r9", "name": "KK", "value": "2175048" } ] } } ] },
+    "updatedAt": "2026-06-26T12:10:16Z"
+  }
+}
+```
+
+The consumer learns exactly which stop's references changed and what was removed — without re-importing the load.

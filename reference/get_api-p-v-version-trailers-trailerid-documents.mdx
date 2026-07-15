@@ -1,0 +1,77 @@
+---
+title: "List trailer documents"
+openapi: "GET /api/p/v{version}/trailers/{trailerId}/documents"
+---
+
+Retrieve all uploaded documents associated with a specific **Trailer** by its unique `trailerId`.
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                       |
+| --------- | ------ | -------- | --------------------------------- |
+| version   | String | Yes      | API version to use.               |
+| trailerId | String | Yes      | Unique identifier of the trailer. |
+
+### Example cURL Request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/trailers/{trailerId}/documents' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `{version}` with the API version, `{trailerId}` with the actual trailer ID, and `YOUR_ACCESS_TOKEN` with a valid token.
+
+### Response Body
+
+Array of document objects:
+
+| Name           | Type    | Description                                                         |
+| -------------- | ------- | ------------------------------------------------------------------- |
+| id             | string  | Unique identifier of the document.                                  |
+| AttachmentPath | string  | File name and extension assigned on upload (with timestamp suffix). |
+| AttachmentType | string  | Type of document (e.g., Insurance Certificate, Vehicle Image).      |
+| AttachmentSize | integer | Size of the file in bytes.                                          |
+| UploadedAt     | string  | UTC timestamp when the file was uploaded.                           |
+| ParentId       | string  | Identifier of the parent entity (`trailerId`).                      |
+| ParentType     | string  | Entity type the document is attached to (`Trailer`).                |
+| UploadedBy     | string  | User ID if uploaded via UI, or Client ID if uploaded via API.       |
+| DownloadUrl    | string  | Time-limited link (10 minutes) to download the document.            |
+| ExpiresAt      | string  | Expiration timestamp of the `DownloadUrl`.                          |
+
+***
+
+### Example Response (200 OK)
+
+```json
+[
+  {
+    "id": "ec0a0ef0-000c-0000-9f00-5d0f00c4cf00",
+    "AttachmentPath": "TrailerIns-1759237626.pdf",
+    "AttachmentType": "Insurance Certificate",
+    "AttachmentSize": 95421,
+    "UploadedAt": "2025-09-30T17:07:07+00:00",
+    "ParentId": "TRL002",
+    "ParentType": "Trailer",
+    "UploadedBy": "1110002eecc3408e90d3322f4ece0e11",
+    "DownloadUrl": "https://alvysqastorage.blob.core.windows.net/tl743/TrailerIns-1759237626.pdf?...",
+    "ExpiresAt": "2025-09-30T17:17:15.9506343+00:00"
+  }
+]
+```
+
+***
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes.
+For detailed information, see the [Rate Limits](/docs/rate-limits) section.
+
+***
+
+### Try It Out
+
+This page is interactive, allowing you to try a request by specifying the **API version** and **trailerId** in the URL path.
+
+As you fill out the parameters, the cURL command on the right side of the page will be automatically updated. Alternatively, you can directly edit the cURL command.
+
+⚠️ Don’t forget: make sure to **authorize yourself** before trying a request.

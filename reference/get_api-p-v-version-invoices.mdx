@@ -1,0 +1,141 @@
+---
+title: "Get invoice"
+openapi: "GET /api/p/v{version}/invoices"
+---
+
+The Invoices endpoint allows you to retrieve detailed information about a specific invoice using its unique ID and version.  To ensure compatibility and stability, it is essential to include the correct version number in the URL path when making a request. For more information on versioning, refer to the [Versioning](/docs/versioning) page.
+
+### Request Parameters
+
+The following parameters are accepted as query parameters, except `version` which is part of the URL path:
+
+| Parameter     | Type   | Required      | Description                                                                                                                   |
+| ------------- | ------ | ------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| id            | String | Conditionally | The unique Alvys identifier of the invoice. This field is required if the other conditionally required fields are left empty. |
+| invoiceNumber | String | Conditionally | The invoice number to retrieve details. This field is required if the other conditionally required fields are left empty.     |
+| version       | String | Yes           | The API version to interact with.                                                                                             |
+
+#### Example CURL request
+
+CURL Example using Invoice ID:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/invoices?id={invoiceId}' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+CURL Example using Invoice Number:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/invoices?invoiceNumber={invoiceNumber}' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `{version}` with the API version number, `{invoiceNumber}` with the actual invoice number, and `YOUR_ACCESS_TOKEN` with your actual Bearer token:
+
+Using Invoice ID:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/invoices?id=15fd1695595a48a48163490e3f21ddd6' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpX....'
+```
+
+Using Invoice Number:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/invoices?invoiceNumber=123456789' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpX....'
+```
+
+### Response Parameters
+
+The following table lists the parameters included in the response for invoice-related requests.
+
+| Parameter                        | Type               | Description                                                                             |
+| -------------------------------- | ------------------ | --------------------------------------------------------------------------------------- |
+| Id                               | String             | The unique identifier of the invoice.                                                   |
+| Number                           | String             | The invoice number.                                                                     |
+| Type                             | String             | The type of the invoice (LoadInvoice, OrderInvoice, SummaryInvoice, StandaloneInvoice). |
+| Status                           | String             | The current status of the invoice (Draft, AwaitingPayment, Paid).                       |
+| CreatedDate                      | String (Date-Time) | The date and time when the invoice was created.                                         |
+| InvoicedDate                     | String (Date-Time) | The date and time when the invoice was issued.                                          |
+| DueDate                          | String (Date-Time) | The due date for the invoice payment.                                                   |
+| PaidDate                         | String (Date-Time) | The date when the invoice was fully paid.                                               |
+| Total                            | Object             | The total amount of the invoice.                                                        |
+| Total.Amount                     | Number             | The monetary value of the total amount.                                                 |
+| Total.Currency                   | Integer            | The currency in which the invoice is issued.                                            |
+| AmountPaid                       | Object             | The amount that has been paid towards the invoice.                                      |
+| AmountPaid.Amount                | Number             | The monetary value of the amount paid.                                                  |
+| AmountPaid.Currency              | Integer            | The currency in which the payment was made.                                             |
+| RemainingBalance                 | Object             | The remaining balance due on the invoice.                                               |
+| RemainingBalance.Amount          | Number             | The monetary value of the remaining balance.                                            |
+| RemainingBalance.Currency        | Integer            | The currency in which the balance is due.                                               |
+| OverPaymentAmount                | Object             | The overpayment amount if any.                                                          |
+| OverPaymentAmount.Amount         | Number             | The monetary value of the overpayment.                                                  |
+| OverPaymentAmount.Currency       | Integer            | The currency in which the overpayment was made.                                         |
+| IsSubmitted                      | Boolean            | Indicates if the invoice has been submitted.                                            |
+| LastSendDate                     | String (Date-Time) | The last date and time when the invoice was sent.                                       |
+| SupplementalInvoiceType          | String             | The type of supplemental invoice if applicable.                                         |
+| Vendor                           | Object             | Vendor details associated with the invoice.                                             |
+| Vendor.Id                        | String             | The unique identifier of the vendor.                                                    |
+| Vendor.Name                      | String             | The name of the vendor.                                                                 |
+| Vendor.RemitAddress              | Object             | The remit address of the vendor.                                                        |
+| Vendor.RemitAddress.Street       | String             | The street address of the vendor.                                                       |
+| Vendor.RemitAddress.City         | String             | The city of the vendor's address.                                                       |
+| Vendor.RemitAddress.State        | String             | The state of the vendor's address.                                                      |
+| Vendor.RemitAddress.ZipCode      | String             | The zip code of the vendor's address.                                                   |
+| Vendor.RemitEmail                | String             | The email address for remittances to the vendor.                                        |
+| Vendor.RemitPhone                | String             | The phone number for remittances to the vendor.                                         |
+| Customer                         | Object             | Customer details associated with the invoice.                                           |
+| Customer.Id                      | String             | The unique identifier of the customer.                                                  |
+| Customer.Name                    | String             | The name of the customer.                                                               |
+| Customer.EmailAddresses          | Array of Strings   | The list of email addresses for the customer.                                           |
+| Customer.PhoneNumbers            | Array of Strings   | The list of phone numbers for the customer.                                             |
+| Customer.BillingAddress          | Object             | The billing address of the customer.                                                    |
+| Customer.BillingAddress.Street   | String             | The street address of the customer.                                                     |
+| Customer.BillingAddress.City     | String             | The city of the customer's billing address.                                             |
+| Customer.BillingAddress.State    | String             | The state of the customer's billing address.                                            |
+| Customer.BillingAddress.ZipCode  | String             | The zip code of the customer's billing address.                                         |
+| Customer.ShippingAddress         | Object             | The shipping address of the customer.                                                   |
+| Customer.ShippingAddress.Street  | String             | The street address of the customer.                                                     |
+| Customer.ShippingAddress.City    | String             | The city of the customer's shipping address.                                            |
+| Customer.ShippingAddress.State   | String             | The state of the customer's shipping address.                                           |
+| Customer.ShippingAddress.ZipCode | String             | The zip code of the customer's shipping address.                                        |
+| LineItems                        | Array of Objects   | The line items included in the invoice.                                                 |
+| LineItems.Id                     | String             | The unique identifier of the line item.                                                 |
+| LineItems.Name                   | String             | The name of the line item.                                                              |
+| LineItems.Amount                 | Object             | The amount associated with the line item.                                               |
+| LineItems.Amount.Amount          | Number             | The monetary value of the line item.                                                    |
+| LineItems.Amount.Currency        | Integer            | The currency in which the line item is priced.                                          |
+| LineItems.Rate                   | Object             | The rate details for the line item.                                                     |
+| LineItems.Rate.UnitOfMeasurement | String             | The unit of measurement for the rate (e.g., hours, miles).                              |
+| LineItems.Rate.Units             | Number             | The number of units billed.                                                             |
+| LineItems.Rate.Rate              | Number             | The rate per unit.                                                                      |
+| LineItems.LoadNumber             | String             | The load number associated with the line item.                                          |
+| LineItems.CustomerId             | String             | The customer ID associated with the line item.                                          |
+| LineItems.Category               | String             | The category of the line item.                                                          |
+| Loads                            | Array of Objects   | The loads associated with the invoice.                                                  |
+| Loads.Id                         | String             | The unique identifier of the load.                                                      |
+| Loads.LoadNumber                 | String             | The load number associated with the invoice.                                            |
+| Loads.SubsidiaryName             | String             | The name of the subsidiary associated with the load.                                    |
+| Loads.Source                     | String             | The source of the load.                                                                 |
+| Loads.OrderNumber                | String             | The order number associated with the load.                                              |
+| Loads.PONumber                   | String             | The purchase order number associated with the load.                                     |
+| Payments                         | Array of Objects   | The payments made against the invoice.                                                  |
+| Payments.Id                      | String             | The unique identifier of the payment.                                                   |
+| Payments.PaymentDate             | String (Date-Time) | The date and time when the payment was made.                                            |
+| Payments.Amount                  | Object             | The amount paid in the payment.                                                         |
+| Payments.Amount.Amount           | Number             | The monetary value of the payment.                                                      |
+| Payments.Amount.Currency         | Integer            | The currency in which the payment was made.                                             |
+| Payments.CheckNumber             | String             | The check number associated with the payment.                                           |
+| Payments.PaymentReference        | String             | The payment reference number.                                                           |
+
+#### Example Response
+
+On the right side, you can see examples of different error codes by clicking "Example" and selecting the response code.
+
+#### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits)  page.
+
+This page is interactive, allowing you to try a request by specifying the API version in the URL path and providing the necessary request body. As you fill out the parameters, the Curl command on the right side of the page will be automatically updated. Alternatively, you can directly edit the Curl command. Make sure to authorize yourself before trying a request.

@@ -1,0 +1,253 @@
+---
+title: "Accept tender updates"
+openapi: "POST /api/p/v{version}/tenders/{tenderId}/accept-updates"
+---
+
+# OpenAPI definition
+
+```json
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alvys",
+    "description": "Alvys provides a robust set of REST APIs to allow you to integrate Alvys into virtually any platform. These APIs cover most of Alvys' major product areas with additional endpoints being added regularly based on customer requests.",
+    "contact": {
+      "name": "Alvys Support",
+      "url": "https://www.alvys.com/resources/contact/"
+    },
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://integrations.alvys.com",
+      "description": "Public API Server"
+    },
+    {
+      "url": "https://api.alvys.com/",
+      "description": "Public API Server"
+    }
+  ],
+  "paths": {
+    "/api/p/v{version}/tenders/{tenderId}/accept-updates": {
+      "post": {
+        "tags": [
+          "Tenders"
+        ],
+        "parameters": [
+          {
+            "name": "tenderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "API version (e.g., 1.0)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.0",
+              "example": "1.0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.AcceptUpdatesRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.AcceptUpdatesRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.AcceptUpdatesRequest"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Tenders.Request.AcceptUpdatesRequest"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Accept tender updates",
+        "security": [
+          {
+            "Public": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Alvys.Models.Tenders.Request.AcceptUpdatesRequest": {
+        "required": [
+          "ApplyAllChangesToLoad"
+        ],
+        "type": "object",
+        "properties": {
+          "ApplyAllChangesToLoad": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Microsoft.AspNetCore.Mvc.ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "Status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "Instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {}
+      },
+      "Microsoft.AspNetCore.Mvc.ValidationProblemDetails": {
+        "required": [
+          "Errors"
+        ],
+        "type": "object",
+        "properties": {
+          "Errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "Status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "Instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {}
+      }
+    },
+    "securitySchemes": {
+      "Public": {
+        "type": "apiKey",
+        "description": "JWT token needed to access the endpoints. (eg.) Bearer: <token>",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
+}
+```

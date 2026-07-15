@@ -1,0 +1,147 @@
+---
+title: "Search users"
+openapi: "POST /api/p/v{version}/users/search"
+---
+
+The Search Users API endpoint allows users to search for specific user accounts within the Alvys system based on a keyword. This endpoint helps administrators efficiently find and manage user data by providing detailed information about users matching the search criteria.
+
+### Request Parameters
+
+The following parameter is required in the URL path:
+
+| Parameter | Type   | Required | Description                             |
+| --------- | ------ | -------- | --------------------------------------- |
+| version   | String | Yes      | The version of the API being requested. |
+
+#### Request Body
+
+The request body must include the following parameters:
+
+`<Table>`
+  <thead>
+    <tr>
+      <th>
+        Parameter
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Required
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Page
+      </td>
+
+      <td>
+        Number
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        The page number for pagination.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        PageSize
+      </td>
+
+      <td>
+        Number
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        The number of results per page.\
+        PageSize must be greater than 0.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Keyword
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        The keyword to search for in user data.
+      </td>
+    </tr>
+  </tbody>
+`</Table>`
+
+#### Example CURL request
+
+Use the Current API version number and make sure to replace the Authorization header value with your actual Bearer token for the request:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/users/search' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ....' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "Page": 0,
+  "PageSize": 100,
+  "Keyword": ""
+}'
+```
+
+### Response Parameters
+
+The response contains a list of users matching the search criteria, each represented by the following parameters:
+
+| Parameter         | Type               | Description                                                                                                               |
+| ----------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| Page              | Number             | The current page number.                                                                                                  |
+| PageSize          | Number             | The number of items per page.                                                                                             |
+| Total             | Number             | The total number of matching items.                                                                                       |
+| Items             | Array              | The list of users matching the search criteria.                                                                           |
+| Items.Id          | String             | The unique identifier of the user.                                                                                        |
+| Items.UserName    | String             | The username of the user.                                                                                                 |
+| Items.Name        | String             | The full name of the user.                                                                                                |
+| Items.Email       | String             | The email address of the user.                                                                                            |
+| Items.UserType    | String             | The type of user (e.g., Internal, External).                                                                              |
+| Items.Role        | String             | The role assigned to the user (e.g., Admin, Dispatcher, Driver, Biller, SalesAgent, DataEntry, Safety, OperationManager). |
+| Items.Phone       | String             | The phone number of the user.                                                                                             |
+| Items.CompanyCode | String             | The code of the company the user is associated with.                                                                      |
+| Items.Status      | String             | The current status of the user (e.g., Active, Disabled, Deleted).                                                         |
+| Items.Permissions | Array of Strings   | A list of permissions assigned to the user.                                                                               |
+| Items.CreatedAt   | String (Date-Time) | The date and time when the user was created.                                                                              |
+| Items.ModifiedAt  | String (Date-Time) | The date and time when the user's details were last modified.                                                             |
+
+#### Example Response
+
+On the right side, you can see examples of different error codes by clicking "Example" and selecting the response code.
+
+![](https://files.readme.io/cd5c3e2-Search_Users.gif)
+
+#### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request by completing the fields for the parameters below. As you fill out the parameters, the Curl command on the right side of the page will be automatically updated. Alternatively, you can directly edit the Curl command. Make sure to authorize yourself before trying a request.

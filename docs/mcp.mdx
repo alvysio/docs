@@ -1,0 +1,187 @@
+---
+title: "MCP"
+description: "Connect AI agents directly to Alvys through the Model Context Protocol (MCP) server — a governed, authenticated gateway to the Alvys Public API."
+---
+
+Integrate Alvys capabilities using the **Model Context Protocol (MCP)** server.
+
+The MCP server provides a set of tools that AI agents can use to interact with the Alvys APIs. You can use the MCP tools as a **developer** wiring an assistant into your workflow, as a **business owner** looking for financial insights or operational data, or as a **platform** connecting your own agents to perform tasks across dispatch, tracking, and settlement.
+
+Unlike raw API integration, the MCP server gives your AI client a single, discoverable, and permissioned surface. Every tool call is authenticated with your Alvys credentials, scoped to your tenant, and audited — so agents get exactly the access you grant them, and nothing more.
+
+<Warning>
+  **Internal Beta**
+
+  The Alvys MCP server is currently in **beta**. Access is granted on request — contact your account representative (existing customers) or the Alvys Partnership team (ISVs). During beta, the server exposes **read-only** tools.
+</Warning>
+
+## What is MCP?
+
+Model Context Protocol is an open standard that gives AI assistants a live connection to external tools and data. Think of it like a USB port for AI — instead of pasting data into a chat window, your AI client connects directly to Alvys and can search, read, and (where permitted) act on your operational data in real time.
+
+The Alvys MCP server sits in front of the [Alvys Public API](/docs/getting-started). It adds the safety properties an AI tool surface requires:
+
+* **Authentication** — every request carries an Auth0 bearer token; unauthenticated calls are rejected.
+* **Tenant isolation** — your company is resolved from the token itself, never from agent input.
+* **Per-tool permissions** — each tool requires a specific scope (for example `load:read`), enforced on every call.
+* **Read / Write / Destructive classification** — write and destructive tools are gated and off by default.
+* **Auditing & rate limits** — every tool call is logged and throttled.
+
+## Who it's for
+
+| You are… | Use MCP to… |
+| --- | --- |
+| A **developer** | Give Claude, Cursor, or a custom agent live access to loads, trips, drivers, and carriers without hand-writing API calls. |
+| A **business owner / ops** | Ask an AI assistant natural-language questions about your operation — open loads, invoice status, driver availability, tracking history. |
+| A **platform / ISV** | Connect your agents to Alvys to automate dispatch, carrier onboarding, tracking, and settlement workflows. |
+
+***
+
+## Connecting to Alvys's MCP Server
+
+The Alvys MCP server is a **remote MCP server** that speaks the MCP Streamable HTTP transport. You connect by pointing your MCP client at the server URL and authenticating with Auth0.
+
+### Server URLs
+
+| Environment | MCP Server URL |
+| --- | --- |
+| **Production** | `https://mcp.alvys.com/mcp` |
+
+There are two ways to authenticate, depending on your client.
+
+### Option 1 — Interactive login (recommended for AI apps)
+
+Best for human-facing clients that support remote MCP servers with OAuth, such as **Claude.ai**, **Claude Desktop**, **Cursor**, and **Continue.dev**.
+
+1. In your MCP client, add a new **remote / custom MCP server** and paste the server URL above.
+2. Your client discovers the login flow automatically via the server's OAuth metadata (`/.well-known/oauth-protected-resource/mcp`).
+3. A browser window opens to the Alvys login. Sign in and, if prompted, select your **organization**.
+4. Your client is now connected. It can list and call any tool your account is permitted to use.
+
+No client secret is stored in your MCP client — the interactive flow uses OAuth 2.1 with PKCE, and your session token carries your company and permissions.
+
+#### Example — Claude Desktop / Claude.ai
+
+Add the server under **Settings → Connectors → Add custom connector** and enter:
+
+```
+https://mcp.alvys.com/mcp
+```
+
+Then complete the browser login when prompted.
+
+#### Example — Cursor (`mcp.json`)
+
+```json
+{
+  "mcpServers": {
+    "alvys": {
+      "url": "https://mcp.alvys.com/mcp"
+    }
+  }
+}
+```
+
+Cursor will trigger the browser-based login on first use.
+
+### Option 2 — Machine-to-machine (headless automation)
+
+Best for **server-to-server agents** and back-end automation with no human in the loop. This flow reuses the same OAuth 2.0 **client-credentials** mechanism as the Alvys Public API.
+
+1. Create (or reuse) an Alvys API application in **Admin → API Access** to get a `client_id` and `client_secret`. Select the scopes matching the tools you intend to call. See [Authentication](/docs/authentication-1) for the full walkthrough.
+2. Request an access token:
+
+   ```bash
+   curl --request POST \
+        --url 'https://auth.alvys.com/oauth/token' \
+        --header 'Content-Type: application/json' \
+        --data '{
+          "client_id": "YOUR_CLIENT_ID",
+          "client_secret": "YOUR_CLIENT_SECRET",
+          "audience": "https://api.alvys.com/public/",
+          "grant_type": "client_credentials"
+        }'
+   ```
+
+3. Point your MCP client at the server URL and pass the token in the `Authorization` header:
+
+   ```
+   Authorization: Bearer YOUR_ACCESS_TOKEN
+   ```
+
+The token's `scope` claim determines which tools you can call, and its organization claim scopes every call to your company's data.
+
+<Info>
+  Your `client_id` and `client_secret` are sensitive. Store them securely and never expose them in front-end code. Tokens are scoped to exactly the permissions granted to your application.
+</Info>
+
+### Verifying the connection
+
+Once connected, ask your MCP client to **list available tools**, or issue an MCP `tools/list` call. You should see the Alvys tools grouped by domain (loads, trips, drivers, carriers, and more). For the full catalog, see [Available MCP Tools](/docs/available-mcp-tools).
+
+A raw transport check (returns the server's tool list over Streamable HTTP):
+
+```bash
+curl -sD - -X POST https://mcp.alvys.com/mcp \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'
+```
+
+***
+
+## Permissions & safety
+
+The MCP server enforces the **same scope model** as the Public API. Each tool declares a required permission using the `{resource}:{action}` convention — for example `load:read`, `carrier:update`, or `tender:create`. A tool call fails if your token lacks the scope.
+
+Tools are classified into three tiers:
+
+| Tier | Examples | Availability |
+| --- | --- | --- |
+| **Read** | `loads_search`, `drivers_get_by_id`, `visibility_inbound_history` | Always available |
+| **Write** | `tenders_create`, `trips_assign`, `invoices_record_carrier_payment` | Disabled during beta |
+| **Destructive** | cancel / void actions | Disabled by default |
+
+Additional guardrails applied to every call:
+
+* **Tenant isolation** — your company is derived from your token's organization claim; agents cannot target another tenant.
+* **Rate limiting** — per-token request throttling protects your account and the platform.
+* **Response size caps** — oversized responses are rejected to keep results within an AI client's context window.
+* **Audit logging** — every tool call is recorded with the caller, tenant, and trace id.
+
+## Guided prompts
+
+Beyond individual tools, the server ships **guided prompts** — multi-step workflows an agent can follow end to end:
+
+| Prompt | What it does |
+| --- | --- |
+| `find_and_cover_load_v1` | Find an open load and cover it with a carrier via a tender. |
+| `dispatch_driver_v1` | Check driver availability and assign a driver, truck, and trailer to a trip. |
+| `carrier_onboarding_v1` | Look up a carrier by MC/DOT, review documents, upload the packet, and activate. |
+| `settlement_reconciliation_v1` | Reconcile a load's invoices, deductions, and carrier/customer payments. |
+| `track_shipment_v1` | Pull inbound and outbound tracking history for a shipment. |
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Available MCP Tools" href="/docs/available-mcp-tools" icon="plug">
+    Browse the full catalog of tools, grouped by domain, with the scope each one requires.
+  </Card>
+
+  <Card title="Authentication" href="/docs/authentication-1" icon="key">
+    Full walkthrough of creating credentials and issuing access tokens.
+  </Card>
+
+  <Card title="Getting Started" href="/docs/getting-started" icon="rocket">
+    New to the Alvys API? Start here.
+  </Card>
+</CardGroup>
+
+<Note>
+  **Need access or help?**
+
+  * Existing Alvys customers: contact your account representative.
+  * ISVs / partners: contact the Alvys Partnership team.
+  * Technical support: [support@alvys.com](mailto:support@alvys.com)
+</Note>

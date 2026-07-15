@@ -1,0 +1,109 @@
+---
+title: "Create one-time deduction"
+openapi: "POST /api/p/v{version}/deductions/once"
+---
+
+This endpoint creates a new deduction record for a driver or a truck.
+Deductions are asset-specific financial adjustments and can be associated with either a driver or a truck, but not both simultaneously.
+The deduction itself is always tied to a specific asset (Driver or Truck) and can optionally reference an owner operator for ownership context.
+
+#### Key Rules:
+
+* A deduction must include **either `DriverId` or `TruckId`** — one of them is mandatory.
+* **`OwnerOperatorId`** is optional and used only to override the current owner of the asset. It is never the primary subject of the deduction.
+* The deduction is always created for a specific **DriverId** or **TruckId**, not directly for an owner operator.
+* If **DriverId** is provided → the deduction appears in that driver’s deductions table.
+* If **TruckId** is provided → the deduction appears in that truck’s deductions table.
+* If **OwnerOperatorId** is provided → it overrides the current owner of the asset to that specific owner operator (only within this deduction record). If omitted → the system automatically links the deduction to the current owner operator, if one exists.
+* If the truck or driver has no owner operator → the deduction is created without one.
+
+### Permissions Required
+
+Only users or client credentials with **Create access** to the **Deductions** resource can perform creation.
+If the API client lacks sufficient privileges, a `403 Forbidden` response will be returned.
+
+***
+
+### Request Body Parameters
+
+| Parameter       | Type          | Required      | Description                                                                              |
+| --------------- | ------------- | ------------- | ---------------------------------------------------------------------------------------- |
+| Date            | String (Date) | Yes           | The effective date of the deduction. Time values are accepted but truncated on save.     |
+| Amount          | Number        | Yes           | The deduction amount. Must be **negative** and have a value of less than  **- 1.00**.    |
+| Category        | String        | Yes           | Deduction category (any string value).                                                   |
+| Description     | String        | Yes           | Description or reason for the deduction.                                                 |
+| DriverId        | String        | Conditionally | Required when creating a deduction for a driver. Must not be used together with TruckId. |
+| TruckId         | String        | Conditionally | Required when creating a deduction for a truck. Must not be used together with DriverId. |
+| OwnerOperatorId | String        | No            | Optional — used only to override the current owner of the asset (Driver or Truck).       |
+
+### Example CURL Request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/deductions/once' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+--header 'Content-Type: application/json' \
+--data '{
+  "Date": "2025-10-07",
+  "Amount": -55,
+  "Category": "Drug Test",
+  "Description": "DOT Drug Test Fee",
+  "DriverId": "DR2517534557938191",
+  "OwnerOperatorId": "DR25165000003445290"
+}'
+```
+
+### Response Body Parameters
+
+| Parameter       | Type               | Required      | Description                                                      |
+| --------------- | ------------------ | ------------- | ---------------------------------------------------------------- |
+| Id              | String             | Yes           | The unique identifier of the created deduction.                  |
+| Type            | String             | Yes           | Type of record (`"Deduction"`).                                  |
+| GroupId         | String             | No            | Group ID if part of a recurring rule or batch.                   |
+| Description     | String             | Yes           | Description of the deduction.                                    |
+| Category        | String             | Yes           | Deduction category (e.g., Fuel, Advance, Drug Test).             |
+| Amount.Amount   | Number             | Yes           | Deduction amount (negative value).                               |
+| Amount.Currency | Integer            | Yes           | ISO numeric currency code (e.g., 840 for USD).                   |
+| DriverId        | String             | Conditionally | The Driver ID if the deduction was created for a driver.         |
+| TruckId         | String             | Conditionally | The Truck ID if the deduction was created for a truck.           |
+| OwnerOperatorId | String             | No            | The Owner Operator ID of the truck or driver (if applicable).    |
+| Date            | String (Date)      | Yes           | The effective date of the deduction (date only, without time).   |
+| IsPaid          | Boolean            | No            | Indicates whether the deduction has been paid. Default: `false`. |
+| CreatedAt       | String (Date-Time) | Yes           | Timestamp when the deduction was created (UTC).                  |
+| CreatedBy       | String             | No            | Client ID or User ID of the person who created the deduction.    |
+
+***
+
+### Example Response
+
+```json
+{
+  "Id": "22d34b6d-7403-4003-b8ea-e028cd36e7d7",
+  "Type": "Deduction",
+  "GroupId": "344571de-57b4-4163-a0cc-d7981fa65994",
+  "Description": "DOT Drug Test Fee",
+  "Category": "Drug Test",
+  "Amount": {
+    "Amount": -55,
+    "Currency": 840
+  },
+  "DriverId": "DR2517534557938191",
+  "OwnerOperatorId": "DR25165000003445290",
+  "Date": "2025-10-07",
+  "IsPaid": false,
+  "CreatedAt": "2025-10-09T08:30:54.873Z",
+  "CreatedBy": "MhAeSgpRH6REdgfrthgfUdTdXOMgVSGyp"
+}
+```
+
+### Versioning
+
+The `version` parameter in the URL path specifies which version of the API you are using.
+Including the version number ensures that your integration remains stable as the API evolves.
+For more details, refer to the [Versioning](/docs/versioning) page.
+
+***
+
+### Rate Limits
+
+All endpoints are subject to standard rate limits to ensure consistent API performance.
+For details, see the [Rate Limits](/docs/rate-limits) section.

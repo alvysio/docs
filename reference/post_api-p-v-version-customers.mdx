@@ -1,0 +1,146 @@
+---
+title: "Create customer"
+openapi: "POST /api/p/v{version}/customers"
+---
+
+The Create Customer endpoint adds a new business company (a Customer or a Broker/3PL) to your account. On success it returns the created record together with the optimistic-concurrency token (`ETag`) you will need for any later update or delete. For more information on how versioning works and how to include it in your requests, please refer to the [Versioning](/docs/versioning) page.
+
+Per-tenant, per-`Type` uniqueness is enforced on `CompanyNumber`, `ExternalId`, and `(Name + Zip)`. A request that would create a duplicate is rejected with `409 Conflict` and the identifier of the existing customer.
+
+***
+
+### Request Parameters
+
+The following parameter is required in the URL path:
+
+| Parameter | Type   | Required | Description             |
+| --------- | ------ | -------- | ----------------------- |
+| version   | String | Yes      | The version of the API. |
+
+***
+
+### Request Body
+
+The request body accepts the following fields. Only `Name` is required.
+
+| Field                  | Type            | Required | Description                                                                      |
+| ---------------------- | --------------- | -------- | -------------------------------------------------------------------------------- |
+| Name                   | String          | Yes      | The customer name. Must be 200 characters or fewer.                              |
+| Type                   | String          | No       | The customer type. One of "Customer" or "Broker/3PL".                            |
+| CompanyNumber          | String          | No       | A reference/registration number for the company. Must be 32 characters or fewer. |
+| Status                 | String          | No       | The customer status. One of "Active" or "Inactive".                              |
+| BillingAddress         | Object          | No       | The billing address of the customer.                                             |
+| BillingAddress.Street  | String          | No       | The street line of the billing address.                                          |
+| BillingAddress.City    | String          | No       | The city of the billing address.                                                 |
+| BillingAddress.State   | String          | No       | The state of the billing address.                                                |
+| BillingAddress.Zip     | String          | No       | The postal code of the billing address.                                          |
+| BillingAddress.Country | String          | No       | ISO country code of the billing address. Defaults to "US".                       |
+| Email                  | Array of String | No       | A list of email addresses associated with the customer.                          |
+| Phone                  | Array of String | No       | A list of phone numbers associated with the customer.                            |
+| Fax                    | String          | No       | The fax number of the customer.                                                  |
+| ExternalId             | String          | No       | An external reference identifier. Must be 100 characters or fewer.               |
+
+***
+
+### Example CURL Request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/customers' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "Name": "Acme Logistics",
+  "Type": "Broker/3PL",
+  "CompanyNumber": "ACME-001",
+  "Status": "Active",
+  "BillingAddress": {
+    "Street": "123 Main St",
+    "City": "Dallas",
+    "State": "TX",
+    "Zip": "75201",
+    "Country": "US"
+  },
+  "Email": ["billing@acme.example"],
+  "Phone": ["+1-214-555-0100"],
+  "ExternalId": "EXT-ACME-001"
+}'
+```
+
+Replace `YOUR_ACCESS_TOKEN` with your actual Bearer token.
+
+***
+
+### Response Fields
+
+A successful request returns the created customer. The optimistic-concurrency token is returned both on the HTTP `ETag` response header and in the `ETag` body field, so you can use it on a follow-up `If-Match` without an extra GET.
+
+| Field                  | Type               | Description                                             |
+| ---------------------- | ------------------ | ------------------------------------------------------- |
+| Id                     | String             | The unique identifier of the created customer.          |
+| ETag                   | String             | The optimistic-concurrency token for the new record.    |
+| Name                   | String             | The name of the customer.                               |
+| CompanyNumber          | String             | The company number of the customer.                     |
+| Type                   | String             | The type of customer ("Customer" or "Broker/3PL").      |
+| Status                 | String             | The raw persisted status of the customer.               |
+| BillingAddress         | Object             | The billing address of the customer.                    |
+| BillingAddress.Street  | String             | The street line of the billing address.                 |
+| BillingAddress.City    | String             | The city of the billing address.                        |
+| BillingAddress.State   | String             | The state of the billing address.                       |
+| BillingAddress.ZipCode | String             | The postal code of the billing address.                 |
+| Email                  | Array              | A list of email addresses associated with the customer. |
+| Phone                  | Array              | A list of phone numbers associated with the customer.   |
+| Fax                    | String             | The fax number of the customer.                         |
+| DateCreated            | String (Date-Time) | The date and time when the customer was created.        |
+| DateModified           | String (Date-Time) | The date and time of this write.                        |
+| InvoicingInformation   | Object             | The invoicing information for the customer.             |
+| ExternalId             | String             | The external identifier associated with the customer.   |
+
+***
+
+### Example Response
+
+**201 Created**
+
+```json
+{
+  "Id": "01fec4d332ed49ff96595c8d4434ea96",
+  "ETag": "\"00000000-0000-0000-0000-000000000001\"",
+  "Name": "Acme Logistics",
+  "CompanyNumber": "ACME-001",
+  "Type": "Broker/3PL",
+  "Status": "Active",
+  "BillingAddress": {
+    "Street": "123 Main St",
+    "City": "Dallas",
+    "State": "TX",
+    "ZipCode": "75201"
+  },
+  "Email": ["billing@acme.example"],
+  "Phone": ["+1-214-555-0100"],
+  "Fax": null,
+  "DateCreated": "2025-09-08T19:38:34.529Z",
+  "DateModified": "2025-09-08T19:38:34.529Z",
+  "InvoicingInformation": null,
+  "ExternalId": "EXT-ACME-001"
+}
+```
+
+***
+
+### Status Codes
+
+| Status | Meaning                                                                                                                                    |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| 201    | The customer was created.                                                                                                                  |
+| 400    | The request body failed validation.                                                                                                        |
+| 401    | The request was not authenticated.                                                                                                         |
+| 403    | The caller lacks permission to create customers.                                                                                           |
+| 409    | A customer with the same `CompanyNumber`, `ExternalId`, or `(Name + Zip)` already exists. The response includes the existing `customerId`. |
+
+***
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request by completing the fields for the parameters below. As you fill out the parameters, the CURL command on the right side of the page will be automatically updated.

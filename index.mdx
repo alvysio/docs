@@ -1,60 +1,112 @@
 ---
 title: "Alvys API"
 description: "Alvys Public API v1.0 documentation for logistics and transportation management, covering loads, drivers, authentication, webhooks, and MCP tools."
+mode: "custom"
 ---
 
-Public REST API · v1.0
+<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8">
+<div className="relative overflow-hidden rounded-3xl border border-[#2245b9]/15 dark:border-transparent bg-gradient-to-br from-white via-[#eef2fb] to-[#dbe4fb] dark:from-[#0a1436] dark:via-[#132152] dark:to-[#1b2a72] px-6 sm:px-10 lg:px-14 py-14 lg:py-20">
+  <div className="pointer-events-none absolute -top-40 -right-32 h-[480px] w-[480px] rounded-full bg-[#434fef] opacity-15 blur-3xl dark:opacity-30" />
+  <div className="pointer-events-none absolute -bottom-40 -left-32 h-[420px] w-[420px] rounded-full bg-[#2245b9] opacity-10 blur-3xl dark:opacity-25" />
 
-Unlock the full potential of your logistics operations with the Alvys API.
+  <div className="relative max-w-3xl">
+    <div className="inline-flex items-center gap-2 rounded-full border border-[#2245b9]/25 bg-white/70 dark:border-white/15 dark:bg-white/5 px-3 py-1 text-xs font-medium text-[#2245b9] dark:text-[#c3d0ff] backdrop-blur-sm">
+      Public REST API · v2.0
+    </div>
+    <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-[#0f1a3d] dark:text-white">
+      Alvys API
+    </h1>
+    <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-200/85 max-w-2xl">
+      Unlock the full potential of your logistics operations with the Alvys API.
+    </p>
+    <div className="mt-8 flex flex-wrap gap-3">
+      <a href="/docs/getting-started" className="inline-flex items-center gap-2 rounded-lg bg-[#2245b9] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#1a389e] transition-colors">
+        Get Started
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+      </a>
+      <a href="/reference/authentication" className="inline-flex items-center gap-2 rounded-lg border border-[#0f1a3d]/15 bg-white/80 px-5 py-2.5 text-sm font-semibold text-[#0f1a3d] hover:bg-white hover:border-[#0f1a3d]/30 dark:border-white/25 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:hover:border-white/40 transition-colors">
+        API Reference
+      </a>
+    </div>
+  </div>
+</div>
+</div>
 
-<Card title="Get Started" icon="rocket" href="/docs/getting-started">
-  Create client credentials, request an access token, and make your first authenticated call.
-</Card>
+<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16">
+  <div className="mb-8">
+    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Start here</h2>
+    <p className="mt-2 text-slate-600 dark:text-slate-300">Quick paths for first-time integrators and existing customers.</p>
+  </div>
 
-## Quick paths for first-time integrators
+  <CardGroup cols={3}>
+    <Card title="Getting Started" icon="rocket" href="/docs/getting-started">
+      Create client credentials, request an access token, and make your first authenticated call.
+    </Card>
+    <Card title="Authentication" icon="key" href="/docs/authentication-1">
+      Use OAuth 2.0 Client Credentials to issue scoped access tokens.
+    </Card>
+    <Card title="Versioning" icon="code-branch" href="/docs/versioning">
+      Learn how the Alvys API is versioned and how to include the version in requests.
+    </Card>
+  </CardGroup>
+</div>
 
-<CardGroup cols={2}>
-  <Card title="Getting Started" icon="play" href="/docs/getting-started">
-    Create client credentials, request an access token, and make your first authenticated call.
-  </Card>
-  <Card title="Authentication" icon="key" href="/docs/authentication">
-    Use OAuth 2.0 Client Credentials to issue scoped access tokens.
-  </Card>
-  <Card title="Versioning" icon="code-branch" href="/docs/versioning">
-    Learn how the Alvys API is versioned and how to include the version in requests.
-  </Card>
-  <Card title="Base URL" icon="globe" href="/docs/base-url">
-    Production base URL and path format for all Public API requests.
-  </Card>
-</CardGroup>
+<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16">
+  <div className="mb-8">
+    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Explore the API</h2>
+    <p className="mt-2 text-slate-600 dark:text-slate-300">Endpoints and events covering every core Alvys entity.</p>
+  </div>
 
-## Explore the API
+  <CardGroup cols={3}>
+    <Card title="Loads" icon="truck-fast" href="/reference/get_api-p-v-version-loads">
+      Retrieve, search, and update loads across your fleet.
+    </Card>
+    <Card title="Trips" icon="route" href="/reference/get_api-p-v-version-trips">
+      Track trip lifecycle, stops, arrivals, and departures.
+    </Card>
+    <Card title="Tenders" icon="handshake" href="/reference/tenders">
+      Map EDI 204 / 990 / 214 / 210 workflows to Alvys REST + webhooks.
+    </Card>
+    <Card title="Drivers" icon="id-card" href="/reference/get_api-p-v-version-drivers">
+      Manage driver records, documents, and events.
+    </Card>
+    <Card title="Carriers & Customers" icon="building" href="/reference/post_api-p-v-version-carriers-search">
+      Search carriers and customers; upload documents; record payments.
+    </Card>
+    <Card title="Webhooks" icon="bolt" href="/reference/overview">
+      Subscribe to entity events with HMAC-signed delivery and retries.
+    </Card>
+  </CardGroup>
+</div>
 
-Endpoints and events covering every core Alvys entity.
+<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16">
+  <div className="mb-8">
+    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Guides</h2>
+    <p className="mt-2 text-slate-600 dark:text-slate-300">Hands-on walkthroughs for common data and BI workflows.</p>
+  </div>
 
-<CardGroup cols={2}>
-  <Card title="Loads" icon="truck" href="/api-reference/loads">
-    Retrieve, search, and update loads across your fleet.
-  </Card>
-  <Card title="Trips" icon="route" href="/api-reference/trips">
-    Track trip lifecycle, stops, arrivals, and departures.
-  </Card>
-  <Card title="Drivers" icon="id-card" href="/api-reference/drivers">
-    Manage driver records, documents, and events.
-  </Card>
-  <Card title="Carriers" icon="building" href="/api-reference/carriers">
-    Search carriers; upload documents; record payments.
-  </Card>
-  <Card title="Webhooks" icon="webhook" href="/api-reference/webhooks">
-    Subscribe to entity events with HMAC-signed delivery and retries.
-  </Card>
-  <Card title="MCP Tools" icon="robot" href="/ai-agents/available-mcp-tools">
-    Browse the Alvys MCP tool catalog for AI agent integrations.
-  </Card>
-</CardGroup>
+  <CardGroup cols={2}>
+    <Card title="Connecting to Power BI" icon="chart-column" href="/docs/connecting-power-bi-to-alvys-public-api-guide">
+      Query the Alvys Public API from Power BI and refresh reports automatically.
+    </Card>
+    <Card title="Connecting to Google Sheets" icon="table" href="/docs/alvys-data-import-template-quick-setup-guide">
+      Pull Alvys data into a preconfigured Google Sheets template.
+    </Card>
+  </CardGroup>
+</div>
 
-## Stay informed
+<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16 mb-16">
+  <div className="mb-8">
+    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Stay informed</h2>
+    <p className="mt-2 text-slate-600 dark:text-slate-300">Follow releases and enhancements to the Public API.</p>
+  </div>
 
-<Card title="Changelog" icon="clock-rotate-left" href="/changelog">
-  Follow releases and enhancements to the Public API, webhooks, and integrations.
-</Card>
+  <CardGroup cols={2}>
+    <Card title="Changelog" icon="clock-rotate-left" href="/changelog">
+      Recent additions to the Public API, webhooks, and integrations.
+    </Card>
+    <Card title="Contact" icon="envelope" href="https://alvys.com/resources/contact">
+      Talk to your Alvys account representative or the Partnership team.
+    </Card>
+  </CardGroup>
+</div>

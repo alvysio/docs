@@ -1,0 +1,34 @@
+/* Landing-page chrome trim.
+   `mode: "custom"` in index.mdx already hides #sidebar-content, the TOC rail,
+   the auto page header, and the prev/next footer nav via Mintlify's own
+   peer-[.is-custom] selectors. The rules below only patch the residual
+   layout that `mode: "custom"` leaves in place so the hero can go
+   edge-to-edge. */
+
+html[data-current-path="/"] #content-container {
+  margin-left: 0 !important;
+  padding-top: 0 !important;
+  gap: 0 !important;
+  min-height: 0 !important;
+}
+
+html[data-current-path="/"] #content-area {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html[data-current-path="/"] #content {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Belt-and-suspenders: some Mintlify releases render the sidebar wrapper
+   without the peer-[.is-custom] class. Force-hide by id on the root. */
+html[data-current-path="/"] #sidebar-content {
+  display: none !important;
+}

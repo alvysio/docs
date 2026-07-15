@@ -1,73 +1,277 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Alvys API",
-  "description": "Unlock the full potential of your logistics operations with the Alvys API.",
+  "theme": "luma",
+  "name": "Alvys",
   "colors": {
-    "primary": "#434FEF",
-    "light": "#6366F1",
-    "dark": "#3730A3"
+    "primary": "#2245b9",
+    "light": "#7d8bef",
+    "dark": "#2245b9"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.ico",
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "api": {
-    "openapi": "openapi/alvys.json",
-    "playground": {
-      "display": "interactive"
-    },
-    "examples": {
-      "autogenerate": true,
-      "languages": ["curl", "python", "javascript", "go"]
-    },
-    "mdx": {
-      "auth": {
-        "method": "bearer"
-      }
-    }
+    "light": "/logo/alvys-letter.svg",
+    "dark": "/logo/alvys-letter.svg"
   },
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "Home",
+        "pages": [
+          "index"
+        ]
+      },
+      {
+        "tab": "Guides",
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Documentation",
             "pages": [
-              "index",
+              "docs/overview",
               "docs/getting-started",
-              "docs/authentication",
+              "docs/authentication-1"
+            ]
+          },
+          {
+            "group": "API Features",
+            "pages": [
+              "docs/base-url",
               "docs/versioning",
-              "docs/base-url"
+              "docs/dates-timestamps",
+              "docs/rate-limits",
+              "docs/response-codes",
+              "docs/timestamps"
+            ]
+          },
+          {
+            "group": "AI & Agents",
+            "pages": [
+              "docs/mcp",
+              "docs/available-mcp-tools"
+            ]
+          },
+          {
+            "group": "Use Cases",
+            "pages": [
+              {
+                "group": "Connecting to Power BI",
+                "pages": [
+                  "docs/connecting-power-bi-to-alvys-public-api-guide",
+                  "docs/authentication-2",
+                  "docs/create-queries-and-retrieve-data-from-the-alvys-api",
+                  "docs/importing-the-preconfigured-alvys-public-apipbix-file",
+                  "docs/power-bi-template-file-fast-setup-guide"
+                ]
+              },
+              "docs/alvys-data-import-template-quick-setup-guide"
             ]
           }
         ]
       },
       {
         "tab": "API Reference",
-        "openapi": "openapi/alvys.json"
-      },
-      {
-        "tab": "AI & Agents",
         "groups": [
           {
-            "group": "Model Context Protocol",
+            "group": "Getting Started",
             "pages": [
-              "ai-agents/mcp",
-              "ai-agents/available-mcp-tools"
+              "reference/authentication",
+              "reference/tenders"
+            ]
+          },
+          {
+            "group": "Carriers",
+            "pages": [
+              "reference/get_api-p-v-version-carriers-carrierid-documents",
+              "reference/get_api-p-v-version-carriers-id",
+              "reference/post_api-p-v-version-carriers-carrierid-document",
+              "reference/post_api-p-v-version-carriers-search"
+            ]
+          },
+          {
+            "group": "Customers",
+            "pages": [
+              "reference/get_api-p-v-version-customers",
+              "reference/post_api-p-v-version-customers",
+              "reference/post_api-p-v-version-customers-search",
+              "reference/patch_api-p-v-version-customers-id",
+              "reference/delete_api-p-v-version-customers-id"
+            ]
+          },
+          {
+            "group": "Deductions",
+            "pages": [
+              "reference/get_api-p-v-version-deductions-id",
+              "reference/post_api-p-v-version-deductions-once",
+              "reference/post_api-p-v-version-deductions-search",
+              "reference/delete_api-p-v-version-deductions-id"
+            ]
+          },
+          {
+            "group": "Dispatch Preferences",
+            "pages": [
+              "reference/post_api-p-v-version-dispatchpreferences-search"
+            ]
+          },
+          {
+            "group": "Drivers",
+            "pages": [
+              "reference/get_api-p-v-version-drivers",
+              "reference/get_api-p-v-version-drivers-driverid-documents",
+              "reference/get_api-p-v-version-drivers-id",
+              "reference/post_api-p-v-version-drivers-driverid-document",
+              "reference/post_api-p-v-version-drivers-events-search",
+              "reference/post_api-p-v-version-drivers-search"
+            ]
+          },
+          {
+            "group": "Fuel",
+            "pages": [
+              "reference/get_api-p-v-version-fuel-id",
+              "reference/post_api-p-v-version-fuel-search"
+            ]
+          },
+          {
+            "group": "Invoices",
+            "pages": [
+              "reference/get_api-p-v-version-invoices",
+              "reference/post_api-p-v-version-invoices-carrier-invoice",
+              "reference/post_api-p-v-version-invoices-carrier-payments",
+              "reference/post_api-p-v-version-invoices-customer-payments",
+              "reference/post_api-p-v-version-invoices-financing",
+              "reference/post_api-p-v-version-invoices-search"
+            ]
+          },
+          {
+            "group": "Loads",
+            "pages": [
+              "reference/get_api-p-v-version-loads",
+              "reference/get_api-p-v-version-loads-loadnumber-documents",
+              "reference/get_api-p-v-version-loads-loadnumber-notes",
+              "reference/post_api-p-v-version-loads-loadnumber-document",
+              "reference/post_api-p-v-version-loads-loadnumber-notes",
+              "reference/post_api-p-v-version-loads-search",
+              "reference/patch_api-p-v-version-loads-loadnumber",
+              "reference/delete_api-p-v-version-loads-loadnumber-notes-noteid"
+            ]
+          },
+          {
+            "group": "Locations",
+            "pages": [
+              "reference/get_api-p-v-version-locations",
+              "reference/post_api-p-v-version-locations-search"
+            ]
+          },
+          {
+            "group": "Maintenance",
+            "pages": [
+              "reference/get_api-p-v-version-maintenance-id",
+              "reference/post_api-p-v-version-maintenance-search"
+            ]
+          },
+          {
+            "group": "Tenders",
+            "pages": [
+              "reference/get_api-p-v-version-tenders-tenderid",
+              "reference/post_api-p-v-version-tenders",
+              "reference/post_api-p-v-version-tenders-cancel",
+              "reference/post_api-p-v-version-tenders-search",
+              "reference/post_api-p-v-version-tenders-tenderid-accept",
+              "reference/post_api-p-v-version-tenders-tenderid-accept-cancel",
+              "reference/post_api-p-v-version-tenders-tenderid-accept-updates",
+              "reference/post_api-p-v-version-tenders-tenderid-reject",
+              "reference/post_api-p-v-version-tenders-update"
+            ]
+          },
+          {
+            "group": "Tolls",
+            "pages": [
+              "reference/get_api-p-v-version-tolls-id",
+              "reference/post_api-p-v-version-tolls-search"
+            ]
+          },
+          {
+            "group": "Trailers",
+            "pages": [
+              "reference/get_api-p-v-version-trailers",
+              "reference/get_api-p-v-version-trailers-id",
+              "reference/get_api-p-v-version-trailers-trailerid-documents",
+              "reference/post_api-p-v-version-trailers-events-search",
+              "reference/post_api-p-v-version-trailers-search",
+              "reference/post_api-p-v-version-trailers-trailerid-document"
+            ]
+          },
+          {
+            "group": "Trips",
+            "pages": [
+              "reference/get_api-p-v-version-trips",
+              "reference/get_api-p-v-version-trips-tripid-documents",
+              "reference/get_api-p-v-version-trips-tripid-stops",
+              "reference/get_api-p-v-version-trips-tripid-stops-stopid",
+              "reference/post_api-p-v-version-trips-search",
+              "reference/post_api-p-v-version-trips-tripid-document",
+              "reference/put_api-p-v-version-trips-tripid-stops-stopid-appointment",
+              "reference/put_api-p-v-version-trips-tripid-stops-stopid-arrival",
+              "reference/put_api-p-v-version-trips-tripid-stops-stopid-departure",
+              "reference/delete_api-p-v-version-trips-tripid-stops-stopid-arrival"
+            ]
+          },
+          {
+            "group": "Trucks",
+            "pages": [
+              "reference/get_api-p-v-version-trucks",
+              "reference/get_api-p-v-version-trucks-id",
+              "reference/get_api-p-v-version-trucks-truckid-documents",
+              "reference/post_api-p-v-version-trucks-events-search",
+              "reference/post_api-p-v-version-trucks-search",
+              "reference/post_api-p-v-version-trucks-truckid-document"
+            ]
+          },
+          {
+            "group": "Users",
+            "pages": [
+              "reference/get_api-p-v-version-users-list",
+              "reference/post_api-p-v-version-users-search"
+            ]
+          },
+          {
+            "group": "Visibility",
+            "pages": [
+              "reference/get_api-p-v-version-visibility-inbound-loadnumber-history",
+              "reference/get_api-p-v-version-visibility-outbound-loadnumber-history",
+              "reference/post_api-p-v-version-visibility-outbound-errors"
+            ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
+              "reference/overview",
+              "reference/event-delivery-reliability",
+              "reference/change-diffs",
+              "reference/security-signature-verification",
+              "reference/webhook-lifecycle-configuration",
+              "reference/get_api-p-v-version-webhooks",
+              "reference/get_api-p-v-version-webhooks-event-types",
+              "reference/get_api-p-v-version-webhooks-id",
+              "reference/get_api-p-v-version-webhooks-webhookid-delivery-logs",
+              "reference/get_api-p-v-version-webhooks-webhookid-delivery-logs-export",
+              "reference/get_api-p-v-version-webhooks-webhookid-delivery-logs-logid",
+              "reference/get_api-p-v-version-webhooks-webhookid-health",
+              "reference/post_api-p-v-version-webhooks",
+              "reference/post_api-p-v-version-webhooks-id-disable",
+              "reference/post_api-p-v-version-webhooks-id-enable",
+              "reference/post_api-p-v-version-webhooks-id-reveal-secret",
+              "reference/post_api-p-v-version-webhooks-id-rotate-secret",
+              "reference/post_api-p-v-version-webhooks-id-test",
+              "reference/post_api-p-v-version-webhooks-id-verify",
+              "reference/put_api-p-v-version-webhooks-id",
+              "reference/delete_api-p-v-version-webhooks-id"
             ]
           }
         ]
       },
       {
         "tab": "Changelog",
-        "groups": [
-          {
-            "group": "Releases",
-            "pages": ["changelog/index"]
-          }
+        "pages": [
+          "changelog"
         ]
       }
     ]
@@ -75,32 +279,303 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:support@alvys.com"
-      },
+        "label": "alvys.com",
+        "href": "https://alvys.com"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Contact",
+      "href": "https://alvys.com/resources/contact"
+    }
+  },
+  "footer": {
+    "socials": {},
+    "links": [
       {
-        "label": "Contact",
-        "href": "https://alvys.com/resources/contact"
+        "header": "Company",
+        "items": [
+          {
+            "label": "Alvys",
+            "href": "https://alvys.com"
+          },
+          {
+            "label": "Contact",
+            "href": "https://alvys.com/resources/contact"
+          },
+          {
+            "label": "Terms of Service",
+            "href": "https://alvys.com/terms"
+          },
+          {
+            "label": "Privacy Policy",
+            "href": "https://alvys.com/privacy"
+          }
+        ]
       }
     ]
   },
-  "footer": {
-    "socials": {
-      "github": "https://github.com/alvysio",
-      "linkedin": "https://linkedin.com/company/alvys"
+  "seo": {
+    "metatags": {
+      "robots": "noindex",
+      "og:site_name": "Alvys"
     }
   },
   "contextual": {
     "options": [
       "copy",
       "view",
-      "download-spec",
+      "assistant",
       "chatgpt",
       "claude",
       "perplexity",
+      "grok",
+      "aistudio",
+      "devin",
+      "windsurf",
       "mcp",
+      "add-mcp",
       "cursor",
-      "vscode"
+      "vscode",
+      "devin-mcp"
     ]
-  }
+  },
+  "api": {
+    "playground": {
+      "display": "interactive"
+    },
+    "examples": {
+      "languages": [
+        "curl",
+        "javascript",
+        "python",
+        "php",
+        "go",
+        "java"
+      ]
+    },
+    "mdx": {
+      "server": "https://integrations.alvys.com",
+      "auth": {
+        "method": "bearer"
+      }
+    }
+  },
+  "redirects": [
+    {
+      "source": "/changelog/new-public-api-endpoints-for-trips-and-carriers",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/update-a-loads-order-number-via-the-public-api",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/public-api-customer-write-endpoints-create-update-delete",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/welcome-to-alvys",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/enhancements-to-load-management-with-new-assignment-fields",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/trips-endpoint-enhancement-dispatcherid-added",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/update-for-customer-rate-details-field",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/new-endpoints-for-customer-data-management",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/exposing-asset-events-endpoints",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/including-updatedat-and-updatedby-to-load-and-trip-endpoints",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/new-endpoints-for-visibility-public-api",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/new-dispatch-preferences-endpoint",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/load-rates-enhancements",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/updated-loadnumber-search-limit",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/trips-endpoint-update-datereleased-field-added",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/enhanced-carrier-payment-details-in-trips-endpoints",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/public-api-update-accurate-pickup-delivery-timestamps",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/token-endpoint-enhancement-json-support-added-stricter-validation-enforced",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/driver-status-visibility-enhancement",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/expose-carrierpaymentonhold-field-in-trips-endpoints",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/carrier-endpoints-added-to-public-api",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/new-token-endpoint-with-granular-api-access",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/improved-trip-mileage-accuracy-for-split-loads",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/power-bi-file-updated",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/enhanced-fuel-endpoints-with-transaction-date-and-quantity-details",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/document-upload-endpints-now-available-in-public-api",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/introduced-load-office-to-public-api",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/exposing-deleted-loads-and-trips-in-the-public-api-only-when-includedeleted-flag-is-true",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/introducing-new-response-field-loadtype-to-distinguish-between-revenue-and-non-revenue-loads",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/new-endpoints-for-company-location-details",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/enhanced-driver-pay-visibility-in-trips-endpoint",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/granular-accessorials-breakdown-customers-carriers-drivers",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/new-endpoints-for-managing-deductions",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/public-api-now-supports-document-fetching-across-core-entities",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/trip-search-enhancement-for-include-deleted-records",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/trip-temperature-required-equipment-fields-added-to-trip-response-body",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/public-api-carrier-customer-payments-enhancements",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/public-api-webhook-enhancements-delivery-attempts-status-reason-and-delivery-log-export",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/alvys-webhooks-now-available-for-tender-lifecycle-events",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/public-api-enhancements-for-loads-trips-carriers-tenders-and-core-response-schemas",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/webhook-events-for-load-trip-status-updates",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/per-entity-document-webhooks-for-loads-trips-drivers-carriers-trucks-trailers",
+      "destination": "/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/webhook-events-for-general-load-trip-updates",
+      "destination": "/changelog",
+      "permanent": true
+    }
+  ]
 }

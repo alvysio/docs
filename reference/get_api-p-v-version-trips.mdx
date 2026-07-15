@@ -1,0 +1,151 @@
+---
+title: "Get trip"
+openapi: "GET /api/p/v{version}/trips"
+---
+
+### Request Parameters
+
+The following parameters are available in the URL path and query string:
+
+| Parameter      | Type    | Required      | Description                                                                                                                                    |
+| -------------- | ------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| version        | String  | Yes           | The API version to use.                                                                                                                        |
+| tripNumber     | String  | Conditionally | The trip number to filter results. This field is required if the other conditionally required fields are left empty.                           |
+| id             | String  | Conditionally | The trip id to filter results. This field is required if the other conditionally required fields are left empty.                               |
+| includeDeleted | Boolean | No            | When `true`, also returns trips that are deleted or invisible (for example, an original trip superseded by a load split). Defaults to `false`. |
+
+#### Example CURL request
+
+Example using Trip ID:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/trips?id={tripId}' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Example using Trip Number:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/trips?tripNumber={tripNumber}' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `{version}` with the API version number, `{tripId}` with the actual trip ID, `{tripNumber}` with the actual trip number, and `YOUR_ACCESS_TOKEN` with your actual Bearer token:
+
+Using Trip ID:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/trips?id=000c3a9bf0000000bf000d000e000a0b' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ...'
+```
+
+Using Trip Number:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/trips?tripNumber=123456789' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ....'
+```
+
+### Response Parameters
+
+The following table lists the parameters included in the response for a single trip request:
+
+| Parameter                                               | Type              | Required | Description                                                                                                                                          |
+| :------------------------------------------------------ | :---------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Id                                                      | string            | Yes      | Unique identifier of the trip.                                                                                                                       |
+| TripNumber                                              | string            | Yes      | Number associated with the trip.                                                                                                                     |
+| Status                                                  | string            | No       | Current status of the trip.                                                                                                                          |
+| LoadNumber                                              | string            | No       | Load number associated with the trip.                                                                                                                |
+| TenderAs                                                | string            | No       | Role under which the trip was tendered.                                                                                                              |
+| TenderAsSubsidiaryType                                  | string            | No       | Subsidiary type under which the trip was tendered (e.g., `"Carrier"`).                                                                               |
+| Stops\[]                                                | array             | No       | List of stops for the trip.                                                                                                                          |
+| Stops\[].Id                                             | string            | No       | Unique identifier of the stop.                                                                                                                       |
+| Stops\[].Address.Street                                 | string            | No       | Street address of the stop.                                                                                                                          |
+| Stops\[].Address.City                                   | string            | No       | City of the stop.                                                                                                                                    |
+| Stops\[].Address.State                                  | string            | No       | State of the stop.                                                                                                                                   |
+| Stops\[].Address.ZipCode                                | string            | No       | ZIP code of the stop.                                                                                                                                |
+| Stops\[].Coordinates.Latitude                           | string            | No       | Latitude of the stop.                                                                                                                                |
+| Stops\[].Coordinates.Longitude                          | string            | No       | Longitude of the stop.                                                                                                                               |
+| Stops\[].Status                                         | string            | No       | Status of the stop.                                                                                                                                  |
+| Stops\[].StopType                                       | string            | No       | Type of stop (e.g., Pickup, Delivery).                                                                                                               |
+| Stops\[].AppointmentDate                                | string (datetime) | No       | Appointment date/time for the stop.                                                                                                                  |
+| TotalMileage.Distance.Value                             | number            | No       | Total mileage value.                                                                                                                                 |
+| TotalMileage.Distance.UnitOfMeasure                     | string            | No       | Unit of measure for total mileage.                                                                                                                   |
+| TotalMileage.Source                                     | string            | No       | Source of mileage data.                                                                                                                              |
+| TotalMileage.ProfileName                                | string            | No       | Name of the mileage profile used.                                                                                                                    |
+| EmptyMileage.Distance.Value                             | number            | No       | Empty mileage value.                                                                                                                                 |
+| LoadedMileage.Distance.Value                            | number            | No       | Loaded mileage value.                                                                                                                                |
+| PickupDate                                              | string (datetime) | No       | Scheduled pickup date.                                                                                                                               |
+| DeliveryDate                                            | string (datetime) | No       | Scheduled delivery date.                                                                                                                             |
+| PickedUpAt                                              | string (datetime) | No       | Actual pickup timestamp.                                                                                                                             |
+| DeliveredAt                                             | string (datetime) | No       | Actual delivery timestamp.                                                                                                                           |
+| CarrierAssignedAt                                       | string (datetime) | No       | Carrier assignment timestamp.                                                                                                                        |
+| TripValue.Amount                                        | number            | No       | Total trip value.                                                                                                                                    |
+| TripValue.Currency                                      | string            | No       | Currency for trip value.                                                                                                                             |
+| Truck.Id                                                | string            | No       | Truck ID.                                                                                                                                            |
+| Truck.Fleet.Id                                          | string            | No       | Fleet ID of the truck.                                                                                                                               |
+| Truck.Fleet.Name                                        | string            | No       | Fleet name of the truck.                                                                                                                             |
+| Trailer.Id                                              | string            | No       | Trailer ID.                                                                                                                                          |
+| Trailer.EquipmentType                                   | string            | No       | Equipment type of trailer.                                                                                                                           |
+| Temperature                                             | object            | No       | Temperature requirements for temperature-controlled trips. Returned only when configured; otherwise omitted from the response.                       |
+| Temperature.SetpointTemperature                         | number            | No       | Required target temperature.                                                                                                                         |
+| Temperature.SetpointTemperatureMax                      | number            | No       | Optional maximum temperature when a temperature range is defined.                                                                                    |
+| Temperature.ControlMode                                 | string            | No       | Operational mode of the trailer (`Continuous`, `Start/Stop`).                                                                                        |
+| RequiredEquipment\[]                                    | array of strings  | No       | List of equipment types required for the trip (e.g., `Reefer`, `Van`, `Flatbed`). Returned only when configured; omitted when no requirement exists. |
+| Driver1.Id                                              | string            | No       | Unique ID of Driver 1.                                                                                                                               |
+| Driver1.ContractorType                                  | string            | No       | Contractor type of Driver 1.                                                                                                                         |
+| Driver1.Rates\[]                                        | array             | No       | **Legacy field.** Old driver rate objects. Returned for backward compatibility and may be empty or outdated.                                         |
+| Driver1.RatesV2\[]                                      | array             | No       | New structured rate objects for Driver 1 showing applied pay rules and calculated line items.                                                        |
+| Driver1.RatesV2\[].PolicyId                             | string            | No       | Unique identifier of the applied rate policy.                                                                                                        |
+| Driver1.RatesV2\[].PolicyName                           | string            | No       | Display name of the rate policy.                                                                                                                     |
+| Driver1.RatesV2\[].PerTripRate.Rate                     | number            | No       | Flat per-trip pay rate applied to the trip.                                                                                                          |
+| Driver1.RatesV2\[].PerTripRate.RateId                   | string            | No       | Identifier of the per-trip rate type.                                                                                                                |
+| Driver1.RatesV2\[].PerTripRate.RateName                 | string            | No       | Name of the per-trip rate type.                                                                                                                      |
+| Driver1.RatesV2\[].PerTripRate.LineItems\[]             | array             | No       | Detailed line-item breakdown for per-trip rate.                                                                                                      |
+| Driver1.RatesV2\[].TripValuePercentageRate.Percentage   | number            | No       | Percentage of trip value used to calculate pay.                                                                                                      |
+| Driver1.RatesV2\[].TripValuePercentageRate.RateId       | string            | No       | Identifier of the percentage-based rate type.                                                                                                        |
+| Driver1.RatesV2\[].TripValuePercentageRate.RateName     | string            | No       | Name of the percentage-based rate.                                                                                                                   |
+| Driver1.RatesV2\[].TripValuePercentageRate.LineItems\[] | array             | No       | Line-item breakdown for percentage-based rate (description, amount, currency).                                                                       |
+| Driver2.Id                                              | string            | No       | Unique ID of Driver 2.                                                                                                                               |
+| Driver2.ContractorType                                  | string            | No       | Contractor type of Driver 2.                                                                                                                         |
+| Driver2.Rates\[]                                        | array             | No       | Legacy rate list for Driver 2 — may be empty or outdated.                                                                                            |
+| Driver2.RatesV2\[]                                      | array             | No       | Structured rate objects for Driver 2.                                                                                                                |
+| OwnerOperator.Id                                        | string            | No       | Unique ID of the owner-operator.                                                                                                                     |
+| OwnerOperator.Rates\[]                                  | array             | No       | Legacy rate list for Owner Operator — may be empty or outdated.                                                                                      |
+| OwnerOperator.RatesV2\[]                                | array             | No       | Structured rate objects for Owner Operator.                                                                                                          |
+| Carrier.Id                                              | string            | No       | Carrier ID.                                                                                                                                          |
+| Carrier.Rate.Amount                                     | number            | No       | Carrier rate amount.                                                                                                                                 |
+| Carrier.Rate.Currency                                   | string            | No       | Carrier rate currency.                                                                                                                               |
+| Carrier.Linehaul.Amount                                 | number            | No       | Carrier linehaul amount.                                                                                                                             |
+| Carrier.Linehaul.Currency                               | string            | No       | Currency of linehaul.                                                                                                                                |
+| Carrier.TotalPayable.Amount                             | number            | No       | Total payable amount to the carrier.                                                                                                                 |
+| Carrier.TotalPayable.Currency                           | string            | No       | Currency for total payable amount.                                                                                                                   |
+| DispatchedBy                                            | string            | No       | User who dispatched the trip.                                                                                                                        |
+| DispatcherId                                            | string            | No       | ID of the dispatcher.                                                                                                                                |
+| UpdatedAt                                               | string (datetime) | No       | Timestamp when the trip was last updated.                                                                                                            |
+| UpdatedBy                                               | string            | No       | User who last updated the trip.                                                                                                                      |
+
+#### ⚠️ Important Note on `Rates` and `RatesV2` Fields
+
+Both the legacy `Rates[]` and the new `RatesV2[]` fields are currently returned in the Trips API response under `driver1`, `driver2`, and `ownerOperator`.
+
+* The legacy **`Rates[]`** field remains available for backward compatibility but is no longer populated for new trips created after migration to Driver Settlement.
+* For trips that existed prior to migration, `Rates[]` may still contain historical data; however, it can be out of sync with `RatesV2[]` if additional rate changes were made after migration.
+* Integrations that continue to read data from `Rates[]` may receive empty or outdated arrays.
+* To ensure accurate and complete pay information, integrations should rely on **`RatesV2[]`** going forward.
+
+Each rate type (e.g., `tripValuePercentageRate`, `perTripRate`, `minimumPayRate`) within `RatesV2[]` is returned as a structured object with optional `lineItems[]` breakdowns.
+
+### Versioning
+
+The version parameter in the URL path specifies which version of the API you are using. Including the version number ensures that your application interacts with the correct version of the API, providing stability and compatibility as the API evolves. For more information on how versioning works and how to include it in your requests, please refer to the Versioning page.
+
+### Example Response
+
+On the right side, you can see examples of different error codes by clicking **Example** and selecting the response code.
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the Rate Limits section.
+
+This page is interactive, allowing you to try a request by specifying the API version in the URL path and providing the necessary request body. As you fill out the parameters, the Curl command on the right side of the page will be automatically updated.

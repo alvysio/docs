@@ -3,18 +3,8 @@ title: "Base URL"
 description: "Production base URL, path format, and version segment used for all Alvys Public API HTTP requests to integrations.alvys.com endpoints."
 ---
 
-You can access all Alvys Public APIs through HTTP requests to:
+You can access all our APIs through HTTP requests to URLs:
 
-```
-https://integrations.alvys.com/api/p/v{version}/<controller>
-```
+`https://integrations.alvys.com/api/p/v{version}/<controller>`
 
-For example:
-
-```
-https://integrations.alvys.com/api/p/v1.0/loads/search
-```
-
-Replace `{version}` with your API version (currently `1.0`) and `<controller>` with the resource path (for example `loads`, `drivers`, or `carriers`).
-
-See [Versioning](/docs/versioning) for how API versions are selected and overridden.
+For example: `https://integrations.alvys.com/api/p/v1/loads/search`

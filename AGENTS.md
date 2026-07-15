@@ -27,8 +27,9 @@ npx skills add https://mintlify.com/docs
 | Area | Path |
 | --- | --- |
 | Guides | `docs/*.mdx` |
-| MCP | `ai-agents/*.mdx` |
-| Changelog | `changelog/index.mdx` (prepend new entries) |
+| MCP | `docs/mcp.mdx`, `docs/available-mcp-tools.mdx` |
+| Webhook guides | `reference/*.mdx` (non-endpoint pages) |
+| Changelog | `changelog.mdx` (prepend new entries) |
 | OpenAPI spec | `openapi/alvys.json` |
 | Navigation | `docs.json` |
 
@@ -50,8 +51,8 @@ npx skills add https://mintlify.com/docs
 
 When the backend `docs-sync` workflow retargets from `alvysio/api-docs` to this repo:
 
-1. **Changelog:** prepend to `changelog/index.mdx`
-2. **MCP tools:** update tables in `ai-agents/available-mcp-tools.mdx`
+1. **Changelog:** prepend to `changelog.mdx`
+2. **MCP tools:** update tables in `docs/available-mcp-tools.mdx`
 3. **Guides:** add or edit `docs/<slug>.mdx`; register in `docs.json`
 4. **Endpoints:** update `openapi/alvys.json` (source of truth today: `alvysio/api-docs/reference/alvys.json`)
 5. **ReadMe deltas:** see README § "ReadMe → Mintlify format deltas"

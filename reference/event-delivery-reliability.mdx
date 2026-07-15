@@ -1,0 +1,174 @@
+---
+title: "Event Delivery & Reliability"
+---
+
+This page explains how webhook events are delivered, retried, and handled when failures occur.
+
+### Delivery Model
+
+Alvys uses an **at-least-once** delivery model.
+
+This means:
+
+* An event may be delivered more than once.
+* Duplicate deliveries are possible.
+* Exactly-once delivery is not guaranteed.
+
+Each event includes a unique identifier in the header:
+
+```
+X-Alvys-Event-Id
+```
+
+Your system must use this value to detect and safely ignore duplicate deliveries.
+
+#### Delivery Success Criteria
+
+An event is considered successfully delivered when the endpoint returns:
+
+```
+HTTP 200–299
+```
+
+Any other response may trigger retry behavior.
+
+| Category         | Behavior                                                                           |
+| ---------------- | ---------------------------------------------------------------------------------- |
+| Delivery Model   | At-least-once                                                                      |
+| Max Attempts     | 4                                                                                  |
+| Timeout          | 30 seconds                                                                         |
+| Duplicate Events | Possible                                                                           |
+| Global Ordering  | Not guaranteed                                                                     |
+| Auto-Disable     | After 10 consecutive failed deliveries across distinct events (not retry attempts) |
+| Idempotency      | Required                                                                           |
+
+### Event Request Format
+
+When a subscribed event occurs, Alvys sends an HTTPS POST request to your configured endpoint.
+
+Example request:
+
+```
+POST https://your-endpoint.com/webhook
+Content-Type: application/json
+```
+
+Headers:
+
+```
+X-Alvys-Event: tender.accepted
+X-Alvys-Event-Id: evt-123456
+X-Alvys-Timestamp: 1699200000
+X-Alvys-Signature: t=1699200000,v1=abcdef...
+X-Alvys-Attempt: 1
+```
+
+Header descriptions:
+
+* `X-Alvys-Event` — The event type.
+* `X-Alvys-Event-Id` — Unique identifier for the event. This value remains the same across retry attempts.
+* `X-Alvys-Timestamp` — Unix timestamp (seconds) used for signature generation.
+* `X-Alvys-Signature` — HMAC-SHA256 signature (see Security & Signature Verification).
+* `X-Alvys-Attempt` — The delivery attempt number (starts at 1 and increments on each retry).
+
+Example payload:
+
+```json
+{
+  "id": "3cd9960e-ef75-446c-92e4-e9815f6e4024-2",
+  "type": "tender.accepted",
+  "timestamp": "2026-02-23T15:19:35.8794642+00:00",
+  "version": "v1",
+  "data": {
+    "tenderId": "3cd0060e-ef75-000c-92e4-e9815f6e0000",
+    "loadId": "3cd0060e-ef75-446c-00e4-e9815f6e0000",
+    "loadNumber": "1000580"
+  }
+}
+```
+
+The `data` object contains event-specific fields.
+
+### Delivery Attempts
+
+Each event may be delivered up to four times:
+
+1. Initial delivery
+2. Retry after approximately 10 seconds
+3. Retry after approximately 30 seconds
+4. Final retry after approximately 60 seconds
+
+Retries use the same:
+
+* Endpoint URL
+* HTTP method
+* Request body
+* `X-Alvys-Event-Id`
+
+There is no separate retry endpoint. The delivery attempt number is exposed on every delivery via the `X-Alvys-Attempt` header, which increments on each retry.
+
+From the consumer’s perspective, a retry is simply another delivery of the same event.
+
+### Retry Conditions
+
+Retries occur when:
+
+* The endpoint returns HTTP 500–599
+* The endpoint returns HTTP 408 or 429
+* A network failure occurs
+* No response is received within 30 seconds
+
+Retries do not occur for other 4xx responses.
+
+### Timeout
+
+Each delivery attempt allows up to 30 seconds for your endpoint to respond.
+
+If no response is received within this window, the attempt is considered failed and may trigger a retry.
+
+To avoid unnecessary retries, endpoints should acknowledge the event promptly after validation and persist processing asynchronously.
+
+### HTTP Response Handling
+
+Response code behavior:
+
+* `200–299` — Delivery acknowledged.
+* `400–499` (except 408/429) — Permanent failure, no retry.
+* `408` or `429` — Retry.
+* `500–599` — Retry.
+* No response within 30 seconds — Retry.
+
+### Auto-Disable Policy
+
+A webhook is automatically disabled after:
+
+```
+10 consecutive failed events
+```
+
+A failed event means:
+
+* A single event (identified by X-Alvys-Event-Id)
+* That was attempted up to four times
+* And ultimately did not receive a successful 200–299 response
+
+Important:
+
+* Failures are counted per event, not per retry attempt.
+* Multiple retry attempts for the same event count as one failed event.
+* The counter increments only after all retry attempts for an event are exhausted.
+* A successful event delivery resets the consecutive failure counter to zero.
+
+When 10 distinct events fail consecutively, the webhook is automatically disabled and must be manually re-enabled.
+
+### Ordering
+
+Global ordering across different tenders is not guaranteed.
+
+Events related to the same tender are dispatched sequentially. However, integrations must tolerate:
+
+* Retries
+* Duplicate deliveries
+* Timing variations
+
+Do not rely on strict ordering guarantees.

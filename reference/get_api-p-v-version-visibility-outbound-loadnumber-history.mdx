@@ -1,0 +1,96 @@
+---
+title: "Get outbound visibility history"
+openapi: "GET /api/p/v{version}/visibility/outbound/{loadNumber}/history"
+---
+
+This endpoint provides access to outbound updates for a specific load by using the `loadNumber` and `version` in your request. To use outbound visibility, customers must first set up an EDI integration in EDI Tenders. Auto-updates can be configured either in EDI Tenders or on the Company Details page within Alvys platform. Based on the configured auto-updates settings, the updates are shared automatically, including event type details, location, date shared, and the error details if any issues encountered. For more information on how versioning works and how to include it in your requests, please refer to the [Versioning](/docs/versioning) page.
+
+### Request Parameters
+
+The following parameters are required in the URL:
+
+| Parameter  | Type   | Required | Description                                          |
+| ---------- | ------ | -------- | ---------------------------------------------------- |
+| version    | String | Yes      | The API version you are using (e.g., "v1").          |
+| loadNumber | String | Yes      | The unique number assigned to the load for tracking. |
+
+#### Example CURL Request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/visibility/outbound/12345/history' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `YOUR_ACCESS_TOKEN` with your actual Bearer token and `12345` with the load number you wish to track.
+
+### Response Fields
+
+The following fields are included in the response:
+
+| Field                 | Type               | Description                                                                                                                    |
+| --------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| Id                    | String             | The unique identifier of the outbound update.                                                                                  |
+| ExternalId            | String             | The external ID related to the update.                                                                                         |
+| TripNumber            | String             | The trip number linked to the load.                                                                                            |
+| LoadNumber            | String             | The load number for which the update is recorded.                                                                              |
+| EventType             | String             | The type of event, typically "Location".                                                                                       |
+| SharedAt              | String (Date-Time) | The date and time when the update was shared.                                                                                  |
+| Destination           | String             | The destination of the load.                                                                                                   |
+| TruckNumber           | String             | The number of the truck transporting the load.                                                                                 |
+| DriverName            | String             | The name of the driver.                                                                                                        |
+| TrailerNumber         | String             | The number of the trailer being used.                                                                                          |
+| StopId                | String             | The ID of the stop associated with the update.                                                                                 |
+| LocationId            | String             | The ID of the location related to the update.                                                                                  |
+| SharedBy              | String             | The entity (user or system) that shared the update.                                                                            |
+| Reason                | String             | The reason for the update, if provided.  There is defined list on system, depending on integration. E.g.: "AY" - Missed Pickup |
+| Address               | Object             | The address details of the location update.                                                                                    |
+| Address.Street        | String             | The street of the location.                                                                                                    |
+| Address.City          | String             | The city of the location.                                                                                                      |
+| Address.State         | String             | The state of the location.                                                                                                     |
+| Address.ZipCode       | String             | The postal code of the location.                                                                                               |
+| Coordinates           | Object             | The geographic coordinates of the location.                                                                                    |
+| Coordinates.Latitude  | String             | The latitude of the location.                                                                                                  |
+| Coordinates.Longitude | String             | The longitude of the location.                                                                                                 |
+| Status                | String             | The status of the update (e.g., "Completed", "Failed").                                                                        |
+| Error                 | String             | Any error message, if the update could not be processed.                                                                       |
+
+#### Example Response
+
+```json
+[
+  {
+    "Id": "9b834b4c77124b8f8f0d97b56b7dabc4",
+    "ExternalId": "EXT-002",
+    "TripNumber": "TRIP54321",
+    "LoadNumber": "LOAD54321",
+    "EventType": "Location",
+    "SharedAt": "2024-11-11T15:06:23.767Z",
+    "Destination": "New York, NY",
+    "TruckNumber": "TRK12345",
+    "DriverName": "Jane Doe",
+    "TrailerNumber": "TRL54321",
+    "StopId": "STOP002",
+    "LocationId": "LOC002",
+    "SharedBy": "EDI System",
+    "Reason": "AY", //MP - Missed Pickup
+    "Address": {
+      "Street": "456 Elm St",
+      "City": "New York",
+      "State": "NY",
+      "ZipCode": "10001"
+    },
+    "Coordinates": {
+      "Latitude": "40.712776",
+      "Longitude": "-74.005974"
+    },
+    "Status": "Completed",
+    "Error": ""
+  }
+]
+```
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request by completing the fields for the parameters below. As you fill out the parameters, the CURL command on the right side of the page will be automatically updated. Alternatively, you can fork our [Public API Postman Collection](https://app.getpostman.com/run-collection/39138316-54c493c3-15e5-4fd7-a651-6e45b308548f?action=collection%2Ffork\&source=rip_markdown\&collection-url=entityId%3D39138316-54c493c3-15e5-4fd7-a651-6e45b308548f%26entityType%3Dcollection%26workspaceId%3Dc0255544-5964-4c52-9d24-05b30a9b021c) directly. Make sure to authorize yourself before trying a request.

@@ -1,0 +1,117 @@
+---
+title: "Search outbound visibility errors"
+openapi: "POST /api/p/v{version}/visibility/outbound/errors"
+---
+
+This endpoint allows you to retrieve a paginated list of outbound errors for a specified time range. The request includes parameters for pagination and a time range filter. Note that the time range must be 7 days or less. This feature helps users identify and manage any errors that occurred while sharing updates with external systems.
+
+### Request Body Parameters
+
+All the following parameters are required in the request body:
+
+| Parameter       | Type               | Required | Description                                                          |
+| --------------- | ------------------ | -------- | -------------------------------------------------------------------- |
+| Page            | Number             | Yes      | The page number to retrieve.                                         |
+| PageSize        | Number             | Yes      | The number of items to retrieve per page.                            |
+| TimeRange       | Object             | Yes      | The time range filter for retrieving errors. Must be 7 days or less. |
+| TimeRange.Start | String (Date-Time) | Yes      | The start date and time for the time range.                          |
+| TimeRange.End   | String (Date-Time) | Yes      | The end date and time for the time range.                            |
+
+#### Example CURL Request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/visibility/outbound/errors' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "Page": 0,
+    "PageSize": 10,
+    "TimeRange": {
+        "Start": "2024-11-11T15:15:13.876Z",
+        "End": "2024-11-18T15:15:13.876Z"
+    }
+}'
+```
+
+Replace `YOUR_ACCESS_TOKEN` with your actual Bearer token. Ensure that the `start` and `end` dates are within a 7-day range.
+
+### Response Fields
+
+The response is a paginated list of error items, including details about each error:
+
+| Field                       | Type               | Description                                                                                                                 |
+| --------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| Page                        | Number             | The current page number.                                                                                                    |
+| PageSize                    | Number             | The number of items per page.                                                                                               |
+| Total                       | Number             | The total number of error items.                                                                                            |
+| Items                       | Array              | A list of error items.                                                                                                      |
+| Items.Id                    | String             | The unique identifier of the error.                                                                                         |
+| Items.ExternalId            | String             | The external ID related to the error.                                                                                       |
+| Items.TripNumber            | String             | The trip number linked to the load.                                                                                         |
+| Items.LoadNumber            | String             | The load number for which the error occurred.                                                                               |
+| Items.EventType             | String             | The type of event, typically "Location".                                                                                    |
+| Items.SharedAt              | String (Date-Time) | The date and time when the update was shared.                                                                               |
+| Items.Destination           | String             | The destination of the load.                                                                                                |
+| Items.TruckNumber           | String             | The number of the truck transporting the load.                                                                              |
+| Items.DriverName            | String             | The name of the driver.                                                                                                     |
+| Items.TrailerNumber         | String             | The number of the trailer being used.                                                                                       |
+| Items.StopId                | String             | The ID of the stop related to the error.                                                                                    |
+| Items.LocationId            | String             | The ID of the location associated with the error.                                                                           |
+| Items.SharedBy              | String             | The entity (user or system) that shared the update.                                                                         |
+| Items.Reason                | String             | The reason for the error, if provided. There is defined list on system, depending on integration. E.g.: NS - Normal Status. |
+| Items.Address               | Object             | The address details of the location update.                                                                                 |
+| Items.Address.Street        | String             | The street of the location.                                                                                                 |
+| Items.Address.City          | String             | The city of the location.                                                                                                   |
+| Items.Address.State         | String             | The state of the location.                                                                                                  |
+| Items.Address.ZipCode       | String             | The postal code of the location.                                                                                            |
+| Items.Coordinates           | Object             | The geographic coordinates of the location.                                                                                 |
+| Items.Coordinates.Latitude  | String             | The latitude of the location.                                                                                               |
+| Items.Coordinates.Longitude | String             | The longitude of the location.                                                                                              |
+| Items.Status                | String             | The status of the update (e.g., "Completed", "Failed").                                                                     |
+| Items.Error                 | String             | The error message related to the update.                                                                                    |
+
+#### Example Response
+
+```json
+{
+  "Page": 0,
+  "PageSize": 10,
+  "Total": 1,
+  "Items": [
+    {
+      "Id": "9b834b4c77124b8f8f0d97b56b7dabc4",
+      "ExternalId": "EXT-003",
+      "TripNumber": "TRIP67890",
+      "LoadNumber": "LOAD67890",
+      "EventType": "Location",
+      "SharedAt": "2024-11-11T15:15:13.896Z",
+      "Destination": "Chicago, IL",
+      "TruckNumber": "TRK67890",
+      "DriverName": "Alex Johnson",
+      "TrailerNumber": "TRL67890",
+      "StopId": "STOP003",
+      "LocationId": "LOC003",
+      "SharedBy": null,
+      "Reason": "NS", //normal status
+      "Address": {
+        "Street": "789 Oak St",
+        "City": "Chicago",
+        "State": "IL",
+        "ZipCode": "60601"
+      },
+      "Coordinates": {
+        "Latitude": "41.878113",
+        "Longitude": "-87.629799"
+      },
+      "Status": "Failed",
+      "Error": "EDI|Failed to send message to General Mills via EDI. Please try again or reach out to support if the problem persist."
+    }
+  ]
+}
+```
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to test the endpoint by providing the required request body. The CURL command will update automatically based on your inputs. You can also try this request by forking our [Public API Postman Collection](https://app.getpostman.com/run-collection/39138316-54c493c3-15e5-4fd7-a651-6e45b308548f?action=collection%2Ffork\&source=rip_markdown\&collection-url=entityId%3D39138316-54c493c3-15e5-4fd7-a651-6e45b308548f%26entityType%3Dcollection%26workspaceId%3Dc0255544-5964-4c52-9d24-05b30a9b021c). Remember to authorize yourself before trying a request.

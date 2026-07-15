@@ -1,0 +1,80 @@
+---
+title: "Search locations"
+openapi: "POST /api/p/v{version}/locations/search"
+---
+
+The Locations endpoint provides detailed information about company-related sites such as Terminals, Shippers/Consignees, Cold Warehouses, and Dry Warehouses. The endpoint for **searching locations** requires specifying the API **version** in the path and providing filters in the request body. For details on API versioning, see [Versioning](/docs/versioning).
+
+***
+
+### Request Parameters
+
+**Path parameters**
+
+| Parameter | Type   | Required | Description             |
+| --------- | ------ | -------- | ----------------------- |
+| version   | String | Yes      | The API version to use. |
+
+**Request body (filters + paging)**
+
+| Parameter              | Type              | Required | Description                                                                                        |
+| ---------------------- | ----------------- | -------- | -------------------------------------------------------------------------------------------------- |
+| Page                   | Integer           | No       | Page index.                                                                                        |
+| PageSize               | Integer           | Yes      | Page size (must be > 0).                                                                           |
+| Status                 | Array of String   | No       | Filter by one or more location statuses. Supported values: `"Active"`, `"Disabled"`, `"Inactive"`. |
+| LocationIds            | Array of String   | No       | Filter by a set of Location IDs.                                                                   |
+| CreatedDateRange       | Object            | No       | Filter by creation timestamp range (UTC).                                                          |
+| CreatedDateRange.Start | String (DateTime) | No       | Start of the date range.                                                                           |
+| CreatedDateRange.End   | String (DateTime) | No       | End of the date range.                                                                             |
+
+### Example cURL request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/locations/search' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+--header 'Content-Type: application/json' \
+--data '{
+  "Page": 0,
+  "PageSize": 100,
+  "Status": ["Active",  "Disabled", "Inactive"],
+  "LocationIds": [],
+  "CreatedDateRange": {
+    "Start": "2025-01-01T00:00:00Z",
+    "End": "2025-09-08T23:59:59Z"
+  }
+}'
+```
+
+***
+
+### Response Parameters
+
+| **Parameter**                    | **Type**          | **Description**                                                                                |
+| -------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------- |
+| Page                             | integer           | The current page number.                                                                       |
+| Total                            | integer           | The total number of items matching the criteria.                                               |
+| PageSize                         | integer           | The number of items per page.                                                                  |
+| Items\[].Id                      | string            | Unique identifier of the location.                                                             |
+| Items\[].Name                    | string            | Location (company site) name.                                                                  |
+| Items\[].CompanyNumber           | string            | Company number for this location. This is also provided when uploading files for that company. |
+| Items\[].Type                    | string            | Location type (e.g., Terminal, Shipper/Consignee, Cold Warehouse, Dry Warehouse).              |
+| Items\[].Status                  | string            | Location status. Supported values: `"Active"`, `"Disabled"`, `"Inactive"`.                     |
+| Items\[].PhysicalAddress.Street  | string            | The street line of the location’s physical address.                                            |
+| Items\[].PhysicalAddress.City    | string            | The city of the location.                                                                      |
+| Items\[].PhysicalAddress.State   | string            | The state or province of the location.                                                         |
+| Items\[].PhysicalAddress.ZipCode | string            | The postal/ZIP code of the location.                                                           |
+| Items\[].Email\[]                | array of string   | A list of email addresses for the location.                                                    |
+| Items\[].Phone\[]                | array of string   | A list of phone numbers for the location.                                                      |
+| Items\[].Fax                     | string            | The fax number for the location.                                                               |
+| Items\[].DateCreated             | string (datetime) | Timestamp when the location was created (UTC).                                                 |
+| Items\[].ExternalId              | string            | An external reference identifier, if applicable.                                               |
+| Items\[].Notes\[]                | array of objects  | A list of notes attached to the location.                                                      |
+| Items\[].Notes\[].id             | string            | Unique identifier of the note.                                                                 |
+| Items\[].Notes\[].Description    | string            | The text of the note.                                                                          |
+| Items\[].Notes\[].NoteType       | string            | The type/category of the note.                                                                 |
+| Items\[].Notes\[].Time           | string (datetime) | The timestamp when the note was created (UTC).                                                 |
+| Items\[].Notes\[].User           | string            | The user who created the note.                                                                 |
+
+### Rate Limit
+
+All endpoints are subject to platform rate limits. See [Rate Limits](/docs/rate-limits).

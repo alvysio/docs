@@ -1,0 +1,77 @@
+---
+title: "List carrier documents"
+openapi: "GET /api/p/v{version}/carriers/{carrierId}/documents"
+---
+
+Retrieve all uploaded documents associated with a specific **Carrier** by its unique `carrierId`.
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                       |
+| --------- | ------ | -------- | --------------------------------- |
+| version   | String | Yes      | API version to use.               |
+| carrierId | String | Yes      | Unique identifier of the carrier. |
+
+### Example cURL Request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/carriers/{carrierId}/documents' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `{version}` with the API version, `{carrierId}` with the actual carrier ID, and `YOUR_ACCESS_TOKEN` with a valid token.
+
+### Response Body
+
+Array of document objects:
+
+| Name           | Type    | Description                                                         |
+| -------------- | ------- | ------------------------------------------------------------------- |
+| id             | string  | Unique identifier of the document.                                  |
+| AttachmentPath | string  | File name and extension assigned on upload (with timestamp suffix). |
+| AttachmentType | string  | Type of document (e.g., Carrier Agreement, Carrier Authority).      |
+| AttachmentSize | integer | Size of the file in bytes.                                          |
+| UploadedAt     | string  | UTC timestamp when the file was uploaded (ISO 8601).                |
+| ParentId       | string  | Identifier of the parent entity (`carrierId`).                      |
+| ParentType     | string  | Entity type the document is attached to (`Carrier`).                |
+| UploadedBy     | string  | User ID if uploaded via UI, or Client ID if uploaded via API.       |
+| DownloadUrl    | string  | Time-limited link (10 minutes) to download the document.            |
+| ExpiresAt      | string  | Expiration timestamp of the `DownloadUrl`.                          |
+
+***
+
+### Example Response (200 OK)
+
+```json
+[
+  {
+    "id": "a314c7cd-0000a-1111-0000-06406a9e000a",
+    "AttachmentPath": "CarrierAuthority-1759237626.pdf",
+    "AttachmentType": "Carrier Authority",
+    "AttachmentSize": 170225,
+    "UploadedAt": "2025-09-30T13:07:07+00:00",
+    "ParentId": "1111111-956d-4511-a1ed-4b9072sder55f",
+    "ParentType": "Carrier",
+    "UploadedBy": "10000000eecc0000e90d7173f4ece0e00",
+    "DownloadUrl": "https://alvysqastorage.blob.core.windows.net/tl743/CarrierAuthority-1759237626.pdf?...",
+    "ExpiresAt": "2025-09-30T13:17:15.9506343+00:00"
+  }
+]
+```
+
+***
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes.
+For detailed information, see the [Rate Limits](/docs/rate-limits) section.
+
+***
+
+### Try It Out
+
+This page is interactive, allowing you to try a request by specifying the **API version** and **carrierId** in the URL path.
+
+As you fill out the parameters, the cURL command on the right side of the page will be automatically updated. Alternatively, you can directly edit the cURL command.
+
+⚠️ Don’t forget: make sure to **authorize yourself** before trying a request.

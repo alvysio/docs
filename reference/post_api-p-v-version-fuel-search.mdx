@@ -1,0 +1,251 @@
+---
+title: "Search fuel transactions"
+openapi: "POST /api/p/v{version}/fuel/search"
+---
+
+The endpoint for searching fuel transactions requires specifying the API version in the URL path. This ensures that your application interacts with the correct version of the API, providing stability and compatibility as the API evolves. For more information on how versioning works and how to include it in your requests, please refer to the [Versioning](/docs/versioning) page.
+
+### Request Parameters
+
+The following parameter is required in the URL path:
+
+| Parameter | Type   | Required | Description             |
+| --------- | ------ | -------- | ----------------------- |
+| version   | String | Yes      | The API version to use. |
+
+#### Request Body
+
+The following fields are required in the request body to filter the search results:
+
+`<Table align={["left","left","left","left"]}>`
+  <thead>
+    <tr>
+      <th>
+        Parameter
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Required
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Page
+      </td>
+
+      <td>
+        Integer
+      </td>
+
+      <td>
+        No
+      </td>
+
+      <td>
+        The page number to retrieve.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        PageSize
+      </td>
+
+      <td>
+        Integer
+      </td>
+
+      <td>
+        Yes
+      </td>
+
+      <td>
+        The number of results per page.
+        PageSize must be greater than 0.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        FuelCardNumber
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Conditionally
+      </td>
+
+      <td>
+        The fuel card number used for the transactions. This field is required if the other conditionally required fields are left empty.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        TruckNumber
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Conditionally
+      </td>
+
+      <td>
+        The truck number associated with the transactions.This field is required if the other conditionally required fields are left empty.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        TransactionRange
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Conditionally
+      </td>
+
+      <td>
+        The date range for the transactions.
+        This field is required if the other conditionally required fields are left empty.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        TransactionRange.Start
+      </td>
+
+      <td>
+        String (Date-Time)
+      </td>
+
+      <td>
+        Conditionally
+      </td>
+
+      <td>
+        The start date of the transaction range. This field is required if the other conditionally required fields are left empty.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        TransactionRange.End
+      </td>
+
+      <td>
+        String (Date-Time)
+      </td>
+
+      <td>
+        Conditionally
+      </td>
+
+      <td>
+        The end date of the transaction range. This field is required if the other conditionally required fields are left empty.
+      </td>
+    </tr>
+  </tbody>
+`</Table>`
+
+#### Example CURL request
+
+Use the Current API version number and make sure to replace the Authorization header value with your actual Bearer token for the request:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/fuel/search' \
+--header 'Authorization: Bearer eP90PNFxr_y74mLOETt0hFmWxz_1VBt_oYx9YuSNUz8....' \
+--header 'Content-Type: application/json' \
+--data '{ 
+  "Page": 0,
+  "PageSize": 100,
+  "FuelCardNumber": "",
+  "TruckNumber": "",
+  "TransactionRange": {
+     "Start": "2022-07-29T15:33:17.224Z",
+     "End": "2025-07-29T15:33:17.224Z"
+  }
+}'
+```
+
+### Response Parameters
+
+The following table lists the parameters included in the response for fuel transaction search requests:
+
+| Parameter                    | Type               | Description                                                      |
+| ---------------------------- | ------------------ | ---------------------------------------------------------------- |
+| Page                         | Integer            | The current page number of the results.                          |
+| PageSize                     | Integer            | The number of results per page.                                  |
+| Total                        | Integer            | The total number of matching fuel transactions.                  |
+| Items                        | Array of Objects   | The list of fuel transaction records matching the criteria.      |
+| Items.Id                     | String             | The unique identifier of the fuel transaction.                   |
+| Items.TransactionId          | String             | The transaction ID.                                              |
+| Items.SubsidiaryId           | String             | The subsidiary ID associated with the transaction.               |
+| Items.SubsidiaryName         | String             | The name of the subsidiary associated with the transaction.      |
+| Items.TruckId                | String             | The unique identifier of the truck.                              |
+| Items.TruckNumber            | String             | The truck number associated with the transaction.                |
+| Items.DriverId               | String             | The unique identifier of the driver.                             |
+| Items.DriverName             | String             | The name of the driver.                                          |
+| Items.OwnerOperatorId        | String             | The unique identifier of the owner-operator.                     |
+| Items.OwnerOperatorName      | String             | The name of the owner-operator.                                  |
+| Items.Source                 | String             | The name of the fuel card provider.                              |
+| Items.Type                   | String             | The raw fuel type provided by the fuel provider.                 |
+| Items.Category               | String             | The internal fuel category (e.g., Diesel, DEF, Cash Advance).    |
+| Items.Description            | String             | The fuel product description provided by the fuel card provider. |
+| Items.Location               | Object             | The location details of the transaction.                         |
+| Items.Location.Id            | String             | The unique identifier of the location.                           |
+| Items.Location.Name          | String             | The name of the location.                                        |
+| Items.Location.City          | String             | The city of the location.                                        |
+| Items.Location.State         | String             | The state of the location.                                       |
+| Items.Location.Address       | String             | The address of the location.                                     |
+| Items.Location.Country       | String             | The country of the location.                                     |
+| Items.FuelTotal              | Object             | The total fuel amount.                                           |
+| Items.FuelTotal.Amount       | Number             | The amount of fuel.                                              |
+| Items.FuelTotal.Currency     | Integer            | The currency of the fuel amount.                                 |
+| Items.Fees                   | Object             | The total fees.                                                  |
+| Items.Fees.Amount            | Number             | The amount of fees.                                              |
+| Items.Fees.Currency          | Integer            | The currency of the fees amount.                                 |
+| Items.Discounts              | Object             | The total discounts.                                             |
+| Items.Discounts.Amount       | Number             | The amount of discounts.                                         |
+| Items.Discounts.Currency     | Integer            | The currency of the discounts amount.                            |
+| Items.Advances               | Object             | The total advances.                                              |
+| Items.Advances.Amount        | Number             | The amount of advances.                                          |
+| Items.Advances.Currency      | Integer            | The currency of the advances amount.                             |
+| Items.Total                  | Object             | The total amount including fuel, fees, discounts, and advances.  |
+| Items.Total.Amount           | Number             | The total amount.                                                |
+| Items.Total.Currency         | Integer            | The currency of the total amount.                                |
+| Items.Quantity               | Object             | Details of the fuel quantity purchased.                          |
+| Items.Quantity.Value         | Number             | The numeric value of the fuel purchased.                         |
+| Items.Quantity.UnitOfMeasure | String             | The unit of measure (e.g., Gallons).                             |
+| Items.TransactionDate        | String (date-time) | The date and time of the fuel transaction.                       |
+
+#### Example Response
+
+On the right side, you can see examples of different error codes by clicking "Example" and selecting the response code.
+
+#### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the [Rate Limits](/docs/rate-limits) section.
+
+This page is interactive, allowing you to try a request by specifying the API version in the URL path and providing the necessary request body. As you fill out the parameters, the Curl command on the right side of the page will be automatically updated. Alternatively, you can directly edit the Curl command. Make sure to authorize yourself before trying a request.
