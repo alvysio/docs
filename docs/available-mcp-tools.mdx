@@ -76,7 +76,7 @@ Scopes use the `{resource}:{action}` convention and match the [Public API scope 
 | `invoices_search` | Read | `invoice:read` | Search invoices by customer, status, load number, or order number. |
 | `invoices_get_by_id` | Read | `invoice:read` | Fetch a single invoice including line items. |
 | `fuel_transactions_search` | Read | `fuel:read` | Query fuel transactions by truck unit and/or date range. |
-| `invoices_record_carrier_payment` | Write | `invoice:update` | Record a payment to a carrier against a trip. |
+| `invoices_record_carrier_payment` | Write | `invoice:update` | Record a payment to a carrier against a trip. When payments fully cover the carrier payable, the trip transitions to `Completed`. |
 | `invoices_record_customer_payment` | Write | `invoice:update` | Record a payment received from a customer against a load. |
 | `invoices_record_financing` | Write | `invoice:update` | Record a factoring / financing transaction. |
 

@@ -1,10 +1,11 @@
 ---
 title: "Versioning"
+description: "How the Alvys Public API uses semantic versioning, the current v1.0 release, and how to include the version segment in your API request paths."
 ---
 
 ## How Versioning Works
 
-Alvys uses a versioning system to manage changes in our API, especially when those changes are not backward-compatible. This approach ensures that your applications can continue to operate reliably, even as we introduce new features and improvements. Our versions follow a semantic versioning format, marked as v.\{major}.\{minor}.\{patch} (e.g., v1.2.0). Below are the key highlights of our versioning strategy:
+Alvys uses a versioning system to manage changes in our API, especially when those changes are not backward-compatible. This approach ensures that your applications can continue to operate reliably, even as we introduce new features and improvements. Our versions follow a semantic versioning format, marked as v\{major}.\{minor}.\{patch} (e.g., v1.2.0). Below are the key highlights of our versioning strategy:
 
 * When new endpoints are added to the API, they are accessible by all existing API versions by default. This ensures that new features can be adopted without requiring immediate changes to version numbers.
 * Integrations using OAuth 2.0 will automatically use the latest API version when obtaining an access token, unless a specific version is specified in the request header.

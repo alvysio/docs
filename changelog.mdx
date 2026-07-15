@@ -1,8 +1,26 @@
 ---
 title: "Changelog"
-description: "Product updates and announcements for the Alvys Public API."
+description: "Release notes and updates for the Alvys Public API, webhooks, MCP server, and integrations, with new entries added when surfaces change."
 rss: true
 ---
+
+<Update label="July 13, 2026" description="Carrier Payment Trip Status Fix (ACC-1677)" tags={["Fixed", "Invoices", "MCP"]}>
+  Released with the [Week of July 6–13 platform fixes](https://app.notion.com/p/39ca5b0d388a812e9db2e30d7b9526aa).
+
+  ## `POST /api/p/v{version}/invoices/carrier-payments`
+
+  * **Removed** `MarkAsPaid` from the request body. The field only existed to force a `Paid` trip status, which Alvys does not use. Existing callers that still send `markAsPaid` are unaffected — the field is ignored.
+  * **Fixed** trip status in the response: when recorded payments fully cover the carrier payable, the trip now transitions to **`Completed`** instead of **`Paid`**. Partial payments leave the trip status unchanged.
+  * The response `Status` field reflects the trip's current status after the payment is applied.
+
+  ## MCP: `invoices_record_carrier_payment`
+
+  * **Removed** the `markAsPaid` parameter (same behavior as the Public API change above).
+
+  <Note>
+    Historical trips may still carry a `Paid` status from before this fix. A one-time data backfill is planned separately.
+  </Note>
+</Update>
 
 {/* source: /changelog/new-public-api-endpoints-for-trips-and-carriers */}
 <Update label="June 19, 2026" description="New Public API Endpoints for Trips and Carriers" tags={["Added", "Carriers", "Trips"]}>
