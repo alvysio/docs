@@ -1,0 +1,81 @@
+---
+title: "Help Center"
+sidebarTitle: "Home"
+description: "How-to guides, tutorials, and troubleshooting for the Alvys platform — covering onboarding, administration, integrations, loads, accounting, and fleet management."
+mode: "custom"
+---
+
+<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8">
+<div className="relative overflow-hidden rounded-3xl border border-[#2245b9]/15 dark:border-transparent bg-gradient-to-br from-[#1b2a72] via-[#2245b9] to-[#434fef] px-6 sm:px-10 lg:px-14 py-16 lg:py-20">
+  <div className="pointer-events-none absolute -top-40 -right-32 h-[480px] w-[480px] rounded-full bg-[#7d8bef] opacity-25 blur-3xl" />
+  <div className="pointer-events-none absolute -bottom-40 -left-32 h-[420px] w-[420px] rounded-full bg-[#0a1436] opacity-30 blur-3xl" />
+
+  <div className="relative mx-auto max-w-3xl text-center">
+    <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white">
+      Hi, how can we help you?
+    </h1>
+    <p className="mt-4 text-base sm:text-lg text-white/80 max-w-2xl mx-auto">
+      Search the knowledge base or browse a category below to get set up, connect your tools, and run your operation on Alvys.
+    </p>
+    <div className="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/help/getting-started/adding-new-users-signing-in" className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-[#2245b9] shadow-sm hover:bg-white/90 transition-colors">
+        Get Started
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+      </a>
+      <a href="/help/what-s-new/march-2026-releases" className="inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/20 transition-colors">
+        See What's New
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+
+<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16 mb-16">
+  <div className="mb-8">
+    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Browse by category</h2>
+    <p className="mt-2 text-slate-600 dark:text-slate-300">Everything you need to configure, operate, and get the most out of Alvys.</p>
+  </div>
+
+  <CardGroup cols={3}>
+    <Card title="Getting Started" icon="rocket" href="/help/getting-started/adding-new-users-signing-in">
+      Set up your account, add users, and get up and running quickly.
+    </Card>
+    <Card title="Administration" icon="user-gear" href="/help/administration/overview-of-user-permissions">
+      Manage settings, user roles, and permissions as an admin.
+    </Card>
+    <Card title="Integrations" icon="plug" href="/help/integrations/alvys-api">
+      Connect the ELDs, load boards, accounting, fuel, and factoring tools you use.
+    </Card>
+    <Card title="Loads & Trips" icon="truck-fast" href="/help/loads-trips/alvys-load-board">
+      Create, dispatch, modify, and track loads and trips end to end.
+    </Card>
+    <Card title="Accounting & Settlements" icon="file-invoice-dollar" href="/help/accounting-settlements/how-to-issue-and-manage-e-checks-in-alvys">
+      Invoicing, driver and carrier settlements, deductions, and e-checks.
+    </Card>
+    <Card title="Reports & Analytics" icon="chart-column" href="/help/reports-analytics/how-to-filter-drill-and-save-the-view-you-want">
+      Build dashboards and custom, operational, and financial reports.
+    </Card>
+    <Card title="Assets & Fleet" icon="truck" href="/help/assets-fleet/how-to-add-and-manage-fleets-in-alvys">
+      Add and manage drivers, trucks, trailers, and fleets.
+    </Card>
+    <Card title="Safety & Compliance" icon="shield-check" href="/help/asset-fleet/how-to-verify-a-motor-carrier-in-alvys">
+      Verify motor carriers and keep your operation compliant.
+    </Card>
+    <Card title="What's New" icon="bullhorn" href="/help/what-s-new/march-2026-releases">
+      Latest releases, enhancements, and product updates.
+    </Card>
+  </CardGroup>
+</div>
+
+<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16 mb-16">
+  <div className="rounded-2xl border border-[#2245b9]/15 dark:border-white/10 bg-[#eef2fb] dark:bg-white/5 px-6 sm:px-10 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+    <div>
+      <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Still need a hand?</h2>
+      <p className="mt-2 text-slate-600 dark:text-slate-300">Can't find what you're looking for? Our support team is here to help.</p>
+    </div>
+    <a href="/help/getting-started/how-to-contact-alvys-support" className="inline-flex items-center gap-2 rounded-lg bg-[#2245b9] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#1a389e] transition-colors whitespace-nowrap">
+      Contact Support
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+    </a>
+  </div>
+</div>

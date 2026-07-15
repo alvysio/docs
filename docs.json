@@ -13,7 +13,12 @@
     "dark": "/logo/alvys-letter.svg"
   },
   "navigation": {
-    "tabs": [
+    "products": [
+      {
+        "product": "API Documentation",
+        "description": "Public API guides, reference, and changelog",
+        "icon": "code",
+        "tabs": [
       {
         "tab": "Home",
         "pages": [
@@ -269,8 +274,24 @@
         ]
       },
       {
-        "tab": "Help Center",
+        "tab": "Changelog",
+        "pages": [
+          "changelog"
+        ]
+      }
+        ]
+      },
+      {
+        "product": "Help Center",
+        "description": "How-to guides for the Alvys platform",
+        "icon": "circle-help",
         "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "help/index"
+            ]
+          },
           {
             "group": "Getting Started",
             "pages": [
@@ -678,12 +699,6 @@
               }
             ]
           }
-        ]
-      },
-      {
-        "tab": "Changelog",
-        "pages": [
-          "changelog"
         ]
       }
     ]
