@@ -1,5 +1,6 @@
 ---
 title: "Change Diffs (data.diff)"
+description: "How load.changed and trip.changed webhook events expose changed fields via data.diff, including the optional previousAttributes payload for delta processing."
 ---
 
 `load.changed` and `trip.changed` events carry the **full current snapshot** of the load or trip in `data`. In addition, they can include an optional `data.diff` node that tells you **what changed** — and, if you opt in, **what the value was before**.
