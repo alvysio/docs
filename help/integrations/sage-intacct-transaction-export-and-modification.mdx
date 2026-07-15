@@ -8,7 +8,7 @@ description: "Understand how Alvys exports AR invoices, AP bills, and driver or 
 
   **Module:** Accounting > Invoicing; Accounting > Carrier Settlements; Accounting > Driver Settlements
 
-  **Last reviewed:** 2026-06 · **Owner:** Support team
+  **Last reviewed:** 2026-07 · **Owner:** Support team
 
   This article (covering Sage Intacct transaction export, record matching, and post-export modification) explains how Alvys exports AR invoices, AP bills, and settlement transactions to Sage Intacct, how customer and carrier records are matched in Sage, and how to modify transactions that have already been exported.
 </Note>
@@ -736,6 +736,14 @@ How Alvys handles a change to an exported transaction depends on its current sta
 - **Paid or Partially Paid:** You must Remove the payment from the transaction in Sage first. Once the payment is removed, Alvys can apply the reversal and post the corrected transaction.
 - **Closed:** This state is a Sage-side restriction; the transaction period has been closed and cannot be modified from Alvys. Contact Alvys support with the load number and the error message if a transaction is stuck in Closed state.
 - **Selected:** Alvys cannot automatically reverse a transaction in Selected state. Manually reverse the transaction in Sage Intacct, then re-sync it from Accounting > Error Transactions in Alvys.
+
+#### Changing the Subsidiary on a Posted Transaction
+
+If you change the **Invoice As**, **Tender As**, or driver subsidiary on a load after its transaction has already been exported — and the new subsidiary maps to a **different Sage Intacct entity** than the original — Alvys reverses the prior invoice or bill under the **original entity** before posting the corrected transaction under the **new entity**. The original posting is not left orphaned in the previous entity's ledger.
+
+<Check>
+  💡 This applies to any subsidiary change that crosses Sage entities, including moves between a top-level entity and a child entity. If the previous posting is in **Paid**, **Partially Paid**, **Closed**, or **Selected** state, the same restrictions in the list above apply — clear the blocking state in Sage first, then re-sync the transaction from **Accounting → Error Transactions**.
+</Check>
 
 ## Settings &amp; Permissions
 
