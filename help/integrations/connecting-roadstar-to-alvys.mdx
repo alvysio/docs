@@ -1,0 +1,165 @@
+---
+title: "Connecting RoadStar to Alvys"
+description: "How to set up RoadStar Integration"
+---
+
+<Note>
+  **Applies to:** Admins · Partner Admins · Operations Manager · Dispatcher
+
+  **Module:** Management > Company Profile > Integrations tab
+
+  **Provider:** RoadStar · **Integration type:** One-way · **Sync direction:** RoadStar sends location and Hours of Service data to Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  RoadStar is an ELD solution that tracks driver Hours of Service and vehicle locations. Connect RoadStar to Alvys to view real-time truck and trailer locations on the Asset Map and in the Dispatch Planner. Also referred to as RoadStar ELD, RoadStar telematics, or RoadStar tracking.
+</Note>
+
+## Overview
+
+RoadStar is an electronic logging device (ELD) solution that tracks driver Hours of Service and vehicle locations. Connecting RoadStar to Alvys lets you view real-time truck and trailer locations on the Asset Map and in the Dispatch Planner. This integration is also referred to as RoadStar ELD, RoadStar telematics, or RoadStar tracking.
+
+The RoadStar integration pulls real-time location and driver Hours of Service (HOS) data from your RoadStar-equipped trucks and trailers into Alvys. Once connected, Alvys displays asset positions on the Asset Map, shows HOS clocks in the Asset Map asset panel and in the Dispatch Planner sidebar, and makes location data available for dispatch planning.
+
+This is a one-way integration: RoadStar sends data to Alvys. Alvys does not write data back to RoadStar.
+
+## Prerequisites
+
+Before you begin, confirm the following:
+
+- You have an active RoadStar account with the ability to generate tokens.
+- Your trucks and trailers are registered in your RoadStar account.
+- You are signed in to Alvys with the **"Admin"** or **"Partner Admin"** role.
+
+## How to connect?
+
+Setting up the integration requires three parts: generating a token in RoadStar, entering that token in Alvys, then mapping each asset to its RoadStar asset ID.
+
+### Generate a token in RoadStar
+
+- Log into your RoadStar account.
+- Navigate to **"Management"**, then select **"API Tokens"**.
+- Click **"Generate Token"**.
+
+<Note>
+  ![RoadStar API Tokens screen showing the Generate Token button](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ae233f60-4fca-4d3c-8ea4-846ec974a803/image.png)
+
+  *RoadStar API Tokens screen showing the Generate Token button*
+</Note>
+
+- Enter a name for the token (for example, "Alvys Integration") and click **"OK"**.
+- The page refreshes and displays the new token. Copy this token; you will need it in the next part.
+
+### Enter the token in Alvys
+
+- In Alvys, click your profile icon in the lower-left corner to open **"Company Profile"**.
+
+<Note>
+  ![Image showing navigation to the Alvys Integrations page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/739319b9-1845-482f-946e-b541f648327d/image.png)
+
+  *Image showing navigation to the Alvys Integrations page *
+</Note>
+
+- If your account has multiple subsidiaries, select the subsidiary you want to configure.
+- Click the **"Integrations"** tab.
+- Expand the **"ELD"** section.
+
+<Note>
+  ![Image showing ELD tab expanded on the Alvys Integrations page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/6aac064d-5fe0-4870-bb36-bfc17789168f/image.png)
+
+  *Image showing ELD tab expanded on the Alvys Integrations page *
+</Note>
+
+- Click the “**Inactive**” button on the RoadStar card.
+- Paste your RoadStar token into the **"API Token"** field.
+- Click **"Save"**.
+
+<Note>
+  ![Image showing the Alvys “Add Integration” form for RoadStar Eld](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/900ce6c8-a467-497a-b7ba-c050a4736229/image.png)
+
+  *Image showing the Alvys “Add Integration” form for RoadStar Eld *
+</Note>
+
+Alvys validates the credentials immediately. If the token is valid, the integration becomes active. If the token is rejected, Alvys displays an error — re-generate the token in RoadStar and try again.
+
+### Map each asset to its RoadStar asset ID
+
+After the integration is active, you must link each truck or trailer in Alvys to its corresponding record in RoadStar using the RoadStar asset ID. This mapping tells Alvys which RoadStar asset to pull location data from for each vehicle.
+
+To find a RoadStar asset ID: open the asset in your RoadStar account and look at the URL. The number at the end of the URL path is the asset ID. For example, if the URL is [app.brightroadstar.com/client/trucks/25236](http://app.brightroadstar.com/client/trucks/25236), the asset ID is 25236.
+
+1. Go to **"Assets"** in the left navigation menu and select **"Trucks"** or **"Trailers"**.
+2. Double-click the asset you want to configure to open its profile.
+3. Scroll down to the **"ELD Integrations"** section and click **"Add Integration"**.
+4. Select **"RoadStar"** from the dropdown.
+5. Enter the RoadStar asset ID in the **"Integration ID"** field.
+6. Click **"Save"**.
+
+<Note>
+  ![Image showing “Add Integration” dropdown on asset profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/14ea87b5-ac1e-452d-a6ac-6e33b770ad5d/image.png)
+
+  *Image showing “Add Integration” dropdown on asset profile *
+</Note>
+
+Repeat for each truck or trailer you want to track.
+
+## What syncs?
+
+- Data flows one way: from RoadStar to Alvys.
+- Alvys receives location updates as RoadStar transmits them from the ELD device.
+- Both trucks and trailers can be mapped for location tracking.
+- Driver Hours of Service (HOS) clocks from RoadStar are visible on the Asset Map asset panel and in the Dispatch Planner sidebar. HOS data is not currently surfaced within individual load or trip records.
+- Each asset must be mapped individually; there is no bulk-import of asset IDs.
+
+  **What is not supported:**
+- Alvys does not send data back to RoadStar. Changes made in Alvys (such as driver assignments) are not synced to RoadStar.
+- Each asset must be mapped individually. There is no bulk configuration option.
+- Driver HOS data from RoadStar is visible on the Asset Map asset panel and in the Dispatch Planner sidebar. It is not currently surfaced within individual load or trip records.
+
+  **To verify the integration is working after completing setup and mapping at least one asset:**
+
+1. Go to **"Assets"** > **"Map"** in the left navigation menu.
+2. Confirm the mapped trucks and trailers appear on the Asset Map with current location data.
+3. Click on a mapped asset to view its location details, including the **"Last Modified"** timestamp that shows when the position was last received from RoadStar.
+
+## Troubleshooting
+
+### Token rejected on save
+
+1. Confirm you copied the full token from RoadStar without any extra spaces.
+2. Return to your RoadStar account under **"Management"** > **"API Tokens"** and generate a new token.
+3. Enter the new token in the Alvys Company Profile > **"Integrations"** tab > ELD section and click **"Save"**.
+
+### Asset not appearing on the Asset Map after mapping
+
+1. Confirm the asset ID you entered matches the number in the asset's URL in your RoadStar account.
+2. Verify the ELD device on the truck or trailer is powered on and transmitting.
+3. Check the **"Last Modified"** timestamp on the asset's sidebar in the Asset Map — if the timestamp is recent, the device is transmitting. If it is stale, the device may be offline.
+4. If none of these conditions apply, contact Alvys support for assistance.
+
+### Integration card not visible in Company Profile
+
+1. Confirm you are signed in with the **"Admin"** or **"Partner Admin"** role. The ELD integration settings are only visible to Admins and Partner Admins.
+2. Confirm you are on the correct subsidiary. Integration settings are configured per subsidiary.
+
+## FAQs
+
+**Q: Where do I find my RoadStar asset IDs?**
+
+**A:** Open the asset in your RoadStar account and look at the URL. The number at the end of the URL path is the asset ID. For example, in the URL [app.brightroadstar.com/client/trucks/25236](http://app.brightroadstar.com/client/trucks/25236), the asset ID is 25236.
+
+**Q: Can I track both trucks and trailers with this integration?**
+
+**A:** Yes. You can add the RoadStar integration to both trucks and trailers. Configure each asset individually by following the mapping steps in the How to connect section above.
+
+**Q: What happens if I enter an invalid token?**
+
+**A:** Alvys validates the token immediately when you click Save. If the token is incorrect, you will see an error message right away. Generate a new token in RoadStar and re-enter it in Alvys.
+
+**Q: Do I need to reconnect the integration if I generate a new token in RoadStar?**
+
+**A:** Yes. If you regenerate your token in RoadStar, you must update it in Alvys as well. Go to Company Profile > Integrations tab > ELD section, click the pencil icon on the RoadStar card, enter the new token, and click Save.
+
+## Go Deeper
+
+- [Asset Map](/help/assets-fleet/asset-map)

@@ -1,0 +1,131 @@
+---
+title: "How to connect Teletrac Navman to Alvys"
+description: "How to set up Teletrac Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Management > Company Profile > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Connect your Teletrac Navman ELD account to Alvys to pull truck locations and driver hours of service (HOS) clocks into Alvys automatically.
+</Note>
+
+## Overview
+
+The Teletrac Navman integration connects your Teletrac Navman ELD account to Alvys so that truck location and driver HOS data flow into Alvys automatically. Teletrac Navman is an ELD and telematics provider (also referred to as a GPS tracking or fleet tracking provider). Once connected and mapped, dispatchers can view live truck positions and driver remaining drive time directly in Alvys without switching between systems.
+
+## Prerequisites
+
+Before connecting:
+
+- You have an active Teletrac Navman account with API access enabled. To request API access, contact Teletrac Navman at [us.enterprisesupport@teletracnavman.com](mailto:us.enterprisesupport@teletracnavman.com) and mention that you are an Alvys customer and that Alvys is a Teletrac Navman integration partner. Teletrac Navman will provide your API username and password.
+- You have the vehicle name for each truck you want to track, exactly as it appears in Teletrac Navman.
+- You have the full name (first name and last name) for each driver you want to track, exactly as it appears in Teletrac Navman.
+- Your role in Alvys is **"Admin"**, **"Partner Admin"**, or **"Support"**. These roles can access **Company Profile > Integrations**.
+
+## How to connect
+
+1. Go to **Management > Company Profile > Integrations** tab in Alvys.
+2. Locate the Teletrac Navman integration, enter your Username and Password in the fields provided, and click **Save**.
+
+   ![Integrations tab in Alvys showing the Teletrac Navman section with the Username and Password fields and the Save button](https://alvys.intercom-attachments-1.com/i/o/1103534891/d00c4e3b3a6e9266fd329308/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F6e006d57-2ae4-4ac1-a9ef-7bb025e165a4-2FUntitled.png)
+
+   *Integrations tab in Alvys showing the Teletrac Navman section with the Username and Password fields and the Save button*
+
+Alvys confirms the connection once your credentials are accepted. If the connection fails, verify your username and password with Teletrac Navman and confirm that API access has been enabled on your account.
+
+### Map each truck and driver
+
+After connecting, map each truck and driver in Alvys to the corresponding record in Teletrac Navman. Each asset must be mapped individually; there is no bulk mapping option.
+
+**Mapping trucks**
+
+- Go to **Management > Fleets > Trucks** and open the truck record you want to map.
+- In the ELD Integration section, select **Teletrac Navman** from the provider dropdown.
+
+  ![Truck record in Alvys showing the ELD Integration section with Teletrac Navman selected and the Integration ID field](https://alvys.intercom-attachments-1.com/i/o/1103534908/0a5dc54c28a970f2e218924f/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F0492dc3d-2f19-4b2a-bf60-d8430107e796-2FUntitled.png)
+
+  *Truck record in Alvys showing the ELD Integration section with Teletrac Navman selected and the Integration ID field*
+
+  ![Truck record in Alvys showing the Integration ID field filled in with the vehicle name from Teletrac Navman](https://alvys.intercom-attachments-1.com/i/o/1103534925/2fbc8b78bc5b8ce7ac60cbd6/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fdf092f9e-07eb-48ba-a702-b26819ded5d5-2FUntitled.png)
+
+  *Truck record in Alvys showing the Integration ID field filled in with the vehicle name from Teletrac Navman*
+- In the Integration ID field, enter the vehicle name exactly as it appears in Teletrac Navman, including capitalization and spacing.
+
+  ![Driver record in Alvys showing the ELD Integration section with the Add ELD button](https://alvys.intercom-attachments-1.com/i/o/1103534942/37f1f4ab5c6243f683a7fcb9/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fed3e36f0-d20a-47a6-b033-724f981bf7f3-2FUntitled.png)
+
+  *Driver record in Alvys showing the ELD Integration section with the Add ELD button*
+- Click **Save**.
+
+Repeat for each truck you want to track.
+
+To map a trailer for location tracking, follow the same process. Go to **Management > Fleets > Trailers** and open the trailer record. In the ELD Integration section, select **Teletrac Navman**, enter the trailer name exactly as it appears in Teletrac Navman in the Integration ID field, and click **Save**. Repeat for each trailer you want to track.
+
+**Mapping drivers**
+
+- Go to **Management > Drivers** and open the driver record you want to map.
+- In the ELD Integration section, click **Add ELD**.
+
+  ![ELD provider selection panel that appears after clicking Add ELD, showing the provider dropdown](https://alvys.intercom-attachments-1.com/i/o/1103534949/e359c27e5b1dab02c0893483/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fdf092f9e-07eb-48ba-a702-b26819ded5d5-2FUntitled.png)
+
+  *ELD provider selection panel that appears after clicking Add ELD, showing the provider dropdown*
+- Select **Teletrac Navman** from the dropdown.
+- In the Integration ID field, enter the driver's full name exactly as it appears in Teletrac Navman: first name, then a space, then last name.
+- Click **Save**.
+
+Repeat for each driver you want to track.
+
+## What syncs
+
+Once trucks and drivers are mapped, Alvys pulls data from Teletrac Navman automatically. The following data syncs from Teletrac Navman to Alvys:
+
+- Truck GPS location
+- Driver HOS clocks: break, cycle, drive, and shift remaining time
+
+Data refreshes on Alvys's standard polling interval, not in real time.
+
+### Verify it is working
+
+1. Open a mapped truck in Alvys and confirm that a location is showing in the tracking view.
+2. Open a mapped driver record and confirm that HOS clock values are displaying.
+
+If data is not appearing within a few minutes of completing setup, see the Troubleshooting section below.
+
+<Note>
+  📋 **Limits / unsupported:** IFTA mileage reporting is not available through the Teletrac Navman integration in Alvys. · Each truck and driver must be mapped individually; there is no bulk mapping option.
+</Note>
+
+## Troubleshooting
+
+### Truck location not showing in Alvys
+
+1. Confirm the truck is powered on and has an active GPS signal in Teletrac Navman.
+2. Verify the Integration ID in Alvys matches the vehicle name in Teletrac Navman exactly, including capitalization and spacing. Go to **Management > Fleets > Trucks**, open the truck record, and compare the Integration ID to the vehicle name shown in Teletrac Navman.
+3. If neither of those conditions applies, contact Alvys support.
+
+### Driver HOS not showing in Alvys
+
+1. Confirm the driver has active HOS data in Teletrac Navman.
+2. Verify the Integration ID in Alvys matches the driver's full name in Teletrac Navman exactly, using first name, a space, and last name. Go to **Management > Drivers**, open the driver record, and compare the Integration ID to the name shown in Teletrac Navman.
+3. If neither of those conditions applies, contact Alvys support.
+
+## FAQs
+
+**Q: How do I get my Teletrac Navman API credentials?**
+
+**A:** Contact Teletrac Navman at [us.enterprisesupport@teletracnavman.com](mailto:us.enterprisesupport@teletracnavman.com). Mention that you are an Alvys customer and that Alvys is a Teletrac Navman integration partner. Teletrac Navman will provide your username and password for API access.
+
+**Q: What do I enter as the driver Integration ID?**
+
+**A:** Enter the driver's full name exactly as it appears in Teletrac Navman: first name, then a space, then last name. Capitalization and spacing must match exactly.
+
+**Q: What happens if I enter the wrong credentials?**
+
+**A:** Alvys will not be able to connect to Teletrac Navman and the integration will not be active. Return to **Management > Company Profile > Integrations** tab, re-enter the correct username and password, and click **Save**.
+
+**Q: Where do I find my Teletrac Navman asset and driver names?**
+
+**A:** Log in to the Teletrac Navman Director portal. The vehicle and driver names listed there are the exact values to enter as Integration IDs in Alvys. Names are case-sensitive, so copy them exactly as they appear.

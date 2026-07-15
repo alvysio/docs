@@ -1,0 +1,112 @@
+---
+title: "How to build visualizations with drag-and-drop"
+---
+
+<Note>
+  **Applies to:** Admin, Partner Admin, Support, and any user with the **"Analytic"** reporting role
+
+  **Module:** Reports &amp; Analytics · **Owner:** Support team · **Last reviewed:** 2026-06
+</Note>
+
+## Overview
+
+The visualization on a dashboard is close, but you want a slight variation. Maybe you want to filter by Carrier instead of Customer, or change the chart from columns to a line. You can do all of this by dragging items from the Analytics Catalog into the bucket drop zones in the Report Designer. No code, no custom formulas, just drag, drop, and arrange. The Analytics Catalog is rich: your tenant has hundreds of pre-built metrics, facts, and attributes covering trips, revenue, cost, on-time performance, miles, drivers, and more. Before you ever reach for a custom formula, search the Catalog. Related terms for this topic include visualization, chart, report, pivot table, Report Designer, Analytics Catalog, metric, attribute, and bucket; they all refer to the same drag-and-drop building flow inside the Report Designer.
+
+## Before you start
+
+You need one of these access levels: the **Admin**, **Partner Admin**, or **Support** role, or the **"Analytic"** reporting role, which grants permission to build, analyze, and export visualizations. The **"Viewer"** reporting role can open and view dashboards but cannot build or save new visualizations; if you only have Viewer access and need to build, ask your administrator to assign you the **"Analytic"** reporting role. Your company also needs the **Custom** reporting tier. The Report Designer and custom visualization building are available on the Custom tier. On the Free tier, you can view curated dashboards but cannot open the Designer. If the Designer shows an upgrade message instead of the canvas, your company is on the Free tier.
+
+## Building a visualization
+
+The first three actions cover opening the Designer and an existing visualization. The worked example that follows builds a complete pivot table showing **Total Revenue** and **Load Count** broken down by month and subsidiary.
+
+1. **Open the Report Designer.** From the **Custom Reports** section in the left sidebar, click **Create Visualization**. This opens the Report Designer canvas, where you build and edit visualizations.
+
+   <Note>
+     ![Open Saved Visualization:](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533279652/b136d5ca361ffefee08858cf80ef/upload_12514517230001394424.png)
+
+     *Open Saved Visualization:*
+   </Note>
+
+   ![Open Saved Visualization:](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533279694/d50c88b02756331c3e0fd26998d9/upload_8825524530153527842.png)
+
+   *Open Saved Visualization:*
+2. **Open a saved visualization (optional).** To start from an existing visualization instead of a blank canvas, click **Open** in the top toolbar. The dialog lists every visualization saved on your tenant. Search by name, then click one to load it into the canvas.
+3. **Change a saved visualization.** Once a visualization is loaded, you can do anything you would do when building from scratch: drag a different metric or attribute into a bucket; remove an item by clicking the x on its chip, or by dragging it out of the bucket onto the canvas; switch chart types by clicking a different chart-type icon at the top of the canvas; open the **Configuration** panel to change axes, legend, colors, and formatting. The canvas updates live, so you see your changes immediately.
+4. **Add metrics (worked example).** From the Analytics Catalog on the far left, drag **Total Revenue** and **Load Count** into the **Metrics** bucket. The canvas updates as you drop each one.
+5. **Add the row breakdown.** Find the date attribute **Load Invoiced At** in the Catalog and drag it into the **Rows** bucket. Click the chip in the bucket and pick **Group by, Month** so each row represents one month.
+6. **Add the column breakdown.** Find the **Subsidiary** attribute in the Catalog and drag it into the **Columns** bucket. The canvas becomes a pivot table: one row per month, one column per subsidiary, with **Total Revenue** and **Load Count** values in each cell.
+7. **Add a Subsidiary filter.** Drag the **Subsidiary** attribute up into the filter bar at the top of the Designer. A filter popover opens. Pick the subsidiaries you want to see and click **Apply**. The table now shows only the subsidiaries you picked.
+8. **Add totals across months and subsidiaries.** Hover over the **Subsidiary** column header. Click the three-dot menu and pick **Rollup (total)**. A totals row and totals column appear, rolling up **Total Revenue** and **Load Count** for every subsidiary and every month.
+
+<Note>
+
+</Note>
+
+<Note>
+  ![Finished monthly revenue and load count pivot table by subsidiary with totals.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533279739/d9d476c59811a0f05014244ce4d7/upload_14931683217341802332.png)
+
+  *Finished monthly revenue and load count pivot table by subsidiary with totals. *
+</Note>
+
+1. **Save your visualization.** You have two save options in the toolbar: **Save** overwrites the existing visualization with your changes, so every dashboard that uses this visualization now shows the new version. Save is available only if you authored the visualization; when you open someone else's visualization, only **Save as new** is offered. **Save as new** creates a separate visualization with a new name; the original is untouched.
+
+<Warning>
+  ⚠️ Be careful with Save. If you overwrite a visualization that is used on dashboards built by other people on your team, they will see your change too. When in doubt, use Save as new instead.
+</Warning>
+
+## Result
+
+You have built a complete visualization without writing a single formula. After saving, the visualization is available in the Analytics Catalog and can be dropped onto any dashboard.
+
+## Variations
+
+- Build from a blank canvas instead of a saved visualization: skip the Open step and start dragging metrics and attributes straight into the buckets.
+- Change a chart instead of a pivot table: the same buckets and drag-and-drop flow apply to column, line, bar, and other chart types. Switch types using the chart-type icons at the top of the canvas.
+- Filter by a different attribute: the worked example filters by Subsidiary, but you can drag any attribute (for example Carrier or Customer) into the filter bar the same way.
+
+## Troubleshooting
+
+### The Report Designer shows an upgrade message instead of the canvas
+
+Your company is on the Free reporting tier, which does not include the Report Designer.
+
+1. Confirm with your administrator whether your company has the **Custom** reporting tier.
+2. If you are on the Free tier and need to build custom visualizations, your administrator can arrange the Custom tier.
+
+### The Save button is missing and only Save as new appears
+
+You did not author the visualization you opened. Save is offered only to the original author.
+
+1. Use **Save as new** to create your own copy with a new name.
+2. If you need to change the original, ask the person who authored it to make the change, or coordinate with your team before overwriting.
+
+### You cannot open the Report Designer or see the Custom Reports section
+
+Your account does not have a reporting role that allows building.
+
+1. Confirm your access. Building requires the **Admin**, **Partner Admin**, or **Support** role, or the **"Analytic"** reporting role.
+2. If you only have the **"Viewer"** reporting role, ask your administrator to assign you the **"Analytic"** reporting role.
+
+## FAQs
+
+**Q: Do I need to write code or formulas to build a visualization?**
+
+**A:** No. Everything in this guide is done by dragging items from the Analytics Catalog into the bucket drop zones. You only need custom formulas when the Catalog does not already have the metric you want.
+
+**Q: What is the difference between Save and Save as new?**
+
+**A:** Save overwrites the existing visualization, so every dashboard using it shows your changes. Save as new creates a separate copy with a new name and leaves the original untouched.
+
+**Q: Why can I only see Save as new and not Save?**
+
+**A:** Save is available only to the person who originally authored the visualization. When you open someone else's visualization, only Save as new is offered.
+
+**Q: I built a visualization. How do I get it onto a dashboard?**
+
+**A:** After you save it, the visualization is available in the Analytics Catalog and can be dropped onto any dashboard.
+
+## Go Deeper
+
+- Advanced: write custom metrics with MAQL: [https://help.alvys.com/en/articles/15217764-advanced-write-custom-metrics-with-maql](/help/reports-analytics/how-to-write-a-custom-metric-with-maql)
+- Share, export, schedule, alert: [https://help.alvys.com/en/articles/15217768-share-export-schedule-alert](/help/reports-analytics/how-to-share-export-schedule-and-alert-on-a-dashboard)

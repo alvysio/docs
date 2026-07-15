@@ -1,0 +1,131 @@
+---
+title: "FourKites Inbound Integration"
+description: "Allowing you to initiate and manage tracking for your carriers directly from within Alvys"
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Management > EDI &amp; Visibility
+
+  **Last reviewed:** 2026-06 **· Owner:** Support
+
+  **Provider:** FourKites **· Integration type:** One-way** ·** **Direction:** Alvys sends load and carrier data to FourKites; FourKites does not send data back to Alvys.
+
+  Connect Alvys to FourKites (also called 4Kites) to initiate and manage inbound carrier tracking from your load board, creating and updating tracking cards automatically without manual double entry.
+</Note>
+
+## What This Integration Does?
+
+The FourKites Inbound Integration (also called FourKites inbound, 4Kites tracking, carrier tracking cards, or inbound visibility) lets brokerage teams push load and carrier data from Alvys into FourKites to create and update tracking cards. Once connected, you can start a tracking request on any load that has an assigned carrier, review pre-populated load details in a tracking form, and monitor the status of each tracking request directly on the load details page.
+
+This is a one-way integration: data flows from Alvys to FourKites. Alvys sends load cards, stop details, carrier information, and reference numbers to FourKites. Location updates from FourKites are not returned to Alvys.
+
+The integration is configured per subsidiary and requires a FourKites API key.
+
+## Prerequisites
+
+Before connecting, make sure you have:
+
+- An active FourKites account with API access.
+- A FourKites API key (obtain this from your FourKites account settings or your FourKites account manager).
+- Admin, Partner Admin, or Support role in Alvys.
+- At least one subsidiary configured in Alvys that you want to enable for this integration.
+
+## Connect / Authenticate
+
+This setup is completed once per subsidiary. You can enable multiple subsidiaries using the same API key if your FourKites account covers all of them.
+
+1. Open the EDI &amp; Visibility settings. Select your user profile in the bottom-left corner of Alvys, then select **EDI &amp; Visibility**.
+2. Locate FourKites Inbound in the list of available integrations and select it to open the configuration form.
+3. Enter your API key. In the configuration form, enter the FourKites API Key you obtained from FourKites.
+4. Select subsidiaries. Choose which subsidiaries you want to enable for this integration. Each subsidiary you select will use the API key you entered.
+5. Save and verify. Select **Save**. Alvys will validate your credentials against FourKites. If the key is valid, the integration status updates to confirm the connection is active. If validation fails, double-check the API key and try again.
+
+## Field &amp; Data Mapping
+
+The following data is sent from Alvys to FourKites when a tracking request is created or updated:
+
+Alvys sends the load number as the primary identifier on the FourKites card. The order number and PO number are sent as reference numbers attached to the shipment. The load customer name and customer ID are sent as tags on the FourKites card, linking the Alvys load customer to the corresponding customer in FourKites.
+
+For each pickup and delivery stop, Alvys sends the stop address (address line 1, address line 2, city, state, country), the scheduled appointment window (earliest and latest appointment times in the stop's local time zone), the stop type (pickup or delivery), and the stop name. Waypoint stops are not supported by FourKites and are not sent.
+
+Carrier tracking details are sent only when provided: truck number, trailer number, and driver phone number. The carrier name field in FourKites is optional; Alvys does not automatically populate it because FourKites has no dedicated carrier name identifier that maps reliably to Alvys carrier records.
+
+## Sync Behavior
+
+**Alvys sends data to FourKites in the following scenarios:**
+
+- When you select the FourKites Tracking button on a load and submit the tracking form, Alvys creates a new shipment in FourKites. If a previous tracking request for the same trip was stopped earlier, Alvys reuses the existing record and updates it rather than creating a duplicate.
+- When load details change after a tracking request is active, you can re-open the tracking form and update the card. Alvys sends the updated information to FourKites.
+- When you stop a tracking request on the load details page, Alvys removes the corresponding shipment from FourKites and records the status as stopped.
+
+<Warning>
+  ⚠️ FourKites does not send location or status updates back to Alvys. The tracking status visible in Alvys reflects the state of the request that Alvys created, not live location data from FourKites.
+</Warning>
+
+## Verify It's Working
+
+**After initiating a tracking request on a load:**
+
+1. On the load details page, confirm the tracking status indicator shows Ready to Track. If it shows Error, see the Troubleshooting section below.
+2. Select the link that appears on the load details page to open the FourKites card directly. Confirm the load number, stop addresses, and reference numbers are correct in FourKites.
+3. In FourKites, verify that the correct stops appear as pickup and delivery with the scheduled appointment windows.
+
+## Troubleshooting
+
+### Tracking status shows Error after creating a request
+
+1. Open the load in Alvys and check that all pickup and delivery stops have a complete address (address line 1, city, state, and country are required). Waypoint stops are not sent to FourKites.
+2. Check that the FourKites API key in EDI &amp; Visibility settings is still valid. API keys can be rotated or changed in your FourKites account. Re-enter the key and save if it has changed.
+3. If stops have addresses and the API key is valid, contact Alvys support with the load number and the error message shown on the load details page.
+
+### FourKites card does not show the correct customer
+
+- FourKites does not have a dedicated customer field. Alvys passes the load customer name and ID as tags on the FourKites shipment. If the card is not associating with the correct FourKites customer, connect the Alvys customer ID to the FourKites customer directly in your FourKites account settings.
+
+### Tracking button is not visible on the load
+
+- The FourKites Inbound Integration must be active for the subsidiary associated with the load. Confirm the subsidiary is enabled in EDI &amp; Visibility settings. If the subsidiary is enabled and the button is still not visible, contact Alvys support.
+
+### Integration does not appear in EDI &amp; Visibility settings
+
+- The EDI &amp; Visibility page is accessible to Admin, Partner Admin, and Support roles only. If you do not see this menu option, your role does not include access. Contact your company Admin to configure the integration.
+
+## Limits / Unsupported
+
+- Location updates from FourKites are not returned to Alvys. The integration is one-way (Alvys to FourKites only).
+- Waypoint stops are not supported. Only pickup and delivery stop types are sent to FourKites.
+- The carrier name field in FourKites is not automatically populated by Alvys. You may enter it manually in the tracking form.
+- The integration is configured per subsidiary. A subsidiary that is not enabled will not show the FourKites Tracking button on loads.
+- If a load does not use order numbers or PO numbers, those reference fields will be empty on the FourKites card. The card will still be created using the load number.
+
+## FAQs
+
+**Q: Do I need to enter the carrier name when starting a tracking request?**
+
+**A:** No. The carrier name field is optional. FourKites accepts the request without it, and the load card is created successfully. You can add the carrier name manually in the tracking form if needed.
+
+**Q: Does Alvys receive live location updates back from FourKites?**
+
+**A:** No. This integration sends data from Alvys to FourKites only. Live location coordinates and delivery status updates in FourKites are visible in FourKites directly; they are not returned to the Alvys load details page.
+
+**Q: Why do I need to set up the integration separately for each subsidiary?**
+
+**A:** The integration is configured at the subsidiary level so that tracking settings are segmented correctly for each business unit. This gives you control over which subsidiaries send load data to FourKites and which do not.
+
+**Q: Can I use the same FourKites API key for multiple subsidiaries?**
+
+**A:** Yes. You can enter the same API key and enable multiple subsidiaries in a single configuration save.
+
+**Q: What happens if I stop a tracking request in Alvys?**
+
+**A:** Alvys sends a removal request to FourKites, which removes the shipment from FourKites. The tracking status in Alvys updates to reflect that tracking was stopped.
+
+**Q: My workflow does not use order numbers or PO numbers. Will the FourKites integration still work?**
+
+**A:** Yes. If a load does not use order numbers or PO numbers, those reference fields will be empty on the FourKites card. The card is still created and updated using the load number.
+
+## Go Deeper
+
+- [FourKites Outbound Integration](/help/integrations/fourkites-outbound-integration)

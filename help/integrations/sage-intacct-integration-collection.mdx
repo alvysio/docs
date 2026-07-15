@@ -1,0 +1,65 @@
+---
+title: "Sage Intacct Integration Collection"
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Settings > Connections > Sage Intacct
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  **Provider:** Sage Intacct · **Integration type:** Two-way
+
+  **Direction:** Alvys exports invoices, credit memos, and bills to Sage Intacct; payment status syncs back from Sage Intacct to Alvys.
+
+  This collection (Sage Intacct integration hub, setup guide, and troubleshooting index) gathers every article for configuring, using, and resolving issues with the Sage Intacct integration in Alvys. Follow the recommended order to get started, or jump to specific topics using the links below.
+</Note>
+
+## Overview
+
+The Sage Intacct integration connects Alvys with Sage Intacct using the Sage Web Services API. Alvys exports customer invoices (AR), vendor bills (AP), and credit memos to Sage Intacct. Payment status syncs back from Sage Intacct to Alvys on a scheduled basis.
+
+This collection is organized in the recommended setup sequence. If you are configuring the integration for the first time, start with Article 1 and follow the articles in order through Article 5. Articles 6 cover dimensions and custom fields; read them when those features are relevant to your setup.
+
+## Articles in This Collection:
+
+### 1. How to Prepare Sage Intacct Before Connecting to Alvys?
+
+This article outlines the essential prerequisites you must complete in Sage Intacct before starting the integration. It guides you through enabling Web Services, authorizing the Alvys Sender ID, creating a dedicated Web Services Role and User, configuring required GL accounts, and preparing your Alvys profiles with External Accounting IDs to ensure error-free data synchronization.
+
+[How to Prepare Sage Intacct Before Connecting to Alvys](/help/integrations/how-to-prepare-sage-intacct-before-connecting-to-alvys)
+
+### 2. How to Connect Sage Intacct to Alvys and Configure Settings?
+
+This article walks you through the step-by-step setup wizard to securely connect Alvys to Sage Intacct. It details how to select your subsidiary, decide between posting to matching child entities or a single top-level parent entity, authenticate your credentials, and establish default operational settings for both Accounts Payable (AP) and Accounts Receivable (AR) modules.
+
+[How to Connect Sage Intacct to Alvys and Configure Settings](/help/integrations/how-to-connect-sage-intacct-to-alvys-and-configure-settings)
+
+### 3. Sage Intacct: Account Mappings
+
+This article explains how Alvys routes line items on bills and invoices to the correct Sage Intacct General Ledger (GL) accounts. It covers the hierarchical three-level fallback mapping logic (Specific Item Mapping, Category Default, and Master Default) and provides an explicit breakdown of the nine distinct account categories used for tracking linehauls, fuel surcharges, accessorials, deductions, and expenses.
+
+[Sage Intacct: Account Mappings](/help/integrations/sage-intacct-account-mappings)
+
+### 4. Sage Intacct: Transaction Export and Modification
+
+This article covers the end-to-end workflows for exporting customer invoices (AR) and vendor bills (AP), including individual, batch, and summary invoice configurations. It explains how Alvys resolves matching records via accounting IDs or name rollbacks and details the process for safely modifying, reverting, or regenerating transactions depending on whether they are in a Draft, Posted, or Paid state in Sage Intacct.
+
+[Sage Intacct: Transaction Export and Modification](/help/integrations/sage-intacct-transaction-export-and-modification)
+
+### 5. Sage Intacct: Payments and Error Transactions
+
+This article details how payment records synchronize in a one-way flow from Sage Intacct back into Alvys using an automatic 12-hour sync and an 8-day lookback window. It also covers how to use the Alvys Error Transactions page to identify, correct, and retry failed transaction exports, alongside step-by-step fixes for common connection, mapping, and dimension alignment errors.
+
+[Sage Intacct: Payments and Error Transactions](/help/integrations/sage-intacct-payments-and-error-transactions)
+
+### 6. How to Configure Dimension and Custom Field Mappings for Sage Intacct?
+
+This article is the step-by-step configuration guide for dimensions and custom fields. It walks through all four phases of setup: creating dimension values in Sage Intacct, mapping those dimensions in Alvys, creating custom fields in Sage Intacct, and mapping custom fields in Alvys. Use this article when you are ready to configure these settings.
+
+[How to configure dimension and custom field mappings for Sage Intacct](/help/integrations/how-to-configure-dimension-and-custom-field-mappings-for-sage-intacct)
+
+## Go Deeper
+
+- [Alvys Payment Synchronization for Accounting Integrations](/help/integrations/alvys-payment-synchronization-for-accounting-integrations)

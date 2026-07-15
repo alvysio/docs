@@ -1,0 +1,204 @@
+---
+title: "RTS Financial Factoring Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Management > Integrations · Accounting > Factoring Upload · Reports > Factoring
+
+  **Provider:** RTS Financial · **Integration type:** One-way (FTP) · **Direction:** Alvys submits invoice batches to RTS via FTP; report data returns through manual uploads
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  RTS connects to Alvys via FTP to automate invoice batch submission for factoring clients. Purchase and payment reports are downloaded from the RTS Pro portal and uploaded into Alvys to update load statuses. Synonyms: RTS Financial, RTS factoring, RTS Pro.
+</Note>
+
+## What This Integration Does
+
+RTS is an FTP-based factoring integration. Alvys submits invoice batches to RTS via FTP. Users then download Purchase and Payment reports from the RTS Pro portal ([rtspro.com](http://rtspro.com/)) and upload them into Alvys to update load statuses. Separate FTP credentials are required for each subsidiary.
+
+## Prerequisites
+
+- Active account with RTS Financial
+- FTP credentials issued by RTS (one set per subsidiary; requires signing the Transfer Protocol Server Access Agreement)
+- Notice of Assignment text provided by RTS
+- Admin, Partner Admin, or Support access to configure the integration
+- **"Billing"** permission to submit batches and upload reports
+
+Before requesting FTP credentials, ensure all subsidiaries are set up in Alvys.
+
+## Connect / Authenticate
+
+### Part 1: Configure Your Notice of Assignment
+
+1. Navigate to Management > Company Profile.
+2. Select the subsidiary that will use the RTS integration. In the **Document Configuration** section, click the blue plus sign **(+)** button. A new window opens: the Manage Important Info window.
+3. In the drop-down menu, select **Notice of Assignment**. Copy and paste the Notice of Assignment text provided by RTS into the text box.
+4. Click the blue **Save** button.
+
+### Part 2: Request FTP Credentials from RTS
+
+1. Email your RTS sales representative and request FTP credentials. Note that you need a separate set of credentials for each subsidiary.
+2. RTS will ask you to sign the **Transfer Protocol Server Access Agreement**. Sign and return it. Once received, RTS will issue your FTP credentials.
+3. Proceed to Part 3 after receiving credentials.
+
+### Part 3: Configure Each Subsidiary in Alvys
+
+1. Navigate to Management > Integrations.
+
+   ![RTS Integration Details page showing subsidiary selector and FTP Factoring section](https://alvys.intercom-attachments-1.com/i/o/1103558949/73326a26bc8df6c10c4ee1cf/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fa7675ca1-3c5d-431c-babb-d8444d59df20-2FRTS_IntegrationDetails.png)
+
+   * RTS Integration Details page showing subsidiary selector and FTP Factoring section*
+2. Select the subsidiary you want to configure. Expand the **FTP Factoring** section. Click the **pencil icon** next to **RTS** to edit the credentials.
+3. Enter the FTP credentials provided by RTS. Click the blue **Save** button.
+
+Repeat the steps above for each subsidiary.
+
+## Field &amp; Data Mapping
+
+Alvys generates a batch file containing invoice data for the selected loads and submits it to RTS via FTP. The file format (xlsx or csv) depends on your account configuration with RTS. No field mapping is required on the Alvys side; the file structure matches RTS's expected format.
+
+## Sync Behavior
+
+Batch submission is initiated manually from Accounting > Factoring Upload. There is no automated nightly sync. Load status updates depend on report uploads:
+
+- After batch submission: loads move to **Invoiced**
+- After Purchase Report upload: loads move to **Financed**
+- After Payment Report upload: loads move to **Completed**
+
+## Submit a Batch
+
+1. In Alvys, navigate to **Accounting > Factoring Upload**. All loads must have a **Queued** status with invoicing method set to factoring before they appear in this list.
+2. Select the correct subsidiary.
+
+   ![Subsidiary selector on Factoring Upload page](https://alvys.intercom-attachments-1.com/i/o/1103558958/9f84c9417f5249babbfaf4ef/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F6f0c34c1-92aa-4cb7-9350-13d9c5420dbe-2FUntitled.png)
+
+   *Subsidiary selector on Factoring Upload page*
+3. Select all invoices you want to include in the batch.
+
+   ![Invoice selection list with checkboxes](https://alvys.intercom-attachments-1.com/i/o/1103558965/de6c8f2ef91e7366b161911f/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fb46fe318-e526-4cf1-bd5f-e5950ce2782f-2FUntitled.png)
+
+   *Invoice selection list with checkboxes*
+4. Click the **Submit Batch** button.
+
+   ![Submit Batch button](https://alvys.intercom-attachments-1.com/i/o/1103558971/372088541089d296d59e9adf/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F773d59a1-c3f7-4043-8d35-5255097bef34-2FUntitled.png)
+
+   *Submit Batch button*
+5. Wait until the submission is complete. Do not close this page or navigate away; doing so may disrupt the submission.
+
+## Upload Your Purchase Report
+
+1. Log in to the RTS Pro portal and navigate to the Purchase History Report page at: [https://rtspro.com/factoring/reports/purchase-history](https://rtspro.com/factoring/reports/purchase-history)
+2. Open the respective batch by clicking on it.
+
+   ![Batch list on RTS Pro portal](https://alvys.intercom-attachments-1.com/i/o/1103558977/b4b1aef408003b35faf4f088/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fcb46259e-07c9-4fcf-8917-397b89510d6e-2FUntitled.png)
+
+   * Batch list on RTS Pro portal*
+3. Click the **Download** button to save the report in **.xlsx** format to your device.
+
+   ![Download button on RTS Pro portal](https://alvys.intercom-attachments-1.com/i/o/1103558989/52ce3b53ed1a7f15a512d9a3/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F90263fd4-410f-49e1-a09a-7933a0bb788d-2FUntitled.png)
+
+   *Download button on RTS Pro portal*
+4. In Alvys, navigate to **Reports > Factoring**. Find the respective batch.
+
+   ![Alvys Factoring Reports page showing the batch](https://alvys.intercom-attachments-1.com/i/o/1103558996/cad04c8c8c95516e71d44192/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fd501bbbc-e455-4710-a43b-a9ab2c5f460a-2FUntitled.png)
+
+   *Alvys Factoring Reports page showing the batch*
+5. Select the batch and click the blue **Upload Purchase Report** button in the **bottom right corner** of the page.
+
+   ![Upload Purchase Report button in bottom right corner](https://alvys.intercom-attachments-1.com/i/o/1103559005/9a0efb96b14971a152ff28cc/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F85312965-52ec-4c24-9ee1-c24c24386645-2FUntitled.png)
+
+   * Upload Purchase Report button in bottom right corner*
+6. Drag and drop the file into the upload area, or click to select it from your device.
+
+   ![Drag-and-drop upload area](https://alvys.intercom-attachments-1.com/i/o/1103559013/2d7c5e4c9750f8ea900f317d/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F69f5b7b2-fbae-41c2-926d-c0e875a99318-2FUntitled.png)
+
+   *Drag-and-drop upload area*
+7. Click **Upload**.
+
+   ![Upload button](https://alvys.intercom-attachments-1.com/i/o/1103559023/a642fbb333c7ec1b93db24cd/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fe728122f-33d1-4d43-9e02-c84f0b79eb0f-2FUntitled.png)
+
+   * Upload button*
+
+## Upload Your Payment Report
+
+1. Log in to the RTS Pro portal and navigate to the Payments Report page at: [https://rtspro.com/factoring/reports/payments-report](https://rtspro.com/factoring/reports/payments-report)
+2. Enter the payment period, then click **View**.
+
+   ![Payment period input field on RTS Pro portal](https://alvys.intercom-attachments-1.com/i/o/1103559038/354a47575a9c99437a653590/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F9edba29c-84d3-4ecb-88c7-27898cd95708-2FUntitled.png)
+
+   * Payment period input field on RTS Pro portal *
+3. Click the **Download** button to save the file to your device.
+
+   ![Download button for payment report](https://alvys.intercom-attachments-1.com/i/o/1103559050/2ce0c59d436b2559f0b617c2/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fb04b30ec-5d45-4983-a4d0-aed597318472-2FUntitled.png)
+
+   *Download button for payment report*
+4. In Alvys, navigate to **Reports > Factoring**. Click the **Upload Report** button.
+
+   ![Upload Report button on Factoring Reports page](https://alvys.intercom-attachments-1.com/i/o/1103559066/2a9806188cdb80e8bcf4cc4f/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F10ac96fa-7382-4c8f-a4fa-0692cd7d6e43-2FUntitled.png)
+
+   *Upload Report button on Factoring Reports page*
+5. Drag and drop the file into the blue section, or click to select it from your device.
+
+   ![Drag-and-drop blue upload area](https://alvys.intercom-attachments-1.com/i/o/1103559078/35892d56ef2df33933a8da90/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fe35f926e-e6b9-4a80-ad2e-c882a469965e-2FUntitled.png)
+
+   *Drag-and-drop blue upload area*
+6. Click **Upload**.
+
+   ![Upload button](https://alvys.intercom-attachments-1.com/i/o/1103559086/f7969c776c57503fe82413cd/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fabd104b2-8ecd-4f87-bc8c-fbbda68c1b18-2FUntitled.png)
+
+   * Upload button*
+7. Do not close this page until the report has finished processing. Depending on file size, this can take anywhere from several seconds to a few minutes.
+
+## Verify It's Working
+
+After submitting a batch, confirm that the selected loads have moved to **Invoiced** status in Alvys. After uploading the Purchase Report, confirm loads move to **Financed**. After uploading the Payment Report, confirm loads move to **Completed**.
+
+## Troubleshooting
+
+### Batch submission does not complete
+
+1. Confirm you did not navigate away from the Factoring Upload page before the submission finished. If you did, return to Accounting > Factoring Upload and check whether the loads still show **Queued** status. If so, resubmit the batch.
+2. Confirm the subsidiary has valid FTP credentials configured in Management > Integrations. Invalid or missing credentials will prevent submission.
+3. If the issue persists after resubmitting with valid credentials, contact Alvys support.
+
+### Upload Purchase Report or Upload Report button is not visible
+
+1. Confirm you have the **"Billing"** permission. Users without this permission cannot see the upload buttons.
+2. Navigate to Reports > Factoring and confirm the batch appears in the list. If the batch is not visible, confirm the batch was submitted successfully from Accounting > Factoring Upload.
+3. If the batch was submitted successfully but does not appear in Reports > Factoring, contact Alvys support.
+
+### Loads do not advance to Financed after Purchase Report upload
+
+1. Confirm the upload completed without closing the page prematurely. If the page was closed during processing, re-upload the report.
+2. Confirm the file uploaded is the **.xlsx** Purchase History Report downloaded from [rtspro.com](http://rtspro.com/). Uploading an incorrect file type will not update load statuses.
+3. If loads remain at **Invoiced** after a confirmed successful upload, contact Alvys support.
+
+## Limits / Unsupported
+
+Separate FTP credentials are required for each subsidiary. A single set of credentials cannot be shared across subsidiaries.
+
+The integration does not support automated or scheduled syncs. All batch submissions and report uploads are initiated manually.
+
+## FAQs
+
+**Q: Where do I get my FTP credentials?**
+
+**A:** Email your RTS sales representative to request FTP credentials. RTS will ask you to sign the Transfer Protocol Server Access Agreement before issuing credentials.
+
+**Q: Why do I need separate credentials for each subsidiary?**
+
+**A:** RTS issues credentials at the subsidiary level. Each subsidiary must have its own set of FTP credentials configured in Alvys under Management > Integrations.
+
+**Q: What format does the Purchase Report download in?**
+
+**A:** The Purchase History Report downloads as an **.xlsx** file from the RTS Pro portal.
+
+**Q: What happens if I close the page during a report upload?**
+
+**A:** Closing the page before the upload finishes may interrupt processing. If this happens, return to Reports > Factoring and re-upload the report.
+
+**Q: Can I submit loads from multiple subsidiaries in a single batch?**
+
+**A:** No. Each batch is tied to a single subsidiary. Select the correct subsidiary on the Factoring Upload page before selecting invoices.

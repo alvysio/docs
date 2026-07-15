@@ -1,0 +1,113 @@
+---
+title: "Comdata Fuel & Checks Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin
+
+  **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Set up the Comdata fuel and checks integration to import fuel transactions and issue e-checks to drivers directly within Alvys.
+</Note>
+
+## Overview
+
+The Comdata integration connects Alvys to the Comdata fuel card and check issuance platform (fuel transaction import, e-check issuance). Once connected, Alvys can import fuel transactions from Comdata and let you issue e-checks to drivers directly within Alvys.
+
+The integration is one-way for fuel: data flows from Comdata into Alvys. Check issuance sends a request from Alvys to Comdata. Setup has two phases: requesting credentials from Comdata, and entering those credentials in Alvys.
+
+## Prerequisites
+
+Before you begin:
+
+- Your subsidiaries must be set up in Alvys before configuring the integration.
+- You must contact Comdata to obtain integration credentials. Alvys cannot generate these credentials.
+- If you also need fuel transactions imported (not just check issuance), you must specifically request FTP fuel server credentials from Comdata in addition to the web services credentials.
+
+## How to connect
+
+1. Email your Comdata representative or **[regionalfleettrr@comdata.com](mailto:regionalfleettrr@comdata.com)** to request credentials for connecting to Comdata web services. In your email, specify that you need credentials to connect to the Comdata web services, and (if you also need fuel transactions imported) that you also need credentials for the Comdata fuel FTP server.
+2. Wait to receive your files from Comdata. You will receive an Excel file containing web services credentials, and a separate file containing FTP fuel access credentials (only if fuel import was requested).
+3. In Alvys, navigate to **Management** and click the blue **Integrate** button.
+4. In the pop-up window, click the **Integration Type** drop-down menu and select **Comdata**.
+5. Enter the web services credentials (required for all setups) using the mapping below:
+
+   - **Customer ID** (Alvys) = Customer ID (Comdata), a 5-digit numeric value
+   - **Account Code** (Alvys) = Account Code (Comdata)
+   - **Sign on Name** (Alvys) = Host/Network SignOn Name (Comdata)
+   - **Security Info** (Alvys) = Security Info (Comdata)
+   - **Username** (Alvys) = WSS SignOn Name (Comdata)
+   - **Password** (Alvys) = WSS SignOn Password (Comdata)
+   - **Secondary Password** (Alvys) = Host/Network SignOn Password (Comdata)
+6. If fuel import is included, also enter the FTP fuel credentials:
+
+   - **Fuel Username** (Alvys) = FTP User Name (Comdata)
+   - **Fuel Password** (Alvys) = FTP Password (Comdata)
+   - **File Prefix** (Alvys) = as provided by Comdata
+7. Select which subsidiaries this integration should apply to.
+8. Click **Save**.
+
+   If you are using the fuel transaction import feature, fuel transactions are matched to drivers using fuel card numbers. Each driver who uses a Comdata fuel card must have their card number added to their driver profile in Alvys:
+9. Navigate to **Assets** and select **Drivers**.
+10. Double-click a driver from the list to open their profile.
+11. Find the **Fuel Card Numbers** field near the driver's name and click the plus sign.
+12. In the pop-up window, enter the fuel card number and select **Comdata** as the fuel card provider.
+13. Check the applicable boxes if you want to deduct fuel from driver pay or if fuel is discounted.
+14. Click **Save**.
+
+Repeat the fuel card steps for all drivers who have Comdata fuel cards.
+
+<Info>
+  💡 For check issuance (e-checks), no additional driver-level mapping is required. · Checks are issued on demand from within Alvys once the integration is connected.
+</Info>
+
+## What syncs
+
+- Fuel transactions are imported automatically from Comdata via FTP on a scheduled basis once FTP credentials are configured.
+- Check issuance is performed on demand from within Alvys.
+- The integration is one-way for fuel: data flows from Comdata into Alvys. Check issuance sends a request from Alvys to Comdata.
+
+  To confirm the integration is working:
+
+1. Navigate to **Reports** and select **Fuel Report**.
+2. Set a date range that includes recent dates when Comdata fuel transactions occurred.
+3. Confirm that transactions appear and are linked to the correct drivers.
+
+For check issuance, navigate to the driver's pay section and attempt to issue a check to confirm the connection is working.
+
+## Troubleshooting
+
+### Fuel transactions not appearing in the Fuel Report
+
+1. Confirm the FTP fuel credentials are entered correctly in the Comdata integration settings. Fuel import requires the FTP credentials in addition to web services credentials.
+2. Confirm that fuel card numbers are added to each driver's profile in Alvys and that Comdata is selected as the provider.
+3. Verify that the date range on the Fuel Report matches the dates the transactions occurred.
+4. If none of the above resolves the issue, contact Alvys support.
+
+### Credentials rejected during setup
+
+The credentials provided by Comdata are case-sensitive. Confirm you are entering each value exactly as it appears in the files Comdata sent. If credentials continue to be rejected, contact Comdata directly to verify the credentials are correct and active.
+
+### Check issuance not working after setup
+
+Confirm that the web services credentials (not just the FTP credentials) are entered correctly in the integration settings. Check issuance uses the web services connection, not the FTP connection.
+
+## FAQs
+
+**Q: How long does it take to receive credentials from Comdata?**
+
+**A:** Response times vary, but you should typically receive your credentials within a few business days of contacting Comdata.
+
+**Q: What if I only need check functionality and not fuel imports?**
+
+**A:** When emailing Comdata, simply do not request the fuel FTP server credentials. You will only need the web services credentials, and you do not need to fill in the Fuel Username, Fuel Password, or File Prefix fields in Alvys.
+
+**Q: Can I use the same Comdata integration for multiple subsidiaries?**
+
+**A:** Yes. During setup you can select which subsidiaries should use the Comdata integration.
+
+**Q: Do I need to add fuel card numbers before the integration starts working?**
+
+**A:** For fuel transactions to be attributed to the correct drivers, yes. The system matches imported transactions to drivers based on fuel card numbers. Set these up before the first import runs to avoid unmatched transactions.

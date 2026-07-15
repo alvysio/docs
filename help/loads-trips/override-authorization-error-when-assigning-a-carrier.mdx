@@ -1,0 +1,69 @@
+---
+title: "Override Authorization Error When Assigning a Carrier"
+description: "Learn why an error appears when assigning a carrier and how to resolve it by certifying the carrier in RMIS or using an admin override"
+---
+
+<Note>
+  📋 **Applies to:** All users; override requires **"OverrideCarrierRestriction"** permission
+
+  **Module:** Loads
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  When assigning a carrier to a trip, Alvys may block the assignment and display an authorization error if the carrier's compliance status with Highway, RMIS, or MyCarrierPackets (MCP) does not meet your company's requirements. This article explains the cause and how to resolve it.
+</Note>
+
+## Symptom
+
+When assigning a carrier to a trip, Alvys displays the message: "We're sorry, but it appears that the carrier you've selected requires a supervisor/manager's approval to proceed with the assignment." The assignment cannot be completed without an override.
+
+![Error message dialog when assigning a non-compliant carrier](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1396536283/a1d8d0911589137f224b4d1ac744/image.png)
+
+*Error message dialog when assigning a non-compliant carrier*
+
+## Cause
+
+Your company requires carriers to pass a compliance check with one or more verification providers before they can be assigned to a load. The carrier you selected has a status that does not meet that requirement with at least one of the following providers:
+
+**Highway:** The carrier's status is **Fail** (non-compliant) or **Incomplete** (requires review).
+
+**RMIS:** The carrier's status is **Not Certified** (non-compliant).
+
+**MyCarrierPackets (MCP):** The carrier's status is **UnacceptableFail** or **UnacceptableReview** (non-compliant), or **Moderate** (requires review).
+
+**Statuses that do not trigger this restriction**: Pass, Acceptable, Certified, and Partial Pass.
+
+## Resolution
+
+A user with the **"OverrideCarrierRestriction"** permission (shown as **"Override Carrier Restriction"** in Administration, Permissions) can approve the assignment directly in the assign-carrier dialog.
+
+1. Identify a user in your organization who has the **"OverrideCarrierRestriction"** permission.
+2. Ask that user to review the carrier's compliance status and confirm whether proceeding is appropriate.
+3. Have the authorized user complete the override step in the assign-carrier dialog to allow the assignment.
+
+   ![Assign-carrier dialog showing the override option](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1396534346/6e6a72a6072815db1e5f5f902b92/image.png)
+
+   *Assign-carrier dialog showing the override option*
+
+## If That Didn't Work
+
+If the override option does not appear in the assign-carrier dialog, or no user in your organization has the **"OverrideCarrierRestriction"** permission, contact Alvys support for help configuring carrier restriction settings.
+
+## FAQs
+
+**Q: How can I find out which provider is causing the restriction?**
+
+**A:** Open the carrier's profile in Alvys and review the compliance section. The verification result from each provider (Highway, RMIS, MCP) is shown there, along with the carrier's current status.
+
+**Q: Does overriding the restriction change the carrier's compliance status permanently?**
+
+**A:** No. The override only allows this specific assignment to proceed. The carrier's compliance status with the verification provider is unchanged and will continue to trigger the restriction on future assignments until the carrier resolves their compliance issue with the provider.
+
+**Q: Who can grant the "OverrideCarrierRestriction" permission to a user?**
+
+**A:** Admins and Partner Admins can assign this permission to other users through Administration settings.
+
+## Go Deeper
+
+- [Carrier Verification](/help/asset-fleet/how-to-verify-a-motor-carrier-in-alvys)
+- [MyCarrierPackets (MCP)](/help/integrations/mycarrierpackets-mcp-integration)

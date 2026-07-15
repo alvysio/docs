@@ -1,0 +1,374 @@
+---
+title: "How to export and modify transactions in QuickBooks Desktop"
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Accounting > Invoicing
+
+  **Last reviewed:** 2026-06 · **Owner:** Accounting integrations team
+
+  This article covers how to export customer invoices, carrier bills, and driver settlements from Alvys to QuickBooks Desktop (QBD), and how to modify previously exported transactions. Also covers the QBD export queue, customer and vendor matching, shared billing, and using the QuickBooks Web Connector.
+</Note>
+
+## Overview
+
+The Alvys and QuickBooks Desktop integration exports (pushes) customer invoices, carrier bills, and driver settlements from Alvys to your QuickBooks Desktop company file. Exports are triggered by actions you take in Alvys (generating an invoice, creating a settlement), and the data transfer occurs when the QuickBooks Web Connector runs its sync cycle.
+
+All transaction types follow the same export flow: after a transaction is triggered in Alvys, it appears on the Accounting > Error Transactions page in a queued state (shown as a dash). The transaction waits on this page until the QuickBooks Web Connector connects and pulls it into your company file. Appearing on the Error Transactions page in a queued state does not indicate a failure.
+
+## Before You Start
+
+Before exporting transactions, confirm the following:
+
+- You have Admin, Partner Admin, or Support access in Alvys. The accounting integration requires the **"CompanyProfileManager"** permission, which is available to those three roles.
+- The QuickBooks Desktop integration is active for the relevant subsidiary. See How to connect QuickBooks Desktop to Alvys and configure settings to complete the connection first.
+- The QuickBooks Web Connector is installed and running on the same computer as QuickBooks Desktop.
+- For customer invoice exports: the load must be in an invoiceable status: **TONU**, **Released**, **Queued**, **Invoiced**, **Financed**, or **Completed**.
+
+## Key Concepts
+
+### The export queue and Error Transactions page
+
+When a transaction is triggered in Alvys, it is placed in a pending export queue and appears on the Error Transactions page with a dash status. This queued state is not an error. The transaction waits here until the QuickBooks Web Connector runs and pulls it into your company file. Once the sync completes, the transaction clears from this page.
+
+<Note>
+  ![Screenshot showing the Error Transactions page with a queued (dash status) transaction.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373543/fe3e148ddbee1fc568b0d8578133/upload_6611425712185755912.png)
+
+  *Screenshot showing the Error Transactions page with a queued (dash status) transaction.*
+</Note>
+
+You can manually trigger an export at any time by opening the QuickBooks Web Connector, checking the box next to the Alvys application, and clicking Update Selected.
+
+### Which subsidiary receives each transaction
+
+Each Alvys subsidiary is connected to its own QuickBooks Desktop company file. The subsidiary that receives a transaction is determined as follows:
+
+- **Customer invoices** export to the QuickBooks company linked to the subsidiary in the **Invoice As** field on the load.
+
+<Note>
+  ![Image showing the “Invoice As” dropdown button in the load details page](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373565/e396b616e81c4636a0df91b6fde6/upload_10208322510817054381.png)
+
+  *Image showing the “Invoice As” dropdown button in the load details page*
+</Note>
+
+- **Carrier bills** export to the QuickBooks company linked to the subsidiary in the **Tender As** field on the load.
+
+<Note>
+  ![Image showing the Tendering As field in the carrier details on the load details page.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373590/a0608fc7145fb0ab3d15504a5d50/upload_13118426740980070841.png)
+
+  *Image showing the Tendering As field in the carrier details on the load details page.*
+</Note>
+
+- **Driver bills** export to the QuickBooks company linked to the subsidiary assigned on the driver's profile.
+
+<Note>
+  ![Image showing the Subsidiary field on a driver profile](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373604/dde476384f81d0de0899c981fb9c/upload_16935154141793376297.png)
+
+  *Image showing the Subsidiary field on a driver profile*
+</Note>
+
+### How Alvys matches customers in QuickBooks
+
+The customer’s **External Accounting Name** is used to identify a customer or broker in **QuickBooks Desktop (QBD)**. When exporting an invoice, Alvys first searches for an exact match in **QBD** using this field.
+
+If a matching customer exists, the invoice is linked to that customer. If no match is found and the **External Accounting Name** is set on the customer profile, Alvys will automatically create a new customer in **QBD** using that name. For tenants where the **External Accounting Name** is not set, Alvys attempts to match using the **Customer Name**. If no match is found, a new customer is created in **QBD** using the **Customer Name**.
+
+It is important to note that the External Accounting Name **takes priority**. If the External Accounting Name differs from an existing QBD customer name, even if the Customer Name in Alvys matches, Alvys will create a new customer using the External Accounting Name.
+
+<Note>
+  ![Image showing the External Accounting Name field on the Customer profile.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373623/fb8a829499dd21f06e3096bb5af4/upload_2053480005980717259.png)
+
+  *Image showing the External Accounting Name field on the Customer profile.*
+</Note>
+
+When exporting a transaction, Alvys searches your QuickBooks file for an exact match using the External Accounting Name on the customer or carrier profile. If a match is found, the transaction links to that existing record. If no match is found, Alvys automatically creates a new customer or vendor in QuickBooks using that name.
+
+<Warning>
+  ⚠️ QuickBooks requires unique names across all lists: Customers, Vendors, and Employees. If Alvys tries to create a name that already exists in a different list, the export will fail.
+</Warning>
+
+### How Alvys matches Vendors in QuickBooks
+
+This section explains how Alvys links carriers and drivers to QuickBooks Desktop (QBD), how vendor records are created when no match is found, and which accounting fields control bill synchronization.
+
+*[Heading 4 not supported]*
+
+The carrier’s **External Accounting Name** is used to identify a vendor in QuickBooks Desktop (QBD). When exporting a bill, Alvys first searches for an **exact match** in QBD using this field.
+
+<Note>
+  ![Image showing the External Accounting Name field on the Carrier profile.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373637/23e2ffdababc6da4df3e98387f28/upload_18223885442514887302.png)
+
+  *Image showing the External Accounting Name field on the Carrier profile.*
+</Note>
+
+If a matching vendor exists, the bill is linked to that vendor. If no match is found and the External Accounting Name is set on the carrier profile, Alvys will automatically create a new vendor in QBD using the External Accounting Name. For carriers where the External Accounting Name is **not set**, Alvys attempts to match using the **Carrier Name**. If no match is found, a new vendor is created in QBD using the Carrier name.
+
+It is important to note that the External Accounting Name **takes priority**. If it differs from an existing QBD vendor name, even if the Carrier or Driver Name in Alvys matches, Alvys will create a new vendor using the External Accounting Name.
+
+*[Heading 4 not supported]*
+
+Drivers, including company drivers and owner-operators, may operate as **1099 drivers**. These drivers have additional tax detail fields on their profiles, such as:
+
+- **Tax Company Name**
+- **Tax Company Address**
+
+<Note>
+  ![Image showing the Tax Information on a sample driver profile](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373656/06a2ee3b366161978b6e3e4e1aaa/upload_7765478935812927907.png)
+
+  *Image showing the Tax Information on a sample driver profile*
+</Note>
+
+When generating driver statements, if these fields are set and the accounting integration is configured to create vendors using 1099 details, Alvys will create the vendor using the tax information (company name and address). If this setting is not enabled, the vendor will be created using the driver’s name.
+
+*[Heading 4 not supported]*
+
+The **Carrier Payment Terms** field defines the agreed-upon time frame for paying a carrier. This is configured on the [company profile](https://app.alvys.com/#/manage/company-profile) for each subsidiary.
+
+<Note>
+  ![Image showing carrier payment terms on the company/tenant profile](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373670/c5ff370b9cda2d3ad7c4474169a1/upload_17251565966464010971.png)
+
+  *Image showing carrier payment terms on the company/tenant profile *
+</Note>
+
+If a driver is associated with a subsidiary that has this payment terms configured, the bill due date will be calculated based on that subsidiary’s terms.
+
+For external carriers, the due date is determined using the Carrier Payment Terms from the company profile of the subsidiary specified in the Tender As field on the trip.
+
+## Steps
+
+### 1. Export a customer invoice
+
+### Individual load invoice
+
+- Verify the load is in an invoiceable status: **TONU**, **Released**, **Queued**, **Invoiced**, **Financed**, or **Completed**.
+- Confirm the customer is correct on the load, and the Invoice As subsidiary matches the subsidiary connected to the QuickBooks Desktop company that should receive the invoice.
+- Confirm the customer's External Accounting Name is set and matches the corresponding customer in QuickBooks Desktop.
+
+<Note>
+  ![Screenshot showing the Invoice As and External Accounting Name fields on a load.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373692/8c68f70bbeed89bb3691a9f06664/upload_585841681931353275.png)
+
+  *Screenshot showing the Invoice As and External Accounting Name fields on a load. *
+</Note>
+
+- Generate the invoice from the load's Invoice section.
+- Open the QuickBooks Web Connector and click Update Selected to trigger the export.
+
+<Note>
+  ![Image showing the update selected button in the QBD web connector](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373712/0d0a7a714ea9ff9ed289270a39e0/upload_10461822382038327014.png)
+
+  *Image showing the update selected button in the QBD web connector *
+</Note>
+
+- After the connector completes this sync, the invoice can be located by navigating to the Customer Center and selecting the specific customer to view their Transactions tab. Users can filter the list for Invoices and apply date filters to browse the results and confirm the export.
+
+<Note>
+  ![Image showing customer information with invoices in QuickBooks Desktop.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373736/1ee72e7590c6160deb092637d161/upload_8678224186656631227.png)
+
+  *Image showing customer information with invoices in QuickBooks Desktop.*
+</Note>
+
+### Batch invoice export
+
+1. Navigate to Accounting > Invoice to open the Batch Invoicing page.
+2. On the **Released** tab, select the loads for which you want to generate invoices.
+3. Confirm the customer and Invoice As subsidiary are correct for each selected load.
+
+<Note>
+  ![Screenshot showing the Batch Invoicing page with loads selected.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373753/9d9ba1fe94bb9221e3caeb69b370/upload_10687496883044103409.png)
+
+  *Screenshot showing the Batch Invoicing page with loads selected.*
+</Note>
+
+1. Click Generate Invoice to generate invoices and queue them for export, or click Create and Send to generate, queue, and email invoices to customers.
+2. Open the QuickBooks Web Connector and click Update Selected.
+
+### Summary invoice export
+
+1. On the Loads Not Invoiced tab, select the loads to include. Confirm the subsidiary is correct before proceeding.
+2. Generate the summary invoice. The transaction is queued on the Error Transactions page.
+3. Open the QuickBooks Web Connector and click Update Selected.
+
+<Note>
+  ![Screenshot showing a summary invoice in the QuickBooks Customer Center.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373782/5a189374e94bd07d13af55013f70/upload_8240155028263258227.png)
+
+  *Screenshot showing a summary invoice in the QuickBooks Customer Center.*
+</Note>
+
+### 2. Export a carrier bill
+
+### Individual trip external carrier bill
+
+1. Confirm the correct external carrier is assigned to the trip.
+2. Verify the Tender As subsidiary on the load. For dual authority tenants: confirm the trip's operational mode is set to **Brokerage**. If the mode is **Carrier**, no external carrier bill will export.
+3. If Generate Carrier Invoice Separately is enabled, upload a document categorized as Carrier Invoice to the trip before generating the customer invoice.
+4. If this setting is not enabled, the carrier bill is exported automatically when the customer invoice is generated.
+5. Open the QuickBooks Web Connector and click Update Selected.
+
+<Note>
+  ![Screenshot showing a carrier bill in the QuickBooks Vendor Center.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373816/67b74d29e288c9aa45fac0903710/upload_5434198326020584789.png)
+
+  *Screenshot showing a carrier bill in the QuickBooks Vendor Center. *
+</Note>
+
+### Carrier settlements bill export
+
+The Carrier Settlements module provides brokers with tools to generate transparent and accurate carrier statements and settlement bills. This page can be accessed from the accounting section of Alvys under Carrier Settlements. Additional details about this module can be found in the [Carrier Settlements Help Center Article](https://help.alvys.com/en/articles/11634577-carrier-settlements).
+
+When carrier settlements are used, the carrier bill is exported when a carrier statement is generated. To allow this export, the **Carrier Statements External Accounting** setting must be enabled for the subsidiary. If this setting is not enabled, no carrier bill will be exported when the statement is generated.
+
+<Note>
+  ![Image showing carrier statements external accounting setting in QBD setup](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373834/5f4a58cf50a532d916ffca261ee8/upload_12673463651559385537.png)
+
+  *Image showing carrier statements external accounting setting in QBD setup*
+</Note>
+
+If this setting is enabled and a user generates a customer invoice for an individual load with an external carrier, the carrier bill will not be exported from the load. In this scenario, the system expects the bill to be exported from the Carrier Settlements module when the statement is generated.
+
+<Warning>
+  ⚠️ Carrier Settlements payment sync limitation: payments applied in QuickBooks Desktop do not automatically sync back to Alvys. Record carrier payments manually in Alvys to keep your records accurate.
+</Warning>
+
+If an error occurs while exporting a carrier bill from the Carrier Settlements module, the error details are displayed directly within the module. Carrier statements cannot be re-sent from the Error Transactions page. All corrections must be made within the Carrier Settlements module, and the statement must be regenerated there.
+
+For tenants that use the Carrier Settlements module but prefer carrier bills to export when the carrier invoice is uploaded on the trip, it is recommended not to enable the Carrier Statements external accounting setting. In this configuration, enabling the generate carrier invoice separately setting and uploading the carrier invoice to the trip then generating the customer invoice will trigger the carrier bill export.
+
+### 3. Export driver bills
+
+Driver bills export from the legacy Pay Drivers page (Accounting > Pay Drivers) or from the Driver Settlements module (Accounting > Driver Settlements). The subsidiary on the driver's profile determines which QuickBooks company receives the bill.
+
+### 4. Export with shared billing
+
+In the QBD accounting integration setup shared billing must be enabled on both the **Invoice As** subsidiary and the **Tender As** subsidiary. Each subsidiary must also have its own QuickBooks Desktop company connected. If shared billing is not enabled on both sides, intercompany transactions and carrier or vendor bills will not export correctly.
+
+1. In the QBD integration settings for each subsidiary participating in shared billing, enable the Shared Billing option.
+
+   <Note>
+     ![Screenshot showing the Shared Billing toggle in the QBD integration settings.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373845/53fb48a2501ed970c134cc8ce7f3/upload_10485620492968715324.png)
+
+     *Screenshot showing the Shared Billing toggle in the QBD integration settings. *
+   </Note>
+
+   ![Screenshot showing the Shared Billing toggle in the QBD integration settings.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373862/0461bc641d406888a14ab8c7a164/upload_635738886526328718.png)
+
+   *Screenshot showing the Shared Billing toggle in the QBD integration settings. *
+2. On the load, assign different subsidiaries to Invoice As and Tender As.
+
+<Note>
+  ![Image showing Invoice as and Tendering As fields on load details page](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373876/cf3170556e521be39226d769cb35/upload_12495794845748174783.png)
+
+  *Image showing Invoice as and Tendering As fields on load details page *
+</Note>
+
+1. Generate the customer invoice. This triggers the shared billing export.
+2. After export, both subsidiary companies receive appropriate intercompany entries.
+3. Open the QuickBooks Web Connector and click Update Selected.
+
+   **Transactions created during export: **
+
+   **Invoice As subsidiary (Alvys Motor Company):**
+
+   - An intercompany bill is created to the Tender As subsidiary (Alvys Motor 2)
+   - A customer invoice is created, and export is initiated to QBD.
+
+     **Tender As subsidiary (Alvys Motor 2 Company):**
+   - An intercompany invoice is created back to the Invoice As subsidiary (Alvys Motor).
+   - A vendor bill is created for the external carrier or driver (when paystub is generated) on the trip
+
+<Note>
+  ![Screenshot showing the intercompany entries in Error Transactions Page](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373944/1fd45fdd7708184d3d8ba8ab9341/upload_2610081589693681027.png)
+
+  *Screenshot showing the intercompany entries in Error Transactions Page*
+</Note>
+
+### 5. Modify a previously exported transaction
+
+Alvys is the system of record for all exported accounting transactions. All corrections must be made in Alvys and re-synced to QuickBooks Desktop.
+
+### Customer invoices — auto-syncing fields
+
+The following fields update QuickBooks Desktop automatically without invoice regeneration: customer linehaul amount, customer fuel surcharge, accessorial charges (added, edited, or removed), and Invoice Date. Make the changes in Alvys, then run the Web Connector.
+
+### To change the customer on an exported invoice:
+
+1. In the Load Details section, click the Change Customer button.
+2. Select the correct customer and save.
+3. Regenerate the invoice in Alvys.
+4. Open the Web Connector and click Update Selected.
+
+<Note>
+  ![Screenshot showing the Change Customer button on a load.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527373969/b593c7642739f8a182bce8e1f806/upload_10120105333025886197.png)
+
+  *Screenshot showing the Change Customer button on a load.*
+</Note>
+
+### To change the Invoice As subsidiary after export:
+
+1. In Load Details, click the Invoice Customer As dropdown and select the correct subsidiary.
+2. Regenerate the invoice.
+3. Open the Web Connector and click Update Selected.
+4. Manually delete the original invoice in the previous subsidiary's QuickBooks company.
+
+<Note>
+  ![Screenshot showing the Invoice Customer As dropdown on a load.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527374017/4d3f83c278520139a53238cd6d95/upload_18337792002603944402.png)
+
+  *Screenshot showing the Invoice Customer As dropdown on a load.*
+</Note>
+
+### To modify a summary invoice:
+
+In Alvys, the **only supported mechanism** for adding or removing loads from a summary invoice is to **revert the summary invoice**. A summary invoice can be reverted **only when its status is “Processed”**. If the invoice has already been **Sent** or **Paid**, further modification requires intervention from [Alvys Support.](mailto:support@alvys.com)
+
+<Warning>
+  ⚠️ Reverting a summary invoice does **not update the original invoice in QuickBooks Desktop (QBD)**. After reverting, the user must **generate a new summary invoice in Alvys**. This new invoice will receive a **new summary invoice number**, which will be exported to QBD. The old summary invoice remains in QBD unless manually deleted.
+</Warning>
+
+- Revert the summary invoice by navigating to the **All-Invoices** tab in Alvys.
+- Locate the invoice and Click the **Delete** icon for the specific summary invoice.
+
+  <Note>
+    ![Image showing delete icon for summary invoice](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527374044/d35a0e3ae1315433ec718ded534c/upload_4872195592376298110.png)
+
+    *Image showing delete icon for summary invoice*
+  </Note>
+
+  ![Image showing delete icon for summary invoice](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527374054/8167a8476af6b944aff4fb61b9e0/upload_13610985777995298751.png)
+
+  *Image showing delete icon for summary invoice*
+- Navigate to the **Loads Not Invoiced** tab.
+- Select the loads to be included in the new summary invoice.
+- Regenerate the summary invoice.
+- Open the **QuickBooks Desktop Connector** and pull in the updates to export the new summary invoice to your company file.
+- Confirm that the new summary invoice and the updated total amount are accurately reflected under the customer’s account in QuickBooks Desktop.
+- Locate the old summary invoice in QuickBooks Desktop and manually delete it to avoid duplicate records and inaccurate aging reports.
+
+## FAQs
+
+**Q: Does appearing on the Error Transactions page mean my export failed?**
+
+**A:** Not necessarily. All transactions are initially held in a queued state on this page (shown as a dash). This means Alvys is waiting for the QuickBooks Web Connector to run. Once the connector syncs, the transactions clear from this page.
+
+**Q: How does Alvys match customers and vendors in QuickBooks?**
+
+**A:** Alvys first searches for an exact match using the External Accounting Name. If no match is found, it uses the standard Customer or Carrier Name. If no record exists in QuickBooks Desktop, Alvys automatically creates a new customer or vendor.
+
+**Q: Can I update an invoice after it has already been exported to QuickBooks Desktop?**
+
+**A:** Yes, provided the invoice is still open (not fully paid). Changes to linehaul, fuel surcharges, and accessorials sync automatically the next time you run the Web Connector. For other changes, regenerate the invoice in Alvys first.
+
+**Q: Does Alvys sync carrier payments from QuickBooks Desktop back to Alvys?**
+
+**A:** No. Record carrier payments manually in Alvys to keep your records accurate.
+
+**Q: Why isn't my external carrier bill exporting?**
+
+**A:** Check that the trip is in **Brokerage** mode (for dual authority setups), and that a Carrier Invoice document is uploaded if Generate Carrier Invoice Separately is enabled.
+
+## Go Deeper
+
+- [Alvys Payment Synchronization for Accounting Integrations](/help/integrations/alvys-payment-synchronization-for-accounting-integrations)
+- [QuickBooks Desktop Integration Collection](/help/integrations/quickbooks-desktop-integration-collection)
+- [Summary Invoicing](/help/accounting-settlements/how-to-use-summary-invoicing)
+- [Carrier Settlements](https://help.alvys.com/en/articles/11634577-carrier-settlements)
+- [Driver Settlements](https://help.alvys.com/en/articles/11943598-driver-settlements)

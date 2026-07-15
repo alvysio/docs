@@ -1,0 +1,55 @@
+---
+title: "QuickBooks Desktop Integration Collection"
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin
+
+  **Module:** Accounting > Integrations > QuickBooks Desktop
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  **Provider:** Intuit QuickBooks Desktop · **Integration type:** One-way · **Direction:** Alvys exports financial transactions to QuickBooks Desktop via the Web Connector.
+
+  This collection covers all articles for configuring, using, and troubleshooting the QuickBooks Desktop (QBD) integration with Alvys. Follow the recommended order to get started, or jump to a specific topic using the links below.
+</Note>
+
+## Overview
+
+The QuickBooks Desktop integration connects Alvys to QBD through the QuickBooks Web Connector. This collection contains six articles covering prerequisites, connection setup, account mappings, transaction export logic, payment synchronization, and error resolution. Each article builds on the previous one; completing them in order is recommended for new setups.
+
+### 1. QuickBooks Desktop: Prerequisites
+
+**Purpose:** This article outlines the essential architectural decisions and environment requirements before initiating the integration. It covers the four core software components (Web Connector, QWC, QBW), selecting your setup type (Single-User, Multi-User, or Hosted), system access requirements, and the mandatory structure for the Chart of Accounts.
+
+**Article:** [QuickBooks Desktop: Prerequisites (Start Here)](/help/integrations/how-to-prepare-quickbooks-desktop-before-connecting-to-alvys)
+
+### 2. Connection and Configuration Settings in Alvys
+
+**Purpose:** This guide provides step-by-step instructions for establishing the technical bridge between Alvys and QBD using the QuickBooks Web Connector. It explains how to download the configuration files, authorize the security handshake, and configure operational toggles such as Revenue/Expense exports, Driver Bill logic, and Subsidiary/Fleet mapping.
+
+**Article:** [QuickBooks Desktop: Connection and Configuration Settings](/help/integrations/how-to-connect-quickbooks-desktop-to-alvys-and-configure-settings#h_02b9cb1deb)
+
+### 3. Account Mappings (Default and Specific)
+
+**Purpose:** This article explains how to link Alvys transaction line items to your QuickBooks Chart of Accounts. It covers mandatory default fallback accounts (A/R, A/P, Revenue, Expense) as well as granular mappings for Load, Trip, Accessorials, E-checks, Deductions, Fuel, Tolls, and Escrow.
+
+**Article:** [QuickBooks Desktop: Account Mappings](/help/integrations/how-to-set-up-quickbooks-desktop-account-mappings-in-alvys)
+
+### 4. Transaction Export and Modification Workflow
+
+**Purpose:** This article details the logic Alvys uses to route data to QBD based on the Invoice As and Tender As fields. It explains how customers and vendors are automatically created or linked and provides the workflow for modifying, regenerating, or reverting transactions once they have been exported.
+
+**Article:** [QuickBooks Desktop: Transaction Export and Modification Workflow](/help/integrations/how-to-export-and-modify-transactions-in-quickbooks-desktop)
+
+### 5. Alvys Payment Synchronization
+
+**Purpose:** This article explains the synchronization of payments between Alvys and QuickBooks Desktop. It outlines how transaction statuses are updated and provides clarity on which modules (such as Driver Settlements) support sync and which require manual updates (such as Carrier Settlements). Note: Customer Payment Export is not supported for QuickBooks Desktop.
+
+**Article:** [Alvys Payment Synchronization for Accounting Integrations](/help/integrations/alvys-payment-synchronization-for-accounting-integrations)
+
+### 6. Identifying and Resolving Failed Transactions
+
+**Purpose:** This troubleshooting guide explains how to use the Error Transactions page in Alvys to manage the export queue. It provides specific resolution steps for common Web Connector errors (like QBWC1039) and data-related errors (like Duplicate Names or Edit Sequence issues).
+
+**Article:** [QuickBooks Desktop: Identifying and Resolving Failed Transactions](/help/integrations/identifying-and-resolving-failed-quickbooks-desktop-transaction-exports)

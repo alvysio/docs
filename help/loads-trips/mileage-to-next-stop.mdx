@@ -1,0 +1,82 @@
+---
+title: "Mileage to Next Stop"
+description: "Streamline Load Monitoring with Real-Time Mileage Data"
+---
+
+<Note>
+  **Applies to:** All users · **Module:** Loads and Trips
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  Alvys calculates the miles from a load's last known GPS location to its next scheduled stop and displays this in two places: the Location Tracking section on the Load Details page, and the Miles to Next Stop column in Dispatch Planner v2.
+</Note>
+
+## Overview
+
+Mileage to Next Stop shows how far a truck currently is from its next scheduled stop, based on its last known GPS location. Dispatchers use this to monitor load progress, prioritize attention on loads approaching a stop, and filter the Dispatch Planner by remaining miles.
+
+The value appears in two places:
+
+- The Location Tracking section of a load's trip card on the Load Details page
+- The Miles to Next Stop column in Dispatch Planner v2 (DPv2)
+
+## Where to Find It
+
+**On the Load Details page:**
+
+Open any load in Loads and Trips. In the trip card, scroll to the Location Tracking section. The Mileage to Next Stop field shows the current distance to the next stop in miles, alongside Last Updated, Last Location, Next Stop, and Next Stop ETA.
+
+The Mileage to Next Stop field only appears when a GPS ping has been received for the trip's assigned driver or truck. If no GPS data is available, the field is not shown.
+
+**In Dispatch Planner v2:**
+
+Navigate to Dispatch Planner ( [https://app.alvys.com/dispatch-planner](https://app.alvys.com/dispatch-planner)). The Miles to Next Stop column is available in the trips grid. The column can be sorted and filtered by mileage range; for example, filtering to show only trips within 50 miles of their next stop.
+
+<Note>
+  ![Image showing “Miles to Next Stop” Column on Dispatch Planner](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532307217/7418bb0a3872be8d96bbf987c138/upload_17120392816581960911.png)
+
+  *Image showing “Miles to Next Stop” Column on Dispatch Planner*
+</Note>
+
+## Key Concepts
+
+**GPS-based calculation:** Mileage to Next Stop is calculated from the truck's last known GPS location to the coordinates of its next scheduled stop. The calculation depends on GPS pings being received from the driver's ELD or tracking integration; if no ping has been received, no value is shown.
+
+**Location Tracking section:** The section of the trip card on the Load Details page that displays real-time GPS data, including the last updated timestamp, last known address, next stop name, next stop ETA, and Mileage to Next Stop.
+
+<Note>
+  ![Location Tracking section on the Load Details page showing the Mileage to Next Stop field.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532307229/20abf728842c820f0afebd643ffb/upload_10558177545939377036.png)
+
+  *Location Tracking section on the Load Details page showing the Mileage to Next Stop field.*
+</Note>
+
+**Miles to Next Stop column (DPv2):** An optional column in the Dispatch Planner v2 trips grid. It is sortable and filterable by mileage range.
+
+## How to Use It
+
+For how to sort and filter by Miles to Next Stop in Dispatch Planner v2, see the Dispatch Planner help article ([https://help.alvys.com/en/articles/12542794-dispatch-planner](/help/loads-trips/dispatch-planner)).
+
+## Settings and Permissions
+
+No additional settings or permissions are required. Any authenticated user with access to the Load Details page or Dispatch Planner v2 can see this data when GPS location information is available for the trip.
+
+## Limits and Behavior
+
+- The Mileage to Next Stop field on the Load Details page only appears when a GPS ping has been received. It is not shown if GPS tracking has not returned a location.
+- The Miles to Next Stop column in Dispatch Planner v2 is blank for trips without active GPS data.
+- The update frequency depends on the ELD or tracking integration in use and is set by the integration provider.
+- Mileage to Next Stop reflects distance to the next scheduled stop, not the final destination.
+
+## FAQs
+
+**Q: Why is the Mileage to Next Stop field not showing on my load?**
+
+**A:** The field only appears when a GPS ping has been received for the assigned driver or truck. Verify that the driver's ELD integration is active and connected. If the integration is active and the field is still missing, contact Alvys support.
+
+**Q: Why does the Miles to Next Stop column show a blank value in Dispatch Planner v2?**
+
+**A:** A blank value means no GPS location data has been received for that trip. The column only displays a value when an active GPS ping is available for the assigned driver or truck.
+
+**Q: What does "next stop" mean?**
+
+**A:** Next stop refers to the next scheduled pickup or delivery stop on the trip that has not yet been departed.

@@ -1,0 +1,192 @@
+---
+title: "EFS Fuel Integration"
+---
+
+<Note>
+  **Applies to:** Admin **·** Support** ·** Partner Admin
+
+  **Module:** Management > Integrations > Fuel
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article explains how to set up the EFS (WEX) fuel card integration in Alvys, configure automatic daily imports or manual CSV uploads, and add EFS fuel card numbers to driver profiles.
+</Note>
+
+## Overview
+
+The EFS integration connects your EFS (WEX) fuel card (fuel network) account to Alvys to import fuel transactions either automatically through the API or manually by CSV upload. EFS also supports e-check issuance for driver payments such as advances, lumper fees, and repairs. Automatic imports run daily at 1 AM and pull the last 2 days of transactions. Manual imports use a CSV file you download from the EFS site and upload to Alvys.
+
+The integration provides two services in Alvys:
+
+- **Fuel management:** Imports fuel transaction data from EFS into the Alvys Fuel Report. This can be set up as an automatic daily API import or as a manual CSV upload.
+- **E-check service:** Enables secure digital payment issuance directly from Alvys. E-checks can be used for driver advances, lumper fees, repair costs, and similar expenses.
+
+<Info>
+  💡 EFS is sometimes referred to as EFS WEX, the EFS fuel card, or the EFS fuel network.
+</Info>
+
+## Prerequisites
+
+Before configuring EFS in Alvys, confirm the following:
+
+- You have **"Admin"**, **"Support"**, or **"Partner Admin"** access in Alvys (set on your user role in the Company Profile).
+- For the **automatic API import**: you must first add Alvys as a Data Share Partner on EFS and obtain API credentials from EFS support. These credentials are different from your regular EFS login.
+- For the **manual CSV import**: no API credentials are required. You only need access to the EFS site to download transaction reports.
+- Your drivers have been added to Alvys with their EFS fuel card numbers.
+
+## How to connect
+
+### Automatic API import
+
+The automatic import requires credentials that EFS generates specifically for API access. Your standard EFS username and password cannot be used.
+
+1. Add Alvys as a Data Share Partner on EFS. Download and follow the EFS Data Sharing Instructions PDF provided in the original EFS article on [help.alvys.com](https://help.alvys.com/). This document walks you through adding Alvys Inc as a data share partner in your EFS account.
+2. Request API credentials from EFS support. After adding Alvys as a data share partner, email EFS support at [EFSWEX-customersoftwaresupport@wexinc.com](mailto:EFSWEX-customersoftwaresupport@wexinc.com) to request API credentials. Include the following in your email body, substituting your company's details:
+
+   - **Customer name:** your company name as registered with EFS.
+   - **Username:** will be created by EFS.
+   - **Password:** will be created by EFS.
+   - **Carrier ID:** visible in your EFS eManager portal.
+   - **Contract ID:** ask EFS if unknown (found under Select Program > Credit Management > Available Credit).
+   - **Master Contract ID:** ask EFS if unknown.
+3. Enter the EFS credentials in Alvys once EFS replies:
+
+   - Click your username in the bottom left corner of Alvys, then select **Management**.
+   - Go to the **Integrations** section.
+   - Scroll to the **Fuel Cards** drop-down and select the “Inactive” button next to **EFS**.
+
+<Note>
+  ![This image shows the EFS integration configuration form in Alvys with fields for username, password, contract ID, master contract ID, carrier ID, and subsidiary selection.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4005822a-5fee-4dfb-96b2-e988cb1952b1/image.png)
+
+  *This image shows the EFS integration configuration form in Alvys with fields for username, password, contract ID, master contract ID, carrier ID, and subsidiary selection.*
+</Note>
+
+### Manual CSV import
+
+The manual import does not require API credentials. Set up a separate integration entry using the EFS CSV option.
+
+1. Click your username in the bottom left corner of Alvys, then select **Management**.
+2. Go to the **Integrations** section.
+3. Scroll to the **Fuel Cards** drop-down and select **EFSCSV**.
+4. Select the subsidiary you want to integrate with.
+5. Click **Save**.
+
+<Note>
+  ![This image shows the Integrations section in Alvys Management with EFSCSV integration](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b600eb75-e459-42f0-a783-84f50d8a6966/image.png)
+
+  *This image shows the Integrations section in Alvys Management with EFSCSV integration*
+</Note>
+
+<Info>
+  💡 The automatic API path and the manual EFS CSV path are separate integration entries and can be used together.
+</Info>
+
+### Add EFS fuel card numbers to driver profiles
+
+This applies to both automatic and manual imports.
+
+1. From the blue Alvys toolbar, select **Assets**, then choose **Drivers**.
+2. Double-click a driver from the list to open their profile.
+3. Find the **Fuel Card Numbers** field next to the driver's name and click the plus sign.
+4. Enter the full fuel card number, select **EFS** as the fuel card provider, and check the applicable boxes for deduct fuel or discounted fuel if needed.
+5. Click **Save**.
+6. Repeat for each driver with an EFS fuel card.
+
+<Note>
+  ![This image shows: a driver profile in Alvys with the “Add Fuel Card” form wit the following input fields: Card Number, Deduct from Owner Operator and Provider field with EFS selected.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ba364fda-dd7a-43eb-9e0b-8f7476230910/image.png)
+
+  *This image shows: a driver profile in Alvys with the “Add Fuel Card” form wit the following input fields: Card Number, Deduct from Owner Operator and Provider field with EFS selected.*
+</Note>
+
+### Manual import only: download and upload the EFS transaction file
+
+- Log in to the EFS site and download the fuel transactions report in Excel format.
+- When exporting, ensure the following options are selected: **Show Full Card Number**, **Show Transaction Time**, and **Show Discount Amount**.
+- Save the file to your device. Alvys provides a template file that shows the expected format (EFS Fuel template.xlsx); the template link is available in the Factoring Reports section on Alvys.
+- From the Alvys toolbar, go to **Assets **and select **Fuel Report**.
+
+<Note>
+  ![This image shows the Fuel Report page with the Transaction File Upload button visible.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e4fe2721-a734-45a9-8c79-d16448e1ba13/image.png)
+
+  *This image shows the Fuel Report page with the Transaction File Upload button visible.*
+</Note>
+
+- Click the vertical ellipsis icon **(⋮)** next to the “**Add** **Transaction” **button.
+
+<Note>
+  ![Image showing ellipsis icon next to “Add Transaction” button](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3e68801e-bf95-4542-ba29-e0eabe6fc014/image.png)
+
+  *Image showing ellipsis icon next to “Add Transaction” button*
+</Note>
+
+- Select the “**Import Report**” option.
+
+<Note>
+  ![Image showing Import Report option](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/035ced85-0ac7-40fd-8dcd-f9e6ebc05a64/image.png)
+
+  *Image showing Import Report option*
+</Note>
+
+- In the pop-up window, select **EFSCSV** from the **Integration Type** drop-down menu.
+
+<Note>
+  ![Image showing ”Upload Fuel Report” form with Integration type and Add report input fields.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/87782999-e1ea-453f-8c2e-b1311ba7431f/image.png)
+
+  *Image showing ”Upload Fuel Report” form with Integration type and Add report input fields.*
+</Note>
+
+- Upload the CSV file you downloaded from the Compass portal.
+- Click the “Save” button
+- Once the upload completes, use the **Transaction Date** range filter in the Fuel Report to review imported transactions.
+
+## What syncs
+
+The EFS integration imports fuel transaction data from EFS into the Alvys Fuel Report and, separately, enables e-check issuance.
+
+- **Automatic import:** Fuel data imports daily at 1 AM, pulling all transactions from the past 2 days since the integration was configured. Transactions are automatically matched to the corresponding trucks and drivers in Alvys.
+- **Manual import:** There is no automatic sync. You download a transaction file from the EFS site and upload it to Alvys whenever you need to import transactions.
+- **Matching:** Alvys matches fuel transactions to driver profiles using the full EFS fuel card number stored on the driver's profile. Each driver must have their EFS card number entered before transactions can be matched. The manual CSV must include the full card number, transaction time, and discount amount columns.
+
+<Warning>
+  ⚠️ The automatic import pulls only the last 2 days of transactions; use the manual EFS CSV import to backfill older data.
+
+  API credentials are generated by EFS and cannot be reused from other integrations or your standard EFS portal login.
+
+  The manual CSV import requires the EFS-formatted Excel export; custom or reformatted files are not supported.
+</Warning>
+
+## Troubleshooting
+
+### Fuel transactions are not appearing after the automatic import
+
+Confirm the following: the green check mark appears next to the EFS integration in Management, the driver profile has the correct full EFS fuel card number entered, and EFS is selected as the provider. If the integration was set up recently, the first import runs at 1 AM the following day.
+
+### Fuel transactions are not appearing after a manual CSV upload
+
+Verify the exported file includes the **Show Full Card Number**, **Show Transaction Time**, and **Show Discount Amount** columns. If any of these columns are missing, export the file again from EFS with all three options enabled, then re-upload. Confirm drivers have the correct EFS card number in their profiles.
+
+### The EFS credentials are rejected when saving the integration
+
+The credentials entered in the Alvys integration form must be the API credentials provided by EFS support ([EFSWEX-customersoftwaresupport@wexinc.com](mailto:EFSWEX-customersoftwaresupport@wexinc.com)). Your regular EFS portal login credentials cannot be used here. If you do not have API credentials, contact EFS support to request them.
+
+## FAQs
+
+**Q:** Do I need both the automatic and manual EFS integrations?
+
+**A:** No. Set up the automatic API integration if you want daily imports without manual steps. Set up the manual EFS CSV integration if you prefer to control when transactions import, or if you need to backfill historical data. You can use both if needed.
+
+**Q:** How often does the automatic import run?
+
+**A:** The automatic import runs once daily at 1 AM, pulling all transactions from the past 2 days.
+
+**Q:** Can I use my regular EFS login credentials for the API integration?
+
+**A:** No. The username and password for the Alvys EFS integration are API credentials that EFS generates specifically for this integration. Contact EFS support at [EFSWEX-customersoftwaresupport@wexinc.com](mailto:EFSWEX-customersoftwaresupport@wexinc.com) to request them.
+
+**Q:** What happens if a driver's fuel card number is entered incorrectly?
+
+**A:** If the card number in Alvys does not match the card number on the imported transaction, the transaction will not be matched to that driver. Correct the card number on the driver's profile and re-import or re-upload the transaction data.
+
+**Q:** What is the EFS e-check service used for?
+
+**A:** The EFS e-check service allows you to issue digital payments to drivers directly from Alvys. It is used for expenses such as driver advances, lumper fees, and repair costs. E-check setup is configured separately from the fuel import integration.

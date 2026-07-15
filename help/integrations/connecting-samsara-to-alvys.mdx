@@ -1,0 +1,180 @@
+---
+title: "Connecting Samsara to Alvys"
+description: "How to set up Samsara Integration"
+---
+
+<Note>
+  **Applies to**: Admin, Partner Admin, Support · **Module**: Integrations
+
+  **Last reviewed**: 2026-06 · **Owner**: Support team
+
+  Provider: Samsara · **Direction of sync:** One-way: Samsara sends location, Hours of Service, and temperature sensor data to Alvys
+
+  Location: Management > Company Profile > Integrations tab
+</Note>
+
+## Overview
+
+The Samsara integration connects your ELD and telematics data to Alvys, enabling real-time truck and trailer location tracking, Hours of Service (HOS) monitoring, IFTA mileage reporting, and temperature sensor data for refrigerated trailers. Setup requires generating a token in Samsara and then linking each asset in Alvys. This integration is also referred to as Samsara ELD tracking, Samsara telematics, or Samsara fleet tracking. Data flows one way from Samsara into Alvys. Alvys does not send load or dispatch data back to Samsara through this integration.
+
+## Prerequisites
+
+Before setting up the Samsara integration, confirm the following:
+
+- You have an active Samsara account with administrator access.
+- You are signed in to Alvys with the **"Admin"**, **"Partner Admin"**, or **"Support"** role. Users without one of these roles cannot access the Integrations page.
+- Your subsidiaries are already configured in Alvys. The integration is applied per subsidiary, so all subsidiaries that have Samsara-equipped assets must exist in Alvys before you connect.
+- Your trucks and trailers are already set up in Alvys before you complete the asset ID step (step 3 below).
+
+## How to connect?
+
+Setting up the integration involves three parts: generating a token in Samsara, configuring the integration in Alvys, then adding Samsara asset IDs to each truck and trailer.
+
+### Generate a Samsara token
+
+1. Log in to your Samsara account and go to **"Settings"**.
+2. Select the **"Apps"** tab.
+3. Find **"Alvys"** in the list of apps and click its card.
+4. Click **"Enable"**.
+
+   <Note>
+     ![Samsara Apps page, Alvys card with Enable button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7f395425-8edc-4d75-8a21-b7601766745a/image.png)
+
+     *Samsara Apps page, Alvys card with Enable button.*
+   </Note>
+
+   ![Samsara Apps page, Alvys card with Enable button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7f395425-8edc-4d75-8a21-b7601766745a/image.png)
+
+   *Samsara Apps page, Alvys card with Enable button.*
+5. Samsara will prompt you to accept the **"Samsara Data Import and Sharing Addendum"** terms. Accept the terms to continue.
+
+   <Note>
+     ![Samsara Data Import and Sharing Addendum acceptance screen.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/294a1c5c-740f-4c35-a445-47ed3172352a/image.png)
+
+     *Samsara Data Import and Sharing Addendum acceptance screen.*
+   </Note>
+
+   ![Samsara Data Import and Sharing Addendum acceptance screen.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/294a1c5c-740f-4c35-a445-47ed3172352a/image.png)
+
+   *Samsara Data Import and Sharing Addendum acceptance screen.*
+6. Samsara will display a token in the next window. Copy this token — you will need it when you configure the integration in Alvys.
+
+<Note>
+  ![Samsara token generation window.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/9f3431aa-6cbb-456e-826b-41e38fa57b2a/image.png)
+
+  *Samsara token generation window.*
+</Note>
+
+### Configure Samsara in Alvys
+
+1. In Alvys, navigate to **"Management"** > **"Integrations"**.
+2. Under the **"ELD"** tab, find **"Samsara"** and click the blue **"Integrate"** button.
+3. In the **"Add Integration"** window, use the drop-down menu to select **"Samsara"**.
+4. Paste the token you copied from Samsara into the **"API Key"** field.
+5. Select the subsidiaries that Samsara will be used for. To apply the integration to all subsidiaries, check **"All Subsidiaries"**.
+6. Click the blue **"Save"** button.
+
+### Add Samsara asset IDs to trucks and trailers
+
+Before beginning, confirm that all trucks and trailers you want to connect are already set up in Alvys.
+
+1. In Alvys, select **"Assets"** from the left menu, then choose either **"Trucks"** or **"Trailers"**.
+2. From the asset list, find the asset you want to configure and double-click it to open the **"Edit Asset"** page.
+3. Scroll down to the **"ELD Integrations"** section and click the blue **"Add Integration"** button.
+4. In the **"Add Integration"** window, select **"Samsara"** from the drop-down menu.
+5. Find the Samsara asset ID. The ID is located in the URL when you view the asset in Samsara. For example, in the URL [https://cloud.samsara.com/o/25542/devices/281474978231471/vehicle](https://cloud.samsara.com/o/25542/devices/281474978231471/vehicle), the asset ID is **281474978231471** (the number in the devices section of the URL).
+
+   <Note>
+     ![Example Samsara asset URL with asset ID highlighted](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1358512358/542e2bb81aca2d6774565d44ee31/image.png)
+
+     *Example Samsara asset URL with asset ID highlighted*
+   </Note>
+
+   ![Example Samsara asset URL with asset ID highlighted](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1358512358/542e2bb81aca2d6774565d44ee31/image.png)
+
+   *Example Samsara asset URL with asset ID highlighted*
+6. Paste the asset ID into the **"Integration ID"** field.
+7. For trailers: fill in the **"Asset ID"** only. Leave the **"Sensor ID"** field blank. Once you save the asset ID, Alvys will automatically connect all associated external sensors, including temperature and door sensors.
+8. Click the blue **"Save"** button.
+9. Repeat these steps for each remaining truck and trailer.
+
+## What syncs?
+
+Samsara sends the following data types to Alvys through this integration:
+
+- Location data: real-time GPS position of trucks and trailers, displayed on the Alvys asset map.
+- Hours of Service (HOS): driver HOS records from Samsara-equipped trucks, used for compliance visibility in dispatch planning.
+- IFTA mileage: state-by-state mileage data pulled from Samsara and used in the Alvys IFTA reporting module.
+- Temperature and door sensor data: for refrigerated trailers, Samsara transmits temperature readings and door open/close events. These are connected automatically when you save a trailer's asset ID — no separate sensor ID entry is needed.
+
+  The asset ID entered in Alvys must match the Samsara asset ID visible in the URL when you view the asset in Samsara. Mismatched IDs will prevent data from flowing to that asset.
+
+  **How sync behaves:**
+- Samsara data flows into Alvys on an ongoing basis once an asset ID is saved and the integration is active for the relevant subsidiary.
+- Each asset must be linked individually with its Samsara asset ID. Linking the integration at the subsidiary level does not automatically link individual assets.
+- If a driver assigned to a trip is not linked to your Samsara account, Alvys displays a warning during trip assignment. Tablet-based workflows will not be available for that trip: stop tasks, document uploads, and forms are disabled when the driver is not linked to Samsara.
+- The Samsara integration supports all subsidiaries in your Alvys account. Selecting **"All Subsidiaries"** when configuring the integration applies the token across all of them.
+
+### What is not supported:
+
+- The **"Sensor ID"** field for trailers is not used with Samsara. Leave it blank; all associated sensors connect automatically through the asset ID.
+- Samsara data does not flow back from Alvys to Samsara. Load assignments, stop updates, and dispatch changes in Alvys are not sent to Samsara.
+- Each asset must be linked individually. There is no bulk import of Samsara asset IDs.
+- The Samsara integration is available only to subsidiaries explicitly selected during the Integrate step. Assets belonging to a subsidiary that was not selected will not receive data.
+
+### To verify the integration is active after setup:
+
+1. Navigate to **"Management"** > **"Integrations"** and confirm that Samsara appears as connected under the **"ELD"** tab.
+2. Open an asset (truck or trailer) that you linked with a Samsara asset ID and confirm the **"ELD Integrations"** section shows Samsara as an active integration.
+3. Check the Alvys asset map to confirm that the truck or trailer is showing a location.
+4. If you are using Samsara for IFTA reporting, navigate to the IFTA module and confirm that ELD mileage data appears for the relevant trucks.
+
+## Troubleshooting
+
+### Samsara does not appear under the ELD tab in Management > Integrations
+
+1. Confirm you are signed in with an **"Admin"**, **"Partner Admin"**, or **"Support"** role. Users without these roles cannot access the Integrations page.
+2. Confirm that your Alvys account has the Samsara integration enabled. If you do not see Samsara listed, contact Alvys support to verify that the integration is available for your account.
+
+### ELD data is not flowing to an asset
+
+1. Open the asset in Alvys and verify that Samsara is listed in the **"ELD Integrations"** section with the correct asset ID saved.
+2. Confirm that the asset ID in Alvys matches the Samsara asset ID visible in the URL when you view the asset in Samsara. The ID must be entered exactly as it appears in the URL.
+3. Confirm that the subsidiary this asset belongs to was selected when you saved the Samsara integration. If the subsidiary was not included, edit the integration and add it.
+4. If all of the above are correct and data is still not appearing, contact Alvys support.
+
+### Samsara token is not accepted in Alvys
+
+1. Confirm that you accepted the Samsara Data Import and Sharing Addendum when generating the token. Tokens generated without accepting the addendum may not carry the required permissions.
+2. Confirm that all required granular scope permissions were enabled when generating the token in Samsara. If any permissions were missing, edit your existing token in Samsara to add them — the token value will remain the same.
+3. If the token was generated but then revoked or expired in Samsara, generate a new token and update the API Key field in Alvys.
+
+### Driver assignment shows a Samsara warning
+
+When Alvys displays the message that a driver is not linked to your Samsara account and that tablet-based workflows will not be available, this means the driver's record in Alvys is not matched to a driver in your Samsara account. Check that the driver exists in Samsara and that their record in Alvys is correctly linked. If the driver should not be linked to Samsara for that subsidiary, the warning can be disregarded.
+
+## FAQs
+
+**Q: What happens if I don't enable all the granular scope permissions when generating the token?**
+
+**A:** ELD data from Samsara will not flow into Alvys. Make sure all required permissions are enabled when generating your token in Samsara.
+
+**Q: Do I need to create a new token if I need to add the Sensors: Write permission?**
+
+**A:** No, you can edit your existing token in Samsara to add the Sensors: Write permission. The token value will remain the same after editing.
+
+**Q: How do I find my Samsara asset IDs for trailers with temperature sensors?**
+
+**A:** The asset ID is the number visible in the URL when you view the trailer in Samsara (for example, 281474978231471 from [https://cloud.samsara.com/o/25542/devices/281474978231471/vehicle](https://cloud.samsara.com/o/25542/devices/281474978231471/vehicle)). Once you save that ID in Alvys, all associated sensors — including temperature and door sensors — will connect automatically.
+
+**Q: Can I use the same Samsara token for multiple subsidiaries?**
+
+**A:** Yes. When you add the Samsara integration in Alvys, you can select multiple subsidiaries or choose All Subsidiaries. A single token covers all subsidiaries you select.
+
+**Q: Why is the ELD Integrations section not visible on an asset page?**
+
+**A:** The ELD Integrations section appears on every truck and trailer page. If you cannot see it, scroll down on the Edit Asset page — the section is located below the main asset details. If the section is missing entirely, contact Alvys support.
+
+## Go Deeper
+
+- [IFTA Reports](/help/reports-analytics/ifta-reports)

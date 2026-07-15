@@ -1,0 +1,82 @@
+---
+title: "Customer Account Manager Role on Loads"
+description: "We’re introducing the Customer Account Manager role to simplify role management on loads and customer profiles, offering better flexibility for tenants needing precise payroll tracking."
+---
+
+<Note>
+  📋 **Applies to:** All users
+
+  **Module:** Loads and Trips
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  The Customer Account Manager is a role that appears on the Load Details page and on Customer Profiles. When a Customer Account Manager is assigned to a Customer Profile, Alvys automatically populates that user as the Customer Account Manager on any new loads created for that customer. The field can also be updated manually on individual loads at any time.
+</Note>
+
+## Overview
+
+The Customer Account Manager role lets your organization track which team member is responsible for a customer's account on a per-load basis. This role appears on the Load Details page alongside other load roles such as Load Planner, Customer Service Rep, and Sales Manager.
+
+The Customer Account Manager role is designed for organizations that need additional role types to track payroll and maintain clear accountability across their teams.
+
+Only users with an **Admin** or **User** Alvys account type can be assigned as a Customer Account Manager on a load.
+
+## Where to Find It
+
+The Customer Account Manager field appears in two places:
+
+- **Load Details page:** In the roles section of a load, alongside Load Planner, Customer Service Rep, and Sales Manager.
+- **Customer Profile:** In the roles section of a customer's profile, where you set the default Account Manager for that customer.
+
+## Key Concepts
+
+### Auto-population on new loads
+
+When you assign a Customer Account Manager to a Customer Profile, Alvys automatically fills in that user as the Customer Account Manager on every new load created for that customer. This eliminates the need to manually assign the Account Manager each time a load is created for that customer.
+
+### Load-level overrides
+
+The auto-populated Customer Account Manager on a load can be changed at any time. Updates made directly on a load affect only that load. Changing the Customer Account Manager on a Customer Profile does not retroactively update the Customer Account Manager field on any existing loads. Each load must be updated separately if a change is needed on previously created loads.
+
+### Who can be assigned
+
+Only users with an **Admin** or **User** Alvys account type can be assigned as a Customer Account Manager on a load.
+
+## How to Use It
+
+- To set the default Customer Account Manager for a customer, see the Customer Profile settings in the Customers module.
+- To update the Customer Account Manager on an individual load, open the load on the Load Details page and edit the Customer Account Manager field directly in the roles section.
+
+## Settings &amp; Permissions
+
+No additional permission beyond standard login is required to update the Customer Account Manager field on a load. Any authenticated user can make this change.
+
+Users must have an **Admin** or **User** Alvys account type to appear as an available selection when assigning a Customer Account Manager.
+
+## Limits &amp; Behavior
+
+- Only one Customer Account Manager can be assigned to a load at a time.
+- Changing the Customer Account Manager on a Customer Profile does not update the field on any existing loads. Existing loads retain the Customer Account Manager that was set when each load was created (or last manually updated).
+- If no Customer Account Manager is assigned on the Customer Profile at the time a load is created, the Customer Account Manager field on the new load will be empty.
+
+## FAQs
+
+**Q: Will changing the Customer Account Manager on a Customer Profile update existing loads?**
+
+**A:** No. The change applies only to new loads created after the update. Existing loads retain their current Customer Account Manager and must be updated individually.
+
+**Q: Who can be selected as a Customer Account Manager on a load?**
+
+**A:** Only users with an Admin or User Alvys account type can be assigned as a Customer Account Manager.
+
+**Q: Can I remove the Customer Account Manager from a load without assigning a new one?**
+
+**A:** Yes. You can clear the Customer Account Manager field on a load without replacing it. The field will be left empty.
+
+**Q: Do I need a special permission to assign or change the Customer Account Manager on a load?**
+
+**A:** No. Any authenticated user can update the Customer Account Manager field on a load. No additional permission is required.
+
+**Q: Where else does the Customer Account Manager role appear besides on loads?**
+
+**A:** The Customer Account Manager role also appears on Customer Profiles, where it sets the default value that auto-populates on new loads for that customer.

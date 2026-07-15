@@ -1,0 +1,167 @@
+---
+title: "PrePass Toll Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Office Admin
+
+  **Module:** Management > Integrations > Tolls
+
+  **Provider:** PrePass · **Integration type:** One-way · **Sync direction:** Manual CSV upload from PrePass into Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  The PrePass toll integration lets you import toll transaction data from PrePass into Alvys via manual CSV upload: use it to track toll expenses, reconcile charges, and deduct tolls from owner-operator paystubs.
+</Note>
+
+## Overview
+
+The PrePass toll integration lets you import toll transaction data from PrePass into Alvys. This is a manual, one-way import: you download a Toll Details CSV from the PrePass Reports Portal and upload it into Alvys. Alvys matches each toll transaction to the correct truck using the transponder ID stored in the truck's Pass Details.
+
+Use this integration to track toll expenses across your fleet, reconcile toll charges, and deduct tolls from owner-operator paystubs where applicable. Only owner-operator trucks will see toll deductions on paystubs.
+
+Also known as: PrePass tolls, toll transponder import, toll report upload. PrePass transponder numbers typically start with 77.
+
+## Prerequisites
+
+Before setting up this integration, confirm the following:
+
+- You have Admin, Partner Admin, or Office Admin access in Alvys.
+- You have login credentials for your PrePass account at [www.prepass.com](http://www.prepass.com/).
+- Your subsidiaries are already configured in Alvys.
+- You have the transponder IDs for each truck that uses PrePass.
+
+## How to connect
+
+No API credentials are required for the PrePass integration. Enabling the integration registers PrePass as an available upload type in the Toll Report.
+
+1. Go to **Management** and select the subsidiary you want to integrate with PrePass.
+2. Click the blue **Integrate** button.
+3. In the integrations list, scroll down to the **Tolls** section.
+4. Select **PrePass** from the list.
+5. Select all subsidiaries that will use PrePass for tolls.
+6. Click the blue **Save** button.
+
+   After enabling the integration, add transponder IDs to each truck so transactions can be attributed:
+7. From the Alvys toolbar, go to **Assets** and select **Trucks**.
+8. Select the truck that corresponds with the transponder you want to add.
+9. Scroll down to the **Pass Details** section.
+10. Set whether to deduct tolls using the Deduct Tolls option.
+11. Select **PrePass** in the **Issued By** field.
+12. Enter the transponder ID in the **Pass Number** field. PrePass transponder numbers typically start with 77.
+
+    ![This image shows the Pass Details section of a truck profile with the Issued By field set to PrePass and the Pass Number field.](https://alvys.intercom-attachments-1.com/i/o/1103652719/eea9e3c9b4f1ae8408ca0a20/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fc204d85b-ca92-4733-a98c-33a791b37096-2FPassDetails.png)
+
+    *This image shows the Pass Details section of a truck profile with the Issued By field set to PrePass and the Pass Number field.*
+13. Click **Add Pass** to save.
+
+    Repeat for all trucks that use PrePass transponders.
+
+    Then download the toll transactions from PrePass:
+14. Log in to your PrePass account at [www.prepass.com](http://www.prepass.com/).
+15. Click **Select** on the corresponding PrePass account.
+
+    ![This image shows the PrePass account selection screen.](https://alvys.intercom-attachments-1.com/i/o/1103652739/eced6654df0429c80ed0b224/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F03c51810-98d5-4ced-b1ce-4a9b24007557-2FUntitled.png)
+
+    *This image shows the PrePass account selection screen.*
+16. Go to **Reports Portal**.
+
+    ![This image shows the PrePass navigation with the Reports Portal option highlighted.](https://alvys.intercom-attachments-1.com/i/o/1103652763/dc32d0705392eb7fc842a7e3/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F04b61f89-a75a-40ea-8135-d3ce69b22a0a-2FUntitled.png)
+
+    *This image shows the PrePass navigation with the Reports Portal option highlighted.*
+17. Go to **Toll Details**.
+
+    ![This image shows the Toll Details section in the PrePass Reports Portal.](https://alvys.intercom-attachments-1.com/i/o/1103652779/a3b194b3f29cbc3876ee50f7/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fbd775793-5c71-4db7-ad75-272b8d424c75-2FUntitled.png)
+
+    * This image shows the Toll Details section in the PrePass Reports Portal.*
+18. Enter your date range.
+
+    ![This image shows the date range entry fields in the PrePass Toll Details report.](https://alvys.intercom-attachments-1.com/i/o/1103652792/01934acdc36c949b9bf2e6f1/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fb35420e4-c82e-4ff2-bba4-210d71e72840-2FUntitled.png)
+
+    * This image shows the date range entry fields in the PrePass Toll Details report.*
+19. Click **View Report**.
+
+    ![This image shows the View Report button in the PrePass Toll Details screen.](https://alvys.intercom-attachments-1.com/i/o/1103652804/df3565a702c36d8594d0e7f2/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fc02c2f8e-ec2f-42a9-ac8f-0c7a3526651a-2FUntitled.png)
+
+    *This image shows the View Report button in the PrePass Toll Details screen.*
+20. Click the export icon and select **CSV**.
+
+    ![This image shows the export icon with the CSV option highlighted.](https://alvys.intercom-attachments-1.com/i/o/1103652814/8a9ce313de2e6f99f7a3e0c3/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fbe0ab44d-3369-46e7-9dd3-b3bf34e262ed-2FUntitled.png)
+
+    *This image shows the export icon with the CSV option highlighted.*
+21. Save the CSV file to your device.
+
+    ![This image shows the file save dialog after clicking export from PrePass.](https://alvys.intercom-attachments-1.com/i/o/1103652833/1d3308ca215f82c824b31687/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F9e332d2a-1485-42b7-9982-b821398a306f-2FUntitled.png)
+
+    *This image shows the file save dialog after clicking export from PrePass.*
+
+    Finally, upload the report to Alvys:
+22. From the Alvys toolbar, go to **Reports** and select **Toll Report**.
+
+    ![This image shows the Alvys toolbar with Reports selected and Toll Report highlighted.](https://alvys.intercom-attachments-1.com/i/o/1103652848/540b1788b3a1bebaabe653b1/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F54239ee3-b00e-41dc-a879-e97cacaf19cd-2FUntitled.png)
+
+    *This image shows the Alvys toolbar with Reports selected and Toll Report highlighted.*
+23. On the Toll Report page, click the blue **upload button** in the bottom right of the screen.
+
+    ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103652873/7f54c240e9784da03d938bf7/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F3ec19074-443f-4950-bd96-c9dbea30f177-2FUploadTollReport.png)
+24. In the popup, select **PrePass** as the source, add the CSV file, and click **Upload**.
+
+    ![This image shows the upload popup with PrePass selected as the source and the file upload area visible.](https://alvys.intercom-attachments-1.com/i/o/1103652894/e3f698a3f53854c37a09b370/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F68159145-b790-4c55-947f-b4d1eb6769b3-2FUntitled.png)
+
+    *This image shows the upload popup with PrePass selected as the source and the file upload area visible.*
+25. Once the file uploads successfully, the toll transactions will appear in the Toll Report.
+
+## What syncs
+
+After uploading a PrePass CSV, Alvys maps transaction data as follows:
+
+- The transponder ID on the CSV is matched against the Pass Number stored in each truck's Pass Details section. Transactions are attributed to the truck whose transponder ID matches.
+- Transaction date and toll amount are imported into the Toll Report.
+- For trucks marked as owner-operator with the Deduct Tolls option enabled, the toll amount is applied as a deduction on the driver's paystub.
+- If the transponder ID on a transaction does not match any truck profile, the transaction will not be attributed. Add or correct the transponder ID on the truck profile, then re-upload the file.
+
+The PrePass integration is a manual, one-way sync from PrePass to Alvys. You initiate each import yourself, there is no automatic or scheduled sync, and Alvys does not write data back to PrePass. Only owner-operator trucks see toll deductions on paystubs; company trucks do not.
+
+## Troubleshooting
+
+### Toll transactions not appearing after upload
+
+1. Go to **Assets > Trucks** and open the truck profile. Confirm a PrePass transponder ID is saved in the Pass Details section under Pass Number, and that **PrePass** is selected in the Issued By field.
+2. Verify the transponder ID in Alvys matches what appears in the PrePass CSV export.
+3. Correct the transponder ID if needed, then re-upload the CSV.
+4. If transactions are still missing after correcting the transponder ID, contact Alvys support.
+
+### Owner-operator toll deductions not appearing on paystub
+
+1. Confirm the truck is associated with an owner-operator driver in Alvys.
+2. Confirm the **Deduct Tolls** option is enabled in the truck's Pass Details section.
+3. Re-upload the toll report after confirming both settings.
+4. Contact Alvys support if deductions are still not appearing.
+
+### Upload fails or returns an error
+
+1. Confirm you selected **PrePass** as the source in the upload popup.
+2. Confirm the file is the Toll Details CSV downloaded from the PrePass Reports Portal.
+3. Contact Alvys support if the error persists.
+
+## FAQs
+
+**Q: How do I find my PrePass transponder number?**
+
+**A:** PrePass transponder numbers typically start with 77. You can find them in your PrePass account under your fleet or transponder management section.
+
+**Q: Do all trucks need a transponder ID added in Alvys?**
+
+**A:** Yes. Each truck that uses PrePass must have its transponder ID saved in the Pass Details section of the truck profile.
+
+**Q: Will toll deductions show up on all driver paystubs?**
+
+**A:** No. Only owner-operator trucks with the Deduct Tolls option enabled will have toll amounts deducted on paystubs.
+
+**Q: How often should I upload toll transaction reports?**
+
+**A:** This depends on your reporting and reconciliation schedule. Upload frequency should align with your settlement cycle.
+
+**Q: Does this integration support automatic imports?**
+
+**A:** No. Each upload must be initiated manually. The integration is one-way: data flows from PrePass into Alvys only.

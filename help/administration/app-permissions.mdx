@@ -1,0 +1,318 @@
+---
+title: "App Permissions"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Operation Managers · any user with the **"Set Permission"** permission
+
+  **Module:** Management > Users
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  App permissions control what drivers and carrier users can see and do inside the Alvys mobile app: this article explains each of the nine App permissions, where to find them, and how to decide which drivers should have them.
+</Note>
+
+## Overview
+
+App permissions (also called mobile permissions or driver app settings) govern the mobile experience for drivers and carriers using the Alvys app. These permissions are separate from the web-based permissions that control what back-office staff can do in the TMS.
+
+App permissions sit at the intersection of operations, finance, and privacy. They determine whether a driver can see their pay rate before delivery, whether they can edit load information while on the road, and which documents are accessible during a trip.
+
+Understanding these settings matters for every administrator and operations manager because the choices made here shape the driver experience and determine what information carriers can access. Some companies choose full transparency — showing pay, documents, and trip value. Others take a more restricted approach for privacy or security reasons. Both approaches are valid. This article explains what each permission does so you can make the right decisions for your operation.
+
+## Where to Find It
+
+App permissions are managed from the user profile in the Alvys web application.
+
+<Warning>
+  ⚠️ To modify any user's permissions, the logged-in user must have the **"Set Permission"** permission (located in the Management category), or hold the Admin, Partner Admin, Operation Manager, or Support role. · Without **"Set Permission"**, a user can view a profile but cannot change any permissions. · For more information, see the [Management &amp; Privacy Permissions article](/help/administration/management-privacy-permissions).
+</Warning>
+
+To reach App permissions from the user profile:
+
+1. Select your **username** in the bottom-left corner of the screen.
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c32ecd24-ae40-469c-a648-d25b7872b593/image.png)
+
+   <Note>
+     📷
+
+     ![Username location in bottom-left navigation.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a92fb46b-cd24-4e22-a290-a776e9b2cf38/image.png)
+
+     *Username location in bottom-left navigation. *
+   </Note>
+
+   ![Username location in bottom-left navigation.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a92fb46b-cd24-4e22-a290-a776e9b2cf38/image.png)
+
+   *Username location in bottom-left navigation. *
+2. Navigate to **Company Profile** and select the **Users** tab.
+3. Select an existing user to **Edit**, or select **Add User** to create a new profile.
+
+<Note>
+  📷
+
+  ![Company Profile Users tab](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ccd2b083-652e-4cec-9c01-5f018a869cba/image.png)
+
+  *Company Profile Users tab*
+</Note>
+
+1. Scroll to the **Permissions** section and locate the **App** category.
+2. The App category contains nine checkboxes: **"View Trip Value"**, **"Issue ECheck"**, **"Cancel ECheck"**, **"View Customer Rate Confirmation"**, **"View Carrier Rate Confirmation"**, **"View Payable Amount"**, **"View App Paystubs"**, **"Edit Trailer Number"**, and **"Send Carrier Rate Confirmation Email"**.
+
+<Note>
+  📷
+
+  ![App permissions checkbox list in the Permissions section.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4487e44d-546a-47cf-850c-a60e57e9a061/4132ab89-f112-4362-b3fb-d681543ddbf7.png)
+
+  *App permissions checkbox list in the Permissions section. *
+</Note>
+
+## Key Concepts
+
+**App permissions vs. web permissions:** Web permissions control what back-office users see and do in the TMS. App permissions control what drivers and carriers see and do in the mobile app. A permission that appears in both the App category and another category (such as Rates or E-Check) is the same permission: enabling it in one place enables it everywhere.
+
+**Driver app onboarding:** When an administrator creates a new driver in the Driver List, they enter the driver's mobile phone number. This number is the unique identifier that connects the driver to the Alvys mobile app. Once the driver downloads the app and enters their phone number, the system sends a one-time SMS verification code. After successful verification, Alvys automatically creates a user account with the Driver role under Company Profile > Users. The administrator can then assign App permissions to that account.
+
+<Info>
+  💡 Driver app onboarding flow: Driver record created in Driver List (with mobile number) → Driver downloads app → Driver enters phone number → SMS verification code sent → Driver verifies → System auto-creates Driver user account under Company Profile > Users → Administrator assigns App permissions.
+</Info>
+
+## How to Use It
+
+App permissions are set per user. There is no global default that applies to all drivers at once. Each driver's App permissions must be configured individually on their user profile.
+
+For step-by-step instructions on navigating to and changing a user's permissions, see the [Management &amp; Privacy Permissions article](/help/administration/management-privacy-permissions).
+
+## Settings &amp; Permissions
+
+### "View Trip Value"
+
+**"View Trip Value"** controls whether a driver can see the total value of a trip in the mobile app. When this permission is not granted, the trip value field is hidden on the load screen.
+
+This permission also appears in the Rates category, where it governs trip value visibility on the web interface load board and Money Box components. It is the same permission: enabling it in either location enables it in both.
+
+<Note>
+  📷
+
+  ![Mobile app load screen showing trip value field](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/dfcbe7a2-41b6-42b7-b8ba-4be64d4df03f/image.png)
+
+  *Mobile app load screen showing trip value field*
+</Note>
+
+<Info>
+  💡 This permission controls trip value visibility across both the web interfaces. For full documentation of its web behavior, see the [Rates Permissions article](/help/administration/rates-permissions).
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/14600889-2e48-4d3e-9df1-e63897afdafb/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a573b064-d405-428f-9ee7-8b292c43da57/image.png)
+</Info>
+
+<Info>
+  💡 Best practice: Grant **"View Trip Value"** to owner-operators who need to verify their trip payments in the mobile app. For company drivers, evaluate whether visibility of trip values is necessary before enabling this permission.
+</Info>
+
+### "Issue ECheck"
+
+**"Issue ECheck"** controls whether a driver can generate e-checks through the mobile app. E-checks are electronic payment instruments used to provide drivers with funds for fuel, lumper fees, and other road expenses.
+
+Generating e-checks requires an active e-check integration. The company must be integrated with Comdata or EFS for this permission to function.
+
+This permission also appears in the E-Check category, where it controls e-check issuance through the web interface. It is the same permission in both places.
+
+<Note>
+  📷
+
+  ![Mobile app e-check generation screen.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1d236c27-c966-4561-b110-287670614098/image.png)
+
+  *Mobile app e-check generation screen. *
+
+  ![E-check issuance form in the mobile app](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/79420b81-2a21-421c-b92c-8a9ff1499f65/image.png)
+
+  *E-check issuance form in the mobile app*
+</Note>
+
+<Info>
+  💡 For full documentation of this permission's behavior in the web interface, see the [E-Check Permissions article](/help/administration/e-check-permissions).
+
+  ![E-Check category permission checkbox showing Issue ECheck.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a5d15ba0-4fef-451d-8474-dde1d667989b/image.png)
+
+  *E-Check category permission checkbox showing Issue ECheck.*
+</Info>
+
+<Info>
+  💡 Best practice: Grant **"Issue ECheck"** only to drivers who have the authority to commit company funds for road expenses. Also ensure that an e-check spending cap is set for any driver receiving this permission.
+
+  ![E-check cap field on the driver profile.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f0f66647-c1f5-4bce-a85d-f068f95fc69c/image.png)
+
+  *E-check cap field on the driver profile.*
+</Info>
+
+### "Cancel ECheck"
+
+**"Cancel ECheck"** controls whether a driver can cancel a previously issued e-check through the mobile app. Canceling an e-check voids the payment before the funds are cashed, reversing the authorization.
+
+This is a corrective action used when an e-check was issued in error, when the driver no longer needs the funds, or when the amount was incorrect. Canceling from the mobile app allows a quick response to changing field conditions without requiring a call to the back office.
+
+This permission also appears in the E-Check category and controls the same action in both the web interface and the mobile app.
+
+<Note>
+  📷
+
+  ![Mobile app e-check cancellation screen](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/91e64430-0aa7-4fc2-91e1-c9a0f1f837db/image.png)
+
+  *Mobile app e-check cancellation screen*
+</Note>
+
+<Info>
+  💡 For full documentation of this permission's behavior in the web interface, see the [E-Check Permissions article](/help/administration/e-check-permissions).
+
+  ![E-Check category permission checkbox showing Cancel ECheck](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a5d15ba0-4fef-451d-8474-dde1d667989b/image.png)
+
+  *E-Check category permission checkbox showing Cancel ECheck*
+</Info>
+
+<Info>
+  💡 Best practice: Grant **"Cancel ECheck"** alongside **"Issue ECheck"**. Drivers who can generate e-checks should typically also be able to cancel them to correct errors quickly.
+</Info>
+
+### "View Customer Rate Confirmation"
+
+**"View Customer Rate Confirmation"** allows a driver or carrier user to open and read the customer rate confirmation document in the mobile app. This document shows the rate your company has agreed to receive from the customer for the load: it is the rate your company charges the customer, not the rate paid to the driver or carrier.
+
+The document typically includes the customer's name, the contracted rate, the lane, commodity, and terms. This is normally a back-office document between your company and your customer. Granting this permission means the driver can see what the customer is paying your company, which is separate from what the driver or carrier is being paid.
+
+There are legitimate operational reasons for a driver to see this document. For example, a driver representing your company at a shipper's dock may need to reference the agreed rate for paperwork matching. However, this is a sensitive business document. If the customer rate is significantly higher than the driver or carrier rate, a driver who can see both values can infer your company's margin on the load.
+
+<Note>
+  📷
+
+  ![Mobile app customer rate confirmation document view.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/12d7983e-b238-4a33-a262-f57a3945f60a/image.png)
+
+  *Mobile app customer rate confirmation document view.*
+</Note>
+
+<Info>
+  💡 Best practice: Do not grant **"View Customer Rate Confirmation"** to all drivers. Limit this permission to scenarios where it is operationally necessary, such as a broker-carrier relationship where the carrier legitimately needs the customer document for bill of lading or customs purposes.
+</Info>
+
+### "View Carrier Rate Confirmation"
+
+**"View Carrier Rate Confirmation"** allows a driver to open and read their own carrier rate confirmation document in the mobile app. This document states the rate your company has agreed to pay the carrier for the load. It includes the lane, load details, agreed rate, and any special terms specific to the carrier.
+
+Without this permission, carrier rate confirmation documents are hidden in the mobile interface. With it, the driver can open and review the document directly on their device.
+
+<Note>
+  📷
+
+  ![Mobile app carrier rate confirmation document view.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ed7e1470-631d-4885-99b7-09f544297018/image.png)
+
+  *Mobile app carrier rate confirmation document view. *
+</Note>
+
+<Info>
+  💡 Best practice: Grant **"View Carrier Rate Confirmation"** to owner-operators and leased operators who need to verify their contracted rate before or during a load. This permission is standard for carriers operating under their own authority.
+</Info>
+
+### "View Payable Amount"
+
+**"View Payable Amount"** allows a driver to see the specific dollar amount they will be paid for a trip directly in the mobile app.
+
+This is different from **"View Trip Value"**. While **"View Trip Value"** shows the total value of the trip, **"View Payable Amount"** shows the portion payable to the driver specifically. The payable amount includes the base rate, accessorials, deductions, and settlement items to calculate the net amount owed to the driver.
+
+Without this permission, no pay figure appears on the load screen. Pay information is only accessible to the driver after settlement processing is complete. For example, if a load pays $2,200 total and the driver is on a 70% split, **"View Payable Amount"** would show $1,540 — the driver's share — rather than the total rate.
+
+<Note>
+  📷
+
+  ![Mobile app load screen showing payable amount field.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ecf31aed-6cc5-416a-8d85-b671d987a9bf/image.png)
+
+  * Mobile app load screen showing payable amount field.*
+</Note>
+
+<Info>
+  💡 Best practice: Grant **"View Payable Amount"** to owner-operators and drivers on percentage-based pay plans who need to verify their earnings per load. For salaried drivers, evaluate whether per-load pay visibility is necessary.
+</Info>
+
+### "View App Paystubs"
+
+**"View App Paystubs"** allows a driver to access their historical pay stubs directly within the Alvys mobile app. Drivers with this permission can browse their pay history in the app, including settlement amounts, deductions, advance repayments, and load-by-load breakdowns for each pay period.
+
+Without this permission, no pay history section appears in the app and the driver can only view current load information. With this permission, a Pay Statements section appears in the driver profile within the app.
+
+<Note>
+  📷
+
+  ![Mobile app Pay Statements section in driver profile.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/fcc7c7cf-85da-42fc-85cc-79f752c629c6/image.png)
+
+  *Mobile app Pay Statements section in driver profile.*
+</Note>
+
+<Info>
+  💡 Best practice: Grant **"View App Paystubs"** to all drivers who use the mobile app. This provides convenient self-service access to pay history and reduces calls to the back office for pay questions.
+</Info>
+
+### "Edit Trailer Number"
+
+**"Edit Trailer Number"** allows a driver to change the trailer number on their load directly within the Alvys mobile app. The trailer number identifies the physical trailer being hauled. Without this permission, the trailer number can only be updated by a dispatcher or back-office user in the TMS.
+
+Drivers frequently swap equipment at drop yards or due to mechanical issues. Enabling this permission allows them to update the system in real time, keeping fleet tracking and compliance records accurate without requiring a call to dispatch.
+
+<Note>
+  📷
+
+  ![Mobile app trailer number field on load screen.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e715d0f4-99ba-4e4c-b659-a33c75f489c0/image.png)
+
+  *Mobile app trailer number field on load screen. *
+</Note>
+
+<Info>
+  💡 Best practice: Grant **"Edit Trailer Number"** to all company drivers and owner-operators. The frequency of legitimate trailer swaps in normal operations makes this a practical necessity. Train drivers to update the trailer number immediately upon a swap, not at the end of the day, to keep records current.
+</Info>
+
+### "Send Carrier Rate Confirmation Email"
+
+**"Send Carrier Rate Confirmation Email"** controls whether a driver or carrier user can trigger the system to send a carrier rate confirmation email directly from the mobile app. This allows the driver or carrier to request or resend the carrier rate confirmation document to an email address without involving a back-office user.
+
+This permission is relevant in scenarios where a carrier needs a copy of their rate confirmation sent to a specific contact for record-keeping or dispatch purposes.
+
+## Limits &amp; Behavior
+
+- App permissions apply per user account. There is no batch assignment for all drivers at once.
+- Permissions that appear in both the App category and another category (Rates, E-Check) are the same permission. Enabling either instance enables both.
+- **"Issue ECheck"** and **"Cancel ECheck"** require an active Comdata or EFS integration to function. Granting the permissions without an active integration will not produce any error — the e-check functionality simply will not appear.
+- **"View Payable Amount"** reflects the driver's net payable amount after deductions and accessorials. It does not show the full load rate unless the driver is on a 100% pay plan.
+- Driver user accounts are created automatically when a driver verifies the mobile app with their phone number. Until that verification occurs, no user account exists to assign App permissions to.
+
+## FAQs
+
+**Q:** How do drivers gain access to the Alvys mobile app initially?
+
+**A:** Access is tied to the mobile phone number entered on the driver's profile. Once the driver downloads the app and enters their phone number, they receive an SMS verification code. After successful entry, Alvys automatically links their app to a Driver user account in the system. An administrator can then assign App permissions to that account.
+
+**Q:** Why do some App permissions also appear in other categories like Rates or E-Check?
+
+**A:** Permissions such as **"View Trip Value"**, **"Issue ECheck"**, and **"Cancel ECheck"** are shared across categories because they control functionality in both the web TMS and the mobile app. Enabling the permission in one category automatically enables it in the other — they are the same underlying permission.
+
+**Q:** Should I grant all App permissions to every driver?
+
+**A:** No. Evaluate each permission based on the driver's relationship with the company and their operational needs. Owner-operators generally benefit from more visibility permissions (payable amount, carrier rate confirmation, paystubs). Company drivers on salaried pay typically need fewer financial visibility permissions.
+
+**Q:** What is the difference between **"View App Paystubs"** and a paystubs permission in the Billing category?
+
+**A:** They are separate permissions. **"View App Paystubs"** unlocks the Pay Statements section in the mobile app. A Billing-category paystubs permission controls access through the web interface. A driver needs the App-specific permission to view pay history on their phone or tablet.
+
+**Q:** Can a driver see customer rates on the web load board if I grant them **"View Customer Rate Confirmation"**?
+
+**A:** No. **"View Customer Rate Confirmation"** only allows the driver to open the customer rate confirmation document within the mobile app. It does not affect what the driver can view on the web interface.
+
+**Q:** Why is **"Edit Trailer Number"** important for drivers?
+
+**A:** Drivers frequently swap trailers at drop yards or during mechanical issues. Enabling this permission allows them to update the trailer record in real time, ensuring fleet tracking and compliance records stay accurate without requiring a call to dispatch.
+
+## Go Deeper
+
+- [E-Check Permissions](/help/administration/e-check-permissions)
+- [Rates Permissions](/help/administration/rates-permissions)
+- [Management &amp; Privacy Permissions](/help/administration/management-privacy-permissions)
+- [Tendering Permissions](/help/administration/tendering-permissions)
+- [User Roles &amp; Permissions Collection](/help/administration/user-roles-permissions-collection)

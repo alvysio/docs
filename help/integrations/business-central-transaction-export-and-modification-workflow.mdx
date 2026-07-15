@@ -1,0 +1,730 @@
+---
+title: "Business Central: Transaction Export and Modification Workflow"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin
+
+  **Module:** Accounting
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article explains how Alvys exports customer invoices and carrier and driver bills to Business Central (BC, Business Central, accounting export), how subsidiary routing determines which BC company or entity receives each transaction, and how to modify previously exported transactions.
+</Note>
+
+## Overview
+
+The Business Central integration enables Alvys to automatically export accounting transactions (including customer invoices (sales invoices), carrier purchase invoices, and driver purchase invoices) to your Business Central environment. Alvys serves as the system of record for all exported transactions. Changes must always be made in Alvys and then synchronized to Business Central through regeneration; edits made directly in Business Central can cause data inconsistencies.
+
+This article covers:
+
+- How Alvys determines which Business Central company or entity receives each transaction (subsidiary routing)
+- How customer and vendor records are matched or created in Business Central
+- How to export invoices and bills from Alvys
+- How to modify previously exported transactions depending on their status in Business Central
+- Limitations specific to the Carrier Settlements module and Summary Invoicing
+
+Synonyms used throughout: BC, Business Central, accounting export, transaction sync, invoice export, bill export, purchase invoice, sales invoice.
+
+## Where to Find It?
+
+- **Load Details page:** Individual load invoice export is triggered from the load record itself.
+- **Batch Invoicing page:** Accounting > Invoice ([https://app.alvys.com/#/accounting/invoicing](https://app.alvys.com/#/accounting/invoicing))
+- **Summary Invoicing page:** Accounting > Summary Invoicing ([https://app.alvys.com/#/accounting/summary-invoicing](https://app.alvys.com/#/accounting/summary-invoicing))
+- **Carrier Settlements page:** Accounting > Carrier Settlements
+- **Pay Drivers page (legacy):** Accessible from the Accounting section for tenants using the legacy driver pay workflow.
+- **Driver Settlements page:** Accessible from the Accounting section for tenants using the Driver Settlements module.
+- **Error Transactions page:** Accounting > Error Transactions ([https://app.alvys.com/#/accounting/error-help](https://app.alvys.com/#/accounting/error-help)): review failed exports here.
+
+## Key Concepts
+
+### Subsidiary Routing
+
+When configuring the Business Central integration, each Alvys subsidiary is linked to a specific company connection. This routing logic determines which connected Business Central entity receives exported invoices and bills.
+
+Routing works differently depending on your organizational setup:
+
+- **Individual Company Setup (no subsidiary mapping):** Alvys directs transactions to the specific, separate Business Central database connected to that subsidiary.
+- **Multi-Entity Management (MEM) setup (subsidiary mapped to entity dimension value):** Alvys sends transactions to a shared Business Central database and tags each transaction with the correct Entity Code (Dimension) based on the subsidiary mapping. This allows multiple legal entities to be managed accurately within a single Business Central company.
+
+### Invoice As Field
+
+The **Invoice As** field on a load represents the billing subsidiary responsible for issuing the customer invoice. It determines the legal entity name displayed on the invoice. All Accounts Receivable (AR) transactions exported to Business Central are linked to the subsidiary mapped to the Invoice As field.
+
+For example, if a load's Invoice As field is set to Alvys Inc:
+
+- **Standard Integration:** The sales invoice is exported to the specific Business Central company connection tied to that subsidiary.
+- **MEM Integration:** The invoice is exported to the shared Business Central database, and the Entity Code (Dimension) on the invoice is automatically set to the Business Central value linked to the Invoice As subsidiary (Alvys Inc in this example).
+
+For example, if a load’s Invoice As field is set to Alvys Inc, upon invoice generation:
+
+<Note>
+  ![Load Details page showing “Invoice As” field](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f4c15eff-e1f3-4e47-aaa9-2efaffc3795c/image.png)
+
+  *Load Details page showing “Invoice As” field*
+</Note>
+
+### Tender As Field
+
+The **Tender As** field identifies the subsidiary responsible for dispatching the load and paying the carrier. It also determines the trip type: if the selected subsidiary is set up as a broker, the trip type is Brokerage; if set up as a carrier, the trip type is Carrier.
+
+For example, if a load's Tender As field is set to Alvys Brokerage:
+
+- **Standard Integration:** The carrier purchase invoice is exported to the specific Business Central company connection tied to that subsidiary.
+- **MEM Integration:** The bill is exported to the shared Business Central database, and the Entity Code (Dimension) on the bill is automatically set to the Business Central value linked to the Tender As subsidiary (Alvys Brokerage in this example).
+
+The Tender As field identifies the subsidiary responsible for dispatching the load and paying the carrier. It also determines the trip type. If the selected subsidiary is set up as a broker, the trip type is Brokerage. If the selected subsidiary is set up as a carrier, the trip type is Carrier. For example, if a load’s Tender As field is set to Alvys Brokerage, upon exporting the external carrier bill/Purchase Invoice:
+
+<Note>
+  ![Load Details Page showing “Tendering As”](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2fed05d4-7129-4105-a760-89ba05a70fdc/image.png)
+
+  *Load Details Page showing “Tendering As”*
+</Note>
+
+### Dual Authority Carriers
+
+For carriers operating with dual authority, the operational mode is automatically determined based on the Tender As subsidiary. Users can manually change the operational mode to Carrier or Broker. The chosen operational mode affects how bills are categorized and exported to Business Central.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/85b7e23f-7db2-47c8-94ae-baf9937b7cd6/image.png)
+
+  ![Operational Mode selection for carriers with dual authority.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e3d56f36-394f-4145-b3b0-995410a49cf8/image.png)
+
+  *Operational Mode selection for carriers with dual authority. *
+</Note>
+
+### Driver Subsidiary Field
+
+Each driver profile includes a Subsidiary field representing the business unit to which the driver is assigned. When generating driver statements, the resulting Vendor Bill is exported based on the driver’s assigned subsidiary:
+
+<Note>
+  ![Subsidiary field in driver profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ae191a26-5e95-435b-897b-99679078dce9/image.png)
+
+  *Subsidiary field in driver profile*
+</Note>
+
+### Business Central Transaction Statuses
+
+The status of a transaction in Business Central determines what modifications are possible:
+
+- **Draft:** The transaction is unposted and can be edited directly in Business Central. Changes made in Alvys will update the existing Business Central record on the next sync or invoice regeneration.
+- **Open:** The transaction has been posted. It can no longer be edited directly. Alvys will automatically generate and export a Sales Credit Memo to reverse the original transaction, followed by a new Sales Invoice with the updated details, when the invoice is regenerated in Alvys.
+- **Closed:** A payment has been fully applied and synced from Business Central. No further modifications are permitted at this stage. Contact Alvys Support; this status is the code-verified reason why self-service modification is blocked, as the transaction record is locked once payment is fully reconciled.
+
+## How to Use It?
+
+### Customer Linkage and Accounting Fields
+
+*[Heading 4 not supported]*
+
+The customer's **External Accounting Name** is used to identify a customer or broker in Business Central. When exporting an invoice, Alvys first searches for an exact match in Business Central using this field.
+
+### Customer External Accounting Name
+
+The customer’s **External Accounting Name** is used to identify a customer or broker in Business Central. When exporting an invoice Alvys first searches for an **exact match** in Business Central using this field.
+
+<Note>
+  ![External Accounting Name field on Customer profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/038ef5fe-547d-4a2d-b547-fb8add116955/image.png)
+
+  *External Accounting Name field on Customer profile*
+</Note>
+
+- If a matching customer exists in Business Central, the invoice is linked to that customer.
+- If no match is found and the External Accounting Name is set on the customer profile, Alvys automatically creates a new customer in Business Central using the External Accounting Name.
+- For tenants where the External Accounting Name is not set, Alvys attempts to match using the Customer Name. If no match is found, a new customer is created in Business Central using the Customer Name.
+
+The External Accounting Name always takes priority. If it differs from an existing Business Central customer name, even if the Customer Name in Alvys matches, a new customer will be created using the External Accounting Name.
+
+*[Heading 4 not supported]*
+
+The **Invoicing Name** (previously called Billing Name) determines how the customer or broker appears on invoices generated in Alvys. It does not affect the customer record created in Business Central.
+
+<Note>
+  ![Invoicing Name on Customer Profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/980b21cd-32ca-4700-96d1-702fc9bd992a/image.png)
+
+  *Invoicing Name on Customer Profile*
+</Note>
+
+When creating customers in Business Central, Alvys uses the following fields from the customer or broker profile:
+
+- **Name:** The External Accounting Name is used; if the external name is not set, it defaults to the customer or broker's name.
+- **Invoicing Address**
+- **Customer Email** (not the Invoicing Email)
+- **Customer Phone** (not the Company Number)
+- **Payment Terms**
+
+Alvys is the source of truth for these fields. If a user later updates this information directly in Business Central after Alvys has created the customer record, those changes will be overwritten the next time an invoice is synced from Alvys. All updates to these fields must be made within Alvys to ensure data consistency.
+
+### Payment Terms
+
+The Payment Terms field specifies the agreed-upon period within which a customer must pay an invoice, calculated from the invoice date. In Alvys, this can be set to any value between 0 and 365 days within the customer profile.
+
+<Note>
+  ![Customer Profile field for payment terms](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/675a539a-fbe1-46db-acbb-ab314d9c8eb6/image.png)
+
+  *Customer Profile field for payment terms*
+</Note>
+
+Payment Terms determine the due date for the load as well as the invoice due date and payment terms exported to Business Central on the sales invoice. When Alvys creates a new customer in Business Central, it attempts to match the customer's payment terms to existing Payment Terms Codes in Business Central. If no exact match is found, Alvys defaults the customer's terms to 30 Days. Also, when Alvys creates a new customer in Business Central, it attempts to match the customer’s payment terms to the Payment Terms Codes existing in Business Central. If no exact match is found, Alvys defaults the customer's terms to 30 Days.
+
+<Note>
+  ![BC field for Payment Terms Code](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b7fb68ad-9ffc-4084-a40c-4bfc77aefe59/image.png)
+
+  *BC field for Payment Terms Code*
+</Note>
+
+### Vendor Linkage and Accounting Fields
+
+*[Heading 4 not supported]*
+
+The carrier's **External Accounting Name** is used to identify a vendor in Business Central. When exporting a purchase invoice, Alvys first searches for an exact match in Business Central using this field.
+
+### Carrier External Accounting Name
+
+The carrier’s **External Accounting Name** is used to identify a vendor in Business Central. When exporting a purchase Invoice, Alvys first searches for an **exact match** in Business Central using this field.
+
+<Note>
+  ![External Accounting Name on Carrier Profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d51f07d6-50cb-4997-b8a1-483339026f31/image.png)
+
+  *External Accounting Name on Carrier Profile*
+</Note>
+
+- If a matching vendor exists in Business Central, the bill is linked to that vendor.
+- If no match is found and the External Accounting Name is set on the carrier profile, Alvys automatically creates a new vendor in Business Central using the External Accounting Name.
+- For carriers where the External Accounting Name is not set, Alvys attempts to match using the Carrier Name. If no match is found, a new vendor is created in Business Central using that name.
+
+The External Accounting Name takes priority. If it differs from an existing Business Central vendor name, even if the Carrier or Driver Name in Alvys matches, Alvys will create a new vendor using the External Accounting Name.
+
+*[Heading 4 not supported]*
+
+Drivers, including company drivers and owner-operators, may operate as 1099 drivers. These drivers have additional tax detail fields on their profiles:
+
+- **Tax Company Name**
+- **Tax Company Address**
+
+<Note>
+  ![Driver Profile showing fields for Tax Category, Company Name, and Company Address.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5ce0ab11-983c-4129-a351-39a16404bf99/image.png)
+
+  *Driver Profile showing fields for Tax Category, Company Name, and Company Address. *
+</Note>
+
+When generating driver statements, if these fields are set and the Business Central integration is configured to create vendors using 1099 details, Alvys will create the vendor using the tax information (company name and address). If this setting is not enabled, the vendor will be created using the driver’s name.
+
+<Note>
+  ![Payment terms in company profile of subsidiary](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/de46643a-6cac-47d1-bdfc-17bd79abc882/image.png)
+
+  *Payment terms in company profile of subsidiary*
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a209420c-75db-4f71-8578-522a9f9c7bc6/image.png)
+</Note>
+
+For external carriers, the purchase invoice due date is determined using the Carrier Payment Terms from the company profile of the subsidiary specified in the Tender As field on the trip.
+
+### Invoice Transaction Export
+
+*[Heading 4 not supported]*
+
+Generating a customer invoice from the **Load Details** page triggers its export to Business Central. Before generating the invoice, verify the following:
+
+1. Verify that the customer being invoiced is correct. Ensure the External Accounting Name is properly configured on the customer profile. If no External Accounting Name is set, the standard customer or broker name must exactly match the corresponding customer record in Business Central.
+
+### Individual Load Invoice Export
+
+Generating a customer invoice from the **Load Details** page triggers its export to Business Central. To ensure a successful export, all relevant configurations and data must be verified before the invoice is generated.
+
+Verify that the customer being invoiced is correct. Ensure the **External Accounting Name** is properly configured on the customer profile. If no External Accounting Name is set, the standard customer or broker name must exactly match the corresponding customer record in Business Central.
+
+<Note>
+  ![External Accounting Name on customer profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4f15ed35-e16f-4f59-893a-52e4a124e660/image.png)
+
+  *External Accounting Name on customer profile*
+
+  ![Customer Card in Business Central](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d338e60d-63a8-413f-9bc7-af4a643053c7/image.png)
+
+  *Customer Card in Business Central*
+</Note>
+
+Verify the customer’s invoice settings for the subsidiary used as the Invoice As entity on the load. The Invoice As subsidiary must correspond to the subsidiary configured within the Business Central integration. This alignment determines which specific Business Central company or entity dimension receives the transaction data.
+
+<Note>
+  ![Where to find invoice settings on the customer profile.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3c35a731-672b-4497-82e3-5533f1090b94/image.png)
+
+  *Where to find invoice settings on the customer profile. *
+
+  ![This warning alerts you that your updated settings do not match the default.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4bb06166-27c2-48a9-888c-c128591e205e/image.png)
+
+  *This warning alerts you that your updated settings do not match the default. *
+</Note>
+
+1. Once these conditions are satisfied and the load is in **Released** status, generate the invoice. Generating the invoice automatically initiates the export to Business Central.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8fc9e013-aa2e-4b1c-ab1a-deaa7e8db1da/image.png)
+
+  ![Load details page on a load showing where to generate an invoice.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/98591ed2-a454-4a6c-ae60-635854e4e555/image.png)
+
+  *Load details page on a load showing where to generate an invoice. *
+</Note>
+
+1. Once the invoice is successfully exported from Alvys, locate it in Business Central by navigating to the Sales dropdown menu and selecting Sales Invoices. Invoices are exported as Unposted Sales Invoices, allowing the accounting team to perform a final review of amounts and tax codes before posting to the General Ledger.
+
+<Note>
+  ![Sales Invoice in Business Central](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/df3b36bf-8016-42aa-84cf-a224c8fbde2c/image.png)
+
+  *Sales Invoice in Business Central*
+</Note>
+
+If the invoice was not exported due to an error, the issue can be reviewed on the Error Transactions page ([https://app.alvys.com/#/accounting/error-help](https://app.alvys.com/#/accounting/error-help)). See the Business Central: Identifying and Resolving Failed Transactions article for guidance ([https://help.alvys.com/en/articles/13841602-5-business-central-identifying-and-resolving-failed-transaction](/help/integrations/how-to-resolve-business-central-transaction-export-errors)).
+
+*[Heading 4 not supported]*
+
+The Batch Invoicing page is located at Accounting > Invoice in the left navigation menu ([https://app.alvys.com/#/accounting/invoicing](https://app.alvys.com/#/accounting/invoicing)). This page allows users to create invoices for multiple loads across one or more customers simultaneously. Each selected load is processed as an individual invoice, and the export to Business Central is triggered automatically when the invoices are generated.
+
+<Note>
+  ![Invoice tab in Alvys](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d23764a4-e035-4c4d-a6d7-cef2e5fca038/image.png)
+
+  *Invoice tab in Alvys*
+</Note>
+
+1. From the **Released** tab, select the loads for which you want to generate invoices. Verify that the customer being invoiced is correct. If an External Accounting Name is configured, it must exactly match the corresponding customer record in Business Central. If no External Accounting Name is configured, the standard customer or broker name must match the customer record. Verify that the Invoice As subsidiary on each load is correctly configured, as this determines which specific Business Central company or entity dimension receives the transaction data.
+
+   <Note>
+     ![Loads in the Released tab of the accounting module.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7c957684-cd9a-46d9-a8ee-dbba13e51f7f/image.png)
+
+     *Loads in the Released tab of the accounting module. *
+   </Note>
+
+   ![Loads in the Released tab of the accounting module.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7c957684-cd9a-46d9-a8ee-dbba13e51f7f/image.png)
+
+   *Loads in the Released tab of the accounting module. *
+2. Generate the invoices using one of the following options:
+
+   - **Generate Invoice:** Creates the invoices and exports them to Business Central.
+   - **Create and Send:** Generates the invoices, exports them to Business Central, and sends them to the customer according to the invoicing method configured for that customer.
+
+<Note>
+  ![Generate Invoice button found in the Invoicing module](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4bbf6ce0-38f5-4fec-8c9f-885496cb3ea6/image.png)
+
+  *Generate Invoice button found in the Invoicing module*
+</Note>
+
+Once exported, invoices are recorded in Business Central under the corresponding customer and can be located by navigating to the Sales dropdown menu and selecting Sales Invoices.
+
+If an invoice was not exported due to an error, review the issue on the Error Transactions page ([https://app.alvys.com/#/accounting/error-help](https://app.alvys.com/#/accounting/error-help)). See the Business Central: Identifying and Resolving Failed Transactions article for guidance ([https://help.alvys.com/en/articles/13841602-5-business-central-identifying-and-resolving-failed-transaction](/help/integrations/how-to-resolve-business-central-transaction-export-errors)).
+
+*[Heading 4 not supported]*
+
+Summary invoicing consolidates multiple loads for a customer into a single invoice. The Summary Invoicing page can be accessed at Accounting > Summary Invoicing. For information on configuring customers for summary invoicing, see the Summary Invoicing article ([https://help.alvys.com/en/articles/12159947-summary-invoicing](/help/accounting-settlements/how-to-use-summary-invoicing)).
+
+The invoice export is triggered when the consolidated summary invoice is generated, creating a single invoice reflecting the total amount for all included loads. Only customers configured with the summary invoice type will appear when selecting a subsidiary. The subsidiary selection determines the Business Central subsidiary to which the invoice will be linked.
+
+1. On the Summary Invoicing page ([https://app.alvys.com/#/accounting/summary-invoicing](https://app.alvys.com/#/accounting/summary-invoicing)), open the Loads Not Invoiced tab. Select the loads to include and add them to a draft summary invoice.
+
+<Note>
+  ![Summary Invoicing tab with customer selected](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ffc05a01-192b-4564-a34d-c29ad1396080/image.png)
+
+  *Summary Invoicing tab with customer selected*
+
+  ![List of Draft Invoices with the “Generate Invoice” option available](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/caf71388-eea7-43cb-b479-50dfe871d3de/image.png)
+
+  *List of Draft Invoices with the “Generate Invoice” option available*
+</Note>
+
+1. Generate the invoice. This creates the summary invoice and exports it to Business Central.
+
+Once exported, the invoice is recorded in Business Central under the corresponding customer and can be located by navigating to the Sales dropdown menu and selecting Sales Invoices.
+
+### Bill Transaction Export
+
+*[Heading 4 not supported]*
+
+External carrier bills can be exported directly from individual loads based on the configured external accounting settings. The export is triggered when the customer invoice is generated.
+
+Before generating the invoice, verify the following:
+
+- The correct external carrier is assigned to the trip.
+- The subsidiary selected in the Tender As field is verified; this subsidiary determines which Business Central company or entity dimension the carrier bill will be linked to. The selected subsidiary must be configured to receive carrier bills through the Business Central integration.
+
+For tenants operating in dual-authority mode, an additional validation is required: the operational mode must be set to **Brokerage**. If the operational mode is set to **Carrier**, the external carrier bill export will not occur.
+
+<Warning>
+  ⚠️ For tenants operating in dual-authority mode, an additional validation is required. The operational mode must be set to **Brokerage**. If the operational mode is set to **Carrier**, the external carrier bill export will not occur.
+
+  ![Dual authority toggle](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/03382d1e-0499-42e6-8cc8-4555429f573e/image.png)
+
+  *Dual authority toggle*
+</Warning>
+
+When an external carrier is assigned and the trip is released to billing, the system evaluates the **Generate Carrier Invoice Separately** setting:
+
+- If this setting is **not enabled:** The carrier bill is exported automatically when the customer invoice is generated.
+- If this setting is **enabled:** The system checks whether a document of type Carrier Invoice has been uploaded to the trip. If the document is present, the carrier bill is exported to Business Central when the customer invoice is generated.
+
+<Note>
+  ![Document upload with Type set to “Carrier Invoice”](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f51412da-fbc9-4c83-906b-0e6267a68d33/image.png)
+
+  *Document upload with Type set to “Carrier Invoice” *
+</Note>
+
+*[Heading 4 not supported]*
+
+In Alvys, the carrier invoice number is entered when uploading a document of the type Carrier Invoice to a trip. When the carrier purchase invoice is exported to Business Central, this number is automatically populated in the **Vendor Invoice No.** field. This allows accounting teams to quickly locate purchase invoices within Business Central by searching the Purchase Invoices list using the specific carrier invoice number.
+
+<Note>
+  ![Carrier Info section of Load Details Page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ed5f80d5-1e32-4b9d-8df0-a51929e05840/image.png)
+
+  *Carrier Info section of Load Details Page*
+
+  ![Purchase invoice example in Business Central.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a6799ee5-28cf-4953-b69d-caa1ec9331d8/image.png)
+
+  *Purchase invoice example in Business Central. *
+</Note>
+
+*[Heading 4 not supported]*
+
+The Carrier Settlements module provides brokers with tools to generate transparent and accurate carrier statements and settlement bills. This page is accessible from Accounting > Carrier Settlements. For additional details, see the Carrier Settlements article ([https://help.alvys.com/en/articles/11634577-carrier-settlements](https://help.alvys.com/en/articles/11634577-carrier-settlements)).
+
+When carrier settlements are used, the carrier bill is exported when a carrier statement is generated. To allow this export, the **Carrier Statements External Accounting** setting must be enabled for the subsidiary. If this setting is not enabled, no carrier bill will be exported when the statement is generated.
+
+<Note>
+  ![Carrier Statements toggle in the Business Central Integration settings.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c38cb87a-3b08-4d94-87bf-b8bdb7f99f70/image.png)
+
+  *Carrier Statements toggle in the Business Central Integration settings. *
+</Note>
+
+If this setting is enabled and a user generates a customer invoice for an individual load with an external carrier, the carrier bill will not be exported from the load. In this scenario, the system expects the bill to be exported from the Carrier Settlements module when the statement is generated.
+
+If a carrier bill requires modification after export, see the Modifying Previously Exported Transactions section below.
+
+**Carrier Settlements Module: Payment Sync Limitation**
+
+The current version of the Carrier Settlements feature does not support payment synchronization. While carrier bills are exported from the Carrier Settlements module to Business Central, payments applied in Business Central do not automatically sync back to Alvys. Payments must be recorded manually within Alvys for external carriers.
+
+If an error occurs while exporting a carrier purchase invoice from the Carrier Settlements module, the error details are displayed directly within the module. Carrier statements cannot be re-sent from the Error Transactions page. All corrections must be made within the Carrier Settlements module, and the statement must be regenerated there.
+
+For tenants that use the Carrier Settlements module but prefer carrier bills to export when the carrier invoice is uploaded on the trip, it is recommended not to enable the Carrier Statements External Accounting setting. In this configuration, enable the Generate Carrier Invoice Separately setting, upload the carrier invoice to the trip, and then generate the customer invoice to trigger the carrier bill export.
+
+*[Heading 4 not supported]*
+
+Driver statements (purchase invoices) can be exported from either the legacy Pay Drivers page or the Driver Settlements module. The export behavior is governed by your specific driver billing configuration.
+
+**Single Bill Export (Recommended)**
+
+The recommended configuration is Single Bill for Driver Statement Export. When enabled, all trips, deductions, and credits included in a driver statement are consolidated into a single bill for export to Business Central. This approach is ideal for tenants operating on weekly or biweekly pay cycles.
+
+The subsidiary used for exporting driver bills is determined by the subsidiary assigned on the driver profile in Alvys.
+
+**Pay Drivers Page (Legacy)**
+
+For tenants using the legacy Pay Drivers page, generating a driver statement automatically triggers the export of the purchase invoice to Business Central.
+
+If an error occurs while exporting a carrier purchase invoice from the Carrier Settlements module, the error details are displayed directly within the module. Carrier statements cannot be re-sent from the Error Transactions page. All corrections must be made within the Carrier Settlements module, and the statement must be regenerated there.
+
+For tenants that use the Carrier Settlements module but prefer carrier bills to export when the carrier invoice is uploaded on the trip, it is recommended not to enable the Carrier Statements external accounting setting. In this configuration, enabling the generate carrier invoice separately setting and uploading the carrier invoice to the trip then generating the customer invoice will trigger the carrier bill export.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4796a406-e92b-491d-bcf1-49a157ac02ef/image.png)
+
+  ![Driver Settlements module view with option to “generate stub.”](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d24dffaf-060f-43d0-8776-0d746daf4596/image.png)
+
+  *Driver Settlements module view with option to “generate stub.”*
+</Note>
+
+If a correction is needed, driver statements generated from this page can be reverted. To revert, navigate to the driver profile, click the three dots next to the statement in the right-hand corner, and select the Delete option.
+
+<Note>
+  ![How to delete a driver statement](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/eff2f53e-d835-44d2-a3c1-7a9bf7272e15/image.png)
+
+  *How to delete a driver statement*
+</Note>
+
+Reverting a driver statement in Alvys automatically deletes the corresponding purchase invoice from Business Central, provided the bill remains unposted and no payments have been applied to it.
+
+**Driver Settlements Module**
+
+The Driver Settlements module replaces the legacy Pay Drivers page and introduces advanced features such as draft statements, predefined pay periods, and bulk actions. For additional details, see the Driver Settlements article ([https://help.alvys.com/en/articles/11943598-driver-settlements](https://help.alvys.com/en/articles/11943598-driver-settlements)).
+
+For statements generated via the Driver Settlements module, reverting the statement from the Statements tab automatically removes the associated driver bill from Business Central. This synchronization is successful provided the bill remains unposted and no payments have been applied.
+
+## Settings and Permissions
+
+- **Who can export transactions:** Users with the **"Admin"** or **"Partner Admin"** role. The Accounting Integrations area is restricted to these roles.
+- **Carrier Statements External Accounting setting:** Must be enabled per subsidiary to allow carrier bill export from the Carrier Settlements module. When enabled, carrier bills will not export from individual load invoice generation for external carriers; the system expects the bill to come from the Carrier Settlements module instead.
+- **Generate Carrier Invoice Separately setting:** When enabled, carrier bill export from an individual load is held until a Carrier Invoice document is uploaded to the trip.
+- **Single Bill for Driver Statement Export:** Configured per tenant. When enabled, all trips and adjustments in a driver statement are consolidated into a single purchase invoice for Business Central.
+- **1099 Tax Details for vendor creation:** When this setting is enabled in the Business Central integration configuration, Alvys uses the driver's Tax Company Name and Tax Company Address to create the vendor record instead of the driver's name.
+- **Alvys is the source of truth:** Customer and vendor field values managed in Alvys (name, address, phone, payment terms) will overwrite any changes made directly in Business Central on the next sync.
+
+## Limits and Behavior
+
+##a inconsistencies and prevent updates from syncing correctly. Do not delete transactions in Business Central if you plan to edit and resend them.
+
+*[Heading 4 not supported]*
+
+The behavior of modifications to previously exported invoices depends on the status of the record in Business Central:
+
+**Unposted Invoices (Draft status in BC)**
+
+If the invoice remains unposted in Business Central (**Draft** status), changes made in Alvys will update the existing record upon the next synchronization or invoice regeneration.
+
+**Posted Invoices (Open status in BC)**
+
+If the invoice has already been posted (**Open** status), it can no longer be directly edited. Alvys will automatically generate and export a Sales Credit Memo to reverse the original transaction, followed by a new Sales Invoice containing the updated details, once the invoice is regenerated in Alvys.
+
+**Closed Invoices (Closed status in BC)**
+
+Once a payment has been fully applied and synced from Business Central, the invoice reaches **Closed** status in Alvys. At this stage, no further modifications are permitted. The reason is that the transaction record is locked once payment is fully reconciled in Business Central. Contact Alvys Support for assistance if a **Closed** invoice requires changes.
+
+*[Heading 4 not supported]*
+
+Certain load invoice fields automatically update the Business Central sales invoice without requiring invoice regeneration. Updates to the following fields are applied automatically when saved in Alvys; refresh the invoice page in Business Central to see the changes:
+
+- Customer linehaul amount
+- Customer fuel surcharge
+
+  <Note>
+    ![Money box in the load details page of a load showing customer Linehaul and fuel surcharge.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ae39df52-c890-49bd-b79f-6a4577f85089/image.png)
+
+    *Money box in the load details page of a load showing customer Linehaul and fuel surcharge. *
+  </Note>
+
+  ![Money box in the load details page of a load showing customer Linehaul and fuel surcharge.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ae39df52-c890-49bd-b79f-6a4577f85089/image.png)
+
+  *Money box in the load details page of a load showing customer Linehaul and fuel surcharge. *
+- Accessorial charges (added, edited, or removed)
+
+  <Note>
+    ![Accessorial example in the money box.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/9dfa95ac-8052-4530-9194-0b02dc8e3bc2/image.png)
+
+    *Accessorial example in the money box. *
+  </Note>
+
+  ![Accessorial example in the money box.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/9dfa95ac-8052-4530-9194-0b02dc8e3bc2/image.png)
+
+  *Accessorial example in the money box. *
+- Invoice Date (Document Date in BC)
+- Invoice Due Date
+
+<Note>
+  ![Invoice due date on the load details page of a load under the customer information.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/bcc7751b-623a-402c-8b62-90ccfab5c8b6/image.png)
+
+  *Invoice due date on the load details page of a load under the customer information. *
+</Note>
+
+Other changes require invoice regeneration to sync correctly.
+
+*[Heading 4 not supported]*
+
+The customer associated with a load can only be changed while the load is in a status prior to **Invoiced** (for example, **Queued**). **Queued** status indicates that the invoice has been generated in Alvys but has not yet been submitted to the customer. Once the invoice has been submitted, the load status updates to **Invoiced** based on the invoicing mode, and the customer cannot be changed directly.
+
+If the load is in **Invoiced** status, contact Alvys Support to revert the load status to **Queued**, which then allows the customer to be updated and the invoice to be regenerated for synchronization with Business Central.
+
+**Sample Business Central Invoice Exported from Alvys**
+
+The customer's name displayed on the exported invoice reflects the External Accounting Name.
+
+### Sample Business Central Invoice Exported from Alvys
+
+The customer’s name displayed on the exported invoice reflects the **External Accounting Name**.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5e94c0c6-1c40-4d12-a812-f90bb4334ee5/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7d0e4a8f-4f3e-4065-adfb-c9830dfddcc9/image.png)
+</Note>
+
+**To update the customer on an invoice:**
+
+1. In the Load Details section of the load, click the **Change Customer** button.
+
+   <Note>
+     ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/69141f12-3b4b-43c1-b32a-30df94ad335e/image.png)
+   </Note>
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/69141f12-3b4b-43c1-b32a-30df94ad335e/image.png)
+2. Select the correct customer to assign to the load and save the change.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e784ea63-d27b-450c-9aef-5506e9c7a5bd/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/925109a5-55ee-4cc3-b105-887ce40e84e0/image.png)
+</Note>
+
+1. Regenerate the invoice in Alvys.
+
+   <Note>
+     ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/19c0806a-7bdb-4255-92d6-4a63b01f10e4/image.png)
+   </Note>
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/19c0806a-7bdb-4255-92d6-4a63b01f10e4/image.png)
+2. Refresh or reopen the invoice in Business Central to verify that the customer information has been updated correctly.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c5bae8ba-fb95-44fb-8be0-e3e2c9bd230a/image.png)
+</Note>
+
+*[Heading 4 not supported]*
+
+Fields such as invoicing address, shipping address, customer email, and customer phone are managed in the customer profile.
+
+For these changes to take effect, the load status must be prior to **Invoiced**. If the load has already been invoiced, contact Alvys Support to revert the status to **Queued** before making updates.
+
+**To update customer fields:**
+
+1. Navigate to the customer profile in Alvys.
+2. Apply the necessary changes.
+3. Save the updates.
+4. Regenerate the invoice.
+5. Refresh or reopen the invoice in Business Central to view the changes.
+
+   *[Heading 4 not supported]*
+
+If the Invoice As subsidiary on a load needs to be changed after an invoice has already been exported, the process requires the **"Edit Invoice Customer As"** permission. Because changing the subsidiary routes the invoice to a different Business Central company or entity, the old invoice cannot be automatically updated or replaced through regeneration. The user must manually delete the old invoice from Business Central before regenerating the invoice with the corrected Invoice As subsidiary in Alvys.
+
+*[Heading 4 not supported]*
+
+Modifications to summary invoices that have already been exported depend on the specific scenario.
+
+**Adding or Removing Loads from a Summary Invoice**
+
+The only supported mechanism for adding or removing loads from a summary invoice is to revert the summary invoice. A summary invoice can be reverted only when its status is **Processed**. If the invoice has already been **Sent** or **Paid**, further modification requires intervention from Alvys Support.
+
+Reverting a summary invoice does not update the original invoice in Business Central. After reverting, the user must generate a new summary invoice in Alvys. This new invoice will receive a new summary invoice number, which will be exported to Business Central. The old summary invoice remains in Business Central unless manually deleted.
+
+**Procedure:**
+
+1. Navigate to the All-Invoices tab in Alvys.
+2. Locate the invoice and click the Delete icon for the specific summary invoice.
+
+   <Note>
+     ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e238e212-7a6c-4831-be04-140ec104e5b6/image.png)
+   </Note>
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e238e212-7a6c-4831-be04-140ec104e5b6/image.png)
+3. Navigate to the Loads Not Invoiced tab.
+4. Select the loads to be included in the new summary invoice.
+5. Regenerate the summary invoice.
+6. Verify that the updated summary invoice amount is accurately reflected in Business Central.
+7. Manually delete the old summary invoice from Business Central to avoid duplicate records.
+
+**Modifying or Adding Charges to Loads within a Summary Invoice**
+
+Loads included in a summary invoice can be edited to add charges or make adjustments. Only summary invoices in the following statuses can be regenerated: **Pending**, **Sent**, or **Partially Paid**. If a summary invoice is fully paid, regeneration is not permitted.
+
+**Sample Summary Invoice in Business Central**
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/479e1ec6-5984-41a5-963f-0de6458fad5e/image.png)
+</Note>
+
+**To modify or add charges to loads:**
+
+1. Confirm that the summary invoice status is not **Paid** in Alvys. If the invoice is marked as Paid, all loads included in the summary invoice are set to Completed, and any subsequent modifications will not sync to Business Central for completed loads.
+2. Navigate to the Load Details page for the specific load included in the summary invoice that requires modification.
+
+   <Note>
+     ![Load number listed in the summary invoice](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/362d8f33-a778-437b-a2d9-56173c6fdc74/image.png)
+
+     *Load number listed in the summary invoice*
+   </Note>
+
+   ![Load number listed in the summary invoice](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/362d8f33-a778-437b-a2d9-56173c6fdc74/image.png)
+
+   *Load number listed in the summary invoice*
+3. Apply the necessary updates (for example: add charges, adjust amounts, update notes).
+
+<Note>
+  ![Add accessorial button in the load details page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/26100261-d331-4596-b880-767764bb7c98/image.png)
+
+  *Add accessorial button in the load details page*
+
+  ![The new accessorial once it has been added.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/87c0e619-43ea-41b8-9b48-93c0c024d497/image.png)
+
+  *The new accessorial once it has been added.*
+</Note>
+
+1. Navigate back to the Summary Invoice in Alvys and regenerate the summary invoice.
+
+   <Note>
+     ![Regenerate button within Summary Invoice](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/089dffd3-50ca-463e-a56b-6e454671274f/image.png)
+
+     *Regenerate button within Summary Invoice*
+   </Note>
+
+   ![Regenerate button within Summary Invoice](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/089dffd3-50ca-463e-a56b-6e454671274f/image.png)
+
+   *Regenerate button within Summary Invoice*
+2. Verify in Business Central that the updated invoice amount and associated load details are accurately reflected.
+
+<Note>
+  ![Sales invoice example in Business Central.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3f4d6fdc-33b9-49a7-84e9-00d41bc777c2/image.png)
+
+  *Sales invoice example in Business Central. *
+</Note>
+
+## FAQs
+
+**Q: How does Alvys determine which Business Central company or entity receives an exported transaction?**
+
+**A:** Routing is based on the subsidiary connection. In a standard setup, Alvys sends data to the specific Business Central database linked to that subsidiary. In a Multi-Entity Management (MEM) setup, transactions are sent to a shared database but are tagged with the correct Entity Code (Dimension) based on the subsidiary mapping.
+
+**Q: What is the difference between the Invoice As and Tender As fields in relation to Business Central?**
+
+**A:** The Invoice As field determines the subsidiary responsible for the customer invoice (Accounts Receivable). The Tender As field identifies the subsidiary paying the carrier (Accounts Payable) and determines the trip type (Brokerage vs. Carrier).
+
+**Q: Is External Accounting Name the same as the Invoicing Name?**
+
+**A:** No. The External Accounting Name is used solely to match the record in Business Central. The Invoicing Name controls how the name appears on invoices generated in Alvys. Changing the Invoicing Name does not affect the Business Central link as long as the External Accounting Name remains unchanged.
+
+**Q: Which field takes priority when linking an Alvys customer or carrier to a record in Business Central?**
+
+**A:** The External Accounting Name always takes priority. Alvys searches for an exact match in Business Central using this field first. If it is not set, Alvys defaults to matching by the standard Customer or Carrier Name. If no match is found, a new record is created in Business Central using the External Accounting Name (or the Name if the External Accounting Name is blank).
+
+**Q: What happens if I update customer information (address, phone, or terms) directly in Business Central?**
+
+**A:** Alvys is the source of truth for these fields. Any changes made directly in Business Central will be overwritten the next time an invoice is synced from Alvys. All updates should be made within the Alvys profile to ensure data consistency.
+
+**Q: How are Payment Terms handled if an exact match isn't found in Business Central?** A: Alvys attempts to match the customer’s payment terms to existing Payment Terms Codes in BC. If no exact match is found, the system defaults the customer's terms to 30 Days.
+
+**Q: Where do exported customer invoices appear in Business Central?**
+
+**A:** Invoices are exported as Unposted Sales Invoices. This allows the accounting team to perform a final review of amounts and tax codes before posting them to the General Ledger. Navigate to the Sales dropdown menu in Business Central and select Sales Invoices to locate them.
+
+**Q: When exactly is an external carrier bill exported to Business Central?**
+
+**A:** The timing depends on your settings. If Generate Carrier Invoice Separately is disabled, the bill exports automatically when the customer invoice is generated. If it is enabled, the system waits until a document of type Carrier Invoice is uploaded to the trip before exporting the bill.
+
+**Q: Does the carrier invoice number appear in Business Central?**
+
+**A:** Yes. When a document of the type Carrier Invoice is uploaded to a trip in Alvys and the invoice number is entered, that value is automatically populated in the Vendor Invoice No. field within Business Central.
+
+**Q: Can I sync carrier payments from Business Central back to the Alvys Carrier Settlements module?** A: No. The current version of the Carrier Settlements module does not support payment synchronization. While bills are exported to BC, payments applied in BC must be recorded manually within Alvys for those external carriers.
+
+**Q: What happens in Business Central if I delete or revert a driver statement in Alvys?**
+
+**A:** Reverting or deleting a driver statement in Alvys automatically deletes the corresponding purchase invoice in Business Central, provided the bill is still unposted and no payments have been applied to it.
+
+**Q: How do I modify an invoice that has already been posted in Business Central?**
+
+**A:** Since posted invoices cannot be edited directly, Alvys will automatically generate and export a Sales Credit Memo to reverse the original transaction, followed by a new Sales Invoice with the updated details, once you regenerate the invoice in Alvys.
+
+**Q: Which load fields can be updated in Business Central without needing to regenerate the invoice in Alvys?**
+
+**A:** Updates to the Customer Linehaul amount, Fuel Surcharge, Accessorial charges (added, edited, or removed), Invoice Date, and Invoice Due Date sync automatically to the Business Central sales invoice upon saving the change in Alvys and refreshing the Business Central page.
+
+**Q: How do I change the customer on a load that has already been invoiced?**
+
+**A:** Once a load is in **Invoiced** status, the customer cannot be changed directly. Contact Alvys Support to revert the load status to **Queued**, which then allows you to update the customer and regenerate the invoice for Business Central.
+
+**Q: What is the process for adding or removing loads from an exported Summary Invoice?**
+
+**A:** Revert the summary invoice in Alvys (only available when the status is **Processed**), which allows you to adjust the loads. Reverting in Alvys does not delete the old invoice in Business Central. Manually delete the old summary invoice in Business Central and then generate a new summary invoice in Alvys; the new invoice will receive a new invoice number.
+
+## Go Deeper
+
+- [Business Central: Identifying and Resolving Failed Transactions](/help/integrations/how-to-resolve-business-central-transaction-export-errors)
+- [Alvys Payment Synchronization for Accounting Integrations](/help/integrations/alvys-payment-synchronization-for-accounting-integrations)
+- [Business Central Integration Collection](/help/integrations/business-central-integration-collection)
+- [Summary Invoicing](/help/accounting-settlements/how-to-use-summary-invoicing)
+- [Carrier Settlements](https://help.alvys.com/en/articles/11634577-carrier-settlements)
+- [Driver Settlements](https://help.alvys.com/en/articles/11943598-driver-settlements)

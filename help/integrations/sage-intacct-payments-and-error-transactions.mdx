@@ -1,0 +1,219 @@
+---
+title: "Sage Intacct: Payments and Error Transactions"
+---
+
+<Note>
+  📋 **Applies to:** Users with the **"Billing"** permission
+
+  **Module:** Accounting > Error Transactions; Settings > Connections > Sage Intacct
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article (covering Sage Intacct payment sync, the Error Transactions queue, and re-sync troubleshooting) explains how Sage Intacct payments import into Alvys, how to use the Error Transactions page to identify and fix failed exports, and how to re-sync transactions after resolving the underlying issue.
+</Note>
+
+## Overview
+
+After Alvys exports transactions to Sage Intacct, payments recorded in Sage are automatically imported back into Alvys on a 12-hour schedule. If a transaction fails to export — for example because a customer record cannot be matched or a GL account is not mapped — it appears in Accounting > Error Transactions with an error message. You can fix the underlying issue and re-sync eligible transaction types directly from that page.
+
+## Where to Find It
+
+- Error Transactions: Accounting > Error Transactions
+- Payment sync status and connection settings: Settings > Connections > Sage Intacct
+
+  ![Accounting menu with Error Transactions highlighted](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/14613d72-dd57-4790-9510-0c821dfbb27c/image.png)
+
+  *Accounting menu with Error Transactions highlighted*
+
+## Key Concepts
+
+### Payment Import
+
+Sage Intacct payments import into Alvys automatically every 12 hours. Each import run looks back 8 days in Sage to catch any payments that were recorded since the last sync.
+
+**Note:** The 8-day lookback window means payments recorded more than 8 days before the import run will not be imported automatically. If you need to bring in older payments, contact Alvys support with the specific payment dates and subsidiary name.
+
+Each imported payment includes: payment amount, payment date, payment method, check number, reference number, and note/memo. Alvys deduplicates payments by Sage detail ID, so the same payment will not import twice even if it falls within the lookback window of multiple import runs.
+
+Payment import is not supported for the following transaction types: Summary Invoicing, Carrier Settlements, Driver Settlements.
+
+### Error Transactions
+
+The Error Transactions page shows all transactions that failed to export from Alvys to Sage. Each row in the table includes the date, a reference identifier, the entity type, a description, the amount, the current status, the error message from Sage, and available actions (such as re-sync).
+
+Entity types that can appear in Error Transactions: Load, Trip, E-check, Paystub, Deduction, Accessorial Revenue, Fuel, Toll, Accounting Invoice, Carrier Statement, Driver Statement, Escrow.
+
+### Which Transactions Can Be Re-Synced
+
+After fixing the root cause of a failure, you can re-sync the following entity types directly from Accounting > Error Transactions: Load, Trip, E-check, Paystub.
+
+The following entity types cannot be re-synced from Error Transactions and must be resolved through other means: Deduction, Accessorial Revenue, Fuel, Toll, Accounting Invoice, Carrier Statement, Driver Statement.
+
+![Error Transactions table with Sage export error messages](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/6fa79847-501d-4781-a33b-dfa3b194bfdb/image.png)
+
+*Error Transactions table with Sage export error messages*
+
+## How to Use It
+
+### Viewing and Filtering Error Transactions
+
+Go to Accounting > Error Transactions. The page shows all failed transactions for your connected subsidiaries. Use the filters to narrow by date range, entity type, or status.
+
+### Re-Syncing a Transaction
+
+1. Identify the error message in the Error Message column to understand why the transaction failed.
+2. Fix the underlying issue (for example: add the missing GL account mapping, create the Sage customer or vendor record, correct the payment terms).
+3. Return to Accounting > Error Transactions, find the transaction, and click the re-sync action.
+4. Alvys will attempt to re-export the transaction. If it succeeds, the row is removed from Error Transactions. If it fails again, the error message updates with the new failure reason.
+
+   ![Re-syncing transactions with Retry sync and Mark as synced](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8fa76ee9-f4a9-48d6-b79d-ce739f9d6d64/image.png)
+
+   *Re-syncing transactions with Retry sync and Mark as synced*
+
+### Checking Payment Sync Status
+
+Go to Settings > Connections > Sage Intacct. The connection page shows the current sync status for each subsidiary. Sync states are: Active, Paused, Not set up.
+
+![Retry sync button on the Error Transactions page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3f90e900-2c80-4a5d-a005-43231c134117/image.png)
+
+*Retry sync button on the Error Transactions page*
+
+## Settings &amp; Permissions
+
+Accounting > Error Transactions is accessible to any non-Driver user with the **"Billing"** permission.
+
+## Limits &amp; Behavior
+
+- Payment import runs every 12 hours with an 8-day lookback window.
+- Deduplication is based on Sage detail ID: the same payment will not import twice.
+- Payment import is not supported for Summary Invoicing, Carrier Settlements, or Driver Settlements.
+- Only Load, Trip, E-check, and Paystub transactions can be re-synced from Error Transactions.
+- Deduction, Accessorial Revenue, Fuel, Toll, Accounting Invoice, Carrier Statement, and Driver Statement transactions cannot be re-synced from this page.
+
+## Troubleshooting
+
+### Connection not initializing
+
+1. Verify that your Sage Intacct Web Services credentials (Company ID, User ID, and password) are correct. In Sage, confirm the Web Services user account is active.
+2. Confirm that AlvysMPP is listed in Company > Web Services Authorizations in Sage.
+3. Confirm that Web Services is enabled in your Sage subscription.
+4. If all of the above are correct and the connection still does not initialize, contact Alvys support with your subsidiary name and the error message shown.
+
+   ![Error Transactions with the Sync all button highlighted](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/59bce2b1-7f30-4fb2-afa9-2bf396d17876/image.png)
+
+   *Error Transactions with the Sync all button highlighted*
+
+### Customer or vendor not matched
+
+Alvys could not find a matching customer (for AR) or vendor (for AP) in Sage.
+
+1. Open the customer or carrier record in Alvys.
+2. Check whether a Sage Customer ID or Vendor ID is set. If not, enter the correct Sage ID to enable direct matching.
+3. If no Sage ID is set, verify that the customer or carrier name in Alvys exactly matches the name in Sage Intacct. Any difference in spacing, capitalization, or punctuation will cause a mismatch.
+4. If the customer or vendor does not exist in Sage, create it in Sage Intacct, then re-sync the transaction from Error Transactions.
+
+### GL account not mapped
+
+A required GL account mapping is missing for a transaction line item type.
+
+1. Go to Settings > Connections > Sage Intacct and open the Account Mappings tab for the subsidiary.
+2. Identify the category and line item type referenced in the error message.
+3. Add the missing mapping. If the Default category is not mapped, map it first: it is required for all exports.
+4. Return to Accounting > Error Transactions and re-sync the transaction.
+
+### Dimension value cannot be resolved
+
+Alvys could not find the expected dimension value in Sage for an exported transaction.
+
+1. Go to Settings > Connections > Sage Intacct and open the Dimensions tab for the subsidiary.
+2. Verify that the dimension value referenced in the error exists and is active in Sage Intacct.
+3. If the dimension type supports Active Non-Posting status (Department, Location, Class, Customer, Vendor, or Project), verify that the value is set to an appropriate posting status for your use case.
+4. Re-sync the transaction from Error Transactions after correcting the dimension value.
+
+### Required custom field value is missing
+
+A Sage custom field is mapped to an Alvys field, but the Alvys field is empty on the load or trip record.
+
+1. Open the load or trip record and verify that the Alvys field mapped to the Sage custom field has a value.
+2. If the field is a Custom Load Reference or Custom Trip Reference, confirm the reference field has been populated on the record.
+3. Once the value is added, re-sync the transaction from Error Transactions.
+
+### Custom field value exceeds maximum character length
+
+The value of the mapped Alvys field is longer than the maximum character length configured for the Sage custom field.
+
+1. Go to Settings > Connections > Sage Intacct and open the Custom Fields tab for the subsidiary.
+2. Check the Chars column for the affected field to see the character limit.
+3. Shorten the value in the Alvys field to within the limit, or adjust the character limit in the custom field mapping if appropriate.
+4. Re-sync the transaction from Error Transactions.
+
+### Payment term is not valid
+
+The payment term assigned to a customer or carrier in Alvys does not exist in Sage Intacct.
+
+1. Open the customer or carrier record in Alvys and note the payment term assigned.
+2. In Sage, confirm that exact payment term exists under the payment terms configuration.
+3. Either add the payment term to Sage or update the customer or carrier record in Alvys to use an existing Sage payment term. Alternatively, set a valid Default Payment Terms value in the Advanced Settings of the Sage Intacct connection.
+4. Re-sync the transaction from Error Transactions.
+
+### Invoice or bill cannot be modified because payments are applied
+
+A payment has already been applied to the transaction in Sage, preventing modification.
+
+1. In Sage Intacct, locate the transaction and remove the applied payment.
+2. Return to Alvys and make the necessary changes to the invoice or bill.
+3. Re-sync or re-export the transaction from Alvys. Alvys will create the appropriate reversal and post the corrected transaction.
+
+### AP bill requires manual reversal
+
+The AP bill is in a state in Sage (Posted or Selected) that prevents Alvys from automatically reversing it.
+
+1. In Sage Intacct, locate the AP bill.
+2. Manually create a reversal entry for the AP bill in Sage.
+3. Once the reversal is complete, return to Alvys and re-sync the transaction from Accounting > Error Transactions.
+
+### Transactions are not exporting or payments are not importing
+
+Syncing has stopped or is paused for this subsidiary.
+
+1. Go to Settings > Connections > Sage Intacct and find the subsidiary.
+2. Check the Primary Sync toggle. If it is set to Paused, enable it.
+3. Verify that the individual sync toggles for the relevant transaction type (for example, Export AR Invoices or Export AP Bills) are enabled.
+4. If the connection status shows Not set up, the subsidiary may have been disconnected. Reconnect through the connection wizard.
+5. If all toggles are active and syncing still is not occurring, contact Alvys support with your subsidiary name and the date since transactions stopped exporting.
+
+## FAQs
+
+**Q: How often does Alvys import payments from Sage Intacct?**
+
+**A:** Payments import every 12 hours. Each import run looks back 8 days in Sage to capture any payments recorded since the previous sync.
+
+**Q: Will Alvys import the same payment twice if it falls within multiple sync windows?**
+
+**A:** No. Alvys deduplicates payments by Sage detail ID. Each unique Sage payment is imported only once regardless of how many sync cycles it falls within.
+
+**Q: Which transaction types support payment import from Sage?**
+
+**A:** Payment import is supported for AR invoices (load invoices and e-checks). Payment import is not supported for Summary Invoicing, Carrier Settlements, or Driver Settlements.
+
+**Q: Which transaction types can I re-sync from Error Transactions?**
+
+**A:** You can re-sync Load, Trip, E-check, and Paystub transactions. Deduction, Accessorial Revenue, Fuel, Toll, Accounting Invoice, Carrier Statement, and Driver Statement transactions cannot be re-synced from this page.
+
+**Q: What does the Error Message column tell me?**
+
+**A:** The Error Message column shows the reason the transaction failed to export, such as a missing GL account mapping, unmatched customer or vendor, or invalid payment term. Use this message to identify and fix the underlying issue before re-syncing.
+
+**Q: Can I see Error Transactions even if I do not have Sage Intacct connected?**
+
+**A:** The Error Transactions page is visible to any non-Driver user with the **"Billing"** permission, regardless of whether a Sage Intacct connection is set up. Transactions only appear on this page if a Sage connection is configured and a transaction has failed to export.
+
+**Q: How do I handle a failed transaction type that cannot be re-synced?**
+
+**A:** For Deduction, Accessorial Revenue, Fuel, Toll, Accounting Invoice, Carrier Statement, and Driver Statement failures, you will need to resolve the issue manually in Sage or contact Alvys support for guidance on the specific failure.
+
+## Go Deeper
+
+- [Sage Intacct: Account Mappings](https://help.alvys.com/en/articles/10737765-sage-intacct-account-mappings)
+- [Sage Intacct: Transaction Export and Modification](https://help.alvys.com/en/articles/10737767-sage-intacct-transaction-export-and-modification)
+- [How to Connect Sage Intacct to Alvys and Configure Settings](https://help.alvys.com/en/articles/10737773-how-to-connect-sage-intacct-to-alvys-and-configure-settings)

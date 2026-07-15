@@ -1,0 +1,214 @@
+---
+title: "How to resolve Business Central transaction export errors"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Biller · Support · Partner Admin
+
+  **Module:** Accounting > Error Transactions
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  The Error Transactions page shows load, trip, e-check, and paystub records that failed to export to Business Central, along with the error details needed to identify and fix each issue.
+</Note>
+
+## Overview
+
+When a transaction fails to sync to Business Central, it appears on the Error Transactions page (also called the error transactions log) with a description of the failure. From this page you can review the error details, correct the underlying record in Alvys, and re-sync the transaction without re-entering data.
+
+## Before You Start
+
+You must have the **"Billing"** permission to access the Error Transactions page. Users with the **"Admin"**, **"Biller"**, **"Support"**, or **"Partner Admin"** role have this permission.
+
+The Business Central integration must be connected and active before transactions can appear on this page.
+
+## Steps
+
+1. **Open the Error Transactions page.** Go to Accounting > Error Transactions in the Alvys navigation menu.
+
+<Note>
+  ![Error Transactions page overview.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/557c1bac-ffe4-4585-bab4-caf83fd36b99/image.png)
+
+  *Error Transactions page overview.*
+</Note>
+
+The table shows all transactions that have failed to export to Business Central. Each row includes the following columns:
+
+1. **Identify whether the transaction can be re-synced.** The following transaction types support direct re-sync from the Error Transactions page: Loads, Trips, E-checks, and Paystubs. For carrier settlements, summary invoices, and driver pay, corrections and re-syncs must be performed directly from their respective pages in Alvys.
+2. **Correct the underlying record.** Read the Error Message column to identify the cause of the failure. Fix the source record in Alvys before attempting to re-sync. Common error types and their resolutions are listed in the Troubleshooting section below.
+3. **Re-sync the transaction.** To re-sync an individual transaction:
+4. Right-click the corrected transaction row.
+5. Select **Sync Transaction** from the context menu.
+6. Confirm when prompted.
+
+<Note>
+  ![Sync Transaction context menu.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8b924eeb-9a7f-4ce4-a05c-46d107b4cdcd/image.png)
+
+  *Sync Transaction context menu.*
+</Note>
+
+Alvys sends the transaction to Business Central again. If the correction resolved the issue, the Status column updates to **Resolved**.
+
+To re-sync all transactions in the list at once, right-click and select **Sync All Transactions**. Use this only after all transactions have been corrected and are ready for export. Transactions that still require corrections will be skipped.
+
+## Result
+
+Once a re-sync is successful, the transaction Status changes to **Resolved** and the row is removed from the active error list. The record is posted in Business Central as expected.
+
+## Variations
+
+**Marking a transaction as synced manually:** Use **Mark as Synced** when a transaction has already been resolved outside of Alvys (for example, entered directly in Business Central) and should be removed from the error list without being re-sent. Right-click the row, select **Mark as Synced**, and confirm. This action cannot be undone. The transaction is marked **Resolved** in Alvys and will not be re-sent to Business Central.
+
+<Note>
+  ![Mark as Synced option.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b373d833-b72b-4599-b41b-358930fd4624/image.png)
+
+  *Mark as Synced option.*
+</Note>
+
+**Non-re-syncable transaction types:** Deductions, accessorial revenue, fuel charges, tolls, accounting invoices, escrow transactions, carrier statements, and driver statements cannot be re-synced from the Error Transactions page. To correct these, open the source record in Alvys (such as the carrier settlement or driver statement) and make corrections there.
+
+## Troubleshooting
+
+### Resource Not Found
+
+Business Central cannot locate a record that Alvys references, such as a General Ledger account, dimension value, or item number that has been deleted or renamed in Business Central.
+
+**Error message:** Resource not found for the segment 'purchaseInvoice' or 'salesInvoice'
+
+<Note>
+  ![Resource Not Found error example.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b6f2c5fb-cb52-4239-af0b-9448ff8383f5/image.png)
+
+  * Resource Not Found error example. *
+</Note>
+
+**Step 1:** Check the Error Message column for the name of the missing resource.
+
+**Step 2:** Open Business Central and confirm the referenced resource still exists and is active.
+
+**Step 3:** If the resource was deleted or renamed, update the account mapping in Alvys to point to the correct Business Central record, then re-sync the transaction from the Error Transactions page.
+
+Contact Alvys Support with the transaction reference number and the full error message if the resource exists in Business Central but the error persists.
+
+### Record Already Exists
+
+Business Central has detected a duplicate document number matching the transaction Alvys is attempting to post.
+
+**Error message:** The record in table Sales Header already exists. Identification fields and values: Document Type='Invoice',No.='[Invoice Number]'
+
+<Note>
+  ![Record Already Exists error example.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5aaf28fe-ca5b-40d9-b340-7a1d72c01e0a/image.png)
+
+  *Record Already Exists error example.*
+</Note>
+
+**Step 1:** Open Business Central and search for the document number shown in the Reference column.
+
+**Step 2:** If the record already exists in Business Central and is correct, use **Mark as Synced** in Alvys to remove the transaction from the error list.
+
+**Step 3:** If the record in Business Central is incorrect, delete it in Business Central first, then re-sync from Alvys.
+
+If you are unsure which record to keep, contact Alvys Support before making changes in Business Central.
+
+**Step 4:** Confirm the result: verify in Business Central that the Purchase Invoice or Sales Invoice appears with the correct document number after the re-sync completes.
+
+### Duplicate Dimension Set
+
+Two or more dimension values conflict for the same transaction line, causing Business Central to reject the posting.
+
+**Error message:** The dimension set line already exists. Check existing dimension set lines and the default dimension set lines on the parent.
+
+<Note>
+  ![Duplicate Dimension Set error example.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5af42ff0-6ed0-4fff-9d69-82a65da0649b/image.png)
+
+  *Duplicate Dimension Set error example.*
+</Note>
+
+**Step 1:** Review the dimension configuration in Business Central for the account referenced in the transaction.
+
+**Step 2:** Resolve the conflicting dimension values in Business Central.
+
+**Step 3:** Re-sync the transaction from the Error Transactions page.
+
+Contact Alvys Support with the transaction reference number if the dimension conflict cannot be identified from the error message.
+
+**Step 4:** Confirm success: verify in Business Central that the Purchase Invoice or Sales Invoice has been created with the correct dimensions applied.
+
+### Failed Export of Zero-Valued Transaction
+
+The transaction total is zero and Business Central is configured to reject zero-value postings.
+
+**Error message:** A digit was expected at position 3 in '(ID)'.
+
+<Note>
+  ![Zero-Valued Transaction error example](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/536d97f3-e9fb-43fc-8c34-69c3bb1c8d51/image.png)
+
+  *Zero-Valued Transaction error example*
+</Note>
+
+**Step 1:** Open the source record in Alvys and verify whether the zero value is correct.
+
+**Step 2:** If the zero value is a data error, correct the record and re-sync.
+
+**Step 3:** If the zero value is intentional and should not be posted to Business Central, use **Mark as Synced** to remove it from the error list.
+
+### Manual Numbering Required
+
+The Business Central number series for the transaction type is set to manual, and Alvys is not sending a document number.
+
+**Error message:** You may not enter numbers manually. If you want to enter numbers manually, please activate Manual Nos. in No. Series. CorrelationId: [Unique ID]
+
+<Note>
+  ![Manual Numbering Required error example.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/58c2aa5d-4322-4386-9448-78590b37c004/image.png)
+
+  *Manual Numbering Required error example.*
+</Note>
+
+**Step 1:** Open Business Central and navigate to the number series configuration for the transaction type shown in the error.
+
+**Step 2:** Set the number series to automatic, or ask your Business Central administrator to update the numbering settings.
+
+**Step 3:** Re-sync the transaction from the Error Transactions page once the number series is updated.
+
+If the number series cannot be changed, contact Alvys Support to discuss an alternative configuration.
+
+## FAQs
+
+**Q: What does the Status column show?**
+
+**A:** The Status column shows **Failed** for transactions that have not yet been successfully re-synced, or **Resolved** for transactions that have been successfully synced or manually marked as synced.
+
+**Q: Can I re-sync a transaction without first fixing the underlying issue?**
+
+**A:** You can trigger a re-sync, but Business Central will reject the transaction again and it will remain on the page with a **Failed** status. Always correct the underlying issue before re-syncing.
+
+**Q: What is the difference between Sync Transaction and Sync All Transactions?**
+
+**A:** Sync Transaction re-syncs a single selected transaction. Sync All Transactions attempts all transactions in the list at once; transactions that still require corrections will be skipped.
+
+**Q: When should I use Mark as Synced instead of Sync Transaction?**
+
+**A:** Use Mark as Synced when the transaction has already been posted to Business Central outside of Alvys, or when it should not be sent to Business Central at all. This removes the transaction from the error list without re-syncing.
+
+**Q: Can a transaction reappear after being marked as Resolved?**
+
+**A:** A transaction marked **Resolved** will not automatically reappear. If the same source record is modified and exported again later, a new failure entry may appear for the updated version.
+
+**Q: Why can't I re-sync deductions, tolls, or accessorial revenue from this page?**
+
+**A:** These transaction types must be corrected and re-synced from their source pages in Alvys, such as the load detail or settlement page, because the correction requires editing the original record.
+
+**Q: Is there a way to see previously resolved errors?**
+
+**A:** The Error Transactions page displays both **Failed** and **Resolved** transactions. Filter by Status to view only resolved items.
+
+**Q: What should I do if a transaction fails repeatedly with the same error after re-syncing?**
+
+**A:** Verify that the correction addresses the specific error type in the Troubleshooting section. If the error persists, contact Alvys Support with the transaction reference number and the full error message.
+
+**Q: Do I need to take any action in Business Central after a successful re-sync?**
+
+**A:** No. When a re-sync is successful, the transaction is posted to Business Central automatically and the Status in Alvys updates to **Resolved**.
+
+## Go Deeper
+
+- [Business Central Transaction Export](/help/integrations/business-central-transaction-export-and-modification-workflow)

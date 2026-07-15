@@ -1,0 +1,133 @@
+---
+title: "How to navigate the catalogs"
+---
+
+<Note>
+  📋 **Module:** Reports &amp; Analytics · **Owner:** Support team · **Last reviewed:** 2026-06 · **Applies to:** Admin, Partner Admin, Support, and any user assigned the "Analytic" or "Viewer" Reporting Access role
+</Note>
+
+Custom Reports is built on two catalogs: the Analytics Catalog of raw building blocks (metrics, facts, and attributes) and the Visualizations catalog of saved charts. This guide shows you how to find your way around both so you can build and assemble dashboards quickly.
+
+## Overview
+
+Custom Reports (also called the data catalog, analytics catalog, or reporting catalog) is built on two catalogs, and they are the starting point for everything you do here. The **Analytics Catalog** is the raw material: the metrics, facts, and attributes you combine to make a chart. The **Visualizations catalog** is your team's shared library of saved charts, KPIs, and tables, ready to drop onto a dashboard. Knowing which catalog holds what, and how to search each one, is the fastest way to go from a question to a finished dashboard tile.
+
+## Before You Start
+
+You need access to Custom Reports before the catalogs appear. You can open and use the catalogs if you are an Admin, Partner Admin, or Support user, or if a Partner Admin or Support user has assigned you a Reporting Access role of "analytic" or "viewer". The role is set from the **"Reporting Access"** dropdown in the User Info section of Manage Users. The **"analytic"** role lets you build and save dashboards and visualizations and see shared dashboards. The **"viewer"** role lets you see only the dashboards that have been explicitly shared with you. A user with no Reporting Access role assigned cannot open the catalogs. Building and saving new visualizations requires your company to be on the **Custom** reporting tier; on the **Free** tier, reporting is read-only. The Analytics Catalog lives in the left panel of the Report Designer; the Visualizations catalog appears in the left panel of the Dashboard editor and in the Designer's Open dialog.
+
+## Steps
+
+### Open the Analytics Catalog in the Report Designer
+
+Open the Report Designer. The Analytics Catalog lives in the left panel. Every chart and KPI in Reports is built from items in this catalog: you drag them into the bucket drop zones in the Configuration panel, and the canvas renders the result.
+
+<Note>
+  ![Report Designer with the Analytics Catalog in the left panel. Upload the image here](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/12473221-0362-4fd6-b4a2-2c1ce27c5b74/image.png)
+
+  *Report Designer with the Analytics Catalog in the left panel. Upload the image here*
+</Note>
+
+### Recognize the three kinds of catalog items
+
+The Analytics Catalog has three kinds of items: metrics, facts, and attributes.
+
+<Note>
+  ![The three item types in the Analytics Catalog (metrics, facts, attributes).](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e061cc6a-9c3d-4360-9275-543c7d5a9dec/image.png)
+
+  *The three item types in the Analytics Catalog (metrics, facts, attributes).*
+</Note>
+
+**Metrics are already-computed numbers.** A metric is a formula that is already wired up for you. Drop one into the **Metrics** bucket and the canvas renders a number, a KPI, or a chart series. Most dashboard tiles only ever need a metric. Examples include Load Count, Trip Count, Trips Completed, Total Revenue, Total Carrier Cost, Active Drivers, On-Time Delivery %, On-Time Pickup %, Average Delivery Delay, Margin per Load, Gross Margin %, Loaded Miles, and Empty Miles.
+
+**Facts are raw numeric columns.** A fact is the underlying numeric column from your data, the raw value before any formula wraps it. Facts are mainly used inside MAQL formulas, where you wrap them with an aggregation like SUM of a fact. If you are not writing MAQL, you will rarely touch facts directly.
+
+**Attributes are the "by what" of a question.** An attribute is a category, the dimension you slice a number by, for example "Revenue by customer" or "load count by month". Drop attributes into the **View by**, **Rows**, **Columns**, or **Stack by** buckets, or onto the filter bar. Examples include Customer, Carrier, Driver, Lane, Subsidiary, Equipment Type, **Load Status**, Trip Picked Up At, Trip Created At, Trip Delivered At, and Load Invoiced At (date attributes). Date attributes can be grouped by Month, Quarter, Year, and so on using the **Group by** option on the bucket chip.
+
+### Search the Analytics Catalog for what you need
+
+Type a business word in the search box at the top of the Analytics Catalog panel, for example Revenue, Customer, Lane, On-Time, or Margin. The panel filters as you type. When two items share a similar name, for example Revenue and Total Revenue, prefer the simpler one and let dashboard filters do the slicing.
+
+### Open the Visualizations catalog
+
+The Visualizations catalog is your team's shared library of finished charts: KPIs, trends, tables, and breakdowns that someone has already built and saved. It is separate from the Analytics Catalog: instead of raw building blocks, it contains complete visualizations you drop straight onto a dashboard. You will meet it in two places: the **left panel of the Dashboard editor** (when assembling a dashboard, search here and drag finished tiles onto the grid), and the **Designer's Open dialog** (when you want to load and tweak an existing visualization).
+
+<Note>
+  ![Visualizations catalog in the left panel of the Dashboard editor. Upload the image here](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d9bc4f49-9894-4bd7-8c9a-d586c5405545/502574a8-a6de-4162-83c7-c7b8e4867602.png)
+
+  *Visualizations catalog in the left panel of the Dashboard editor. Upload the image here*
+</Note>
+
+<Note>
+  ![The Designer's Open dialog showing saved visualizations. Upload the image here.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8dcf82bc-d944-46b2-9e10-96e77c825f4e/image.png)
+
+  *The Designer's Open dialog showing saved visualizations. Upload the image here.*
+</Note>
+
+Your tenant ships with a rich library of Alvys-curated visualizations. A sample includes Total Revenue, Total Revenue Trend, Total Carrier Cost, Load Count Trend, Trips Completed, On-Time Delivery %, On-Time Pickup % Trend, Top 10 Customers by Revenue, Top 15 Lanes by Margin %, Top 15 Lanes by Total Gross Margin, Revenue by Equipment Type, Margin Heat Map, Margin per Load Trend, Profitability vs Volume, Loaded vs Empty Miles Weekly Trend, Stop Dwell Time Distribution, Late Trips Today, and Negative Margin Loads. When someone saves a new visualization, it lands in this catalog and becomes available to everyone with Reporting Access on your tenant.
+
+### Search the Visualizations catalog for what you need
+
+Type a business word in the search box. Search for what you are trying to show, not the underlying data field name: "Revenue" finds revenue tiles and trends; "On-Time" finds OTD and OTP variants; "Customer" finds customer breakdowns; "Margin" finds margin heat maps and trends; "Top" finds the Top-N tables and bar charts.
+
+<Warning>
+  ⚠️ Name new visualizations clearly. When you save a visualization, it lands in the Visualizations catalog for everyone on your tenant. A clear, business-word name (for example "Revenue YoY % by Customer") is much easier for your teammates to discover than a code-style name.
+</Warning>
+
+## Result
+
+You can now move confidently between the two catalogs. You know that the Analytics Catalog holds the raw building blocks (metrics, facts, and attributes) you combine in the Report Designer, and that the Visualizations catalog holds the finished charts you drag straight onto a dashboard. You can search each catalog by business word and pick the right item for the question you want to answer.
+
+## Variations
+
+- Building a brand-new tile: work in the Analytics Catalog inside the Report Designer.
+- Reusing something your team already made: work in the Visualizations catalog, from the Dashboard editor or the Designer's Open dialog.
+- Working with dates: drop a date attribute, then use the Group by option on the bucket chip to group by Month, Quarter, or Year.
+- Writing a custom metric: facts come into play only when you write MAQL formulas.
+
+## Troubleshooting
+
+### A teammate cannot see the catalogs at all
+
+1. Confirm the user has a Reporting Access role. A user with no role assigned gets no catalog access.
+2. Have a Partner Admin or Support user open Manage Users, find the user, and set the **"Reporting Access"** dropdown to "Analytic" or "Viewer".
+3. Ask the user to sign out and sign back in so the new access takes effect.
+
+### Cannot save a new visualization
+
+1. Confirm your company is on the **Custom** reporting tier. On the **Free** tier, reporting is read-only and saving new visualizations is blocked.
+2. Confirm your Reporting Access role is "Analytic". The "Viewer" role can see shared dashboards but cannot author or save.
+
+### A search returns nothing
+
+1. Search by a business word rather than an internal field name, for example "Revenue", "On-Time", or "Margin".
+2. Confirm you are searching the right catalog. The Analytics Catalog holds metrics, facts, and attributes; the Visualizations catalog holds finished charts.
+
+## FAQs
+
+**Q: What is the difference between the Analytics Catalog and the Visualizations catalog?**
+
+**A:** The Analytics Catalog holds the raw building blocks (metrics, facts, and attributes) you combine to build a chart in the Report Designer. The Visualizations catalog holds complete, saved charts that you drop straight onto a dashboard.
+
+**Q: Do I need to learn about facts to use Custom Reports?**
+
+**A:** No. Facts are the raw numeric columns used inside MAQL formulas. If you are not writing custom metrics with MAQL, you will rarely touch facts. Most users work entirely with metrics and attributes.
+
+**Q: When two items have similar names, such as Revenue and Total Revenue, which should I use?**
+
+**A:** Prefer the simpler one and let dashboard filters do the slicing.
+
+**Q: A teammate saved a visualization. Why can I see it?**
+
+**A:** When anyone on your team saves a new visualization, it lands in the Visualizations catalog and becomes available to everyone with Reporting Access on your tenant.
+
+**Q: How do I group a date attribute by month or quarter?**
+
+**A:** Drop the date attribute into a bucket, then use the **Group by** option on the bucket chip to choose Month, Quarter, Year, and so on.
+
+## Go Deeper
+
+- [Get started with Custom Reports](/help/reports-analytics/how-to-get-started-with-custom-reports)
+- [Build visualizations with drag-and-drop](/help/reports-analytics/how-to-build-visualizations-with-drag-and-drop)
+- [Advanced: write custom metrics with MAQL](/help/reports-analytics/how-to-write-a-custom-metric-with-maql)
+- [Share, export, schedule, alert](/help/reports-analytics/how-to-share-export-schedule-and-alert-on-a-dashboard)

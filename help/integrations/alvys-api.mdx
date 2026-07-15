@@ -1,0 +1,55 @@
+---
+title: "Alvys API"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin
+
+  **Module:** Public API / Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  The Alvys Public API lets your company connect outside tools to your Alvys data using API credentials and an API token. This overview explains what the Public API is, where to generate your credentials, and where to find full developer documentation.
+</Note>
+
+## Overview
+
+The Alvys Public API (Alvys API, Public API, REST API) is a programmatic way to connect external tools and systems to the data in your Alvys account. Instead of working only inside the Alvys platform, you can use the Public API to retrieve your operational data from another application, such as a reporting or business intelligence tool. Access to the Public API is controlled by API credentials and an API token that you generate inside Alvys, so every connection is tied to your company and authenticated on each request. Full technical reference material, including endpoints and setup guides, lives in the Alvys developer documentation: [https://docs.alvys.com/](https://docs.alvys.com/)
+
+## Where to Find It
+
+You generate and manage your Alvys Public API credentials inside the Alvys platform under Profile > API. This is the page where you create the client applications, API keys, and tokens that authenticate an outside tool to your Alvys data. Opening the API page requires the **"Admin"** or **"Partner Admin"** role.
+
+## Key Concepts
+
+API credentials identify a connection between an outside tool and your Alvys account. When you create a client application on the Profile > API page, Alvys issues the credentials that the outside tool uses to identify itself. An API token authenticates each request that an outside tool sends to the Alvys Public API. The token is what proves a request is allowed, so the connecting tool includes it on every call. Client applications can be created, listed, updated, and deleted from the API page, so you can review existing connections and remove ones you no longer need.
+
+## How to Use It
+
+1. Sign in to Alvys with the **"Admin"** or **"Partner Admin"** role.
+2. Go to Profile > API to open the Public API page.
+3. Create a client application to generate the API credentials for the tool you want to connect.
+4. Generate an API token to authenticate the connection's requests.
+5. Use the Alvys developer documentation at [https://docs.alvys.com/](https://docs.alvys.com/) for endpoint details and setup instructions for your specific tool.
+
+## Troubleshooting
+
+If a connection that previously worked stops responding, check whether its client application has expired. A client application can be set to expire on a date you choose, and expired client applications are deactivated automatically, so you will need to issue new credentials to restore the connection. If you cannot update an older client application from the current API page, it was created under the legacy credential format; create a new client application instead. If you cannot open the Profile > API page at all, confirm your account has the **"Admin"** or **"Partner Admin"** role, since users without one of these roles cannot view or manage credentials.
+
+## Settings and Permissions
+
+Generating and managing Alvys Public API credentials requires the **"Admin"** or **"Partner Admin"** role. Users without one of these roles cannot open the Profile > API page or create, view, update, or delete client applications. Because the same page controls all credential actions, granting a user the ability to create credentials also lets that user view, update, and remove existing client applications.
+
+## Limits and Behavior
+
+A client application can be set to expire on a date you choose when you create or update it. Expired client applications are deactivated automatically, so a connection that relied on expired credentials stops working until you issue new ones. Legacy client applications created under the older credential format cannot be updated from the current API page; create a new client application instead.
+
+## FAQs
+
+**Q: Where do I generate my Alvys API credentials?**
+
+**A:** Generate them inside the Alvys platform under Profile > API. You need the **"Admin"** or **"Partner Admin"** role to open that page.
+
+**Q: Where can I find the full Alvys API documentation?**
+
+**A:** The Alvys developer documentation is available at [https://docs.alvys.com/](https://docs.alvys.com/).

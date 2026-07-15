@@ -1,0 +1,230 @@
+---
+title: "QuickBooks Online: Identifying and Resolving Failed Transactions"
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin · Support** ·** **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article explains how to locate failed QuickBooks Online transactions in Alvys and how to resolve the most common QBO API rejections, including duplicate document numbers, duplicate name conflicts, invalid account types, and closed accounting period errors.
+</Note>
+
+## Overview
+
+A transaction sent from Alvys to QuickBooks Online can be rejected by QBO when the data conflicts with QBO's rules. This guide (also covering QBO sync failures and export errors) shows you how to find each failed export in the[ Error Transactions queue](https://app.alvys.com/#/accounting/error-help), interpret the QBO error message, correct the underlying issue, and re-export so the invoice or bill records successfully. The page is accessible from the “**Accounting**” menu by selecting Error Transactions within Alvys.
+
+<Note>
+  ![Image showing Alvys error Transactions Page](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2529142269/2175ac96fecdb1ab3880a1dd94ba/upload_11158461192985737474.png)
+
+  *Image showing Alvys error Transactions Page *
+</Note>
+
+## Symptom
+
+A transaction exported from Alvys to QuickBooks Online has failed. The transaction appears in the Error Transactions queue in Alvys with an error message from QBO, and the corresponding invoice or bill is not visible in QBO.
+
+## Cause
+
+QBO rejects an export when the transaction contains data that conflicts with QBO's rules. The most common causes are:
+
+- Duplicate document numbers: a QBO customer already has an invoice with the same invoice number.
+- Duplicate name conflicts: Alvys attempted to create a new customer or vendor in QBO but a record with that name already exists (possibly a different type or with special characters).
+- Invalid account type: the QBO account mapped in Alvys is not the correct type for that transaction (for example, an income account was mapped where an expense account is required).
+- Closed accounting period: the transaction date falls within a period that has been closed in QBO.
+
+## Resolution
+
+### Open the Error Transactions queue
+
+Navigate to Management > Integrations in Alvys. Locate the Error Transactions section (also called the Error Queue). This view lists every failed export with the error message returned by QBO.
+
+**The Error Transactions page includes the following columns:**
+
+- **Entity Type:** The type of Alvys transaction that failed to export, showing where the transaction originated. Examples include Load, Trip, Paystub, Deduction, Accessorial Revenue, Toll, Fuel, Escrow, E-check, and Accounting Invoice.
+- **Transaction Type:** How the record is classified in the external accounting system, such as Invoice, Bill, Credit Memo, Vendor Credit, or Journal Entry.
+- **Class:** The subsidiary associated with the transaction.
+- **Error Message**: The message returned by QBO explaining why the transaction failed.
+- **Status: **The current state of the transaction, such as Failed or Resolved.
+- **Reference**: Additional identifiers to link the transaction, such as load number, summary invoice number, or trip number.
+- **Transaction Total**: The total amount of the transaction.
+- **Date Created**: The date the transaction was first attempted to be exported.
+
+### Read the error message and apply the matching fix
+
+Click on a failed transaction to view the full QBO error message. Match the message to the appropriate resolution below.
+
+### Resolving duplicate document numbers
+
+This error means a QBO customer already has an invoice with the number Alvys tried to push. Alvys uses the Alvys load number as the invoice number when QBO's Custom transaction numbers setting is enabled.
+
+1. In QBO, find the existing invoice with the duplicate number and determine whether it is a valid transaction or a prior import error.
+2. If the existing QBO invoice is a duplicate or error, void or delete it in QBO.
+3. Return to Alvys, select the failed transaction in the Error Queue, and click **Re-export**.
+
+If the QBO invoice with that number is a legitimate transaction that happens to share the same number, you must change the invoice number on the Alvys load before re-exporting. Open the load, edit the invoice number, and then re-export.
+
+### Resolving duplicate name conflicts
+
+This error means QBO rejected the creation of a new customer or vendor because a record with the same name already exists, possibly under a different entity type or with a slight name variation.
+
+<Note>
+  ![Image displaying the Error Transactions page with the duplicate document error for a transaction](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2529142332/ccb50f4cadc036c9af79b566bdef/upload_8182905726544007918.png)
+
+  *Image displaying the Error Transactions page with the duplicate document error for a transaction *
+</Note>
+
+1. In QBO, search the Customer and Vendor lists for a record with the same or similar name.
+2. Determine the correct entity type. If the record exists as a customer but Alvys is trying to create it as a vendor (or vice versa), you may need to adjust the Invoice As or Tender As field in Alvys to match the exact QBO name.
+3. Once the QBO record is resolved, return to Alvys and click **Re-export** on the failed transaction.
+
+### Resolving invalid account type errors
+
+This error means the account mapped in Alvys for this line item type is not the correct QBO account type (for example, a bank account or equity account was selected instead of an income or expense account).
+
+<Note>
+  ![Image displaying the Error Transactions page with the invalid account error for transactions.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2529142381/ffb86733f1e211a3d0fefbd58d74/upload_15307458399500403198.png)
+
+  *Image displaying the Error Transactions page with the **invalid account** error for transactions.*
+</Note>
+
+1. Navigate to Management > Integrations > Account Mappings in Alvys.
+2. Locate the mapping for the line item type mentioned in the error message and change it to the correct QBO account type.
+3. Return to the Error Queue, select the failed transaction, and click **Re-export**.
+
+### Resolving closed accounting period errors
+
+This error means the transaction date falls within an accounting period that has been closed in QBO.
+
+<Note>
+  ![Image displaying the Error Transactions page with the closed accounting period error for transactions](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2529142424/aef912b59d96b0eb87472c762014/upload_7891330387587239692.png)
+
+  *Image displaying the Error Transactions page with the **closed accounting period** error for transactions*
+</Note>
+
+1. Log in to QBO and navigate to Settings > Advanced > Accounting.
+2. Review the closing date. If you can open the period (remove the closing date or move it to an earlier date), do so.
+3. Return to Alvys, select the failed transaction, and click **Re-export**.
+
+If you cannot open the accounting period, you may need to adjust the transaction date on the load in Alvys to fall within an open period before re-exporting. Contact your accounting team to determine the correct resolution for your books.
+
+### Resolving Object Not Found errors (Error 610)
+
+This error means the transaction was successfully sent to QuickBooks Online at an earlier time but the record was later deleted or merged in QBO.
+
+<Note>
+  ![Image displaying the Error Transactions page with the Object Not Found error for transactions](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2529142485/21853e630d09672290f58a2ff4cb/upload_6001237899731636470.png)
+
+  *Image displaying the Error Transactions page with the **Object Not Found** error for transactions*
+</Note>
+
+Contact Alvys Support and include the load number and error message. Support will reset the transaction so a new record can be sent to QBO.
+
+### Resolving transaction linking errors (Error 620)
+
+This error occurs when a payment cannot be linked to an invoice because the customer name on the payment does not exactly match the customer name on the invoice in QuickBooks Online.
+
+<Note>
+  ![Image displaying the Error Transactions page with the transaction linking error  for transactions](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2529142548/41cfb161a397e514093c7ab2f0aa/upload_2765877949300207315.png)
+
+  *Image displaying the Error Transactions page with the **transaction linking error ** for transactions*
+</Note>
+
+Contact [Alvys Support](mailto:support@alvys.com) and include the load number and error message. Support will resync the payment after the names are aligned. You cannot resolve this error from the Error Transactions page.
+
+### Resolving invalid reference ID errors (Error 2500)
+
+This error means the general ledger account referenced in the transaction was deleted or made inactive in QuickBooks Online after the account mapping was configured in Alvys.
+
+1. In QBO, go to **Settings > Chart of Accounts**.
+2. Find the account referenced in the error message and reactivate it.
+3. Return to Alvys, select the failed transaction in the Error Queue, and retry the sync.
+
+### Resolving business validation errors (Error 6000)
+
+This error typically means the account mapped for Customer Deposits in Alvys is not the correct account type in QuickBooks Online. QBO requires this account to be either **Bank** or **Other Current Asset** type.
+
+1. In QBO, go to **Settings > Chart of Accounts** and verify that the Customer Deposits account is set to the **Bank** or **Other Current Asset** type.
+2. In Alvys, go to **Management > Integrations > Account Mappings** and update the Customer Deposits mapping if needed.
+3. Contact Alvys Support to resync the affected transaction.
+
+### Re-export the transaction
+
+After resolving the underlying issue, select the corrected transaction in the Error Queue and click **Re-export**. Alvys resubmits the transaction to QBO.
+
+**Supported Transaction Types That Can Be Re-Synced from Error Transactions**
+
+Not all transactions can be automatically re-synced from this page. Currently, only the following entity types can be re-synced:
+
+- **Load**
+- **Trip**
+- **E-check**
+- **Paystub**
+
+### Verify in QBO
+
+Log in to QBO and confirm the invoice or bill now appears under the correct customer or vendor with the expected amounts and reference numbers.
+
+## Clearing an error transaction you already fixed in QuickBooks Online
+
+If you corrected a transaction directly inside QuickBooks Online rather than re-syncing it from Alvys, you can mark it as resolved in Alvys to remove it from the Error Transactions list.
+
+Select the transaction in the Error Transactions list, right-click, and select **Mark as Synced**. Confirm the action when prompted. The transaction is removed from the Error Transactions queue.
+
+## Troubleshooting
+
+### The error persists after applying the resolution steps
+
+If the error continues after following the resolution steps above:
+
+- Confirm the QBO integration is still connected at Management > Integrations. If the connection shows as expired or disconnected, reconnect the integration and retry the export.
+- Confirm the account mappings are saved correctly and that no mapping references a QBO account that has been deactivated or deleted in QBO.
+- If the error message is not covered by the cases above or the same error appears after re-exporting, contact Alvys Support and include the load number, the exact QBO error message, and the steps already taken.
+
+## FAQs
+
+**Q: Where can I see a list of all transactions that failed to sync with QuickBooks?**
+
+**A:** Go to Accounting > Error Transactions. This page shows every failed export along with the error message returned by QBO, the transaction total, and the associated load or trip reference number.
+
+**Q: Which transactions can I re-sync from the Error Transactions page?**
+
+**A:** Only Load, Trip, E-check, and Paystub transactions can be re-synced directly. Other types, including Deduction, Accessorial Revenue, Fuel, Toll, Accounting Invoice (summary invoice), Escrow, Carrier Statement, and Driver Statement, cannot be re-synced from this page and must be corrected in their respective modules.
+
+**Q: What should I do if I fixed an error manually inside QuickBooks Online?**
+
+**A:** Select the transaction in the Error Transactions list, right-click, and choose Mark as Synced. This removes it from the queue without re-syncing from Alvys.
+
+**Q: How do I resolve "Error 6430: Invalid Account Type"?**
+
+**A:** The account type mapped in Alvys for that line item does not match what QBO expects. Verify the account type in QBO Chart of Accounts, update the mapping in the Alvys Integrations page, and re-sync the transaction.
+
+**Q: What causes the "Duplicate Name Exists" error (Code 6240)?**
+
+**A:** QBO requires globally unique names across all entity types. If a name already exists under a different entity type, add a distinguishing suffix in QBO (such as " (Vendor)") and retry.
+
+**Q: Why am I getting an "Account Period Closed" error (Code 6200)?**
+
+**A:** The transaction date falls within a period that has been locked in QBO. Either change the closing date in QBO (Settings > Advanced) to open the period, or update the transaction date in Alvys to fall within an open period.
+
+**Q: What does "Object Not Found" (Error 610) mean?**
+
+**A:** The transaction was previously sent to QBO but the record was later deleted or merged there. Contact Alvys Support to reset and resend the transaction.
+
+**Q: Why can't a payment be linked to an invoice (Error 620)?**
+
+**A:** The customer name on the payment does not exactly match the customer name on the invoice in QBO. Contact Alvys Support to resync after the names are aligned.
+
+**Q: What should I do if I see "Invalid Reference ID" (Error 2500)?**
+
+**A:** The general ledger account was deleted or made inactive in QBO after the mapping was configured. Reactivate the account in QBO Chart of Accounts and then retry the sync in Alvys.
+
+**Q: Why did my invoice payment fail with a "Business Validation Error" (Code 6000)?**
+
+**A:** The Customer Deposits account is not set to the Bank or Other Current Asset type in QBO. Update the account type in QBO Chart of Accounts, update the mapping in Alvys if needed, and contact Alvys Support to resync.
+
+## Go Deeper
+
+- [How to Connect and Configure QuickBooks Online in Alvys](/help/integrations/how-to-connect-and-configure-quickbooks-online-in-alvys)
+- [How to Map Accounts for QuickBooks Online](/help/integrations/how-to-map-accounts-for-quickbooks-online)
+- [How to Export and Manage Transactions in QuickBooks Online](/help/integrations/how-to-export-and-manage-transactions-in-quickbooks-online)

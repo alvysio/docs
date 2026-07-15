@@ -1,0 +1,88 @@
+---
+title: "I changed the invoicing settings, but it's not reflected on the load"
+---
+
+<Note>
+  **Applies to:** Admins · Partner Admins
+
+  **Module:** Management > Company Profile > Invoicing Settings
+
+  **Last reviewed:** 2026-06
+
+  **Owner:** Support team
+
+  Invoicing Settings (also called billing configuration or invoice preferences) control how Alvys generates, delivers, and validates invoices across your company. Global defaults are set in Company Profile and can be overridden at the individual customer level.
+</Note>
+
+## Overview
+
+Invoicing Settings (sometimes referred to as billing configuration, invoice rules, or invoice preferences) give Admins and Partner Admins control over how invoices are created and delivered. Company-level defaults apply to all customers unless a customer profile overrides them. Five configuration areas are available: Delivery Methods, Document Requirements, Invoice Type, AutoMerge, and the global Invoicing Settings toggle.
+
+## Where to Find It?
+
+Navigate to **Settings** > **Invoicing** (under the **Operations** heading) for **company-wide defaults. **
+
+<Note>
+  ![Image showing navigation to Alvys settings page](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2534055990/a9f718d67e0894eb804b57bc1785/upload_7432258079747304844.png)
+
+  *Image showing navigation to Alvys settings page *
+</Note>
+
+<Note>
+  ![Image showing the Invoicing settings page in the Company/Tenant profile with the five configuration areas.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2534056004/0571d4ca313532b8392d04a83077/upload_6543321746122910213.png)
+
+  *Image showing the Invoicing settings page in the Company/Tenant profile with the five configuration areas. *
+</Note>
+
+**To set overrides for a specific customer/broker**, open the customer or broker profile and scroll to the Invoicing Settings section.
+
+<Note>
+  ![Image showing the Invoicing settings page in the Customer/Broker profile with the five configuration areas.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2534056012/fc262ac89f95c9a81e12e878c1a4/upload_8846358535476261232.png)
+
+  *Image showing the Invoicing settings page in the Customer/Broker profile with the five configuration areas. *
+</Note>
+
+## Key Concepts
+
+- **Delivery Methods:** Controls how invoices reach the customer. Options are EDI, Email, Factoring Company, Online System, and Originals. Each method determines which integration or address Alvys uses when the invoice is sent.
+- **Document Requirements:** Specifies which documents must be present on a load before an invoice can be generated. Requirements are set separately for the Released action and the Invoiced action.
+- **Invoice Type:** Sets whether invoices are generated per load (Individual) or grouped into one periodic invoice per customer (Summary). See [How to use Summary Invoicing](/help/accounting-settlements/how-to-use-summary-invoicing) for the full workflow when using the Summary type.
+- **AutoMerge:** Automatically consolidates all loads for a customer into one invoice draft. AutoMerge is required when the customer's Delivery Method is set to Factoring Company; it must be enabled for factoring customers to invoice correctly.
+- **Invoicing Settings toggle:** When enabled at the company level, these settings apply as the default for all customers. Customer-level settings override the company default for that specific customer only.
+
+## How to Use It?
+
+For invoice generation workflows using these invoicing settings, see [Batch Invoicing](https://help.alvys.com/en/articles/11668833). For the Summary Invoicing workflow, see [How to use Summary Invoicing](/help/accounting-settlements/how-to-use-summary-invoicing).
+
+## Settings and Permissions
+
+Only Admins and Partner Admins can modify Invoicing Settings in Company Profile. This is controlled by the **"Company Profile Manager"** access level, which is granted to the Admin, Support, and Partner Admin roles.
+
+## Limits and Behavior
+
+Changes to invoicing settings, such as customer details, delivery methods, or required documents, are instantly reflected on loads with a **'Released'** status or earlier. However, for loads in the **'Queued'** status or beyond, the invoicing settings will remain as they were at the time the invoice was generated.
+
+Changing invoicing settings after an invoice has already been generated does not update that invoice automatically. To apply updated settings, revert the load to **Released**, update the settings, then regenerate the invoice.
+
+## FAQs
+
+**Q: Can I set different invoicing settings for different customers?**
+
+**A:** Yes. Set company-wide defaults in Company Profile, then override any setting in the individual customer profile. The customer-level setting takes precedence over the company default.
+
+**Q: What happens if I change document requirements after an invoice is already generated?**
+
+**A:** The change applies to new invoices only. For an existing load, revert it to **Released**, update the requirements, and regenerate the invoice.
+
+**Q: Is AutoMerge required for all customers?**
+
+**A:** AutoMerge is required only when the customer's Delivery Method is set to Factoring Company. For other delivery methods it is optional.
+
+**Q: Who can change Invoicing Settings?**
+
+**A:** Only Admins and Partner Admins can modify Invoicing Settings in Company Profile.
+
+## Go Deeper
+
+- [Batch Invoicing](https://help.alvys.com/en/articles/11668833)
+- [How to use Summary Invoicing](/help/accounting-settlements/how-to-use-summary-invoicing)

@@ -1,0 +1,108 @@
+---
+title: "How to export data and reports from Alvys"
+description: "A walkthrough on how to download data / reports from Alvys"
+---
+
+<Note>
+  **Applies to:** All users (module access varies by role)
+
+  **Module:** Accounting, Reports, Assets, Maintenance, Safety, Loads
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Alvys lets you export data from multiple modules to CSV or Excel (XLSX) files using the export button in each module's toolbar.
+</Note>
+
+## Overview
+
+Export data, download reports, or download CSV or XLSX files from Alvys (also called exporting to Excel, downloading a spreadsheet, or pulling a report). Alvys lets you export data from multiple modules directly to your device as a CSV or Excel (XLSX) file.
+
+<Note>
+  ![Alvys right-click row menu showing Export options for CSV and Excel](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1303392538/7994d362c5067c07ccad8c554f66/image.png)
+
+  *Alvys right-click row menu showing Export options for CSV and Excel*
+</Note>
+
+Each module in Alvys provides an export button directly in the toolbar. Select your format and Alvys downloads the file to your device. Exports are available through dedicated export buttons in each module's toolbar; there is no single global export screen. The modules that support export are: Carrier Settlements, Driver Settlements, Echecks, Aging Report, Drivers list, Maintenance Records, Safety (Accidents, Claim Reports, Roadside Inspections), and Lanes.
+
+Invoices can be downloaded individually as **PDF** or **Exce**l files from within a summary invoice.
+
+## Prerequisites
+
+You must be logged in to Alvys and have access to the module you want to export from. Access to specific modules depends on your role:
+
+- Carrier Settlements requires the **"Billing"** permission.
+- Driver Settlements requires the **"PayDriver"** permission.
+- All other modules listed above (Echecks, Aging Report, Drivers, Maintenance, Safety, Lanes) are accessible to all authenticated users with access to those sections of the application.
+
+## Steps
+
+1. Navigate to the module you want to export from. Go to the relevant section in the Alvys sidebar.
+
+   - Carrier Settlements: Accounting > Carrier Settlements
+   - Driver Settlements: Accounting > Driver Settlements
+   - Echecks: Accounting > Echecks
+   - Aging Report: Accounting > Aging Report (or Reports > Aging Report)
+   - Drivers list: Assets > Drivers
+   - Maintenance Records: Maintenance
+   - Accidents: Safety > Accidents
+   - Claim Reports: Safety > Claim Reports
+   - Roadside Inspections: Safety > Roadside Inspection
+   - Lanes: Loads > Lanes
+2. Locate the Export button in the toolbar. Once you are on the module page, look for the export controls in the toolbar at the top of the data grid. The exact button label varies by module.
+
+   - Most modules show two separate buttons: **Export all as CSV** and **Export all as Excel**.
+   - Carrier Settlements (Open Items tab) shows a single **Export** button that downloads as CSV.
+   - Carrier Settlements (Drafts tab) shows an **Export CSV** button.
+   - Carrier Settlements (Statements tab) shows an **Export** button.
+   - Aging Report shows **Export all as CSV** and **Export all as Excel** buttons.
+3. Click the export button for your preferred format. Click **Export all as CSV** to download a comma-separated values file, or **Export all as Excel** to download an XLSX file. Alvys immediately generates the file and your browser downloads it to your device.
+
+   - For Carrier Settlements Drafts, you can also export a PDF of a selected statement: open the settlement, then click **Export PDF** in the sidebar footer.
+   - For a summary invoice, navigate to the invoice and use the **Download PDF** or **Download Excel** buttons to save a copy.
+
+A file is saved to your device's default downloads folder. The filename includes the module name and the date of the export. You can open the file in Excel, Google Sheets, or any spreadsheet application.
+
+### Exporting only selected rows in Carrier Settlements
+
+In Carrier Settlements, the CSV export on certain tabs exports only the rows you have selected. Select the rows you want before clicking Export.
+
+### Exporting from the Aging Report context menu
+
+The Aging Report grid also supports exporting a row group directly via a right-click context menu on that grid only. This menu item appears as **Export** and downloads an Excel file for the selected group.
+
+## Troubleshooting
+
+### Export button is not visible
+
+1. Confirm you are on the correct module page and the data grid has loaded fully. If the grid is still loading, wait for it to complete before looking for the export button.
+2. Confirm your role has access to the module. Carrier Settlements requires the **"Billing"** permission and Driver Settlements requires the **"PayDriver"** permission. If you do not have access, the module page will redirect you away before you can see the toolbar.
+3. Check that your browser is not blocking file downloads. Some browser or corporate network settings block automatic file downloads. Allow downloads from your Alvys domain in your browser settings.
+4. If none of the above apply, contact Alvys support and include your role name and the module you are trying to export from.
+
+### File downloads but appears empty
+
+1. Verify the data grid is not filtered to zero results before exporting. Clear any active filters and try exporting again.
+2. For Carrier Settlements tabs that export only selected rows, confirm you have selected at least one row before clicking Export.
+
+## FAQs
+
+**Q: Can I export load data or a full load list to Excel?**
+
+**A:** The Loads module does not have an export button. To get load data in spreadsheet form, use the Aging Report export, which includes load-level financial detail, or contact Alvys support about reporting options.
+
+**Q: What formats can I export in?**
+
+**A:** Most modules support both CSV and Excel (XLSX). Some Carrier Settlements tabs export to CSV only. Invoices can be downloaded as PDF or Excel.
+
+**Q: Is there a limit on how many rows I can export?**
+
+**A:** Exports include all rows currently loaded in the grid. Very large data sets may take a few seconds to generate. There is no documented row cap enforced in the export logic.
+
+**Q: Can I schedule an automatic export or email delivery?**
+
+**A:** Scheduled exports and email delivery are not part of the standard data grid export feature described here. See the related articles below for reporting and scheduled export options.
+
+## Go Deeper
+
+- [How do I download data/reports from Alvys?](/help/reports-analytics/how-to-export-data-and-reports-from-alvys)

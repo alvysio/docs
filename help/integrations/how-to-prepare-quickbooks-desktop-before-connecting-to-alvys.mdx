@@ -1,0 +1,171 @@
+---
+title: "How to prepare QuickBooks Desktop before connecting to Alvys"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Integrations team
+
+  Before connecting Alvys to QuickBooks Desktop, your accounting team must verify that four software components are present in the correct environment, and that your QuickBooks company file and Chart of Accounts are ready to receive mapped transactions.
+</Note>
+
+## Overview
+
+Connecting Alvys to QuickBooks Desktop requires four separate components working together in the same environment. Skipping any preparation task will cause the connection to fail or produce sync errors after the first authorization.
+
+This article covers understanding the four required components, choosing the setup type that matches your office environment, verifying software compatibility, and preparing your QuickBooks company file and Chart of Accounts before you begin. These steps are Windows-only; the QuickBooks Desktop integration is not available on Mac.
+
+## Before You Start
+
+**Required role:** **"Admin"**, **"Partner Admin"**, or **"Support"** (requires the **"CompanyProfileManager"** permission)
+
+**Prerequisites:**
+
+- Windows operating system: QuickBooks Desktop runs on Windows only
+- QuickBooks Desktop installed on the machine that will handle syncing
+- Administrator access to that Windows machine
+- An active QuickBooks company file (.QBW) for the subsidiary you plan to integrate
+
+## Steps
+
+**Before you begin:** While this guide mentions several software components, you do not need to download or install anything yet. All necessary installation links and files are provided step-by-step in the next article: How to connect QuickBooks Desktop to Alvys and configure settings.
+
+1. **Understand the four integration components.** The QuickBooks Desktop integration uses four components that must all be present in the same environment:
+
+   - **QuickBooks Desktop (QBD)** is the accounting application installed on your Windows machine. It holds your Chart of Accounts, customer and vendor records, and all financial transactions.
+   - **QuickBooks Web Connector (QBWC)** is a background application that bridges Alvys and QuickBooks Desktop. It is typically installed automatically when you install QuickBooks Desktop. If it is not installed, download it from Intuit's support site.
+   - **Web Connector configuration file (QWC)** is a file Alvys generates for each subsidiary you integrate. It tells the Web Connector the Alvys application name, your unique owner ID, and the identifier for your company file. You download this file from Alvys during setup.
+   - **QuickBooks company file (QBW)** is the database that stores all company data, including your Chart of Accounts. This is the file QuickBooks opens when you log in.
+
+All four must be in the same environment. If any one of them is elsewhere, syncing will not work.
+
+<Note>
+  ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528547855/7bc717361706692cf229dd153d6a/upload_7732255377396495219.png)
+</Note>
+
+1. **Choose your setup type.** Three setup types are supported. Identify which applies to your office before proceeding.
+
+   - **Single-user (local desktop):** One person uses QuickBooks on a single Windows computer. QuickBooks Desktop, the Web Connector, and the company file all live on that machine. This is the simplest configuration.
+   - **Multi-user (office network):** Multiple users share one company file stored on a central server or shared drive. Install the Web Connector on the machine that hosts the company file, not on individual workstations. Alvys syncs through that host machine.
+   - **Remote desktop or cloud-hosted (for example, Rightworks or Ace Cloud):** QuickBooks is hosted remotely and accessed via a remote desktop session. Upload both the Web Connector and the QWC file to the remote environment. The company file must be open in that remote session during initial connection.
+
+     <Note>
+       ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528547919/c368a748108520baa53d092383b3/upload_4025930346691607658.png)
+     </Note>
+
+     ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528547972/b99746be1e8ac2598942f6f8b1ad/upload_2545371209025293233.png)
+2. **Verify software compatibility.** Before downloading the QWC file from Alvys, confirm the following:
+
+   - **Supported QuickBooks Desktop editions:** Enterprise, Plus, Accountant, Premier, or Pro. To check your edition, open QuickBooks Desktop and press F2 (or Fn + F2) to open the Product Information window.
+   - **Windows administrator rights:** Your Windows account on the sync machine must have administrator rights. Without them, you cannot authorize the Web Connector connection.
+   - **Single User Mode:** When you add the QWC file to the Web Connector during setup, QuickBooks must be in Single User Mode and the company file must be open. Multi-User Mode blocks the authorization prompt from appearing.
+
+     <Note>
+       ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528548041/d266584dc7798d6952b9dbc88900/upload_13037097239486100506.png)
+     </Note>
+
+     ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528548103/dd1a7c9fb945d702739415f36f12/upload_12525739118857586168.png)
+3. **Prepare your QuickBooks company file.**
+4. Open QuickBooks Desktop on the designated sync machine.
+5. Open the company file (.QBW) you plan to integrate with Alvys.
+6. Confirm the correct company name appears at the top of the QuickBooks window.
+7. Go to File > Switch to Single-user Mode if the option is available.
+8. If you have multiple subsidiaries in Alvys, each requires its own separate integration setup. Open each subsidiary's company file separately when setting up that subsidiary.
+
+If you do not yet have a QuickBooks company file, create one first: Launch QuickBooks Desktop and click **Create a new company** from the **No Company Open** window. If a file is already open, go to **File** > **New Company**. Select **Express Start** to get started quickly or **Detailed Start** for a complete setup. Enter your company name, select **Transportation/Trucking** as the industry (this pre-configures a Chart of Accounts suited for trucking), and select your business type (for example, LLC, S-Corp, or Corporation). Click **Create Company** and save when prompted.
+
+<Note>
+  ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528548202/bf6bc82ca07fce77f8248732f529/upload_14167966246539368565.png)
+</Note>
+
+1. **Verify your Chart of Accounts.** Alvys maps transactions to accounts in your QuickBooks Chart of Accounts during the configuration wizard. Accounts that do not exist in QuickBooks cannot be selected during mapping, so create any missing accounts before starting. At minimum, your Chart of Accounts must include:
+
+   - **Accounts Receivable:** for customer invoices
+   - **Accounts Payable:** for carrier and driver bills
+   - **Income:** at least one income account for revenue transactions
+   - **Expense:** at least one expense account for cost transactions
+
+If your company uses account numbers in QuickBooks, enable them before mapping: go to Edit > Preferences > Accounting > Company Preferences and check **Use account numbers**. Account numbers must be enabled before you begin mapping in Alvys.
+
+If you have subaccounts, select the **Show lowest subaccount only** checkbox. This shortens the subaccount details when you use it in your transactions.
+
+To add a missing account to your Chart of Accounts, follow these steps in QuickBooks Desktop:
+
+1. Select the **Company**, **Lists**, or **Accountant** menu, then select **Chart of Accounts**.
+2. From the **Account** dropdown, select **New**.
+3. Select an account type, then select **Continue**.
+4. Complete the account details.
+5. Select **Save &amp; Close**.
+
+<Note>
+  ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528548230/806c9e8eafd268c8e4bb159e91f6/upload_7111898721689759602.png)
+</Note>
+
+## Result
+
+When all five steps are complete, your QuickBooks environment is ready for connection. Proceed to "How to connect QuickBooks Desktop to Alvys and configure settings" to download the QWC file, authorize the Web Connector, and configure your integration settings.
+
+## Troubleshooting
+
+### Authorization prompt does not appear when adding the QWC file
+
+**Step 1:** Confirm QuickBooks Desktop is open and you are logged in as the Admin user.
+
+**Step 2:** Confirm QuickBooks is in Single User Mode. Go to File > Switch to Single-user Mode if the option is available.
+
+**Step 3:** Check your Windows taskbar for a minimized or background QuickBooks window containing the authorization prompt.
+
+**Step 4:** If the prompt still does not appear, close and reopen QuickBooks, then retry adding the QWC file.
+
+### Cannot see the Alvys Integrations page
+
+**Step 1:** Confirm your user role is **"Admin"**, **"Partner Admin"**, or **"Support"**.
+
+**Step 2:** Navigate to Management > Integrations. If the Integrations option is not visible, your account does not have the **"CompanyProfileManager"** permission. Contact your Alvys account admin to review your role assignment. If your role is correct and the page is still inaccessible, contact Alvys support.
+
+<Note>
+  ![Screenshot showing the integrations page with the Accounting section opened.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528548295/f0edfae9e9b54b97fe17c8ddb2ce/upload_1984240847895244897.png)
+
+  *Screenshot showing the integrations page with the Accounting section opened. *
+</Note>
+
+## FAQs
+
+**Q: Can I use QuickBooks Desktop on a Mac?**
+
+**A:** No. QuickBooks Desktop is Windows-only. The Web Connector that powers this integration also requires Windows. If your team uses Macs exclusively, consider the QuickBooks Online integration instead.
+
+**Q: Which QuickBooks Desktop editions are supported?**
+
+**A:** Enterprise, Plus, Accountant, Premier, and Pro are supported. To check your edition, open QuickBooks Desktop and press F2 (or Fn + F2) to open the Product Information window.
+
+**Q: Can I connect multiple subsidiaries to QuickBooks Desktop?**
+
+**A:** Yes. Each subsidiary is configured separately. Open the specific subsidiary's company file in QuickBooks before setting it up in Alvys. Each subsidiary requires its own QWC file downloaded from Alvys.
+
+**Q: Does every computer in our office need the Web Connector installed?**
+
+**A:** No. Only the designated sync machine needs the Web Connector. For multi-user setups, this is typically the machine hosting the company file. Installing the Web Connector on more than one machine for the same company file causes duplicate transactions and record-locking errors.
+
+**Q: Does my company file need to be open when I add the QWC file?**
+
+**A:** Yes. Your QuickBooks company file must be open when you add the QWC file to the Web Connector. QuickBooks requires an open file to display the authorization prompt that grants Alvys permission to exchange data.
+
+**Q: What is Single User Mode and when do I need it?**
+
+**A:** Single User Mode means only one user is accessing the company file at a time. You must switch to Single User Mode before adding the QWC file because the authorization prompt requires this mode to appear. You can return to Multi-User Mode after authorization is complete.
+
+**Q: Our QuickBooks is hosted remotely. What do I do differently?**
+
+**A:** Upload both the Web Connector application and the QWC file to your remote environment before starting setup. Complete all connection steps inside the remote desktop session where QuickBooks is running.
+
+**Q: Are account numbers required in my Chart of Accounts?**
+
+**A:** No, account numbers are optional. If your Chart of Accounts already uses account numbers, enable that preference in QuickBooks before mapping accounts in Alvys. If you are not using account numbers, no action is needed.
+
+## Go Deeper
+
+[How to connect QuickBooks Desktop to Alvys and configure settings](/help/integrations/how-to-connect-quickbooks-desktop-to-alvys-and-configure-settings)

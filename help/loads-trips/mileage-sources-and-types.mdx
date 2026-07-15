@@ -1,0 +1,148 @@
+---
+title: "Mileage Sources and Types"
+description: "Set up the mileage sources and calculations."
+---
+
+<Note>
+  📋 **Applies to:** All users (viewing mileage); users who can edit the load (editing mileage)
+
+  **Module:** Loads and Trips
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  Alvys tracks two types of mileage on every load: Customer mileage used for invoicing and Dispatch mileage used for driver settlements. Each type can be set to one of several sources that determine where the mileage value comes from and whether it recalculates automatically when the route changes.
+</Note>
+
+## Overview
+
+Mileage in Alvys controls two separate billing streams. Customer mileage determines what appears on the customer invoice. Dispatch mileage is split per trip into Loaded Miles and Empty Miles and determines what drivers are paid.
+
+Getting the right mileage source on each load ensures accurate invoices, correct driver settlements, and reliable reporting.
+
+## Where to Find It
+
+Mileage fields appear on the Load Details Page in the Stops section. Each stop row shows the calculated or entered mileage.
+
+Customer mileage is visible on the invoice preview and the load header details. Dispatch mileage per trip is shown in the Trips section of the load.
+
+<Note>
+  ![Load Details Page showing Customer mileage and Dispatch mileage fields in the Stops section.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306066/bea6cd6b601ebc8404cbcb0233a0/upload_9384028386692054268.png)
+
+  * Load Details Page showing Customer mileage and Dispatch mileage fields in the Stops section.*
+
+  ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306086/38d7ab72d90edfc6437848092c34/upload_10861842267471116153.png)
+</Note>
+
+## Key Concepts
+
+### Mileage Types
+
+Alvys uses two mileage types on every load.
+
+**Customer mileage** is the total miles used for customer invoicing. It appears on the customer invoice and rate confirmation. It is a single value for the full load.
+
+**Dispatch mileage** is used for driver settlements. It is tracked per trip and is split into two components: Loaded Miles (miles driven while carrying cargo) and Empty Miles (miles driven without cargo, such as deadhead between trips).
+
+### Mileage Sources
+
+The source determines where the mileage value comes from. Available sources differ by mileage type.
+
+**Automatic** (available for both Customer and Dispatch mileage): The mileage engine calculates miles based on the current stop addresses. If stops are added, removed, or reordered, Automatic mileage recalculates. This is the recommended source for most loads.
+
+**Manual** (available for both Customer and Dispatch mileage): You enter the mileage value directly. Manual mileage does not recalculate when stops change. A notification is shown to remind you that the mileage is user-entered and will not update automatically.
+
+**Customer Contract** (available for Customer mileage only): Mileage is pulled from the contracted lane rate on the customer profile. This source is used when the customer has a lane rate contract with a defined mileage. Mileage does not recalculate when stops change. A notification is shown.
+
+**Customer Tender** (available for Customer mileage only): Mileage is pulled from the EDI tender transmitted by the customer. This source is only available when the EDI Tenders integration is active for the customer. Mileage does not recalculate when stops change. A notification is shown.
+
+### Mileage Engines
+
+When the source is set to Automatic, one of the following mileage engines calculates the route distance.
+
+**PCMiler** is the default mileage engine in Alvys. It calculates commercial truck routing distances. Most loads will use PCMiler unless a different engine has been configured.
+
+**HereMaps** is an alternate routing engine available as a configuration option.
+
+**Google Maps** is an alternate routing engine available as a configuration option.
+
+**MileMaker** is an alternate routing engine available as a configuration option.
+
+The active engine is set by your Alvys administrator and applies tenant-wide. Contact your administrator if you need to confirm or change the mileage engine in use.
+
+<Note>
+  ![Global Settings where admin can create and edit Mileage Profiles for both customer and dispatch mileage.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306109/d5023a740e6431b9fbdfbfc1b2f7/upload_3362878019803750803.png)
+
+  *Global Settings where admin can create and edit Mileage Profiles for both customer and dispatch mileage. *
+</Note>
+
+### Mileage Notifications
+
+When Customer or Dispatch mileage is set to any source other than Automatic, Alvys displays a notification on the load to alert dispatchers and billing users that the mileage is fixed and will not recalculate.
+
+This notification appears near the mileage fields on the Load Details Page. It is informational and does not block any actions.
+
+## Settings and Permissions
+
+Viewing mileage on a load is available to all authenticated Alvys users. No additional permission is required to see mileage values.
+
+Editing mileage (changing the source or entering a manual value) requires permission to edit the load. No separate mileage-specific permission is required.
+
+<Note>
+  ![Permission to edit miles](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306133/a878f9f129da37cdbf6117e2bee9/upload_13991122435446885208.png)
+
+  *Permission to edit miles*
+</Note>
+
+### Customer Mileage Source Priority
+
+When a new load is created, Alvys determines the default Customer mileage source in the following order:
+
+1. The mileage source configured on the customer's profile in Alvys.
+2. The tenant-wide default mileage source configured in Tenant Management settings.
+3. The system default: Automatic using PCMiler.
+
+If a customer profile has a mileage source configured, that source takes precedence over the tenant-wide setting.
+
+<Note>
+  ![Customer profile mileage source setting in the Companies module.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306147/156fb462c1dcac8766b9de1ef136/upload_4171898403117387679.png)
+
+  *Customer profile mileage source setting in the Companies module.*
+</Note>
+
+<Note>
+  ![Tenant Management mileage default settings panel.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306157/4de3d2f91118badec74ec19d16b7/upload_12269650537258682437.png)
+
+  *Tenant Management mileage default settings panel.*
+</Note>
+
+### Dispatch Mileage Sources
+
+Dispatch mileage supports Automatic and Manual sources only. Customer Contract and Customer Tender are not available for Dispatch mileage.
+
+## Limits and Behavior
+
+- Customer mileage sources: Automatic, Manual, Customer Contract, Customer Tender.
+- Dispatch mileage sources: Automatic and Manual only.
+- Automatic mileage recalculates whenever stops are added, removed, or reordered.
+- Manual, Customer Contract, and Customer Tender mileage do not recalculate on route changes.
+- The default mileage engine is PCMiler.
+- Changing the tenant-wide mileage engine affects all new loads; existing loads are not retroactively updated.
+- Customer Tender mileage source is only available when the EDI Tenders integration is active.
+
+## FAQs
+
+**Q: Why does my Customer mileage show a notification and not recalculate when I update stops?**
+
+**A:** The mileage source is set to Manual, Customer Contract, or Customer Tender. These sources are fixed values that do not recalculate automatically. To have mileage recalculate, change the source to Automatic.
+
+**Q: Which mileage engine does Alvys use by default?**
+
+**A:** PCMiler is the default mileage engine. It calculates commercial truck routing distances. Administrators can configure an alternate engine in Tenant Management settings.
+
+**Q: Can I set different mileage engines for Customer mileage and Dispatch mileage?**
+
+**A:** The mileage engine is a tenant-wide setting. It applies to all Automatic mileage calculations, both Customer and Dispatch.
+
+**Q: How do I make a customer always use a specific mileage source by default?**
+
+**A:** Configure the mileage source on the customer's profile in the Companies module. That setting overrides the tenant-wide default for any load created for that customer.

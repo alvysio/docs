@@ -1,0 +1,331 @@
+---
+title: "Sage Intacct: Account Mappings"
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin · Support **·** **Module:** Settings > Connections > Sage Intacct
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Account mappings (also called GL mappings or chart-of-accounts mappings) tell Alvys which Sage Intacct GL accounts to use when exporting AR invoices and AP bills. Mappings are organized by transaction category, and Alvys uses a three-level fallback to find the correct account for each line item.
+</Note>
+
+## Overview
+
+When Alvys exports a transaction to Sage Intacct, it needs to know which GL account each line item belongs to. You configure this by mapping Alvys transaction types to Sage GL accounts in the Account Mappings section.
+
+If a specific mapping is not set for a line item, Alvys falls back to the category default, then to the master default in the Default category. The Default category mapping is required: it must be configured before any transactions can export successfully.
+
+**When Alvys sends a transaction to Sage, it decides which account to record it under by checking three levels in order:**
+
+- **Specific match (most exact):** If the exact transaction type has its own account assigned, for example, an accessorial like *Detention, *Alvys uses that account.
+- **Category default:** If no specific account is set, Alvys uses the default account for that category (for example, the **Accessorials** default).
+- **Master default (backup):** If the category default isn't set either, Alvys falls back to the master **Default** account.
+
+<Check>
+  💡 Complete the setup wizard first (see [2️⃣ **Sage Intacct: Connection and Settings Configuration**]). Configure the default account mappings during Step 3 (AP), Step 4 (AR), and complete specific mappings any time after setup from the **Account Mappings** tab.
+</Check>
+
+## Where to Find It
+
+Go to Settings > Connections > Sage Intacct. Select the subsidiary whose mappings you want to configure. Click the Account Mappings tab.
+
+## Key Concepts
+
+### The Three-Level Fallback
+
+When Alvys exports a line item, it looks for a GL account in this order:
+
+1. Specific Item mapping: the mapping for that exact transaction type (for example, Loaded Miles under Trip).
+2. Category Default: the default account set for that category (for example, the default Trip account).
+3. Master Default: the Default Revenue Account (for AR) or Default Expense Account (for AP) in the Default category.
+
+If no mapping exists at any level, the transaction will not export and will appear in Accounting > Error Transactions.
+
+### GL Account Dropdown Format
+
+When selecting a GL account, accounts appear in the format "Account ID - Account Name" and are grouped by account type. You must select from the accounts already configured in your Sage entity; Alvys does not create GL accounts.
+
+### Default Category (Required)
+
+The Default category contains the master fallback accounts for all transactions:
+
+- **Default Revenue Account: **used for any AR line item that has no specific or category-level mapping.
+- **Default Expense Account:** used for any AP line item that has no specific or category-level mapping.
+
+These accounts must be mapped before any transactions can export. They cannot be cleared once set.
+
+<Note>
+  ![Screenshot of the Default Account Mappings](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527814684/b6fe6c5312a88e09f422360fc163/upload_2894422923550313585.png)
+
+  *Screenshot of the Default Account Mappings *
+</Note>
+
+## How to Use It
+
+### Setting a Mapping
+
+1. Expand the account category accordion you want to configure.
+2. Click "Add Mapping" next to the line item you want to map.
+3. Select the GL account from the dropdown. Accounts are shown as "Account ID - Account Name" grouped by account type.
+
+<Note>
+  ![Image showing expanded account category](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527814710/7214054adea8b549c9e467641473/upload_6112422360628112195.png)
+
+  *Image showing expanded account category *
+</Note>
+
+1. The mapping saves automatically. No Save button is required.
+
+### Clearing a Mapping
+
+To remove a specific mapping, click the X next to the mapped account. The Default Revenue Account and Default Expense Account in the Default category cannot be cleared; they are always required.
+
+<Note>
+  ![Image showing expanded account category wth “Clear Selection” option](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527814741/2ec8c8dc7d0c76e0a80911dcef41/upload_6167977601395436657.png)
+
+  *Image showing expanded account category wth “Clear Selection” option*
+</Note>
+
+## Account Categories
+
+### Default (Required)
+
+Contains the master fallback accounts for all transactions:
+
+- Default Revenue Account (AR): fallback for any AR line item without a specific or category-level mapping.
+- Default Expense Account (AP): fallback for any AP line item without a specific or category-level mapping.
+
+This category must be fully mapped before enabling any sync. It cannot be left unmapped.
+
+### Load (AR Only)
+
+The Load category controls how load-level revenue line items on customer invoices are recorded in Sage Intacct. When Alvys exports an invoice, each line item representing a charge on the load is mapped using this category.
+
+**Mappable items:**
+
+- **Load** (default): The fallback GL account used for any load-level revenue line item that does not match one of the more specific items below.
+- **Customer Linehaul:** The base linehaul charge billed to the customer. This is typically the largest portion of the invoice and represents your freight transportation revenue.
+- **Fuel Surcharge:** The fuel surcharge (FSC) line item billed to the customer, often calculated as a percentage of linehaul or as a per-mile rate.
+
+### Trip (AP Only)
+
+The Trip category controls how trip-level cost line items on carrier and driver bills are recorded in Sage Intacct. In Alvys, a load can have one or more trips. Each trip represents a leg of the shipment, and the costs associated with that trip (such as driver pay rates and carrier rates) are mapped to GL accounts using this category.
+
+<Note>
+  ![Image showing the Trip category](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527814766/667858757199bfad1bbd18ef1406/upload_5867754872069729402.png)
+
+  *Image showing the Trip category*
+</Note>
+
+**Mappable items:**
+
+- **Trip (default):** The fallback account used for any trip-level cost that isn't specifically mapped below.
+- **Carrier Linehaul:** The base linehaul rate paid to a carrier for hauling a trip. This is the main carrier cost on brokerage loads.
+- **Driver Payment:** The linehaul payment amount paid to a company driver for a trip.
+
+  In addition to the items above, all trip-based driver pay types from your pay policies are automatically included in this category. These represent the different ways drivers can be paid per trip:
+- **Per Trip:** A flat rate paid for each trip.
+- **% of Trip Value:** A percentage of the total trip revenue.
+- **Total Miles:** A rate based on total miles driven (loaded plus empty).
+- **Loaded Miles:** A rate based on loaded miles only.
+- **Empty Miles:** A rate based on empty (deadhead) miles only.
+- **Per Stop:** A rate paid for each stop on the trip.
+- **% of Fuel Surcharge:** A percentage of the customer's fuel surcharge.
+- **% of Line Haul:** A percentage of the customer's linehaul rate.
+- **Service Fee:** A flat service fee applied to the trip.
+- **Per Load:** A flat rate paid per load.
+- **Per Customer Stop:** A rate paid for each customer stop.
+- **Per Hour:** An hourly rate for the trip.
+- **Mileage Per Diem:** A per diem amount based on mileage.
+- **Per Mile:** A rate paid for each mile driven.
+- **% of Line Haul Deduction:** A trip-level deduction taken as a percentage of the linehaul.
+- **% of Trip Value Deduction:** A trip-level deduction taken as a percentage of the trip value.
+
+### Driver Statement Expenses (AP Only)
+
+The Driver Statement Expenses category covers statement-level driver compensation, which includes recurring pay items that appear on a driver's settlement but are not tied to a specific trip.
+
+<Note>
+  ![Image showing the Driver Statement Expenses Category](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527814785/ed63a47599e048c60cfd9c3a8ea0/upload_1541342383146115800.png)
+
+  *Image showing the Driver Statement Expenses Category*
+</Note>
+
+**Mappable items:**
+
+- **Driver Statement Expense (default):** The fallback account used for any statement-level expense that isn't specifically mapped below.
+- **Minimum Pay:** The minimum guaranteed pay for a statement period. If a driver's trip-based earnings fall below this amount, the difference is added as a Minimum Pay line item.
+- **Bonus:** Bonus payments added to driver settlements, such as safety, referral, or performance bonuses.
+- **Per Day:** A daily rate paid to the driver for each active day in the statement period.
+- **Daily Per Diem:** A daily allowance for meals and incidental expenses, paid per day.
+- **Statement Per Diem:** A per diem allowance paid once per statement period rather than daily.
+
+<Check>
+  💡 If your company does not use driver settlements or does not have the **Include driver bills** setting enabled in AP, this category will not be used.
+</Check>
+
+### Accessorials (AR and AP)
+
+The Accessorials category covers additional charges beyond the base linehaul and fuel surcharge , charges for services like detention, layover, lumper fees, TONU (truck order not used), and any other accessorial types your company has defined in Alvys.
+
+**Mappable items:**
+
+- **Accessorial** **(default) **: The fallback GL account for any accessorial charge not specifically mapped below.
+- **Your custom accessorial types:** Every accessorial type you have created in Alvys (such as Detention, Layover, Lumper, Stop-off, or TONU) appears as a mappable item. These are pulled dynamically from your company's accessorial list.
+
+Since this category applies to both AP and AR, the mapping table shows two GL account columns — one for AP (what you pay carriers/drivers for that accessorial) and one for AR (what you charge customers for that accessorial). You can map each side to different GL accounts.
+
+<Note>
+  ![Image showing the Accessorials Category](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527814811/d0b96b6e61582bfa099bca8d14c3/upload_6597093437077697275.png)
+
+  *Image showing the Accessorials Category*
+</Note>
+
+**Example:** You might map Detention on the AR side to a "Detention Revenue" account and Detention on the AP side to a "Detention Expense" account.
+
+<Check>
+  💡 If you add a new accessorial type in Alvys, it will automatically appear in this category. Until you assign it a specific GL account, it falls back to the Accessorial default.
+</Check>
+
+### E-checks (AR and AP)
+
+The E-checks category covers electronic check transactions. E-checks in Alvys are used for various payment types that flow through electronic check processing.
+
+<Note>
+  ![Image showing the E-checks Category](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527814851/7bbbdd037cde18641ee55fb7ea84/upload_7393919374316457109.png)
+
+  *Image showing the E-checks Category*
+</Note>
+
+**Mappable items:**
+
+- **E-Check** *(default)* : The fallback GL account for any e-check transaction not specifically mapped below.
+- **Your custom e-check types** : Every accessorial type you have created in Alvys appears as a mappable item, pulled dynamically from your company's e-check type list.
+
+Like Accessorials, this category supports both AP and AR with separate GL account columns for each side.
+
+### Deductions (AP Only)
+
+The Deductions category covers amounts deducted from driver settlements recurring charges like insurance premiums, cash advances, equipment leases, IFTA fees, and other withholdings.
+
+<Note>
+  ![Image showing the Deductions Category](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527814870/721dc49d6ddef50c3b0a63500926/upload_2442140181961318506.png)
+
+  *Image showing the Deductions Category*
+</Note>
+
+**Mappable items:**
+
+**Deduction** *(default)* : The fallback GL account for any deduction not specifically mapped below.
+
+**Alvys Predefined Deduction Types**. Common deduction types include:
+
+- Cash advance / Cash advance repayment
+- Insurance (health, liability, cargo, etc.)
+- IRP (International Registration Plan) fees
+- IFTA (International Fuel Tax Agreement) fees
+- Equipment lease / Equipment purchase
+- Fuel card advances
+- Loan repayments
+- Occupational accident insurance
+- Plate fees
+- ELD fees
+- Toll charges
+
+### Fuel (AP Only)
+
+The Fuel category includes fuel transactions (such as diesel) linked to drivers or owner-operators. Each fuel type can be mapped to a specific GL account in Sage Intacct. If no specific account is mapped but a **Default Fuel Account** is configured, the transaction will use the Default Fuel Account. If neither a specific account nor a Default Fuel Account is configured, the transaction will fall back to the **Default Expense Account** set in the Default category.
+
+<Note>
+  ![Image showing the Fuel Category](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527814917/ffa545f00b74e1e778d28a51f0dc/upload_530046681003287217.png)
+
+  *Image showing the Fuel Category*
+</Note>
+
+**Mappable items:**
+
+- **Fuel** (default): The fallback GL account for any fuel transaction type not specifically mapped below.
+- **Truck Diesel:** Standard diesel fuel purchases for trucks.
+- **Reefer Diesel:** Diesel fuel for refrigerated trailer units.
+- **Dyed Diesel:** Off-road or tax-exempt diesel fuel.
+- **Gas:** Gasoline purchases.
+- **Natural Gas:** Natural gas (CNG/LNG) fuel purchases.
+- **Propane:** Propane fuel purchases.
+- **DEF Fluid:** Diesel Exhaust Fluid (required for emissions systems).
+- **Oil:** Oil and lubricant purchases.
+- **Other Fuel:** Any fuel type not covered by the specific categories above.
+- **Cash Advance:** Cash advances issued through fuel cards.
+- **Cash Advance Fee:** Processing fees for fuel card cash advances.
+- **Maintenance:** Maintenance charges processed through fuel cards.
+- **Parking:** Parking charges processed through fuel cards.
+- **Scales:** Weigh station scale charges processed through fuel cards.
+- **Misc Truck Expense:** Miscellaneous truck-related expenses processed through fuel cards.
+- **Misc Non Truck Expense:** Miscellaneous non-truck expenses processed through fuel cards.
+- **Fee:** General fuel card fees.
+
+### Toll (AP Only)
+
+The Tolls category provides a single default account for toll mapping. If you have a dedicated GL account for tolls in your Sage Intacct chart of accounts, you can map it here. All toll transactions from services such as EFS, Comdata, and Compass are exported to this single GL account. Otherwise, all toll expenses will be sent to the **Default Expense Account**.
+
+<Note>
+  ![Image showing the Toll Category](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527814929/0e279b31a282045f4fee00c19fbc/upload_14095290359241296033.png)
+
+  *Image showing the Toll Category*
+</Note>
+
+## Settings &amp; Permissions
+
+Only Admins, Partner Admins, and Support users can configure account mappings. Access is at Settings > Connections > Sage Intacct. No additional permission assignment is required beyond holding one of those roles.
+
+## Limits &amp; Behavior
+
+- Each line item type can have only one GL account mapped at a time.
+- Mappings apply to all transactions for that subsidiary going forward. Existing exported transactions in Sage are not affected when a mapping changes.
+- The Default Revenue Account and Default Expense Account cannot be cleared once set. To change them, click the X and immediately re-map to a different account.
+- If a transaction fails to export because no mapping is found at any fallback level, it appears in Accounting > Error Transactions. Set the correct mapping, then re-sync the transaction from that screen.
+
+## Best Practices
+
+- **Start simple, then refine.** Set the master Default accounts for AP and AR first. Export a few test transactions and verify they land in the correct accounts. Then add category-level and item-level mappings as needed.
+- **Use category defaults for broad coverage.** If all accessorial charges go to the same GL account, simply set the Accessorials default. You do not need to map each accessorial type individually.
+- **Review after adding new types.** When you create a new accessorial type, deduction type, or e-check type in Alvys, it will automatically appear in the relevant mapping category. Until you assign it a specific GL account, it falls back to the category default.
+- **AP and AR mappings are independent.** Changing an AP mapping does not affect AR, even for shared categories such as Accessorials. Configure each side according to your accounting requirements.
+- **Map high-volume fuel types individually.** Truck Diesel, Cash Advance, and Maintenance are typically the highest-volume fuel card transaction types. Mapping them to specific GL accounts simplifies reconciliation with your fuel card vendor statements.
+
+## FAQs
+
+**Q: What happens if I do not map a specific transaction type?**
+
+**A:** Alvys falls back to the category default, then to the Default Revenue Account (AR) or Default Expense Account (AP). If no fallback exists at any level, the transaction will fail to export and appear in Accounting > Error Transactions.
+
+**Q: Can I use the same GL account for multiple transaction types?**
+
+**A:** Yes. You can assign the same Sage GL account to as many transaction types as needed.
+
+**Q: Why is a GL account missing from the dropdown?**
+
+**A:** The GL account dropdown shows accounts pulled from your connected Sage entity. If an account is not visible, it may not exist in that entity or may be inactive. Verify the account is active in Sage Intacct, then return to Account Mappings. If the account is active in Sage but still does not appear, contact Alvys support.
+
+**Q: Does changing a mapping affect already-exported transactions?**
+
+**A:** No. Changing a mapping applies to future exports only. Previously exported transactions in Sage are not affected.
+
+**Q: Can I clear the Default Revenue Account or Default Expense Account?**
+
+**A:** No. These two accounts in the Default category are always required and cannot be cleared once set. To change them, click the X and immediately re-map to a different account.
+
+**Q: When does Alvys use the Fuel two-level fallback?**
+
+**A:** For fuel transactions, Alvys first looks for a mapping for the specific fuel card provider. If none is found, it uses the Default Fuel Account set for the Fuel category. If no Default Fuel Account is set, it falls back to the Default Expense Account in the Default category.
+
+**Q: What are all the driver rate types I can map under Trip?**
+
+**A:** The 16 driver rate types available under the Trip category are: Flat, Loaded Miles, Empty Miles, Loaded Miles Stop, Empty Miles Stop, Detention, Layover, Loaded Miles/Stop, Empty Miles/Stop, Loaded FSC, Empty FSC, Loaded Miles Advance, Empty Miles Advance, Loaded Miles Advance Stop, Empty Miles Advance Stop, Other.
+
+## Go Deeper
+
+- [How to configure dimension and custom field mappings for Sage Intacct](/help/integrations/how-to-configure-dimension-and-custom-field-mappings-for-sage-intacct)
+- [How to Connect Sage Intacct to Alvys and Configure Settings](https://help.alvys.com/en/articles/10737773-how-to-connect-sage-intacct-to-alvys-and-configure-settings)
+- [Sage Intacct: Payments and Error Transactions](https://help.alvys.com/en/articles/10737766-sage-intacct-payments-and-error-transactions)
+- [Sage Intacct Integration Collection](/help/integrations/sage-intacct-integration-collection)

@@ -1,0 +1,144 @@
+---
+title: "How to Issue and Manage E-Checks in Alvys"
+description: "Learn to efficiently manage e-checks in Alvys! This guide covers issuing, searching, and setting limits for secure payments"
+---
+
+<Note>
+  **Applies to:** Dispatchers · Accounting team members · Admins
+
+  **Module:** Loads and Trips (issuing); Accounting > E-Checks (searching); Management > Company Profile (limits)
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Issue e-checks (electronic checks) to drivers directly from a load, set e-check limits per driver or user, and search all e-check transactions from the Accounting module. Requires the **"Issue ECheck"** permission to issue.
+</Note>
+
+## Overview
+
+E-checks (also called electronic checks, money codes, or Comchek/EFS checks) let you issue instant electronic payments to drivers without cash or physical checks. Alvys supports e-check issuance through integrations with EFS and Comdata. All accounts include a $500 default e-check cap as a security measure to prevent accidental or unauthorized large-value issuances. Admins can customize this cap per driver or per user role.
+
+All issued e-checks are searchable and auditable from Accounting > E-Checks.
+
+## Before You Start
+
+To issue an e-check from a load, your user account must have the **"Issue ECheck"** permission. Contact your company Admin if the **Manage E-Check** button is not visible on a load.
+
+To set e-check limits for drivers, you need access to the driver profile (Assets > Drivers). To set limits for users, you need access to the Company Profile (Management > Company Profile > Users tab). Contact your Admin if you cannot access these areas.
+
+Have the driver or recipient name and the payment amount ready before issuing.
+
+## Steps
+
+- Open the load from which you want to issue the e-check.
+- **Open the e-check panel.** Scroll to the Money Box section. Click **Manage E-Check**. Alternatively, right-click the load on the Load Board and select **Issue E-Check**.
+
+<Note>
+  ![Image showing the “Manage E-Check” button in money box section on a load.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/08cbad3f-0b69-4b02-8f29-b7180e0c2f7e/image.png)
+
+  *Image showing the “**Manage E-Check**” button in money box section on a load.*
+</Note>
+
+- **Select the driver recipient.** In the Manage E-Check panel, search for and select the driver or carrier who will receive the payment.
+- **Enter the amount.** Enter the payment amount. Confirm this is within the driver's e-check cap and within any user-level cap set on your account.
+- **Select the reason.** Choose the reason for the e-check (for example: Fuel Advance, Lumper Fee, Cash Advance). Available reasons depend on your company's configuration.
+- **Choose the provider.** If your company has more than one e-check integration active, select EFS or Comdata as the provider for this payment.
+- **Add a reference (optional).** Enter a reference note to associate with this e-check record. This is optional but useful for reconciliation.
+
+<Note>
+  ![Image showing the manage E-Check panel, which includes input fields for driver, e-check amount, e-check reason, subsidiary, E-check provider and note.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5c0d4312-317e-47c8-8dba-5ea9a3764c4c/image.png)
+
+  *Image showing the manage E-Check panel, which includes input fields for driver, e-check amount, e-check reason, subsidiary, E-check provider and note.*
+</Note>
+
+- **Generate the e-check.** Click **Generate**. The e-check is created, a payment code is issued, and the e-check appears as a line item in the load's Money Box.
+
+<Note>
+  ![Image showing generate E-check button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/0c68afd8-9760-41cc-89f4-be685a76d86b/image.png)
+
+  *Image showing generate E-check button.*
+</Note>
+
+## Result
+
+The driver or carrier receives a payment code to redeem at authorized locations. The e-check is logged in the load's activity history. To view all e-checks issued across loads, navigate to **Accounting > E-Checks** (requires the **"ECheckFee"** permission to access that page).
+
+## Variations
+
+### Setting E-Check Limits for Individual Drivers
+
+Admins can set a maximum e-check percentage or cap for a specific driver.
+
+- Navigate to Assets > Drivers.
+- Locate and click on the driver whose e-check limit you want to set or modify.
+- In the driver profile, find the **E-Check %** and **E-Check Cap** fields.
+
+<Note>
+  ![Image of the driver profile showing the E-Check % and E-Check Cap fields.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/587c0872-1b64-4942-9c9f-26d332b5023a/image.png)
+
+  *Image of the driver profile showing the E-Check % and E-Check Cap fields.*
+</Note>
+
+- Click **Not set** next to either field to open the input window. Enter the desired limit.
+
+  **E-Check Percentage:** The maximum percentage of a payment the driver can receive via e-check.
+
+  **E-Check Cap:** A fixed maximum dollar amount the driver can receive per e-check transaction.
+- Save your changes.
+
+### Setting E-Check Limits for Alvys Users
+
+Admins can set a maximum e-check issuance cap for specific users based on their role.
+
+1. Navigate to Management > Company Profile.
+2. Click the **Users** tab.
+3. Locate and click on the user whose e-check limit you want to modify.
+4. Find the **E-Check Cap** field (default: $500). Click the current value or **Not set** to open the input window and enter the maximum dollar amount this user can issue per e-check.
+5. Save your changes.
+
+### Searching and Reviewing E-Checks
+
+All e-check transactions are searchable from the Accounting module.
+
+1. Navigate to Accounting > E-Checks.
+2. Define your search criteria. You can filter by Money Code/Check Number, Date Range, Driver, Load Number, Amount Issued, Reason, and Date Generated using the respective fields and column filters.
+3. Execute the search.
+4. Review the results. The results table shows all matching e-checks with details including driver, load number, amount, reason, and the user who generated it.
+5. To view the full load record, click the load number in the results to navigate directly to that load's page.
+
+## Troubleshooting
+
+### Manage E-Check button is not visible on a load
+
+The **Manage E-Check** button is only visible to users with the **"Issue ECheck"** permission. Contact your company Admin to verify that your user account has this permission assigned. The button also does not appear on original trips; it is only available on the working copy of a trip.
+
+### E-check amount exceeds the allowed cap
+
+Each user and driver has an e-check cap (default $500). If the amount you are trying to issue exceeds the cap, the transaction will be blocked. Contact your Admin to increase the cap in the driver profile (Assets > Drivers) or user settings (Management > Company Profile > Users tab).
+
+### E-check provider not listed in dropdown
+
+The available e-check providers depend on your active Alvys integrations. If EFS or Comdata is not appearing, confirm that the integration has been set up in your account. Contact [support@alvys.com](mailto:support@alvys.com) if the integration is enabled but the provider is still not appearing.
+
+## FAQs
+
+**Q: Which e-check providers does Alvys support?**
+
+**A:** Alvys supports e-check issuance through EFS and Comdata integrations. The providers available in your dropdown depend on which integrations are active on your account.
+
+**Q: How do I find an e-check that was already issued?**
+
+**A:** Navigate to Accounting > E-Checks. You can search by money code, check number, date range, driver, load number, amount, or reason. You can also click any load number in the results to view the full load and its e-check history.
+
+**Q: What is the default e-check cap?**
+
+**A:** All Alvys accounts have a default $500 e-check cap per transaction as a security measure. Admins can increase or remove this cap individually for each driver (Assets > Drivers > E-Check Cap) or per user (Management > Company Profile > Users > E-Check Cap).
+
+**Q: Can I transfer an e-check from one load to another?**
+
+**A:** Yes, e-checks can be moved between loads. See the separate article on transferring e-checks for instructions.
+
+## Go Deeper
+
+- [E-Check Permissions](/help/administration/e-check-permissions)
+- [EFS Fuel Checks Integration](https://help.alvys.com/en/articles/9565228-efs-fuel-checks-integration)
+- [Comdata Fuel Checks Integration](/help/integrations/comdata-fuel-checks-integration)

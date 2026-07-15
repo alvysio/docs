@@ -1,0 +1,99 @@
+---
+title: "How to add a trailer"
+---
+
+<Note>
+  📋 **Module:** Assets > Trailers · **Owner:** Support team · **Applies to:** Users with the **"EditAsset"** permission · **Last reviewed:** 2026-06
+</Note>
+
+## Overview
+
+Before a trailer (also called equipment or a unit) can be assigned to a driver or a load, it must exist as a record in Alvys. This article walks you through creating a trailer record manually. You can also create multiple trailer records at once using the trailer import tool; the valid equipment type values for that tool are listed in the Variations section below.
+
+## Prerequisites
+
+You must have the **"EditAsset"** permission assigned to your user role. Without it, the New Trailer button does not appear on the Trailers page and the trailer form is read-only.
+
+Navigate to Assets > Trailers to confirm you can see the New Trailer button before beginning.
+
+## Steps
+
+1. Open the Trailers page. In the left navigation bar, expand the Assets section and select Trailers.
+
+   <Note>
+     📋 Assets section expanded in the navigation bar with Trailers selected.
+
+     ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8a1448c1-a61d-433e-8876-70e6aa649843/image.png)
+   </Note>
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8a1448c1-a61d-433e-8876-70e6aa649843/image.png)
+2. Open the new trailer form. Click **New Trailer** in the top right corner of the Trailers page.
+
+   <Note>
+     📋 New Trailer dialogue form
+
+     ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/0ee4ff2e-0ad8-42c3-b580-e5b418797c13/image.png)
+   </Note>
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/0ee4ff2e-0ad8-42c3-b580-e5b418797c13/image.png)
+3. Fill in the trailer details. Complete the required fields. All four of the following are required before the trailer can be saved:
+4. Equipment Type — the trailer category (for example, Van, Reefer, Flatbed).
+5. Equipment Size — the length or size of the trailer.
+6. Trailer Number — your internal identifier for this trailer.
+7. Subsidiary — the subsidiary this trailer is associated with.
+
+   Then fill in any additional fields that apply to this trailer:
+
+   - License section: License number, license state, license country, and license expiration date.
+   - Insurance section: Insurance company name, policy number, insurance value, and insurance expiration date.
+   - Inspection section: Inspection expiration date.
+   - Leasing section: Leased-from company and leased-to company details, including lease start and end dates.
+   - Capacity: Pallets and weight.
+   - Fleet: Assign this trailer to a fleet.
+   - Year and Make.
+   - Tire size.
+8. Save the trailer. Click **Add Trailer** at the bottom right of the form.
+
+The trailer is saved and appears in the Trailers list. It is now available for assignment to loads and drivers in dispatch.
+
+## Variations
+
+### Importing multiple trailers at once
+
+If you need to add many trailers, use the **Import trailers** option from the more-options menu (three-dot icon) on the Trailers page. This option is also controlled by the **"EditAsset"** permission and will not appear without it.
+
+When using the import tool, the Equipment Type values in your import file must match the following list exactly: Van, Reefer, VanorReefer, Flatbed, Auto Carrier, Double Drop, Dump Trailer, FlatbedReefer, Flatbed/Van, Flatbed w/ Pallet Exchange, Flatbed/Step Deck, Flatbed w/ Sides, Flatbed/Reefer/Van, Flatbed - Hazardous, Hotshot, Intermodal, Lowboy, Maxi, Power Only, Removable Goosenec, Reefer/Van, Reefer - Hazardous, Reefer w/ Pallet Exchange, Step Deck, Tanker, Van w/ Curtains, Van w/ Pallet Exchange, Van - Vented, Van - Hazardous, Van - Air-Ride.
+
+## Troubleshooting
+
+### New Trailer button is not visible
+
+1. Confirm that you are on the Assets > Trailers page (not the Trucks or Assignments page).
+2. Check that your user account has the **"EditAsset"** permission. This permission is required to see the New Trailer button and to access the trailer form. If you do not have it, contact your Alvys administrator to request it be added to your role.
+
+### Add Trailer button is greyed out or the form cannot be submitted
+
+1. Check that all four required fields are filled in: Equipment Type, Equipment Size, Trailer Number, and Subsidiary. The form cannot be submitted if any required field is blank.
+2. Check the Trailer Number field. If a VIN number was entered elsewhere that is already in use by another trailer record, the form will display a validation error on that field. Each VIN must be unique.
+
+## FAQs
+
+**Q: Can I add notes, documents, or asset events to a trailer when I create it?**
+
+**A:** Yes. After saving the trailer, open the trailer record and use the Notes, Documents, and Asset Events tabs to add supporting information.
+
+**Q: Can I assign a trailer to an owner-operator instead of a subsidiary?**
+
+**A:** Yes. On the trailer form, select the owner-operator option to associate the trailer with a specific owner-operator rather than a company subsidiary.
+
+**Q: What happens if the Equipment Type I enter does not match the import list?**
+
+**A:** When using the import tool, the import will not process trailers with Equipment Type values that do not exactly match the accepted list. Correct the values in your import file to match the list in the Variations section above, then re-import.
+
+**Q: Who can see and edit trailer records?**
+
+**A:** Any user with the **"EditAsset"** permission can create and edit trailers. Users with the **"ViewTrailers"** permission can view trailer records but cannot make changes.
+
+## Go Deeper
+
+- [Adding Trucks](/help/assets-fleet/how-to-add-a-truck-in-alvys)

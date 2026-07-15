@@ -1,0 +1,163 @@
+---
+title: "How to Dispatch a Load"
+description: "Now that you’ve created your loads, dispatching them is only a few clicks away! See below the simple process."
+---
+
+<Note>
+  📋 **Applies to:** All users · **Module:** Loads and Trips > Dispatch Planner v2
+
+  **Last reviewed:** 2026-06 · **Owner:** Product
+
+  Dispatching a load assigns a driver, truck, and trailer to a trip and advances the trip to **Covered** status, signaling the load is ready to move.
+</Note>
+
+## Overview
+
+Dispatching a load connects a trip to a driver and equipment so the load can move. Once dispatched, the trip advances to **Covered** status, which updates all parties that the load is assigned and ready.
+
+There are two ways to dispatch: the standard flow, where you assign assets and then dispatch in separate steps, and the preference dialog flow, which appears when assignment preferences are configured and lets you assign and dispatch in a single action.
+
+Synonyms: assign a load, cover a trip, send a load, book a driver, schedule a trip.
+
+## Before You Start
+
+Before dispatching a load, confirm the following:
+
+- The trip you want to dispatch is in **Open** or **Planned** status in the trips grid.
+- You have a driver, truck, and trailer available to assign.
+- You have access to Loads and Trips > Dispatch Planner v2. All authenticated Alvys users can access Dispatch Planner v2.
+- If you want the preference dialog flow to appear, dispatch preferences must be configured for the driver or carrier in advance.
+
+## Steps
+
+**Open Dispatch Planner v2**
+
+- In the left navigation menu, select the Loads and Trips icon.
+- Click **Dispatch Planner v2** from the menu options.
+
+<Note>
+  ![The Loads and Trips left navigation menu expanded, showing the 'Dispatch Planner v2' menu item highlighted.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306556/9b980a56d82481a28626fc2cdb84/upload_9077977251114893115.png)
+
+  *The Loads and Trips left navigation menu expanded, showing the "Dispatch Planner v2" menu item highlighted.*
+</Note>
+
+**Open the trip you want to dispatch**
+
+- In the trips grid, locate the load you want to dispatch. The trip must have a status of **Open** or **Covered** to be available for dispatch.
+- Double-click the row for that trip to open it.
+
+<Note>
+  ![The trips grid in Dispatch Planner v2 with an Open load row highlighted, illustrating where to double-click](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306569/354135068d6e121b8c959864223f/upload_5315468887333308798.png)
+
+  *The trips grid in Dispatch Planner v2 with an Open load row highlighted, illustrating where to double-click*
+</Note>
+
+**Open the asset assignment panel**
+
+- In the Carrier Details panel on the right side of the screen, click “**Assign Carrier**” or “**Manage Assets**” in the bottom left of that panel.
+
+<Note>
+  ![The Carrier Details panel with the 'Assign Carrier' button visible in the bottom left corner.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306579/c2589f1403915462cc99446d468f/upload_7323917464707231625.png)
+
+  *The Carrier Details panel with the "Assign Carrier" button visible in the bottom left corner. *
+</Note>
+
+<Note>
+  ![The Carrier Details panel with the 'Manage Assets' button visible in the bottom left corner.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306591/a46f56abef97ea25e0453ed8efb2/upload_16856485400003239866.png)
+
+  *The Carrier Details panel with the "**Manage Assets**" button visible in the bottom left corner. *
+</Note>
+
+**Add the driver, truck, and trailer**
+
+- In the asset assignment fields, select the driver for this trip.
+- Select the truck.
+- Select the trailer.
+- Select the Dispatcher.
+
+<Note>
+  ![The asset assignment fields showing the driver, truck, and trailer selection dropdowns populated.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306599/63393531e46cbdb8b95dc3972925/upload_10955835932161034530.png)
+
+  *The asset assignment fields showing the driver, truck, and trailer selection dropdowns populated.*
+</Note>
+
+If no trailer is available for this trip, see Variations below for how to dispatch without a trailer.
+
+**Assign and dispatch the trip**
+
+- Click **Assign** to assign the assets to the trip. The trip advances to **Covered** status, and is not yet dispatched.
+- Or click “**Assign and Dispatch”** to assign and dispatch the trip.
+
+<Note>
+  ![The Assign Carrier form showing the separate 'Assign and Dispatch' and “Assign” buttons in the action area. Upload image from original Notion article.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306608/c0ad2c4cd687a631facb875403d3/upload_1929010821274679152.png)
+
+  *The Assign Carrier form showing the separate "**Assign and Dispatch**" and “**Assign**” buttons in the action area. Upload image from original Notion article.*
+</Note>
+
+## Result
+
+After dispatching, the trip status updates to Dispatched. This status confirms that a driver and equipment have been assigned and the load is ready to move.
+
+<Note>
+  ![The trip details page showing the dispatched load with 'Dispatched' status.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306618/06034c68f04384c71a757c7bc237/upload_687184947203534975.png)
+
+  *The trip details page showing the dispatched load with "Dispatched" status.*
+</Note>
+
+## Variations
+
+### Dispatch using assignment preferences (assign and dispatch in one step)
+
+When assignment preferences are configured for a driver or carrier, Alvys may display an assignment preferences suggestion modal when you open the trip. This modal offers two actions:
+
+- **Assign:** assigns the suggested assets to the trip without dispatching. The trip status does not change to **Covered**.
+- **Assign and dispatch:** assigns the suggested assets and dispatches the trip in a single step. The trip advances to **Covered** status immediately.
+
+<Info>
+  💡 If assignment preferences are configured and a truck is paired with a driver, the truck auto-assigns when you select the driver. You do not need to select the truck separately.
+</Info>
+
+### Dispatch without a trailer
+
+If a trip does not require a trailer or no trailer is currently available:
+
+1. Complete the steps above, leaving the trailer field empty.
+2. Click **Assign**, then **Dispatch** as described in the assign and dispatch step.
+
+The trip can be dispatched without a trailer assigned. You can add the trailer to the trip later before the driver departs.
+
+## Troubleshooting
+
+### Assign and Dispatch buttons are not available
+
+Confirm that a driver and truck have been selected in the asset assignment fields; the dispatch action requires at least a driver and truck to be assigned before it becomes available. Check whether an assignment action is already in progress for this trip; if another user is editing the same trip simultaneously, the buttons may be temporarily unavailable, so wait a moment and refresh the page. Confirm the trip is in **Open** or **Planned** status, since trips in other statuses may not support dispatch from this panel. If none of these conditions apply, contact Alvys support with the trip ID and a description of what you are seeing.
+
+### Load does not appear in the trips grid
+
+Check whether any column filters are active in the trips grid; active filters may be hiding trips that do not match the filter criteria, so clear all filters and check again. Confirm the trip's current status, since trips in statuses other than **Open** or **Planned** may be filtered out of the default grid view. Confirm you are in the correct view within Dispatch Planner v2 and that the correct date range is selected. If the trip still does not appear after checking all of the above, contact Alvys support with the load number and the status you expect the trip to be in.
+
+### Trip status did not update after dispatching
+
+Refresh the page and check the trips grid again, since status updates occasionally require a page refresh to display. Confirm that you clicked **Dispatch** (not just **Assign**) in the standard flow, or **Assign and dispatch** in the preference dialog flow; clicking **Assign** alone does not advance the trip to **Covered** status. Check for any error notification that appeared at the time you clicked the button, as an error notification indicates the action did not complete successfully. If the trip status is still incorrect after refreshing and confirming the correct button was used, contact Alvys support with the trip ID.
+
+## FAQs
+
+**Q: What is the difference between Assign and Assign and dispatch?**
+
+**A:** **Assign** adds a driver and equipment to the trip but does not change the trip's status. The trip remains **Open** or **Planned**. **Assign and dispatch** (available in the preference dialog flow) assigns assets and advances the trip to **Covered** status in a single step. In the standard flow, you click **Assign** first and then **Dispatch** separately to achieve the same result.
+
+**Q: Can I change the driver after dispatching?**
+
+**A:** You can return to the Carrier Details panel and update the asset assignment after a trip has been dispatched. Open the trip in Dispatch Planner v2, click **Manage Assets**, and update the driver field. Depending on the trip's current status, additional confirmation steps may be required.
+
+**Q: Is a special role required to dispatch?**
+
+**A:** No special role is required. All authenticated Alvys users have access to Dispatch Planner v2 and can dispatch loads.
+
+**Q: What if the driver is already assigned to another trip?**
+
+**A:** If you select a driver who is currently assigned to another active trip, Alvys will display a warning or conflict indicator. Review the driver's current assignment before proceeding. You can either resolve the conflict by un-assigning the driver from the other trip or select a different driver for this trip.
+
+## Go Deeper
+
+- [Dispatch Planner overview](/help/loads-trips/dispatch-planner)

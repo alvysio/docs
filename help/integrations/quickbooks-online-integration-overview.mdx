@@ -1,0 +1,126 @@
+---
+title: "QuickBooks Online Integration Overview"
+---
+
+<Note>
+  **Applies to:** Admin · Support · Partner Admin
+
+  **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  **Provider:** QuickBooks Online (Intuit) · **Integration type:** Two-way · **Direction:** Alvys exports invoices and carrier bills to QuickBooks Online; payment status syncs back from QuickBooks Online to Alvys.
+
+  Alvys integrates with QuickBooks Online (QBO) to sync invoices and carrier bills from Alvys into QBO and to receive payment status updates back into Alvys; this article explains what the integration does, what you need to set up in QBO before connecting, and where to find each configuration step.
+</Note>
+
+## Overview
+
+The Alvys and QuickBooks Online integration creates a two-way accounting connection between your transportation management system and your accounting platform. Alvys exports customer invoices and carrier bills to QBO automatically once a load is processed for billing. Payment status then syncs back from QBO to Alvys so your team can see updated receivables and payables without manual data entry.
+
+This article covers what the integration does, the QBO plan and account requirements you must meet before connecting, and links to every configuration step in the recommended setup order. Related terms: QuickBooks Online, QBO accounting sync, TMS accounting integration, invoice and bill export.
+
+## Where to Find It
+
+To access the QuickBooks Online integration settings, navigate to Management > Integrations in Alvys. You need the **"CompanyProfileManager"** permission to access and configure this page. This permission is available to users with the Admin, Support, or Partner Admin role.
+
+## Key Concepts
+
+**What syncs from Alvys to QBO**
+
+Alvys pushes two types of transactions to QuickBooks Online:
+
+- Customer invoices: created when a load is invoiced in Alvys and matched to the corresponding customer record in QBO.
+- Carrier and vendor bills: created when a load's carrier payable or driver settlement is finalized in Alvys.
+
+**What syncs from QBO back to Alvys**
+
+When a payment is recorded in QBO against an invoice or bill, QBO returns the payment status to Alvys. This keeps your Alvys receivables and payables current without requiring duplicate data entry.
+
+**QBO plan requirements**
+
+QuickBooks Online offers four plan types: Simple Start, Essentials, Plus, and Advanced. The plan you use determines which Alvys features are available.
+
+QBO Simple Start is not recommended for Alvys users. While it allows customer invoicing, it does not include the Accounts Payable module. Because the Bills feature is restricted on Simple Start, Alvys cannot sync carrier payables, driver settlements, or vendor obligations on this plan. Only the revenue side of your loads would be tracked.
+
+QBO Essentials is the minimum required plan for a functional Alvys integration. It includes the Manage Bills feature, which allows Alvys to sync both customer invoices and carrier or vendor payables.
+
+QBO Plus and QBO Advanced are the recommended plans for growing fleets and brokerages. These tiers support Location and Class Tracking, which are used in Alvys to segment financial data by terminal, department, or business division such as asset versus brokerage operations.
+
+**Chart of Accounts preparation**
+
+Before connecting Alvys to QBO, your Chart of Accounts must include the accounts Alvys will post transactions to. At a minimum, confirm you have accounts established for:
+
+- Accounts Receivable: for customer invoicing.
+- Accounts Payable: for carrier and vendor obligations.
+- Income accounts: categorized for linehaul, fuel surcharges, and accessorials.
+- Expense accounts: categorized for purchased transportation and driver settlements.
+
+**Custom transaction numbers**
+
+If you want QBO invoices to use your Alvys load numbers, you must enable the Custom transaction numbers toggle in QBO before connecting. This setting is in QBO at Settings (Gear Icon) > Account and Settings > Sales > Sales form content. Set Custom transaction numbers to ON. If this is left off, QBO ignores Alvys numbering and assigns its own sequential invoice numbers. This toggle applies to sales forms only; for bills, QBO allows Alvys to push the load ID or settlement ID into the reference number field without a separate toggle.
+
+**Closed accounting periods**
+
+If your QBO books are closed for a specific period, QBO will block Alvys from syncing any invoice or bill dated within that closed timeframe. Check your closing date in QBO at Settings > Advanced > Accounting before initiating exports.
+
+**Custom fields**
+
+Custom fields are available on all QBO plans. The number of custom fields you can create varies by subscription level.
+
+## How to Use It
+
+The QBO integration is set up and managed through a series of configuration steps. Complete them in the following order:
+
+1. [QuickBooks Online Prerequisites (Start Here)](/help/integrations/1-quickbooks-online-prerequisites-start-here): configure your QBO plan, chart of accounts, open accounting periods, and custom transaction numbers before connecting.
+2. [How to Connect and Configure QuickBooks Online in Alvys](/help/integrations/how-to-connect-and-configure-quickbooks-online-in-alvys): authorize the OAuth connection between Alvys and QBO, and configure revenue and expense sync settings, driver bill consolidation, carrier invoice requirements, and subsidiary or fleet mapping.
+3. [How to Map Accounts for QuickBooks Online](/help/integrations/how-to-map-accounts-for-quickbooks-online): link Alvys transaction line items to your QBO Chart of Accounts using both default fallback accounts and specific mappings for loads, trips, accessorials, and other line items.
+4. [How to Export and Manage Transactions in QuickBooks Online](/help/integrations/how-to-export-and-manage-transactions-in-quickbooks-online): understand how Alvys routes data to QBO, how customers and vendors are matched or created in QBO, and the protocols for modifying or reverting exported transactions.
+5. [Alvys Payment Synchronization for Accounting Integrations](/help/integrations/alvys-payment-synchronization-for-accounting-integrations): understand how manual and factoring-based payments export to QBO and how QBO payment records sync back to Alvys.
+6. [QuickBooks Online: Identifying and Resolving Failed Transactions](/help/integrations/quickbooks-online-identifying-and-resolving-failed-transactions): manage the export queue and resolve common QBO API errors.
+
+## Settings and Permissions
+
+Access to the Integrations page requires the **"CompanyProfileManager"** permission. Users without this permission will not see the Integrations option in their account menu. This permission is available to users with the Admin, Support, or Partner Admin role.
+
+Only one QBO company file can be connected per Alvys legal entity. If your organization has multiple legal entities in Alvys, each entity must be connected to its corresponding QBO company file separately.
+
+## Limits and Behavior
+
+- The integration requires QBO Essentials or higher. Simple Start does not support the Accounts Payable module and cannot receive carrier bills or driver settlements from Alvys.
+- Transactions dated within a closed QBO accounting period will be blocked by QBO and will not sync. Open the relevant period in QBO first, then re-export the affected transactions from Alvys.
+- If Custom transaction numbers is not enabled in QBO before the connection is made, QBO will assign its own sequential numbers to invoices and will not use Alvys load numbers.
+- Location and Class Tracking, used to map Alvys subsidiaries and fleets to QBO segments, requires QBO Plus or QBO Advanced.
+
+## FAQs
+
+**Q: Which QuickBooks Online plan is the minimum requirement for the Alvys integration?**
+
+**A:** QBO Essentials is the minimum required plan because it includes the Manage Bills feature. Simple Start allows customer invoicing but does not support the Accounts Payable module needed to sync carrier payables and driver settlements.
+
+**Q: Why are QBO Plus and Advanced recommended over Essentials?**
+
+**A:** QBO Plus and Advanced support Location and Class Tracking, which are used in Alvys to segment financial data by terminal, department, or business division such as asset versus brokerage operations.
+
+**Q: What accounts must be in my Chart of Accounts before syncing?**
+
+**A:** At a minimum you must have accounts for Accounts Receivable, Accounts Payable, Income (for linehaul, fuel surcharges, and accessorials), and Expense accounts (for purchased transportation and driver settlements).
+
+**Q: Are custom fields supported on all QBO plans?**
+
+**A:** Yes, custom fields are available on all QBO plans. The number of fields you can create varies depending on your subscription level.
+
+**Q: Does the Custom Transaction Numbers setting apply to bills as well as invoices?**
+
+**A:** No. The Custom transaction numbers toggle applies to sales forms only. For bills, QBO allows Alvys to push the load ID or settlement ID into the reference number field without a separate toggle.
+
+**Q: What happens if my QBO accounting period is closed when Alvys tries to export a transaction?**
+
+**A:** QBO will block the export and the transaction will appear in the Error Transactions page in Alvys. Open the relevant period in QBO at Settings > Advanced > Accounting, then re-export the transaction from Alvys. If you cannot open the period and the error persists, contact Alvys Support.
+
+## Go Deeper
+
+- [How to Connect and Configure QuickBooks Online in Alvys](/help/integrations/how-to-connect-and-configure-quickbooks-online-in-alvys)
+- [How to Map Accounts for QuickBooks Online](/help/integrations/how-to-map-accounts-for-quickbooks-online)
+- [How to Export and Manage Transactions in QuickBooks Online](/help/integrations/how-to-export-and-manage-transactions-in-quickbooks-online)
+- [QuickBooks Online: Identifying and Resolving Failed Transactions](/help/integrations/quickbooks-online-identifying-and-resolving-failed-transactions)

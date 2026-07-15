@@ -1,0 +1,170 @@
+---
+title: "QuikQ (Love's) Fuel Integration"
+description: "How to activate the QuikQ/Love's fuel integration in order to receive fuel transactons"
+---
+
+<Note>
+  📋 **Applies to:** Admin, Partner Admin, Office Admin
+
+  **Module:** Management > Integrations > Fuel
+
+  **Provider:** QuikQ (Love's) · **Integration type:** One-way · **Sync direction:** Love's fuel transactions import into Alvys from QuikQ
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  The QuikQ (Love's) fuel integration connects Love's Travel Stops fuel card data with Alvys using the QuikQ API; once configured, Love's fuel transactions are automatically imported into Alvys twice daily at 1 AM and 2 AM Eastern Time. Also known as Love's fuel integration, QuikQ fuel, Love's Travel Stops fuel card sync, Love's Connect.
+</Note>
+
+## Overview
+
+The QuikQ (Love's) fuel integration connects Love's Travel Stops fuel card data with Alvys using the QuikQ API. Unlike manual fuel imports, this integration is automatic: once configured, Love's fuel transactions are imported into Alvys twice daily at 1 AM and 2 AM Eastern Time without any file uploads required.
+
+Use this integration to track Love's fuel expenses, apply fuel deductions to driver pay, and maintain accurate fuel records in your Fuel Report.
+
+Also known as: Love's fuel integration, QuikQ fuel, Love's Travel Stops fuel card sync, Love's Connect.
+
+## Prerequisites
+
+Before setting up this integration, complete the following:
+
+- You have Admin, Partner Admin, or Office Admin access in Alvys.
+- You have a QuikQ account with API access enabled. This must be requested separately before setup (see How to connect below).
+- You have your Love's QuikQ portal credentials (username and password).
+- You have your carrier ID from the Love's portal (used as the Start Code in Alvys).
+- Your subsidiaries are already configured in Alvys.
+
+## How to connect
+
+First, request API access from QuikQ. Email [support@quikq.com](mailto:support@quikq.com) and request that API permission be added to your user profile, specifying which user profile needs the permission. Complete this step before attempting to configure the integration in Alvys. You will not be able to authenticate without this permission.
+
+Once you have API access from QuikQ, activate the integration in Alvys:
+
+1. Click your username in the bottom left corner of Alvys, then select **Integrations**.
+
+   <Note>
+     ![This image shows the Integrations page in Alvys with the Fuel category](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1387707438/50d7d49b0703bff0e476f88ab9f0/image.png)
+
+     *This image shows the Integrations page in Alvys with the Fuel category *
+   </Note>
+
+   ![This image shows the Integrations page in Alvys with the Fuel category](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1387707438/50d7d49b0703bff0e476f88ab9f0/image.png)
+
+   *This image shows the Integrations page in Alvys with the Fuel category *
+2. Select the subsidiary you want to connect.
+3. Expand the **Fuel** category.
+4. Click the gray pencil icon next to **QuikQ/Love's**.
+
+   <Note>
+     ![This image shows the Fuel category expanded with the QuikQ/Love's pencil icon.](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1387706254/a1bb269b6fb74d14fe27389bee0c/image.png)
+
+     *This image shows the Fuel category expanded with the QuikQ/Love's pencil icon.*
+   </Note>
+
+   ![This image shows the Fuel category expanded with the QuikQ/Love's pencil icon.](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1387706254/a1bb269b6fb74d14fe27389bee0c/image.png)
+
+   *This image shows the Fuel category expanded with the QuikQ/Love's pencil icon.*
+5. Enter your credentials:
+
+   - **Start Code:** Your carrier ID from within the Love's portal.
+   - **Username:** Your Love's QuikQ portal username.
+   - **Password:** Your Love's QuikQ portal password.
+
+<Note>
+  ![This image shows the QuikQ/Love's credentials form with fields for Start Code, Username, and Password.](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1387706761/6d85d9006a4ff652a85031a3eccc/image.png)
+
+  *This image shows the QuikQ/Love's credentials form with fields for Start Code, Username, and Password.*
+</Note>
+
+<Note>
+  ![This image shows where to find the carrier ID in the Love's portal, which is used as the Start Code in Alvys.](https://alvys.intercom-attachments-1.com/i/o/1103607052/183f9a6f63d063cf6157df83/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F29d35146-7c3a-4e65-9328-931fd44feed8-2FUntitled.png)
+
+  *This image shows where to find the carrier ID in the Love's portal, which is used as the Start Code in Alvys.*
+</Note>
+
+1. Click **Save**.
+
+   Once saved, the integration will begin automatically importing transactions at the next scheduled run (1 AM or 2 AM Eastern Time).
+
+   Next, add fuel card numbers to driver profiles so transactions can be attributed. Each driver must have the last 6 digits of their Love's fuel card number saved on their profile:
+2. From the Alvys toolbar, go to **Assets** and select **Drivers**.
+3. Find and double-click a driver to open their profile.
+4. In the first section, click the plus sign next to **Fuel Card Numbers**.
+
+   <Note>
+     ![Notion Image](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1387717460/73e270ca07c7aa0b0a7663de9d0f/image.png)
+   </Note>
+
+   ![Notion Image](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1387717460/73e270ca07c7aa0b0a7663de9d0f/image.png)
+5. Enter the last six (6) digits of the driver's Love's fuel card number.
+6. Select **Love's Fuel** as the provider.
+7. Set the deduct fuel and discounted fuel checkboxes if applicable.
+
+<Note>
+  ![This image shows the Fuel Card Numbers section of a driver profile with the plus sign to add a new card.](https://alvys.intercom-attachments-1.com/i/o/1103607079/6f3ce31f4c9004600330d860/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Fae5c4772-d823-4ee9-99aa-400e17028c83-2FUntitled.png)
+
+  *This image shows the Fuel Card Numbers section of a driver profile with the plus sign to add a new card.*
+</Note>
+
+<Note>
+  ![This image shows the fuel card entry popup](https://alvys.intercom-attachments-1.com/i/o/1103607090/c6e67ff42328e6b0ab5abd3c/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F6889c6d7-a337-42c0-87eb-806de469314b-2FUntitled.png)
+
+  *This image shows the fuel card entry popup*
+</Note>
+
+1. Click the blue **Save** button.
+
+Repeat for each driver who has a Love's fuel card. After saving driver card numbers, fuel transactions will be automatically attributed starting from the next scheduled import.
+
+## What syncs
+
+After each automatic import, Alvys maps QuikQ transaction data as follows:
+
+- The last 6 digits of the fuel card number on the QuikQ transaction are matched against the last 6 digits stored in each driver's profile. Transactions are attributed to the driver whose card number matches.
+- Transaction date, amount, and gallons are imported into the Fuel Report.
+- If the card number on a transaction does not match any driver profile, the transaction will not be attributed to a driver. Add or correct the card number on the driver profile; it will be matched on the next automatic import.
+
+The QuikQ integration is an automatic, one-way sync from QuikQ to Alvys. Transactions are imported at 1 AM and 2 AM Eastern Time each day, no manual file upload is required, and Alvys does not write data back to QuikQ.
+
+## Troubleshooting
+
+### Fuel transactions not appearing after integration setup
+
+1. Confirm the integration was saved successfully in **Management > Integrations > Fuel > QuikQ/Love's**.
+2. Confirm your QuikQ account has API permission enabled. Contact QuikQ support at [support@quikq.com](mailto:support@quikq.com) to confirm.
+3. Wait until after the next scheduled import window (1 AM or 2 AM Eastern Time) and check the Fuel Report again.
+4. If transactions are still not appearing, contact Alvys support.
+
+### Driver transactions not attributed correctly
+
+1. Open the driver profile in **Assets > Drivers** and confirm a Love's fuel card number is saved with exactly 6 digits.
+2. Confirm the provider is set to **Love's Fuel**.
+3. Correct the card number if needed. The next automatic import will match transactions using the updated number.
+
+### Integration credentials rejected
+
+1. Confirm the Start Code is your carrier ID from the Love's portal.
+2. Confirm the Username and Password are your Love's QuikQ portal credentials.
+3. Confirm API permission is enabled on your QuikQ user profile.
+4. Contact Alvys support if credentials are still rejected after confirming all three items above.
+
+## FAQs
+
+**Q: Why do I need API permission before setting up the integration?**
+
+**A:** API permission is required for Alvys to connect to your QuikQ account and retrieve transaction data. Without it, the integration cannot authenticate and import fuel data.
+
+**Q: Do I enter the full fuel card number or just part of it?**
+
+**A:** Enter only the last six (6) digits of the fuel card number when adding it to a driver profile in Alvys.
+
+**Q: How often do fuel transactions import?**
+
+**A:** Transactions are automatically imported twice daily at 1 AM and 2 AM Eastern Time.
+
+**Q: What is the Start Code?**
+
+**A:** The Start Code is your carrier ID from within the Love's portal. It is not the same as your QuikQ username.
+
+**Q: What if a driver's fuel transactions are not showing up?**
+
+**A:** Verify that you entered the correct last 6 digits of their Love's fuel card number and that Love's Fuel is selected as the provider in their driver profile. Transactions will be matched on the next automatic import after you save the correct number.

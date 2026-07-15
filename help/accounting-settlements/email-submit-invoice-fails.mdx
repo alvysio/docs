@@ -1,0 +1,60 @@
+---
+title: "Email/ Submit Invoice fails:"
+description: "This error occurs when submitting an invoice that exceeds the size limit of 10MB"
+---
+
+<Note>
+  **Applies to:** Admins · Partner Admins · Billers
+
+  **Module:** Accounting > Invoicing
+
+  **Last reviewed:** 2025-10 · **Owner:** Help Center Team
+
+  When submitting an invoice (also called billing or sending a bill) by email, the error "Unexpected character encountered while parsing value" means the invoice file exceeds the 10 MB limit; compress the file and resend.
+</Note>
+
+## Symptom
+
+When you submit an invoice through Batch Invoicing using email delivery, the following error appears: "Unexpected character encountered while parsing value." The invoice is not sent and the load remains in **Queued** or **Released** status.
+
+<Note>
+  ![Screenshot of the error message displayed during invoice submission](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1375397131/49a27cc5b0f25f54ac2d9f89fa99/image.png)
+
+  *Screenshot of the error message displayed during invoice submission*
+</Note>
+
+## Cause
+
+The invoice PDF exceeds the 10 MB file size limit enforced during email submission. A file over this limit causes the email parsing process to fail before the invoice is delivered to the customer.
+
+## Resolution
+
+1. Check the invoice file size. Open the invoice PDF from the load and confirm whether it exceeds 10 MB. If the file is under 10 MB and the error still appears, go to "If That Didn't Work" below.
+2. Compress the invoice file. Use a PDF compression tool to reduce the file below 10 MB. Verify the compressed file is still legible before proceeding.
+3. Resend the invoice. Return to Batch Invoicing, locate the load, attach or regenerate the compressed invoice document, and resubmit using Create &amp; Send or Send Invoice.
+
+<Note>
+  ![GIF showing the step of resubmitting a compressed invoice from the Queued tab](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1375398545/30d1bb52a47639cea7b4c3b8e1c3/Recording+2025-02-11+080743.gif)
+
+  *GIF showing the step of resubmitting a compressed invoice from the Queued tab*
+</Note>
+
+## Troubleshooting
+
+### The file is under 10 MB but the error persists
+
+Verify the invoice document is a valid, uncorrupted PDF. If the problem continues, contact Alvys support with the load number, the full error message text, and the file size.
+
+## FAQs
+
+**Q: What file size limit applies to invoices sent by email?**
+
+**A:** The invoice file must be under 10 MB. Files at or above this limit cause the email submission to fail with the parsing error.
+
+**Q: Why does the error mention "parsing" instead of file size?**
+
+**A:** The oversized file disrupts the email parsing process before delivery, so the system surfaces a parsing error rather than an explicit size message. The underlying cause is the file exceeding 10 MB.
+
+## Related
+
+- [Batch Invoicing](https://help.alvys.com/en/articles/11668833)

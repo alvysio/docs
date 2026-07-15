@@ -1,0 +1,154 @@
+---
+title: "How to configure EDI Auto Update Settings"
+description: "Step-by-step instructions for enabling and customizing automatic EDI updates for location, appointments, arrivals, departures, and ETA. Use it to ensure timely, accurate status sharing with your EDI-enabled shippers."
+---
+
+<Note>
+  **Applies to:** Admin **·** Partner Admin · Office Admin
+
+  **Module:** Companies > Customers > [Customer record]
+
+  **Last reviewed:** 2026-06 **·** **Owner:** Support
+
+  Configure which EDI events Alvys sends automatically to a customer, including location updates (heartbeats), appointment times, arrivals, departures, and estimated delivery time (ETA). Also known as automatic EDI updates, auto-send EDI, EDI 214 settings, and EDI status updates.
+</Note>
+
+## Overview
+
+Auto Update Settings control when and how Alvys automatically sends EDI 214 (Shipment Status Update) messages to a customer's system. These settings live on each customer's company profile and let you configure what gets shared, when, and based on what data sources.
+
+You can enable automatic sharing for five types of events: location updates (heartbeats), appointments, arrivals, departures, and estimated delivery time (ETA). Each type has its own toggle and sub-options so you can tailor the behavior per customer.
+
+## Before You Start
+
+You need the **"EditCustomer"** permission to configure Auto Update Settings on a customer record. Admin, Partner Admin, and Office Admin users have this permission by default. Other users can be granted **"EditCustomer"** by an Admin.
+
+The customer must also have an active EDI integration configured. Auto Update Settings only appear and apply to customers with an active EDI connection.
+
+## Steps
+
+**Open the customer record. **Navigate to **Companies > Customers** and open the company profile for the customer you want to configure.
+
+**Open Auto Update Settings**. On the customer profile, find the **Auto Update Settings** section in the right-hand sidebar and click it to open the settings panel.
+
+<Note>
+  ![Auto Update Settings section in the customer profile right-hand sidebar.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e962f56f-f977-4792-949c-cc611f6f79ec/image.png)
+
+  *Auto Update Settings section in the customer profile right-hand sidebar.*
+</Note>
+
+**Configure Location Updates** (Heartbeat / EDI 214). Enable the **Auto Send** toggle for Location Updates to allow Alvys to automatically send location updates via EDI.
+
+<Note>
+  ![Location Updates Auto Send toggle and sub-options.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b8a20879-2c40-42da-aa2f-9fcc992b1cbf/image.png)
+
+  *Location Updates Auto Send toggle and sub-options.*
+</Note>
+
+After enabling the toggle, configure the following sub-options:
+
+- **Location sources to share:** Choose which sources Alvys will use for location data: Alvys Check Calls; ELD integrations (for example, Samsara, Motive, Geotab); Alvys Driver App; inbound tracking integrations (for example, MacroPoint, Project44).
+- **Sharable trip statuses:** Select which load statuses will trigger location updates: **Dispatched or Covered Before Pickup**, **Dispatched After 1st Pickup**, **In Transit**, **Delivered**.
+- **Location submission frequency:** Set how often Alvys sends location updates. Options range from every 5 minutes to once per day.
+- **Configure Appointments.** Enable the **Auto Send** toggle for Appointments to send appointment EDI updates automatically.
+
+<Note>
+  ![Appointments Auto Send toggle and trigger options.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c6bfa044-5418-4b50-9593-936c1a2d6a46/image.png)
+
+  *Appointments Auto Send toggle and trigger options.*
+</Note>
+
+Choose the trigger option:
+
+- **On Load Accepted:** Sends the appointment EDI immediately when the load is accepted.
+- **On Stop Updated:** Sends the appointment EDI only when the appointment time is updated at a stop.
+
+  <Info>
+    💡 Use "On Stop Updated" if appointment times are confirmed separately after load acceptance.
+  </Info>
+- **Configure Arrivals. **Enable the **Auto Send** toggle for Arrivals to send arrival EDI updates automatically when a truck arrives at a stop.
+
+<Note>
+  ![Arrivals Auto Send toggle and additional options.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/6308b580-93cb-4028-a0db-4a24830b646b/image.png)
+
+  *Arrivals Auto Send toggle and additional options.*
+</Note>
+
+Additional options for Arrivals:
+
+- **Send Late Arrivals Automatically:** Enable this to auto-send even when the truck arrives late. When enabled, select a Late Reason Code.
+- **Grace Period:** Enable this to treat arrivals within a set window as on time. Set the grace window (15 minutes to 2 hours) and select a Reason Code for arrivals within that window.
+- Configure Departures. Enable the **Auto Send** toggle for Departures to send departure EDI updates automatically when the truck leaves a stop.
+
+<Note>
+  ![Departures Auto Send toggle and additional options.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/24d2ec0a-053d-43c8-b823-7d7b97af788b/image.png)
+
+  *Departures Auto Send toggle and additional options.*
+</Note>
+
+**Additional options for Departures follow the same logic as Arrivals:**
+
+- **Send Late Departures Automatically** (with Reason Code)
+- **Grace Period** (with Reason Code and interval selection)
+
+Configure Estimated Delivery (ETA). Enable the **Auto Send** toggle for ETA to send estimated delivery updates automatically.
+
+<Note>
+  ![ETA Auto Send toggle and frequency/trigger options.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/18d8d94a-f824-4112-a2f2-20cd042296b9/image.png)
+
+  *ETA Auto Send toggle and frequency/trigger options.*
+</Note>
+
+Set the **ETA submission frequency**: how often Alvys sends ETA updates. Options range from every 5 minutes to once per day. Additional triggers for ETA:
+
+- **On ETA Updated:** Sends an update when the ETA changes.
+- **On ETA Late:** Sends an update when the ETA is after the appointment time. When enabled, select a Reason Code.
+- Save the settings. After configuring each event type, save the settings panel to apply the changes.
+
+## Result
+
+After saving, Alvys will automatically send EDI 214 updates to the customer for the event types you enabled. Updates are sent whenever a qualifying event occurs on a load assigned to this customer.
+
+## Variations
+
+**Disabling a setting:** To turn off any auto-send behavior, return to the customer record, open Auto Update Settings, disable the relevant toggle, and save.
+
+**Configuring for multiple customers:** Auto Update Settings are per customer. Repeat these steps for each customer that requires different settings.
+
+## Troubleshooting
+
+### Auto Update Settings section is not visible on the customer profile
+
+1. Confirm the customer has an active EDI integration. The Auto Update Settings section only appears for customers with an active EDI connection.
+2. Confirm you have the **"EditCustomer"** permission. Contact your Admin if you need this permission adjusted.
+3. If the Auto Update Settings section is still not visible after confirming both of the above, contact Alvys support and provide the customer name and your user role.
+
+### EDI updates are not being sent after enabling a setting
+
+1. Confirm the **Auto Send** toggle for the relevant event type is enabled and the customer record has been saved.
+2. Confirm the load is assigned to the customer where the setting is configured.
+3. For location updates, confirm at least one location source is selected and the relevant load status is included in the sharable trip statuses list.
+4. If updates are still not being sent after confirming all of the above, contact Alvys support and provide the customer name, event type, and load number.
+
+## FAQs
+
+**Q:** Do Auto Update Settings apply to all loads or only specific ones?
+
+**A:** Auto Update Settings apply to all loads where the customer assigned to the load matches the customer profile where the settings are configured.
+
+**Q:** Can I configure different settings for different customers?
+
+**A:** Yes. Auto Update Settings are configured per customer record. Each customer can have different settings for location updates, appointments, arrivals, departures, and ETA.
+
+**Q:** What EDI transaction type does Alvys use for automatic status updates?
+
+**A:** Alvys sends EDI 214 (Shipment Status Update) messages for the event types enabled in Auto Update Settings.
+
+**Q:** Do I need to set up all five event types?
+
+**A:** No. You can enable any combination of the five event types. Enable only the types relevant to your agreement with the customer.
+
+## Go Deeper
+
+- [EDI Overview](https://help.alvys.com/en/articles/11668782)
+- [How to enable EDI tender auto-acceptance for a customer](/help/integrations/how-to-enable-edi-tender-auto-acceptance-for-a-customer)

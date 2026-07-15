@@ -1,0 +1,129 @@
+---
+title: "How to Assign Two Carriers to the Same Load"
+---
+
+<Note>
+  **Applies to:** All authenticated users
+
+  **Module:** Loads and Trips
+
+  **Last reviewed:** 2026-06
+
+  **Owner:** Support team
+
+  You can assign two carriers to the same load by splitting the load into separate trips and assigning a different carrier to each trip. Each trip is managed independently, with its own rate confirmation, accessorials, and invoicing.
+</Note>
+
+## Overview
+
+When two carriers are involved in delivering a single load, you do not need to create separate loads. Instead, you split the load at the transfer point and assign a different carrier to each resulting trip. This is also referred to as a load split or trip split. Also known as: split a load, two carriers one load, multi-carrier load.
+
+Common scenarios where this applies:
+
+- You brokered a load to one carrier, but a second carrier completed the final leg of delivery.
+- A load required an asset change (driver, truck, or trailer) at an intermediary location.
+- A complex route needs to be divided into traceable segments for dispatching and billing purposes.
+
+Each trip created by a split has its own carrier assignment, rate confirmation, accessorials, and invoicing, while all trips remain organized together under the same load.
+
+## Before You Start
+
+- You must be logged in to Alvys. No additional permission beyond standard login is required to split a trip or assign carriers.
+- The load must exist in the system before splitting. You can split a trip at any point in the load lifecycle, including while the trip is **In Transit**.
+- Have the address of the transfer point (the location where the carrier handoff occurs) ready before starting.
+
+## Steps
+
+1. Open the load.
+
+   - Navigate to the Load Board.
+   - Find the load that requires two carriers.
+   - Click the load to open the Load Details page.
+2. Open the Optimize modal.
+
+   - In the Trips / Stops section of the Load Details page, locate the **Optimize** button. It appears above or below the list of stops.
+   - Click **Optimize** to open the Optimize Trips modal.
+
+<Note>
+  ![The Load Details page with the Optimize button visible in the Trips / Stops section of the management ribbon.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/374a7da9-7bb8-4a59-8203-d8fab32164cb/image.png)
+
+  *The Load Details page with the Optimize button visible in the Trips / Stops section of the management ribbon.*
+</Note>
+
+1. Split the trip.
+
+   - In the Optimize modal, click the **Split** option.
+   - Enter the address where the trip will be split. This is the intermediary stop where the carrier handoff occurs.
+   - Confirm the location on the map if needed.
+   - Click **Save** to confirm the split point address.
+   - Enter the date and time when the split will occur at that location.
+   - Click **Add Location**. The system divides the original trip into two trips: the first ends at the split point, and the second begins there and continues to the original destination.
+   - Scroll down and click **Save** to apply the changes.
+2. Assign a carrier to each trip.
+
+   - On the Load Details page, you now see two trips listed under the same load.
+   - Open the first trip and assign the first carrier using the carrier assignment fields.
+   - Open the second trip and assign the second carrier.
+
+Each trip now has its own carrier, and you can manage rate confirmations, accessorials, and invoices for each trip independently.
+
+## Result
+
+The load is divided into two trips, each with a different carrier assigned. Both trips remain linked to the same load, so all activity is visible in one place. You can send separate rate confirmations, process separate carrier invoices, and track each trip independently.
+
+## Variations
+
+### Splitting a load more than once
+
+You can repeat the split process up to 20 times on a single load, creating up to 20 separate trips. This is useful for loads with multiple handoff points or complex multi-leg routes.
+
+### Rearranging stops after a split
+
+If you need to change the sequence of pickups and deliveries within a trip after splitting:
+
+1. Open the Optimize modal from the Load Details page.
+2. Click **Re-Arrange**.
+3. Drag and drop stops into the preferred order.
+4. Click **Save** to confirm.
+
+### Canceling a split
+
+If you need to undo a split, you can cancel it from the load. The original trip is restored and the split trips are removed.
+
+## Troubleshooting
+
+### Split results in unexpected stop order
+
+1. Open the Optimize modal and use the Re-Arrange option to reorder stops within each trip.
+2. Click Save to apply the corrected sequence.
+
+### Carrier assignment is not saving on a split trip
+
+1. Confirm the trip was saved after the split. If the Save button was not clicked after adding the split point, the split may not have been applied.
+2. Reload the load and attempt the carrier assignment again. If the issue persists, contact Alvys support.
+
+## FAQs
+
+**Q: Can I assign two carriers to a load without splitting it?**
+
+**A:** No. Alvys uses separate trips to represent each carrier's segment of a load. To assign different carriers, you must split the load into multiple trips first.
+
+**Q: Can I split a load that is already in transit?**
+
+**A:** Yes. You can split a trip regardless of its current status, including when it is **In Transit**.
+
+**Q: What happens to the original load when I split it?**
+
+**A:** The original trip is divided into two or more trips, all linked to the same load. No load data is lost; all related information remains accessible from the Load Details page.
+
+**Q: Can I handle billing separately for each carrier after a split?**
+
+**A:** Yes. Each trip has its own carrier rate, rate confirmation, and invoicing after the split. You manage billing for each carrier independently.
+
+**Q: Is there a limit to how many times I can split a load?**
+
+**A:** Yes. You can split a single load's journey up to 20 times.
+
+## Go Deeper
+
+- [Optimize: Split Trips and Rearrange Stops](/help/loads-trips/optimize-split-trips-rearrange-stops)

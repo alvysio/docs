@@ -1,0 +1,182 @@
+---
+title: "Why Can't I Release or Invoice a Load in Alvys, and How Can I Resolve It?"
+description: "In Alvys, issues with releasing or invoicing a load can arise due to missing information, incorrect settings, or document-related requirements."
+---
+
+<Note>
+  **Applies to:** Admins · Partner Admins · Operations Managers · Billers
+
+  **Module:** Loads and Trips
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article explains the specific reasons a load cannot be released to billing or invoiced in Alvys, including load status requirements, missing documents, customer configuration, and invoicing settings, and the exact steps to resolve each one.
+</Note>
+
+## Overview
+
+You try to release a load to billing or generate an invoice, and the action is blocked. Common symptoms include: the Release to Billing button is grayed out or returns an error; the Generate Invoice button does not appear on the load; or an invoice you generated does not show up in a batch report. This article covers invoice generation, release to billing, summary invoicing, TONU loads, supplemental invoicing, split loads, and related issues (also referred to as: billing release issues, invoice blocked, can't release load, Generate Invoice missing).
+
+Each issue has a distinct cause. Match your symptom to the cause below before proceeding to the Resolution section.
+
+## Causes
+
+### Load is not in a releasable status
+
+- The load must be in **Delivered** or **TONU** status before it can be released to billing. If the load is in any other status such as **In Transit**, **Dispatched**, **Open**, or a post-billing status like **Released**, **Invoiced**, or **Completed**, the release action will be blocked.
+
+### Missing required documents
+
+- Your invoicing settings may require one or more specific documents before the load can be released or invoiced. If any required document is absent, the system returns the error: "Load cannot be released: missing required documents." Required document types may include: **Proof of Delivery**, **Bill of Lading**, **Customer Rate Confirmation**, **Receipt**, and **Scale Ticket**. Which documents are required depends on your customer or subsidiary invoicing configuration.
+
+### Corrupted or empty document file
+
+- A document uploaded with a file size of 0 bytes will be rejected during invoice generation even if the document type appears in the load's document list.
+
+### Document name does not match the required type
+
+- Document names must match the type configured as required in invoicing settings. If a document is uploaded under the wrong type (for example, uploaded as "Unclassified" when "Customer Rate Confirmation" is required), the requirement will not be satisfied.
+
+### No invoice delivery method configured
+
+- Every customer subsidiary must have at least one invoice delivery method selected. Without a delivery method, invoicing is blocked with the message "Missing invoice delivery method(s)." The available delivery methods are: **EDI**, **Email**, **Factoring Company**, **Online System**, and **Originals**.
+
+### Missing invoicing email address
+
+- If **Email** is one of the configured delivery methods, the customer record must have a billing contact email address. Without it, invoice delivery cannot proceed.
+
+### Customer is configured for Summary invoicing
+
+- If the customer's Invoice Type is set to **Summary**, the Generate Invoice button will not appear on individual loads. Summary invoicing batches multiple loads into a single invoice and is processed through Accounting > Summary Invoicing, not on the individual load.
+
+### Load appears invoiced but the customer invoice document is missing
+
+- A load may appear to be in **Invoiced** status because the carrier trips have been invoiced, while the customer-facing invoicing step has not been completed. These are separate actions.
+
+### Invoice not appearing in batch report after rebilling
+
+- If an invoice does not appear in the batch report after rebilling, the load may not have been moved back to **Released** status before the invoice was changed, or the wrong customer or subsidiary was selected when generating the new invoice.
+
+### Order number exceeds the 30-character limit
+
+- Order numbers (also called reference numbers) have a maximum length of 30 characters. An order number exceeding 30 characters may cause errors during invoice generation or EDI transmission.
+
+### Supplemental invoice cannot be generated
+
+- If a load has already been invoiced and you attempt to generate an additional invoice, the system requires pending changes on the load such as updated rates or new fees. Without pending changes, a supplemental invoice cannot be generated.
+
+## Resolution
+
+### Load is not in a releasable status
+
+1. Open the load from the Load Board and confirm its current status in the load header.
+2. If the load is in **Delivered** status, proceed to release it to billing using the Release to Billing action.
+3. If the load is in **TONU** status, it can be released or invoiced directly without requiring a separate release step.
+4. If the load is in a status earlier than **Delivered** (such as **In Transit** or **Dispatched**), update the load's stop times and statuses so all stops are marked complete, bringing the load to **Delivered** status before releasing.
+5. If the load is already in a post-release status (**Released**, **Queued**, **Invoiced**, **Financed**, or **Completed**), reverting it requires manual intervention. Check the load status revert options first; if none apply, contact Alvys support with the load number.
+
+### Missing required documents
+
+1. Open the customer record in Company Management.
+2. Click the Invoicing Settings button (gear icon) for the relevant subsidiary.
+3. Review the list of required documents to confirm which types are required.
+4. Open the load and go to the Documents section.
+5. Upload the missing document with the type set to match exactly what is required in your invoicing settings.
+6. Note: a **Bill of Lading** can satisfy the **Proof of Delivery** requirement. If a Bill of Lading is already uploaded, a separate Proof of Delivery may not be needed; confirm this against your invoicing settings.
+
+### Corrupted or empty document file
+
+1. Open the load and go to the Documents section.
+2. Identify any file showing a size of 0 bytes.
+3. Delete the corrupted file.
+4. Upload a valid version of the document.
+
+### Document name does not match the required type
+
+1. Open the load and go to the Documents section.
+2. Identify the document that does not match the required type.
+3. Re-upload the document and set the type to match the name required in your invoicing settings exactly (for example, "Customer Rate Confirmation").
+
+### No invoice delivery method configured
+
+1. Open the customer record in Company Management.
+2. Click the Invoicing Settings button (gear icon) for the subsidiary.
+3. Select at least one delivery method: **EDI**, **Email**, **Factoring Company**, **Online System**, or **Originals**.
+4. Save your changes.
+
+### Missing invoicing email address
+
+1. Open the customer record in Company Management.
+2. Enter the billing contact email address in the Invoicing Email field.
+3. Save your changes. If you deliver invoices via **EDI**, **Factoring Company**, **Online System**, or **Originals** only, an email address is not required.
+
+### Customer is configured for Summary invoicing
+
+1. Open the customer record in Company Management, click the Invoicing Settings gear, and review the Invoice Type setting.
+2. If Invoice Type is set to **Summary** and you want to invoice per load, change it to **Individual** and save. The Generate Invoice button will then appear on each load.
+3. If the customer should remain on Summary invoicing: release each load to billing individually from the Load Board, then go to Accounting > Summary Invoicing and process the invoice from there.
+
+### Load appears invoiced but customer invoice document is missing
+
+1. Open the load and confirm the load-level status.
+2. If carrier trips show as invoiced but the customer load does not, complete the customer invoicing step by generating an invoice from the load.
+3. If the customer is configured for **Summary** invoicing, confirm the load has been processed through Accounting > Summary Invoicing.
+
+### Invoice not appearing in batch report after rebilling
+
+1. Confirm the load was moved back to **Released** status before the invoice was changed.
+2. Confirm the correct customer and subsidiary are selected.
+3. Regenerate the invoice, then refresh the batch report.
+
+### Order number exceeds the 30-character limit
+
+1. Open the load and locate the order number field.
+2. Shorten the order number to 30 characters or fewer.
+3. Save the load and retry invoice generation.
+
+### Supplemental invoice cannot be generated
+
+1. Confirm there are pending changes on the load, such as rate adjustments or new accessorial fees.
+2. If no changes are pending, make the necessary update to the load.
+3. Once a pending change exists, generate the supplemental invoice from the load.
+
+### TONU loads
+
+- Loads in **TONU** (Truck Ordered, Not Used; also called truck order not used or truck ordered not used) status can be invoiced directly without being released first. TONU loads also skip certain document requirements such as Proof of Delivery and Receipt, because no delivery occurred.
+
+### Split loads
+
+- For split loads, ensure you are working in the correct load section that corresponds to the specific part of the load being billed. Each split generates its own billable portion and must be released and invoiced separately.
+
+### Closing a load with a zero-dollar balance
+
+- To close a load on the billing side when the customer owes nothing: generate an invoice for the load, then apply a manual payment of $0. The system will automatically move the load to **Completed** status.
+
+## If That Didn't Work
+
+If you have confirmed the load is in **Delivered** or **TONU** status, all required documents are uploaded with correct names and types, at least one delivery method is configured, the customer Invoice Type is correct, and the issue still persists: contact Alvys support with the load number and a description of the error message you received.
+
+## FAQs
+
+**Q: Why can't I generate an invoice for a load in Released status?**
+
+**A:** Check for missing required documents (Proof of Delivery, Customer Rate Confirmation), a missing invoice delivery method, or a missing billing contact email address. Also verify the customer's Invoice Type; if it is set to **Summary**, the Generate Invoice button will not appear on individual loads.
+
+**Q: Why doesn't the Generate Invoice button appear on my load?**
+
+**A:** The most common reason is that the customer is configured for **Summary** invoicing. In Summary mode, invoices are generated through Accounting > Summary Invoicing rather than on individual loads. Check the customer's Invoicing Settings in Company Management to confirm.
+
+**Q: Does a TONU load need to be released before it can be invoiced?**
+
+**A:** No. Loads in **TONU** status can be invoiced directly without a prior release step. They also skip document requirements such as Proof of Delivery and Receipt.
+
+**Q: Can I invoice a load that is not in Delivered status?**
+
+**A:** Releasing to billing requires the load to be in **Delivered** or **TONU** status. Loads in earlier statuses (**In Transit**, **Dispatched**, etc.) must reach **Delivered** before they can be released.
+
+## Related
+
+- [Releasing a Load to Billing](/help/loads-trips/how-to-release-a-load-to-billing)
+- [Invoicing Settings](/help/accounting-settlements/invoicing-settings)
+- [Summary Invoicing](/help/accounting-settlements/how-to-use-summary-invoicing)
+- [Billing Permissions](/help/administration/billing-permissions)

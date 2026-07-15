@@ -1,0 +1,126 @@
+---
+title: "Alvys Payment Synchronization for Accounting Integrations"
+---
+
+<Note>
+  📋 **Applies to:** All users
+
+  **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Alvys automatically synchronizes customer and vendor payments (payment sync, payment export, payment import, accounting integration) between Alvys and your connected accounting system (NetSuite, QuickBooks Online, QuickBooks Desktop, or Business Central).
+</Note>
+
+## Overview
+
+Alvys supports automated payment synchronization with NetSuite, QuickBooks Online (QBO), QuickBooks Desktop (QBD), and Business Central. Payment synchronization ensures that customer and vendor payments are accurately reflected between Alvys and your accounting system without manual re-entry. Related terms: payment sync, payment export, payment import, accounting integration, invoice reconciliation.
+
+Payment synchronization covers two flows:
+
+- Customer payment export: Alvys sends customer payments to the external accounting system.
+- Customer and vendor payment import: The accounting system sends payment status back into Alvys.
+
+Synchronization runs on an automated schedule. No manual trigger is required from the Alvys interface.
+
+## Customer Payment Export
+
+Customer payments are exported only when the **Export Customer Payments** setting is enabled during the subsidiary's integration configuration. Once this option is selected, a deposit account must also be configured. Payments represent funds received toward an invoice, but they do not always reach the bank individually. A deposit or clearing account can be used to temporarily hold incoming funds until they are grouped and deposited.
+
+<Warning>
+  ⚠️ Payments should never be posted directly to bank accounts, income accounts, accounts receivable, or liability accounts. Doing so can result in duplicate deposits, overstated revenue, and inaccurate balances. A recommended deposit account is a clearing account (for example, an "Undeposited Funds" type account), though other deposit account types can also be used.
+</Warning>
+
+In Alvys, customer payments can be recorded manually against a load or uploaded via a factoring report. Full payments that qualify for export are synchronized to the external accounting system every five (5) minutes.
+
+<Info>
+  💡 Only full payments applied directly to individual loads or uploaded via a factoring report are eligible for export. Partial payments and any payments associated with summary invoices are not supported and will not be exported.
+</Info>
+
+<Warning>
+  ⚠️ Customer payment export is **not supported** for QuickBooks Desktop or Business Central. This limitation applies regardless of how the integration is configured.
+</Warning>
+
+## Customer Payment Import
+
+Customer payment import is supported only for invoices that were exported from individual loads or batch invoicing (Invoicing page) in Alvys. When a payment is recorded in the external accounting system against a qualifying invoice, that payment is imported back into Alvys every 12 hours.
+
+Payments applied in the external accounting system to invoices that were originally generated from the Summary Invoice page in Alvys are not supported for import.
+
+<Info>
+  💡 If you have recorded payments in QuickBooks Desktop but do not see them reflected in Alvys, confirm that your Web Connector is active. Payment synchronization for QuickBooks Desktop only occurs when the Web Connector runs and pulls data into your local environment.
+</Info>
+
+## Vendor Payment Import
+
+Vendor payment synchronization is one-way: only full payments applied in the accounting system to bills that were originally created from Alvys are imported back into Alvys. Exporting vendor payments from Alvys to the accounting system is not supported.
+
+Imports occur every 12 hours for bills generated from the Trip Details page and the Pay Drivers page (driver paystubs).
+
+<Info>
+  💡 Carrier Settlements and Driver Settlements currently do not support vendor payment import.
+</Info>
+
+## How Load Status Updates After Payment
+
+Once a payment is imported from the external accounting system or manually added to a load, the transaction is considered closed and the associated load's status updates to **Completed**. Any subsequent updates made to that transaction in the external accounting system will not be reflected in Alvys.
+
+If a transaction for which the payment has already been processed and the load marked as **Completed** requires modification, contact Alvys Support at [support@alvys.com](mailto:support@alvys.com). The system does not automatically retry missed payment synchronizations; support intervention is required to resolve any discrepancies.
+
+## Limits and Unsupported Scenarios
+
+- Customer payment export is not supported for QuickBooks Desktop or Business Central.
+- Partial payments are not eligible for export, regardless of the integration type.
+- Payments tied to Summary Invoice page invoices are not supported for customer payment import.
+- Carrier Settlements and Driver Settlements do not support vendor payment import.
+- If a payment export or import is missed, it is not automatically retried.
+- Once a load reaches **Completed** status after payment, further accounting system changes to that transaction are not reflected in Alvys.
+
+## FAQs
+
+**Q: When are customer payments exported from Alvys?**
+
+**A:** Customer payments are exported only when the Export Customer Payments setting is enabled for the subsidiary and a deposit account is configured. Only full payments applied to individual loads or uploaded via a factoring report are eligible for export. The sync runs every five (5) minutes.
+
+**Q: Can customer payments be exported to QuickBooks Desktop?**
+
+**A:** No. Customer payment export is not supported for QuickBooks Desktop.
+
+**Q: Can customer payments be exported to Business Central?**
+
+**A:** No. Customer payment export is not supported for Business Central.
+
+**Q: Does the QuickBooks Web Connector need to be running to sync payments?**
+
+**A:** Yes. QuickBooks Desktop is a local application, so Alvys cannot import payments or update load statuses to **Completed** unless the QuickBooks Web Connector is open and running its sync cycle.
+
+**Q: How often are customer payments synchronized to external accounting systems?**
+
+**A:** Full customer payments are exported every five (5) minutes for supported integrations.
+
+**Q: Which invoices are supported for customer payment import?**
+
+**A:** Customer payment import is supported only for invoices exported from individual loads or the Invoicing page (batch invoicing) in Alvys. Payments applied to invoices originally generated from the Summary Invoice page are not supported. Qualifying payments are imported every 12 hours.
+
+**Q: How does vendor payment synchronization work?**
+
+**A:** Vendor payment synchronization is one-way: only full payments applied in the accounting system to bills originally created from Alvys are imported back into Alvys. Vendor payments cannot be exported from Alvys. Imports occur every 12 hours for bills generated from the Trip Details page and the Pay Drivers page.
+
+**Q: Are there any modules that do not support vendor payment import?**
+
+**A:** Yes. Carrier Settlements and Driver Settlements do not currently support vendor payment import.
+
+**Q: What should I do if a payment export or import is missed?**
+
+**A:** First confirm that your integration is active and, for QuickBooks Desktop, that the Web Connector is running. If those are not the cause, contact Alvys Support at [support@alvys.com](mailto:support@alvys.com). Missed payment synchronizations are not automatically retried.
+
+**Q: What happens to a load once a payment is imported or manually added?**
+
+**A:** Once a payment is imported from the external accounting system or manually added to a load, the load status updates to **Completed**. Subsequent updates made to that transaction in the external accounting system will not be reflected in Alvys. If the completed transaction requires modification, contact Alvys Support.
+
+## Go Deeper
+
+- QuickBooks Online: [https://help.alvys.com/en/articles/14044263-5-quickbooks-online-identifying-and-resolving-failed-transactions](/help/integrations/quickbooks-online-identifying-and-resolving-failed-transactions)
+- QuickBooks Desktop: [https://help.alvys.com/en/articles/14019710-5-quickbooks-desktop-identifying-and-resolving-failed-transactions](/help/integrations/identifying-and-resolving-failed-quickbooks-desktop-transaction-exports)
+- NetSuite: [https://help.alvys.com/en/articles/13688984-5-netsuite-identifying-and-resolving-failed-transactions](/help/integrations/transactions-failed-to-sync-to-netsuite)
+- Microsoft Dynamics 365 Business Central: [https://help.alvys.com/en/articles/13841602-5-business-central-identifying-and-resolving-failed-transaction](/help/integrations/how-to-resolve-business-central-transaction-export-errors)

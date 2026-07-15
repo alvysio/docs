@@ -1,0 +1,220 @@
+---
+title: "How to prepare Business Central before connecting to Alvys"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Before connecting Alvys to Microsoft Dynamics 365 Business Central (also called BC, Microsoft BC, or BC setup), you must configure seven areas in your BC environment: company architecture, licensing and permissions, chart of accounts, posting groups, tax setup, journal batch configuration, and IRS 1099 setup (if applicable). Completing these steps in order ensures transactions sync accurately and prevents errors after the integration goes live.
+</Note>
+
+## Overview
+
+Before you connect Alvys to Business Central, your BC environment must be configured (prepared) to receive and post data from Alvys. This article walks through seven prerequisite areas. Skipping or partially completing any of these areas can cause sync failures, "Out of Balance" invoice errors, or record-locking issues after the integration is active.
+
+## Before You Start
+
+**Required role:** Configuring the accounting integration in Alvys requires the **"CompanyProfileManager"** permission, available to users with the Admin, Partner Admin, or Support role.
+
+**Prerequisites before beginning:**
+
+- You have administrator or equivalent setup access in your Business Central environment.
+- You have determined your organizational structure: whether each Alvys subsidiary maps to a separate BC company (Option A) or whether you are using the Binary Stream Multi-Entity Management (MEM) add-on with multiple legal entities sharing one BC database (Option B).
+- The integration user account in BC has been created and is available for permission assignment.
+- You are not yet live on the Alvys integration. Changing company architecture after the integration is active carries significant data reconciliation risk.
+
+## Steps
+
+1. Company Setup and Architecture.
+
+The first and most critical step is defining how your organizational subsidiaries are structured in Business Central. Choose the option that matches your organizational structure.
+
+**Option A: Separate Companies (standard BC setup)**
+
+In this setup, each subsidiary is an independent environment with its own private data. Each Alvys subsidiary maps directly to its own Business Central company on a 1:1 basis. Transactions for one subsidiary cannot mix with another.
+
+1. In the BC search bar, type **Companies** and select the link.
+2. Select **New > Create New Company**.
+
+For more information on creating companies in BC, see: [Create New Companies in Business Central](https://learn.microsoft.com/en-us/dynamics365/business-central/about-new-company)
+
+During Alvys integration setup, select the target company name to link the correct subsidiary.
+
+**Option B: Multi-Entity Management (MEM add-on)**
+
+This option uses the Binary Stream Multi-Entity Management (MEM) extension, which allows multiple legal entities, subsidiaries, or branches to operate within a single BC company database. Each transaction is tagged with an Entity Code to identify the subsidiary.
+
+1. Search for **Multi-Entity Management Setup** and confirm it is enabled.
+2. Search for **MEM Entity Setup** and add each subsidiary as a new line.
+3. Assign a Global Dimension (typically Dimension 1) to represent your entities.
+4. Search for **MEM User Security Setup** and assign the User ID to every entity code that Alvys will use.
+
+   For more information on the MEM extension, see: [Multi-Entity Management Overview (Binary Stream)](https://binarystream.com/multi-entity-management-in-microsoft-dynamics-365-going-beyond-the-business-central-core/)
+
+   During Alvys integration setup with MEM: enable the **Subsidiary** checkbox, then manually link each Alvys subsidiary to the specific MEM Entity Code defined in BC.
+5. Licensing and Permissions.
+
+The integration user in BC requires a specific license type and a set of permissions to allow Alvys to read and write financial data.
+
+**Licensing requirements**
+
+Only full user licenses support the read/write API access required by Alvys. Supported license types are Dynamics 365 Business Central Essentials and Dynamics 365 Business Central Premium. A Team Member license is not supported: Microsoft restricts this license to read-only access for most financial tables. Alvys needs to write data (create sales invoices and purchase invoices), so a Team Member license cannot authorize the API connection.
+
+**Permissions checklist**
+
+The integration user must have access to: Login Access, Local Permission, Customers, Vendors, Items, Sales Invoices, Purchase Invoices, General Ledger Entries, and Dimensions.
+
+**Recommended permission sets**
+
+Add the following four permission sets to the integration user's User Card in BC:
+
+1. **"D365 BUS FULL ACCESS"**: the primary set for full read/write/modify access to business data.
+2. **"D365 AUTOMATION"**: required for allowing external API calls from Alvys to execute tasks in the background.
+3. **"LOCAL"**: provides regional-specific database access required for posting logic.
+4. **"LOGIN"**: the base set required to access the BC environment.
+
+   **Configuration steps:**
+5. In BC, search for **Users** and select the integration user.
+6. Scroll to the **User Permission Sets** tab.
+7. Add all four permission sets listed above.
+8. Ensure the **Company** column is left blank so the permissions apply to all companies and entities.
+9. Chart of Accounts.
+
+   Alvys requires active General Ledger (G/L) accounts in BC to post revenue and expenses. These accounts must exist and be configured for direct posting before the first sync.
+10. In BC, search for **Chart of Accounts**.
+11. Select **New** to create accounts for Freight Revenue and Carrier Expense.
+12. Set **Income/Balance** to **Income Statement** for revenue and expense accounts.
+13. Ensure **Direct Posting** is toggled on so the API can post to these accounts.
+14. Posting Groups.
+
+    Posting groups are rules assigned to each customer or vendor that tell Business Central which account category to use when a transaction is posted. Even when Alvys sends a specific account, BC checks the posting group to confirm the transaction is valid.
+
+    Configure posting groups for your customers and vendors before connecting the integration. For more information, see: [Setting Up Posting Groups](https://learn.microsoft.com/en-us/dynamics365/business-central/finance-posting-groups)
+15. Tax Setup.
+
+    Business Central calculates tax for the data sent by Alvys. Tax must be configured in BC before connecting; missing or incomplete tax configuration causes "Out of Balance" errors on invoices.
+16. Search for **Tax Groups** and create a code (for example, TAXABLE).
+17. Search for **Tax Areas** and define the regions where you operate.
+18. Link the Tax Group and Tax Area to your Customer and Vendor cards under the **Invoicing** tab.
+19. Journal Batch Setup.
+
+    BC includes a native DEFAULT batch for general journals. Creating a dedicated ALVYS batch is strongly recommended, though not strictly required. A dedicated batch prevents record-locking conflicts with manual users and ensures clear traceability for all automated transactions posted by Alvys.
+20. Search for **General Journal Batches**.
+21. Select **New** and name the batch **ALVYS**.
+22. Ensure a **No. Series** is assigned so BC can auto-generate document numbers.
+23. Confirm the integration user account has explicit permission to post within this specific journal batch.
+24. IRS 1099 Setup (US companies only).
+
+    This step applies only to US companies that work with carriers subject to IRS 1099 reporting. If this does not apply to your organization, skip this step.
+25. Search for **1099 Form Boxes** and ensure codes such as NEC-01 are active.
+26. Open the **Vendor Card** for the applicable carrier and navigate to the **Payments** tab.
+27. Select the correct code in the **IRS 1099 Code** field.
+
+## Result
+
+After completing all applicable steps, your Business Central environment is ready to connect to Alvys. You will have:
+
+- A confirmed company architecture (separate companies or MEM) with subsidiaries configured.
+- An integration user with the correct license and all four permission sets assigned.
+- G/L accounts active and set to allow direct posting.
+- Posting groups configured for your customers and vendors.
+- Tax Groups and Tax Areas defined and linked to customer and vendor cards.
+- A dedicated ALVYS journal batch (recommended) with a No. Series assigned.
+- IRS 1099 codes configured on vendor cards (if applicable).
+
+You can now proceed to connection and settings configuration in Alvys under Management > Integrations.
+
+## Troubleshooting
+
+### Permission set error when syncing an invoice
+
+This error occurs when the **"D365 AUTOMATION"** or **"D365 BUS FULL ACCESS"** permission sets are missing from the integration user, or when the **Company** column on the User Card is not left blank.
+
+**Step 1:** Search for **Users** in BC and open the integration user's record.
+
+**Step 2:** Scroll to the **User Permission Sets** tab and verify that **"D365 BUS FULL ACCESS"**, **"D365 AUTOMATION"**, **"LOCAL"**, and **"LOGIN"** are all listed.
+
+**Step 3:** Check the **Company** column for each permission set. If a company name is listed, clear it so the permissions apply to all entities.
+
+**Step 4:** Re-attempt the sync from Alvys (Management > Integrations > select the Business Central integration > sync).
+
+If the error persists after all four sets are assigned with a blank Company field, contact Alvys support and provide the exact error message.
+
+### Out of Balance error on invoices
+
+This error occurs when the tax calculated by Business Central differs from the total sent by Alvys, most commonly because Tax Groups or Tax Areas are not configured or are not linked to the customer or vendor card.
+
+**Step 1:** Search for **Tax Groups** in BC and confirm at least one code (for example, TAXABLE) is active.
+
+**Step 2:** Search for **Tax Areas** and confirm the regions where you operate are defined.
+
+**Step 3:** Open the **Customer Card** or **Vendor Card** for the affected record and navigate to the **Invoicing** tab. Confirm a Tax Group and Tax Area are assigned.
+
+**Step 4:** Re-attempt the sync from Alvys.
+
+If the error persists after tax configuration is confirmed, contact Alvys support and provide the affected customer or vendor name.
+
+### Record-locking errors on journal entries
+
+This error occurs when the DEFAULT general journal batch is in use by a manual user at the same time Alvys attempts to post an automated entry.
+
+**Step 1:** Search for **General Journal Batches** in BC.
+
+**Step 2:** Confirm an **ALVYS** batch exists. If it does not, create it per step 6 above.
+
+**Step 3:** Confirm the integration user has permission to post to the ALVYS batch.
+
+**Step 4:** In Alvys, go to Management > Integrations > select the Business Central integration > confirm the journal batch is set to ALVYS rather than DEFAULT.
+
+If record-locking errors continue after switching to a dedicated batch, contact Alvys support.
+
+### Integration user cannot log in to BC
+
+This error occurs when the **"LOGIN"** permission set is missing or when the integration user's account does not have access to the specific BC company being integrated.
+
+**Step 1:** Search for **Users** in BC and open the integration user.
+
+**Step 2:** Confirm the **"LOGIN"** permission set is listed under **User Permission Sets** with a blank Company column.
+
+**Step 3:** Confirm the user has access to the target company. If using MEM, confirm the user is assigned to all relevant entity codes in **MEM User Security Setup**.
+
+If the user still cannot log in after permissions are confirmed, contact Alvys support.
+
+## FAQs
+
+**Q: How do I know whether to use Separate Companies or Multi-Entity Management (MEM)?**
+
+**A:** Use Separate Companies if each subsidiary operates independently with its own accounting, users, and reporting. Use MEM if you want multiple legal entities operating inside one shared environment with centralized users and reporting. If you are using the Multi-Entity Management extension by Binary Stream, you must configure each Alvys subsidiary to map to a specific MEM Entity Code during Alvys setup.
+
+**Q: Can I switch from Option A (Separate Companies) to Option B (MEM) after the integration is live?**
+
+**A:** Switching architectures after the integration is live requires a full re-mapping of all entities, customers, and vendors, and can lead to significant data reconciliation issues in your General Ledger. Finalize your organizational structure in BC before connecting Alvys.
+
+**Q: Does Alvys support asset dimensions if I am not using the MEM add-on?**
+
+**A:** Yes. Even in a standard 1:1 company setup, you can still map Alvys assets to BC Dimensions (such as trucks or drivers) for granular reporting. You will not need a Subsidiary dimension to identify the legal entity itself, because the ledger is already entity-specific.
+
+**Q: I have a Team Member license; why can't I use it for the integration?**
+
+**A:** Microsoft restricts Team Member licenses to read-only access for most financial tables. Because Alvys needs to write data (create Sales Invoices and Purchase Invoices), a Business Central Essentials or Premium license is required to authorize the API connection.
+
+**Q: Do I really need a dedicated ALVYS General Journal Batch?**
+
+**A:** While you can use the DEFAULT batch, a dedicated ALVYS batch prevents record-locking errors. If a user has the DEFAULT batch open while Alvys attempts to post an automated entry, the transaction may fail. A separate batch provides a clean lane for API traffic.
+
+**Q: How does Alvys handle sales tax?**
+
+**A:** Alvys sends the line-item data, but Business Central is the source of truth for tax calculations. You must have Tax Groups and Tax Areas configured in BC. If the tax calculated by BC differs from the total sent by Alvys, the invoice may sit in an Out of Balance status.
+
+**Q: Are all Chart of Accounts and companies required to be set up before exporting transactions?**
+
+**A:** Yes. Your G/L accounts, Posting Groups, and Dimensions must be fully configured in BC before the first sync. Alvys cannot post to an account or a company that does not yet exist in the BC environment.
+
+## Go Deeper
+
+- How to connect Business Central to Alvys and configure settings: [2. Business Central Connection and Settings Configuration](/help/integrations/how-to-connect-business-central-to-alvys-and-configure-settings)
+- Business Central Integration Collection: [Business Central Integration Collection](/help/integrations/business-central-integration-collection)

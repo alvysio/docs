@@ -1,0 +1,62 @@
+---
+title: "2 Owner Operators Cannot Be Assigned to a Trip"
+---
+
+<Note>
+  **Applies to:** Dispatchers **· Module:** Loads and Trips
+
+  **Last reviewed:** 2026-06 **· Owner:** Support team
+
+  This error appears when you try to assign a driver who is an Owner Operator (also referred to as OOP) to a trip where the selected truck is already linked to a different Owner Operator. Each truck can be linked to only one Owner Operator at a time.
+</Note>
+
+## Overview
+
+This article explains the "2 Owner Operators cannot be assigned to a trip" error: why it happens, what it means, and how to clear it. In Alvys, a truck (also called an asset or unit) can be tied to only one Owner Operator (OOP) at a time, so pairing a second Owner Operator with that truck on the same trip is blocked.
+
+## Symptom
+
+When assigning a driver or truck to a trip, you see the error: "2 Owner Operators cannot be assigned to a trip."
+
+<Note>
+  ![Error dialog displaying the message '2 Owner Operators cannot be assigned to a trip'](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1375316615/2b1f3647acc58fae6bd4870edd8e/image.png)
+
+  *Error dialog displaying the message "2 Owner Operators cannot be assigned to a trip"*
+</Note>
+
+## Cause
+
+Each truck in Alvys can be owned by only one Owner Operator (OOP) at a time. This error occurs when the truck you selected is already registered under a different Owner Operator than the driver you are assigning. Alvys prevents this combination to avoid conflicting ownership records on the same trip.
+
+## Resolution
+
+Check the truck's current ownership. Go to the driver or asset list and confirm which Owner Operator the selected truck is linked to.
+
+<Note>
+  ![Truck list showing the Owner column with an Owner Operator name displayed next to each truck.](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1375309386/376a82544a3dcb16a345fa830fc0/image.png)
+
+  * Truck list showing the Owner column with an Owner Operator name displayed next to each truck.*
+</Note>
+
+Choose one of the following options based on what you find.
+
+- Option A: Select a different truck. Choose a truck that is owned by the same Owner Operator as the driver you are assigning, or choose a truck with no Owner Operator currently linked.
+- Option B: Change the driver's contractor status to Company Driver. If the driver should be classified as a Company Driver rather than an Owner Operator, update their contractor type in the driver record. After changing the status, return to the trip and reassign the driver.
+
+<Note>
+  ![Screen recording showing the process of changing a driver's contractor status from Owner Operator to Company Driver in the driver record.](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1375314253/abb5110f01190f50af039bc2a7db/Recording+2025-02-11+072545.gif)
+
+  *Screen recording showing the process of changing a driver's contractor status from Owner Operator to Company Driver in the driver record.*
+</Note>
+
+- Option C: Update the truck's ownership in fleet settings. If the truck ownership record is incorrect, update the linked Owner Operator for that truck in your fleet settings before returning to reassign the driver.
+
+## Troubleshooting
+
+### Error persists after confirming ownership and contractor status
+
+If you have confirmed the truck ownership and driver contractor statuses are correct and the error still appears, contact Alvys support with the load number and the names of the driver and truck you are trying to assign. Brokerage loads use a separate ownership validation path and may require support review.
+
+## Related
+
+- [How to Release a Load to Billing](/help/loads-trips/how-to-release-a-load-to-billing)

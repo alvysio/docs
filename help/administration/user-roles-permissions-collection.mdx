@@ -1,0 +1,160 @@
+---
+title: "User Roles & Permissions Collection"
+---
+
+<Note>
+  **Applies to:** Admins · Account Owners · **Module:** Management > Users
+
+  **Last reviewed:** 2026-06 · **Owner:** Product
+
+  This collection links to every user roles and permissions article in Alvys. Use it to configure team access, understand what each permission controls, and troubleshoot visibility or action gaps.
+</Note>
+
+## Overview
+
+The Alvys permissions system lets administrators control exactly what each user can see and do across every module. Permissions are organized into categories that map to functional areas of the TMS. Each category has its own dedicated article explaining every checkbox, its default role assignment, and the impact of enabling or disabling it.
+
+Follow the recommended order below when setting up a new team member or auditing an existing user's access. Start with financial and operational categories before moving to administrative and specialized ones.
+
+## Where to Find It?
+
+Navigate to **Management** > **Users**, then open a user record. The **Permissions** section lists every available permission grouped by category. Admins and Account Owners can toggle individual permissions on or off to override the defaults set by the user's base role.
+
+## Permissions Overview
+
+Each article below covers one permission category. The Focus description explains what that category governs.
+
+### 1. Rates Permissions
+
+**Focus:** Serves as the primary control for the visibility and modification of financial data across load records and driver profiles. It governs the split between viewing and editing Customer Rates, Carrier Rates, and Trip Values.
+
+**Article:** [Rates Permissions](/help/administration/rates-permissions)
+
+### 2. E-Check Permissions
+
+**Focus:** Regulates the issuance, cancellation, and modification of digital payment instruments. These permissions carry significant financial risk as they involve releasing immediate funds for fuel, lumpers, and similar expenses.
+
+**Article:** [E-Check Permissions](/help/administration/e-check-permissions)
+
+### 3. Billing Permissions
+
+**Focus:** The most comprehensive financial category in the TMS. It governs the entire lifecycle of revenue and settlements, ranging from generating invoices to approving carrier payables and managing driver pay plans.
+
+**Article:** [Billing Permissions](/help/administration/billing-permissions)
+
+### 4. Report Permissions
+
+**Focus:** Determines the visibility of specific report pages in the navigation menu. It allows administrators to restrict access to sensitive analytical data found in Fuel, Toll, Financial, and Asset Safety reports.
+
+**Article:** [Report Permissions](/help/administration/report-permissions)
+
+### 5. Dispatch Permissions
+
+**Focus:** Regulates the fundamental operational actions required to maintain freight movement. This includes identifying users as dispatchers, overriding stop statuses, and releasing delivered loads for billing.
+
+**Article:** [Dispatch Permissions](/help/administration/dispatch-permissions)
+
+### 6. Management &amp; Privacy Permissions
+
+**Focus:** Constitutes the administrative and data sensitivity framework. It covers user provisioning, asset management, and the protection of PII such as Tax IDs and Social Security Numbers.
+
+**Article:** [Management &amp; Privacy Permissions](/help/administration/management-privacy-permissions)
+
+### 7. General Permissions
+
+**Focus:** Controls access to foundational features that span the entire system, such as DAT and TruckStop load board integrations, calendar past-date selection, and the Unlock Loads capability.
+
+**Article:** [General Permissions](/help/administration/general-permissions)
+
+### 8. Marketplace Permissions
+
+**Focus:** Governs access to the integrated Carrier Marketplace. It defines exactly what each user can see and do regarding searching for, bidding on, booking, or posting loads.
+
+**Article:** [Marketplace Permissions](/help/administration/marketplace-permissions)
+
+### 9. Customer Management Permissions
+
+**Focus:** Specifically governs the lifecycle of entities classified as Customer or Broker/3PL. It manages the creation, modification, and activation of accounts that form the foundation of the revenue cycle.
+
+**Article:** [Customer Management Permissions](/help/administration/customer-management-permissions)
+
+### 10. Company Management Permissions
+
+**Focus:** Governs non-customer company types such as Shippers, Warehouses, and Terminals. It allows for a granular separation between users managing customers and those managing pickup locations.
+
+**Article:** [Company Management Permissions](/help/administration/company-management-permissions)
+
+### 11. App Permissions
+
+**Focus:** Controls what drivers and carriers can see and do within the Alvys mobile application, such as viewing pay, editing trailer numbers, or viewing rate confirmations.
+
+**Article:** [App Permissions](/help/administration/app-permissions)
+
+### 12. Tendering Permissions
+
+**Focus:** Controls access to EDI functionality. Governs who can participate in the Tender Board to accept or reject automated load offers and share EDI updates externally.
+
+**Article:** [Tendering Permissions](/help/administration/tendering-permissions)
+
+### 13. Additional Load Permissions
+
+**Focus:** Supporting tools for efficiency and pricing analysis. It covers the management of Load Templates and the ability to view Alvys-wide Market Rates versus your company's private rate history.
+
+**Article:** [Additional Load Permissions](/help/administration/additional-load-permissions)
+
+### 14. Contracted Lanes Permissions
+
+**Focus:** Manages pre-negotiated rate agreements for specific routes. It controls who can view, create, or delete standing rate contracts for recurring customer business.
+
+**Article:** [Contracted Lanes Permissions](/help/administration/contracted-lanes-permissions)
+
+### 15. User Roles in Alvys
+
+**Focus:** Explains the foundational role hierarchy. It details how the built-in roles (from Support and Admin to Dispatcher and Driver) establish baseline access and govern the organizational authority to manage other users.
+
+**Article:** [User Roles in Alvys](/help/administration/user-roles-in-alvys)
+
+### 16. Adding and Managing Users in Alvys
+
+**Focus:** A step-by-step guide to the user lifecycle. It covers creating new accounts, assigning base roles, using granular overrides to fine-tune access, and the proper procedures for deactivating accounts.
+
+**Article:** [Adding and Managing Users in Alvys](/help/administration/how-to-add-and-manage-users-in-alvys)
+
+### 17. User Permissions Glossary
+
+**Focus:** An A-Z quick-reference guide for every user permission in the system. It defines the specific impact of each permission to help administrators troubleshoot access issues or audit user capabilities.
+
+**Article:** [User Permissions Glossary](/help/administration/user-permissions-glossary)
+
+## Settings &amp; Permissions
+
+Only users with the **"Set Permission"** permission (located within the Management category) can modify another user's permissions. Without **"Set Permission"**, a user can view the permissions section on a user detail page but cannot make changes.
+
+Account Owners and Admins have **"Set Permission"** enabled by default. Dispatchers and other base roles do not.
+
+## Limits &amp; Behavior
+
+- Permissions apply at the individual user level and override the defaults set by the user's base role.
+- Removing a permission takes effect immediately: the user loses access without needing to log out and back in.
+- The **Permissions** section on a user's detail page is read-only for users who do not hold the **"Set Permission"** permission.
+- Some permissions are interdependent: enabling a sub-permission without its parent permission may produce no visible effect. Each category article documents these dependencies explicitly.
+
+## FAQs
+
+**Q: Where do I start when setting up permissions for a new employee?**
+
+**A:** Begin by assigning the correct base role (found in the User Roles in Alvys article), then review the Billing, Dispatch, and Rates categories to apply any overrides needed for that employee's specific responsibilities.
+
+**Q: Can a user see their own permissions?**
+
+**A:** Yes. Any user can navigate to their own profile under Management > Users and view their permissions. They cannot change them unless they hold the **"Set Permission"** permission.
+
+**Q: Why does a permission appear enabled but the feature is still not visible?**
+
+**A:** Some features require more than one permission to be active. Check the relevant category article for dependency notes. If all listed permissions are enabled and the feature is still not visible, contact Alvys support with a screenshot of the user's permissions page.
+
+## Go Deeper
+
+- [User Roles in Alvys](/help/administration/user-roles-in-alvys)
+- [Adding and Managing Users in Alvys](/help/administration/how-to-add-and-manage-users-in-alvys)
+- [User Permissions Glossary](/help/administration/user-permissions-glossary)

@@ -1,0 +1,65 @@
+---
+title: "Split Fuel Transactions"
+---
+
+<Note>
+  **Applies to:** All users **·** **Module:** Reports > Fuel Report
+
+  **Owner:** Support team **·** **Last reviewed:** 2026-06
+</Note>
+
+## Overview
+
+Split Fuel Transactions gives visibility into individual purchase categories within a single fuel card transaction, so dispatchers and accounting teams can distinguish driver expenses from company expenses on the Fuel Report.
+
+When a driver uses a fuel card at a store or fuel pump, multiple types of purchases may occur in a single transaction: diesel fuel, cash advances, groceries, maintenance items, and more. Previously, all categories within one transaction were grouped into a single line item labeled as a fuel transaction for the truck. Split Fuel Transactions separates each purchase category into its own row in the Fuel Report, making it possible to identify exactly what was purchased, which expenses belong to the driver, and which belong to the company.
+
+Also known as: split fuel, transaction categories, fuel card line items, fuel category breakdown.
+
+## How it works
+
+When a transaction contains items from multiple purchase categories, the Fuel Report shows one row per category instead of a single combined row. For example, if a driver's fuel card was used at a stop that included diesel fuel, a cash advance, and a grocery purchase, the Fuel Report will display three separate rows for that transaction, one for each category.
+
+Each row shows the category detail, the amount, and the associated driver, allowing you to assess whether each line item is a driver expense or a company expense.
+
+If a fuel card transaction contains only one purchase category (for example, diesel only), it appears as a single row. The split behavior applies only when multiple categories are present in the same transaction.
+
+Before you start:
+
+- Your fuel card provider integration must be connected and active in Alvys (Management > Integrations > Fuel).
+- Drivers must have their fuel card numbers linked to their driver profiles (Assets > Drivers).
+- All users have access to the Fuel Report and can view split transaction rows.
+
+## How to use
+
+1. Go to **Reports > Fuel Report**. The Fuel Report displays all imported fuel card transactions for your drivers.
+2. Review the split transaction rows. When a transaction contains items from multiple purchase categories, the report shows one row per category, each showing the category detail, the amount, and the associated driver.
+3. Take action based on each category:
+
+   - Driver expenses (such as cash advances or personal purchases) may need to be set up as deductions on the driver's profile.
+   - Company expenses (such as maintenance items) are recorded separately for accounting purposes.
+
+After this workflow, the Fuel Report shows one row per purchase category for any multi-category fuel card transaction, each row clearly identifies the purchase category, amount, and associated driver, and you can distinguish driver expenses from company expenses within the same transaction event.
+
+## Troubleshooting
+
+### Expected category rows are not appearing
+
+1. Confirm the fuel transaction has been imported into the Fuel Report (either via automatic sync or manual CSV upload).
+2. Confirm your fuel card provider sends category-level detail in their transaction data. Not all providers supply category breakdowns in their export files.
+3. If you expected multiple category rows but see only one, the provider may have grouped the transaction before sending it to Alvys. Contact your fuel card provider to confirm whether category-level data is included in their file format.
+4. If category detail is expected and still not appearing, contact Alvys support with the transaction date, driver name, and provider name.
+
+## FAQs
+
+**Q: Does Split Fuel Transactions change anything about how I upload or sync fuel transactions?**
+
+**A:** No. You use the same Fuel Report and the same upload or sync process as before. Split Fuel Transactions only changes how the report displays transactions that contain multiple purchase categories.
+
+**Q: What purchase categories can appear as separate rows?**
+
+**A:** Categories depend on what the fuel card provider includes in their transaction data. Common categories include fuel for the truck, cash advance, groceries, and maintenance items. The exact categories available vary by provider.
+
+**Q: Who has access to the Fuel Report?**
+
+**A:** All users have access to the Fuel Report.

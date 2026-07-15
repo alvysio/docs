@@ -1,0 +1,147 @@
+---
+title: "Linehaul Rate Types"
+---
+
+<Note>
+  **Applies to:** Users with the **"EditCustomerRate"** permission
+
+  **Module:** Loads and Trips > Money Box
+
+  **Owner:** Support team · **Last reviewed:** 2026-06
+</Note>
+
+## Overview
+
+Linehaul rate types control how Alvys calculates the line haul amount (also called the linehaul charge or freight rate) on a** load**. Every load in Alvys has a line haul charge in the Money Box, and the rate type you select determines how that charge is calculated. Alvys supports four rate types: Flat, Distance, Weight, and Volume.
+
+The rate type is selected in the Money Box on the load. The Money Box is also where accessorial charges, fuel surcharges, and other customer-facing amounts are configured.
+
+## Where to Find It
+
+Navigate to the load detail page and open the **Money Box**. The rate type selector appears on the Line Haul row.
+
+## Key Concepts
+
+### Flat
+
+A fixed dollar amount for the entire load. Alvys does not multiply the amount by any distance, weight, or volume value. Use Flat when the rate is negotiated as a total lump sum.
+
+<Note>
+  ![Money Box showing the Flat rate type selected with a fixed dollar amount entered.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a80f472c-1da1-4a3f-b6f3-db2569c7efe3/image.png)
+
+  *Money Box showing the Flat rate type selected with a fixed dollar amount entered.*
+</Note>
+
+### Distance
+
+A rate per mile multiplied by the distance Alvys calculates for the load. Alvys pulls the calculated mileage from the load's routing. If you need to override the mileage, enter the mileage manually on the load before saving the Money Box.
+
+<Note>
+  ![Money Box showing the Distance rate type selected, with the rate-per-mile field and the calculated mileage displayed.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8f7a411c-ae87-4b97-9275-97afdbd65793/image.png)
+
+  * Money Box showing the Distance rate type selected, with the rate-per-mile field and the calculated mileage displayed.*
+</Note>
+
+### Weight
+
+A rate per unit of weight multiplied by the weight entered on the load. Weight must be entered on the load for this rate type to calculate.
+
+<Note>
+  ![Image showing load weight field on load details page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a08e332c-fde0-4108-b979-1a196b43dacb/image.png)
+
+  *Image showing load weight field on load details page*
+</Note>
+
+If weight is missing, the line haul amount shows as $0.00.
+
+<Note>
+  ![Money Box showing the Weight rate type selected with the rate-per-unit field and the weight field.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7effcafa-0fa1-4d44-81e0-690a93474e22/image.png)
+
+  *Money Box showing the Weight rate type selected with the rate-per-unit field and the weight field. *
+</Note>
+
+### Volume
+
+A rate per unit of volume multiplied by the volume entered on the load. Volume must be entered on the load for this rate type to calculate.
+
+<Note>
+  ![Image showing load volume field on load details page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3f63bb7b-14af-4921-bb65-f757203009ca/image.png)
+
+  *Image showing load volume field on load details page*
+</Note>
+
+If volume is missing, the line haul amount shows as $0.00.
+
+<Note>
+  ![Money Box showing the Volume rate type selected with the rate-per-unit field and the volume field.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/12259382-7cd1-4ec3-8d5b-6a7bb6dfbe7b/image.png)
+
+  *Money Box showing the Volume rate type selected with the rate-per-unit field and the volume field. *
+</Note>
+
+### Rate contracts
+
+If the load is linked to a customer contract, Alvys can pull the line haul rate from the contract automatically. The contract rate populates the Money Box rate field. You can override it manually if needed. The rate type set on the contract determines which rate type appears on the load.
+
+See the [Contracted Rates Help Center Article](/help/loads-trips/contracted-rates) for more details on configuring contracted rates.
+
+<Note>
+  ![Money Box showing a contract rate dropdown](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/0f310b6b-4bd2-4104-85d5-e8217147d432/image.png)
+
+  *Money Box showing a contract rate dropdown*
+</Note>
+
+## How to Use It
+
+To set or change the line haul rate type on a load, open the load, navigate to the **Money Box**, and select the rate type on the Line Haul row. Enter the rate and any required input (mileage, weight, or volume) and save.
+
+<Note>
+  ![Money Box with a rate type selected](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c0f38de6-5fb9-4e33-b69b-bcd1bfee1dd0/image.png)
+
+  *Money Box with a rate type selected *
+</Note>
+
+For contract-driven loads, the rate type and amount populate automatically from the linked contract. You can override either value.
+
+## Settings &amp; Permissions
+
+- **"EditCustomerRate"**: required to add or change the rate type and rate amount in the Money Box. Users without this permission can view the Money Box but cannot change rate types or amounts.
+
+<Note>
+  ![User profile - Edit Customer Rate permissions.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a77e472f-a20e-4b6f-a3c8-5fd950dd444a/image.png)
+
+  *User profile - Edit Customer Rate permissions.*
+</Note>
+
+## Limits &amp; Behavior
+
+- Changing the rate type on an existing load recalculates the line haul amount immediately. If the load has already been released to billing, confirm that the billing team is aware of any amount change before saving.
+- If the load uses a contract rate and you manually override the amount, the override applies to that load only. The contract rate is not changed.
+- Distance rate types use the mileage Alvys calculates from the load's routing by default. Manually entered mileage takes precedence over calculated mileage.
+- Weight and Volume rate types require the corresponding input to be non-zero. If the input is missing or zero, the line haul amount will be $0.00. Enter the weight or volume on the load before finalizing the Money Box.
+
+## FAQs
+
+**Q: What happens to the line haul amount if I change the rate type after the load has been dispatched?**
+
+**A:** The amount recalculates immediately based on the new rate type and the current input values. If the load is already released to billing, notify your billing team of the change before saving.
+
+**Q: Why is my Distance rate showing $0.00?**
+
+**A:** The calculated mileage on the load may be zero or missing. Check the load's routing and confirm that stops have been entered so Alvys can calculate mileage. If mileage needs to be entered manually, add it to the load before saving the Money Box.
+
+**Q: Why is my Weight or Volume rate showing $0.00?**
+
+**A:** Weight or volume has not been entered on the load, or the value is zero. Enter the correct weight or volume on the load and then save the Money Box.
+
+**Q: Can I use a different rate type for different trips on the same load?**
+
+**A:** No. The rate type is set at the load level in the Money Box. All trips on the load share the same line haul rate type.
+
+**Q: Who can change the rate type on a load?**
+
+**A:** Users with the **"EditCustomerRate"** permission can change the rate type and amount in the Money Box. Contact your Alvys Admin if you need this permission enabled.
+
+## Go Deeper
+
+- [Contracted Rates](/help/loads-trips/contracted-rates)
+- [Rates Permissions](/help/administration/rates-permissions)

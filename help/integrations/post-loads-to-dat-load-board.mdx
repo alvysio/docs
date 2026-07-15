@@ -1,0 +1,135 @@
+---
+title: "Post Loads to DAT Load Board"
+---
+
+<Note>
+  📋 **Applies to:** Users with the **"MarketplacePostLoads"** permission
+
+  **Module:** Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  **Provider:** DAT · **Integration type:** One-way · **Direction:** Alvys sends brokerage load data to the DAT load board
+
+  Connect your DAT account to Alvys and post brokerage loads directly to the DAT load board without leaving your TMS, either manually from a load's detail page or automatically on a set interval.
+</Note>
+
+## Overview
+
+The DAT load board integration (also referred to as DAT posting or the DAT marketplace integration) lets brokerage teams post loads to DAT directly from Alvys. Once the integration is configured for a subsidiary, any user with the **"MarketplacePostLoads"** permission can post a load to DAT using the Post Shipment button on the load detail page. When auto-sync is enabled, eligible loads post automatically on a recurring schedule without manual action.
+
+After a load is posted, the load board displays a "Posted To: DAT" label and the DAT icon on the load, so your team can see posting status at a glance.
+
+## Prerequisites
+
+Before you can connect DAT to Alvys, you need two things from DAT directly:
+
+- A DAT Load Board license with API access. Standard DAT accounts do not include API access by default. You must have a license that covers REST API usage.
+- Integration credentials from DAT's technical support team. Contact DAT at [techsupportteamleads@dat.com](mailto:techsupportteamleads@dat.com) to request your integration credentials. Include the following details as they appear in your DAT account: your company name, main contact name and phone number, a unique identifier such as your MC number or address, and confirmation that you need REST API access.
+
+You will also need to provide a service account email. This is a dedicated email address used only for the integration, not a personal login. If you do not already have one, DAT recommends creating a new email account that is not already registered with DAT.
+
+Once DAT confirms your credentials are ready, you can proceed with setup in Alvys.
+
+## How to connect
+
+1. Open the Integrations section.
+
+   - Click the person icon in the bottom left corner of Alvys and select Integrations.
+2. Select your subsidiary and find the DAT card.
+
+   - Choose the subsidiary you are setting this integration up for.
+   - Scroll to the Loadboard section and click the DAT card to open the configuration form.
+3. Enter your credentials, filling in the following fields, then click Save to apply your settings.
+
+   - **Service account email:** The dedicated email DAT set up for your integration.
+   - **Username:** An email address under your DAT account that will be used to post loads.
+   - **Service account password:** The password DAT provided for your service account.
+   - **Default posting email:** The email that will appear in the comments on your posted loads. This can be the same as your username.
+
+     ![DAT card in the Loadboard section of the Integrations page.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e2004a64-bfa3-4c43-afe9-194ff3be3d78/image.png)
+
+     *DAT card in the Loadboard section of the Integrations page.*
+
+     ![DAT Add Integration credentials form.](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1411948109/9e0135255ae29a9205a4bfb99d81/add+integration+dat.png)
+
+     *DAT Add Integration credentials form.*
+
+## What syncs
+
+The following fields from your Alvys load are sent to DAT when a load is posted: origin and destination addresses, equipment type, pickup date, load board rate, default posting email, and username (used as the posting account on DAT).
+
+Only brokerage loads are eligible for posting. Loads tendered as a carrier type are not posted to DAT; if a previously posted load's tender type changes to carrier, the posting is automatically removed. Only loads in an **Open**, **Quoted**, or **Reserved** status are posted. Loads in any other status are not eligible.
+
+There are two ways loads reach the DAT load board:
+
+- **Auto-sync:** When auto-sync is enabled, Alvys sends eligible loads to DAT automatically on a recurring schedule. Loads that meet the criteria (brokerage type, **Open**/**Quoted**/**Reserved** status, positive weight) are included in each sync run. If an existing posting's lane, equipment type, period, or rate has changed, the posting is updated. If a load is no longer eligible, its posting is removed.
+- **Manual post:** You can post any individual load at any time by opening the load's detail page and clicking Post Shipment. This option is available regardless of whether auto-sync is on or off.
+
+After a load is posted, the load board displays a "Posted To: DAT" label and the DAT icon on that load's row.
+
+![Auto-sync toggle](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1446416101/0b676b02cb0dc7781417c42ba0e8/image.png)
+
+*Auto-sync toggle *
+
+![Post Shipment button on a load detail page.](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1446420207/af3d25d1251d9f37987452cdf418/Screenshot_74.png)
+
+*Post Shipment button on a load detail page.*
+
+!['Posted To: DAT' label and DAT icon on the load board.](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1446440396/f0015f586e58cd725aa37e187d70/image.png)
+
+*"Posted To: DAT" label and DAT icon on the load board.*
+
+To confirm the integration is working:
+
+1. Open a brokerage load in **Open**, **Quoted**, or **Reserved** status with a positive weight.
+2. Click Post Shipment on the load detail page.
+3. Confirm the load board shows the "Posted To: DAT" label and the DAT icon on that load.
+
+If the button does not appear or the posting does not go through, see Troubleshooting below.
+
+<Note>
+  📋 Limits and unsupported: Only brokerage loads are posted to DAT — loads tendered as a carrier type are not eligible. · Loads must have a positive weight to be included in auto-sync. · The integration is configured per subsidiary; each subsidiary requires its own DAT credentials. · There is no bulk-delete option for removing multiple postings at once.
+</Note>
+
+## Troubleshooting
+
+### Post Shipment button is not visible on a load
+
+1. Confirm the user has the **"MarketplacePostLoads"** permission enabled. Without this permission, the posting controls do not appear.
+2. Confirm the load is a brokerage load. Loads tendered as a carrier type are not eligible for DAT posting and will not show Post Shipment.
+3. Confirm the load is in **Open**, **Quoted**, or **Reserved** status. Loads in any other status are not eligible for posting.
+
+### Load does not appear on DAT after posting
+
+1. Confirm the DAT credentials saved in Integrations are correct. An invalid service account email, username, or password will cause posting to fail silently.
+2. Confirm the load has a positive weight value. Loads with zero or missing weight are excluded from DAT postings.
+3. If credentials are correct and the load meets all eligibility criteria, contact Alvys support and reference the load number so the technical team can investigate the posting response from DAT.
+
+### Auto-sync is not posting loads
+
+1. Confirm auto-sync is enabled on the DAT card in Integrations.
+2. Confirm there are eligible loads in **Open**, **Quoted**, or **Reserved** status with a positive weight. If no loads meet the criteria, the sync run completes without posting anything.
+3. If auto-sync appears enabled and eligible loads exist but are not posting, contact Alvys support.
+
+## FAQs
+
+**Q: What if I don't have a DAT Load Board license?**
+
+**A:** You need a Load Board license and a service account with API access from DAT before you can set up this integration. Contact DAT directly to acquire them.
+
+**Q: Can I post loads if auto-sync is disabled?**
+
+**A:** Yes. You can always manually post individual loads using the Post Shipment button on the load detail page, regardless of your auto-sync settings.
+
+**Q: What happens if a user does not have posting permission?**
+
+**A:** Without the **"MarketplacePostLoads"** permission enabled, the user will not see the option to post loads to DAT. An admin must enable this permission in the user's settings.
+
+**Q: Can I post loads from multiple subsidiaries?**
+
+**A:** Yes, but each subsidiary must have its own DAT credentials configured separately in the Integrations section.
+
+## Go Deeper
+
+- [Marketplace](https://help.alvys.com/en/articles/11776669-marketplace)

@@ -1,0 +1,146 @@
+---
+title: "ELD Rider — ELD / Telematics Integration"
+description: "How to setup ELD Rider integration."
+---
+
+<Note>
+  📋 **Applies to:** Admin, Partner Admin, Support
+
+  **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Integrations team
+
+  One-way ELD / telematics integration: Alvys pulls truck locations, HOS status, and fuel level data from ELD Rider into your dispatch workflow.
+</Note>
+
+## Overview
+
+ELD Rider is a telematics provider that connects with Alvys to bring truck locations, Hours of Service (HOS) status, and fuel level data directly into your dispatch workflow. It is also known as an ELD (electronic logging device), GPS tracking, or fleet tracking integration.
+
+Connecting ELD Rider to Alvys allows your dispatch team to view real-time truck locations and driver HOS status without leaving Alvys. Fuel level data is also pulled in when available from the device. Trailer locations are not supported by ELD Rider; only truck assets are tracked through this integration.
+
+## Prerequisites
+
+Before connecting, confirm you have the following:
+
+- An active ELD Rider account with API access enabled
+- Your ELD Rider API key (generated directly from the ELD Rider platform or provided by your ELD Rider representative)
+- The **"Admin"**, **"Partner Admin"**, or **"Support"** role in Alvys. These roles can access **Management > Integrations**.
+
+## How to connect?
+
+1. Open Integrations: go to **Management > Integrations** in the top navigation.
+2. Find ELD Rider in the list of available integrations and click to open it.
+3. In the credentials field, enter the API key provided by ELD Rider. This key authenticates Alvys to your ELD Rider account.
+4. Click **Save**. Alvys validates your API key before saving. As of February 2025, if the key is invalid, an error message appears immediately and the integration is not saved. If the key is valid, the integration status changes to active.
+
+<Note>
+  ![Image shows the ELD Rider integration screen in Management > Integrations page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/42793ead-24bb-4044-b260-8b0ec1dc5e31/image.png)
+
+  *Image shows the ELD Rider integration screen in Management > Integrations page*
+</Note>
+
+## Mapping assets for location tracking
+
+After the integration is active, map your Alvys truck assets to their corresponding ELD Rider asset records. This step links each truck in Alvys to the ELD device installed in it so that GPS location data is matched to the correct truck asset.
+
+1. Navigate to **Assets** in the left navigation and click **Trucks** to open the truck list.
+2. Double-click the truck you want to map to open its profile.
+3. Scroll to the **ELD Integrations** section of the truck profile.
+4. Click **Add Integration**.
+5. Select **ELD Rider** from the list of available integrations.
+6. Enter the ELD Rider asset ID for this truck. This ID is available in your ELD Rider portal.
+7. Click **Save**. The truck is now mapped. GPS location data from ELD Rider will appear for this truck when the device is active and reporting.
+
+<Note>
+  ![Image shows truck profile with the ELD Integrations section open](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/6debf2a8-6053-41ad-a520-cdd0e20de157/image.png)
+
+  *Image shows truck profile with the ELD Integrations section open*
+</Note>
+
+## Mapping drivers for HOS tracking
+
+Map each driver in Alvys to their ELD Rider driver record so that Hours of Service (HOS) data appears in Alvys. HOS clocks (cycle, shift, drive, and break time remaining) will display in the driver profile and on dispatched loads once mapping is complete.
+
+1. Navigate to **Assets** in the left navigation and click **Drivers** to open the Drivers list.
+2. Double-click the driver you want to map to open their profile.
+3. Find the **ELD Providers** section of the driver profile.
+4. Click **Add ELD**.
+5. Select **ELD Rider** from the available ELD providers.
+6. Enter the ELD Rider driver ID for this driver. This ID is available in your ELD Rider portal.
+7. Click **Save**. The driver is now mapped. HOS data will appear in Alvys when the driver is logged in to their ELD Rider device.
+
+<Note>
+  ![Image shows the driver profile with the ELD Providers section](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/0eb9f07d-0bff-49b1-becf-b960cfe96981/image.png)
+
+  *Image shows the driver profile with the ELD Providers section*
+</Note>
+
+## What syncs / data flow?
+
+The following data is pulled from ELD Rider into Alvys:
+
+- **Truck location:** Current GPS coordinates for each truck asset
+- **HOS clocks:** Remaining time values for cycle time, shift time, drive time, and break time — these are countdown clocks showing time remaining, not time elapsed
+- **Fuel level:** Displayed as a percentage when the device reports it
+
+Trailer assets return no data from ELD Rider. Trailers will not appear with location or status from this integration. IFTA mileage data is not supported by ELD Rider and is not available in Alvys through this integration.
+
+Alvys requests updated data from ELD Rider on a regular basis. Location, HOS, and fuel updates reflect the most recent values reported by the ELD device in the truck. Driver records are retrieved in pages of 50, sorted by driver name. If you have more than 50 drivers, Alvys continues retrieving additional pages automatically.
+
+### Verify it is working
+
+1. Go to Loads and open a load that has a driver assigned.
+2. Look for the truck location on the map or in the driver/asset tracking section. If the integration is active and the driver's truck has an ELD Rider device, the location and HOS clocks should be visible.
+3. Confirm the remaining-time HOS values (cycle, shift, drive, break) appear next to the driver's name or in the driver detail panel.
+
+<Note>
+  📋 **Limits / unsupported:** Trailer tracking is not supported: only trucks are tracked. · IFTA mileage reporting is not available through ELD Rider. · HOS values are remaining-time clocks only; elapsed time is not provided. · Battery level data is not displayed in Alvys.
+</Note>
+
+## Troubleshooting
+
+### Truck location is not showing
+
+1. Confirm the driver's truck has an ELD Rider device installed and powered on.
+2. Verify the API key entered in Alvys matches the one provided by ELD Rider exactly — a mismatched or expired key will prevent data from loading.
+3. Check that the integration status in **Management > Integrations** shows as active.
+
+### HOS clocks are missing or blank
+
+1. Confirm the driver is actively using the ELD device and has logged in for their shift.
+2. Verify the device is transmitting data to ELD Rider's servers. Contact ELD Rider support if the device appears offline in their portal.
+
+### Fuel level is not displayed
+
+ELD Rider devices report fuel level only when the vehicle's on-board diagnostics support it. If the truck does not have compatible diagnostics, this field will remain blank — this is expected behavior.
+
+## FAQs
+
+**Q: Can I track both asset locations and driver HOS through the same integration?**
+
+**A:** Yes. ELD Rider supports both asset location tracking and driver Hours of Service tracking in Alvys. Map each truck using the ELD Integrations section of the truck profile, and map each driver using the ELD Providers section of the driver profile.
+
+**Q: Where do I find my ELD Rider driver IDs?**
+
+**A:** Driver IDs are not easy to retrieve from the ELD Rider portal. Contact Alvys support at [support@alvys.com](mailto:support@alvys.com) for help retrieving them.
+
+**Q: Why do I only see some of my drivers in the tracking view?**
+
+**A:** ELD Rider returns driver records in groups of 50, sorted by driver name. All drivers are retrieved automatically; if a driver is not appearing, confirm they are active in ELD Rider and have a device assigned.
+
+**Q: Can I track trailers through ELD Rider?**
+
+**A:** No. ELD Rider does not return trailer data. Only truck assets are supported through this integration.
+
+**Q: Why is the fuel level blank for some trucks?**
+
+**A:** Fuel level is only available when the truck's onboard diagnostics system supports reporting it to the ELD device. If the truck does not support this, the fuel field will not display a value.
+
+**Q: Is IFTA mileage available?**
+
+**A:** No. IFTA mileage is not supported by ELD Rider and is not available in Alvys through this integration.
+
+## Go Deeper
+
+[Setting Up ELD / Telematics Integrations](https://help.alvys.com/en/articles/9857524-setting-up-eld-telematics-integrations)

@@ -1,0 +1,228 @@
+---
+title: "Additional Load Permissions"
+---
+
+<Note>
+  **Applies to:** Admins · Partner Admins · Office Admins · Operation Managers · Dispatchers · Sales Agents · Data Entry
+
+  **Module:** Management > Company Profile > Users
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article explains the four additional load permissions in Alvys that govern Load Templates and Load Rate History: who can view and use saved load templates, who can create and manage them, and which type of historical rate data a user can access.
+</Note>
+
+## Overview
+
+Alvys organizes load permissions into sub-categories. This article covers four permissions outside the core load management and dispatch groups: two that control access to Load Templates, and two that control access to Load Rate History. Together they govern whether a user can build loads faster using saved configurations, and whether that user can see historical pricing data to inform rate decisions.
+
+Load Templates help teams create recurring loads without re-entering the same details each time. Load Rate History gives users market context and company-specific pricing data to support rate negotiations and pricing decisions.
+
+## Where to Find It
+
+These permissions are set at the individual user level inside the User Management interface. To reach it:
+
+- Select your username in the bottom-left corner.
+- Navigate to **Management > Company Profile** and select the **Users** tab.
+
+<Note>
+  ![Image showing navigation to Company profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c0f14a78-342f-4c22-97cd-473aace9b985/image.png)
+
+  *Image showing navigation to Company profile *
+</Note>
+
+- Choose an existing user to edit, or select **Add User** to create a new profile.
+
+<Note>
+  ![Company Profile with the Users tab selected in the left navigation.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/14754384-360a-4b09-9015-4dfd74c5d600/image.png)
+
+  *Company Profile with the Users tab selected in the left navigation.*
+</Note>
+
+- Scroll to the **Permissions** section.
+- Locate the **Load Rate History** category to find the **View Alvys Rates History** and **View Tenant Rates History** checkboxes.
+
+<Note>
+  ![Permissions panel with the Load Rate History category expanded, displaying View Alvys Rates History and View Tenant Rates History checkboxes.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/39b72de3-8fe6-457d-8852-2e5491356db9/image.png)
+
+  *Permissions panel with the Load Rate History category expanded, displaying View Alvys Rates History and View Tenant Rates History checkboxes.*
+</Note>
+
+- Locate the **Load Templates** category to find the **View Load Templates** and **Manage Load Templates** checkboxes.
+
+<Note>
+  ![Shows: Permissions panel with the Load Templates category expanded, displaying View Load Templates and Manage Load Templates checkboxes.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/61c438f3-b7ad-4289-b1be-a7ca2addd3f7/image.png)
+
+  *Shows: Permissions panel with the Load Templates category expanded, displaying View Load Templates and Manage Load Templates checkboxes.*
+</Note>
+
+Modifying any permission requires the logged-in user to hold the **"SetPermission"** permission in the Management category. Without it, the user profile is visible but no checkboxes can be changed.
+
+<Warning>
+  ⚠️ To modify permissions, the user making the change must hold the **"SetPermission"** permission, found in the Management category. See the Management and Privacy Permissions article for details.
+</Warning>
+
+## Key Concepts
+
+**What is a lane?**
+
+A lane is a defined origin-to-destination freight route, such as Chicago, IL to Atlanta, GA for a 53-foot dry van. Rate history is organized by lane and equipment type.
+
+**What is a load template?**
+
+A load template is a pre-saved set of load details (shipper address, consignee address, commodity, equipment type, special instructions) that can be applied to a new load in a single step. Templates are most useful for dedicated lanes and recurring loads.
+
+## Settings &amp; Permissions
+
+### View Load Templates
+
+**"ViewLoadTemplates"** controls whether a user can access the Load Templates page, view the existing template library, and build new loads from those templates. Selecting a template when creating a load automatically populates the load fields with the template's saved information; the user can then edit any field before saving.
+
+<Note>
+  ![Load Templates page accessed from the Loads navigation, with the template library list and a button to create a new load from a template.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a0741764-45f2-4df3-95a8-5a79227b8d3f/image.png)
+
+  *Load Templates page accessed from the Loads navigation, with the template library list and a button to create a new load from a template.*
+</Note>
+
+<Note>
+  ![Load Templates list page showing saved templates with template name, route, and equipment type columns.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5a356092-56e5-427d-b703-1a26ee735138/image.png)
+
+  *Load Templates list page showing saved templates with template name, route, and equipment type columns.*
+</Note>
+
+By default this permission is granted to: **Partner Admin**, **Admin**, **Operation Manager**, **Dispatcher**, **Biller**, **Sales Agent**, **Data Entry**, and **Office Admin**. It is not granted by default to the **Safety** or **Driver** roles.
+
+<Info>
+  ✅ Best practice: Grant View Load Templates to all dispatchers who create loads regularly. Combine it with a well-organized, clearly named template library so dispatchers can find the right template quickly.
+</Info>
+
+### Manage Load Templates
+
+**"ManageLoadTemplates"** allows a user to create new templates, edit existing ones, and delete templates that are no longer needed. It is the administrative complement to View Load Templates: where View is for using the library, Manage is for building and maintaining it.
+
+A user with Manage Load Templates can:
+
+- Create new load templates
+- Edit existing templates
+- Delete templates that are outdated or duplicated
+
+<Note>
+  ![Load Templates page with Edit and Delete action buttons visible on template rows, available only to users with the Manage Load Templates permission.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/163e0fe8-e6d1-40fc-93b2-6abbaf287ea6/image.png)
+
+  *Load Templates page with Edit and Delete action buttons visible on template rows, available only to users with the Manage Load Templates permission.*
+</Note>
+
+Having Manage Load Templates implicitly includes all viewing and building capabilities.
+
+By default this permission is granted to: **Partner Admin**, **Admin**, **Operation Manager**, and **Office Admin**. It is not granted by default to **Dispatcher**, **Biller**, **Sales Agent**, **Data Entry**, **Safety**, or **Driver** roles.
+
+<Info>
+  ✅ Best practice: Limit Manage Load Templates to Office Admins and Operations Managers who are responsible for maintaining the template library. Most operational users should have View Load Templates without Manage.
+</Info>
+
+### View Alvys Rates History
+
+**"ViewAlvysRateHistory"** enables a user to access rate history data aggregated anonymously across all Alvys tenants. With this permission, users gain a market-level perspective: what rates have been charged and paid for a lane across the entire Alvys platform, not just within their own company.
+
+The **Rates** button in the Money Box footer on a trip's detail page becomes visible when a user has either View Alvys Rates History or View Tenant Rates History. Clicking it opens a dialog showing historical pricing data.
+
+<Note>
+  ![Load Board with a load selected and the side tray open, showing trip detail including the Money Box.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/977f6b99-ce9b-4d6a-bf9c-b550282c2943/image.png)
+
+  *Load Board with a load selected and the side tray open, showing trip detail including the Money Box.*
+</Note>
+
+<Note>
+  ![Shows: Money Box footer on the trip detail page with the Rates button highlighted.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f83c6d5f-481a-43af-a923-bfac696d2beb/image.png)
+
+  * Shows: Money Box footer on the trip detail page with the Rates button highlighted.*
+</Note>
+
+The Alvys Rates History chart displays the **median rate** for a specific lane. Filters include Equipment Type, Deadhead Radius (DH-O origin / DH-D destination), and Timeframe (5, 15, or 30 days).
+
+The chart legend shows:
+
+- 🟠 Orange line: Shipper-to-Carrier contract rates (stable, direct-to-shipper pricing)
+- 🟢 Green line: Broker-to-Carrier spot market rates (volatile, reflects current carrier availability)
+
+<Note>
+  ![Shows: Alvys Rates History chart with orange Shipper-Carrier contract rate line and green Broker-Carrier spot market line, with Equipment Type, Deadhead Radius, and Timeframe filter controls.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/56452136-b8dc-4009-a869-b798285aa34d/image.png)
+
+  *Shows: Alvys Rates History chart with orange Shipper-Carrier contract rate line and green Broker-Carrier spot market line, with Equipment Type, Deadhead Radius, and Timeframe filter controls.*
+</Note>
+
+Alvys aggregates rate data anonymously. Individual company identities and specific transaction records are never disclosed. Users see only aggregated, statistical rate information.
+
+By default this permission is granted to: **Partner Admin**, **Admin**, and **Operation Manager**. It is not granted by default to **Dispatcher**, **Biller**, **Sales Agent**, **Data Entry**, **Office Admin**, **Safety**, or **Driver** roles.
+
+<Info>
+  💡 Best practice: Grant View Alvys Rates History to dispatchers, pricing staff, and operations managers who are regularly involved in rate setting or carrier negotiations.
+</Info>
+
+### View Tenant Rates History
+
+**"ViewTenantRateHistory"** gives a user access to your company's own historical rate data for specific lanes: what rates your company has actually charged customers and paid carriers on each lane, over time.
+
+The **Rates** button in the Money Box footer becomes visible when the user has View Tenant Rates History OR View Alvys Rates History. Either permission makes the button visible. When both permissions are granted, the rates dialog shows two charts side by side: a Tenant chart (your company's history) on the left, and an Alvys market benchmark chart on the right.
+
+<Note>
+  ![Money Box footer with the Rates button visible (same button as in View Alvys Rates History).](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/cc887920-e36a-4098-a6aa-e4e8d76259a2/image.png)
+
+  *Money Box footer with the Rates button visible (same button as in View Alvys Rates History).*
+</Note>
+
+<Note>
+  ![Rate history dialog with the Tenant chart (company's own historical rates) on the left and the Alvys market benchmark chart on the right, displayed side by side.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/57a5f87a-a09f-47fa-af58-dde7a3c38444/image.png)
+
+  *Rate history dialog with the Tenant chart (company's own historical rates) on the left and the Alvys market benchmark chart on the right, displayed side by side.*
+</Note>
+
+The code requires **"ViewTenantRateHistory"** as the baseline check before the rate history query runs. **"ViewAlvysRateHistory"** is then checked to determine whether market-wide data is included alongside your company's data. Having **"ViewAlvysRateHistory"** alone is not sufficient: the rate history endpoint requires **"ViewTenantRateHistory"** first; without it the request fails with a permissions error regardless of Alvys rate access.
+
+By default this permission is granted to: **Partner Admin**, **Admin**, and **Operation Manager**. It is not granted by default to **Dispatcher**, **Biller**, **Sales Agent**, **Data Entry**, **Office Admin**, **Safety**, or **Driver** roles.
+
+<Info>
+  💡 Best practice: Grant View Tenant Rates History alongside View Alvys Rates History for a complete view of both company-specific historical rates and platform-wide market benchmarks.
+</Info>
+
+## Limits &amp; Behavior
+
+- The **Rates** button in the Money Box is hidden unless the user holds at least one of the two Load Rate History permissions.
+- Rate history is filtered by equipment type, deadhead radius, and timeframe (5, 15, or 30 days). No other filter options are available.
+- Load templates are shared across the team. Deleting a template affects all users who rely on it.
+- Building a load from a template does not modify the original template. It is a read-level action covered by **"ViewLoadTemplates"**.
+
+## FAQs
+
+**Q: What is the difference between View Alvys Rates History and View Tenant Rates History?**
+
+**A:** View Alvys Rates History provides an anonymous, aggregated market view of rates paid across the entire Alvys platform. View Tenant Rates History shows only your own company's historical data for specific lanes.
+
+**Q: Why are Load Rate History permissions restricted to administrators by default?**
+
+**A:** Historical rate data is considered sensitive pricing intelligence. Restricting it to admin-level roles by default protects your company's competitive positioning. If dispatchers or sales agents need this data for negotiations, the permissions must be granted explicitly.
+
+**Q: Can a user build a load from a template if they only have View Load Templates?**
+
+**A:** Yes. **"ViewLoadTemplates"** allows users to view the template library and generate new loads from those templates. Building a load from a template is a view-level action because it does not change the original template.
+
+**Q: What is the difference between View Load Templates and Manage Load Templates?**
+
+**A:** **"ViewLoadTemplates"** is for using the library to create loads quickly. **"ManageLoadTemplates"** is an administrative permission that allows a user to create, edit, or delete the templates that the rest of the team relies on.
+
+**Q: Why does the Office Admin role have Manage Load Templates while Dispatchers do not?**
+
+**A:** The Office Admin role is responsible for maintaining shared resources and workflow configurations. Dispatchers are operational users who need to use templates for efficiency but typically should not have the authority to modify the master template library.
+
+**Q: Where is the Rates button to view rate history?**
+
+**A:** The **Rates** button is in the footer of the **Money Box** on a trip's detail page. It is hidden if the user does not have at least one Load Rate History permission.
+
+**Q: What exactly is a "lane" in the context of rate history?**
+
+**A:** A lane is a defined route from a specific origin to a destination; for example, Chicago, IL to Atlanta, GA. Rate history shows what has been charged or paid for specific equipment types on these routes over 5, 15, or 30-day timeframes.
+
+## Go Deeper
+
+- [User Roles and Permissions Collection](/help/administration/user-roles-permissions-collection)
+- [Contracted Lanes Permissions](/help/administration/contracted-lanes-permissions)

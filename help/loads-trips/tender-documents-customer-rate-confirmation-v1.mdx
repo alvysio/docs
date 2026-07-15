@@ -1,0 +1,108 @@
+---
+title: "Tender Documents - Customer Rate Confirmation V1"
+---
+
+## Overview
+
+To reduce the risks associated with informal exchange of critical load details, brokers and carriers can now generate Customer Rate Confirmations, which include all necessary load information to be signed by the customer.
+
+This new feature replaces informal documentation methods, enhancing security and reducing potential disputes. Additionally, we've redesigned the Documents and Tender modals for improved usability.
+
+## Generating Tender Documents - Tender Modal
+
+The Tender modal now consists of two tabs: **Customer** and **Carrier** (or **Driver/Owner Operator**).
+
+ℹ️ **Dynamic Tab Headings:**
+
+- If the **Tender As** subsidiary is a **Broker**, the tab headings will be **Customer and Carrier**.
+- If the **Tender As** subsidiary is a **Carrier**, the tab headings will be **Customer and Driver/Owner Operator**.
+
+  ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1135524466/878c9166745315a82a6570b5/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F4c6373a6-d4b0-4998-ae96-d5863571493d-2FUntitled.png)
+
+  ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1135524492/4db69a090e3b28ad9aae86cb/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Fdf5c2f0f-5cc7-41b5-9e32-706a24573fe0-2FUntitled.png)
+
+  Each tab includes documents based on the intended audience:
+
+1. **Customer:** Customer Rate Confirmation
+2. **Carrier or Driver/Owner Operator:** Carrier Rate Confirmation, Bill of Lading, Load Manifest
+
+**💡 Note:** The existing Rate Confirmation has been renamed to Carrier Rate Confirmation
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1135524508/62f35d1dda64319d9a011776/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Fc4536de2-e156-43e7-9583-33841dd0cca4-2FUntitled.png)
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1135524519/639a7409ddd455aa33626822/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F7543c2ac-63f3-48bc-8b4b-e830f33399c5-2FUntitled.png)
+
+## Generating the Customer Rate Confirmation
+
+Users can generate the Customer Rate Confirmation from the Tender modal on the Load Details page. Follow these steps to generate the document:
+
+1. Navigate to the Tender modal on the Load Details page.
+2. Click the **Generate Customer Rate Confirmation** button.
+
+   ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1135524531/d4cdf5f7c63c4bc1d03d38e9/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F3f12ac1e-4840-4109-af19-13d55abb3646-2FUntitled.png)
+
+## Emailing the Customer Rate Confirmation
+
+After generating the Customer Rate Confirmation, you can email it to the customer for review and signature:
+
+1. In the Tender modal, select the checkbox next to the Customer Rate Confirmation.
+2. Click the **Email Selected Documents** button to open the Compose Email window.
+
+   ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1135524551/fc50697115055681dd189ba9/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Fe80e020a-16b9-438d-b1c7-0bf9244c5c44-2FUntitled.png)
+
+## Handling Signed Customer Rate Confirmations
+
+Currently, **e-signature functionality for Customer Rate Confirmations is not available.** Customers will need to sign the document using a third-party e-signature tool. Once signed, the document can be returned via email, and tenants can upload the signed Customer Rate Confirmation in the Documents modal using the document type **Signed Customer Rate Confirmation**.
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1135524575/605d2ad8c40d25a1ba2c0641/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F3fd4a68b-3bba-4c8d-998b-d8dbcf391842-2FUntitled.png)
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1135524589/2ebf5b5d37714e73c8415d48/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F2efd23b0-ae2d-4b0b-a05b-c5312d058953-2FUntitled.png)
+
+## Customer Rate Confirmation Details
+
+The Customer Rate Confirmation includes the following information:
+
+- **Broker / Carrier Details:**
+- Name
+- Address
+- Contact
+- **Contact Details (of the person who generated the Rate Confirmation):**
+- Name
+- Contact
+- **Customer Name**
+- **Date** (generated)
+- **Alvys Load Number**
+- **Customer Order Number**
+- **Total Weight**
+- **Equipment Type**
+- **Total Miles**
+- **Temperature**
+- **Commodity**
+- **Stop Details**
+- **Line Haul Rate**
+- **Accessorial Charges**
+- **Customer Signature Lines:**
+- Name
+- Signature
+- Position
+- Date
+
+  ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1135524596/c2debcec84161485fac6f397/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F94576514-d782-4700-9c0d-bb74280c5934-2FUntitled.png)
+
+## Documents Modal
+
+### Context Menu Options
+
+Options to Edit, Download, Email, and Delete documents are now stored in a context menu. Click the vertical ellipses to expand the menu and reveal these options.
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1135524604/26a0b97e2e24c35f8584e612/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F2e85a7ee-a510-4a74-bb96-413f2e516a0e-2FUntitled.png)
+
+### Merge Files
+
+The Merge File function remains unchanged. However, a warning will be displayed if a user attempts to merge files meant for different audiences (carrier vs customer), informing them: **“You’re merging Carrier and Customer documents”**.
+
+ℹ️ This warning **DOES NOT** prevent users from proceeding with the merge action.
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1135524615/4fefa04ec8655a4abab7fe53/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F438a7be7-d558-46cb-b9c7-794094e5f58f-2FUntitled.png)
+
+By following these steps, users can effectively generate, send, and manage Customer Rate Confirmations, ensuring all critical load details are formally documented and reducing the risk of disputes.

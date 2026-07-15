@@ -1,0 +1,114 @@
+---
+title: "Master ELD — ELD / Telematics Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin
+
+  **Module:** Management > Integrations
+
+  **Provider:** Master ELD · **Integration type:** One-way · **Sync direction:** Alvys pulls truck location, HOS, and fuel data from Master ELD
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Master ELD is a telematics provider that connects with Alvys to pull real-time truck locations, HOS clocks, and fuel data into your dispatch workflow: also known as Master ELD electronic logging device, Master ELD telematics, or Master ELD fleet tracking.
+</Note>
+
+## Overview
+
+Master ELD is a telematics provider that connects with Alvys to bring real-time truck locations and Hours of Service (HOS) status into your dispatch workflow. This integration is also referred to as Master ELD electronic logging device, Master ELD telematics, or Master ELD fleet tracking.
+
+Connecting Master ELD to Alvys allows your dispatch team to view current truck locations and driver HOS remaining-time clocks without leaving Alvys.
+
+A key advantage of the Master ELD integration is that HOS data is matched to drivers automatically — no manual driver mapping is required in Alvys.
+
+Trailer tracking and IFTA mileage are not supported by Master ELD. Only truck assets are tracked through this integration.
+
+## Prerequisites
+
+Before connecting, confirm you have the following:
+
+- An active Master ELD account with API access
+- Your Master ELD API key
+- The **"Admin"** or **"Partner Admin"** role in Alvys
+
+## Getting your Master ELD API key
+
+Before connecting, you need an API key from your Master ELD account. You can generate an API key directly from your Master ELD platform, or contact your Master ELD representative and request one. Once you have the key, proceed with the connection steps below.
+
+## How to connect
+
+Master ELD uses an API key for authentication.
+
+1. Go to **"Management"** > **"Integrations"** in the top navigation.
+2. Find **"Master ELD"** in the list of available integrations and click to open it.
+3. Enter the API key provided by Master ELD.
+
+   <Note>
+     ![Screenshot showing the Master ELD integration card in Alvys with the API Key entry field](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ef0f1b51-4bcd-4389-a074-534e8b09bec8/image.png)
+
+     *Screenshot showing the Master ELD integration card in Alvys with the API Key entry field*
+   </Note>
+
+   ![Screenshot showing the Master ELD integration card in Alvys with the API Key entry field](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ef0f1b51-4bcd-4389-a074-534e8b09bec8/image.png)
+
+   *Screenshot showing the Master ELD integration card in Alvys with the API Key entry field*
+4. Click **"Save"**. Alvys will verify the key.
+
+## What syncs
+
+The following data is pulled from Master ELD into Alvys:
+
+- **Truck location:** Current GPS coordinates for each truck with a Master ELD device
+- **HOS clocks:** Remaining time values for each driver's HOS limits — these are countdown clocks showing time remaining. HOS data is matched to the correct driver automatically using information returned directly from Master ELD; no manual driver ID setup is required in Alvys
+- **Fuel level:** Displayed as a percentage when the device reports it
+
+Trailer assets return no data from Master ELD. Trailers will not appear with location or status through this integration. IFTA mileage is not supported by Master ELD and will not be available in Alvys through this integration.
+
+Alvys requests updated data from Master ELD on a regular basis. Truck locations, HOS clocks, and fuel level reflect the most recent values reported by the device. Driver matching for HOS data happens automatically.
+
+What is not supported:
+
+- Trailer tracking is not supported — only trucks
+- IFTA mileage reporting is not available through Master ELD
+- Battery level data is not displayed in Alvys
+- HOS values are remaining-time clocks only
+
+## Troubleshooting
+
+### Truck location is not showing
+
+1. Confirm the truck has a Master ELD device installed and powered on.
+2. Verify the API key in Alvys matches the one provided by Master ELD. Go to **"Management"** > **"Integrations"** and re-enter the key if needed.
+3. Check that the integration status shows as active.
+
+### HOS clocks are blank or not matched to the correct driver
+
+1. Confirm the driver is logged in to the Master ELD device for their current shift.
+2. HOS data and driver matching are handled automatically by Master ELD. If a driver's HOS is not appearing, verify the driver is active in your Master ELD account and assigned to a device.
+
+### Fuel level is not displaying
+
+Master ELD devices report fuel level only when the vehicle's onboard diagnostics support it. If the truck does not have compatible diagnostics, this field will remain blank — this is expected behavior.
+
+## FAQs
+
+**Q: Do I need to manually map drivers to HOS data in Master ELD?**
+
+**A:** No. Master ELD automatically matches HOS data to the correct driver. No manual setup is needed in Alvys.
+
+**Q: Can I track trailers with Master ELD?**
+
+**A:** No. Master ELD does not return trailer data. Only truck assets are supported through this integration.
+
+**Q: Why is fuel level blank for some trucks?**
+
+**A:** Fuel level is only available when the truck's onboard diagnostics system supports reporting it to the ELD device. If the truck does not support this, the fuel field will not display a value.
+
+**Q: Is IFTA mileage available?**
+
+**A:** No. IFTA mileage is not supported by Master ELD and is not available in Alvys through this integration.
+
+## Go Deeper
+
+- [Setting Up ELD / Telematics Integrations](https://help.alvys.com/en/articles/9857524-setting-up-eld-telematics-integrations)

@@ -1,0 +1,104 @@
+---
+title: "Relay Payments Fuel Integration"
+---
+
+<Note>
+  **Applies to:** Admin · Support · Partner Admin
+
+  **Module:** Management > Integrations > Fuel
+
+  **Provider:** Relay Payments · **Integration type:** One-way · **Sync direction:** Relay fuel transactions import into Alvys daily
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Relay Payments is a cardless, digital fuel payment system; once connected, all fuel purchases made through Relay are automatically imported into Alvys every day at 5 AM Eastern Time. Also known as Relay fuel integration, cardless fuel, digital fuel payments, Relay Driver ID sync.
+</Note>
+
+## Overview
+
+Relay Payments is a cardless, digital fuel payment system that eliminates physical fuel cards. With this integration, all fuel purchases made through Relay are automatically imported into Alvys every day at 5 AM Eastern Time and displayed on the Fuel Report and Pay Drivers pages without manual entry.
+
+This integration requires setup on both the Relay side and in Alvys before transactions begin syncing.
+
+Also known as: Relay fuel integration, cardless fuel, digital fuel payments, Relay Driver ID sync.
+
+## Prerequisites
+
+Before you begin setup in Alvys, complete the following:
+
+- You must have an active Relay Payments account.
+- Contact your Relay account representative and request the Alvys fuel integration be enabled for your account. Relay will activate a 16-digit Relay Driver ID for each driver in your Relay portal. This ID functions like a fuel card number in Alvys and links each driver's transactions to their profile.
+- Wait for Relay to confirm the integration is active on their side before proceeding.
+
+## How to connect
+
+Once Relay has activated the integration for your account:
+
+1. Click your username in the bottom left corner of Alvys and select **Integrations**.
+2. Select the subsidiary you want to connect.
+3. Expand the **Fuel Cards** section and locate **Relay**.
+4. Click the pencil icon to open the integration settings.
+5. Enter the Token ID provided by your Relay account representative.
+6. Click **Save**.
+
+   Next, add each driver's Relay Driver ID to their profile so transactions can be attributed:
+7. Navigate to **Assets** and select **Drivers**.
+8. Find and double-click the driver to open their profile.
+9. Click the plus sign next to **Fuel Card Numbers**.
+10. Enter the driver's 16-digit Relay Integration ID (provided by Relay in their portal).
+11. Select **Relay** as the fuel card provider.
+12. Configure the deduction settings for each transaction type as needed.
+13. Click **Save**.
+
+<Note>
+  ![This image shows the Relay portal displaying the 16-digit Relay Driver ID stored on a driver's profile.](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1447130199/9b9cef0514a4fb342c1512031e9d/image.png)
+
+  *This image shows the Relay portal displaying the 16-digit Relay Driver ID stored on a driver's profile.*
+</Note>
+
+Repeat this process for every driver who uses Relay for fuel.
+
+## What syncs
+
+Each Relay Driver ID maps to a specific driver in Alvys. For fuel transactions to be attributed to the correct driver, the Relay Driver ID must be added to that driver's profile in Alvys.
+
+- Alvys imports all Relay transactions automatically every day at 5 AM Eastern Time.
+- Imported transactions appear in the **Fuel Report** and the **Pay Drivers** section.
+- There is no manual upload step; once the integration is active and driver IDs are configured, transactions sync automatically.
+
+The integration is one-way: data flows from Relay into Alvys only, and Alvys does not send data back to Relay.
+
+## Troubleshooting
+
+### Relay transactions not appearing in the Fuel Report
+
+1. Confirm the integration is active. Go to **Management > Integrations > Fuel Cards > Relay** and verify the Token ID is saved.
+2. Confirm the driver's Relay Integration ID is entered correctly in their driver profile. The ID must be the exact 16-digit value from the Relay portal.
+3. Check that the date range on the Fuel Report includes the date the transaction occurred. Transactions import at 5 AM Eastern Time, so transactions from today will not appear until the following morning.
+4. If none of the above resolves the issue, contact Alvys support.
+
+### Relay Driver IDs not appearing in the Relay portal
+
+The Relay Driver ID is activated by Relay, not Alvys. If the ID is missing from a driver's Relay profile, contact your Relay account representative to confirm activation is complete.
+
+## FAQs
+
+**Q: What makes Relay different from traditional fuel cards?**
+
+**A:** Relay is a cardless, digital payment system that enables real-time transactions without physical cards. This reduces fraud risk and simplifies the payment process for drivers.
+
+**Q: How often do Relay transactions import into Alvys?**
+
+**A:** Transactions are automatically imported daily at 5 AM Eastern Time.
+
+**Q: What is the Relay Driver ID?**
+
+**A:** The Relay Driver ID is a 16-digit identifier that functions like a fuel card number in Alvys. It is assigned by Relay and links each driver's fuel purchases to their profile in both systems.
+
+**Q: Where can I find the Token ID needed for setup?**
+
+**A:** The Token ID is provided by your Relay account representative when they activate the Alvys integration for your account.
+
+**Q: Can I set up the integration before Relay activates it on their side?**
+
+**A:** No. Relay must activate the integration and provide the Token ID before you can complete setup in Alvys. Contact your Relay representative first.

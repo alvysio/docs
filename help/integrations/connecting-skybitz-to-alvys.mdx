@@ -1,0 +1,127 @@
+---
+title: "Connecting SkyBitz to Alvys"
+description: "How to set up SkyBitz Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Management > Integrations
+
+  **Provider:** SkyBitz · **Integration type:** One-way · **Sync direction:** SkyBitz sends GPS location data to Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  The SkyBitz integration automatically pulls real-time GPS location data from your SkyBitz-equipped trucks and trailers into Alvys: also known as SkyBitz GPS tracking, SkyBitz asset tracking, or SkyBitz telematics.
+</Note>
+
+## Overview
+
+The SkyBitz integration lets Alvys automatically pull real-time GPS location data from your SkyBitz-equipped trucks and trailers, making those assets visible on the Asset Map and available for dispatch planning — no manual location updates required. This integration is also referred to as SkyBitz GPS tracking, SkyBitz asset tracking, or SkyBitz telematics.
+
+SkyBitz is a GPS telematics provider for asset tracking specializing in trailer and container location monitoring. Once the integration is active and your assets are mapped, live positions appear on the Alvys Asset Map and update continuously as your trucks and trailers move.
+
+Setting up the integration involves two stages: connecting your SkyBitz account credentials in Alvys, then mapping each truck or trailer to its corresponding SkyBitz unit number.
+
+## Prerequisites
+
+Before you begin:
+
+- You must have an active SkyBitz account. You need your SkyBitz **"Client ID"** and **"Secret"** — these are provided by SkyBitz and are separate from your portal login.
+- Your role in Alvys must be **"Admin"**, **"Partner Admin"**, or **"Support"** to access the Integrations settings.
+
+If you do not have your Client ID and Secret, contact SkyBitz at [customercare.skybitz@ametek.com](mailto:customercare.skybitz@ametek.com) and request credentials for your account.
+
+## How to connect
+
+Setting up the integration involves three parts: opening the SkyBitz settings, entering your credentials, then mapping each asset to its SkyBitz unit number.
+
+### Open the SkyBitz integration settings in Alvys
+
+1. Click your profile icon in the lower-left corner of Alvys.
+2. From the menu that appears, select the subsidiary you want to configure.
+3. Click the **"Integrations"** tab.
+4. Expand the **"ELD"** section and locate the SkyBitz card.
+5. Click the pencil icon on the SkyBitz card to open the credential entry form.
+
+<Note>
+  ![ELD section of the Integrations tab showing the SkyBitz card with pencil icon](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/6474196f-840e-41b4-8f4b-4e8ce0e34b5c/image.png)
+
+  *ELD section of the Integrations tab showing the SkyBitz card with pencil icon*
+</Note>
+
+### Enter your SkyBitz credentials
+
+1. Enter your SkyBitz **"Client ID"** in the Client ID field.
+2. Enter your **"Secret"** in the Secret field.
+3. Click **"Save"**.
+
+Alvys validates the credentials immediately. If the credentials are correct, the integration becomes active. If they are incorrect, an error message appears and no data is saved — correct the credentials and try again.
+
+### Map each asset to its SkyBitz unit number
+
+After the credentials are saved and the integration is active, you need to tell Alvys which SkyBitz unit corresponds to each truck or trailer in your fleet.
+
+1. Go to **"Assets"** in the left navigation and select **"Trucks"** or **"Trailers"**.
+2. Double-click the asset you want to configure to open its profile.
+3. Scroll down to the **"ELD Integrations"** section and click **"Add Integration"**.
+4. In the Add Integration dialog, select **"SkyBitz"** from the provider dropdown.
+5. Enter the SkyBitz unit number for that asset in the **"Integration ID"** field.
+6. Click **"Save"**.
+
+<Note>
+  ![Asset profile showing the ELD Integrations section with the Add Integration button and SkyBitz unit number field](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5719985b-c337-456d-8e3d-2f151763f187/image.png)
+
+  *Asset profile showing the ELD Integrations section with the Add Integration button and SkyBitz unit number field*
+</Note>
+
+Repeat this process for each truck or trailer you want to track with SkyBitz.
+
+## What syncs
+
+The SkyBitz integration is one-way: SkyBitz sends GPS location data to Alvys. Alvys does not write any data back to SkyBitz. Location updates flow in continuously as long as the integration is active and the SkyBitz device on the asset is powered and transmitting. Mapped assets display their current location on the Alvys Asset Map.
+
+What is not supported:
+
+- The SkyBitz integration supports GPS location tracking only. Hours of Service data, IFTA mileage reporting, and driver vehicle inspection reports are not available through SkyBitz.
+- SkyBitz is primarily a trailer and container tracking solution. While trucks can be configured with SkyBitz unit numbers, driver workflow features such as pre-trip inspections and HOS logs require a separate ELD integration.
+- Each asset can have only one SkyBitz unit number mapped to it. To reassign an asset to a different SkyBitz unit, remove the existing mapping first, then add the new one.
+- The integration credentials are configured per subsidiary. If your Alvys account includes multiple subsidiaries, you must configure SkyBitz separately for each subsidiary that uses SkyBitz-equipped assets.
+
+To verify the integration is working after saving the unit number mapping, go to **"Assets"** > **"Map"** in the left navigation to open the Asset Map. Locate the asset you just configured. If the integration is working correctly, the asset should display its current GPS position.
+
+## Troubleshooting
+
+### Asset does not appear on the Asset Map after mapping
+
+1. Confirm that the SkyBitz unit number entered in the Integration ID field matches the unit number shown in your SkyBitz portal.
+2. Check that the integration credentials are still active by returning to Company Profile > Integrations, expanding the ELD section, and confirming the SkyBitz card shows an active status.
+3. Confirm the SkyBitz device on the asset is powered and transmitting.
+
+If none of these conditions explain the issue, contact Alvys support.
+
+### Credentials rejected when saving the integration
+
+Alvys validates credentials at the time of saving. An error message at save time means the Client ID or Secret entered does not match an active SkyBitz account. Re-enter the credentials exactly as provided by SkyBitz.
+
+## FAQs
+
+**Q: Where do I find my SkyBitz unit numbers?**
+
+**A:** Your SkyBitz unit numbers are available in your SkyBitz portal. If you do not have portal access, contact SkyBitz at [customercare.skybitz@ametek.com](mailto:customercare.skybitz@ametek.com).
+
+**Q: Can I track both trucks and trailers with SkyBitz?**
+
+**A:** Yes. You can add SkyBitz unit number mappings to both truck profiles and trailer profiles.
+
+**Q: What happens if I enter invalid credentials?**
+
+**A:** Alvys validates credentials at the time you click Save. If the Client ID or Secret is incorrect, an error message appears immediately and nothing is saved.
+
+**Q: Do I need to configure SkyBitz for every subsidiary separately?**
+
+**A:** Yes. Integration credentials are set per subsidiary.
+
+## Go Deeper
+
+- [Asset Map](/help/assets-fleet/asset-map)

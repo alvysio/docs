@@ -1,0 +1,277 @@
+---
+title: "How to set up NetSuite account and item mappings in Alvys"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Support
+
+  **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Integrations team
+
+  This article explains how to configure default account mappings, specific account mappings, and item mappings during NetSuite integration setup in Alvys (a one-way export from Alvys to NetSuite), ensuring all transactions export to the correct NetSuite Chart of Accounts.
+</Note>
+
+## Overview
+
+Accurate account mapping is essential so that every transaction exported from Alvys to NetSuite posts to a valid account. The NetSuite integration supports three kinds of configuration: default account mappings, specific account mappings, and item mappings. You configure these during step 3 of the NetSuite integration setup wizard.
+
+## Before You Start
+
+Complete NetSuite authentication and settings configuration before mapping accounts. See [NetSuite: Authentication and Settings Configuration in Alvys](https://help.alvys.com/en/articles/13689019-2-netsuite-authentication-and-settings-configuration-in-alvys).
+
+You must be signed in as an **"Admin"**, **"Partner Admin"**, or **"Support"** user to access Management > Integrations. Before enabling item mappings, confirm that all required items already exist in your NetSuite account.
+
+## Steps
+
+1. **Set up default account mappings.** Default accounts are required and serve as the primary fallback for any transactions not explicitly mapped to a specific account.
+
+<Note>
+  ![Default Mapping options for Accounts Payable and Receivables within the Netsuite integration settings.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7271dfe8-1c44-4e44-bc6f-edeadd51162b/image.png)
+
+  *Default Mapping options for Accounts Payable and Receivables within the Netsuite integration settings. *
+</Note>
+
+<Note>
+  ![Account Types that can be mapped](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b8a029fd-39c3-446c-aa47-fe58e037b40b/image.png)
+
+  *Account Types that can be mapped*
+</Note>
+
+**When Revenue is selected,** map both:
+
+<Note>
+  ![Receivable and revenue mapping options](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d8244422-67d4-4970-b9be-a8ed58c00718/image.png)
+
+  *Receivable and revenue mapping options*
+</Note>
+
+**When Expense is selected,** map both:
+
+<Note>
+  ![Expense and Payable mapping options](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/db056f5a-2783-4f75-9b13-9291896c73f1/image.png)
+
+  *Expense and Payable mapping options*
+</Note>
+
+**Important:** Once default accounts are configured, they function as fallback accounts. If specific accounts are not set up for individual transaction types, the integration automatically uses the default revenue or expense account.
+
+**Important:** You must map default accounts to the correct accounts in the NetSuite Chart of Accounts. Selecting an account with the wrong type will cause export errors.
+
+If you do not have any specific accounts created in NetSuite, once you have configured the default accounts you can click through the remaining integration steps, then click **Save**.
+
+1. **Configure specific account mappings (optional).** Specific account mapping provides granular control over which NetSuite accounts each transaction line item posts to.
+
+   - **Load:** The Load category represents revenue transaction line items on customer invoices.
+
+<Note>
+  ![Specific account mapping options for revenue transactions](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f46f65ef-cb39-4d0a-ac07-86b83ca1224b/image.png)
+
+  *Specific account mapping options for revenue transactions*
+</Note>
+
+Map each line item to its dedicated account. If only a general account exists, map it to the **Default Load Account**.
+
+<Note>
+  ![Specific account mapping options for expense transactions](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/fb3e1446-c4a5-4c32-a0a0-025ad49b9e2b/image.png)
+
+  *Specific account mapping options for expense transactions*
+</Note>
+
+Trips can be associated with internal assets, subsidiary carriers, or external carriers. For trips using internal assets, line items represent driver rates. For trips using subsidiary or external carriers, line items represent carrier rates. Map each line item accordingly or use the **Default Trip Account** as fallback.
+
+<Note>
+  ![Accessorial Mappings](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/95d03916-5ffc-4698-a5b8-8bd334688952/image.png)
+
+  *Accessorial Mappings*
+</Note>
+
+The list of accessorial types is pulled from custom accessorials configured in Alvys. See [Custom Accessorials](https://help.alvys.com/en/articles/11668754-custom-accessorials#h_b77864f214). Each accessorial type has two columns: Revenue (customer charges) and Expense (driver or carrier costs).
+
+<Note>
+  ![Default Accessorial Account Mapping](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8e69befb-36d7-42b5-9e4f-f494e3492590/image.png)
+
+  *Default Accessorial Account Mapping*
+</Note>
+
+<Note>
+  ![E-Check account mappings](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/46ae2548-f00c-4aab-9acb-8224b57fe796/image.png)
+
+  *E-Check account mappings*
+</Note>
+
+The E-Check category includes a default revenue account and a default expense account. Each individual e-check type has its own Revenue and Expense columns. The Revenue column maps the e-check fee charged to drivers or carriers (recorded as income for the company). The Expense column maps the actual e-check amount issued.
+
+The e-check fee is configured in the company profile (Management > Company Profile) and can have a minimum, maximum, or percentage-based value.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/50692225-2a26-4a47-92f7-588b02a7ba29/image.png)
+
+  ![Company Profile E-check fee configuration](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/aaf1aa76-b6cd-4b7b-9777-1d574a67e6bc/image.png)
+
+  *Company Profile E-check fee configuration*
+</Note>
+
+<Note>
+  ![Mapping for specific E-Check type](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/db804d6a-7cf5-4187-b15a-eae7730839df/image.png)
+
+  * Mapping for specific E-Check type*
+</Note>
+
+**Important:** A bill can fail to export if it includes e-checks with fees and the revenue account for the e-check fee is not mapped, even when the configuration is set to export expenses only. Map the e-check fee to a specific e-check revenue account or to the default e-check revenue account.
+
+When e-checks are issued to a driver or an external carrier, an associated accessorial may also be created for the driver and the customer. Any accessorials associated with e-checks should be mapped under the Accessorials category if the specific accounts exist.
+
+<Note>
+  ![Deductions Mapping options](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4c6a3682-1201-44a6-b5ed-9d348dcc1824/image.png)
+
+  *Deductions Mapping options*
+</Note>
+
+<Note>
+  ![Fuel Account Mappings](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3d93fbbd-c926-47d5-9bba-e53a7d8ff668/image.png)
+
+  *Fuel Account Mappings*
+</Note>
+
+<Note>
+  ![Toll Account Mapping](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7323ac9e-1e98-4387-8b56-462203a9e118/image.png)
+
+  *Toll Account Mapping*
+</Note>
+
+<Warning>
+  ⚠️ **Important:** The Tax category is deprecated. Skip this step if it appears in the interface.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/53a1473f-6aaa-485c-a423-ad73eb1590c4/image.png)
+</Warning>
+
+<Note>
+  ![Escrow Account Mappings](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7808a741-d1ba-470f-9a0f-fe1bf86b2017/image.png)
+
+  *Escrow Account Mappings*
+</Note>
+
+**Important:** Escrow account mappings must be linked to a liability account in NetSuite because these funds are held temporarily on behalf of drivers and do not represent a company expense.
+
+1. **Configure item mappings (optional).** Item mappings allow each transaction line exported from Alvys to be associated with a specific NetSuite item rather than posting directly to a general ledger account. The **Use Existing Items** setting must be enabled.
+
+   How item mappings differ from account mappings:
+
+   - Default Account Mapping: fallback GL accounts for unmapped lines.
+   - Specific Account Mapping: dedicated GL accounts per line type.
+   - Item Mapping (Use Existing Items): each line is mapped to a NetSuite item; the revenue or expense account used is determined by the configuration of that item in NetSuite.
+
+     **Important:** When Use Existing Items is enabled, default account mapping options are disabled. Any line item not mapped to a NetSuite item will cause the transaction export to fail.
+
+     Before mapping items in Alvys, confirm the corresponding items already exist in NetSuite. See [How to Create Items in NetSuite](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N2166469.html).
+   - Navigate to Management > Integrations and open the NetSuite integration.
+   - In the settings step, enable the **Use Existing Items** toggle.
+
+     <Note>
+       ![NetSuite integ settings with “use existing items” selected](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3b113ca2-e2fa-4d09-9148-80d0ff13b87f/image.png)
+
+       *NetSuite integ settings with “use existing items” selected*
+     </Note>
+
+     ![NetSuite integ settings with “use existing items” selected](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3b113ca2-e2fa-4d09-9148-80d0ff13b87f/image.png)
+
+     *NetSuite integ settings with “use existing items” selected*
+   - Proceed to the account mapping step. Each dropdown now shows "Search Items" instead of accounts.
+
+     <Note>
+       ![Search Items dropdown menu](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/867e2f16-1ec5-49ec-87d4-c8c7e1de57c7/image.png)
+
+       *Search Items dropdown menu*
+     </Note>
+
+     ![Search Items dropdown menu](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/867e2f16-1ec5-49ec-87d4-c8c7e1de57c7/image.png)
+
+     *Search Items dropdown menu*
+2. For each category (Load, Trip, Accessorials, E-Checks, Deductions, Fuel, Tolls, Escrow), select the appropriate NetSuite item from the dropdown.
+
+   **Important:** Ensure all required NetSuite items exist before enabling item mappings. Verify each item links to the correct revenue or expense account in NetSuite.
+3. **Complete the setup.** Once all mappings are configured, click **Done**, then the **Submit** button. A green checkmark will appear next to the integration to confirm it was successfully added.
+
+<Note>
+  ![NetSuite integration showing Green Check mark indicating it is successfully mapped.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d7af1699-c07c-4c95-83d1-b582b7bfe487/image.png)
+
+  *NetSuite integration showing Green Check mark indicating it is successfully mapped. *
+</Note>
+
+## Result
+
+After completing this step, all account and item mappings are saved. Transactions exported from Alvys will post to the configured accounts or items according to the fallback order: specific item or account mapping → category-level default → master default revenue or expense account.
+
+## Troubleshooting
+
+### Green checkmark does not appear after submitting
+
+Refresh the Management > Integrations page. If it still does not appear, reopen the integration dialog, use the Login button to reconnect, confirm all settings and mappings are complete, and submit again. If the issue persists, contact Alvys Support.
+
+### Bill fails to export after including e-checks
+
+Map the e-check fee to a specific e-check revenue account or to the default e-check revenue account to resolve this.
+
+### Transaction export fails after enabling Use Existing Items
+
+Review all mapping categories and confirm each line has a corresponding NetSuite item selected. Confirm the items exist in NetSuite before attempting to re-export.
+
+### Account mapping causes export errors
+
+Open the NetSuite integration dialog, navigate to the account mapping step, verify each field is mapped to an account of the correct type, and resubmit.
+
+## FAQs
+
+**Q: What if I don't see the green checkmark after submitting the integration setup?**
+
+**A:** Refresh the Management > Integrations page. If the checkmark still does not appear, reopen the integration dialog, reconnect using the Login button, confirm all settings and mappings, and submit again. If the issue persists, contact Alvys Support.
+
+**Q: What happens if I update my Chart of Accounts in NetSuite later?**
+
+**A:** Account mappings in Alvys can be updated at any time. Open the NetSuite integration dialog, navigate to the account mapping step, select the updated account, and submit.
+
+**Q: What are default account mappings, and why are they required?**
+
+**A:** Default account mappings act as fallback accounts for transactions not explicitly mapped to a specific account. They ensure all revenue and expense transactions export successfully.
+
+**Q: When should I use specific account mappings?**
+
+**A:** When dedicated NetSuite accounts exist for individual transaction types such as fuel surcharges, driver pay, or accessorials.
+
+**Q: What happens if a required default account is mapped incorrectly?**
+
+**A:** Mapping to the wrong type will cause transaction export errors. Always select accounts that match the transaction type.
+
+**Q: Can I skip setting up specific accounts and rely only on default accounts?**
+
+**A:** Yes. Transactions will fall back to the default accounts configured during setup.
+
+**Q: How do escrow transactions need to be mapped in NetSuite?**
+
+**A:** Escrow accounts must be linked to a liability account. Escrow funds represent temporary holdings on behalf of drivers and are not company expenses.
+
+**Q: What is the Use Existing Items feature, and how does it affect account mapping?**
+
+**A:** Use Existing Items links each transaction line to a specific NetSuite item instead of a GL account. When enabled, default account mapping options are disabled.
+
+**Q: What happens if a line item on a transaction is not mapped to a NetSuite item when Use Existing Items is enabled?**
+
+**A:** The transaction export will fail. All relevant lines must be mapped.
+
+**Q: Can I map both revenue and expense lines for accessorials?**
+
+**A:** Yes. Each accessorial type includes a Revenue column for customer charges and an Expense column for driver or carrier costs.
+
+**Q: How are e-checks and fees treated in NetSuite?**
+
+**A:** E-check fees are considered revenue because they reimburse the company. The e-check expense represents the actual amount issued to the driver or carrier.
+
+**Q: What should I do if I only have general accounts for deductions, fuel, or tolls?**
+
+**A:** Map these transaction lines to the corresponding default account to ensure transactions export correctly.
+
+## Go Deeper
+
+- [NetSuite: Transaction Export and Modification Workflow](/help/integrations/how-to-export-and-modify-transactions-in-netsuite)
+- [NetSuite Integration Collection](/help/integrations/netsuite-integration-collection)

@@ -1,0 +1,114 @@
+---
+title: "How to Create a Driver"
+---
+
+<Note>
+  **Applies to:** Admin, Partner Admin, Dispatchers ** · Module:** Assets > Drivers
+
+  **Owner:** Assets Support team** · Last reviewed:** 2026-06
+
+  Creating a driver (adding a driver, setting up a driver record) in Alvys sets up the driver record used for trip assignment, pay calculations, compliance tracking, and integrations. This article walks through the full driver creation process step by step.
+</Note>
+
+## Overview
+
+A driver record in Alvys stores the driver's personal information, license details, employment type, fleet assignment, pay configuration, and integration settings. Once created, the driver can be assigned to trips, tracked for compliance, and included in settlements.
+
+Driver records can be created manually from the Drivers list or imported in bulk. This article covers manual creation.
+
+## Prerequisites
+
+You need the **"EditAsset"** permission to create a new driver. The New Driver button in the Drivers list is visible and active only for users with this permission.
+
+Prepare the following information before starting:
+
+- Driver's full legal name and contact details.
+- Driver's CDL number, license class, and state of issue.
+- Employment type (Company Driver or Owner Operator).
+- Fleet assignment (if applicable).
+
+## Steps
+
+- Open the Drivers list. Navigate to **Assets > Drivers**. The Drivers list shows all existing drivers in your workspace.
+
+<Note>
+  ![Drivers list page showing existing drivers with the New Driver button visible in the top-right area.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/17643f97-664e-4256-8803-6ce1e1682ea3/image.png)
+
+  *Drivers list page showing existing drivers with the New Driver button visible in the top-right area.*
+</Note>
+
+- Click **New Driver**. In the top-right area of the Drivers list, click **New Driver** to open the driver creation form. The New Driver button is only visible to users with the **"EditAsset"** permission. If the button is not visible, contact your Alvys Admin to confirm your permissions.
+
+<Note>
+  ![Drivers Page showing drivers table and “New Driver” button](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/869062c4-df41-4228-807e-64665e6b7f1c/image.png)
+
+  *Drivers Page showing drivers table and “**New Driver**” button *
+</Note>
+
+- Enter driver information. Fill in the required fields on the driver creation form. Required fields include the driver's first name, last name, and employment type (**Company Driver or Owner Operato**r).
+
+<Note>
+  ![Driver creation form showing the required fields for name, employment type, and contact details.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/47559813-1184-483f-b5fa-d44b873f0949/image.png)
+
+  *Driver creation form showing the required fields for name, employment type, and contact details. *
+</Note>
+
+**Enter the following information as available:**
+
+- **Employment type:** Company Driver, Owner Operator or Contractor.
+- **Driver Personal information:** First name, last name, phone number, email address, etc
+- **Fleet:** Assign the driver to a fleet if your company uses fleet segmentation.
+- **Driver Physical Address**
+- **License information:** CDL number, license class, state of issue, expiration date.
+- **Tax Information**
+- **Hire date:** The date the driver started. Used for Driver Rate Plan tenure calculations.
+- Save the driver record. Click the “Create” button to create the driver record. The driver now appears in the Drivers list and is available for trip assignment.
+
+<Note>
+  ![Image displaying the New Driver form with the “Create” button](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/834c5b8a-be2b-41d0-8346-f806a06eef89/image.png)
+
+  *Image displaying the New Driver form with the “Create” button*
+</Note>
+
+After saving, the driver record is active in Alvys. You can now:
+
+- Assign the driver to trips from the Loads and Trips module.
+- View the driver in the Drivers list with their employment type and fleet assignment.
+- Add rate policies to the driver's profile under **Rates**.
+- Track the driver's compliance documents under **Documents**.
+
+<Note>
+  ![Saved driver profile showing the completed driver record with fields populated.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7e04432c-a4a6-4cfe-9c94-9dbe8e149292/image.png)
+
+  *Saved driver profile showing the completed driver record with fields populated. *
+</Note>
+
+## Troubleshooting
+
+### New Driver button is not visible
+
+Confirm you have the **"EditAsset"** permission. The New Driver button is only shown to users with this permission. If you have the permission but the button is still not visible, try refreshing the page. If the issue persists, contact Alvys support.
+
+### Driver does not appear in the Drivers list after saving
+
+Check whether a filter is active on the Drivers list. Active filters may be hiding newly created drivers. Clear all filters and search for the driver by name. If the driver still does not appear after clearing filters, contact Alvys support.
+
+## FAQs
+
+**Q: Can I import multiple drivers at once instead of creating them one at a time?**
+
+**A:** Yes. Alvys supports bulk driver import. Contact your Alvys Admin or Alvys support for the import template and instructions.
+
+**Q: What is the difference between a Company Driver and an Owner Operator?**
+
+**A:** Company Drivers are employees whose truck is owned by your company. Owner Operators own or lease their own truck. The employment type affects available pay settings, including the Truck Statements feature and the Service Fee rate type.
+
+**Q: Can I edit a driver's information after creating the record?**
+
+**A:** Yes. Open the driver's profile from **Assets > Drivers** and edit any field. You need the **"EditAsset"** permission to save changes.
+
+## Go Deeper
+
+- [Driver Rates, Rules &amp; Plans: The Complete Guide](/help/accounting-settlements/driver-rates-rules-plans-the-complete-guidex)
+- [Driver Settlements FAQ](/help/accounting-settlements/driver-settlements-faq)
+- [User Permissions Glossary](/help/administration/user-permissions-glossary)

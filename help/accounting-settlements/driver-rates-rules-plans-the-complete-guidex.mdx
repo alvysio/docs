@@ -1,0 +1,1236 @@
+---
+title: "Driver Rates, Rules & Plans: The Complete Guidex`"
+description: "A complete reference for every Driver Rate type Alvys supports today, how rates are grouped into policies, how rules decide which rates apply, how the math actually runs when a trip delivers, and how Driver Rate Plans function."
+---
+
+**Audience:** Payroll managers, settlements managers, implementation specialists, anyone configuring rates.
+
+### Mental model in three layers
+
+```text
+Driver<br>  -&gt; Rate Policies (named buckets, one or more per driver)<br>        -&gt; Rates (the actual line items the policy generates)<br>        -&gt; Rules (conditions, optional, decide WHEN the policy fires)        
+```
+
+- A **Rate** is a single calculation rule that produces one line item on a statement. Example: "$0.55 per loaded mile."
+- A **Rate Policy** is a named bucket that groups one or more rates that should always fire together, with optional **Rules** that gate when the policy applies. Example: a policy called "California Hourly" containing a Per Hour rate and a Daily Per Diem rate, with a rule "Trip Subsidiary = California."
+- A **Driver** can have multiple policies. They are evaluated independently, and every policy whose rules match contributes line items to the statement.
+
+The most important invariant: **Statement rates cannot share a policy with Trip or Time-based pay rates.** Trip and Time-based pay rates *can* coexist in the same policy except **Daily Pay, which cannot coexist with any other type of rate.** So a single policy can hold any mix of Trip + Time-based pay rates (e.g. Loaded Miles + Daily Per Diem), but a Statement rate (Minimum Pay, Bonus) and Daily Pay must live alone in its own policy.
+
+---
+
+### Rate categories
+
+Every rate belongs to exactly one of three categories. The category controls when the rate fires.
+
+| Category | When it applies | Examples |
+| --- | --- | --- |
+| **Trip** | One line item per trip leg | Loaded Miles, Per Stop, % Line Haul, % of Trip Value, Service Fee |
+| **Time-based pay** | Per hour, per day, or per mile (per diem) — depends on the specific rate | Hourly Pay, Overtime, Daily Pay, Daily Per Diem, Mileage Per Diem |
+| **Statement** | Once per statement, after all Trip and Time-based pay rates are computed | Minimum Pay, Bonus |
+
+**Time-based pay rates** include Hourly Pay, Overtime (an extension of Hourly Pay), Daily Pay, Daily Per Diem, and Mileage Per Diem. Their mechanics vary: Hourly Pay and Mileage Per Diem read trip-level data (Hours Worked, trip miles) and produce one line item per trip leg; Daily Pay and Daily Per Diem read selected calendar days from Manage Calendar and produce one line item per day; Overtime extends Hourly Pay with a threshold.
+
+---
+
+### Every supported rate type, in depth
+
+The next several sections cover each rate type Alvys supports today. Each entry has a definition, the precise inputs you set, when the rate fires, the calculation logic, two realistic use cases, and things to watch out for.
+
+---
+
+## Trip rates
+
+Trip rates produce **one line item per trip leg**. A driver with the same trip rate policy across 10 trips ends up with 10 line items (one per trip).
+
+Trip rate line items are **continuously recalculated** against the current rate configuration. The line item is rebuilt whenever the trip, load, or driver's rate policies change. So adding or editing a rate on a driver after a trip has already been delivered still updates that driver's pay for the trip, as long as the trip is not yet on a processed statement. (See "When rules are evaluated" in the Rules section for the precise rebuild triggers and the rules around processed statements being locked.)
+
+Trip rates can be combined freely with other Trip rates and with Time-based pay rates in the same policy. They cannot share a policy with Statement rates.
+
+---
+
+### Per Trip
+
+**What it is:** A flat dollar amount the driver earns per trip leg. Simplest in the catalog, but also supports mileage tiers plus the Use Highest Tier checkbox when you want the trip rate to vary by trip length.
+
+**When it applies:** One line item per trip leg.
+
+**Inputs:**
+
+- **Rate**: dollar amount per trip. Single flat number (e.g. $150 per trip) or a tiered set of (mileage threshold, rate) pairs.
+- **Mileage Type** (only used with tiers): Loaded, Empty, or Total. Determines which mileage value picks the tier.
+- **Tiers** (optional): a set of mileage bands each mapping to a flat trip dollar amount.
+- **Use Highest Tier checkbox**: off = stepped (rare for Per Trip), on (typical) = the trip pays the flat dollar amount of the band it falls in.
+
+**How it calculates:**
+
+Single-tier (the default):
+
+```text
+Driver pay = Rate
+```
+
+Tiered with Use Highest Tier on (typical for Per Trip):
+
+```text
+Tiers:<br>  up to 100 mi: $100<br>  up to 300 mi: $200<br>  300+ mi: $350<br><br>A 250-mile trip: $200 (the band that 250 falls in)
+```
+
+**Use cases:**
+
+- Owner operator paid a flat $400 per trip regardless of miles.
+- Local shuttle driver paid $75 per short-haul trip, $125 if the trip crosses a mileage threshold (tiered with Use Highest Tier on).
+
+**Gotchas:**
+
+- Per Trip applies once per trip leg, not once per load. A 2-leg load generates 2 line items.
+- The Mileage Type only matters when tiers are configured; the field is ignored on a single flat rate.
+- Stepped mode (Use Highest Tier off) makes little sense for Per Trip since it would pay across bands; in practice you almost always want Use Highest Tier on.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427219911/182545a759e227ceee71e2e44447/image.png)
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427220261/951e7443c43fc579b385c808c38d/image.png)
+
+---
+
+### Per Load
+
+**What it is:** A flat amount paid once per load, regardless of how many trip legs that load has.
+
+**When it applies:** One line item per load, attached to the driver's **last trip** of the load. If the same driver runs three legs of a load, the Per Load rate generates exactly one line item, on the third leg.
+
+**Inputs:**
+
+- **Rate**: flat dollar amount per load.
+
+**How it calculates:**
+
+```text
+Driver pay = Rate (on the last trip only)
+```
+
+**Use cases:**
+
+- "We pay drivers a $50 loading bonus per load." Use Per Load $50 instead of trying to identify "the first stop."
+- OO paid a flat $500 per completed load on a dedicated lane.
+
+**Gotchas:**
+
+- If a load is split between two drivers, only the driver doing the last leg of that load gets the Per Load amount. To split it, use a percentage rate instead.
+- The Per Load line item appears on the leg where the load is fully delivered, not on the first pickup.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427220983/d7ee9a3fb08fd6bf1d1b4aa33a3a/image.png)
+
+---
+
+### Loaded Miles
+
+**What it is:** Per-mile rate locked to **loaded miles only**. Shows up on the statement as its own "Loaded Miles" line. Supports tiers and the Use Highest Tier checkbox.
+
+**When it applies:** One line item per trip leg.
+
+**Inputs:**
+
+- **Rate**: per-mile amount. Single flat number, or a tiered set of (mileage threshold, rate) pairs.
+- **Tiers** (optional): add multiple bands like "up to 100 mi: $1.50 / up to 300 mi: $1.20 / 300+ mi: $1.00". Thresholds must be unique.
+- **Use Highest Tier checkbox**: when **off** (default), tiers are **stepped** like a tax bracket; when **on**, the system picks the **single tier matching the trip's total mileage** and applies that flat rate to all loaded miles. See the Mileage tiers section for worked math.
+
+**How it calculates:**
+
+Single-tier:
+
+```text
+Driver pay = Rate x Loaded Miles
+```
+
+Multi-tier stepped (Use Highest Tier = off):
+
+```text
+500 loaded miles with tiers [100mi @ $1.50, 300mi @ $1.20, 300+ @ $1.00] = 100 x $1.50 + 200 x $1.20 + 200 x $1.00 = $590
+```
+
+Multi-tier flat by band (Use Highest Tier = on):
+
+```text
+Same 500 mi, same tiers = 500 x $1.00 = $500 (the band 500 mi falls in)
+```
+
+**Use cases:**
+
+- Tenant who wants drivers to see loaded vs empty separately on every statement.
+- OO paid a higher rate on loaded miles ($0.85) and a lower rate on empty miles ($0.55), so the driver can see what each contributed.
+- Mileage progression where long hauls pay more per loaded mile (stepped tiers) or short hauls fall into a different flat rate band (Use Highest Tier on).
+
+**Gotchas:**
+
+- Loaded Miles + Empty Miles in the same policy is the standard way to split. They generate two line items per trip.
+- If you want a "no empty pay" structure, configure Loaded Miles only. Empty miles will not pay.
+- The mileage value comes from the trip's calculated miles, not a manual field. Miles are locked once the trip is on a processed statement.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427222216/83fc13911c2ba78f0078f69d2e7d/image.png)
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427222881/18d71d3763df9abed3a578e26a1c/image.png)
+
+---
+
+### Empty Miles
+
+**What it is:** Per-mile rate locked to **empty (deadhead) miles only**. Supports tiers and the Use Highest Tier checkbox. Shows up as its own "Empty Miles" line on the statement.
+
+**When it applies:** One line item per trip leg.
+
+**Inputs:**
+
+- **Rate**: per-mile amount, flat or tiered.
+- **Tiers** (optional): same shape as Loaded Miles.
+- **Use Highest Tier checkbox**: off = stepped tiers, on = flat rate for the band the trip's mileage falls in.
+
+**How it calculates:**
+
+```text
+Driver pay = Rate x Empty Miles
+```
+
+Tiered math works exactly like Loaded Miles. See that section or the Mileage tiers section for worked examples.
+
+**Use cases:**
+
+- "We pay $0.30 for deadhead." Use Empty Miles $0.30 alongside Loaded Miles $0.55.
+- Compensating drivers for repositioning trips where empty miles dominate.
+- Different deadhead pay below vs above a mileage threshold (use tiers).
+
+**Gotchas:**
+
+- If you do not include an Empty Miles rate, the driver is not paid for empty mileage at all (unless the policy is using Total Miles).
+
+---
+
+### Total Miles
+
+**What it is:** Per-mile rate that pays on loaded + empty combined as one number. Supports tiers and the Use Highest Tier checkbox.
+
+**When it applies:** One line item per trip leg.
+
+**Inputs:**
+
+- **Rate**: per-mile amount, flat or tiered.
+- **Tiers** (optional): same shape as Loaded / Empty Miles.
+- **Use Highest Tier checkbox**: off = stepped tiers, on = flat rate for the matched band.
+
+**How it calculates:**
+
+```text
+Driver pay = Rate x (Loaded Miles + Empty Miles)
+```
+
+Tiered math identical to Loaded Miles, just summed across both loaded and empty.
+
+**Use cases:**
+
+- Simple per-mile contract that does not distinguish loaded from empty.
+- Mileage progression where the driver earns more per total mile on longer runs (stepped tiers).
+- Short-haul vs long-haul flat rates by mileage band (Use Highest Tier on).
+
+**Gotchas:**
+
+- The driver cannot see the loaded vs empty breakdown on a Total Miles statement. If you need that visibility, use Loaded Miles + Empty Miles instead.
+
+---
+
+### Mileage Deduction
+
+**What it is:** A per-mile rate applied as a **negative** line item. Used for charge-backs that scale with mileage. Supports tiers and the Use Highest Tier checkbox just like the earnings mileage rates.
+
+**When it applies:** One line item per trip leg.
+
+**Inputs:**
+
+- **Rate**: per-mile deduction amount. Flat or tiered.
+- **Mileage Type**: Loaded, Empty, or Total. Determines which mileage value gets multiplied.
+- **Tiers** (optional): for graduated charge-backs (e.g. lower fee per mile on long hauls).
+- **Use Highest Tier checkbox**: off = stepped tiers, on = flat rate for the band the trip's mileage falls in.
+
+**How it calculates:**
+
+```text
+Driver pay (negative) = -1 x Rate x Miles (of the chosen type)
+```
+
+Tiered math mirrors Loaded Miles, just with a negative sign.
+
+**Use cases:**
+
+- OO equipment lease charged at $0.10/mile. Configure Per Mile Deduction $0.10, Mileage Type = Loaded.
+- Insurance pass-through charged at $0.05/mile across all miles (Mileage Type = Total).
+- Graduated lease where the per-mile charge drops on long hauls (use tiers).
+
+**Gotchas:**
+
+- Per Mile Deduction is a true negative line item, separate from accessorial-based deductions. It applies inside the rate engine, not via the statement's deduction section.
+- If the OO's per-mile earnings are $0.55 and you add a $0.10 Per Mile Deduction, net effect is $0.45/mile. Both line items appear on the statement (positive $0.55 and negative $0.10).
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427224363/94e8b3f5c46b5505b2041a72276b/image.png)
+
+---
+
+### Per Stop
+
+**What it is:** A per-stop pay rate scoped to the current trip leg. Supports a free-stop threshold and an optional flat bonus.
+
+**When it applies:** One line item per trip leg. The amount is built from all stops on that trip.
+
+**Inputs:**
+
+- **Threshold**: number of stops that are NOT paid (typically 1, to exclude the pickup or delivery).
+- **Rate**: dollar amount per stop beyond the threshold.
+- **Flat Bonus**: optional flat amount added on top once the threshold is crossed.
+
+**How it calculates:**
+
+```text
+If StopsOnTrip &gt; Threshold:<br>  Driver pay = (StopsOnTrip - Threshold) x Rate + FlatBonus<br>Else:<br>  Driver pay = 0
+```
+
+**Use cases:**
+
+- "Pay $25 per extra stop after the first." Set Threshold = 1, Rate = $25.
+- "Pay $30 per stop plus a $50 multi-stop bonus when there are more than 2 stops." Set Threshold = 2, Rate = $30, Flat Bonus = $50.
+
+**Gotchas:**
+
+- The threshold is per **trip leg**, not per load. A two-leg load with two stops each fires Per Trip Stop separately on each leg.
+- If the same driver covers multiple legs of a load and you want a per-load count instead, use Per Customer Stop.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427225089/acaebebbdb6f946de0d2e66c6d43/image.png)
+
+---
+
+### Per Customer Stop
+
+**What it is:** Per-stop pay counted across the **whole load**, not just one trip leg. Pays only on the driver's last trip of that load.
+
+**When it applies:** One line item per load, attached to the driver's last trip of the load.
+
+**Inputs:**
+
+- **Threshold**: number of customer stops not paid (e.g. 1 to exclude the first customer).
+- **Rate**: dollar amount per customer stop beyond the threshold.
+- **Flat Bonus**: optional flat amount layered on top.
+
+**How it calculates:**
+
+```text
+If CustomerStopsOnLoad &gt; Threshold:<br>  Driver pay = (CustomerStopsOnLoad - Threshold) x Rate + FlatBonus<br>Else:<br>  Driver pay = 0
+```
+
+**Use cases:**
+
+- "Pay $25 per extra customer stop on a multi-stop load." Threshold = 1, Rate = $25.
+- OOs paid for multi-drop runs where the load may span multiple legs but the customer stops are what matters.
+
+**Gotchas:**
+
+- Customer stops only. Yard moves, fuel stops, and relay stops are not counted.
+- If a load has two drivers, only the driver running the last leg gets the Per Customer Stop pay. To split, configure each driver's policy differently or use Per Trip Stop on each leg.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427225775/ad7323220c65b4c50c2e1afb737f/image.png)
+
+---
+
+### % of Trip Value
+
+**What it is:** Percentage paid against the trip's share of the load's customer rate. "Trip value" = the load's **Line Haul + Fuel Surcharge** (the only two components the load's rate captures on the FE), prorated to each trip by **total miles**. Accessorials are NOT included.
+
+**When it applies:** One line item per trip leg.
+
+**Inputs:**
+
+- **Percentage**: 0 to 100.
+
+**What "trip value" actually is:**
+
+When a load is created in Alvys, the FE only lets you enter the customer's **line haul** and **fuel surcharge**. Together they make up the load's `Rate` field. Accessorials (detention, lumper, layover, etc) live on separate fields entirely.
+
+- **Components:** customer Line Haul + customer Fuel Surcharge. Nothing else.
+- **NOT included:** detention, lumper, layover, TONU, and every other customer accessorial.
+- **Proration:** `Trip Value = (Line Haul + Fuel Surcharge) x (this trip's total miles / load's total miles)`. Proration uses **total miles** (loaded + empty), not loaded miles. A single-trip load = the full (line haul + FSC).
+- **Override:** users can manually override a trip's value on the load. If overridden, the system uses the override and stops auto-proration for that trip.
+
+**How it calculates:**
+
+Single-trip load:
+
+```text
+Driver pay = (Percentage / 100) x (Line Haul + Fuel Surcharge)
+```
+
+Multi-trip load:
+
+```text
+Trip Value = (Line Haul + Fuel Surcharge) x (this trip's total miles / load's total miles) Driver pay = (Percentage / 100) x Trip Value
+```
+
+**Worked example:**
+
+A load has $1,800 customer line haul and $200 customer fuel surcharge (Load.Rate = $2,000), plus $150 detention as a separate accessorial. The load runs as two trips: Trip A = 600 total mi, Trip B = 400 total mi.
+
+- Trip value for A = ($1,800 + $200) x (600 / 1,000) = **$1,200**
+- Trip value for B = ($1,800 + $200) x (400 / 1,000) = **$800**
+- The $150 detention is excluded entirely. To pay the driver for detention, configure it through accessorial settings or add a manual line item to the statement.
+
+At a 70% rate: Driver on Trip A gets $840, Driver on Trip B gets $560.
+
+**Use cases:**
+
+- Owner operator paid a single percentage that covers both line haul and fuel surcharge in one line item.
+- Tenants who do not want to expose two separate "% of Line Haul" and "% of FSC" lines on the driver statement.
+
+**Gotchas:**
+
+- **Proration is by total miles**, not loaded miles. % of Line Haul and % of Fuel Surcharge both prorate by loaded miles. Same load can therefore yield slightly different splits depending on which rate type you use, when loaded and empty miles are unevenly distributed across trips.
+- Tenants who want **different** percentages on line haul vs fuel surcharge (e.g. 75% of line haul, 100% of FSC) should use **% of Line Haul + % of Fuel Surcharge** as two separate rates. % of Trip Value bundles the two and applies a single percentage.
+- Trip value can be manually overridden on a load via Edit Trip. Once overridden, automatic proration is bypassed for that trip.
+- Trip Value visibility on driver statements is configurable at the driver or tenant level.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427226808/3b451ca824a838bb59749cc8c987/image.png)
+
+---
+
+### % of Trip Value Deduction
+
+**What it is:** Same calculation as % of Trip Value, but applied as a **negative** line item. Used for charge-backs expressed as a percentage of the trip's customer rate (line haul + fuel surcharge), prorated by total miles. Accessorials are NOT included.
+
+**When it applies:** One line item per trip leg.
+
+**Inputs:**
+
+- **Percentage**: 0 to 100.
+
+**How it calculates:**
+
+Single-trip load:
+
+```text
+Driver pay (negative) = -1 x (Percentage / 100) x (Line Haul + Fuel Surcharge)
+```
+
+Multi-trip load:
+
+```text
+Trip Value = (Line Haul + Fuel Surcharge) x (this trip's total miles / load's total miles) Driver pay (negative) = -1 x (Percentage / 100) x Trip Value
+```
+
+**Use cases:**
+
+- Management or admin fee charged as a flat percentage of the customer rate per trip.
+- Factoring fee structured as a percentage of trip value rather than line haul alone.
+- Negative percentage charge-backs where the deduction should scale with both line haul and fuel surcharge together.
+
+**Gotchas:**
+
+- Mirrors % of Trip Value's quirks: prorated by **total miles** (loaded + empty), not loaded miles. Same as the earnings counterpart.
+- If you want to deduct against line haul only (not fuel surcharge), use **% of Line Haul Deduction** instead.
+- Trip Value can be manually overridden on a load; the deduction will calculate against the overridden value if one is set.
+
+---
+
+### % of Line Haul
+
+**What it is:** Percentage paid against the customer **line haul** amount on the load, prorated by loaded miles when multiple drivers share the load.
+
+**When it applies:** One line item per trip leg.
+
+**Inputs:**
+
+- **Percentage**: 0 to 100.
+
+**How it calculates:**
+
+For a single-driver load:
+
+```text
+Driver pay = (Percentage / 100) x Line Haul
+```
+
+For a multi-driver load (proration):
+
+```text
+Driver pay = (Percentage / 100) x Line Haul x (this driver's loaded miles / total loaded miles)
+```
+
+**Use cases:**
+
+- OO paid 75% of line haul.
+- Team driver split: each driver gets 50% of line haul, automatic via proration.
+
+**Gotchas:**
+
+- Line haul is the customer-billed line haul number on the load, not the driver's calculated revenue.
+- Proration is by **loaded miles**. A driver who covered 60% of the loaded miles gets 60% of the line haul share.
+- Combine with % of Fuel Surcharge if you also want to pass through fuel.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427227504/0e8728efd80a07cf020edaf832a1/image.png)
+
+---
+
+### % of Line Haul Deduction
+
+**What it is:** Same calculation as % of Line Haul, but applied as a **negative** line item.
+
+**When it applies:** One line item per trip leg.
+
+**Inputs:**
+
+- **Percentage**: 0 to 100.
+
+**How it calculates:**
+
+```text
+Driver pay (negative) = -1 x (Percentage / 100) x Line Haul (prorated)
+```
+
+**Use cases:**
+
+- OO charged a 3% factoring fee on every load.
+- Equipment lease structured as a percentage of revenue.
+
+**Gotchas:**
+
+- Functionally similar to a Service Fee but tied specifically to line haul, not the driver's running subtotal.
+
+---
+
+### % of Fuel Surcharge
+
+**What it is:** Percentage of the customer fuel surcharge on the load, prorated by loaded miles.
+
+**When it applies:** One line item per trip leg.
+
+**Inputs:**
+
+- **Percentage**: 0 to 100.
+
+**How it calculates:**
+
+```text
+Driver pay = (Percentage / 100) x Fuel Surcharge x (driver loaded miles / total loaded miles)
+```
+
+**Use cases:**
+
+- OO paid 100% of fuel surcharge as a fuel pass-through.
+- Company driver paid 50% of fuel surcharge as a partial pass-through.
+
+**Gotchas:**
+
+- If the customer rate confirmation has $0 fuel surcharge, this rate pays $0. It does not invent a value.
+- Combine with % of Line Haul for the classic OO structure.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427228294/55c77360cc25b068fd3e2601cdbf/image.png)
+
+---
+
+### Service Fee
+
+**What it is:** A **derived** negative rate computed against the driver's running line haul subtotal. The Service Fee runs **last**, after every other rate has computed. Only applicable for Owner Operator driver types.
+
+**When it applies:** One line item per trip leg, computed after all other trip rates on the same trip.
+
+**Inputs:**
+
+- **Percentage**: 0 to 100 (the % of the driver's gross to deduct).
+- **Flat Fee**: optional flat amount added on top of the percentage.
+
+**How it calculates:**
+
+```text
+Driver pay (negative) = -1 x ((Percentage / 100) x DriverLineHaulSubtotal + FlatFee)
+```
+
+Where `DriverLineHaulSubtotal` is the sum of all other rate amounts on the trip BEFORE the service fee.
+
+**Use cases:**
+
+- "We charge OOs 5% of their gross plus a $10 admin fee per trip." Percentage = 5, Flat Fee = $10.
+- Carriers that pass internal dispatch costs to OOs as a percentage of pay.
+
+**Gotchas:**
+
+- Service Fee is the **only rate that is computed against output of other rates**, not against load or trip fields. This is why it must run last.
+- If you add Service Fee twice, both fees stack and the second one is computed against the subtotal that already had the first one applied. Avoid this unless intentional.
+- This is NOT the same as a % of Line Haul Deduction. Service Fee uses the driver's running subtotal (which may include per-mile pay, stop pay, etc.); % of Line Haul Deduction uses the load's line haul directly.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427228847/1785c2b99e59efb37bf76d5983a1/image.png)
+
+---
+
+## Time-based pay rates
+
+Time-based pay is the full category of rates that pay by time (hours, days) or by mile-per-diem. It includes:
+
+- **Hourly Pay** (documented above): pays per Hours Worked on each trip.
+- **Overtime Threshold and OT Rate** (documented above): extends Hourly Pay with a threshold and OT rate.
+- **Mileage Per Diem** (documented above): per-mile per diem on each trip.
+- **Daily Pay** and **Daily Per Diem** (below): fire per calendar day selected via Manage Calendar.
+
+The Daily Pay and Daily Per Diem rates below do not auto-attach to trips; the user must select days for the rate to apply.
+
+---
+
+### Daily Pay
+
+**What it is:** Rate per day, generated for every non-per-diem day the user selects on Manage Calendar.
+
+**When it applies:** One line item per selected calendar day.
+
+**Inputs:**
+
+- **Rate**: dollar amount per day.
+
+**How it calculates:**
+
+```text
+Driver pay = Rate (per day selected)
+```
+
+**Use cases:**
+
+- Salary-style drivers paid a daily rate. "$200/day, 5 days/week."
+- OTR drivers on a "guaranteed daily pay" structure during long runs.
+
+**Gotchas:**
+
+- Days must be selected manually via Manage Calendar in Driver Settlements. There is no auto-generation.
+- If you forget to mark days, Daily Pay does not fire.
+- If you select 7 days but the driver only worked 5, you pay for 7. Pay attention to the calendar.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427231319/86edc0b4a65d678607878394dc6e/image.png)
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427231981/c2896e481c153dd79dcc6d6199de/image.png)
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427232481/f8123808676e246298e0651b69bd/image.png)
+
+---
+
+### Daily Per Diem
+
+**What it is:** Same as Daily Pay but only applies on days the user flags as **per diem**, and labels the line item as per diem for tax purposes.
+
+**When it applies:** One line item per selected per-diem day.
+
+**Inputs:**
+
+- **Rate**: dollar amount per per-diem day.
+
+**How it calculates:**
+
+```text
+Driver pay (per diem) = Rate (per per-diem day selected)
+```
+
+**Use cases:**
+
+- OTR driver paid a $50/day per diem for every day on the road.
+- Layover day pay structured as per diem for tax handling.
+
+**Gotchas:**
+
+- Marking a day as per diem versus regular is done on Manage Calendar at selection time.
+- As with Daily Pay, the user must manually select days. Per Diem does not auto-trigger from trip events.
+
+---
+
+### Hourly Pay
+
+**What it is:** Rate times Hours Worked on the trip.
+
+**When it applies:** One line item per trip leg. Hours come from the Hours Worked field on the trip record.
+
+**Inputs:**
+
+- **Base Rate**: dollar amount per hour.
+
+**How it calculates:**
+
+```text
+Driver pay = Base Rate x Hours Worked
+```
+
+**Use cases:**
+
+- Local / hourly drivers who do not have a per-mile structure.
+- Drivers on a yard or shuttle assignment paid hourly regardless of mileage.
+
+**Gotchas:**
+
+- Hours Worked is a per-trip field on the trip itself, accessed via Open the trip > Edit Trip > Hours Worked. It accepts hours and minutes (e.g. "5 hours 25 minutes").
+- If Hours Worked is empty, the line item is $0. The trip will be hidden from the Open list unless **Allow $0 line items on driver statements** is on at the company level.
+- Hourly Pay does NOT integrate with HOS / ELD data. The dispatcher (or driver via the app) enters hours manually.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427233140/a78f9e381d36f1da1154bacecad8/image.png)
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427233640/d55beba945e90e82c86d077c408e/image.png)
+
+---
+
+### Overtime Threshold and OT Rate
+
+**What it is:** An extension of Hourly Pay that pays a different (higher) rate once the driver's hours cross a threshold. Used in jurisdictions where state OT law requires daily or weekly OT premiums.
+
+**Inputs:**
+
+- **Base Rate**: dollar amount per hour (the standard Hourly Pay rate).
+- **Overtime Threshold**: the hour count at which OT kicks in. Common values: 40 hrs/week, 8 hrs/day, 10 hrs/day, 12 hrs/day.
+- **Overtime Rate**: dollar amount per OT hour. Common configurations: `1.5 x Base Rate`, `2 x Base Rate`.
+- **Threshold Basis**: per-trip, per-day, or per-statement.
+
+**How it calculates:**
+
+```text
+If HoursWorked &lt;= Threshold:<br>  Pay = HoursWorked x BaseRate<br>Else:<br>  RegularHours = Threshold<br>  OvertimeHours = HoursWorked - Threshold<br>  Pay = (RegularHours x BaseRate) + (OvertimeHours x OvertimeRate)
+```
+
+**Use cases:**
+
+- California hourly driver: $22/hr base, then 1.5x to $33 after 8 hrs/day, then 2x to $44 beyond 12 hrs/day.
+- Federal FLSA: 40 hrs/week at base, then 1.5x beyond.
+- Local drivers paid hourly with daily OT premiums for long shifts.
+
+**Gotchas:**
+
+- For multi-tier OT (1.5x then 2x at a second threshold), configure two separate OT rules.
+- Threshold Basis determines when OT triggers. Picking the wrong basis (e.g. per-statement when state law requires per-day) results in underpayment.
+- Hours Worked must be entered on the trip for OT to compute. See the Hourly Pay section for the Hours Worked field.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427372535/a27adf8526b9063e6992b15db6ff/image.png)
+
+---
+
+### Mileage Per Diem
+
+**What it is:** Rate times trip miles, labeled as Per Diem on the statement so it can be flagged as non-taxable income in your accounting export. Supports tiers and the Use Highest Tier checkbox like the other mileage rates.
+
+**When it applies:** One line item per trip leg.
+
+**Inputs:**
+
+- **Rate**: per-mile per diem amount. Flat or tiered.
+- **Mileage Type**: Loaded, Empty, or Total.
+- **Tiers** (optional): per-mileage-band per diem amounts.
+- **Use Highest Tier checkbox**: off = stepped tiers, on = flat by band.
+
+**How it calculates:**
+
+```text
+Driver pay (per diem) = Rate x Miles (of the chosen type)
+```
+
+Tiered math mirrors Loaded Miles.
+
+**Use cases:**
+
+- "Pay drivers $0.12/loaded mile as a non-taxable per diem on top of their loaded-mile pay."
+- Tax-advantaged structures where part of the driver's pay is structured as a per-mile per diem.
+- Higher per diem on long hauls (tiered with Use Highest Tier on).
+
+**Gotchas:**
+
+- Mileage Per Diem reads trip mileage directly; it does NOT require Manage Calendar selections like Daily Pay and Daily Per Diem do.
+- Tax treatment of per diem is your accountant's call, not the system's. The system labels it as per diem and the accounting integration handles the rest.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427234612/167bd3225bfb5b046d1e5ba8f306/image.png)
+
+---
+
+## Statement rates
+
+Statement rates fire **once per statement**, after all Trip and Time-based pay rates have computed. They cannot be combined with Trip or Time-based pay rates in the same policy: a policy containing a Statement rate must contain only Statement rates.
+
+---
+
+### Minimum Pay
+
+**What it is:** Guarantees the driver's statement total is at least a minimum. If the computed total is below the minimum, a shortfall line item is added to bring it up.
+
+**When it applies:** One shortfall line item per statement, computed after all other rates on the statement.
+
+**Inputs:**
+
+- **Minimum Amount**: dollar floor for the statement.
+- **Basis**: selector with two options.
+
+  - **Flat** (default): the minimum is a fixed amount per statement regardless of how much of the pay period the driver worked.
+  - **Prorated**: prorates the minimum across the pay period. Only selectable when the driver's pay period is **7 days**.
+
+**How it calculates:**
+
+Flat basis:
+
+```text
+If StatementSubtotal &lt; MinimumAmount:<br>  Driver pay (shortfall) = MinimumAmount - StatementSubtotal<br>Else:<br>  Driver pay = 0Prorated basis:
+```
+
+```text
+DaysWorked = number of days in the pay period the driver was active<br>ProratedMinimum = MinimumAmount x (DaysWorked / 7)<br><br>If StatementSubtotal &lt; ProratedMinimum:<br>  Driver pay (shortfall) = ProratedMinimum - StatementSubtotal<br>Else:<br>  Driver pay = 0
+```
+
+**Use cases:**
+
+- **Flat:** "Guarantee every driver $1,200 per pay period." Minimum Pay $1,200.
+- **Flat:** New-hire training period with a guaranteed weekly minimum.
+- **Prorated:** Driver started midweek (e.g. Wednesday on a Sun-Sat pay period); a flat $1,200 guarantee would overpay for a partial week. Prorated minimum scales the floor to 5/7 of $1,200 = $857.14.
+- **Prorated:** Driver took 2 unpaid days. The minimum scales down so they are not paid the full floor for a partial week.
+
+**Gotchas:**
+
+- Prorated basis is **only valid for 7-day pay periods**. If the driver's pay period is biweekly, monthly, or any other length, the Basis selector is disabled with the helper text "Only choose if your pay period is every 7 days."
+- Minimum Pay does NOT cap pay. It only adds a shortfall line; high earners are unaffected.
+- If the driver has deductions that push their net below the minimum, the shortfall is added BEFORE deductions are applied, so the floor is on gross pay, not net pay.
+- Once a statement is processed, the shortfall amount is locked. Changing the Minimum Amount on the rate does NOT retroactively recalculate processed statements.
+- **Flat is the default**. Switch to Prorated explicitly when you want partial-week scaling.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427371447/03bebe2cfa13f9e3c7bbcc021481/image.png)
+
+---
+
+### Statement Bonus
+
+**What it is:** A flat dollar bonus added unconditionally to every statement.
+
+**When it applies:** One line item per statement.
+
+**Inputs:**
+
+- **Amount**: flat dollar bonus.
+
+**How it calculates:**
+
+```text
+Driver pay = Amount
+```
+
+**Use cases:**
+
+- "Pay drivers an extra $50 per week as a retention bonus." Statement Bonus $50.
+- Holiday or sign-on weekly bonus tied to a date range (combine with a rule to scope to weeks).
+
+**Gotchas:**
+
+- Statement Bonus is unconditional unless gated by a Statement Total Amount rule. If you want "bonus only when the driver clears $2,000," add a rule like Statement Total Amount >= 2000.
+- For one-time bonuses, use a manual New Transaction on the statement, not a recurring Statement Bonus rate.
+- Statement Bonus is taxable income. If you need a non-taxable per-statement payment, use **Statement Per Diem** instead.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427237381/9f511c8660ab50654cae6fa6cb07/image.png)
+
+---
+
+### Statement Per Diem
+
+**What it is:** A flat dollar per diem added unconditionally to every statement, labeled as per diem on the statement so it can be flagged as non-taxable income in your accounting export. Functionally similar to Statement Bonus but with per-diem tax handling.
+
+**When it applies:** One line item per statement.
+
+**Inputs:**
+
+- **Amount**: flat dollar per diem.
+
+**How it calculates:**
+
+```text
+Driver pay (per diem) = Amount
+```
+
+**Use cases:**
+
+- Weekly per diem allowance paid every pay period regardless of trips run (e.g. $100/week per diem for OTR drivers).
+- Per diem tied to a specific pay period via a Statement Total Amount rule, e.g. only pay the per diem when the driver actually earned something on the statement (Statement Total Amount > 0).
+
+**Gotchas:**
+
+- Tax treatment is your accountant's call, not the system's. The system labels the line item as per diem and the accounting integration handles it from there.
+- For per-day or per-mile per diems (rather than a flat per-statement amount), use **Daily Per Diem** or **Mileage Per Diem** instead.
+- Statement Per Diem fires unconditionally per statement by default. Gate with a Statement Total Amount rule if you only want it to apply on statements above a threshold.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427237987/09939ec7ea7d4ad2e2e33a7bcb62/image.png)
+
+---
+
+### Quick reference rate tables
+
+For a one-screen scan, the three tables below summarize the same rates.
+
+#### Trip rates
+
+| UI name | Fires | Key inputs |
+| --- | --- | --- |
+| Per Trip | Per trip | Rate, tiers, Mileage Type (for tiers), Use Highest Tier checkbox |
+| Per Load | On last trip of load | Rate |
+| Loaded Miles | Per trip | Rate, tiers, Use Highest Tier checkbox |
+| Empty Miles | Per trip | Rate, tiers, Use Highest Tier checkbox |
+| Total Miles | Per trip | Rate, tiers, Use Highest Tier checkbox |
+| Per Mile Deduction | Per trip | Rate, Mileage Type, tiers, Use Highest Tier checkbox |
+| Per Trip Stop | Per trip | Threshold, Rate, Flat Bonus |
+| Per Customer Stop | On last trip of load | Threshold, Rate, Flat Bonus |
+| % of Trip Value | Per trip | Percentage |
+| % of Line Haul | Per trip | Percentage |
+| % of Trip Value Deduction | Per trip | Percentage |
+| % of Line Haul Deduction | Per trip | Percentage |
+| % of Fuel Surcharge | Per trip | Percentage |
+| Service Fee | Per trip, last | Percentage, Flat Fee |
+
+#### Statement rates
+
+| UI name | Fires | Key inputs |
+| --- | --- | --- |
+| Minimum Pay | Per statement | Minimum Amount |
+| Statement Bonus | Per statement | Amount |
+| Statement Per Diem | Per statement | Amount |
+
+#### Time-based pay rates
+
+| UI name | Fires | Key inputs |
+| --- | --- | --- |
+| Hourly Pay | Per trip leg | Base Rate (uses Hours Worked field) |
+| Overtime Threshold and OT Rate | Per trip leg, per day, or per statement (configurable) | Base Rate, Overtime Threshold, Overtime Rate, Threshold Basis |
+| Mileage Per Diem | Per trip leg | Rate, Mileage Type, tiers, Use Highest Tier checkbox |
+| Daily Pay | Per selected day | Rate |
+| Daily Per Diem | Per selected per-diem day | Rate |
+
+---
+
+## Rules: deciding when a policy applies
+
+Rules are optional. A policy with no rules always fires for every trip. Once you add rules, the policy only fires when the trip matches the conditions set.
+
+### Rule structure
+
+```text
+Policy   <br>-&gt; Rule Group A (rules joined by AND)      <br>   -&gt; Rule 1      <br>   -&gt; Rule 2      <br>   OR   <br>-&gt; Rule Group B (rules joined by AND)      <br>   -&gt; Rule 3
+```
+
+The groups are OR'd together. The rules inside a group are AND'd. So in the example above, the policy fires when **(Rule 1 AND Rule 2) OR (Rule 3)**.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427240362/8cab7dc90f0ad629a4e5845f2d3c/image.png)
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427241191/9e453c3cf7278f3cc7f32656b11e/image.png)
+
+### Operators
+
+| Symbol | Meaning |
+| --- | --- |
+| = | equals (for multi-select, "any selected value matches") |
+| not equals | for multi-select, "none of the selected values match" |
+| > | greater than |
+| >= | greater than or equal |
+| &lt; | less than |
+| &lt;= | less than or equal |
+
+Most rules support = and not equals only. Statement Total Amount supports all six.
+
+### Available rule subjects
+
+| Subject | Entity | Notes |
+| --- | --- | --- |
+| Customer | Load | Multi-select customers |
+| Fleet | Load | Multi-select fleets |
+| Contract | Load | Multi-select lane contracts |
+| Load Custom References | Load | Tenant-defined custom references on the load (text, date, select, checkbox, etc.) |
+| Tender As | Trip | Multi-select subsidiaries |
+| Equipment Type | Trip | Multi-select equipment types |
+| Number of Drivers | Trip | Equal to 1 or 2 |
+| Truck | Trip | Multi-select trucks |
+| Trip Custom References | Trip | Tenant-defined custom references on the trip |
+| Driver Attributes | Trip | Is Owner Operator, OO Driving Self, OO Using Own Trailer |
+| Stop State | Stop | Multi-select states |
+| Stop Zip | Stop | Multi-select zip codes |
+| Stop Custom References | Stop | Tenant-defined custom references on stops |
+| First Customer Stop State | First customer stop | Multi-select states |
+| First Customer Stop Zip | First customer stop | Multi-select zip codes |
+| Last Customer Stop State | Last customer stop | Multi-select states |
+| Last Customer Stop Zip | Last customer stop | Multi-select zip codes |
+| Statement Total Amount | Statement | Dollar amount, all 6 operators |
+
+### When rules are evaluated
+
+Rule evaluation happens at the moment a driver payable is rebuilt for a trip. That happens when:
+
+- The trip is created with a driver assigned.
+- The driver is reassigned on the trip.
+- The trip's miles, stops, equipment type, or any rule input changes.
+- A rate policy on the driver is added, edited, or removed.
+- A trip is reopened from a draft or reverted from a processed statement (the rate is re-evaluated against current rules and rate config).
+
+**Forward-only behavior:** Rule changes apply to future evaluations only. Editing a rule on a policy does NOT retroactively re-compute payables that are already on **processed** statements. Payables in the Open list or on a Draft statement WILL re-compute on the next rebuild trigger
+
+**Override precedence:** A trip-scoped policy on a load (set from the LDP) wins over the driver's profile policies for that specific trip. Rules on profile policies are skipped when a trip-scoped override has been finalized.
+
+### What each rule actually means
+
+Each rule looks at one specific piece of data on the trip, load, stop, driver, or statement, and decides whether the policy should fire. Each entry below covers: what it inspects, the data source, what happens when the field is empty, a realistic use case, and common pitfalls.
+
+### Load-level rules
+
+#### **Customer**
+
+- **What it inspects:** the customer on the load (the company who tendered the freight, `Load.CustomerId` resolved to the customer name).
+- **Null/empty behavior:** if the load has no customer (rare; most loads do), `=` never matches; `not equals` matches against every selected value.
+- **Use case:** "Pay drivers an extra $0.05 per loaded mile when running for Walmart." Customer = Walmart + a Loaded Miles rate at the bonus amount.
+- **Common pitfalls:** the rule reads the customer on the LOAD, not the customer the driver was last dispatched to. Reassigning a load to a different customer re-fires evaluation and may flip which policies match. Also: the dropdown shows the customer's current name, not the name at the time the load was created. Customer renames propagate automatically.
+
+#### **Fleet**
+
+- **What it inspects:** the fleet the load was assigned to (the load-level Fleet field), NOT the driver's home fleet.
+- **Null/empty behavior:** if the load has no fleet, an `=` rule never matches.
+- **Use case:** "Drivers running our Dedicated Northeast fleet get a different per-mile rate." Fleet = Dedicated Northeast.
+- **Common pitfalls:** confusing this with the driver's fleet. To gate on the driver's fleet instead, use the Driver Rate Plans driver segment (see below). The trip-level Fleet rule is for load-bound dispatch decisions, not driver characteristics.
+
+#### **Contract**
+
+- **What it inspects:** the lane contract on the load (the `Load.LaneContractId`). Only relevant if your tenant uses lane contracts.
+- **Null/empty behavior:** loads with no contract never match an `=` rule.
+- **Use case:** "Loads on the Acme Beverage contract pay 80% of line haul to the OO; everything else pays 75%." Gate the 80% policy on Contract = Acme Beverage. The 75% policy needs to also be gated on Contract `not equals` Acme Beverage, otherwise it stacks on top of the 80% policy (additive).
+- **Common pitfalls:** policies stack additively, so the "everything else" companion policy needs an explicit `not equals` rule. Forgetting this is the #1 source of double-paying tenants who configured an exception policy and a default policy without making them mutually exclusive.
+
+#### **Load Custom Reference**
+
+- **What it inspects:** the value of a tenant-defined custom reference on the load. Custom references you have configured on loads (text, date, select, checkbox, multi-select) show up in the rule's dropdown.
+- **Null/empty behavior:** loads without a value set never match an `=` rule; they match a `not equals` rule.
+- **Use case:** Tenant has a "Customer Tier" custom reference on loads with values Gold / Silver / Bronze. Pay a percentage bonus on Gold tier loads.
+- **Common pitfalls:** changing the custom reference value on a load re-fires evaluation of any rules that reference it. Plan ahead if you back-fill custom references on historical loads — only open and draft payables recompute; processed statements stay locked.
+
+### Trip-level rules
+
+#### **Tender As (Subsidiary)**
+
+- **What it inspects:** which subsidiary tendered the trip (`Trip.TenderAsSubsidiaryId`). Set per trip leg, since different legs of the same load can bill under different LLCs.
+- **Null/empty behavior:** trips without a Tender As never match an `=` rule. Almost every active trip in production has Tender As set.
+- **Use case:** "Our California subsidiary pays $24/hr; the Texas subsidiary pays $20/hr." Two policies, each gated on Tender As.
+- **Common pitfalls:** Tender As is per trip leg, not per load. A two-leg load can tender as different subsidiaries on each leg. If your driver is paid the same regardless of who tenders, do not add this rule — it adds maintenance overhead without changing pay.
+
+#### **Equipment Type**
+
+- **What it inspects:** the equipment type configured on the trip (Reefer, Dry Van, Flatbed, Tanker, etc.), from the trip's Equipment Type field.
+- **Null/empty behavior:** trips without an equipment type fall through.
+- **Use case:** "$0.60/mile when running reefer, $0.50/mile on dry van." Two policies, each gated on Equipment Type.
+- **Common pitfalls:** the system does NOT know whether a reefer unit was actually running vs. idle. You can pay "reefer rate" for a trip where the reefer was off if the trip's equipment type is set to Reefer. If you need finer control ("reefer on vs off"), today the workaround is to change the trip's equipment type at assignment time or pay the higher rate and adjust manually.
+
+#### **Number of Drivers**
+
+- **What it inspects:** the count of drivers assigned to the trip: 1 (solo) or 2 (team). Only `=` is supported.
+- **Null/empty behavior:** trips without an assigned driver are not evaluated for any rate at all (they have no payable yet).
+- **Use case:** "Team drivers each get $0.30/mile instead of the solo $0.55." Solo policy gated on Number of Drivers = 1; team policy gated on Number of Drivers = 2.
+- **Common pitfalls:** the team driver each gets the full rate value (it does not auto-split). If you want a true split, configure the team rate at half the solo amount.
+
+#### **Truck**
+
+- **What it inspects:** the truck (`Trip.TruckId`) assigned to the trip.
+- **Null/empty behavior:** trips without a truck do not match. Rare in production.
+- **Use case:** a tenant who pays a different rate when a specific premium truck is used (e.g. a tanker truck with bonus pay). Truck = the specific truck IDs.
+- **Common pitfalls:** truck-level rules are brittle. Adding a new premium truck means updating every policy that references the truck list. Most tenants are better off using Equipment Type or a Driver Rate Plan segment based on Fleet or Truck Type instead.
+
+#### **Driver Attributes on a Trip**
+
+- **What it inspects:** properties on the driver record. The three checkable values are:
+
+  - **Is Owner Operator**: the driver is an OO, not a company driver. Reads `Driver.IsOwnerOperator`.
+  - **OO Driving Self**: the OO is the one driving the truck (vs an OO who owns the truck but assigns a different driver). Reads `Driver.OOIsDrivingSelf`.
+  - **OO Using Own Trailer**: the OO is hauling their own trailer, not a company trailer. Reads `Driver.OOIsUsingOwnTrailer`.
+- **Null/empty behavior:** unset boolean defaults to false. An `=` rule selecting "Is Owner Operator = true" never matches company drivers (who have IsOwnerOperator = false or unset).
+- **Use case 1:** "Owner operators get % of line haul; company drivers get per mile." OO policy gated on Driver Attributes = Is Owner Operator.
+- **Use case 2:** "If the OO is using their own trailer, they get an extra 5% of line haul." Stack a second OO policy with Driver Attributes = OO Using Own Trailer on top of the base OO policy. Both policies will fire and contribute additive line items.
+- **Common pitfalls:** Driver Attributes is the only **driver-side** rule on policies (vs all the others which look at the trip/load). For more driver-side filtering options (Fleet, Subsidiary, Tenure, Type, custom references), use **Driver Rate Plans** with a Driver Segment (see the Driver Rate Plans section below).
+
+#### **Trip Custom Reference**
+
+- **What it inspects:** the value of a tenant-defined custom reference on the trip. Whatever custom references you have set up on trips (text, date, select, checkbox, multi-select) show up in the rule's dropdown.
+- **Null/empty behavior:** trips that do not have the custom reference set never match an `=` rule against a specific value; they match a `not equals` rule (the value isn't in the selected set).
+- **Use case:** Tenant uses a "Service Level" custom reference on trips with values like Premium / Standard / Economy. Pay drivers a bonus rate when Service Level = Premium.
+- **Common pitfalls:** the rule reads the trip's current value of the custom reference. Editing the value after the trip has delivered triggers re-evaluation (open and draft items recompute; processed statements are locked).
+- **Note:** trip custom references are distinct from driver custom references (which power Driver Rate Plan segments). Both can be defined per tenant; they apply to different entities.
+
+### Stop-level rules
+
+These look at the stops on the trip. They are useful for state-specific or zip-specific premiums.
+
+#### **Stop State**
+
+- **What it inspects:** at least one stop on the trip has a state matching one of the selected states. "Any stop" includes pickup, delivery, intermediate, fuel, and yard stops.
+- **Null/empty behavior:** trips with no stops match no `=` rule and match every `not equals` rule.
+- **Use case:** "Pay $50 extra anytime the trip touches NY or NJ." Per Trip $50 rate gated on Stop State = NY, NJ.
+- **Common pitfalls:** the rule fires if ANY stop is in the state, not just customer stops. A fuel stop in NY would also trigger it. Use **First Customer Stop State** or **Last Customer Stop State** if you want to scope to origin/destination only.
+
+#### **Stop Zip**
+
+- **What it inspects:** at least one stop on the trip has a zip code matching one of the selected zips. Same scope as Stop State (all stop types).
+- **Null/empty behavior:** stops without zips do not match. Some EDI-tendered loads may have zip-less stops.
+- **Use case:** "Pay $100 extra for stops in NYC five-boroughs zip codes" with a zip list.
+- **Common pitfalls:** zips are matched exactly. "10001" and "10001-0001" are different strings; if your zips include +4 extensions you need to enumerate or use a different mechanism.
+
+#### **Stop Custom Reference**
+
+- **What it inspects:** the value of a tenant-defined custom reference on any stop of the trip. Like the standard Stop State / Stop Zip rules, the match fires if ANY stop on the trip has a matching value.
+- **Null/empty behavior:** stops without the custom reference set are skipped during evaluation. Trips with no matching stop do not satisfy an `=` rule.
+- **Use case:** Tenant tags stops with a "Stop Type" custom reference (Drop Trailer / Live Unload / Hook &amp; Drop). Pay an extra per-stop bonus when at least one stop is Live Unload.
+- **Common pitfalls:** Stop Custom Reference behaves like Stop State — it scans every stop on the trip, including yard moves and fuel stops, not just customer stops. If you only care about customer stops, today there is no first/last-customer-stop variant of this rule. Set the custom reference on the right stop types at dispatch time.
+
+#### **First Customer Stop State** and **First Customer Stop Zip**
+
+- **What they inspect:** the very first **customer** stop on the load (origin pickup). Customer stops are stops typed as a customer pickup/delivery, not yard moves or fuel stops.
+- **Scope:** load-level, not trip-level. On a multi-trip load, the same first-stop value applies to every trip.
+- **Null/empty behavior:** loads with no customer stops do not match.
+- **Use case:** "Loads originating in California get a different rate" to cover higher idle / fuel cost. First Customer Stop State = CA.
+- **Common pitfalls:** if a load is restructured (stops reordered, a new first customer stop added), the rule re-evaluates. Avoid baking last-mile detail into rules that may change post-dispatch.
+
+#### **Last Customer Stop State** and **Last Customer Stop Zip**
+
+- **What they inspect:** the very last **customer** stop on the load (final delivery).
+- **Scope:** load-level. Same value across all trips of the load.
+- **Null/empty behavior:** loads with no customer stops do not match.
+- **Use case:** "Loads delivering into the Northeast get a $200 layover bonus." Last Customer Stop State = NY, NJ, PA, CT, MA, RI.
+- **Common pitfalls:** confusing this with Stop State (any stop). Stop State fires on intermediate stops too; First/Last Customer is locked to origin and destination of the whole load.
+
+The First / Last variants differ from the generic Stop State / Stop Zip in two important ways:
+
+1. They only look at **customer** stops (not yard moves, fuel stops, or relays).
+2. They only look at the **single first or last** stop on the load, not at every stop.
+
+If you want "the load ever passes through CA," use Stop State. If you want "the load originated in CA," use First Customer Stop State. If you want "the load delivers in CA," use Last Customer Stop State.
+
+### Statement-level rule
+
+#### **Statement Total Amount**
+
+- **What it inspects:** the running statement subtotal in dollars, after Trip and Time-based pay rates have computed but before this Statement-category rate fires. This is the only rule whose input is **derived** from other rate output, not from the trip/load.
+- **Operators:** all six (`=`, `not equals`, `>`, `>=`, `&lt;`, `&lt;=`). The only rule that supports the full numeric comparison set.
+- **Null/empty behavior:** an empty statement has a subtotal of 0; rules like `&lt; 1000` will match.
+- **Use case 1:** "Give a $200 weekly bonus if the driver clears $2,000 in a week." Statement-category policy with Statement Total Amount >= 2000 and a Bonus rate of $200.
+- **Use case 2:** Conditional minimum pay: "Pay a flat $50 supplement only if the statement is under $800." Statement Total Amount &lt; 800 with a $50 Bonus. Note: the Minimum Pay rate type is usually a cleaner choice for floor logic.
+- **Common pitfalls:**
+
+  - This rule only applies to Statement-category rates (Bonus, Minimum Pay), since a Statement rate's own policy cannot contain Trip or Time-based pay rates anyway.
+  - The threshold is checked **once per statement** at the moment Statement-category rates fire. It does not iterate or apply tiers — the rule passes or fails, and the rate runs or doesn't.
+  - If you stack multiple Statement-category policies with overlapping Statement Total Amount rules, the order of evaluation can affect the result. Test before relying on stacked bonuses.
+
+---
+
+## Driver Rate Plans
+
+A **Driver Rate Plan** is a reusable template that bundles rates, optional trip-level rules, and a driver segment together. Plans let you define a pay structure once and assign it to a group of drivers automatically based on driver attributes, instead of editing every driver's profile by hand.
+
+### Plans vs profile policies
+
+A driver can be paid through two complementary mechanisms:
+
+- **Profile policies**: rate policies set directly on a single driver profile. Best for one-off customizations.
+- **Rate plans**: workspace-level templates that apply to many drivers via a driver segment. Best for shared pay structures (e.g. "all owner operators in the Northeast," "all company drivers past 90 days of tenure").
+
+Both coexist. A driver may receive rates from profile policies, from one or more plans, or from any combination. All matching rates contribute additively to each statement.
+
+### Anatomy of a plan
+
+A plan has four pieces:
+
+1. **Plan details:** Name (required, unique across plans and policies) and Description.
+2. **Driver segment** (required): one or more rules that decide which drivers this plan applies to. The segment is the answer to "who gets this plan?"
+3. **Rates** (required): one or more rate types, same as profile policies. Same category constraint applies: Statement rates cannot share a plan with Trip or Time-based pay rates. Trip and Time-based pay rates can coexist in one plan.
+4. **Rules** (optional): trip-level rules that decide WHEN the rates apply for a matched driver. Same rule subjects as profile policies (Customer, Fleet, Equipment Type, Stop State, etc.). Optional because some plans should always apply to any trip the matched drivers run.
+
+The right-side sidebar of the plan editor shows the live count of drivers the segment currently matches ("X out of Y drivers") so you can verify before saving.
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427243165/0a59a2df233c78495da093b7d167/image.png)
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427243593/3bc9b56918fd403e7476dceac911/image.png)
+
+### Driver segment: who gets the plan
+
+The segment is the new piece. It uses **driver-attribute** filters (not trip/load fields like the regular rules). Each segment attribute reads a field on the driver record.
+
+### Segment attributes
+
+| Attribute | Reads | Operators | Notes |
+| --- | --- | --- | --- |
+| **Fleet** | Driver's home fleet | `=`, `not equals` | Multi-select |
+| **Subsidiary** | Driver's home subsidiary | `=`, `not equals` | Multi-select |
+| **Tenure (days)** | Days since driver's hire date | `=`, `not equals`, `>`, `>=`, `&lt;`, `&lt;=` | Computed from `Driver.HireDate`. Re-evaluated daily so drivers automatically pick up or lose plans as tenure crosses thresholds. |
+| **Type** | Driver type (Company Driver, Owner Operator, etc.) | `=`, `not equals` | Multi-select |
+| **Custom driver references** | Custom fields you have defined on the driver profile | `=`, `not equals` | All driver custom references show up in the dropdown (text, date, select, checkbox, color, etc.). |
+
+![](https://downloads.intercomcdn.com/i/o/jmo4m9ce/2427282701/d2e11540e95fb5a6d3138b244bd2/image.png)
+
+### Segment groups: include / exclude with AND / OR
+
+The segment uses the same group structure as trip rules: rules inside a group are joined with **AND**, groups are joined with **OR**.
+
+Example: "all OO drivers in the Northeast fleet who have been with us for at least 90 days, OR all OO drivers in the Texas subsidiary regardless of tenure":
+
+```text
+Include Group 1:   Type = Owner Operator AND   Fleet = Northeast AND   Tenure (days) &gt;= 90  Include Group 2:   Type = Owner Operator AND   Subsidiary = Texas LLC
+```
+
+The "Include" / "Exclude" wording on the segment maps to `=` and `not equals` semantically.
+
+**At least one rule is required.** A plan cannot be saved with an empty segment, since that would apply to every driver.
+
+### Stacking and additive evaluation
+
+Drivers can match multiple plans. Every matching plan's rates fire for every trip that matches that plan's rules. There is **no de-duplication and no priority**.
+
+Example. A driver matches three plans:
+
+- Plan A (matched by Type = Owner Operator): % of Line Haul 75%.
+- Plan B (matched by Fleet = Northeast): Per Trip Stop $25.
+- Plan C (matched by Tenure (days) >= 365): Bonus $50 per statement.
+
+For every trip that driver delivers, the line haul percentage fires (Plan A), the per-stop fires (Plan B), and each statement gets the bonus (Plan C). If two plans both define a 75% line haul rate, the driver gets 150% of line haul. Design segments so plans complement each other rather than duplicate.
+
+### Forward-looking application
+
+Rate Plan changes do not retroactively recompute statements that have already been processed. Open and draft trips re-evaluate on their next rebuild; processed statements are locked.
+
+This means:
+
+- Editing a plan does not change historical payouts.
+- A driver gaining a plan via segment match does not generate back pay for prior trips.
+- A driver losing a plan (e.g. via fleet change) does not claw back already-processed pay.
+
+### Daily re-evaluation for silent attribute changes
+
+Some driver attributes change without an explicit event — the most important being **Tenure (days)**, which silently increments every day at midnight. A daily job re-evaluates plan segment matches for every driver, so a driver crossing the 90-day tenure threshold automatically picks up the plan that gates on tenure.
+
+Manual events (driver edits, plan edits, fleet / subsidiary / type changes) also trigger immediate re-evaluation.
+
+### Driver Profile: Assigned Plans
+
+On the driver profile, the Rates section shows an **Assigned Plans** list of every plan currently applied to this driver, with:
+
+- The plan name and brief description.
+- The reason it applies (which segment rule matched).
+- A deep link to the plan settings page (permission-gated).
+
+This is the canonical place to answer "why is this driver getting this rate?"
+
+### Permissions
+
+- **Partner Admin, Admin, Biller**: can view, create, edit, archive plans, and edit a driver's assigned plan settings.
+- All other roles: read-only or hidden, depending on the View Driver Rate / Edit Driver Rate permissions.
+
+### How plans interact with profile policies
+
+**There is no precedence between plans and profile policies.** If a driver has a profile policy AND a matching plan that both define a 75% line haul rate, both fire and the driver gets 150%. Keep each pay component defined in exactly one place — either on the profile or in a plan, not both.
+
+---
+
+## Trip-scoped overrides
+
+A user can edit a rate on a specific trip from the Load Detail Page (LDP). This creates a **trip-scoped policy** that overrides the driver's profile policy for that one trip.
+
+State a trip-scoped policy can be in:
+
+| State | Meaning |
+| --- | --- |
+| **Draft** | The override is on a draft statement. Profile policies cannot replace it until the draft is reverted. |
+| **Finalized** | The override has shipped on a processed statement. The trip's rates are locked. No further rate changes are allowed on that driver for that trip. |
+
+If a trip has any finalized scoped policy, the driver's profile policies for that trip are completely ignored. Only the scoped policies show.
+
+Trip-scoped policies can also be **custom** (named "Custom Rate"), with no underlying profile policy. These are ad hoc one-time rates for a single trip.

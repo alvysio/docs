@@ -1,0 +1,150 @@
+---
+title: "Wex FleetOne FTP: Factoring Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Support staff (setup and configuration); users with the **"Billing"** permission (batch submission)
+
+  **Module:** Management > Integrations · Accounting > Factoring Upload
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article explains how to set up the Wex FleetOne FTP integration in Alvys, add reference numbers to loads, and submit invoice batches via FTP to Wex FleetOne.
+</Note>
+
+## What This Integration Does
+
+The Wex FleetOne FTP integration (also called Wex FleetOne factoring or invoice factoring via FTP) transmits invoice batches from Alvys to Wex FleetOne via FTP when you submit a batch from the Factoring Upload page. Before loads can be submitted, each load must have a reference number assigned. Wex FleetOne provides these reference numbers in a spreadsheet. Loads missing a reference number display a red warning icon in the Factoring Upload queue and cannot be included in a batch until the number is entered. Synonyms: invoice factoring, accounts receivable financing.
+
+**Provider:** Wex FleetOne · **Integration type:** One-way · **Sync direction:** Alvys to Wex FleetOne (outbound FTP batch).
+
+<Warning>
+  ⚠️ If you previously set up the Wex FleetOne manual (non-FTP) integration, you must remove it before configuring the FTP version. · Only one Wex FleetOne integration can be active per subsidiary at a time.
+</Warning>
+
+## Prerequisites
+
+Before configuring this integration, confirm the following:
+
+- You hold an Admin, Partner Admin, or Support role to add the Notice of Assignment and configure integration credentials.
+- You hold the **"Billing"** permission to submit batches from the Factoring Upload page.
+- Your subsidiaries are created in Alvys. FTP credentials must be configured separately for each subsidiary that uses Wex FleetOne FTP.
+- You have received your FTP host address, username, and password from Wex FleetOne. Contact Wex FleetOne directly if you have not received these credentials.
+- You have received the Notice of Assignment text from Wex FleetOne to add to your invoices.
+- If you previously set up the Wex FleetOne manual (non-FTP) integration, you must remove it before setting up the FTP version. See Connect / Authenticate below.
+
+## Connect / Authenticate
+
+1. **Add your Notice of Assignment.** The Notice of Assignment (NOA) declares to your customers that Wex FleetOne has the right to collect payment on the invoices you factor. It must appear on every invoice submitted through this integration.
+
+   - Click the Profile button in the upper right corner and select Management to open your Company Profile.
+   - In the Document Configuration section, click the plus sign (+) button. The Manage Important Info window will appear.
+   - In the drop-down menu, select Notice of Assignment.
+   - Paste the NOA text provided by Wex FleetOne into the text box.
+   - Click Save.
+
+     ![Screenshot showing the Document Configuration section with the plus sign (+) button in Company Profile](https://alvys.intercom-attachments-1.com/i/o/1103580427/53aaff2fc2709aa19bf402dd/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F9b7edc34-c3cd-4603-a6d7-65f2f23a1513-2FManagementPage.png)
+
+     *Screenshot showing the Document Configuration section with the plus sign (+) button in Company Profile*
+
+     ![Screenshot showing the Notice of Assignment text entry dialog in Company Profile](https://alvys.intercom-attachments-1.com/i/o/1103580435/ad80cebc171362cc8f6a6461/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F9c3c685a-3b6d-4059-9c90-622466ef30d8-2FUntitled.png)
+
+     *Screenshot showing the Notice of Assignment text entry dialog in Company Profile*
+2. **Remove any existing Wex FleetOne integration and configure FTP credentials.** If you previously used the Wex FleetOne manual (non-FTP) integration, you must deactivate it before the FTP integration can be configured. If you have not previously used Wex FleetOne in Alvys, begin at sub-step 3.
+
+   - Navigate to Management and open the Integrations page.
+   - Under the Factoring section, locate the existing Wex FleetOne integration and click Deactivate to remove it.
+   - Find Wex FleetOne FTP in the Factoring section.
+   - In the subsidiary list, click the pencil icon next to the subsidiary you want to configure.
+   - Enter the FTP Host, Username, and Password provided by Wex FleetOne.
+   - Click Save. Repeat sub-steps 4 through 6 for each additional subsidiary that uses Wex FleetOne FTP.
+
+     ![Screenshot showing the Wex FleetOne FTP credential entry form in Alvys Integrations](https://alvys.intercom-attachments-1.com/i/o/1103580444/743031c9e2d6f58bf9c7e745/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F5d6a3046-0c70-4a60-8b0b-4586eeb40488-2FUntitled.png)
+
+     *Screenshot showing the Wex FleetOne FTP credential entry form in Alvys Integrations*
+
+## Field &amp; Data Mapping
+
+Wex FleetOne FTP requires a reference number on each load before that load can be submitted in a batch. Wex FleetOne provides these reference numbers to you in a spreadsheet. You must enter each reference number on the corresponding load in Alvys before submitting.
+
+Batch files are transmitted via FTP in the format expected by Wex FleetOne. No CSV download or manual upload to Wex FleetOne is required after batch submission.
+
+## Sync Behavior
+
+This integration is one-way and outbound. Alvys transmits batch files to Wex FleetOne via FTP when you submit a batch from the Factoring Upload page. Purchase and payment report uploads are not available for this integration.
+
+## How to Add Reference Numbers to Loads
+
+Wex FleetOne provides a reference number for each load in a spreadsheet sent to you by the provider. Each reference number must be entered on the corresponding load in Alvys before that load can be included in a batch submission. Loads missing a reference number will display a red warning icon in the Factoring Upload queue.
+
+1. Obtain the reference number spreadsheet from Wex FleetOne.
+2. Open the load in Alvys that corresponds to a reference number in the spreadsheet.
+3. Locate the Reference Number field on the load and enter the value from the Wex FleetOne spreadsheet.
+4. Save the load. Repeat for each load that needs a reference number before batch submission.
+
+   ![Screenshot showing the Reference Number field on a load, and the red warning icon on a load in the Factoring Upload queue indicating a missing reference number](https://alvys.intercom-attachments-1.com/i/o/1103580453/1964a6aafeee574844a0e145/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F6f0c34c1-92aa-4cb7-9350-13d9c5420dbe-2FUntitled.png)
+
+   *Screenshot showing the Reference Number field on a load, and the red warning icon on a load in the Factoring Upload queue indicating a missing reference number*
+
+## How to Submit a Batch
+
+1. Confirm that all loads you want to submit have a reference number entered. Loads displaying a red warning icon cannot be submitted until a reference number is added.
+2. Navigate to Accounting > Factoring Upload.
+3. Select the subsidiary you are submitting for.
+4. Select all loads in **Queued** status that you want to include in the batch.
+
+   ![Screenshot showing the Factoring Upload queue with loads selected and the Submit Batch button](https://alvys.intercom-attachments-1.com/i/o/1103580470/d228a85ca2aecc060e3c591d/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fb46fe318-e526-4cf1-bd5f-e5950ce2782f-2FUntitled.png)
+
+   *Screenshot showing the Factoring Upload queue with loads selected and the Submit Batch button*
+5. Click Submit Batch.
+6. Stay on the page until the submission completes. Navigating away during submission may interrupt the FTP transfer. Loads submitted in the batch will update to **Invoiced** status.
+
+   ![Screenshot showing the batch submission confirmation and loads updated to Invoiced status after submission](https://alvys.intercom-attachments-1.com/i/o/1103580477/b78a838853934a447643ff79/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F773d59a1-c3f7-4043-8d35-5255097bef34-2FUntitled.png)
+
+   *Screenshot showing the batch submission confirmation and loads updated to Invoiced status after submission*
+
+## Verify It's Working
+
+After submitting a batch, loads included in the batch should move to **Invoiced** status. If a load remains in **Queued** status or displays a red warning icon, see the Troubleshooting section below.
+
+## Troubleshooting
+
+### Load displays a red warning icon in the Factoring Upload queue
+
+1. The load is missing a required reference number. Obtain the reference number spreadsheet from Wex FleetOne and enter the correct reference number on the load. Save the load and return to the Factoring Upload page; the warning icon should clear and the load can now be submitted.
+2. Contact Alvys support if the warning icon persists after entering the reference number.
+
+### Batch does not submit or loads remain in Queued status
+
+1. Confirm all selected loads have reference numbers entered and no red warning icons are visible. Loads without reference numbers cannot be submitted.
+2. Confirm you stayed on the Factoring Upload page until the submission completed. Navigating away during submission may interrupt the FTP transfer. Retry the submission if needed.
+3. Verify that the FTP credentials in Management > Integrations are correct for the subsidiary. Re-enter the host, username, and password from Wex FleetOne if needed and retry.
+4. Confirm with Wex FleetOne that the FTP server is available and your credentials are active.
+5. Contact Alvys support if the batch continues to fail after verifying credentials.
+
+### The FTP integration will not configure because a previous Wex FleetOne integration exists
+
+1. Navigate to Management > Integrations, find the existing Wex FleetOne (non-FTP) integration, and click Deactivate to remove it.
+2. Proceed to configure the Wex FleetOne FTP integration as described in Connect / Authenticate above.
+3. Contact Alvys support if the integration cannot be deactivated.
+
+## Limits / Unsupported
+
+- Purchase and payment report uploads are not available for the Wex FleetOne FTP integration.
+- Each subsidiary requires its own set of FTP credentials. A single credential set cannot be shared across multiple subsidiaries.
+- Only loads in **Queued** status can be included in a batch submission.
+- Loads must have a reference number entered before they can be submitted. Reference numbers are provided by Wex FleetOne in a spreadsheet.
+
+## FAQs
+
+**Q:** Where do I get the reference numbers for my loads?
+
+**A:** Wex FleetOne provides reference numbers in a spreadsheet sent to you directly. Contact Wex FleetOne if you have not received the spreadsheet.
+
+**Q:** What does the red warning icon on a load mean?
+
+**A:** The red warning icon means the load is missing a required reference number. Enter the reference number from the Wex FleetOne spreadsheet on that load, then return to the Factoring Upload page to include it in a batch.
+
+**Q:** Why do I need to remove my existing Wex FleetOne integration before setting up the FTP version?
+
+**A:** Alvys supports two separate Wex FleetOne integrations: a manual (download) version and an FTP version. Only one can be active at a time per subsidiary. If the manual version is already configured, it must be deactivated before the FTP credentials can be entered.

@@ -1,0 +1,467 @@
+---
+title: "Management & Privacy Permissions"
+---
+
+<Note>
+  **Applies to:** **Admins , Partner Admins, Office Admins Operation Managers ** (permission assignment requires users with **"Set Permission"**)
+
+  **Module:** Management > Company Profile > Users
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  Management and Privacy permissions control who can manage users, carriers, and assets, and who can access sensitive personal data such as Tax Identification Numbers, Social Security Numbers, and ACH banking details. This article covers all 16 Management permissions and all 4 Privacy permissions.
+</Note>
+
+## Overview
+
+Management and Privacy permissions are two distinct permission groups within Alvys. They share a common theme: governing access to company resources and sensitive personal data.
+
+Management permissions determine who can create and delete users, manage carriers and assets, view safety records such as accidents and roadside inspections, and configure webhooks. Privacy permissions control who can see or edit Tax IDs, Social Security Numbers, personally identifiable information (PII) in Alvys Insights, and ACH banking details.
+
+These permissions are configured at the individual user level. They are not tied to a role by default for all users; each must be explicitly granted or revoked by a user who holds the **"Set Permission"** permission.
+
+## Where to Find It
+
+Management and Privacy permissions are found in the User Management interface, inside each user's profile.
+
+To reach the permissions section:
+
+- Select your username in the bottom left corner of the screen.
+
+<Note>
+  ![Company Profile Users tab showing the navigation path.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8c9d26a2-9e49-492f-a4a2-cb715258907a/image.png)
+
+  *Company Profile Users tab showing the navigation path.*
+</Note>
+
+- Go to **Company Profile** and select the **Users** tab.
+
+<Note>
+  ![User list showing the Edit option and Add User button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/bcefadfa-8ac3-479e-af47-c80213c176f0/image.png)
+
+  *User list showing the Edit option and Add User button.*
+</Note>
+
+- Open an existing user's profile by clicking **Edit**, or create a new user by clicking **Add User**.
+- Scroll to the **Permissions** section.
+- Locate the **Management** category to find the 16 checkboxes described in this article.
+
+<Note>
+  ![Permissions section showing all 16 Management permission checkboxes.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8edd15a7-b484-410a-b3da-279349a8a093/image.png)
+
+  *Permissions section showing all 16 Management permission checkboxes. *
+</Note>
+
+- Locate the **Privacy** category to find the 4 checkboxes described in this article.
+
+<Note>
+  ![Permissions section showing all 3 Privacy permission checkboxes.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/967eefe9-cf84-4627-b6d9-3e4c68a22b40/image.png)
+
+  *Permissions section showing all 3 Privacy permission checkboxes. *
+</Note>
+
+<Warning>
+  ⚠️ To modify any user's permissions, the logged-in user must have the **"Set Permission"** permission, which is located within the Management category. Without **"Set Permission"**, a user can view a user's profile but cannot change any permissions.
+</Warning>
+
+## Privacy Permissions
+
+### "View Tax ID/SSN"
+
+This permission controls whether a user can see Tax Identification Numbers (TINs) and Social Security Numbers (SSNs) stored on carrier and driver records. Without it, these fields are hidden entirely.
+
+In Alvys, Tax IDs and SSNs appear in the following locations when the user has this permission:
+
+**Carrier list and carrier profile:** The carrier list includes Tax Identification Number and Tax ID Type columns only for users with this permission. These columns are not visible to users without it.
+
+<Note>
+  ![Carrier list showing Tax ID and Tax ID Type columns visible for users with View Tax ID/SSN](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/08089963-5d2a-4d55-a97d-b53f40f5ad7e/image.png)
+
+  *Carrier list showing Tax ID and Tax ID Type columns visible for users with View Tax ID/SSN*
+</Note>
+
+On the carrier profile, the Tax Identification Number appears in the Form 1099 section. Without this permission, both the type and number are hidden.
+
+<Note>
+  ![Carrier profile Form 1099 section showing Tax Identification Number](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/18f68ede-ce7a-4903-ae15-de2d9351ba4e/image.png)
+
+  *Carrier profile Form 1099 section showing Tax Identification Number*
+</Note>
+
+**Driver list and driver profile:** The driver list includes a Tax Identification Number column only for users with this permission.
+
+<Note>
+  ![Driver list showing the Tax Identification Number column](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b5ec8be8-075e-4fa6-80f9-fab96ebdc4f1/image.png)
+
+  *Driver list showing the Tax Identification Number column*
+</Note>
+
+On the driver profile, the tax category, identification type, and Tax Identification Number are all hidden without this permission.
+
+<Note>
+  ![Driver profile tax information section showing tax category, type, and number.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c6623c61-9f55-4ae8-a906-52c5409a0b8a/image.png)
+
+  *Driver profile tax information section showing tax category, type, and number.*
+</Note>
+
+By default, this permission is granted to Partner Admin, Admin, and Operation Manager roles. It is not granted by default to Dispatcher, Biller, Sales Agent, Data Entry, Office Admin, Safety, or Driver roles.
+
+By default, this permission is granted to Partner Admin, Admin, and Operation Manager roles. It is not granted by default to Dispatcher, Biller, Sales Agent, Data Entry, Office Admin, Safety, or Driver roles.
+
+<Info>
+  ✅ **Best Practice:** Grant **"View Tax ID/SSN"** only to accounting, compliance, and finance staff who handle tax reporting. Do not grant it to operational roles unless there is a specific, documented need.
+</Info>
+
+### "Edit Tax ID/SSN"
+
+This permission controls whether a user can modify Tax Identification Numbers and Social Security Numbers on carrier and driver records. Without it, the fields are read-only (if the user has **"View Tax ID/SSN"**) or hidden entirely (if they lack both permissions).
+
+<Note>
+  ![Driver profile showing “Tax Identification Number” form](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1cbe0eb9-19f4-46cd-9763-9c4544a30a8b/image.png)
+
+  *Driver profile showing “**Tax Identification Number**” form *
+</Note>
+
+<Note>
+  ![Carrier profile showing Edit Tax ID/SSN field in editable state](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/946da157-1d07-43c5-ab83-6b06ff676e68/image.png)
+
+  *Carrier profile showing Edit Tax ID/SSN field in editable state*
+</Note>
+
+By default, this permission is granted to Support, Partner Admin, Admin, and Operation Manager roles. It is not granted by default to Dispatcher, Biller, Sales Agent, Data Entry, Office Admin, Safety, or Driver roles.
+
+<Info>
+  ✅ **Best Practice:** Grant **"Edit Tax ID/SSN"** to the smallest number of users possible, typically only senior accounting or compliance staff. Always pair it with **"View Tax ID/SSN"** so the user can see the data they are editing.
+</Info>
+
+### "View PII"
+
+This permission controls whether personally identifiable information is shown or masked in Alvys Insights responses. **"View PII"** specifically governs the visibility of sensitive data fields within the Insights AI feature. Without it, sensitive values in Insights results are replaced by masked placeholders.
+
+Alvys Insights uses a two-tier access model to protect privacy:
+
+**Tier 1 (Standard Data Access):** Requires at least one matching domain permission such as Billing, View Drivers, or Dispatch. This controls access to operational data fields like financial amounts, vehicle information, and trip counts.
+
+**Tier 2 (Personally Identifiable Information):** Requires both a relevant domain permission and the **"View PII"** permission. This controls visibility of specific fields such as names, email addresses, phone numbers, dates of birth, driver license numbers, geolocation, and insurance details. Without **"View PII"**, Tier 2 fields remain masked regardless of Tier 1 domain permissions.
+
+<Warning>
+  ⚠️ **"View PII"** applies specifically to the Insights feature. A user must also have access to Insights via the **"View Insights"** permission and the tenant feature flag for this masking logic to apply.
+</Warning>
+
+By default, this permission is granted to Admin and Partner Admin roles. All other roles must have it explicitly granted by an administrator.
+
+### "View ACH Details"
+
+This permission controls whether a user can view ACH banking details stored on carrier and driver records. ACH details include bank account and routing information used for direct payment processing. Without this permission, these fields are hidden. If you see masked dots instead of full routing and account numbers, it means your user account does not have the "View ACH Details" permission enabled. This applies to both drivers and carriers.
+
+✅ **Best Practice:** Grant this permission only to accounting and finance staff who process ACH payments. Do not grant it broadly.
+
+By default, this permission is not granted to any role except Admin and Partner Admin.⚠️ **Troubleshooting:** If ACH details seem to disappear after saving a driver profile, it is likely due to the "View ACH Details" permission not being enabled. Ensure that this permission is active for your user account.
+
+## Management Permissions
+
+### "Add User"
+
+This permission controls whether a user can create new user accounts in Alvys. Without it, the Add User page is inaccessible.
+
+<Note>
+  ![Add User form showing name, email, and role fields](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f8db9420-0d1e-49a6-a2e6-44c3ef32c308/image.png)
+
+  *Add User form showing name, email, and role fields*
+</Note>
+
+<Warning>
+  ⚠️ **"Add User"** and **"Set Permission"** work together. A user with **"Add User"** but without **"Set Permission"** can create a new account but cannot assign permissions to it, resulting in an incomplete setup. Assign both permissions together to anyone responsible for onboarding.
+</Warning>
+
+By default, this permission is granted to Support, Partner Admin, Admin, Operation Manager, and Office Admin roles. It is not granted by default to Dispatcher, Biller, Sales Agent, Data Entry, Safety, or Driver roles.
+
+<Info>
+  ✅ **Best Practice:** Grant **Add Use**r only to administrative roles responsible for employee onboarding. Do not assign it broadly just for convenience, it is better to have one or two trusted people who handle account creation consistently. Always pair with **Set Permission **so the same person can both create the account and configure its permissions.
+</Info>
+
+### "Set Permission"
+
+This permission controls whether a user can modify the permissions assigned to other users. Without it, the permissions section on a user's profile is read-only.
+
+<Note>
+  ![User profile permissions section showing toggleable permission checkboxes.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ed9fd08c-4510-4c79-aeae-29b3dad309a1/image.png)
+
+  *User profile permissions section showing toggleable permission checkboxes.*
+</Note>
+
+This is one of the highest-privilege capabilities in Alvys because it determines who can change what other users are authorized to do. Restrict it to highly trusted administrators.
+
+By default, this permission is granted to Support, Partner Admin, Admin, Operation Manager, and Office Admin roles. It is not granted by default to Dispatcher, Biller, Sales Agent, Data Entry, Safety, or Driver roles.
+
+<Info>
+  ✅ **Best Practice:** The Set Permission authorization should be restricted exclusively to administrators who maintain formal responsibility for user access management. Furthermore, permission modifications should be audited on a regular basis to identify any unauthorized adjustments.
+</Info>
+
+### "Activate Carrier"
+
+The Activate Carrier permission ensures that only authorized staff can change a carrier’s status e.g. from inactive or pending to active. Carrier activation typically follows carrier onboarding and compliance review, including insurance verification, authority checks, and documentation review. When a company establishes a new carrier relationship, the carrier must be activated before loads can be assigned. Conversely, when a carrier relationship ends or a carrier has compliance issues, deactivation prevents further assignments.
+
+By default, this permission is granted to Support, Partner Admin, Admin, and Operation Manager roles.
+
+<Info>
+  ✅ **Best Practice:** Assign Activate Carrier only to compliance staff or operations managers who are part of the carrier onboarding workflow. Pair this with a documented checklist: insurance certificate on file, operating authority verified, contact information complete before any activation is approved.
+</Info>
+
+### "Edit Carrier"
+
+Carrier records need to stay current. Insurance policies expire and are renewed, contacts change, and addresses change. Without the ability to edit carrier records, outdated information remains in the system and can cause dispatch errors, compliance gaps, or failed communications. The Edit Carrier permission controls whether a user can modify carrier profile information, such as contact details, addresses, payment terms, insurance information, MC and DOT numbers, and other carrier attributes. Without it, carrier data is read-only. Accurate carrier data is essential for load assignment, settlement, and regulatory compliance.
+
+<Warning>
+  ⚠️ This Permission does not grant the ability to activate or delete a carrier, those require separate permissions.
+</Warning>
+
+By default, this permission is granted to Support, Partner Admin, Admin, and Operation Manager roles.
+
+### "Delete Carrier"
+
+Carrier records may need to be deleted when carriers go out of business, when duplicate records are created by mistake, or when a carrier relationship is permanently terminated. Without the ability to delete records, your carrier list can accumulate stale or duplicate entries that create confusion during dispatch. The Delete Carrier permission controls whether a user can permanently delete carrier records from the system. Carrier records contain historical load, payment, and compliance data; deleting a carrier removes this audit trail. This permission does not require **Edit Carrier **or **Activate Carrier**.
+
+By default, this permission is granted to Support, Partner Admin, and Admin roles.
+
+<Info>
+  ✅ **Best Practice:** Never grant Delete Carrier to non-admin roles. Even for Partner Admins, consider whether deactivation would serve the same purpose. Require verbal confirmation before performing carrier deletions.
+</Info>
+
+### "Delete User"
+
+The Delete User permission controls whether a user can permanently delete other user accounts from the system. Like Delete Carrier, this is a destructive action that removes user records permanently. When an employee leaves the company, their Alvys account should be deactivated or removed, and Delete User is the permission that allows this action. However, because user deletion is irreversible and can affect audit trails, it must be handled carefully. In most cases, disabling a user account is preferable to deletion. This permission is restricted to the highest-level administrators.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5f643671-5d06-4780-868b-54741e3492d6/image.png)
+</Note>
+
+By default, this permission is granted to Support, Partner Admin, Admin, and Operation Manager roles.
+
+<Info>
+  ✅ **Best Practice: **Disable user accounts instead of deleting them. This preserves the audit trail and prevents data loss. To disable a user account, navigate to the company profile, select the Users tab, search for the user, click the status dropdown for that user, and select the Disabled option. Reserve deletion for duplicate user accounts or test user accounts with no meaningful history.
+</Info>
+
+### "Edit Asset"
+
+The Edit Asset permission controls whether a user can modify asset records, including drivers, trucks, and trailers. This is a broad permission that governs the ability to update asset profiles, change asset information, and manage asset-related data such as driver rate policies and bank information. Asset records form the operational foundation. Driver qualifications, truck specifications, trailer types, and equipment availability all depend on accurate asset data. Additionally, driver rate policies and bank information are sensitive financial data that affect driver settlements. This permission ensures that only authorized staff can modify asset records, preventing unauthorized changes that could impact operations, settlements, or compliance.
+
+When this permission is active, the user can: Create and import asset records, such as drivers, trucks, and trailers.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/90db5b21-8cca-4f9b-a2c5-613858b89a1b/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c4c85ea5-1982-4c57-93d6-4ead578feb23/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/70a15cca-5e23-4cb6-be3f-6e597a1019bf/image.png)
+</Note>
+
+Open any asset record (driver, truck, or trailer) and edit fields such as subsidiary, email, make, model, year, VIN, license plate, and more.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/df7deb7b-e3ff-41ba-8e22-a03d243335db/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d5af8f70-f7f1-4e40-a7d1-6a89f6045f8a/image.png)
+</Note>
+
+By default, this permission is granted to Support, Partner Admin, Admin, and Operation Manager roles.
+
+<Info>
+  ✅ **Best Practice:** Grant the Edit Asset permission to Billers and Data Entry staff who manage asset onboarding and maintenance. Consider whether Dispatchers need Edit Asset access; in many companies, dispatchers should be able to view but not modify asset records.
+</Info>
+
+### "Delete Asset"
+
+The Delete Asset permission controls whether a user can delete asset records (drivers, trucks, trailers) from the system. This is a destructive action that removes the asset and its associated data. In most cases, deactivating an asset is the appropriate action.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/13e34ad4-e00c-4749-ae6b-1b85d4889730/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d391c9c7-fb87-4203-ac77-3fcf0d0960da/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a6a27f9b-d9ac-4829-87ca-9cee8d1f8c85/image.png)
+</Note>
+
+By default, this authorization is extended exclusively to the Support and Partner Admin roles. Conversely, this permission is not assigned by default to the Admin, Operation Manager, Dispatcher, Biller, Sales Agent, Data Entry, Office Admin, Safety, or Driver roles.
+
+<Info>
+  ✅ **Best Practice:** The **Delete Asset** permission should never be granted to non administrative roles. As a matter of best practice, the deactivation of assets should be utilized rather than deletion for assets that are no longer in service.
+</Info>
+
+### "View Drivers"
+
+The View Drivers permission controls whether a user can see the [driver list](https://app.alvys.com/assets/drivers) and individual driver profiles. Without it, the user cannot select the Driver option from the Assets menu.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/57b8b6c2-bab0-442c-9884-309afaad9d15/image.png)
+</Note>
+
+Driver records are referenced throughout the system in load assignments, dispatch planning, settlement records, and safety reports. Most operational roles need at least read access to driver data to perform their functions effectively.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e260b727-ff26-4ccf-a031-cf74d05ba2f7/image.png)
+</Note>
+
+By default, this permission is granted to all roles except the Driver role.
+
+### "View Trucks"
+
+The View Trucks permission allows a user to see truck records. Without it, the [truck list](https://app.alvys.com/#/assets/trucks) is hidden and a user cannot view any truck profiles. Its default role assignments, behavior, and risk profile are identical to View Drivers.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/97899b94-6024-41dc-8010-21f87ebc6405/image.png)
+</Note>
+
+Truck records contain equipment specifications, maintenance status, and availability data. Dispatchers need truck visibility for load assignment; billers need it for settlement context; safety staff need it for compliance monitoring.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b6382de3-3aa1-4a68-a8ea-0c4d68ae04e9/image.png)
+</Note>
+
+<Info>
+  ✅ **Best Practice:** Assign View Trucks to all dispatchers, fleet managers, and operations managers. Pair with the View Drivers permission for anyone who needs to use Assignment Preferences. The Driver role should be excluded, as drivers do not use the TMS web interface and primarily interact with the system through the mobile app.
+</Info>
+
+### "View Trailers"
+
+Allows a user to see the [list of trailers](https://app.alvys.com/#/assets/trailers) in the Assets section of Alvys and open individual trailer records. Its default role assignments, behavior, and risk profile are identical to View Drivers and View Trucks. Without this permission, the trailer menu item and list are hidden. It is broadly assigned to almost all roles, as Dispatchers need trailer visibility for load planning, and safety staff need it for inspection and maintenance monitoring.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4b0fd6e6-b4b9-4716-b113-c2c430dbf4f3/image.png)
+</Note>
+
+<Info>
+  ✅ **Best Practice:** Grant** View Trailers** alongside T**ruck** and **Drivers View **permissions as a set.
+</Info>
+
+### "View Maintenance Records &amp; Totals"
+
+This permission determines whether authenticated users can access the maintenance module, view [maintenance records](https://app.alvys.com/#/maintenance), add maintenance records, review closed maintenance records etc., and also see [maintenance totals](https://app.alvys.com/#/maintenance/totals) for assets (Trucks and trailers). Without it, maintenance data is hidden.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/67150a01-d00d-4db0-927b-b74be458de2c/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3b153f68-514c-41ec-b701-cb9f1938e2fa/image.png)
+</Note>
+
+<Info>
+  💡 **View Maintenance Amounts** is an additional permission that reveals the dollar amounts within maintenance records. Both permissions must be active for a user to see the full financial details of maintenance work. With **View Maintenance Amounts**, dollar amounts on maintenance records, including parts costs, labor costs, and totals, become visible. Without this permission, those fields are hidden.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/13b1c88b-40c2-45a7-b8b5-7f3ef2df7578/image.png)
+</Info>
+
+By default, this specific authorization is extended to the Support, Partner Admin, Admin, Operation Manager, Dispatcher, Office Admin, and Safety roles. Conversely, this permission is not assigned by default to the Biller, Sales Agent, Data Entry, or Driver roles.
+
+This data is essential for fleet managers and safety staff to ensure vehicles meet DOT requirements and are safe to operate. The narrower default assignment (compared to Asset View permissions) reflects the specialized nature of maintenance data , dispatchers need it for equipment decisions, but billers and sales agents typically do not.
+
+<Info>
+  ✅ **Best Practice:** Grant this permission to all fleet managers, maintenance coordinators, and anyone responsible for scheduling repairs. Grant View Maintenance Amounts only to controllers, owners, and operations managers who need to track maintenance costs. Also include these permissions as part of the full Safety View permissions set, since users who need maintenance data typically also require access to accident, claim, and inspection records.
+</Info>
+
+### "View Accidents"
+
+The **View Accidents** permission enables a user to access the [Accidents page](https://app.alvys.com/#/accidents) within the Safety menu and observe detailed accident reports. The View Accidents permission controls whether a user can see, add, and edit accident records associated with assets, including accident reports, dates, descriptions, and related details. When this permission is active, the Safety Accidents menu option becomes visible and accessible. Conversely, in the absence of this permission, any attempt to navigate to the Accidents page is blocked.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8bba7b62-6c43-43ed-8d6e-a5af7de50501/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/13b8daeb-7ff2-48e7-919c-c09a8847903e/image.png)
+</Note>
+
+This permission is part of the Safety View permissions set. Accident records contain sensitive safety and legal information and may be involved in insurance claims, legal proceedings, and regulatory investigations. Access should be limited to safety staff, dispatchers who need to consider safety history when making assignments, and management.
+
+By default, this specific authorization is extended to the **Support**, **Partner Admin**, **Admin**, **Operation Manager**, **Dispatcher**, **Office Admin**, and **Safety** roles.
+
+<Info>
+  ✅ **Best Practice:** Grant as part of the full Safety View permissions set.
+</Info>
+
+### "View Claims"
+
+The View Claims permission controls whether a user can access the [Claims report page](https://app.alvys.com/#/claims) within the Safety menu to view, modify, and add insurance and cargo claim records associated with specific assets. This includes claim amounts, statuses, descriptions, and related details. Without it, claims data is hidden. Furthermore, insurance claims incorporate sensitive financial and legal information derived from incidents involving organizational assets. Consequently, access should be restricted to safety personnel, management, and operational roles that require comprehensive visibility into claim histories to facilitate informed risk management and assignment decisions.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/15b0623d-3ae1-41a1-922c-d11d1e638b7f/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e0018eca-b8b0-4a84-a367-3b232cd2b7fe/image.png)
+</Note>
+
+By default, this permission is granted to the Support, Partner Admin, Admin, Operation Manager, Dispatcher, Office Admin, and Safety roles.
+
+<Info>
+  ✅ **Best Practice: ** Assign the View Claims permission to owners, controllers, safety managers, and compliance staff. Do not assign it broadly, as claims data can have legal implications and should be accessed only by staff actively involved in claims management.
+</Info>
+
+### "View Roadside Inspections"
+
+The View Roadside Inspections permission allows a user to access the [Roadside Inspections page](https://app.alvys.com/#/roadside-inspections) within the Safety menu to view, add, and edit roadside inspection records for assets . This includes inspection results, violations, dates, and locations. Roadside inspection records are critical compliance data, directly impacting the company’s DOT safety rating (CSA scores) and potentially influencing insurance premiums and regulatory oversight. Safety staff use this information to identify problematic vehicles or drivers, while dispatchers may consider inspection history when making assignment decisions.
+
+<Info>
+  ✅ **Best Practice: **Assign the **View Roadside Inspections** permission to safety managers, compliance officers, and operations managers who actively monitor CSA scores. This is a foundational safety permission for anyone responsible for DOT compliance. Include this permission as part of the full Safety View permissions set.
+</Info>
+
+### "Edit Webhooks"
+
+Webhooks are automated connections that send data from Alvys to external software systems, such as load status changes, new bookings, or settlement events. The Edit Webhooks permission controls whether a user can create, update, delete, and enable or disable webhook integrations within the company’s subsidiary settings. Without this permission, the webhooks section of company settings is inaccessible. This is a technical permission typically needed only by IT administrators or integration engineers. Misconfigured webhooks can send sensitive data to unauthorized endpoints, cause integration failures, or overwhelm external systems with excessive notifications.
+
+**Granted by default to:** Support, Partner Admin, Admin, Operation Manager.
+
+<Info>
+  ✅ **Best Practice:** Assign Edit Webhooks only to technical administrators or IT staff who understand what each webhook does and where it sends data. Before editing or deleting any webhook, confirm with the person or team who built the integration what the downstream impact will be. Do not grant this permission to operational roles.
+</Info>
+
+## FAQs
+
+**Q: Should I grant View Tax ID/SSN and Edit Tax ID/SSN together?** A: Not necessarily, as they are independent permissions. You can grant View Tax ID/SSN to staff who only need to view the data without the power to change it; however, if you grant Edit Tax ID/SSN, you should always pair it with View Tax ID/SSN so the user can actually see the data they are modifying.
+
+**Q: Who has access to sensitive personal information (PII) by default? A:** To maintain strict security, the **View PII** permission is granted by default only to **Admin** and **Partner Admin** roles, while all other users must have it explicitly assigned by an administrator.
+
+**Q: If I have the View PII permission, can I see all personal data in the system? A:** No, you must hold **both** the **View PII** permission **and** the relevant domain permission such as **Billing, Dispatch, View Trucks, or View Drivers** to reveal sensitive details in your results.
+
+**Q: I was just granted the View PII permission, but I still see the data being masked. How do I fix this? A:** Permission updates do not apply to active sessions, so you must **log out and log back in** to refresh your access and view unmasked data.
+
+**Q: What happens if my View PII permission is revoked while I am currently using Insights? A:** Your current session will retain its access level until you log out; a fresh login is required to apply the updated, restricted security settings.
+
+**Q: What specific fields are protected by the View PII permission? A:** This permission masks highly sensitive details including **names, contact information, dates of birth, license numbers, insurance details, and geolocation.**
+
+**Q: What is the difference between the Edit Carrier and Activate Carrier permissions?** A: **Edit Carrier** allows a user to modify profile data like contact information and payment terms. **Activate Carrier** specifically controls the ability to change a carrier's status, such as moving them from pending to active.
+
+**Q: Why are Dispatchers denied the Edit Asset permission by default?** A: While dispatchers must see assets to assign loads, editing asset records involves sensitive financial data like driver rate policies and bank information. To maintain security, these administrative tasks are reserved for billers, office admins, and data entry staff.
+
+**Q: Can I grant individual Safety View permissions instead of the entire set?** A: Yes, each safety permission operates independently. However, for a consistent user experience and to ensure the Safety Report page functions correctly, it is recommended to grant all safety-related permissions as a complete set.
+
+**Q: Can a user create an account if they have the Add User permission but lack Set Permission?** A: Yes, the user can initiate the creation of a new account. However, because they lack **Set Permission**, the permissions section will be read-only, and the new account will default to standard role settings until an administrator with set permissions adjusts them.
+
+**Q: Why is the Set Permission authorization considered a high-privilege capability?** A: This permission allows a user to modify what every other person in the company is authorized to do. Because it governs the entire security framework of the system, it should be restricted to a very small number of trusted administrators.
+
+**Q: Is the Delete Carrier permission required to deactivate a carrier?** A: No. **Delete Carrier** and **Activate Carrier** (deactivation) are separate. It is almost always preferable to deactivate a carrier to preserve historical load and payment data rather than deleting the record entirely.
+
+**Q: Who should be granted the Edit Webhooks permission?** A: This should be restricted to IT administrators or integration engineers. Since webhooks send data to external endpoints, misconfiguration can lead to data breaches.
+
+**Q: Does the Edit Webhooks permission require any other specific authorizations?** A: **Edit Webhooks** operates independently. However, because these settings are located within the Company Settings area, the user typically needs an admin-level role to navigate to that section of the TMS.
+
+**Q: Who can assign Management and Privacy permissions?**
+
+**A:** Only users who have the **"Set Permission"** permission can assign or remove permissions for other users. Typically this is limited to Admin, Partner Admin, Operation Manager, Office Admin, and Support roles.
+
+**Q: Will deleting a carrier remove it from existing loads?**
+
+**A:** Yes. If the carrier has been assigned to any loads in Alvys, deleting it will also remove the carrier from those loads. Use the **"Delete Carrier"** permission with extreme caution.
+
+**Q: Does "View PII" give access to PII across the whole platform?**
+
+**A:** No. **"View PII"** specifically controls whether PII fields are unmasked in Alvys Insights. It has no effect on PII visibility in other parts of the application such as driver profiles or carrier records.
+
+**Q: Can I grant "Edit Tax ID/SSN" without also granting "View Tax ID/SSN"?**
+
+**A:** The permissions can be granted independently, but granting edit access without view access means the user cannot see the Tax ID field they are editing. Always grant **"View Tax ID/SSN"** together with **"Edit Tax ID/SSN"**.
+
+**Q: What happens if a user has "Set Permission" but not "Add User"?**
+
+**A:** A user with **"Set Permission"** but without **"Add User"** can modify permissions on existing user profiles but cannot access the user creation workflow. They cannot create new user accounts.**Q: ACH details disappear after I save a driver profile. Why?** **A:** This issue occurs when the "View ACH Details" permission is not enabled for your user account. Contact an administrator to ensure this permission is granted.
+
+## Go Deeper
+
+- [Adding and Managing Users in Alvys](https://help.alvys.com/en/articles/14393975-adding-and-managing-users-in-alvys)
+- [User Roles in Alvys](/help/administration/user-roles-permissions-collection)
+- [App Permissions](https://help.alvys.com/en/articles/14396176-app-permissions)

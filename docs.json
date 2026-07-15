@@ -269,6 +269,418 @@
         ]
       },
       {
+        "tab": "Help Center",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              {
+                "group": "User Management",
+                "pages": [
+                  "help/getting-started/how-to-set-up-multi-factor-authentication-mfa-in-alvys"
+                ]
+              },
+              {
+                "group": "Onboarding",
+                "pages": [
+                  "help/getting-started/how-to-navigate-the-catalogs",
+                  "help/getting-started/how-to-contact-alvys-support",
+                  "help/getting-started/how-to-clear-cache-cookies-and-troubleshoot-common-issues",
+                  "help/getting-started/adding-new-users-signing-in",
+                  "help/getting-started/troubleshooting-pdf-display-issues-in-alvys"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "help/administration/how-to-map-accessorials-for-edi",
+              "help/administration/overview-of-user-permissions",
+              "help/administration/user-roles-on-alvys",
+              "help/administration/how-to-manage-your-alvys-subscription",
+              {
+                "group": "Subsidiaries",
+                "pages": [
+                  "help/administration/how-to-set-up-offices-in-alvys"
+                ]
+              },
+              {
+                "group": "Users & permissions",
+                "pages": [
+                  "help/administration/customer-account-manager-role-on-loads",
+                  "help/administration/user-roles-permissions-collection",
+                  "help/administration/user-roles-in-alvys",
+                  "help/administration/general-permissions",
+                  "help/administration/user-permissions-glossary",
+                  "help/administration/rates-permissions",
+                  "help/administration/app-permissions",
+                  "help/administration/tendering-permissions",
+                  "help/administration/9565609-overview-of-user-permissions",
+                  "help/administration/marketplace-permissions",
+                  "help/administration/additional-load-permissions",
+                  "help/administration/company-management-permissions",
+                  "help/administration/e-check-permissions",
+                  "help/administration/billing-permissions",
+                  "help/administration/contracted-lanes-permissions",
+                  "help/administration/customer-management-permissions",
+                  "help/administration/dispatch-permissions",
+                  "help/administration/how-to-add-and-manage-users-in-alvys",
+                  "help/administration/management-privacy-permissions",
+                  "help/administration/report-permissions"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "help/integrations/twilio-new-integration",
+              "help/integrations/alvys-api",
+              "help/integrations/connecting-power-bi-to-alvys-public-api",
+              {
+                "group": "General",
+                "pages": [
+                  "help/integrations/11668808-connecting-power-bi-to-alvys-public-api"
+                ]
+              },
+              {
+                "group": "Brokerage",
+                "pages": [
+                  "help/integrations/post-loads-to-dat-load-board",
+                  "help/integrations/alvys-carrier-marketplace",
+                  "help/integrations/highway-integration",
+                  "help/integrations/mycarrierpackets-mcp-integration",
+                  "help/integrations/broker-credit-check",
+                  "help/integrations/rmis-integration",
+                  "help/integrations/truckstop-load-board-integration"
+                ]
+              },
+              {
+                "group": "Maintenance",
+                "pages": [
+                  "help/integrations/fleetrock-maintenance-integration"
+                ]
+              },
+              {
+                "group": "Fuel",
+                "pages": [
+                  "help/integrations/bestpass-toll-integration",
+                  "help/integrations/pilot-flying-j-fuel-integration",
+                  "help/integrations/ipass-toll-integration",
+                  "help/integrations/comdata-fuel-checks-integration",
+                  "help/integrations/ryder-fuel-integration",
+                  "help/integrations/compass-fuel-integration",
+                  "help/integrations/tcs-fuel-integration",
+                  "help/integrations/prepass-toll-integration",
+                  "help/integrations/quikq-love-s-fuel-integration",
+                  "help/integrations/relay-payments-fuel-integration",
+                  "help/integrations/efs-fuel-integration",
+                  "help/integrations/how-to-manage-fuel-in-alvys"
+                ]
+              },
+              {
+                "group": "ELD & Telematics",
+                "pages": [
+                  "help/integrations/connecting-roadstar-to-alvys",
+                  "help/integrations/connecting-samsara-to-alvys",
+                  "help/integrations/how-to-connect-teletrac-navman-to-alvys",
+                  "help/integrations/connecting-verizon-connect-to-alvys",
+                  "help/integrations/connecting-tfm-to-alvys",
+                  "help/integrations/connecting-skybitz-to-alvys",
+                  "help/integrations/how-to-connect-thermo-king-to-alvys",
+                  "help/integrations/connecting-onestepgps-to-alvys",
+                  "help/integrations/how-to-connect-trackensure-to-alvys",
+                  "help/integrations/connecting-orbcomm-platform-to-alvys",
+                  "help/integrations/orbcomm-cargowatch-integration",
+                  "help/integrations/eld-rider-eld-telematics-integration",
+                  "help/integrations/fleetlocate-eld-telematics-integration",
+                  "help/integrations/ksk-eld-eld-telematics-integration",
+                  "help/integrations/motive-eld-telematics-integration",
+                  "help/integrations/fleetpulse-telematics-integration",
+                  "help/integrations/master-eld-eld-telematics-integration",
+                  "help/integrations/geotab-eld-telematics-integration"
+                ]
+              },
+              {
+                "group": "EDI & Visibility",
+                "pages": [
+                  "help/integrations/how-to-configure-edi-auto-update-settings",
+                  "help/integrations/how-to-enable-edi-tender-auto-acceptance-for-a-customer",
+                  "help/integrations/fourkites-outbound-integration",
+                  "help/integrations/how-to-update-a-stop-with-shared-edi-timestamps",
+                  "help/integrations/fourkites-inbound-integration",
+                  "help/integrations/trucker-tools-inbound-integration",
+                  "help/integrations/monarch-tracking-integration",
+                  "help/integrations/project44-p44-integration",
+                  "help/integrations/macropoint-inbound-visibility-tracking-data-not-appearing",
+                  "help/integrations/how-to-configure-trucker-tools-outbound-tracking-updates",
+                  "help/integrations/macropoint-tracking-integration"
+                ]
+              },
+              {
+                "group": "Accounting",
+                "pages": [
+                  "help/integrations/how-to-configure-dimension-and-custom-field-mappings-for-sage-intacct",
+                  "help/integrations/quickbooks-desktop-integration-collection",
+                  "help/integrations/business-central-integration-collection",
+                  "help/integrations/sage-intacct-integration-collection",
+                  "help/integrations/transactions-failed-to-sync-to-netsuite",
+                  "help/integrations/how-to-prepare-business-central-before-connecting-to-alvys",
+                  "help/integrations/how-to-resolve-business-central-transaction-export-errors",
+                  "help/integrations/how-to-prepare-netsuite-before-connecting-to-alvys",
+                  "help/integrations/netsuite-integration-collection",
+                  "help/integrations/sage-intacct-payments-and-error-transactions",
+                  "help/integrations/quickbooks-online-integration-overview",
+                  "help/integrations/alvys-payment-synchronization-for-accounting-integrations",
+                  "help/integrations/business-central-transaction-export-and-modification-workflow",
+                  "help/integrations/1-quickbooks-online-prerequisites-start-here",
+                  "help/integrations/quickbooks-online-identifying-and-resolving-failed-transactions",
+                  "help/integrations/how-to-clear-error-transactions",
+                  "help/integrations/how-to-connect-sage-intacct-to-alvys-and-configure-settings",
+                  "help/integrations/how-to-prepare-sage-intacct-before-connecting-to-alvys",
+                  "help/integrations/how-to-export-and-manage-transactions-in-quickbooks-online",
+                  "help/integrations/how-to-map-accounts-for-quickbooks-online",
+                  "help/integrations/how-to-set-up-quickbooks-desktop-account-mappings-in-alvys",
+                  "help/integrations/identifying-and-resolving-failed-quickbooks-desktop-transaction-exports",
+                  "help/integrations/how-to-prepare-quickbooks-desktop-before-connecting-to-alvys",
+                  "help/integrations/how-to-set-up-netsuite-account-and-item-mappings-in-alvys",
+                  "help/integrations/how-to-export-and-modify-transactions-in-quickbooks-desktop",
+                  "help/integrations/how-to-connect-quickbooks-desktop-to-alvys-and-configure-settings",
+                  "help/integrations/how-to-connect-business-central-to-alvys-and-configure-settings",
+                  "help/integrations/how-to-export-and-modify-transactions-in-netsuite",
+                  "help/integrations/sage-intacct-transaction-export-and-modification",
+                  "help/integrations/sage-intacct-account-mappings",
+                  "help/integrations/how-to-connect-and-configure-quickbooks-online-in-alvys",
+                  "help/integrations/netsuite-authentication-and-settings-configuration-in-alvys",
+                  "help/integrations/how-to-set-up-business-central-account-mappings"
+                ]
+              },
+              {
+                "group": "Factoring & Payments",
+                "pages": [
+                  "help/integrations/how-to-set-up-and-use-factoring-in-alvys",
+                  "help/integrations/capital-depot-factoring-integration",
+                  "help/integrations/rts-financial-factoring-integration",
+                  "help/integrations/saint-johns-capital-factoring-integration",
+                  "help/integrations/compass-funding-solutions-factoring-integration",
+                  "help/integrations/triumph-business-capital-factoring-integration",
+                  "help/integrations/wex-fleetone-ftp-factoring-integration",
+                  "help/integrations/apex-capital-factoring-integration",
+                  "help/integrations/tafs-factoring-integration",
+                  "help/integrations/trufunding-factoring-integration",
+                  "help/integrations/otr-solutions-factoring-integration",
+                  "help/integrations/winfactor-ftp-factoring-integration"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "What's New",
+            "pages": [
+              "help/what-s-new/march-2026-releases",
+              "help/what-s-new/february-2026-releases",
+              "help/what-s-new/january-2026-releases",
+              "help/what-s-new/december-2025-releases",
+              "help/what-s-new/november-2025-releases",
+              "help/what-s-new/october-2025-releases",
+              "help/what-s-new/discover-shortcuts"
+            ]
+          },
+          {
+            "group": "Reports & Analytics",
+            "pages": [
+              "help/reports-analytics/how-to-filter-drill-and-save-the-view-you-want",
+              {
+                "group": "Custom reports",
+                "pages": [
+                  "help/reports-analytics/custom-reports-guide-collection",
+                  "help/reports-analytics/how-to-set-up-custom-reports",
+                  "help/reports-analytics/how-to-get-started-with-custom-reports",
+                  "help/reports-analytics/how-to-build-visualizations-with-drag-and-drop",
+                  "help/reports-analytics/how-to-write-a-custom-metric-with-maql"
+                ]
+              },
+              {
+                "group": "Operational",
+                "pages": [
+                  "help/reports-analytics/how-to-share-export-schedule-and-alert-on-a-dashboard",
+                  "help/reports-analytics/saved-views",
+                  "help/reports-analytics/generating-and-customizing-operational-reports-trips-loads",
+                  "help/reports-analytics/how-to-export-data-and-reports-from-alvys"
+                ]
+              },
+              {
+                "group": "Financial",
+                "pages": [
+                  "help/reports-analytics/gross-pay-calculation-updates",
+                  "help/reports-analytics/ifta-reports",
+                  "help/reports-analytics/summary-financial-report-v1"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Loads & Trips",
+            "pages": [
+              "help/loads-trips/alvys-load-board",
+              "help/loads-trips/public-load-tracking",
+              "help/loads-trips/optimize-split-trips-rearrange-stops",
+              {
+                "group": "Statuses",
+                "pages": [
+                  "help/loads-trips/how-to-mark-a-load-as-tonu",
+                  "help/loads-trips/how-to-release-a-load-to-billing",
+                  "help/loads-trips/how-to-cancel-loads-in-alvys",
+                  "help/loads-trips/understanding-load-statuses-and-how-to-revert-them"
+                ]
+              },
+              {
+                "group": "Create/Add",
+                "pages": [
+                  "help/loads-trips/how-to-create-and-add-accessorials",
+                  "help/loads-trips/how-to-clone-a-load",
+                  "help/loads-trips/how-to-create-a-load",
+                  "help/loads-trips/how-to-create-a-load-using-automated-data-entry",
+                  "help/loads-trips/how-to-create-and-use-load-templates",
+                  "help/loads-trips/understanding-address-input",
+                  "help/loads-trips/stop-dates-and-times",
+                  "help/loads-trips/how-time-zone-standardization-works-in-alvys",
+                  "help/loads-trips/mileage-sources-and-types",
+                  "help/loads-trips/mileage-to-next-stop"
+                ]
+              },
+              {
+                "group": "Modify & change",
+                "pages": [
+                  "help/loads-trips/how-to-lock-and-unlock-a-load-for-editing",
+                  "help/loads-trips/how-to-collapse-and-expand-stops-on-a-load",
+                  "help/loads-trips/how-to-switch-the-customer-on-a-released-load",
+                  "help/loads-trips/how-to-add-and-manage-notes-on-a-load",
+                  "help/loads-trips/how-to-show-or-hide-the-carrier-name-on-bols",
+                  "help/loads-trips/managing-a-load",
+                  "help/loads-trips/error-when-recording-arrival-or-departure-time-on-a-stop",
+                  "help/loads-trips/how-to-upload-documents-using-the-mobile-app"
+                ]
+              },
+              {
+                "group": "Dispatch",
+                "pages": [
+                  "help/loads-trips/how-to-assign-two-carriers-to-the-same-load",
+                  "help/loads-trips/2-owner-operators-cannot-be-assigned-to-a-trip",
+                  "help/loads-trips/loads-stay-under-company-driver-after-a-driver-s-status-changes-to-owner-operator",
+                  "help/loads-trips/override-authorization-error-when-assigning-a-carrier",
+                  "help/loads-trips/dispatch-planner",
+                  "help/loads-trips/how-to-add-roles-to-loads-and-trips",
+                  "help/loads-trips/previous-trip-and-last-location-on-the-load-details-page",
+                  "help/loads-trips/load-board-region-filters",
+                  "help/loads-trips/how-to-set-up-auto-assign-fleets-to-loads",
+                  "help/loads-trips/rate-analytics",
+                  "help/loads-trips/how-to-dispatch-a-load",
+                  "help/loads-trips/how-to-configure-geofences-for-driver-check-in-out-automation",
+                  "help/loads-trips/contracted-rates"
+                ]
+              },
+              {
+                "group": "Tenders",
+                "pages": [
+                  "help/loads-trips/tender-documents-customer-rate-confirmation-v1",
+                  "help/loads-trips/tenders",
+                  "help/loads-trips/how-to-send-the-rate-confirmation-to-a-carrier"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Accounting & Settlements",
+            "pages": [
+              {
+                "group": "Deductions/Advances/Escrow",
+                "pages": [
+                  "help/accounting-settlements/how-to-issue-and-manage-e-checks-in-alvys",
+                  "help/accounting-settlements/how-to-set-up-balance-based-deductions",
+                  "help/accounting-settlements/how-to-move-an-e-check-to-a-different-load",
+                  "help/accounting-settlements/split-fuel-transactions",
+                  "help/accounting-settlements/escrow-accounts"
+                ]
+              },
+              {
+                "group": "Invoicing",
+                "pages": [
+                  "help/accounting-settlements/i-changed-the-invoicing-settings-but-it-s-not-reflected-on-the-load",
+                  "help/accounting-settlements/batch-invoicing",
+                  "help/accounting-settlements/how-to-handle-short-payments-and-write-off-bad-debt",
+                  "help/accounting-settlements/billing-status-definitions",
+                  "help/accounting-settlements/how-to-request-detention-payment-by-email",
+                  "help/accounting-settlements/why-can-t-i-release-or-invoice-a-load-in-alvys-and-how-can-i-resolve-it",
+                  "help/accounting-settlements/email-submit-invoice-fails",
+                  "help/accounting-settlements/invoicing-settings",
+                  "help/accounting-settlements/how-to-use-summary-invoicing"
+                ]
+              },
+              {
+                "group": "Driver settlements",
+                "pages": [
+                  "help/accounting-settlements/linehaul-rate-types",
+                  "help/accounting-settlements/driver-settlements-faq",
+                  "help/accounting-settlements/paystub-layout-templates",
+                  "help/accounting-settlements/how-to-generate-truck-statements-for-owner-operators",
+                  "help/accounting-settlements/driver-rates-rules-plans-the-complete-guidex"
+                ]
+              },
+              {
+                "group": "Fuel",
+                "pages": [
+                  "help/accounting-settlements/managing-and-troubleshooting-ifta-reporting-in-alvys"
+                ]
+              },
+              {
+                "group": "Carrier settlements",
+                "pages": [
+                  "help/accounting-settlements/carrier-settlements"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Assets & Fleet",
+            "pages": [
+              {
+                "group": "Drivers",
+                "pages": [
+                  "help/assets-fleet/how-to-add-and-manage-fleets-in-alvys",
+                  "help/assets-fleet/how-to-create-a-driver",
+                  "help/assets-fleet/how-to-add-driver-and-asset-events",
+                  "help/assets-fleet/how-to-set-up-assignment-preferences-for-drivers",
+                  "help/assets-fleet/driver-companion-mobile-app",
+                  "help/assets-fleet/driver-list"
+                ]
+              },
+              {
+                "group": "Trucks",
+                "pages": [
+                  "help/assets-fleet/default-equipment",
+                  "help/assets-fleet/how-to-add-a-trailer",
+                  "help/assets-fleet/asset-map",
+                  "help/assets-fleet/how-to-add-a-truck-in-alvys"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Asset & Fleet",
+            "pages": [
+              {
+                "group": "Safety/Compliance",
+                "pages": [
+                  "help/asset-fleet/how-to-verify-a-motor-carrier-in-alvys"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Changelog",
         "pages": [
           "changelog"

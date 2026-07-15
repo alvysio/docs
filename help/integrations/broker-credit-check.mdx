@@ -1,0 +1,177 @@
+---
+title: "Broker Credit Check"
+---
+
+<Note>
+  **Applies to:** All users
+
+  **Module:** Companies · Loads · Accounting > Factoring Upload
+
+  **Last reviewed:** 2026-06 · **Owner:** Integrations team
+
+  Run a broker credit check (also called a customer credit check or factoring credit check) to have your factoring company evaluate the creditworthiness of a customer or broker before submitting an invoice for funding. Supported providers: OTR Solutions and Saint John Capital Factoring.
+</Note>
+
+## Overview
+
+A broker credit check is a procedure your factoring company uses to assess the creditworthiness of a customer or broker before agreeing to purchase an invoice. Running a credit check before submission reduces the risk of a declined invoice and helps keep your factoring workflow moving.
+
+In Alvys, credit checks can be triggered manually by a user or automatically by the system. Manual checks are available from the customer or broker profile and from the load details page. Automatic checks are triggered at specific points in the invoicing workflow.
+
+This feature is only available when your subsidiary has an active factoring integration that supports broker credit checks. The two supported integrations are OTR Solutions and Saint John Capital Factoring.
+
+## Before You Start
+
+- Your subsidiary must have an active factoring integration set up for either OTR Solutions or Saint John Capital Factoring. To set up the integration, go to Management > Integrations, select the subsidiary, expand the Factoring section, and configure the provider.
+- The customer or broker profile must have Factoring Company set as the invoicing method for the subsidiary where the integration was added.
+- The customer or broker record must have an MC number on file. If the MC number is missing and the company is not a Customer type, the credit check will not run (see Troubleshooting).
+
+No special role or permission beyond an active authenticated session is required to run a credit check. Any user who can access the company profile or load details page can trigger a credit check.
+
+## Steps
+
+### Set up the factoring invoicing method on the customer or broker profile
+
+1. Go to Companies and open the customer or broker profile you want to run a credit check for.
+2. Navigate to the Invoicing tab on the profile.
+3. Under the subsidiary where your OTR Solutions or Saint John Capital Factoring integration is configured, add Factoring Company as the invoicing method.
+4. Click Save.
+
+<Note>
+  ![Image displaying the Saint Johns Capital Factoring Integration form in Alvys](https://alvys.intercom-attachments-1.com/i/o/1103551883/246acecf42d73879ac609259/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F53f1c0d3-c450-4c2d-94a0-8c7a48c94bae-2FUntitled.png)
+
+  *Image displaying the Saint Johns Capital Factoring Integration form in Alvys *
+</Note>
+
+### Run a manual credit check from the customer or broker profile
+
+Once the integration is successfully added, a refresh icon (↻) appears next to the company name in the profile header. This icon is the manual credit check trigger.
+
+1. Open the customer or broker profile.
+2. Click the refresh icon (↻) next to the company name.
+3. Alvys sends a credit check request to your factoring provider and returns a status.
+
+<Note>
+  ![Refresh icon (↻) next to a customer or broker name in the company profile header after the factoring invoicing method has been added.](https://alvys.intercom-attachments-1.com/i/o/1103551893/6f7a0bb536a98690ccdb15ce/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F2aeff486-d0b8-4a92-a936-9e254f136d4b-2FUntitled.png)
+
+  *Refresh icon (↻) next to a customer or broker name in the company profile header after the factoring invoicing method has been added.*
+</Note>
+
+After the check runs, a color-coded status icon appears next to the company name:
+
+The credit check status and the timestamp of the last check are shown in the profile header at all times.
+
+<Note>
+  ![Credit check status displayed next to the customer or broker name in the profile header.](https://alvys.intercom-attachments-1.com/i/o/1103551908/37ac5286e378594af4af7c89/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Ff25d98f0-e25d-4aaa-a559-72797686376e-2FUntitled.png)
+
+  *Credit check status displayed next to the customer or broker name in the profile header.*
+</Note>
+
+### Run a manual credit check from the load details page
+
+1. Go to Loads and open a load whose customer has a subsidiary using the Factoring Company invoicing method.
+2. In the Order Details section of the load, locate the Factoring Company row.
+3. Click the refresh icon (↻) to trigger a credit check for that customer.
+
+<Note>
+  ![Image displaying Credit Check Refresh icon from load details page](https://alvys.intercom-attachments-1.com/i/o/1103551916/1558ef010f2fc863519c4d66/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Ff6140893-dcf5-4511-8c26-0fd2112b7e8b-2FUntitled.png)
+
+  *Image displaying Credit Check Refresh icon from load details page*
+</Note>
+
+After the check runs, the same color-coded status icons appear in the load's Order Details section. A confirmation message appears at the bottom of the screen:
+
+## Result
+
+After a credit check runs, the status icon next to the customer or broker name is updated to reflect the current result, and the timestamp showing when the last check was run is also updated. This status is visible on both the company profile and the load details page.
+
+## Variations
+
+### Automatic credit checks during invoicing
+
+Alvys runs a credit check automatically in the following situations:
+
+- When you click Invoice Load to generate an invoice, if the last credit check for that customer or broker was more than 24 hours ago, a new check is triggered automatically before the load moves to **Queued** status.
+- When a new load is created with a customer who has a factoring invoicing method configured, if the last credit check was more than 24 hours ago, a check is triggered automatically at load creation.
+
+### Submitting a load to factoring when a credit check is declined
+
+The behavior when a declined status exists depends on which factoring provider is configured.
+
+**Saint John Capital Factoring:** If a load's customer has a credit check status of **Declined**, you cannot select that load on the Factoring Upload page. The load will be greyed out and cannot be added to a batch.
+
+**OTR Solutions:** Whether the credit check status is **Declined**, **Call Credit**, or **Approved**, you can still select the load and submit it to OTR Solutions. OTR Solutions does not block batch submission based on credit check status.
+
+The full workflow to submit a load to factoring after a credit check:
+
+1. Open or create a load with a customer whose subsidiary is configured with the Factoring Company invoicing method.
+2. Advance the load to **Released** status.
+3. Click **Invoice Load** to generate the invoice. If the last credit check is older than 24 hours, a new check runs automatically at this step. The load moves to **Queued** status.
+4. Go to Accounting > Factoring Upload.
+5. Select the correct subsidiary.
+6. Select the loads to include in the batch. For Saint John Capital, any load with a **Declined** credit check status cannot be selected.
+
+   <Note>
+     ![Image displaying load selection for factoring batch](https://alvys.intercom-attachments-1.com/i/o/1103551923/1c28b0e18e4d6195c26babca/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Fb25fe2f9-ce8c-4fcf-a92f-b0026ad41705-2FUntitled.png)
+
+     *Image displaying load selection for factoring batch *
+   </Note>
+
+   ![Image displaying load selection for factoring batch](https://alvys.intercom-attachments-1.com/i/o/1103551923/1c28b0e18e4d6195c26babca/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Fb25fe2f9-ce8c-4fcf-a92f-b0026ad41705-2FUntitled.png)
+
+   *Image displaying load selection for factoring batch *
+7. Click Submit Batch.
+
+## Troubleshooting
+
+### Credit check icon does not appear on the company profile
+
+**Step 1:** Confirm the company has Factoring Company set as the invoicing method on the subsidiary where your OTR Solutions or Saint John Capital Factoring integration is active.
+
+**Step 2:** Confirm your tenant has an OTR Solutions or Saint John Capital Factoring integration active. Other factoring providers (Apex Capital, TAFS, Triumph, RTS, Capital Depot, Compass Funding Solutions, WinFactor, and Wex FleetOne) do not support broker credit checks and will not show the credit check icon.
+
+**Step 3:** If both conditions are met and the icon still does not appear, contact Alvys support.
+
+### Credit check returns "MC Number is required"
+
+The credit check requires an MC number to identify the broker or customer with the factoring provider. If the company record does not have an MC number on file, the credit check will not run. Add the MC number to the company's profile and then retry the credit check.
+
+### Load cannot be selected on the Factoring Upload page
+
+A load is blocked from batch selection when the customer has a **Declined** credit check status and the subsidiary is configured with Saint John Capital Factoring. Run a new credit check from the customer profile. If the provider approves on the new check, the load becomes selectable. If the provider declines again, contact your Saint John Capital representative directly to resolve the credit status before resubmitting.
+
+### Credit check status is not updating after running a new check
+
+Refresh the page after triggering a credit check. If the status remains unchanged after refreshing, the factoring provider may be experiencing a delay. Wait a few minutes and try again. If the issue persists, contact Alvys support.
+
+## FAQs
+
+**Q: Which factoring integrations support broker credit checks?**
+
+**A:** OTR Solutions and Saint John Capital Factoring. All other factoring providers available in Alvys do not support broker credit checks, and the credit check icon will not appear for companies whose subsidiary uses a different provider.
+
+**Q: How often does a credit check need to be run?**
+
+**A:** The system automatically runs a new credit check when the most recent check is older than 24 hours. You can also trigger a manual check at any time by clicking the refresh icon (↻) on the company profile or the load details page.
+
+**Q: What happens if a credit check is declined for OTR Solutions?**
+
+**A:** For OTR Solutions, a **Declined** status does not block you from selecting that load on the Factoring Upload page or submitting the batch. The factoring company will apply its own rules after submission.
+
+**Q: What does the amber "Call Credit" status mean?**
+
+**A:** The **Call Credit** status is specific to OTR Solutions. It means the customer or broker must contact OTR Solutions directly to receive credit approval before the factoring company will fund the invoice.
+
+**Q: Can I run a credit check if I do not use factoring for invoicing?**
+
+**A:** No. The credit check feature is only available when the company has the Factoring Company invoicing method configured for a subsidiary with an active OTR Solutions or Saint John Capital Factoring integration. Without that configuration, the credit check icon does not appear.
+
+**Q: Does running a broker credit check require a special permission?**
+
+**A:** No. Any authenticated Alvys user who can access the company profile or load details page can trigger a manual credit check. There is no dedicated credit check permission in Alvys.
+
+## Go Deeper
+
+- [Understanding Factoring in Alvys](/help/integrations/how-to-set-up-and-use-factoring-in-alvys)
+- [OTR Solutions Integration and Features](/help/integrations/otr-solutions-factoring-integration)
+- [Saint Johns Capital Factoring](/help/integrations/saint-johns-capital-factoring-integration)

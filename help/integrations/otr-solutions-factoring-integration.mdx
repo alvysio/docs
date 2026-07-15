@@ -1,0 +1,288 @@
+---
+title: "OTR Solutions Factoring Integration"
+---
+
+<Note>
+  **Applies to:** Admins · Partner Admins · Support staff (integration setup); users with the **"Billing"** permission (batch submission and reporting)
+
+  **Module:** Management > Integrations; Management > Company Profile; Accounting > Factoring Upload; Reports > Factoring
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  **Provider:** OTR Solutions · **Integration type:** Two-way API · **Sync direction:** Alvys submits invoice batches and credit check requests to OTR Solutions; OTR Solutions returns credit check results and purchase status updates to Alvys
+</Note>
+
+## What This Integration Does
+
+OTR Solutions connects to Alvys via a two-way API to automate invoice submission, broker credit checks, and purchase status reporting for factoring clients. Also referred to as OTR factoring or OTR Solutions factoring.
+
+Alvys submits invoice batches and broker credit check requests to OTR Solutions. OTR Solutions returns credit check results in real time and provides purchase status updates that sync back to Alvys nightly or on demand. When a load is funded by OTR Solutions, the load status in Alvys updates to **Financed**.
+
+## Prerequisites
+
+- Active account with OTR Solutions
+- Username and password from the OTR Solutions client portal
+- USDOT number set on each subsidiary that will submit batches
+- MC number set on each customer or broker that will be included in a batch or credit check (a load missing an MC number will fail individually during submission; the rest of the batch proceeds)
+- Notice of Assignment text provided by OTR Solutions
+- Admin, Partner Admin, or Support access to configure the integration
+- **"Billing"** permission to submit batches and access reporting
+
+## Connect &amp; Authenticate
+
+### Configure your Notice of Assignment
+
+1. Navigate to Management > Company Profile.
+2. In the General Info tab, locate the Important Information section. Click the **(+)** button. The Manage Important Info pop-up opens.
+
+   <Note>
+     ![Manage Important Info pop-up opened from the Important Information section of the General Info tab](https://alvys.intercom-attachments-1.com/i/o/1103589919/7d19f49150398cfae02752d8/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F190155d7-55d8-498d-8035-1485c3f93bde-2FUntitled.png)
+
+     *Manage Important Info pop-up opened from the Important Information section of the General Info tab*
+   </Note>
+
+   ![Manage Important Info pop-up opened from the Important Information section of the General Info tab](https://alvys.intercom-attachments-1.com/i/o/1103589919/7d19f49150398cfae02752d8/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F190155d7-55d8-498d-8035-1485c3f93bde-2FUntitled.png)
+
+   *Manage Important Info pop-up opened from the Important Information section of the General Info tab*
+3. In the drop-down menu, select **Notice of Assignment**. Copy and paste the Notice of Assignment text provided by OTR Solutions.
+
+   <Note>
+     ![Notice of Assignment text pasted into the Manage Important Info field](https://alvys.intercom-attachments-1.com/i/o/1103589933/e39a31aba1fafc28ffa279b2/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F4697a953-4e7e-49ed-8cc0-d4a01340a1ba-2FUntitled.png)
+
+     *Notice of Assignment text pasted into the Manage Important Info field*
+   </Note>
+
+   ![Notice of Assignment text pasted into the Manage Important Info field](https://alvys.intercom-attachments-1.com/i/o/1103589933/e39a31aba1fafc28ffa279b2/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F4697a953-4e7e-49ed-8cc0-d4a01340a1ba-2FUntitled.png)
+
+   *Notice of Assignment text pasted into the Manage Important Info field*
+4. Click **Save**.
+
+### Configure the OTR Solutions integration
+
+1. Navigate to Management > Integrations.
+2. Select the subsidiary you want to configure. Expand the **Factoring** section. Click the pencil icon next to **OTR Solutions**.
+
+   <Note>
+     ![Factoring section expanded in Integrations with the OTR Solutions pencil icon](https://alvys.intercom-attachments-1.com/i/o/1103589945/29c4dd8ade8741d3a8a04759/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F82b94188-3efb-41e2-a7da-75c89f72e5e8-2FUntitled.png)
+
+     *Factoring section expanded in Integrations with the OTR Solutions pencil icon*
+   </Note>
+
+   ![Factoring section expanded in Integrations with the OTR Solutions pencil icon](https://alvys.intercom-attachments-1.com/i/o/1103589945/29c4dd8ade8741d3a8a04759/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F82b94188-3efb-41e2-a7da-75c89f72e5e8-2FUntitled.png)
+
+   *Factoring section expanded in Integrations with the OTR Solutions pencil icon*
+3. Enter the username and password you use to log in to the OTR Solutions client portal.
+
+   <Note>
+     ![Credential entry fields for the OTR Solutions integration](https://alvys.intercom-attachments-1.com/i/o/1103589958/e55bc972cdac80e2398c1b06/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F56ab64ba-5187-4a1a-8220-2f2caa625158-2FUntitled.png)
+
+     *Credential entry fields for the OTR Solutions integration*
+   </Note>
+
+   ![Credential entry fields for the OTR Solutions integration](https://alvys.intercom-attachments-1.com/i/o/1103589958/e55bc972cdac80e2398c1b06/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F56ab64ba-5187-4a1a-8220-2f2caa625158-2FUntitled.png)
+
+   *Credential entry fields for the OTR Solutions integration*
+4. Click **Save**. The integration is now active for this subsidiary. Repeat steps 1 through 4 for each additional subsidiary.
+
+### How to submit a batch
+
+1. Navigate to Accounting > Factoring Upload. All loads must have a **Queued** status with the invoicing method set to factoring and documents merged.
+2. Select the correct subsidiary.
+
+   <Note>
+     ![Subsidiary selection on the Factoring Upload page](https://alvys.intercom-attachments-1.com/i/o/1103589968/c86608f1af9b348acc03755b/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Faaf4cfb7-4c53-48af-992f-67510314dd6e-2FUntitled.png)
+
+     *Subsidiary selection on the Factoring Upload page*
+   </Note>
+
+   ![Subsidiary selection on the Factoring Upload page](https://alvys.intercom-attachments-1.com/i/o/1103589968/c86608f1af9b348acc03755b/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Faaf4cfb7-4c53-48af-992f-67510314dd6e-2FUntitled.png)
+
+   *Subsidiary selection on the Factoring Upload page*
+3. Select the invoices to include in the batch. Confirm the subsidiary's USDOT number is set. Any load whose customer is missing an MC number will fail individually during submission; the rest of the batch will proceed.
+
+   <Note>
+     ![Invoice selection on the Factoring Upload page for an OTR Solutions batch](https://alvys.intercom-attachments-1.com/i/o/1103589979/c29308da33a20bc70478f19f/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Ff231aece-f8d3-41c4-b959-52cf92590be0-2FUntitled.png)
+
+     *Invoice selection on the Factoring Upload page for an OTR Solutions batch*
+   </Note>
+
+   ![Invoice selection on the Factoring Upload page for an OTR Solutions batch](https://alvys.intercom-attachments-1.com/i/o/1103589979/c29308da33a20bc70478f19f/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Ff231aece-f8d3-41c4-b959-52cf92590be0-2FUntitled.png)
+
+   *Invoice selection on the Factoring Upload page for an OTR Solutions batch*
+4. Click **Submit Batch**. Wait until the submission completes. Do not close this page or navigate away during submission; doing so may disrupt the process.
+
+## Field &amp; Data Mapping
+
+Alvys sends invoice data to OTR Solutions when a batch is submitted, including the load number, debtor information, invoice amount, MC number, and the merged load document. The subsidiary's USDOT number is included in every invoice submitted. The subsidiary's USDOT number must be set. If a customer's MC number is missing for a specific load, that load's invoice will fail individually; other invoices in the batch will proceed.
+
+## Sync Behavior
+
+Credit check results sync from OTR Solutions to Alvys in real time. Purchase status updates sync from OTR Solutions to Alvys in two ways: automatically through a nightly sync, or on demand by clicking the **SYNC TRANSACTIONS** button in Reports > Factoring. When OTR Solutions reports a load as funded, the load status in Alvys changes to **Financed**. This update can occur through the nightly automated sync or through a manual SYNC TRANSACTIONS run; both mechanisms produce the same result.
+
+### Broker credit checks
+
+OTR Solutions performs broker credit checks to assess factoring eligibility. Credit check results appear as colored icons next to the customer or broker name:
+
+- Green icon: **Approved**
+- Red icon: **Not Approved**
+- Grey icon: no credit check has been run yet for this broker
+- Amber icon: **Call Credit** (contact OTR Solutions to discuss this broker's account)
+
+  You can submit a load to OTR Solutions regardless of the credit check status. The credit check result is informational only and does not block batch submission.
+
+  Alvys automatically triggers a credit check in two situations:
+- When a load is created: if the last credit check for that broker was more than 24 hours ago
+- When a load reaches **Queued** status: if the last credit check was more than 24 hours ago
+
+  To manually trigger a credit check from a customer or broker profile:
+
+1. Navigate to the customer or broker profile.
+2. Confirm that a factoring invoicing method is assigned to the subsidiary where the OTR Solutions integration is configured. Save if changes are needed.
+3. Click the refresh icon **(↻)** next to the customer or broker name. A manual trigger always runs the check immediately, regardless of when the last check occurred.
+
+<Note>
+  ![Refresh icon next to a customer or broker name to trigger a credit check](https://alvys.intercom-attachments-1.com/i/o/1103590001/571cb09c214d7a9e7fa54d0c/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Fc2994e2d-1448-466b-973a-2b50c008287c-2FUntitled.png)
+
+  *Refresh icon next to a customer or broker name to trigger a credit check*
+</Note>
+
+Credit check result icons appear next to the customer or broker name. Green means Approved, red means Not Approved, grey means no credit check has been run yet, and amber means Call Credit (contact OTR Solutions to discuss the broker's account).
+
+<Note>
+  ![Credit check result icon shown next to the customer or broker name](https://alvys.intercom-attachments-1.com/i/o/1103590006/307629e1a14e43946e465dee/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F3b000166-3e22-48dc-8b2f-c852bf391a0c-2FUntitled.png)
+
+  *Credit check result icon shown next to the customer or broker name*
+</Note>
+
+<Note>
+  ![Additional credit check status icons displayed in Alvys](https://alvys.intercom-attachments-1.com/i/o/1103590013/0e6c2fe478893dab08618078/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Fb7a94c39-52c4-427f-ac57-5b7ce426af41-2FUntitled.png)
+
+  *Additional credit check status icons displayed in Alvys*
+</Note>
+
+To manually trigger a credit check from a load details page:
+
+1. Open or create a load. Confirm the customer has a factoring invoicing method assigned to the subsidiary where the OTR Solutions integration is configured.
+2. On the load details page, click the refresh icon **(↻)** to trigger a credit check immediately.
+
+<Note>
+  ![Refresh icon on the load details page used to trigger a credit check](https://alvys.intercom-attachments-1.com/i/o/1103590019/2bde33b24a4a6cd6c7d144b3/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Ffbb419e2-e22e-4fdc-b05d-f210f3664844-2FUntitled.png)
+
+  *Refresh icon on the load details page used to trigger a credit check*
+</Note>
+
+To submit a load based on credit check status:
+
+1. Select or create a load with a customer assigned to the subsidiary using the factoring invoicing method.
+2. Advance the load to **Released** status.
+3. Click **Invoice Load** to generate the invoice.
+4. Merge the required documents: Customer Rate Confirmation, Proof of Delivery (POD), and the invoice. The load moves to **Queued** status.
+5. Navigate to Accounting > Factoring Upload. Select the load and create a batch.
+
+   <Note>
+     ![Load selected on the Factoring Upload page to create an OTR Solutions batch](https://alvys.intercom-attachments-1.com/i/o/1103590037/16355b309aae925d1994f8b9/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F1919a708-6ebc-411b-b4c6-4ff5d599fc75-2FUntitled.png)
+
+     *Load selected on the Factoring Upload page to create an OTR Solutions batch*
+   </Note>
+
+   ![Load selected on the Factoring Upload page to create an OTR Solutions batch](https://alvys.intercom-attachments-1.com/i/o/1103590037/16355b309aae925d1994f8b9/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F1919a708-6ebc-411b-b4c6-4ff5d599fc75-2FUntitled.png)
+
+   *Load selected on the Factoring Upload page to create an OTR Solutions batch*
+6. Submit the batch. All credit check statuses — Approved, Not Approved, and Call Credit — are permitted for submission.
+
+### Reporting: purchase status
+
+OTR Solutions provides purchase status details for factoring batches. When OTR Solutions funds a load, the load status in Alvys changes to **Financed**. There are two ways to update load statuses from OTR Solutions:
+
+**Nightly automated sync:** Alvys automatically checks and updates purchase status for all invoices that have not yet been updated or funded. This sync runs once per day. No action is required to enable it.
+
+**Manual sync (on demand):** Navigate to Reports > Factoring and select a batch, then click the **SYNC TRANSACTIONS** button in the top right corner of the page.
+
+1. Navigate to Reports > Factoring and select a batch.
+
+<Note>
+  ![Batch selected on the Reports > Factoring page](https://alvys.intercom-attachments-1.com/i/o/1103590045/4186f6a81978f6928ac095f6/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Fc031db37-e7a4-48e0-9886-5bc5c0fc15f4-2FUntitled.png)
+
+  *Batch selected on the Reports > Factoring page*
+</Note>
+
+1. Click the **SYNC TRANSACTIONS** button in the top right corner of the page.
+
+   <Note>
+     ![SYNC TRANSACTIONS button in the top right corner of the Factoring report page](https://alvys.intercom-attachments-1.com/i/o/1103590053/0308a06a6646ded8ab10a37b/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F1aa83ee0-6def-4175-91cc-fb6aa7db637c-2FUntitled.png)
+
+     *SYNC TRANSACTIONS button in the top right corner of the Factoring report page*
+   </Note>
+
+   ![SYNC TRANSACTIONS button in the top right corner of the Factoring report page](https://alvys.intercom-attachments-1.com/i/o/1103590053/0308a06a6646ded8ab10a37b/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F1aa83ee0-6def-4175-91cc-fb6aa7db637c-2FUntitled.png)
+
+   *SYNC TRANSACTIONS button in the top right corner of the Factoring report page*
+2. After the sync runs, any loads that OTR Solutions has funded will move to **Financed** status.
+
+### Examples
+
+<Note>
+  ![Factoring report after a sync run](https://alvys.intercom-attachments-1.com/i/o/1103590092/35cf858842482de9b8c18538/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fabd104b2-8ecd-4f87-bc8c-fbbda68c1b18-2FUntitled.png)
+
+  *Factoring report after a sync run*
+</Note>
+
+<Note>
+  ![Loads showing Financed status following an OTR Solutions sync](https://alvys.intercom-attachments-1.com/i/o/1103590064/6b86176b9e3ae68d32ac915f/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F10ac96fa-7382-4c8f-a4fa-0692cd7d6e43-2FUntitled.png)
+
+  *Loads showing Financed status following an OTR Solutions sync*
+</Note>
+
+Both the nightly sync and the SYNC TRANSACTIONS button produce the same outcome: loads confirmed as funded by OTR Solutions move to **Financed** status in Alvys.
+
+## Verify It's Working
+
+After submitting a batch, confirm it appears in Reports > Factoring. After a nightly sync or a SYNC TRANSACTIONS run, confirm that funded loads show **Financed** status. Credit check result icons should update within seconds of triggering a check.
+
+## Limits and Unsupported
+
+Fuel card payments are not supported for OTR Solutions. Fuel card functionality is not available through this integration.
+
+## Troubleshooting
+
+### Batch submission fails
+
+1. Confirm the subsidiary's USDOT number is set. Navigate to the subsidiary settings and verify the USDOT number field is populated.
+2. Confirm each customer's MC number is set. Navigate to the customer or broker profile and verify the MC number field is populated.
+3. Confirm valid OTR Solutions credentials are saved for the subsidiary. Navigate to Management > Integrations, locate OTR Solutions, and verify the username and password are saved.
+4. If the batch continues to fail after confirming the items above, contact Alvys support.
+
+### Load status did not change to Financed after sync
+
+1. Confirm the batch was submitted successfully and appears in Reports > Factoring.
+2. Click the **SYNC TRANSACTIONS** button to manually trigger an immediate status update for the selected batch.
+3. If the load status still does not update, the invoice may not yet be funded in OTR Solutions. Contact OTR Solutions to confirm the funding status on their side.
+4. If the load is confirmed as funded in OTR Solutions but the status does not update in Alvys, contact Alvys support.
+
+### Credit check icon does not appear
+
+1. Confirm the customer has a factoring invoicing method assigned to the subsidiary where the OTR Solutions integration is configured.
+2. Confirm the integration is active in Management > Integrations.
+3. Try triggering a manual credit check using the refresh icon (↻). If the icon still does not appear after a manual trigger, contact Alvys support.
+
+## FAQs
+
+**Q: Can I submit a load if the credit check status is Not Approved or Call Credit?**
+
+**A:** Yes. You can submit a load to OTR Solutions regardless of the credit check status. The result is informational only and does not block batch submission.
+
+**Q: What does the amber Call Credit status mean?**
+
+**A:** Call Credit means OTR Solutions needs more information about the broker before making a decision. Contact OTR Solutions directly to discuss the broker's account.
+
+**Q: How often does the purchase status sync run automatically?**
+
+**A:** The nightly sync runs once per day for all invoices that have not yet been updated or funded. You can also trigger a sync at any time using the SYNC TRANSACTIONS button in Reports > Factoring.
+
+**Q: What is the SYNC TRANSACTIONS button and when should I use it?**
+
+**A:** The SYNC TRANSACTIONS button is located in the top right corner of the Reports > Factoring page. Clicking it triggers an immediate status update for the selected batch, pulling the latest funding information from OTR Solutions. Use it when you want to update load statuses without waiting for the nightly sync. Both the button and the nightly sync can move a load to **Financed** status.
+
+**Q: What triggers an automatic credit check?**
+
+**A:** Alvys automatically triggers a credit check when a load is created or when a load reaches **Queued** status, provided the last credit check for that broker was more than 24 hours ago. Clicking the refresh icon (↻) on the customer profile or load details page always triggers a check immediately, regardless of timing.

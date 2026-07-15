@@ -1,0 +1,110 @@
+---
+title: "Motive — ELD / Telematics Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Management > Integrations
+
+  **Provider:** Motive · **Integration type:** One-way · **Direction:** Location, HOS, and IFTA data flows from Motive into Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Motive is a telematics and ELD provider that connects with Alvys to bring real-time truck and trailer locations, Hours of Service (HOS) status, and IFTA mileage data into your dispatch workflow. This integration is also known as Motive ELD, KeepTruckin (the former name of Motive), ELD integration, or fleet tracking.
+</Note>
+
+## What This Integration Does
+
+Connecting Motive to Alvys gives your dispatch team visibility into truck and trailer locations, driver HOS remaining-time clocks, and IFTA mileage by state, all without leaving Alvys.
+
+Motive supports trucks, trailers, HOS, and IFTA in a single connection, making it one of the most comprehensive integrations available in Alvys.
+
+## Prerequisites
+
+Before connecting, confirm you have the following:
+
+- An active Motive account
+- The ability to authorize Alvys through Motive's OAuth flow (you will be redirected to Motive to approve the connection)
+- The Admin, Partner Admin, or Support role in Alvys
+
+## How to connect
+
+Motive uses OAuth to connect with Alvys. You will be redirected to Motive's website to approve the connection — no API key or password needs to be entered manually.
+
+1. Open Integrations. Go to Management > Integrations in the top navigation.
+2. Select Motive. Find Motive in the list of available integrations and click to open it.
+3. Authorize via OAuth. Click the Connect button. You will be redirected to Motive's website to log in and approve the connection to Alvys.
+4. Return to Alvys. After approving in Motive, you will be returned to Alvys automatically. The integration status will change to active.
+
+## Map assets in Alvys
+
+After connecting, add each truck or trailer's Motive asset ID in Alvys so location data flows correctly.
+
+1. Go to **Assets** in the left menu and select **Trucks** or **Trailers**.
+2. Find the asset you want to configure and double-click it to open the Edit Asset page.
+3. Scroll down to the **ELD Integrations** section and click **Add Integration**.
+4. Click the dropdown and select **Motive**.
+5. Find the Motive asset ID from the URL when viewing that asset in the Motive portal. For example, in the URL [https://app.gomotive.com/en-US/#/fleetview/map/vehicle/867351-null-null/867351/live](https://app.gomotive.com/en-US/#/fleetview/map/vehicle/867351-null-null/867351/live), the asset ID is **867351**.
+6. Paste the ID into the **Asset ID** field and click **Save**.
+
+Repeat for the rest of your trucks and trailers.
+
+## What syncs
+
+Alvys requests updated data from Motive on a regular basis. Truck and trailer locations, HOS clocks, and IFTA mileage reflect the most recent values from Motive's servers.
+
+- **Truck location:** Current GPS coordinates for each truck asset.
+- **Trailer location:** Current GPS coordinates for each trailer asset.
+- **HOS clocks:** Remaining available time for each driver's HOS limits — available-time values showing how much drive time, shift time, or cycle time the driver has remaining.
+- **IFTA mileage:** Miles driven by state, presented as a mileage-by-state summary to support fuel tax reporting.
+
+To confirm the integration is working, go to **Loads** and open a load that has both a driver and a truck assigned. Look for the asset location on the map or in the tracking panel; if the integration is active and the asset has a Motive device, the current location should be visible. The available-time HOS values should appear next to the driver's name or in the driver detail panel. IFTA mileage by state is visible in the IFTA reporting section of Alvys; if you have completed trips, state-level mileage should be populated there.
+
+## Troubleshooting
+
+### Truck or trailer location is not showing
+
+Confirm the asset has a Motive device installed and powered on. Verify the Motive OAuth connection is still active — go to Management > Integrations and check the integration status. If the connection has expired or been revoked, click Reconnect to re-authorize through Motive's OAuth flow. Check that the integration status shows as active.
+
+### HOS clocks are blank
+
+Confirm the driver is logged in to the Motive ELD device for their current shift. Verify the Motive OAuth connection is still authorized — an expired or revoked authorization will prevent data from updating.
+
+### IFTA mileage is not showing
+
+Confirm that trips have been completed in Alvys; IFTA mileage is calculated for completed trips. Verify the OAuth connection is active. If the connection was revoked in Motive, data will stop syncing.
+
+### The connection failed or was revoked
+
+If the Motive OAuth connection is no longer active, go to Management > Integrations, find Motive, and click Reconnect. You will be redirected to Motive to re-authorize the connection.
+
+<Warning>
+  ⚠️ Connection is managed through OAuth: if authorization is revoked in Motive, you must reconnect from Alvys. · IFTA data is a mileage-by-state summary; individual trip-level breakdown is not available in Alvys through this integration. · HOS values are available-time clocks (time remaining), not elapsed time.
+</Warning>
+
+## FAQs
+
+**Q: Why does connecting Motive redirect me to another website?**
+
+**A:** Motive uses OAuth for secure authorization. This means you log in and approve the connection on Motive's own website, so Alvys never handles your Motive credentials directly. After approving, you are returned to Alvys automatically.
+
+**Q: Does Motive support trailer tracking in Alvys?**
+
+**A:** Yes. Motive returns location data for both trucks and trailers. Both asset types will appear in Alvys when devices are installed and active.
+
+**Q: What HOS information does Motive provide?**
+
+**A:** Motive provides available-time HOS values: the amount of drive time, shift time, cycle time, and break time the driver has remaining. These are the time-remaining values for each limit.
+
+**Q: What IFTA data is available from Motive?**
+
+**A:** Motive provides a mileage-by-state summary showing miles driven in each state. This data can be used to support IFTA fuel tax filing. Individual trip-level breakdowns are not available through this integration.
+
+**Q: The Motive integration stopped working. What do I do?**
+
+**A:** The most likely cause is that the OAuth authorization was revoked or expired in Motive. Go to Management > Integrations in Alvys, find Motive, and click Reconnect to re-authorize through Motive's website.
+
+## Go Deeper
+
+- [Setting Up ELD / Telematics Integrations](https://help.alvys.com/en/articles/9857524-setting-up-eld-telematics-integrations)

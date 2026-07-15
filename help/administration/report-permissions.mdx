@@ -1,0 +1,267 @@
+---
+title: "Report Permissions"
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin · Operation Manager · Office Admin · Biller · plus any role with report permissions granted
+
+  **Module:** Management > Company Profile > Users
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Report Permissions govern which users can view the **"View Summary Financial Report"** and the **"View Detailed Financial Report"**; this article covers each permission, who receives it by default, and best practices for configuring access.
+</Note>
+
+## Overview
+
+Report Permissions (also called reporting access or financial report permissions) control access to financial and operational reporting within Alvys. This article covers the two financial report toggles in the **Report** category: **"View Summary Financial Report"** and **"View Detailed Financial Report"**. Each permission grants access to a specific report, and they can be assigned independently. Together, they allow designated users to access the performance and financial data they need to do their jobs without exposing sensitive information to users who do not require it.
+
+<Info>
+  💡 The **Report** category in the permissions section also contains other report toggles such as **"Fuel Report"**, **"Toll Report"**, **"View Statement List Report"**, **"View Statement Items Report"**, **"View Asset Safety Report"**, **"View Driver YTD"**, and **"View Insights"**. This article focuses on the two financial reports; see the [User Permissions Glossary](/help/administration/user-permissions-glossary) for the rest.
+</Info>
+
+## Where to Find It
+
+Report Permissions are configured at the individual user level within the User Management interface.
+
+<Warning>
+  ⚠️ To modify these permissions, the logged-in user must have the **"Set Permission"** permission enabled. Without it, the user can view the form but cannot make changes. See [Management &amp; Privacy Permissions](/help/administration/management-privacy-permissions) for details.
+</Warning>
+
+To adjust these settings:
+
+- Select your **username** in the bottom-left corner of the Alvys interface.
+
+<Note>
+  ![Image showing navigation to Company profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/62544bec-2a6a-403b-8e2d-9d9aba26fbe0/image.png)
+
+  *Image showing navigation to Company profile *
+</Note>
+
+- Navigate to Company Profile and select the **Users** tab.
+
+<Note>
+  ![Screenshot showing the Users tab selected in Company Profile.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e0b59072-07d2-40f3-90ac-ed3c460d8db3/image.png)
+
+  *Screenshot showing the Users tab selected in Company Profile. *
+</Note>
+
+- Choose an existing user to **Edit**, or select the **Add User** button to create a new profile.
+- Scroll to the **Permissions** section and locate the **Report** category.
+- Identify the **eight (8)** individual checkboxes corresponding to the specific permissions detailed in this article: **Fuel Report**, **Toll Report**, **View Summary Financial Report**, **View Detailed Financial Report**, **View Statement List Report**, **View Statement Items Report**, **View Asset Safety Report**, **View Driver YTD **and **View Insights**.
+
+<Note>
+  ![Image Showing Report permissions category](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7095f046-2aba-4d7b-8b7f-145ac1f6e844/image.png)
+
+  *Image Showing Report permissions category*
+</Note>
+
+## Report Permissions Breakdown
+
+### "Fuel Report"
+
+Fuel constitutes one of the largest variable costs for a trucking company, often ranking second only to driver wages. The Fuel Report provides essential visibility into fuel expenditures by driver, vehicle, location, and time period. The Fuel Report permission governs access to the [Fuel Report page](https://app.alvys.com/#/reports/fuel) which is located within the Asset Reports section of the Reports module. This report displays fuel transaction data for both drivers and vehicles, allowing users to audit fuel card purchases, analyze gallon consumption, manage driver fuel deductions, and upload external transaction files among other related functions. In the absence of this permission, the page remains hidden from the navigation menu of the user.
+
+<Note>
+  ![Screenshot showing the Alvys Fuel Report.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2c269cfb-25c0-4722-8e90-1bdc317e4ef2/image.png)
+
+  *Screenshot showing the Alvys Fuel Report.*
+</Note>
+
+By default, this permission is granted to: Support, Partner Admin, Admin, Operation Manager, Biller, and Safety. Not assigned by default to: Dispatcher, Sales Agent, Data Entry, Office Admin, or Driver.
+
+<Info>
+  ✅ Best practice: Grant the Fuel Report permission to all staff who manage fuel expenses or who need to audit driver fuel card usage. Consider also giving it to fuel card administrators who need to reconcile transactions. You do not need to restrict this permission as tightly as financial or HR reports.
+</Info>
+
+### "Toll Report"
+
+The Toll Report permission governs access to the [Toll Report page](https://app.alvys.com/#/reports/toll) situated within the Asset Reports section of the Reports module. This report provides a comprehensive display of toll transaction data, enabling users to analyze toll charges according to specific drivers, vehicles, routes, and time periods. In the absence of this permission, users are unable to navigate to the Toll Report page as it remains excluded from the navigation menu.
+
+<Note>
+  ![Screenshot showing the Alvys Toll Report.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/bd29f7d4-8ab9-4d3a-8cd0-88c8f3810ef0/image.png)
+
+  *Screenshot showing the Alvys Toll Report.*
+</Note>
+
+By default, this permission is granted to: Support, Partner Admin, Admin, Operation Manager, Biller, and Safety. Not assigned by default to: Dispatcher, Sales Agent, Data Entry, Office Admin, or Driver.
+
+### "View Summary Financial Report"
+
+The **"View Summary Financial Report"** permission grants access to the [Summary Financial Report](https://app.alvys.com/#/reports/asset) in Alvys, which provides an operational and financial overview of load and trip activity across a configurable date range. The Summary Financial Report gives managers and dispatchers a quick view of revenue and expenses aggregated by asset, load counts, and other high-level metrics without requiring access to individual invoice-level line items.
+
+<Note>
+  ![Screenshot showing the Alvys Summary Financial Report.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f472a43b-43a1-4df9-bc36-481121582179/image.png)
+
+  *Screenshot showing the Alvys Summary Financial Report.*
+</Note>
+
+By default, this permission is granted to: Support, Partner Admin, Admin, Operation Manager, Dispatcher, Biller, Sales Agent, Office Admin, and Data Entry. Not assigned by default to: Safety or Driver.
+
+<Info>
+  ✅ Best practice: Grant **"View Summary Financial Report"** broadly to roles that manage or monitor operational activity. This report aggregates revenue and expenses by asset rather than exposing individual invoice line items. Use the **"View Detailed Financial Report"** permission to control access to more granular financial data.
+</Info>
+
+### "View Detailed Financial Report"
+
+The **"View Detailed Financial Report"** permission grants access to the Detailed Financial Report in Alvys, which provides a granular breakdown of revenue, costs, and margins at the load and trip level. This report exposes individual invoice amounts, cost breakdowns, and margin data and should be limited to roles that genuinely need detailed financial visibility.
+
+<Note>
+  ![Screenshot showing the Alvys Detailed Financial Report.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2f9671a4-bbd1-470f-9678-ca37550a2680/image.png)
+
+  *Screenshot showing the Alvys Detailed Financial Report.*
+</Note>
+
+By default, this permission is granted to: Support, Partner Admin, Admin, Operation Manager, Biller, and Office Admin. Not assigned by default to: Dispatcher, Sales Agent, Data Entry, Safety, or Driver.
+
+<Info>
+  💡 Best practice: Restrict **"View Detailed Financial Report"** to roles with a direct need for financial data: billing staff, office managers, senior managers, and owners.
+</Info>
+
+### "View Statement List Report"
+
+The View Statement List Report permission governs access to the [Statement List Report page ](https://app.alvys.com/#/reports/statement/list)located within the Financial Reports section of the Reports module. This report provides a comprehensive audit trail of all driver statements for both owner operators and company drivers, which are summarized at the statement level. It enables billing and settlement personnel to observe all statements for a specific driver, including the date period and their respective totals for mileage, gross revenue, deductions, credits, and net earnings without the requirement to open each statement individually. Access to this information should be limited to billing and accounting personnel who manage carrier payments.
+
+<Note>
+  ![Screenshot showing the Alvys Statement List Report.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4515d530-7e89-438b-a742-d22e7f3afa9b/image.png)
+
+  *Screenshot showing the Alvys Statement List Report.*
+</Note>
+
+By default, this permission is granted to: Support, Partner Admin, Admin, Operation Manager, and Biller.
+
+<Info>
+  ✅ Best practice: Grant **"View Statement List Report"** and **"View Statement Items Report"** together. The Statement List shows which statements exist; the Statement Items report shows the line-item detail on each statement.
+</Info>
+
+### "View Statement Items Report"
+
+The **View Statement Items Report** permission controls access to the [Statement Items Report page](https://app.alvys.com/#/reports/statement/items) within the Reports module. While the Statement List Report provides an overview of all driver statements, the Statement Items Report displays the individual line items within those statements, such as specific loads, charges, and deductions.
+
+These statement items represent the granular financial detail behind each driver payment, including individual load charges, accessorial fees, deductions, and adjustments. This level of detail is necessary for billing staff who need to verify the accuracy of driver statements to ensure that all charges are accounted for. Restricting access prevents unauthorized users from viewing detailed driver payment breakdowns.
+
+<Note>
+  ![Screenshot showing the Alvys Statement Items Report.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/72105b8d-880e-4217-8a43-5a7efb2ec808/image.png)
+
+  *Screenshot showing the Alvys Statement Items Report.*
+</Note>
+
+By default, this permission is granted to: Support, Partner Admin, Admin, Operation Manager, and Biller.
+
+### "View Asset Safety Report"
+
+The View Asset Safety Report permission governs access to the [Asset Safety Report page](https://app.alvys.com/#/reports/safety) situated within the Reports module. Safety personnel bear the primary responsibility for ensuring that documentation for all assets remains current and that the fleet can legally operate within regulatory frameworks. This report provides a centralized view for safety users to monitor essential certifications that have expired or are approaching expiration.
+
+For drivers, the report highlights critical data points including license expiration, medical certification expiration, the most recent motor vehicle record date, and Clearinghouse status dates. Regarding equipment, the report tracks assigned drivers, license plate expiration, and inspection expiration dates for both trucks and trailers. Additionally, it provides visibility into lease commencement and termination dates to ensure lease compliance across the fleet. By centralizing these diverse metrics, the Asset Safety Report enables proactive management of asset documentation to prevent operational disruptions and maintain full compliance.
+
+<Note>
+  ![Screenshot showing the Alvys Drive Safety Report.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1587bc1c-d53a-4263-9b62-aff1fef41973/image.png)
+
+  *Screenshot showing the Alvys Drive Safety Report.*
+</Note>
+
+By default, this permission is granted to: Support, Partner Admin, Admin, Operation Manager, Dispatcher, Office Admin, and Safety. Not assigned by default to: Biller, Sales Agent, Data Entry, or Driver.
+
+### "View Driver YTD"
+
+The View Driver Year to Date permission governs access to the [Driver Year to Date report page](https://app.alvys.com/#/reports/driver/ytd) situated within the Reports module. This report serves as a centralized resource for monitoring cumulative earnings and financial data for drivers throughout the current calendar year. It provides comprehensive visibility into driver compensation totals, detailed pay period breakdowns, and cumulative year to date accumulations. Because this data discloses sensitive individual earnings and financial performance over time, this authorization acts as a critical security measure to ensure that only authorized personnel can evaluate these specific compensation metrics.
+
+<Note>
+  ![Screenshot showing the Alvys Driver Year to Date Report](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/da616887-58b0-4283-b492-de0be12aa407/image.png)
+
+  *Screenshot showing the Alvys Driver Year to Date Report*
+</Note>
+
+By default, this permission is granted to: Partner Admin, Admin, Operation Manager, and Biller. Not assigned by default to: Support, Dispatcher, Safety, Sales Agent, Data Entry, Office Admin, or Driver.
+
+<Info>
+  ✅ Best practice: Restrict **"View Driver YTD"** to accounting staff and managers who handle driver pay and tax reporting. This report contains sensitive earnings data.
+</Info>
+
+### "View Insights"
+
+The **View Insights** permission controls entry to the [Alvys Insights feature](https://help.alvys.com/en/articles/14375983-using-alvys-insights), the AI-powered chat interface where users ask plain-English questions about their operational and financial data such as loads, drivers, financials, carriers, and other TMS data. The [Insights chat interface](https://app.alvys.com/chat) can be accessed from the left navigation panel, **Insights **menu item.
+
+<Note>
+  ![Image showing navigation to Insights Page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/13704be3-61cc-402f-af66-d7390f4652be/image.png)
+
+  *Image showing navigation to Insights Page*
+</Note>
+
+By default, the Admin and Partner Admin roles are granted this permission. This approach ensures that access to AI analytics is deliberately assigned rather than available to all users by default. Because Insights queries can surface sensitive financial, operational, and identity data, restricting access to these trusted roles prevents unintended exposure.
+
+Your data visibility within Insights is structured into two **(2)** distinct tiers of security to ensure that sensitive information remains protected based on your specific Alvys role.
+
+**Tier 1: Standard Domain Permissions**
+
+The first tier of access is determined by your standard Alvys role-based permissions. While the **View Insights** permission allows you to enter the chat interface, your existing domain permissions control which specific data categories you can see in your query results. For example, to view financial amounts in your chat results, you must have an associated permission such as **Billing**, **View Customer Rate**, or **View Driver Rates**. Similarly, viewing details for equipment or personnel requires permissions like **View Trucks**, **View Trailers**, **View Drivers**, or **View Maintenance**. If you do not have the required permission for a specific category, that information will be hidden or masked in your results, ensuring that the same security rules applied throughout Alvys are strictly enforced within the Insights tool.
+
+**Tier 2: View PII Privacy Permission**
+
+The second tier of access involves the **View PII permission,** which is the most directly related permission governing the level of detail you see within Insights responses. It acts as a critical secondary layer of security that works alongside your Tier 1 domain permissions to protect sensitive information.
+
+<Note>
+  ![Image showing View PII Permissions](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/bbca763f-6e0f-444e-b0f3-57d2c446648e/image.png)
+
+  *Image showing View PII Permissions*
+</Note>
+
+To view highly sensitive information, such as names, email addresses, phone numbers, driver's license numbers, and insurance details, the user must hold the View PII permission in addition to the relevant Tier 1 domain permissions. Without this specific permission, these fields will be replaced with masked placeholders, ensuring that personally identifiable information remains protected even when you are analyzing general data categories.
+
+<Info>
+  ✅ Best practice: Grant **"View Insights"** only to senior management and owners. If a user was just granted this permission but Insights data has not appeared, ask them to log out and log back in. Data may take up to 24 hours to populate after the permission is first enabled.
+</Info>
+
+## Settings &amp; Permissions
+
+- **"View Summary Financial Report"** is assigned by default to: Support, Partner Admin, Admin, Operation Manager, Dispatcher, Biller, Sales Agent, Office Admin, and Data Entry. Not assigned to: Safety and Driver.
+- **"View Detailed Financial Report"** is assigned by default to: Support, Partner Admin, Admin, Operation Manager, Biller, and Office Admin. Not assigned to: Dispatcher, Sales Agent, Data Entry, Safety, and Driver.
+
+## Limits &amp; Behavior
+
+- Both report permissions operate independently. Granting one does not automatically grant the other.
+- Users without either Report permission will not see the reporting section or will encounter an access-denied state when navigating to it.
+- Changes to permissions take effect immediately upon saving the user profile. No session restart is required.
+
+## FAQs
+
+**Q: What is the difference between the Summary Financial Report and the Detailed Financial Report?**
+
+**A:** The Summary Financial Report provides a high-level overview of revenue and expenses aggregated by asset. The Detailed Financial Report provides invoice-level financial data including revenue, costs, and margins for each load or trip. The Detailed Financial Report is more sensitive and is restricted to fewer roles by default.
+
+**Q: Can I grant Detailed Financial Report access to a Dispatcher?**
+
+**A:** Yes. Dispatcher is not assigned **"View Detailed Financial Report"** by default, but a user with the **"Set Permission"** permission can enable it on an individual dispatcher's profile.
+
+**Q: Do Safety or Driver roles receive any Report permissions by default?**
+
+**A:** No. Neither Safety nor Driver roles are assigned either financial report permission by default.
+
+**Q: Who can modify Report permissions?**
+
+**A:** Any user with the **"Set Permission"** permission enabled on their profile.
+
+**Q: Which Alvys reports require specific permissions to access?**
+
+**A:** All reports in Alvys require the corresponding permission. The full list in the Report category includes: **"Fuel Report"**, **"Toll Report"**, **"View Summary Financial Report"**, **"View Detailed Financial Report"**, **"View Statement List Report"**, **"View Statement Items Report"**, **"View Asset Safety Report"**, **"View Driver YTD"**, and **"View Insights"**. Each is enabled independently.
+
+**Q: Is there a master permission that unlocks all reporting pages at once?**
+
+**A:** No. Each report permission is independent and must be enabled individually.
+
+**Q: Do I need Billing permissions to view these reports?**
+
+**A:** No. Report permissions in the Report category are independent of the **"Billing"** permission.
+
+**Q: Why can't I see the Insights menu item in my navigation panel?**
+
+**A:** The Insights menu item is only visible to users with the **"View Insights"** permission. By default, only Admin and Partner Admin roles have this permission.
+
+**Q: A user was just granted new permissions but their Insights results have not changed. What should I do?**
+
+**A:** Ask the user to log out and log back in first. If data still does not appear after 24 hours, contact Alvys support.
+
+## Go Deeper
+
+- [Management &amp; Privacy Permissions](/help/administration/management-privacy-permissions)
+- [User Roles &amp; Permissions Collection](/help/administration/user-roles-permissions-collection)

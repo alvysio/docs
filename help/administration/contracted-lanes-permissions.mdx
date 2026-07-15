@@ -1,0 +1,194 @@
+---
+title: "Contracted Lanes Permissions"
+---
+
+<Note>
+  📋 **Applies to:** Admins, Partner Admins, Office Admins, Operation Managers, Dispatchers, Sales Agents, Data Entry · **Module:** Management > Company Profile > Users > Permissions · **Last reviewed:** 2026-06 · **Owner:** Support team · The Contracted Lanes Permissions category in Alvys controls who can view, create, update, delete, and apply pre-negotiated lane rate agreements (contracted lanes) between your company and its customers. There are four permissions in this category: **"View Contracted Lanes"**, **"Update/Create Contracted Lanes"**, **"Delete Contracted Lanes"**, and **"Apply Contracted Lanes On New Load"**.
+</Note>
+
+## Overview
+
+A contracted lane is a pre-negotiated rate agreement between your company and a specific customer for a defined route. For example, you might have an agreement with Customer ABC specifying that any load from Dallas, TX to Houston, TX will be billed at $850. Storing contracted lanes in Alvys eliminates the need for dispatchers to look up or remember rate agreements manually. When a new load is created on a lane with a contracted rate, Alvys can automatically reference and populate that rate.
+
+Lane rate contracts, also referred to as lane rate agreements or contracted rates, are a fundamental pricing tool in freight brokerage. Instead of negotiating rates for each load individually, companies establish standing agreements for frequently used lanes. These contracts specify the rate, fuel surcharge structure, and terms for each customer and route. Proper access control is critical when managing these contracts, as they directly impact pricing, revenue, and customer relationships.
+
+The Contracted Lanes Permissions category in Alvys controls access to lane rate contracts. With four permissions, this category governs who can view contracted lane rates, create and update contracts, delete contracts, and apply contracted rates when creating new loads.
+
+## Where to Find It
+
+Contracted Lanes Permissions are configured at the individual user level within the User Management interface. To access user permissions, select your **username** in the bottom left corner of the screen, navigate to **Company Profile**, and select the **Users** tab.
+
+<Note>
+  📷 The Company Profile page with the Users tab selected, showing the user list.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/499ecb27-c491-4a03-a001-1083bd7d83a7/image.png)
+</Note>
+
+Choose an existing user to **Edit** or select the **Add User** button to create a new profile. In the user profile, scroll to the **Permissions** section and locate the **Contracted Lanes** category to find the four individual checkboxes: **"View Contracted Lanes"**, **"Update/Create Contracted Lanes"**, **"Delete Contracted Lanes"**, and **"Apply Contracted Lanes On New Load"**.
+
+<Note>
+  📷 The Permissions section of a user profile showing the Contracted Lanes category with its four checkboxes.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/73b02035-d904-4747-b1e1-ab3338e1b011/image.png)
+</Note>
+
+<Warning>
+  ⚠️ To modify these permissions, the logged-in user must possess the **"Set Permission"** permission located within the Management category. Without **"Set Permission"**, a user can view the user profile or form but cannot adjust any permissions. For additional information, refer to the [Management &amp; Privacy Permissions](/help/administration/management-privacy-permissions) article.
+</Warning>
+
+## Key Concepts
+
+A contracted lane defines the customer, the origin address, the destination address, the agreed-upon rate, and any fuel surcharge terms. Contracts are stored on the customer or broker profile in Alvys. When a new load is created on a matching lane, the system can automatically reference the active contract and populate the rate, provided the user has the **"Apply Contracted Lanes On New Load"** permission.
+
+The Contracted Lanes category uses two naming conventions. The permissions are displayed in the interface as "Contracted Lanes" (for example, **"View Contracted Lanes"**), while the system identifies them internally using the term "Contracted Rates" (for example, **"ViewContractedRates"**). Both terms refer to the same feature: lane rate contracts.
+
+All four Contracted Lanes permissions are excluded from the default permission set for Admin and Operation Manager roles. Even users with the Admin role must have these permissions explicitly granted. Only the Support and Partner Admin roles receive all four Contracted Lanes permissions by default.
+
+## Settings &amp; Permissions
+
+### "View Contracted Lanes"
+
+The **"ViewContractedRates"** permission (displayed as **"View Contracted Lanes"**) determines whether a user can access lane rate agreements on a customer or broker profile in Alvys. It provides read-only access to contracted lane data. Without this permission, the contracted lanes information and related interface elements remain hidden from the user.
+
+When a user has this permission and accesses a customer or broker profile, the Contracted Lanes and Fuel Surcharges section is visible in the top right corner above the contacts heading. Selecting this section presents a complete list of all rate agreements associated with that customer.
+
+<Note>
+  📷 A customer profile in Alvys showing the Contracted Lanes and Fuel Surcharges section visible in the top right corner above the contacts heading.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/41550f9d-dfed-4fbc-b35e-f11f8dd5fd84/image.png)
+</Note>
+
+<Note>
+  📷 The Contracted Lanes and Fuel Surcharges panel expanded, showing a list of rate agreements for a customer with lane details and rates.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/0b7cc489-436f-40ad-8d65-82d07e208f4d/image.png)
+</Note>
+
+By default, this permission is granted exclusively to the Support and Partner Admin roles. Admin and Operation Manager roles do not receive it by default; it must be explicitly granted.
+
+<Info>
+  ✅ **Best Practice:** Assign **"View Contracted Lanes"** to users responsible for managing customer relationships, negotiating rates, or requiring visibility into lane pricing. Because Admin and Operation Manager roles do not receive this permission by default, ensure it is explicitly granted to any admin-level users involved in managing contracted lanes.
+</Info>
+
+### "Update/Create Contracted Lanes"
+
+The **"WriteContractedRates"** permission (displayed as **"Update/Create Contracted Lanes"**) enables a user to create new contracted lane rate agreements and modify existing ones on a customer or broker profile. This permission governs the building and maintenance of the rate library in Alvys, including setting rates, defining lanes, configuring fuel surcharge terms, and updating contract details. Because these modifications directly affect pricing commitments, this permission ensures that only authorized users can create or adjust financial agreements.
+
+<Note>
+  📷 The Create Contract button highlighted under the contracted lanes view
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/05f82d2d-0355-4e1c-b99d-11c5d029d2ea/image.png)
+</Note>
+
+<Info>
+  💡 **Note:** A user who creates or edits contracts will generally also require the **"View Contracted Lanes"** permission to access and review the contracts they are managing.
+</Info>
+
+The Edit action within this permission controls a user's ability to modify existing lane rate contracts, including updating rates, terms, and effective dates.
+
+<Note>
+  📷 An existing contracted lane contract open in edit mode, showing the rate, effective date, and terms fields available for modification.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/41cd12d4-212e-455b-bb9f-13dbf92c0d30/image.png)
+</Note>
+
+By default, this permission is granted to the Support and Partner Admin roles only. Admin and Operation Manager roles do not receive it by default; it must be explicitly granted.
+
+<Info>
+  ✅ **Best Practice:** Assign **"Update/Create Contracted Lanes"** only to users who are authorized to make pricing commitments. Always pair it with the **"View Contracted Lanes"** permission so users can access and review the contracts they manage. Consider implementing a review workflow in which all contract changes are verified by a second authorized user.
+</Info>
+
+### "Delete Contracted Lanes"
+
+The **"DeleteContractedRates"** permission (displayed as **"Delete Contracted Lanes"**) determines whether a user can remove lane rate contracts. Deleting a contract permanently eliminates the pre-negotiated rate agreement, requiring manual rate entry for any subsequent loads on that lane. This is the most critical and potentially disruptive action within the Contracted Lanes category.
+
+<Warning>
+  ⚠️ Deletion is completely blocked if any loads currently reference the contract.
+</Warning>
+
+To delete a contracted lane, navigate to the customer or broker profile and locate the Contracted Lanes &amp; Fuel Surcharges section in the top right corner.
+
+In the contracted lanes list, select the **three-dot menu** for the lane you want to remove.
+
+<Note>
+  📷 The contracted lanes list with the three-dot action menu open for a specific lane row.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/9574ee51-32f1-4139-9e12-5b60ba94bee0/image.png)
+</Note>
+
+Select **Delete** and confirm the action to remove the contract.
+
+<Note>
+  📷 The delete confirmation dialog for a contracted lane.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/fbbd04da-9561-42b2-9863-977555d6b419/image.png)
+</Note>
+
+By default, this permission is granted to the Support and Partner Admin roles only. Admin and Operation Manager roles do not receive it by default; it must be explicitly granted.
+
+<Info>
+  ✅ **Best Practice:** Grant **"Delete Contracted Lanes"** very sparingly. Most users who manage contracts need View and Update/Create but not Delete. Consider restricting Delete to senior pricing staff or managers.
+</Info>
+
+### "Apply Contracted Lanes On New Load"
+
+The **"ApplyContractedRatesOnNewLoad"** permission (displayed as **"Apply Contracted Lanes On New Load"**) governs whether a user can select and apply a contract from an existing agreement when creating a new load. The system cross-references the load's customer and lane details; if a matching active contract is found, it automatically populates the agreed-upon rate in the stop details step of the load creation process.
+
+When creating a new load, select the specific customer or broker associated with the existing lane agreement, as the contract is linked to that entity. Leave billing rates blank at this stage: the system will populate them automatically when the matching contract is applied. Verify that the **Invoice As** field matches the subsidiary that was set when the lane contract was created; if these do not align, the system will not recognize the contract. Confirm that the pickup and delivery addresses exactly match the lane addresses defined in the contract. Once the lane details match, the system returns the relevant contract; select it from the dropdown to automatically populate the pre-negotiated rates and terms. Only active contracts appear in this dropdown.
+
+<Note>
+  📷 The load creation screen showing the Choose Contract dropdown in the stop details step, with a matched contract available for selection.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/48724743-ea1d-4acf-9f8c-bd78d258b015/image.png)
+</Note>
+
+<Note>
+  📷 The load creation screen after a contract has been selected from the dropdown, showing the contracted rate automatically populated in the billing rate fields.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/df700248-7d47-4e16-93e7-774bcab69454/image.png)
+</Note>
+
+By default, this permission is granted to the Support and Partner Admin roles only. Admin and Operation Manager roles do not receive it by default; it must be explicitly granted.
+
+<Info>
+  ✅ **Best Practice:** Grant **"Apply Contracted Lanes On New Load"** to dispatchers and load creators who work with customers that have active contracted lanes. This improves pricing accuracy and reduces manual data entry. Pair it with **"View Contracted Lanes"** so users can verify the rates being applied. Before enabling this permission, audit your contracted lane records to ensure every agreement on file reflects your current negotiated rates.
+</Info>
+
+## Limits &amp; Behavior
+
+- Deletion of a contracted lane is completely blocked by the system if any active loads currently reference that contract. This prevents the accidental removal of financial data tied to live operations.
+- Only active contracts are returned in the Choose Contract dropdown during load creation. Expired or inactive contracts do not appear.
+- When **"Apply Contracted Lanes On New Load"** is enabled, contracted rates are automatically populated during load creation; however, authorized users can still manually override the amount on the load if a specific situation requires a price adjustment. The permission controls automatic population, not rate lock-in.
+- The Invoice As subsidiary on the load must match the subsidiary that was set when the lane contract was created. If these do not align, the system will not recognize the contract during load creation.
+- Pickup and delivery addresses must exactly match the lane addresses defined in the contract for the contract to appear in the dropdown.
+
+## FAQs
+
+**Q: What is a contracted lane in Alvys?**
+
+**A:** A contracted lane is a pre-negotiated rate agreement between your company and a specific customer for a defined route. Storing these in Alvys allows the system to automatically populate rates during load creation, eliminating the need for manual lookups.
+
+**Q: Can I allow a user to see contracted rates without letting them change them?**
+
+**A:** Yes. You can grant the **"View Contracted Lanes"** permission independently. This provides read-only access, allowing users to reference rates for customer service or planning without the ability to create, update, or delete contracts.
+
+**Q: Why should the Update/Create and View permissions be paired?**
+
+**A:** A user who creates or edits contracts needs the **"View Contracted Lanes"** permission to access and review the data they are managing. Without it, the user may be able to save a contract but will not be able to see the library to verify their work.
+
+**Q: Is there a restriction on deleting a contracted lane?**
+
+**A:** Yes. Deletion is completely blocked by the system if any active loads currently reference that specific contract. This safeguard prevents the accidental removal of financial data tied to live operations.
+
+**Q: Does a contracted rate lock in the price of a load?**
+
+**A:** No. While the system automatically populates the contracted rate when a matching lane is detected, authorized users can still manually override the amount on the load if a specific situation requires a price adjustment.
+
+**Q: Why is the "Choose Contract" dropdown empty even though I have the permission enabled?**
+
+**A:** The dropdown only populates if the load details match a valid lane contract. Ensure that the customer or broker, the Invoice As subsidiary, and the pickup and delivery addresses exactly match the existing customer lane contract.
+
+## Go Deeper
+
+- [User Roles in Alvys](/help/administration/user-roles-in-alvys)
+- [User Roles &amp; Permissions Collection](/help/administration/user-roles-permissions-collection)

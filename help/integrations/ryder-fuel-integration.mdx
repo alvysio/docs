@@ -1,0 +1,132 @@
+---
+title: "Ryder Fuel Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Support · Partner Admin
+
+  **Module:** Management > Integrations > Fuel
+
+  **Provider:** Ryder / RyderGyde
+
+  **Integration type:** One-way
+
+  **Sync direction:** RyderGyde to Alvys (manual file upload)
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Import fuel transactions from Ryder by downloading a Fuel Activity Report from the RyderGyde portal and uploading it to Alvys, where transactions are matched to trucks by Ryder Vehicle Number.
+</Note>
+
+## What this integration does
+
+The Ryder fuel integration lets you upload a Fuel Activity Report from the RyderGyde app into Alvys, linking fuel transactions to trucks by Ryder Vehicle Number. This is a one-way, manual import: you download a report from RyderGyde and upload it into Alvys. Transactions are matched to trucks based on the Ryder Vehicle Number, not individual fuel cards. All Ryder fuel costs are treated as company expenses and are not deducted from driver pay.
+
+Unlike other fuel integrations, Ryder does not issue fuel cards (fuel network cards) and does not support automatic daily imports.
+
+<Info>
+  💡 This integration is sometimes called the RyderGyde fuel report import, Ryder fuel activity upload, or Ryder fuel network import. · Matching is by Ryder Vehicle Number to truck number, with no driver-level fuel card mapping.
+</Info>
+
+## Prerequisites
+
+Before you begin, confirm the following:
+
+- You have **"Admin"**, **"Support"**, or **"Partner Admin"** access in Alvys (set on your user role in the Company Profile) and can reach the Management > Integrations page.
+- Your trucks in Alvys must have truck numbers that exactly match the Ryder Vehicle Numbers in your Ryder account. If these do not match, transactions will not link to the correct truck.
+- You have access to the RyderGyde portal to export fuel reports.
+
+## Connect and authenticate
+
+1. Click your username in the bottom left corner and select **Integrations** (or navigate to **Management** and select the **Integrations** tab).
+2. Select the subsidiary you want to integrate with Ryder Fuel.
+3. Expand the **Fuel Cards** section and locate **Ryder Fuel**.
+4. Click the pencil icon to open the Add Integration window.
+5. Click **Save** to activate the integration. No credentials are required for the Ryder integration; enabling it simply activates the ability to upload Ryder fuel reports for that subsidiary.
+6. Download the Fuel Activity Report from RyderGyde:
+7. Log in to the RyderGyde portal and select **Reports** from the menu.
+8. Locate **Fuel** and select **See Report** for the **Spreadsheet** report. Do not select the Interactive report.
+9. Set your date criteria. The Dynamic Date option is recommended.
+10. Scroll to the bottom and click **Run Report**.
+11. Under Report Home, select **Export** and choose **Excel** format. The report must be exported without summary information; the first row of the file must be the column names, not a summary header.
+
+    ![the RyderGyde Report Home screen with the Export option and Excel format selection highlighted](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1423202296/05e3b99e9cc6abf8dc841cec12a0/Untitled+%2819%29.png)
+
+    *the RyderGyde Report Home screen with the Export option and Excel format selection highlighted*
+
+    <Info>
+      💡 Optional: RyderGyde lets you subscribe to automated report delivery so reports are generated and emailed on a schedule. · Under Report Home select **Subscribe To**, modify the subscription name if needed, open the **Schedule** dropdown and choose a recurring time, select **Excel** for the Delivery Format, select **Send a preview now** to receive a copy immediately, then click **OK**. · Even with a subscription, the first row of the file must be column names and summary information must not be included.
+    </Info>
+12. Upload the Fuel Activity Report to Alvys:
+13. From the Alvys sidebar, navigate to **Reports** and select **Fuel Report**.
+14. Click the **Transaction File Upload** button.
+
+    ![the Fuel Report page in Alvys with the Transaction File Upload button visible](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1423209215/4b4300302305f6b7b5bef1c80d3a/UploadFuelReport.png)
+
+    *the Fuel Report page in Alvys with the Transaction File Upload button visible*
+15. In the pop-up window, select **Ryder Fuel** from the **Integration Type** drop-down menu.
+
+    ![the file upload pop-up with the Integration Type dropdown open and Ryder Fuel selected](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1423209623/9452940399ce8b7043fa6c2444b4/Untitled+%2820%29.png)
+
+    *the file upload pop-up with the Integration Type dropdown open and Ryder Fuel selected*
+16. Click the blue button to browse for your Ryder Fuel Activity Report file, or drag and drop the file into the window.
+17. Click **Upload**. Once uploaded, you can review the imported transactions by selecting a Transaction Date range in the Fuel Report.
+
+## Field and data mapping
+
+- **Matching:** The Ryder Vehicle Number in the exported report must exactly match the truck number in Alvys. There are no fuel card numbers or driver-level mappings for Ryder fuel.
+- **Expense handling:** All transactions are recorded as company expenses and are not deducted from driver settlements.
+- **Transaction grouping:** Multiple fuel purchases on the same day with the same invoice number are combined into one transaction with multiple line items. Unique transaction IDs are generated using Ryder Vehicle Number + Location ID + Fuel Disbursement Date + Fuel Disbursement Time.
+
+## Sync behavior
+
+The Ryder fuel integration imports fuel transactions from the RyderGyde Fuel Activity Report into the Alvys Fuel Report.
+
+- **Direction:** One-way, RyderGyde to Alvys, via manual file upload. There is no automatic daily import.
+- **Expense handling:** All transactions are recorded as company expenses and are not deducted from driver settlements.
+
+## Verify it's working
+
+To confirm a successful import, navigate to **Reports** and select **Fuel Report**, set the Transaction Date range to match the dates in the uploaded file, and confirm that transactions appear linked to the correct trucks. If a transaction does not appear linked to a truck, verify that the truck number in Alvys exactly matches the Ryder Vehicle Number in the report.
+
+## Troubleshooting
+
+### Transactions not linking to trucks
+
+The Ryder Vehicle Number in the exported report does not match the truck number in Alvys. Update the truck number in Alvys to match exactly, then re-upload the report.
+
+### Report upload fails or produces no transactions
+
+The report may include summary information at the top. The first row of the uploaded file must be column names only. Re-export the report from RyderGyde without summary information and try again.
+
+### Fuel transactions not appearing in driver pay
+
+Ryder fuel transactions are always treated as company expenses and are never deducted from driver settlements. This behavior cannot be changed per transaction; it is how the Ryder integration works by design.
+
+## Limits and unsupported
+
+<Warning>
+  ⚠️ Automatic daily imports are not supported; all uploads are manual. · Ryder does not issue individual fuel cards, so driver-level fuel card mapping is not used. · All Ryder fuel transactions are company expenses and cannot be deducted from driver pay. · Truck numbers must exactly match Ryder Vehicle Numbers; partial matches will not link transactions.
+</Warning>
+
+## FAQs
+
+**Q: Why aren't fuel cards needed for Ryder?**
+
+**A:** Ryder does not issue individual fuel cards like other providers. Transactions are linked to trucks directly through the Ryder Vehicle Number.
+
+**Q: What if my truck numbers don't match the Ryder Vehicle Numbers?**
+
+**A:** Transactions will not link to the correct truck. Update your truck numbers in Alvys to exactly match the Ryder Vehicle Numbers from your Ryder account, then re-upload the report.
+
+**Q: Are fuel costs deducted from driver pay?**
+
+**A:** No. All Ryder fuel transactions are company expenses and are not deducted from driver settlements.
+
+**Q: How often should I upload fuel reports?**
+
+**A:** This depends on your business needs. Setting up a subscription in RyderGyde for weekly or monthly automated report delivery makes the process easier and reduces manual work.
+
+**Q: Can I upload reports for multiple subsidiaries?**
+
+**A:** Yes. When enabling the Ryder Fuel integration, select the subsidiary you want to connect. You can repeat the setup for each subsidiary that uses Ryder fuel.

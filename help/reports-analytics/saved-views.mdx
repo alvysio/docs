@@ -1,0 +1,204 @@
+---
+title: "Saved Views"
+description: "Customize, save, and share grid layouts across your Alvys workspace"
+---
+
+<Note>
+  **Applies to:** All users (viewing and personal views); **"CreateTenantSavedView"** / **"UpdateTenantSavedView"** / **"RemoveTenantSavedView"** permissions (shared view management)
+
+  **Module:** Loads and Trips · Fleet Management · Reports
+
+  **Owner:** Support team · **Last reviewed:** 2026-06
+
+  Saved Views let you customize how data grids appear in Alvys, including column layout, filters, and sorting, and save those configurations for instant reuse. All users can view and apply saved views; creating and managing shared views requires specific permissions.
+</Note>
+
+## Overview
+
+Saved Views, also called grid views or saved layouts, let you control how data grids appear in Alvys and preserve those settings for later. Instead of re-applying filters, re-sorting columns, or rearranging the grid every time you open a page, you can save your preferred configuration as a named view and switch back to it with a single click.
+
+Saved Views are available on the Drivers List, Trucks List, Trailers List, and Dispatch Planner, with more grid pages rolling out over time.
+
+## Where to Find It
+
+The views bar appears at the top of any grid page that supports Saved Views. It displays all available views for that page as selectable chips. Clicking a chip immediately applies that view's column layout, filters, and sorting to the grid without reloading the page.
+
+If the views bar has more views than fit on screen, a "+ More" dropdown holds the rest, organized alphabetically.
+
+Views always display in this left-to-right order: Alvys-Defined (Global) views first, then your personal view (My View), then shared Tenant-Defined views.
+
+## Key Concepts
+
+### View types
+
+Alvys uses three types of saved views, each with different visibility and edit permissions.
+
+<Warning>
+  ⚠️ This feature is being released progressively and is available on Drivers List, Trucks List, Trailers List and Dispatch Planner to start!
+</Warning>
+
+**Alvys-Defined (Global) Views** are built-in views provided by Alvys and available to every user in your organization. For example, the Drivers List includes "All," "Active," and "Inactive" views out of the box. Global views cannot be edited or deleted. You can use a global view as a starting point: apply changes to it and then save your configuration as a new personal or shared view.
+
+**User-Defined (Personal View)** is a single private view each user can create per grid page. It is called My View and is only visible to you. It captures your preferred column arrangement, filters, and sorting for your individual workflow and does not affect other users.
+
+<Info>
+  💡 Your personal view is perfect for setting up your daily working layout without affecting other users in your organization.
+</Info>
+
+**Tenant-Defined (Shared Views)** are views created by users with the appropriate permission and shared with everyone in your organization. They are ideal for standardizing how your team views data, such as an "Endorsement Expirations" view on the Drivers List or an "Open Trips by Region" view on the Dispatch Planner. All users can see and apply shared views, but only users with the **"CreateTenantSavedView"** permission can create them.
+
+### Permissions Summary
+
+| Action | All Users | Admins / Partner Admins |
+| --- | --- | --- |
+| View all saved views | Yes | Yes |
+| Apply a view to grid | Yes | Yes |
+| Create personal view | Yes (1 per page) | Yes (1 per page) |
+| Create tenant views | No | Yes |
+| Edit / delete tenant views | No | Yes |
+
+#### What a saved view remembers
+
+When you create or update a saved view, the following grid settings are captured:
+
+- **Column visibility** — which columns are shown or hidden
+- **Column order** — the arrangement of columns from left to right
+- **Column widths** — how wide each column appears
+- **Column pinning** — columns pinned to the left or right side
+- **Filters** — any active filter conditions on the data
+- **Sorting** — multi-column sort order applied to the grid
+
+#### The modified state
+
+If you change a filter, sorting, or column arrangement while a saved view is active, a red dot appears on that view's chip. This indicates the current grid state differs from what the view originally saved. From this state you can:
+
+- Save Changes: overwrite the view's saved state with your current configuration (requires edit permission for the view).
+- Reset: discard your changes and restore the view to its saved state.
+- Set as default: make this view the one that loads automatically when you open the page.
+- Save as New View: save the current configuration as a new view if you have the appropriate permission.
+
+## How to Use It
+
+Users can browse the views bar and click any chip to apply a view instantly. Your personal My View can be created or updated by configuring the grid to your preferred state and selecting "Save in My View" from the dropdown button in the views bar. Each user is limited to one personal view per grid page; if you already have one, saving again will update it.
+
+<Note>
+  ![Views bar showing the Save in My View dropdown.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533282466/0eeb8777f943d405b09e56504506/upload_11447324273478434808.png)
+
+  *Views bar showing the Save in My View dropdown.*
+</Note>
+
+<Info>
+  💡 Each user is limited to one personal saved view per grid page. If you already have a personal view, you can edit or replace it.
+</Info>
+
+Users with the **"CreateTenantSavedView"** permission can create shared views for the whole organization by clicking the + button in the views bar, entering a name (up to 30 characters), choosing an icon, and saving. Users with the **"UpdateTenantSavedView"** permission can edit the name, icon, and configuration of existing shared views, and can duplicate a view. Users with the **"RemoveTenantSavedView"** permission can delete shared views.
+
+Any user can modify a shared view's filters, sorting, or columns and then save the result into their own My View without affecting the original shared view.
+
+Shared views can be reordered by dragging and dropping them in the views bar. Alvys-Defined views always appear first and cannot be reordered.
+
+Any view can be set as your default landing view for a page. Your default view is the one that loads automatically when you open the page.
+
+<Note>
+  ![Modified state indicator (red dot) on an active view chip with Save Changes, Reset, Set as Default, and Save as New View options.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533282491/c6ee1fa44df098b1428dddc104c2/upload_9585438440572656616.png)
+
+  *Modified state indicator (red dot) on an active view chip with Save Changes, Reset, Set as Default, and Save as New View options.*
+</Note>
+
+---
+
+## Settings and Permissions
+
+Viewing and applying any saved view requires no specific permission and is available to all users.
+
+Creating a personal view (My View) requires no specific permission and is available to all users, one per grid page.
+
+Creating a shared tenant view requires the **"CreateTenantSavedView"** permission.
+
+Updating or renaming a shared tenant view requires the **"UpdateTenantSavedView"** permission.
+
+Deleting a shared tenant view requires the **"RemoveTenantSavedView"** permission.
+
+By default, Admin and Partner Admin roles have all three permissions. Contact your organization's administrator if you need access to manage shared views.
+
+<Note>
+  ![Create tenant view dialog showing name field, icon picker, and Save button.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533282537/7daef36678a134e98b953be88888/upload_4098251460672904596.png)
+
+  *Create tenant view dialog showing name field, icon picker, and Save button.*
+</Note>
+
+<Note>
+  ![Tenant view creation step 2](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533282585/99cbb31ee0d5fbf7d4c135f7e09e/upload_6356945442099301003.png)
+
+  * Tenant view creation step 2*
+</Note>
+
+<Note>
+  ![Tenant view creation step 3](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533282623/77f80981b28df18818e2ddf7e0dc/upload_7195437824229687658.png)
+
+  *Tenant view creation step 3*
+</Note>
+
+<Info>
+  💡 Create tenant views for common workflows like tracking endorsement expirations, monitoring inactive drivers, or reviewing specific compliance statuses. This helps your team stay aligned and reduces manual setup.
+</Info>
+
+## Limits and Behavior
+
+- Each user can create one personal saved view per grid page.
+- Shared view names must be unique within the same organization. Alvys will prompt you to choose a different name if a conflict is detected.
+- Saved views are per page. A view created on the Drivers List does not appear on the Trucks List. Each grid page manages its own independent set of views.
+- Switching views updates the grid state (columns, filters, sorting) without triggering a full page reload.
+- On the Dispatch Planner, Saved Views apply only to the top table. You can save separate views for when Trips is the top table and when Drivers is the top table; each is stored independently.
+- If an Admin deletes a shared view while you are actively using it, the grid reverts to the default Alvys-Defined view.
+- Saved Views are available on Drivers List, Trucks List, Trailers List, and Dispatch Planner. Additional grid pages will receive the same capabilities as they are updated.
+
+<Note>
+  ![Edit and delete options for a tenant view in the views bar.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533282646/617dddcb9601e05099c43b72cedf/upload_3783493895141356902.png)
+
+  * Edit and delete options for a tenant view in the views bar.*
+</Note>
+
+Tenant views are visually distinct from personal views in the views bar, making it easy to tell at a glance which views are shared across your organization and which are personal to you.
+
+<Info>
+  💡 Views are per-page. A saved view on the Drivers List does not appear on the Trucks List. Each grid page manages its own set of views independently.
+</Info>
+
+---
+
+## FAQs
+
+**Q: How many personal views can I create?**
+
+**A:** Each user can create one personal saved view per grid page. If you need additional views shared with your team, ask an Admin to create tenant-level shared views.
+
+**Q: Can I share my personal view with my team?**
+
+**A:** Personal views are private and cannot be shared directly. If you want to make a view available to your team, ask a user with the **"CreateTenantSavedView"** permission to recreate it as a shared tenant view.
+
+**Q: What happens if an Admin deletes a shared view I am using?**
+
+**A:** The grid reverts to the default Alvys-Defined view for that page.
+
+**Q: Why can I not create a shared tenant view?**
+
+**A:** Creating shared views requires the **"CreateTenantSavedView"** permission, which is not available to all roles by default. Contact your organization's administrator to request this permission.
+
+**Q: Can I save a view with the same name as an existing one?**
+
+**A:** No. View names must be unique within the same scope (personal or tenant). Alvys will prompt you to choose a different name if there is a conflict.
+
+**Q: Does switching views reload the page?**
+
+**A:** No. Switching views updates only the grid state (columns, filters, sorting) without a full page reload. The change is instantaneous.
+
+**Q: Why can I only save views for one table in the Dispatch Planner?**
+
+**A:** Saved Views apply to the top table in the Dispatch Planner only. You can save separate views for when Trips is on top and when Drivers is on top; those are stored independently. Support for the bottom table may be added in a future update.
+
+<Note>
+  ![Planner showing top table with Trips or Drivers selector and separate saved views for each](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533282684/abb258d73fa8ad0068c800f026b0/upload_12119853771451705999.png)
+
+  *Planner showing top table with Trips or Drivers selector and separate saved views for each*
+</Note>

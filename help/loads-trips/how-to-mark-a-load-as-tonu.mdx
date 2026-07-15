@@ -1,0 +1,146 @@
+---
+title: "How to mark a load as TONU"
+---
+
+<Note>
+  **Applies to:** Dispatchers · Billing staff
+
+  **Module:** Loads &amp; Trips
+
+  **Last reviewed:** 2026-06
+
+  **Owner:** Support
+
+  A **TONU** (Truck Ordered, Not Used) records carrier compensation when a truck is dispatched but the load is cancelled or the carrier is turned away, and moves the load through the billing process.
+</Note>
+
+## Overview
+
+**TONU** stands for Truck Ordered, Not Used. It applies when a carrier is dispatched to a pickup location but the load is cancelled or the carrier is turned away after arrival. Marking a load as **TONU** in Alvys records the agreed compensation for the unused trip and routes the load to billing.
+
+**Synonyms:** truck ordered not used, TONU charge, dry run, deadhead compensation, cancelled load fee.
+
+## Before You Start
+
+- You must have **Dispatcher** or **Billing** permissions to mark a load as **TONU**.
+- The load must be in one of these statuses: **Open**, **Covered**, **Dispatched**, or **In Transit**.
+- Confirm the **TONU** amount with the carrier before proceeding.
+
+## Steps
+
+**Find the load.**
+
+- Use the **Global Search** bar in the upper right corner to locate the load. You can search by Alvys load number, trip number, or broker order number.
+- Double-click the load from the search results to open it.
+
+<Note>
+  ![Search bar for locating a load by number or customer name](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1303587200/91a5424e50087db45ef69caafdfa/image.png)
+
+  *Search bar for locating a load by number or customer name*
+</Note>
+
+**Mark the load as TONU.**
+
+- Inside the load, click **Manage** in the top-right action bar, then select **TONU** from the dropdown.
+- A confirmation dialog appears asking "Are you sure? This cannot be undone." Click **Yes** to confirm. The load status changes to **TONU**.
+
+<Note>
+  ![Manage dropdown menu with TONU option highlighted](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1303588130/f3ce066f728181a44b57d81d7b7f/image.png)
+
+  *Manage dropdown menu with TONU option highlighted*
+</Note>
+
+**Enter the TONU amount. **Update the financial data in the Money Box before marking the load as **TONU**. Dispatchers without Billing permissions cannot edit the Carrier Line Haul once the load status changes to **TONU**, so confirm the rates with the carrier before proceeding.
+
+- Select **Customer Freight Amount**, correct the amount the customer or broker pays you, then click **Save**.
+- Select **Carrier Line Haul**, correct the amount owed to or from the carrier, then click **Save**.
+- Select **Driver Trip Value** (for carriers), correct the amount accordingly, then click **Save**.
+
+<Note>
+  ![Money Box panel showing the Customer Rate and Carrier Line haul amount entry field](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1303588557/35b520e2503807c7fc52bc78de7d/image.png)
+
+  *Money Box panel showing the Customer Rate and Carrier Line haul amount entry field*
+</Note>
+
+**Adjust the stop status.** Alvys does not automatically update stop statuses when a load is marked as **TONU**. You must update the stop status manually so that your records accurately reflect what happened at the pickup location: this is required for accurate billing records and dispatcher reporting. Open the **Stops** section of the load and update the pickup stop status based on what actually happened:
+
+- Change the stop status to **Arrived** if the driver reached the shipper location.
+- Leave or change the stop status to **Covered** if the driver did not arrive at the shipper.
+
+<Note>
+  ![The Stops section of a load with the pickup stop status field shown, where the status can be set to Arrived or Covered after a TONU.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3de04a26-5fb1-45bd-86cc-7552285d4cc2/image.png)
+
+  *The Stops section of a load with the pickup stop status field shown, where the status can be set to Arrived or Covered after a TONU.*
+</Note>
+
+**Attach supporting documents (optional)**. Upload the revised rate confirmation and any supporting documents so that billing has the paperwork needed to process the load.
+
+- Click **Docs** from the load management ribbon.
+- Click the blue **Add a File** button to browse your computer, or drag and drop a file from your desktop into the documents area.
+- Select the file type, then click the blue **Upload** button.
+- Once the file is uploaded, close the documents panel.
+
+<Note>
+  ![Document upload panel for attaching TONU confirmation files e.g. Rate confirmation](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1303590559/d01edd65bb151700182fa76196d2/image.png)
+
+  *Document upload panel for attaching TONU confirmation files e.g. Rate confirmation*
+</Note>
+
+**Release to Billing.**
+
+- Once the financial information is updated and the load status shows **TONU**, release the load. Click **Manage** in the load management ribbon, then select **Release**.
+- This sends the load to your accounting and billing team for processing.
+
+<Note>
+  ![The Manage dropdown on the load with the Release option, used to send a TONU load to billing.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4b0ea8a4-d79f-4e51-9913-06caa53f83cc/image.png)
+
+  *The Manage dropdown on the load with the Release option, used to send a TONU load to billing.*
+</Note>
+
+## Result
+
+- The load is marked as **Released**. The carrier's compensation is saved, and the load moves to the billing queue for processing.
+
+<Note>
+  ![The load showing a Released status after a TONU has been released to billing.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ca354103-3f25-4a83-845a-d1d539e607f6/image.png)
+
+  *The load showing a Released status after a TONU has been released to billing.*
+</Note>
+
+## Variations
+
+- **Partial completion:** A **TONU** may not be appropriate if the carrier made a partial pickup. Contact your billing team to determine the correct charge type before proceeding.
+- **TONU not available in the Manage menu:** See the Troubleshooting section of this article.
+
+## Troubleshooting
+
+### TONU option is not visible in the Manage menu
+
+1. Check the current load status. **TONU** is only available when the load is in one of these statuses: **Open**, **Covered**, **Dispatched**, or **In Transit**.
+2. Confirm you have **Dispatcher** or **Billing** permissions. If you are unsure, contact your administrator.
+3. **TONU** is not available on trips that were created by splitting a load. If this trip is part of a split load, **TONU** will not appear in the Manage dropdown. If none of these conditions apply, contact Alvys support.
+
+### TONU amount is incorrect after saving
+
+1. Open the load and review the carrier rate in the Money Box panel.
+2. If you have Billing permissions, update the carrier rate directly in the Money Box. If you do not have Billing permissions, contact your billing team to make the correction.
+
+## FAQs
+
+**Q: Can I mark a load as TONU after it has been delivered?**
+
+**A:** No. **TONU** is only available when the load is in one of these statuses: **Open**, **Covered**, **Dispatched**, or **In Transit**. Once a load moves past these statuses, **TONU** is no longer available.
+
+**Q: Does marking a load as TONU automatically notify the carrier?**
+
+**A:** No. You must notify the carrier separately. Alvys records the **TONU** for internal billing purposes only.
+
+**Q: Can a TONU load be reactivated?**
+
+**A:** Yes. Open the **Manage** dropdown on the load and select **Revert Status** to return the load to its previous status. If Revert Status does not appear, billing has already progressed the load past the **TONU** stage. Contact Alvys support in that case.
+
+## Go Deeper
+
+- [How to Release a Load to Billing](/help/loads-trips/how-to-release-a-load-to-billing)
+- [Understanding Load Statuses and How to Revert Them](/help/loads-trips/understanding-load-statuses-and-how-to-revert-them)
+- [Billing Permissions](/help/administration/billing-permissions)

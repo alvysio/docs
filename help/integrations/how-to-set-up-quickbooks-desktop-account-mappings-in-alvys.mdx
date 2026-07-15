@@ -1,0 +1,259 @@
+---
+title: "How to set up QuickBooks Desktop account mappings in Alvys"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Support
+
+  **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Integrations team
+
+  Map your QuickBooks Desktop (QBD) Chart of Accounts to Alvys revenue and expense categories (a two-way integration in which Alvys exports invoices and bills to QBD) so that every invoice and bill posts to the correct account without errors.
+</Note>
+
+## Overview
+
+Account mapping connects each Alvys transaction type to a specific account in your QuickBooks Desktop (QBD) Chart of Accounts. When Alvys exports an invoice or bill to QBD, it looks up the mapped account for each line item and posts the amount there. Without complete mappings, the Web Connector will fail to sync the transaction.
+
+The integration uses two tiers: default accounts (required, act as fallback for any unmapped transaction) and specific accounts (optional, allow granular control per transaction category). You configure both during the integration setup wizard.
+
+**Important:** This article covers Step 3 of the QuickBooks Desktop integration setup. Complete Steps 1 and 2 before starting here.
+
+## Before You Start
+
+**Required role:** **"Admin"**, **"Partner Admin"**, or **"Support"** (requires the **"CompanyProfileManager"** permission)
+
+**Prerequisites:**
+
+- The QuickBooks Desktop integration must already be connected and the Web Connector active.
+- Your QBD Chart of Accounts must be set up in QuickBooks before mapping accounts in Alvys. Alvys pulls the account list directly from QBD.
+- You must know which transaction types you selected during configuration (Revenue, Expense, or both).
+
+## Steps
+
+1. **Open the account mappings screen.**
+2. Go to **Management > Integrations**.
+3. Open the QuickBooks Desktop integration setup wizard.
+4. Navigate to the **Account Mappings** step (Step 3 of the wizard).
+5. **Map default accounts.** Default accounts are required and act as the primary fallback for any unmapped transaction line items.
+
+<Note>
+  ![Default account mapping fields screen.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528701697/8fcf8370a6bf5ece8f464390f896/upload_3343275108941991696.png)
+
+  *Default account mapping fields screen. *
+</Note>
+
+**If Revenue is selected,** map both:
+
+<Note>
+  ![Revenue default account mapping fields filled in.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528701756/4260ac649b1e353179dd55c9ffb3/upload_2909746542035315275.png)
+
+  *Revenue default account mapping fields filled in.*
+</Note>
+
+**If Expense is selected,** map both:
+
+<Note>
+  ![Expense default account mapping fields filled in.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528701806/9e29118be52bb0b5bc0bc9bcf8ee/upload_7046551135090119335.png)
+
+  * Expense default account mapping fields filled in.*
+</Note>
+
+**Important:** Map default accounts to the correct account type in the QBD Chart of Accounts. Selecting an account with the wrong type will cause export errors.
+
+If you do not have any specific accounts created in QBD, once you have configured the default accounts you can click through the remaining steps, then click **Save**.
+
+1. **Map Load accounts (revenue).** The Load category represents revenue transaction line items on customer invoices.
+
+<Note>
+  ![Load account mapping screen.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528701840/48ea3395cde37e6b2f81ba9c4296/upload_5562160375028204657.png)
+
+  *Load account mapping screen.*
+</Note>
+
+Map each line item to a dedicated account. If only a general account exists, map it to the **Default Load Account**.
+
+1. **Map Trip accounts (expense).** The Trip category represents expense transaction line items on bills.
+
+<Note>
+  ![Trip account mapping screen.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528701869/bd794c6679380448dee4e9e4e109/upload_14820118824400005635.png)
+
+  *Trip account mapping screen.*
+</Note>
+
+Trips can be associated with internal assets, subsidiary carriers, or external carriers:
+
+Map each line item to a dedicated account or use the **Default Trip Account** as fallback.
+
+1. **Map Accessorial accounts (revenue and expense).** Accessorials represent additional charges or fees affecting both customers (revenue) and drivers or carriers (expense).
+
+<Note>
+  ![Accessorials mapping screen showing Revenue and Expense columns per type.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528701896/31c7590ade92c76f037ed0888db4/upload_13861401064946388980.png)
+
+  *Accessorials mapping screen showing Revenue and Expense columns per type. *
+</Note>
+
+The list is pulled from custom accessorials configured in Alvys. See [Custom Accessorials](https://help.alvys.com/en/articles/11668754-custom-accessorials#h_b77864f214). Each accessorial type has two columns: Revenue (customer charges) and Expense (driver or carrier costs).
+
+<Note>
+  ![Accessorials Default Accessorial Account option.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528701937/7d3c1628ca2dc7113a4e2263dfeb/upload_4032294734301524902.png)
+
+  *Accessorials Default Accessorial Account option.*
+</Note>
+
+1. **Map E-Check accounts (revenue and expense).** An e-check is an electronic check issued to pay a driver or external carrier. E-check fees are treated as revenue because they reimburse the company.
+
+<Note>
+  ![E-Check mapping screen.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528701963/46808e8fe19e3c272c05159bb36c/upload_4197765638845882877.png)
+
+  *E-Check mapping screen. *
+</Note>
+
+<Note>
+  ![E-Check fee configuration in company profile.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528701993/505ad5f09ed17ea302bfd8d35315/upload_6359934004915227416.png)
+
+  *E-Check fee configuration in company profile.*
+</Note>
+
+The E-Check category includes a default revenue account and a default expense account. Each individual e-check type has Revenue and Expense columns. The Revenue column maps the e-check fee. The Expense column maps the actual e-check amount.
+
+<Note>
+  ![E-check mapping example](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528702031/04e4a1936169e7892310f71a073c/upload_1128220320065940741.png)
+
+  *E-check mapping example*
+</Note>
+
+**Important:** A bill can fail to export if it includes e-checks with fees and the revenue account for the e-check fee is not mapped, even when the configuration is set to export expenses only.
+
+When e-checks are issued to a driver or carrier, an associated accessorial may also be created. Any accessorials associated with e-checks should be mapped under Accessorials (Step 5) if specific accounts exist.
+
+1. **Map Deduction accounts.** Map each predefined deduction type to a dedicated account, or map all to the **Default Deduction Account**.
+
+   <Note>
+     ![Deductions mapping screen showing deduction types.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528702075/34e696174366925025727ffb483e/upload_15331090335096256951.png)
+
+     *Deductions mapping screen showing deduction types.*
+   </Note>
+
+   ![Deductions mapping screen showing deduction types.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528702106/b0d9ec7d403c0ffb5a6e0730c54b/upload_8458211838360548484.png)
+
+   *Deductions mapping screen showing deduction types.*
+2. **Map Fuel accounts.** The fallback order for fuel transactions: specific fuel type account → **Default Fuel Account** → **Default Expense Account**.
+
+   <Note>
+     ![Fuel category mapping screen with fuel types.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528702135/3493bbb01091188f85d42a05f220/upload_16520946386765652134.png)
+
+     *Fuel category mapping screen with fuel types.*
+   </Note>
+
+   ![Fuel category mapping screen with fuel types.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528702154/e21849edf050529a12e0884ffa8a/upload_6163332903980252707.png)
+
+   *Fuel category mapping screen with fuel types.*
+3. **Map Toll accounts.** Only a single default account is provided for toll mapping.
+
+<Note>
+  ![Tolls mapping screen with single default account field.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528702191/11f9863b5e2754faed4302065645/upload_1672300056350406059.png)
+
+  *Tolls mapping screen with single default account field. *
+</Note>
+
+**Important:** The Tax category is deprecated. Skip this step if it appears in the wizard.
+
+<Note>
+  ![Deprecated Tax category screen.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528702224/34dd756df4548c4efa158d21ae55/upload_10410372755489870213.png)
+
+  *Deprecated Tax category screen.*
+</Note>
+
+1. **Map Escrow accounts.** Escrow accounts hold funds on behalf of drivers. The fallback order: specific escrow type account → **Default Escrow Account** → **Default Liability Account**.
+
+<Note>
+  ![Escrow mapping screen](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528702272/216b4a391b1001fa0a0f3fea7a94/upload_5656221318843456182.png)
+
+  *Escrow mapping screen*
+</Note>
+
+**Important:** Escrow account mappings must be linked to a liability account in QuickBooks Desktop because these funds are held temporarily on behalf of drivers.
+
+1. **Complete the setup.** Once all mappings are configured, click **Done**, then click **Submit**. A green checkmark will appear next to the integration.
+
+<Note>
+  ![Done and Submit buttons at end of wizard.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528702304/d5e9f5b5508655774605ea2c0b79/upload_5397818387220313570.png)
+
+  * Done and Submit buttons at end of wizard.*
+</Note>
+
+<Note>
+  ![Green checkmark next to QuickBooks Desktop integration.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528702338/1fd5c891cb1d7a21fb7245436cc8/upload_14885429736440334291.png)
+
+  *Green checkmark next to QuickBooks Desktop integration.*
+</Note>
+
+## Result
+
+A green checkmark appears next to the QuickBooks Desktop integration on the Integrations page. All Alvys transaction types are now connected to the correct accounts in your QBD Chart of Accounts.
+
+## Troubleshooting
+
+### Green checkmark does not appear after clicking Submit
+
+1. Refresh the Alvys Integrations page.
+2. If the green checkmark still does not appear, reopen the integration dialog and verify the Web Connector is active and the Company File Path is correct.
+3. Re-save the settings by clicking Submit again.
+4. If the issue persists, contact Alvys Support.
+
+### Bill fails to export when it includes an e-check
+
+1. Return to the E-Checks section of account mappings (Step 6).
+2. Map the e-check fee to a specific e-check revenue account, or select the default e-check revenue account.
+3. Save and re-export the bill.
+
+### Export error due to wrong account type
+
+1. Return to the default account mappings (Step 2) and verify that the Accounts Receivable and Default Revenue fields point to Revenue-type accounts.
+2. Verify the Accounts Payable and Default Expense fields point to the correct liability and expense account types.
+3. Correct any mismatches and save.
+
+### Account does not appear in a mapping dropdown
+
+1. Verify the account exists in your QBD Chart of Accounts.
+2. Ensure the Web Connector has run at least one successful sync so the QBD account list is up to date in Alvys.
+3. Refresh the mapping screen and check the dropdown again.
+4. If the account still does not appear, contact Alvys Support.
+
+## FAQs
+
+**Q: What are default account mappings, and why are they required?**
+
+**A:** Default accounts act as fallback accounts for transactions not explicitly mapped to a specific line item. They ensure all revenue (invoices) and expenses (bills) exported to QuickBooks post successfully.
+
+**Q: Can I skip setting up specific accounts and rely only on default accounts?**
+
+**A:** Yes. Transactions automatically fall back to the default accounts configured in Step 2.
+
+**Q: Why did my bill fail to export when it included an e-check?**
+
+**A:** This happens when the e-check fee is not mapped to a revenue account. Even when exporting expenses only, e-check fees are considered income and must be linked to a revenue account.
+
+**Q: Why must Escrow be mapped to a liability account?**
+
+**A:** Escrow funds are held on behalf of the driver and are not a company expense. Mapping to a liability account ensures financial statements correctly reflect that these funds are owed back to the driver.
+
+**Q: Can I map my customer fuel surcharge and driver fuel expense to the same account?**
+
+**A:** This is not recommended. Map customer-facing fuel surcharges to a Revenue account and driver-facing fuel costs to an Expense account. Mapping to the wrong account type will cause export errors.
+
+**Q: What is the Default Load Account used for?**
+
+**A:** It serves as the primary account for all line items on a customer invoice when you do not want to break out individual line items into separate QuickBooks accounts.
+
+**Q: How do I map accessorials that I created in Alvys?**
+
+**A:** Alvys pulls your custom accessorials list directly into the mapping screen. You will see two columns for each accessorial: one for Revenue (when you charge a customer) and one for Expense (when you pay a driver or carrier).
+
+## Go Deeper
+
+- [QuickBooks Desktop: Transaction Export and Modification Workflow](/help/integrations/how-to-export-and-modify-transactions-in-quickbooks-desktop)
+
+  ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2528702384/b445ac67d23bee7c849286f317db/upload_18039482835184846263.png)

@@ -1,0 +1,103 @@
+---
+title: "How to lock and unlock a load for editing"
+description: "How the Lock Load functionality works"
+---
+
+<Note>
+  **Applies to:** All users** ·** **Module:** Loads &amp; Trips
+
+  **Last reviewed:** 2026-06** ·** **Owner:** Support
+
+  The Lock Load feature lets you temporarily secure a load from other users' edits. Only you, or a user with the “**UnlockLoads**” permission, can release the lock.
+</Note>
+
+Locking a load (also called a load lock or locked for editing) prevents other users from making changes to it while you are editing; only the person who locked it, or a user with unlock permission, can release the lock.
+
+## Overview
+
+When you lock a load, all other users see it as read-only until you unlock it. A red **Locked for Editing** tag appears under the load status so your team knows the record is in use. This prevents accidental overwrites when multiple people access the same load at the same time.
+
+**Synonyms: **load lock, lock load, locked for editing, unlock load, release lock.
+
+## Before You Start
+
+- You must have access to the load you want to lock.
+- To unlock a load that someone else locked, your account needs the **"UnlockLoads"** permission. Contact your administrator if you need this.
+- The lock does not clear when you log out or navigate away; you must unlock the load manually when you are done.
+
+## How to lock a load
+
+1. Open the load.
+
+   - Go to **Loads** in the left navigation.
+   - Find and open the load you want to lock.
+2. Click the lock icon.
+
+   - In the upper right corner of the load header, select the lock icon (🔒). A tooltip reading "Lock Load" appears when you hover over it.
+   - A confirmation dialog appears: "Are you sure? Only you will be able to make changes to the load."
+   - Click **Yes** to confirm.
+3. Confirm the lock is active.
+
+   - A red **Locked for Editing** tag now appears directly under the load status (for example, under "Open").
+   - Other users who open this load will see the tag and will not be able to edit it.
+
+<Note>
+  ![The load details page showing a red Locked for Editing tag displayed below the trip status badge in the load header. An arrow points to the tag to highlight its location. The load number, status, and toolbar buttons are visible in the header area.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/bf2f51a3-a12a-40d6-b040-03e3fea9c076/image.png)
+
+  *The load details page showing a red Locked for Editing tag displayed below the trip status badge in the load header. An arrow points to the tag to highlight its location. The load number, status, and toolbar buttons are visible in the header area.*
+</Note>
+
+## How to unlock a load
+
+1. Open the locked load.
+
+   - Go to **Loads** and open the load showing the red **Locked for Editing** tag.
+2. Click the lock icon again.
+
+   - Select the lock icon (🔒) in the upper right corner of the load header.
+   - A confirmation dialog appears: "Are you sure? Other users can make changes to the load."
+   - Click **Yes** to confirm.
+3. Confirm the lock is released.
+
+   - The red **Locked for Editing** tag is no longer displayed.
+   - All users with access to the load can now edit it.
+
+## Result
+
+After locking: the load displays a red **Locked for Editing** tag and only you can make changes. After unlocking: the tag is removed and the load is open for editing by all users with access.
+
+## Variations
+
+**Unlocking a load locked by another user:** If your account has the **"UnlockLoads"** permission, you can unlock any load regardless of who locked it. Follow the same unlock steps above.
+
+## Troubleshooting
+
+### The lock icon is not visible or not available
+
+The lock icon appears in the load header for all users who can open the load details page. If the icon is visible but clicking it does nothing, the load may already be locked by another user and you do not have the **"UnlockLoads"** permission required to override their lock. Contact your administrator to review your role settings.
+
+### The Locked for Editing tag persists after I unlocked it
+
+Refresh the page. If the tag persists, another user may have re-locked the load; check with your team.
+
+## FAQs
+
+**Q: Can another user unlock a load I locked?**
+
+**A:** Only users with the **"UnlockLoads"** permission can unlock a load they did not lock themselves. Standard users cannot override your lock.
+
+**Q: What happens if I try to edit a load that another user has locked?**
+
+**A:** You will see the red Locked for Editing tag and editing fields will be disabled. You will not be able to make changes until the lock is released.
+
+**Q: Does locking a load prevent anyone from viewing it?**
+
+**A:** No. Other users can still open and view the load; they just cannot make changes while it is locked.
+
+**Q: Does my lock stay active after I log out?**
+
+**A:** Yes. The lock does not clear when you log out or close the browser. Return to the load and unlock it manually when you are ready.
+
+## Go Deeper
+
+- [Additional Load Permissions](/help/administration/additional-load-permissions)

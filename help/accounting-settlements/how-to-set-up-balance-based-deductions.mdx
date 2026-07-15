@@ -1,0 +1,122 @@
+---
+title: "How to Set Up Balance-Based Deductions"
+---
+
+<Note>
+  📋 **Module:** Assets > Drivers > Deductions tab · **Owner:** Support team · **Last reviewed:** 2026-06 · **Applies to:** All users
+</Note>
+
+## Overview
+
+Balance-based deductions let you set up recurring driver deductions using a starting balance and a maximum amount rather than a fixed end date or occurrence count. Deductions apply automatically each period until the total balance is paid off, which is useful for loans, trailer rent, equipment payments, and similar long-term obligations.
+
+The system tracks progress toward the total automatically and stops deductions when the balance reaches zero. This approach is useful for managing long-term driver obligations such as:
+
+- Trailer or equipment rental
+- Driver loans
+- Insurance advances
+- Training reimbursements
+
+Once configured, the deduction runs on the specified schedule without requiring manual intervention each period.
+
+## Before you start
+
+Before setting up a balance-based deduction:
+
+- The driver must be active in Alvys.
+- The deduction category you want to use must support recurring schedules.
+- All users have permission to manage deductions on driver profiles. No special role is required.
+
+## Steps
+
+1. Open the driver's Deductions tab:
+2. Go to **Assets > Drivers**.
+3. Select the driver you want to set up the deduction for.
+4. Click the **Deductions** tab on the driver profile.
+5. Add a new deduction:
+6. Click **Add Deduction**.
+7. Select the deduction category that applies (for example: Trailer Rent, Loan, Equipment).
+8. Configure the balance-based fields:
+9. **Frequency:** Select how often the deduction should run (for example: weekly, biweekly, monthly, every statement).
+10. **Maximum Amount:** Enter the total amount owed. This is the full balance the driver needs to pay off.
+11. **Starting Balance:** Enter any amount already paid, if applicable. Leave at zero if starting fresh.
+12. **Payment Amount:** Enter the amount to deduct each period. When balance-based fields are filled in, the end date and occurrence count fields are automatically disabled; the system uses the balance to determine when to stop.
+
+    ![Upload balance-based-deduction-setup-form.png here. This image shows: the Add Deduction form on a driver profile with the Maximum Amount, Starting Balance, and Payment Amount fields filled in alongside the frequency selector.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c3bbfc15-a060-4f68-8a89-99838c21d332/Screenshot_2026-02-03_at_3.40.40_PM.png)
+
+    *Upload balance-based-deduction-setup-form.png here. This image shows: the Add Deduction form on a driver profile with the Maximum Amount, Starting Balance, and Payment Amount fields filled in alongside the frequency selector.*
+13. Save the deduction:
+14. Click **Save**. The deduction is now active. It will run on the configured schedule and stop automatically when the remaining balance reaches zero.
+
+## Result
+
+After saving:
+
+- The deduction appears in the Deductions tab with the Maximum Amount, Starting Balance, and Remaining Balance columns visible.
+- Each time a statement is generated, the payment amount is deducted and the remaining balance updates.
+- When the remaining balance reaches zero, the deduction stops automatically. No manual end date or occurrence count is needed.
+
+## Variations
+
+### Show Remaining Balance on Driver Statements
+
+You can choose to display the remaining balance on the driver's statement so the driver can see what they still owe, even on periods when no deduction is taken. To enable this:
+
+1. Open the deduction on the driver's Deductions tab.
+2. Turn on **Show current balance on statements**.
+3. Click **Save**.
+
+When enabled, the balance appears on every statement that includes this driver, regardless of whether a deduction was applied in that period.
+
+### Viewing Balance Columns in the Deductions List
+
+The Deductions tab includes the following balance-related columns for quick review:
+
+- **Maximum Amount:** The total originally owed.
+- **Starting Balance:** The amount that was already paid when the deduction was created.
+- **Remaining Balance:** The current outstanding balance, updated after each statement.
+
+### Example
+
+A driver rents a trailer for $50,000:
+
+- Maximum Amount: $50,000
+- Starting Balance: $10,000 (already paid before setup)
+- Payment Amount: $1,000
+- Frequency: Weekly
+
+Each week, $1,000 is deducted from the driver's pay. The remaining balance updates after each statement. Deductions stop automatically when the remaining balance reaches $0.
+
+## Troubleshooting
+
+### Deduction is not stopping after the balance should be paid off
+
+1. Open the deduction on the driver's Deductions tab and confirm the Maximum Amount and Starting Balance are entered correctly.
+2. Confirm that statements have been generated for each period the deduction should have run. Balances update only when a statement is generated; deductions do not apply without a statement.
+3. If the remaining balance appears incorrect, contact Alvys support with the driver name, deduction category, and the date range of statements generated.
+
+### End date or occurrence fields are not available
+
+This is expected behavior. When Maximum Amount and Starting Balance are entered, the system disables the end date and occurrence count fields because the balance controls when the deduction stops. If you need to use an end date instead, leave the Maximum Amount and Starting Balance fields empty.
+
+## FAQs
+
+**Q:** Who can set up balance-based deductions?
+
+**A:** All users can create and manage deductions on driver profiles. No special role or permission is required.
+
+**Q:** Can I use balance-based deductions for a one-time expense?
+
+**A:** No. Balance-based deductions are designed for recurring payment schedules. For a one-time expense, create a standard one-time deduction without entering balance-based fields.
+
+**Q:** What happens if no deduction is taken on a statement period?
+
+**A:** If balance visibility is enabled on the deduction, the remaining balance still appears on the statement with no change to the amount. If visibility is not enabled, nothing appears for that period.
+
+**Q:** Can I edit the payment amount after the deduction is created?
+
+**A:** Yes. Open the deduction in the Deductions tab, update the Payment Amount, and save. Changes take effect on the next statement.
+
+**Q:** When does the remaining balance update?
+
+**A:** The remaining balance updates each time a driver statement (paystub) is generated that includes the deduction. It does not update between statements.

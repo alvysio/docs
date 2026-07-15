@@ -1,0 +1,129 @@
+---
+title: "How to filter, drill, and save the view you want"
+---
+
+## Overview
+
+You opened a dashboard your team built. The default view is close but not exactly what you want. Maybe you only care about a specific carrier, the last 14 days, or one lane. This article covers everything you can do to a dashboard without ever opening the Report Designer: filter it, drill into the detail behind a chart, cross-filter by clicking a data point, and save the view you will use every day. Related terms you may know this by: filter, filter bar, cross-filter, drill, drill down, drill-through, saved view, save view, and filter view.
+
+## Before you start
+
+You can open the dashboard. The dashboard must have been shared with you, or you must have access to the workspace that contains it.
+
+You have a reporting role. Filtering, cross-filtering, and drilling are available to anyone who can open a dashboard, which includes the **Admin**, **Analytic**, and **Viewer** reporting roles.
+
+For saving a filter view: this requires the **"CREATE_FILTER_VIEW"** permission, which is granted through the workspace **"MANAGE"** permission. On the Custom tier that belongs to the **Admin** reporting role. If you have the **Analytic** or **Viewer** role and the save option is not available, that is expected.
+
+The dashboard's author controls which filters appear, whether cross-filtering is on, and whether drilling is configured on each chart. If something described here is missing, it usually means the author has not turned it on.
+
+## Steps
+
+Open a filter from the filter bar. Every dashboard has a filter bar at the top. The dashboard's author decides which filters appear there. Common ones are **Date** (for example, Trip Picked Up At), **Customer**, **Carrier**, **Lane**, and **Driver**. Click any filter to open it.
+
+<Note>
+  ![Cross-filtering, clicking a chart data point re-filters the dashboard](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532416715/d3b8d4eac3195701b0c9717df8d0/upload_11251036578208223516.png)
+
+  *Cross-filtering, clicking a chart data point re-filters the dashboard*
+</Note>
+
+Narrow an attribute filter and apply it. Open the filter to see a list of values. Type in the search box to narrow the list. Tick the values you want and untick the rest. Click **Apply** inside the filter to commit your selection. Some attribute filters are multi-select; some are single-select. The dashboard author decides which.
+
+Set a date filter. Open a date filter to see two flavors. **Relative ranges** such as Last 7 days, Last 30 days, This month, Last quarter, and This year, anchored to today so the dashboard rolls forward with the calendar. **Custom range**, where you pick a specific start and end date. Click **Apply** to commit your selection.
+
+Cross-filter by clicking a chart. Some dashboards let you click a data point in one chart to filter the entire dashboard to that selection. For example, click a column showing "Customer A" and every other visualization re-filters to just Customer A. If cross-filtering is enabled, you will see a brief highlight or label confirming the cross-filter is active. To clear it, click an empty area of the chart, click the same point again, or click **Reset all filters**.
+
+<Note>
+  ![Drilling, clicking a chart point opens the detail behind it.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532416739/fe80a5d41d123eb6e2ca5217bb78/upload_4353366029580736963.png)
+
+  *Drilling, clicking a chart point opens the detail behind it.*
+</Note>
+
+Drill into the detail behind a chart. Drilling is different from cross-filtering. When the dashboard author has configured drilling on a chart, clicking a data point can: **open a related visualization** in a dialog; **navigate to another dashboard**, with the clicked value passed along as a filter; **open a URL**, often a link back to the underlying record in Alvys; or **drill down a hierarchy**, for example country, then state, then city. Drilling does not change the dashboard's filters. Close the drill dialog or click back to return.
+
+<Info>
+  💡 Drilling is set up by the dashboard's author. · If clicking a chart point does nothing, the author has not enabled drilling on that widget. · Ask them to add it, or build your own dashboard and configure drilling yourself.
+</Info>
+
+<Note>
+  ![Save view dialog in the filter-views menu](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532416753/939906ab5bd11f91edd414c4eb25/upload_10136748011439564864.png)
+
+  *Save view dialog in the filter-views menu*
+</Note>
+
+<Warning>
+  ⚠️ Sometimes the “More Details” redirect can take a couple of seconds.
+</Warning>
+
+Save a filter view. If you find yourself setting the same filters every morning, save them as a named filter view. Set the filters the way you want, open the filter-views menu in the filter bar, click **Save view** and give it a name (for example "My carriers, last 14 days"), and optionally tick **Set as default** so this view loads automatically when you open the dashboard.
+
+<Note>
+  ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532416767/42f6de932fc4f65fa59905fddac1/upload_15886230498512037608.png)
+</Note>
+
+<Note>
+  📌 Filter views are personal. · Your saved views are yours, not the team's.
+</Note>
+
+Next, reset all filters. If you have changed several filters and want to return to the dashboard's default view, click **Reset all filters** in the filter bar. Your filter changes are remembered per user and per browser, so reopening the dashboard tomorrow brings back your last selection. Reset clears that.
+
+## Result
+
+You can now shape any dashboard to the slice you care about, click into the detail behind a chart, and reopen the dashboard tomorrow with your filters already applied. A saved filter view, optionally set as the default, loads automatically every time you open the dashboard.
+
+## Variations
+
+- Quick narrowing for a busy dashboard: set the date filter to Last 7 days and pick one customer or carrier.
+- Ad-hoc questions with cross-filtering: click a chart point to see how that selection ripples through the rest of the dashboard, then clear it when done.
+- Routine views, not one-offs: save a filter view when it is something you will use again next week, and set it as the default if you open it daily.
+
+## Troubleshooting
+
+### Clicking a chart point does nothing
+
+The dashboard author has not enabled drilling on that widget. Ask the author to add drilling, or build your own dashboard and configure drilling yourself.
+
+### The "More Details" redirect takes a few seconds
+
+1. Wait a couple of seconds after clicking. Sometimes the "More Details" redirect can take a moment to open.
+
+### The filter you need is not in the filter bar
+
+The dashboard author decides which filters appear in the filter bar.
+
+1. Ask the dashboard's author to add the filter you need.
+2. If you prefer, build your own dashboard so you control which filters appear. See "Get started with Custom Reports" under Go Deeper.
+
+### You do not see a Save view option
+
+Saving a filter view requires the **"CREATE_FILTER_VIEW"** permission, which is granted through the workspace **"MANAGE"** permission and belongs to the **Admin** reporting role on the Custom tier.
+
+1. Confirm your reporting role. If you have the **Analytic** or **Viewer** role, the save option is not available to you.
+2. You can still filter, cross-filter, and drill interactively, and your last filter selection is remembered per browser.
+
+## FAQs
+
+**Q: Are my saved filter views visible to my team?**
+
+**A:** No. Filter views are personal. Your saved views are yours, not the team's.
+
+**Q: Will the dashboard remember my filters if I do not save a view?**
+
+**A:** Yes. Your filter changes are remembered per user and per browser, so reopening the dashboard tomorrow brings back your last selection. Clicking **Reset all filters** clears that.
+
+**Q: What is the difference between cross-filtering and drilling?**
+
+**A:** Cross-filtering re-filters the whole dashboard to the data point you click. Drilling opens the detail behind a chart, such as a related visualization, another dashboard, a URL, or the next level of a hierarchy, and it does not change the dashboard's filters.
+
+**Q: Why does clicking a chart not filter or drill?**
+
+**A:** The dashboard's author controls whether cross-filtering is enabled and whether drilling is configured on each chart. If nothing happens, the author has not turned that behavior on for that widget.
+
+**Q: Do relative date ranges update on their own?**
+
+**A:** Yes. Relative ranges such as Last 7 days and This month are anchored to today, so the dashboard rolls forward with the calendar.
+
+## Go Deeper
+
+- [Get started with Custom Reports](/help/reports-analytics/how-to-get-started-with-custom-reports)
+- [Build visualizations with drag-and-drop](/help/reports-analytics/how-to-build-visualizations-with-drag-and-drop)
+- [Share, export, schedule, alert](/help/reports-analytics/how-to-share-export-schedule-and-alert-on-a-dashboard)

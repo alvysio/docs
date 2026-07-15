@@ -1,0 +1,213 @@
+---
+title: "Dispatch Permissions"
+---
+
+<Note>
+  📋 **Applies to:** Admins, Partner Admins, Operation Managers, Dispatchers, Sales Agents, Data Entry
+
+  **Module:** Management > Company Profile > Users
+
+  **Last reviewed:** 2026-06
+
+  **Owner:** Product team
+</Note>
+
+Dispatch permissions control which users can perform core freight movement actions in Alvys, including assigning carriers, recording stop statuses, releasing loads to billing, and overriding carrier compliance restrictions.
+
+## Overview
+
+The Dispatch permissions category in Alvys governs the fundamental actions required to keep freight moving from assignment through delivery and into billing. These permissions cover carrier assignment, stop status management, load weight overrides, load release, and carrier compliance overrides. Each permission targets a specific operational need: a dispatcher managing day-to-day carrier assignments requires the **"Dispatch"** permission, a team member correcting a stop status out of sequence requires **"Override Stop Status"**, a user adjusting a weight set on a load requires **"Override Load Weight"**, a user handing off a delivered load to accounting requires **"Release Loads"**, and a dispatcher assigning a carrier flagged for compliance review requires **"Override Carrier Restriction"**.
+
+## Where to Find It
+
+To assign or modify Dispatch permissions for a user:
+
+1. Select your **username** in the bottom left corner of the screen.
+2. Select **Company Profile** and open the **Users** tab.
+3. Choose an existing user to edit, or select **Add User** to create a new profile.
+4. Scroll to the **Permissions** section.
+5. Locate the **Dispatch** category. It contains five individual checkboxes: **"Dispatch"**, **"Override Stop Status"**, **"Override Load Weight"**, **"Release Loads"**, and **"Override Carrier Restriction"**.
+
+<Note>
+  📋 Screenshot: The Dispatch permissions category in the Users tab, showing all five checkboxes.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/10098fee-ec3e-43af-8ca2-320d96596bc9/image.png)
+</Note>
+
+<Warning>
+  ⚠️ To modify permissions, the logged-in user must hold the **"Set Permission"** permission from the Management category. Without it, a user can view the profile but cannot change any permission checkboxes. See the Management and Privacy Permissions article for details on **"Set Permission"**.
+</Warning>
+
+## Key Concepts
+
+### What "permission" means here
+
+A permission in Alvys is a granular authorization checkbox assigned to an individual user profile. Permissions are separate from roles. A user's role (for example, Sales Agent or Office Admin) determines their default access, but individual permissions can extend or restrict what that user can do regardless of role.
+
+### The Dispatch category
+
+The Dispatch category groups five permissions that relate to load execution and handoff. These permissions are independent: a user can hold any combination of them. Granting one does not automatically grant another.
+
+### How permissions interact with load status
+
+Several Dispatch permissions behave differently depending on the current status of a load or trip. The exact status conditions are noted in each permission's section below. Load statuses referenced in this article include: **Open**, **Covered**, **Dispatched**, **In Transit**, **Delivered**, **TONU**, **Released**, **Invoiced**, and **Completed**.
+
+## Settings and Permissions
+
+### "Dispatch"
+
+The **"Dispatch"** permission identifies a user as a dispatcher within Alvys and grants authority to perform core dispatching actions. It governs two distinct things: whether the system recognizes the user as an eligible dispatcher for load assignment purposes, and whether the user can edit mileage on load legs.
+
+<Info>
+  💡 The act of transitioning a trip's status from Covered to Dispatched using the Dispatch button on the load details page does not require this permission. That action is governed by trip status alone. The **"Dispatch"** permission concerns the identification of a user as a dispatcher and the ability to edit mileage, not the Dispatch button itself.
+</Info>
+
+This permission controls the following behaviors:
+
+**My Trips column on the dashboard:** The My Trips column on the Alvys home dashboard is visible only to users who have the Dispatcher or Sales Agent role, or who hold the **"Dispatch"** permission. This allows tenants to give dispatching dashboard access to users in other roles, such as an Operation Manager acting as a dispatcher, without changing their role.
+
+<Note>
+  📋 Screenshot: The My Trips column visible on the home dashboard for a user with the Dispatch permission.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/0b66f8ac-ed0c-41a2-b2f5-b169a50f3fe0/image.png)
+</Note>
+
+**Stop leg mileage editing:** Users with this permission can edit mileage for individual trip stop-to-stop legs and the Previous Location miles field on a load.
+
+<Note>
+  📋 Screenshot: The mileage editing fields on a load leg, showing stop-to-stop and Previous Location miles.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/bd7f6dd1-a44c-4853-bf25-fcafdd2cc310/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c8927900-5ac3-426b-aa18-80b600b74d28/image.png)
+</Note>
+
+**Dispatcher selector on trips:** When a user opens the dispatcher selector on a trip, the picker dialog is filtered to show only users who hold the **"Dispatch"** permission. This prevents assigning a user who is not recognized as a dispatcher by the system.
+
+<Note>
+  📋 Screenshot: The dispatcher picker dialog filtered to show only users with the Dispatch permission.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/baef1f5b-b636-403d-b605-aba9228e0d88/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/77a67d70-13f9-4ec6-863e-bccf1466e4e5/image.png)
+</Note>
+
+**Dispatch Planner dispatcher list:** The Dispatch Planner filters its dispatcher dropdown to show only users with the Dispatcher role or the **"Dispatch"** permission. Only users matching either criterion appear for selection.
+
+**Dispatch Planner My Assets tab:** This permission also grants access to the My Assets tab in the Dispatch Planner.
+
+<Note>
+  📋 Screenshot: The My Assets tab in the Dispatch Planner, accessible only to users with the Dispatch permission.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7b9a6798-5f02-4cd2-ac11-e8390d4e004d/image.png)
+</Note>
+
+By default, the **"Dispatch"** permission is granted to the Support, Partner Admin, Admin, Operation Manager, Dispatcher, and Sales Agent roles. It is not assigned by default to the Biller, Data Entry, Office Admin, Safety, or Driver roles.
+
+### "Override Stop Status"
+
+The **"Override Stop Status"** permission allows a user to change a stop's status outside the normal sequential workflow. Under standard conditions, stop statuses progress in a fixed order and the status selector is active only when the trip is in an operational status such as **Covered**, **Dispatched**, **In Transit**, or **Delivered** (provided the driver has not yet been paid).
+
+A user without this permission sees the stop status button, but it remains disabled unless the trip meets those conditions. With this permission, the user can interact with the status selector even when the trip is in a locked status such as **Released** or **Invoiced**, or after driver payment has been recorded.
+
+<Note>
+  📋 Screenshot: The stop status button in an editable state for a user with the Override Stop Status permission, on a trip in Released status.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a8bdc8d3-e830-4f51-8a7e-97444384c419/image.png)
+</Note>
+
+<Warning>
+  ⚠️ If a load is in **Completed** status, stop statuses cannot be changed even with this permission. Additionally, the trip must have an assigned carrier. If no carrier is assigned, the status button remains disabled regardless of permissions.
+</Warning>
+
+By default, the **"Override Stop Status"** permission is granted to the Support, Partner Admin, Admin, Operation Manager, Dispatcher, Biller, Sales Agent, Data Entry, and Office Admin roles. It is not assigned by default to the Safety or Driver roles.
+
+### "Override Load Weight"
+
+The **"Override Load Weight"** permission allows a user to override the weight values set on a load. Without this permission, a user cannot change a load's recorded weight once it has been entered. This control supports operational corrections, such as adjusting a weight that was entered incorrectly or updating it to match a revised bill of lading, while limiting weight changes to authorized staff.
+
+By default, the **"Override Load Weight"** permission follows your tenant's standard dispatch role configuration. Confirm the current assignment in the Permissions panel for the role in question before relying on it.
+
+### "Release Loads"
+
+The **"Release Loads"** permission authorizes a user to advance a load from **Delivered** or **TONU** status to **Released** status, making it visible to billing and accounting in the invoicing queue. This permission also controls the reverse: moving a load backward from **Released** to its previous operational status. Without this permission, a user cannot perform either the release or the un-release action.
+
+**Release button (Trip Info Panel):** Advances a trip in **Delivered** or **TONU** status to **Released** status.
+
+<Note>
+  📋 Screenshot: The Release button in the Trip Info Panel for a trip in Delivered status.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/44443944-b083-401b-a545-bd8fd2efad8e/image.png)
+</Note>
+
+**Revert Status button (Trip Info Panel):** Moves a trip from **Released** back to **Delivered** status. The trip must currently be in **Released** status for this button to be available.
+
+<Note>
+  📋 Screenshot: The Revert Status button in the Trip Info Panel for a trip in Released status.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/43a519ac-fa55-4d4c-8a07-0e8254dee568/image.png)
+</Note>
+
+**Release Load button (multi-trip):** Releases all trips on a load at once. This button requires the load to have more than one trip, with at least one trip in **Delivered** or **TONU** status.
+
+<Note>
+  📋 Screenshot: The Release Load button for releasing all trips on a multi-trip load.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b7c8f111-32e0-49c8-af14-4c34774ca4b1/image.png)
+</Note>
+
+By default, the **"Release Loads"** permission is granted to the Support, Partner Admin, Admin, Operation Manager, Dispatcher, and Biller roles. It is not assigned by default to the Sales Agent, Data Entry, Office Admin, Safety, or Driver roles.
+
+### "Override Carrier Restriction"
+
+The **"Override Carrier Restriction"** permission allows a user to assign a carrier whose compliance status is flagged as NonCompliant or RequiresReview during the carrier assignment process.
+
+When a user with this permission selects a carrier with one of those compliance statuses, a confirmation dialog appears before the assignment is completed. The dialog asks the user to acknowledge the compliance flag and confirm the assignment. Without this permission, the confirmation dialog does not appear; the user cannot proceed with assigning a non-compliant or under-review carrier.
+
+<Note>
+  📋 Screenshot: The confirmation dialog shown when a user with Override Carrier Restriction assigns a carrier with a NonCompliant or RequiresReview compliance status.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/87d0121a-bc2f-40b7-aa43-7f9eb7491384/image.png)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b69fb2b6-1ea5-49da-9029-d0e157fec101/image.png)
+</Note>
+
+By default, the **"Override Carrier Restriction"** permission is not assigned to any role. It must be granted individually to users whose job function requires assigning carriers with active compliance flags.
+
+## Limits and Behavior
+
+- The **"Dispatch"** permission does not grant access to the Dispatch button on the load details page. That button's availability is governed by the trip's current status (**Covered** or **In Review**), not by this permission.
+- The **"Override Stop Status"** permission cannot override the **Completed** load status. Once a load reaches **Completed**, stop statuses are immutable.
+- The **"Override Stop Status"** permission has no effect on trips without an assigned carrier. The status button remains disabled regardless of this permission.
+- The **"Release Loads"** permission is required for both releasing (forward) and un-releasing (backward) transitions involving **Released** status. Holding the permission grants both directions.
+- The **"Release Load"** multi-trip button requires more than one trip on the load and at least one trip in **Delivered** or **TONU** status.
+- The **"Override Carrier Restriction"** permission triggers a confirmation dialog rather than silently bypassing the compliance check. The confirmation step is mandatory.
+- None of these permissions can be self-assigned. The logged-in user making the change must hold the **"Set Permission"** permission.
+
+## FAQs
+
+**Q: Can I grant Dispatch permissions to a user without changing their role?**
+
+**A:** Yes. Permissions and roles are independent in Alvys. You can assign any Dispatch permission to a user in any role (except Driver) without changing their role. The permission takes effect immediately after saving.
+
+**Q: Why does the Dispatch button on a load still not work after I gave a user the "Dispatch" permission?**
+
+**A:** The Dispatch button transitions a trip from Covered or In Review to Dispatched status. This action is controlled by the trip's current status, not by the **"Dispatch"** permission. If the Dispatch button is unavailable, confirm the trip is in **Covered** or **In Review** status.
+
+**Q: A user with "Override Stop Status" still cannot change a stop. Why?**
+
+**A:** Two conditions block the stop status button even with this permission: the load is in **Completed** status (which is always immutable), or the trip has no assigned carrier. Confirm neither condition applies. If the load is not in **Completed** status and a carrier is assigned, contact Alvys support.
+
+**Q: What is the difference between releasing a load and dispatching a load?**
+
+**A:** Dispatching a trip moves it from **Covered** or **In Review** to **Dispatched** status and signals that the carrier has been notified. Releasing a load moves a **Delivered** or **TONU** trip to **Released** status and hands it off to billing. These are separate actions controlled by different permissions.
+
+**Q: Who should receive the "Override Carrier Restriction" permission?**
+
+**A:** This permission should be limited to senior dispatchers or operations managers whose role explicitly includes the authority to assign carriers with active compliance flags. It should not be granted broadly, as it bypasses a compliance safeguard that protects the company from liability.
+
+## Go Deeper
+
+- [User Roles and Permissions Collection](/help/administration/user-roles-permissions-collection)
+- [Management and Privacy Permissions](/help/administration/management-privacy-permissions)
+- [Releasing a Load to Billing](https://help.alvys.com/en/articles/9098730-releasing-a-load-to-billing)

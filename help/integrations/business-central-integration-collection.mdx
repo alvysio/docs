@@ -1,0 +1,61 @@
+---
+title: "Business Central Integration Collection"
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin
+
+  **Module:** Accounting > Integrations > Business Central
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  **Provider:** Microsoft Dynamics 365 Business Central · **Integration type:** One-way · **Direction:** Alvys exports financial transactions to Business Central General Ledger.
+
+  This collection includes all articles and guidance for configuring, using, and troubleshooting the Microsoft Dynamics 365 Business Central integration (BC, Business Central, accounting integration, transaction export, sync) in Alvys.
+</Note>
+
+## Overview
+
+The Business Central integration allows Alvys to automatically export financial transactions, including load invoices, trip bills, e-checks, paystubs, and carrier bills, to your Business Central General Ledger. This collection covers every step from initial setup through ongoing transaction management and error resolution. Follow the recommended order to get started, or jump to a specific topic using the links below.
+
+- **Integration type:** One-way sync (Alvys to Business Central)
+- **Provider:** Microsoft Dynamics 365 Business Central
+- **Direction:** Alvys exports financial transactions to Business Central General Ledger
+
+## Articles in This Collection
+
+### 1. Business Central: Prerequisites
+
+What to prepare in your Business Central environment before connecting to Alvys. Covers organizational architecture (Separate Companies vs. MEM), required user licensing, granular permission sets, and the mandatory setup of the Chart of Accounts, Posting Groups, and Journal Batches.
+
+[Business Central: Prerequisites](/help/integrations/how-to-prepare-business-central-before-connecting-to-alvys)
+
+### 2. Business Central: Connection and Settings
+
+Authenticate the connection between Alvys and Business Central and configure core transaction settings. Covers Revenue and Expense toggles, driver billing configuration, subsidiary and fleet dimension mapping, and e-check automation.
+
+[Business Central: Connection and Settings Configuration](/help/integrations/how-to-connect-business-central-to-alvys-and-configure-settings)
+
+### 3. Business Central: Account Mappings
+
+Map Alvys transaction types to Business Central General Ledger accounts. Covers required default accounts (accounts receivable, accounts payable, default revenue, and default expense) and optional specific mappings for Loads, Trips, Accessorials, E-Checks, Deductions, Fuel, Tolls, and Escrow.
+
+[Business Central: Account Mappings](/help/integrations/how-to-set-up-business-central-account-mappings)
+
+### 4. Business Central: Transaction Export and Modification Workflow
+
+How Alvys routes invoices and bills to Business Central based on Invoice As and Tender As logic. Covers how customer and vendor records are linked or created and the workflow for modifying, regenerating, or reversing transactions after they have been exported.
+
+[Business Central: Transaction Export and Modification Workflow](/help/integrations/business-central-transaction-export-and-modification-workflow)
+
+### 5. Business Central: Payment Synchronization
+
+How vendor payment updates sync between Business Central and Alvys, including status update behavior and known limitations. Note: Customer Payment Export is not supported for Business Central.
+
+[Alvys Payment Synchronization for Accounting Integrations](/help/integrations/alvys-payment-synchronization-for-accounting-integrations)
+
+### 6. How to resolve Business Central transaction export errors
+
+How to view and resolve failed transaction exports using the Error Transactions page. Covers the error table columns, which transaction types can be re-synced directly, the re-sync and Mark as Synced workflows, and resolution steps for common Business Central error messages.
+
+[Business Central: Identifying and Resolving Failed Transactions](/help/integrations/how-to-resolve-business-central-transaction-export-errors)
