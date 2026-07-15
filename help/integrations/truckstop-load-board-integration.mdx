@@ -1,0 +1,99 @@
+---
+title: "TruckStop Load Board Integration"
+description: "Integrate Truckstop with Alvys for seamless load posting. Follow this guide to set up, troubleshoot, and ensure a smooth workflow."
+---
+
+<Note>
+  📋 **Applies to:** Users with the **"TruckStop"** permission
+
+  **Module:** Management > Integrations
+
+  **Provider:** TruckStop · **Integration type:** One-way · **Direction:** Alvys posts loads outbound to TruckStop
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  The TruckStop integration (also called the TruckStop load board integration) connects your Alvys account to the TruckStop load board so you can post and manage loads directly from Alvys. Setup requires authenticating with your TruckStop account credentials through the Integrations page.
+</Note>
+
+## Overview
+
+Alvys integrates with TruckStop to allow users to post loads from Alvys directly to the TruckStop load board. This is a one-way integration: load data flows from Alvys to TruckStop. Once connected, users with the **"TruckStop"** permission can post, update, and remove load listings on TruckStop without leaving Alvys.
+
+TruckStop is also known as [Truckstop.com](http://truckstop.com/) and is part of the Truckstop Group. It is one of the major digital freight marketplace platforms used for load board services.
+
+## Prerequisites
+
+Before connecting TruckStop, confirm the following:
+
+- Your Alvys user account has the **"TruckStop"** permission assigned. If you do not have this permission, contact your administrator.
+- You have active TruckStop account credentials (username and password).
+- Your TruckStop account has the permissions required to connect third-party integrations. If you are unsure, contact TruckStop support.
+- You have your default posting email address available. This is the email TruckStop will use to route load posting notifications.
+
+## How to connect?
+
+1. Open the Integrations page. Navigate to **Management > Integrations** in Alvys. Locate TruckStop in the Load Board Integrations section.
+2. Remove an existing integration if it is not working. If TruckStop is already listed but not functioning correctly, remove and re-add the integration. Authentication tokens can become stale or invalid over time; removing and reconnecting refreshes the connection. To remove, find TruckStop in the list and click **Deactivate**. Save your TruckStop login credentials before doing this: you will need them to reconnect. Once deactivated, the integration will be removed from the list.
+3. Add the TruckStop integration. Select **TruckStop** from the list, enter your default posting email address, then click **Save**.
+4. Authenticate with TruckStop. A new window will open, redirecting you to the TruckStop login page. Enter your TruckStop username and password. If prompted, complete any additional verification steps such as multi-factor authentication. Approve any access requests to allow Alvys to connect to your TruckStop account.
+5. Confirm the integration is working. After authenticating, you will be redirected back to the Alvys Integrations page. Check the status of TruckStop in the list. If the status shows **Integrated**, the setup is complete.
+
+## What syncs?
+
+When you post a load from Alvys to TruckStop, the load details, including origin, destination, equipment type, and rate, are sent to TruckStop and displayed on the load board. The default posting email you entered during setup is used by TruckStop to route carrier responses and notifications for that load.
+
+This integration is one-way: Alvys pushes load data to TruckStop. TruckStop does not send load data back into Alvys. Any changes made to a load in Alvys after posting must be updated in Alvys; those updates will sync to the TruckStop listing.
+
+To verify the integration is working after completing setup:
+
+1. Navigate to **Management > Integrations** and confirm TruckStop shows a status of **Integrated**.
+2. Post a load to TruckStop from within Alvys.
+3. Log in to your TruckStop account directly and confirm the load appears in your listings.
+
+<Note>
+  📋 TruckStop does not send load data back into Alvys; carrier responses and bookings must be managed in your TruckStop account. · Only users with the **"TruckStop"** permission can interact with TruckStop-powered features in Alvys. · Each subsidiary that should have access to TruckStop load posting must have the integration configured separately within its own settings.
+</Note>
+
+## Troubleshooting
+
+### Incorrect credentials error
+
+Reset your TruckStop password and attempt the authentication step again.
+
+### Redirect not working during authentication
+
+Clear your browser cache or switch to an incognito window. Ensure your browser is not blocking popups for the Alvys domain.
+
+### Stuck on authentication screen
+
+Verify that your TruckStop account has the permissions needed to authorize third-party integrations. Contact TruckStop support if the account settings need to be adjusted.
+
+### Integration status does not show Integrated after setup
+
+Check that the authentication completed successfully and that you were redirected back to the Alvys Integrations page. If the status still does not update, deactivate the integration and repeat the setup steps. If the issue persists, contact Alvys Support.
+
+### Browser extension interfering with authentication
+
+Some browser extensions (including ad blockers or security tools) can block the TruckStop authentication redirect. Disable extensions temporarily and retry.
+
+## FAQs
+
+**Q: What is the default posting email used for?**
+
+**A:** The default posting email is used when posting loads to TruckStop. TruckStop uses this address to route carrier notifications and responses to the correct contact on your team.
+
+**Q: Why do I need to remove and re-add the integration if it is not working?**
+
+**A:** Authentication tokens can become stale or invalid over time. Removing and re-adding the integration refreshes the connection and resolves most authentication issues.
+
+**Q: Can I use the same TruckStop account for multiple subsidiaries?**
+
+**A:** Yes, but you must configure the integration settings for each subsidiary separately within Alvys. Each subsidiary that needs access to TruckStop load posting requires its own integration setup.
+
+**Q: How do I know if my loads are successfully posting to TruckStop?**
+
+**A:** After integration is complete, verify successful posts by logging in to your TruckStop account directly and checking your load listings. You can also monitor load responses in Alvys.
+
+## Go Deeper
+
+- [Alvys Carrier Marketplace](https://help.alvys.com/en/articles/11668698)

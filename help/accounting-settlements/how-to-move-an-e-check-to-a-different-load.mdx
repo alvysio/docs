@@ -1,0 +1,75 @@
+---
+title: "How to Move an E-Check to a Different Load"
+---
+
+<Note>
+  ℹ️ **Applies to:** Dispatchers · Billers
+
+  **Module:** Accounting > E-Checks
+
+  **Last reviewed:** 2026-06 · **Owner:** Settlements / Accounting team
+
+  E-checks (also called comcheks, comchecks, or money codes) can be moved from one load to another directly in Alvys, as long as the e-check has not been paid, cancelled, or included in a driver statement. If the e-check cannot be moved, you can cancel and reissue it, or mark it as unavailable for settlement and add a matching accessorial charge on the destination load.
+</Note>
+
+## Overview
+
+An e-check (also called a comchek or money code) issued on a load can be reassigned to a different load and trip without cancelling and reissuing it. This is useful when a check was generated on the wrong load, or when a load is split and the e-check needs to follow the driver to the correct trip.
+
+Moving an e-check also moves the associated accessorial charges to the destination load and trip, and creates an audit log entry on both loads.
+
+## Before You Start
+
+You must have the **"Move Comchek"** permission for the Move option to appear, and the **"Add Accessorials"** permission for the move to complete. Confirm the following before proceeding:
+
+- The e-check must not have been marked as paid.
+- The e-check must not have been cancelled.
+- The source trip must not be included in a draft or processed driver pay statement; if it is, the move will be blocked.
+- The destination trip must exist and must be assigned to the same driver as the source trip.
+
+## Steps
+
+1. Navigate to the Accounting > E-Checks page. In the left navigation, select Accounting, then select E-Checks.
+2. Locate the e-check to move. Use the date range filter or the money code search field to find the e-check. Confirm the row shows the correct load number and driver.
+3. Initiate the move. Right-click the e-check row in the grid. Select Move from the context menu.
+4. Enter the destination trip. In the move dialog, enter the trip number for the destination load. If the e-check is associated with a specific stop, select the correct stop on the destination trip. Click Confirm.
+
+## Result
+
+The e-check is reassigned to the destination load and trip. The accessorial charges linked to the e-check move to the new load. Both the source load and the destination load show an audit log entry recording the move.
+
+## Variations
+
+**If the e-check is paid and cannot be moved:** On the original load, mark the e-check as unavailable for settlement so it does not appear on the driver's pay statement. On the destination load, open the trip and add the amount as a driver accessorial charge using the same accessorial type.
+
+**If the e-check has not been used but needs to go to a different load and cancelling is acceptable:** Cancel the e-check from Accounting > E-Checks (right-click, then select Cancel), then open the destination load, navigate to the trip, and issue a new e-check for the driver.
+
+## Troubleshooting
+
+### Move option is not visible in the context menu
+
+Confirm your user account has the **"Move Comchek"** permission, and that the **"Add Accessorials"** permission is enabled so the move can complete. Ask your administrator to check your role in Management > Users if you are unsure. Also confirm you are right-clicking a row in the E-Checks grid: the Move action is only available from the E-Checks page (Accounting > E-Checks), not from within an individual load.
+
+### Move is blocked with an error message
+
+1. If the error states the e-check is paid, use the paid e-check variation above.
+2. If the error states the trip is included in a driver statement, ask your accounting team to remove the trip from the draft statement before retrying the move. If the statement has already been processed, contact Alvys support with the load number and statement details.
+3. If the error states the destination trip does not exist, verify the trip number is correct and that the trip is assigned to the same driver.
+
+## FAQs
+
+**Q: Can I move an e-check to a trip on the same load?**
+
+**A:** Moving an e-check to a different trip on the same load is not supported through the Accounting > E-Checks move action. That type of reassignment happens automatically when a load is split in Loads and Trips.
+
+**Q: Does moving an e-check change the money code or check number?**
+
+**A:** No. The money code and check number remain the same after a move. Only the load number, trip number, and stop association are updated.
+
+**Q: Can I move a cancelled e-check?**
+
+**A:** No. Cancelled e-checks cannot be moved. Issue a new e-check on the destination trip instead.
+
+## Go Deeper
+
+- [E-Check Permissions](/help/administration/e-check-permissions)

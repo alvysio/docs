@@ -1,0 +1,77 @@
+---
+title: "How time zone standardization works in Alvys"
+description: "Alvys standardizes time zones for consistent transaction handling and display, converting UTC data to users' local time zones for clarity"
+---
+
+![Notion Image](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1343402964/c4eb243d85203c172fbf7f578972/New+Project+%282%29.png)
+
+<Note>
+  **Applies to:** All users **·** **Module:** Driver Settlements (Fuel and Tolls)
+
+  **Last reviewed:** 2026-06** ·** **Owner:** Support
+
+  Alvys stores all fuel and toll transaction times in UTC and converts them to your local time zone for display; a transaction date in Alvys may differ by one day from the same transaction in your provider's portal.
+</Note>
+
+## Overview
+
+Alvys stores all fuel and toll transaction timestamps in Coordinated Universal Time (UTC) and converts them to each user's local time zone at the point of display. This approach ensures that transaction data synced from multiple providers such as EFS, Comdata, Relay, and Loves is stored on a single consistent standard, regardless of the time zone each provider uses internally.
+
+The result is that the time shown in Alvys for any given transaction reflects your local time, while the same transaction in your provider's portal may show a different time. In some cases, the UTC conversion can shift a transaction into a different calendar day, which matters when you are filtering by date.
+
+**Synonyms:** UTC time, time zone conversion, transaction time discrepancy, date filter, time zone offset, fuel transaction date, toll transaction date.
+
+## Where to Find It
+
+Fuel and toll transactions are visible in Driver Settlements. Open the Driver Settlements module, locate the relevant driver or truck record, and navigate to the Fuel or Tolls tab to see transactions with their converted timestamps.
+
+## Key Concepts
+
+**UTC storage**
+
+All transaction timestamps are stored in UTC when they arrive in Alvys, regardless of the time zone used by the originating provider.
+
+**Local time display**
+
+When you view a transaction, Alvys converts the stored UTC timestamp to your local time zone based on your browser or device settings. Two users in different time zones viewing the same transaction will each see a different local time.
+
+**The one-day shift**
+
+Because a UTC timestamp is always ahead of US time zones, a transaction that occurred late in the evening local time may be stored in Alvys with a UTC date that falls on the following calendar day. Conversely, a transaction stored at midnight UTC may display as the previous evening in your local time zone. This is expected behavior and is not a data error.
+
+Example: a transaction timestamped 2024-12-10 at 02:14 UTC will display as:
+
+- 2024-12-09 at 20:14 in Central Time (UTC-6)
+- 2024-12-09 at 19:14 in Mountain Time (UTC-7)
+
+**Provider time zone differences**
+
+Different fuel and toll providers handle time data differently. EFS, for example, processes transactions in Mountain Time before sending them to Alvys. The timestamp in your EFS portal reflects EFS's local time; Alvys shows the time converted to your local time zone from UTC. This means the time displayed in Alvys and the time in your EFS portal will typically differ.
+
+## How to Use It
+
+For guidance on filtering fuel or toll transactions by date, see the fuel and toll articles in the Driver Settlements section of the help center.
+
+## Limits and Behavior
+
+When filtering fuel or toll transactions by date, the UTC conversion can cause transactions to fall outside a date filter by up to one day. If you expect to see a transaction on a given date but it does not appear, expand your date filter by one day in either direction to account for this offset.
+
+This behavior applies to all fuel and toll providers integrated with Alvys, including EFS, Comdata, Relay, Loves, BestPass, IPass, and PrePass.
+
+## FAQs
+
+**Q: Why does a transaction in Alvys show a different date than the same transaction in my EFS portal?**
+
+**A:** EFS displays transaction times in its own local time zone (Mountain Time). Alvys stores all transactions in UTC and converts them to your local time zone for display. Because these are different reference points, the displayed date and time will differ between the two systems. This is expected and does not indicate a data mismatch.
+
+**Q: Why is a transaction not appearing when I filter by a specific date?**
+
+**A:** The UTC-to-local conversion can shift a transaction into a neighboring calendar day. Expand your date filter by one day in either direction to locate the transaction. If it still does not appear after adjusting the filter, contact Alvys support.
+
+**Q: Does this affect all providers, or only EFS?**
+
+**A:** UTC storage applies to all fuel and toll providers integrated with Alvys, including EFS, Comdata, Relay, Loves, BestPass, IPass, and PrePass.
+
+**Q: Does my time zone setting in Alvys affect what I see?**
+
+**A:** Alvys uses the time zone reported by your browser or device. There is no separate time zone setting in the Alvys interface to configure. If your device is set to the wrong time zone, the transaction times displayed in Alvys will reflect that incorrect offset.

@@ -1,0 +1,376 @@
+---
+title: "How to configure dimension and custom field mappings for Sage Intacct"
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Settings > Connections > Sage Intacct
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Create dimension values and custom fields in Sage Intacct, then map them to Alvys fields so every exported bill and invoice carries the right dimension tags and custom-field data.
+</Note>
+
+## Overview
+
+Dimensions and custom fields let you push additional categorization and data from Alvys into Sage Intacct on every exported bill and invoice. Configuring them (also called field matching or dimension setup) involves work in two systems: you create the values in Sage Intacct first, then map them to the corresponding Alvys fields from your integration settings.
+
+This article walks through all four (4) phases; setting up dimension values in Sage Intacct, mapping those dimensions in Alvys, creating custom fields in Sage Intacct, and mapping custom fields in Alvys — plus the available fields and FAQs.
+
+- **Also referred to as**: Field matching **·** Dimension Setup **· D**imension Mapping
+
+## Before You Start
+
+**Confirm the following before you begin:**
+
+- The Sage Intacct setup wizard in Alvys is complete. The Dimensions and Custom Fields tab does not appear until the wizard finishes.
+- You know which Sage Intacct dimension types you want to use. Alvys supports 11 standard types: Location, Department, Class, Customer, Vendor, Employee, Project, Item, Asset, Contract, and Warehouse. Custom Dimensions are not supported.
+- Any required dimensions (those with a red Required badge in Alvys) have dimension values created in Sage Intacct and will have a Default Value set. Required dimensions without a Default Value will block financial exports.
+- If you are mapping custom fields, you know which Sage object each should attach to: AR Invoice, AR Invoice Item, AP Bill, or AP Bill Item.
+- Required role: Admin or Partner Admin.
+
+## Steps
+
+Complete the four phases in order. Phases 1 and 3 are performed in Sage Intacct; phases 2 and 4 are performed in Alvys.
+
+### Phase 1: Set up dimension values in Sage Intacct
+
+A dimension in Sage Intacct is a classification system — think of it as a tag with a set of values — that lets you sort and report on financial data across business segments such as location, department, or class without complicating your chart of accounts. Create the dimension values you need in Sage Intacct before mapping them in Alvys, and repeat this sub-process for each value.
+
+- Navigate to the relevant dimension module. For Location and Department, go to **Company > Setup**. For other standard dimension types, go to **Reports > Setup > Dimensions** to manage all dimension types.
+
+<Note>
+  ![Sage Intacct navigation to the dimension module (Company > Setup or Reports > Setup > Dimensions)](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958263/1b3bcb6d0d3c454a5c0a617062b5/upload_7033669254609949564.png)
+
+  *Sage Intacct navigation to the dimension module (Company > Setup or Reports > Setup > Dimensions)*
+
+  ![The dimension values list in Sage Intacct showing the Add button.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958287/3818e83f403e17c79ae5cac5c142/upload_17343619558275694247.png)
+
+  *The dimension values list in Sage Intacct showing the Add button.*
+</Note>
+
+- Click **Add** to begin creating a new dimension value.
+
+<Note>
+  ![The location dimension list page in Sage Intacct showing the Add button.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958313/295254dd5552d03024b0053f0c08/upload_868322430408166852.png)
+
+  *The location dimension list page in Sage Intacct showing the Add button.*
+</Note>
+
+- Enter a **unique ID** for the dimension value. We recommend choosing this ID carefully, as it cannot be changed after creation.
+
+<Note>
+  ![Image showing new location dimension form with fields such as ID, Name, Status, Parent field etc.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958337/3cfed9017cd1b25bb097a6b7d99d/upload_4184095495826190762.png)
+
+  *Image showing new location dimension form with fields such as ID, Name, Status, Parent field etc.*
+</Note>
+
+- Enter a Name for the dimension value. Unlike the ID, the name can be updated later if needed.
+- Optionally provide a Description or other relevant details depending on the dimension type. For locations, you may also configure a primary Contact with address details that appear on invoices and forms.
+- To build a parent-child hierarchy, specify a Parent to nest the new value under an existing one. Leave it blank if the value should sit at the top level.
+- **Set the Status:** Active allows transactions to post against the value. Active Non-Posting, which is available for Department, Location, Class, Customer, Vendor, and Project dimensions, makes the value available for reporting and roll-ups but prevents Alvys from posting transactions directly to it.
+- Click Save. The dimension value will now appear in your list and become available for tagging on transactions throughout the system.
+
+<Note>
+  ![Image showing “Save” button on location dimension form in Sage Intacct.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958358/a734d6f42930ca39a0058b8045c1/upload_4296062344483054159.png)
+
+  *Image showing “**Save**” button on location dimension form in Sage Intacct.*
+</Note>
+
+**Repeat these steps for each additional value you need before mapping in Alvys.**
+
+### Phase 2: Map dimensions in Alvys
+
+After creating dimension values in Sage Intacct, map each dimension to an Alvys field from **Settings > Connections > Sage Intacct > Dimensions and Custom Fields**. Each dimension is mapped to one Alvys field.
+
+**The available Alvys fields are:**
+
+- **Subsidiary:** The Alvys subsidiary associated with the transaction.
+- **Fleet:** The fleet assigned to the load or trip.
+
+<Note>
+  ![Load Fleet: For fleet dimension mapping, the load Fleet set is used to decide which dimension is used for the customer invoice as well as the external carrier bill.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958386/31a3e19cf7055c868198398ac3f0/upload_10781581178191814919.png)
+
+  ***Load Fleet:** For **fleet** dimension mapping, the load Fleet set is used to decide which dimension is used for the customer invoice as well as the external carrier bill.*
+</Note>
+
+<Note>
+  ![Driver fleet: The driver assigned fleet is used to determine the fleet mappings for driver bills.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958404/bdedf234e26dc2fc8b0d53c3722b/upload_14874016740807401644.png)
+
+  ***Driver fleet:** The driver assigned fleet is used to determine the fleet mappings for driver bills.*
+</Note>
+
+- **Office:** The load office associated with the transaction.
+
+  <Note>
+    ![Image showing the Load office on the load details page with the change office button highlighted](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958437/c573402bdd903954bfcc3259a566/upload_3888000382577564888.png)
+
+    *Image showing the Load office on the load details page with the change office button highlighted *
+  </Note>
+
+  ![Image showing the Load office on the load details page with the change office button highlighted](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958437/c573402bdd903954bfcc3259a566/upload_3888000382577564888.png)
+
+  *Image showing the Load office on the load details page with the change office button highlighted *
+- **Driver:** The driver assigned to the trip.
+- **Truck:** The truck assigned to the trip.
+- **Trailer:** The trailer assigned to the trip.
+- **Contractor Type:** The contractor type of the driver (e.g., Company Driver, Owner Operator).
+
+**The Dimension Mappings table** shows two (2) columns: **Sage Field** (the dimension name from Sage; required dimensions carry a red "Required" badge and must be mapped, or exports fail with validation errors) and **Alvys Field** (an "Add Mapping" dropdown to choose which Alvys field maps to the dimension).
+
+<Note>
+  ![The Dimension Mappings table showing the Sage Field and Alvys Field columns with dropdown visible.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958482/d538de6d21856ec5225d00e5d71f/upload_4172952382422483293.png)
+
+  *The Dimension Mappings table showing the Sage Field and Alvys Field columns with dropdown visible.*
+</Note>
+
+Select the appropriate Alvys field from the dropdown for each dimension.
+
+<Check>
+  💡 For example, if your Sage "Location" dimension represents terminal locations, you might map it to the Alvys **Office** field so that every exported transaction is tagged with the correct office/terminal.
+
+  ![A dimension row with an Alvys field selected (e.g., Office).](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958513/1c7e4202f1b03c99206e337f563f/upload_13002293211455212392.png)
+
+  *A dimension row with an Alvys field selected (e.g., Office).*
+</Check>
+
+Once a dimension is mapped to an Alvys field, control how individual values are matched between the two systems. The mapping panel provides two levels of control: a Default Value and Specific Value Mappings.
+
+**Default Value.** The Default value is a fallback: when an exported transaction's Alvys value has no specific mapping, Alvys applies the Default as the Sage dimension value, so every transaction is tagged with a valid value. If a dimension is Required in Sage, always set a Default to prevent export failures. With no Default and no specific mapping, Alvys passes the Alvys value through as-is, which may cause validation errors in Sage.
+
+<Note>
+  ![Image showing the default dimension value field with a required label](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958550/5305db28e03f0a21b33d588a1635/upload_6637058734887185835.png)
+
+  *Image showing the default dimension value field with a required label*
+</Note>
+
+**Specific Value Mappings.** Specific Value Mappings define exact one-to-one matches between individual Alvys values and Sage dimension values — for example, mapping the Alvys "Brokerage" office to the Sage location "Boston" and the Alvys "Inc" office to "San Diego Terminal". Any value without a specific mapping falls back to the Default.
+
+<Note>
+  ![The dropdown selection menu within the Location - Office mapping interface, with San Diego Terminal actively highlighted for selection.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958590/ce58cc66a6714c5db576d84bb1fe/upload_17194415594525950201.png)
+
+  *The dropdown selection menu within the **Location - Office** mapping interface, with **San Diego Terminal** actively highlighted for selection.*
+</Note>
+
+To map values, click the **Map Values** button next to the dimension in the Dimension Mappings table.
+
+<Note>
+  ![The initial configuration row for the Alvys, Sage Intacct Location Mapping.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958614/8ae3c71883772f6d0bd86c7b23e6/upload_13876300404046443807.png)
+
+  *The initial configuration row for the Alvys, Sage Intacct **Location** Mapping.*
+</Note>
+
+A panel opens with two columns — **Sage Values** (the dimension values from your Sage environment) and **Alvys Values** (the values from the Alvys field you selected). Match each Sage value to the appropriate Alvys value, and set the Default Value at the top of the panel.
+
+<Note>
+  ![The configuration modal overview for the Location - Office field.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958633/f4ccbadb972fd29c9660953d4a42/upload_16984386937689529324.png)
+
+  *The configuration modal overview for the **Location - Office** field.*
+</Note>
+
+After mapping values, the **Map Values** button updates to show how many values are mapped (e.g., "3 Value(s)") so you can quickly see which dimensions have value mappings configured.
+
+<Note>
+  ![Image showing the configured Location field row (1 value configured).](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958654/8d13db55a501e940799b8b2e79ff/upload_3123423074728038605.png)
+
+  *Image showing the configured **Location** field row (1 value configured).*
+</Note>
+
+### Phase 3: Create a custom field in Sage Intacct
+
+Custom fields are user-defined fields added to standard Sage objects; the Alvys integration can populate them with Alvys data on every exported transaction. They are supported on four Sage objects: **AR Invoice** (header), **AR Invoice Item** (line item), **AP Bill** (header), and **AP Bill Item** (line item). The object you pick determines where the field appears. Custom fields must exist in Sage Intacct before you can map them in Alvys — repeat this sub-process for each one.
+
+Depending on your subscription, navigate to **Platform Services > All > Object Customization** (or **Customization Services > All > Object Customization**) and click **Add** next to Custom Fields.
+
+<Note>
+  ![The Object Customization page with the Add button next to Custom Fields.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958686/f8542bc80959b53af78b8551cd9d/upload_11242654908512869957.png)
+
+  *The Object Customization page with the Add button next to Custom Fields.*
+</Note>
+
+Select the **Object** to which you want to add the custom field from the dropdown list and click Next. This is where you choose the object type, for example AR Invoice, AP Bill, AR Invoice Item, or AP Bill Item.
+
+<Note>
+  ![The Object selection dropdown in the custom field creation wizard.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958711/6f7232a3d7b96bb97cf20bfd6edf/upload_12798322071473405971.png)
+
+  *The Object selection dropdown in the custom field creation wizard.*
+</Note>
+
+Select the **Data Type** for your custom field and click Next. The data type determines what kind of information the field will accept.
+
+<Note>
+  ![The Data Type selection step in the wizard.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958732/fb043227b41f0f0d0bf58a736486/upload_5323924519506978726.png)
+
+  *The Data Type selection step in the wizard.*
+</Note>
+
+**Only the following data types are supported by the Alvys integration:**
+
+- **Date:** Date values.
+- **Currency:** Monetary amounts.
+- **Number:** Numeric values.
+- **Text:** Short text strings (up to the character limit defined in Sage Intacct).
+- **Text Area:** Longer text content.
+
+**Do not select these unsupported types**, as they cannot be mapped to Alvys: Picklist, Picklist (multi-select), Checkbox, Email, Percent, Sequence, URL, or Password. Unsupported custom field types will not appear in the mapping interface.
+
+<Warning>
+  ⚠️ You cannot change the data type of a custom field after it is created, so choose carefully.
+</Warning>
+
+Enter a **Label** for the field. This is the text that will appear next to the field in the user interface. Sage Intacct will auto-suggest a **Field ID** based on the label. The Field ID is used by APIs and cannot contain spaces.
+
+Define any additional **field characteristics** based on the data type you selected, such as field length, decimal places, default values, or picklist values, and click Next.
+
+<Note>
+  ![Field characteristics configuration step showing length and decimal options.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958761/d9414aa8a56bfbf80b6708e9e21f/upload_11639876565628154089.png)
+
+  *Field characteristics configuration step showing length and decimal options.*
+</Note>
+
+Configure **Deployment Options** and click **Done**: set whether the field is **required**, and the **section** and **tab** where it appears on the Sage record.
+
+<Note>
+  ![Deployment Options step in the custom field wizard.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958784/1f5b7503e4800dffe60d8820b9aa/upload_14179033024398282750.png)
+
+  *Deployment Options step in the custom field wizard.*
+</Note>
+
+### Phase 4: Map custom fields in Alvys
+
+Alvys provides built-in fields, organized into seven groups, that can be mapped to Sage custom fields:
+
+- **Load Fields:** Carrier Invoice Number, Subsidiary, PO Number, Order Number, BOL Number, Office, Fleet, Equipment, Commodity, Weight, Volume, Invoiced Date, Created Date.
+- **Customer Fields:** Net Payment Terms, Miles, Sales Agent.
+- **Dispatch Fields:** Total Miles, Loaded Miles, Empty Miles, Dispatched By, Dispatched Date.
+- **Shipper Fields:** Name, Address, City, State, Country, Pickup Date.
+- **Consignee Fields:** Name, Address, City, State, Country, Delivery Date.
+- **Equipment Fields:** Truck, Trailer.
+- **Driver Fields:** Primary, Secondary, Fleet.
+
+In addition, two Custom Reference types can be mapped: **Custom Load References** (resolved from the load at export) and **Custom Trip References** (resolved from the trip at export). These appear in the Alvys Field dropdown grouped under their own headings.
+
+<Note>
+  ![Features an open 'Alvys Field' dropdown column on the far right, with a green box highlighting the selection of Custom Trip Reference.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958820/a9840cbace6a94fbc764151a8e23/upload_6147452513684778292.png)
+
+  *Features an open "Alvys Field" dropdown column on the far right, with a green box highlighting the selection of **Custom Trip Reference**.*
+</Note>
+
+Custom references are managed under **Settings > Custom References**, organized into six tabs (Loads, Trips, Stops, Drivers, Trucks, Trailers).
+
+<Note>
+  ![Highlights the breadcrumb path in the top header and details the blue + New Reference button on the bottom right inside a green frame.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958853/488fd77c23f1cbadb9559deb5e82/upload_4256396652753444803.png)
+
+  *Highlights the breadcrumb path in the top header and details the blue **+ New Reference** button on the bottom right inside a green frame.*
+</Note>
+
+From there you can create a **New Reference**, name and describe it, pick a field type (Text, Date, etc.), and configure whether it shows within Alvys and on documents.
+
+The Custom Field Mappings table displays seven columns: **Sage Field**, **Code**, **Object**, **ID**, **Type**, **Chars** (max character length), and **Alvys Field** (a dropdown grouped by category). To map a custom field, find it in the table and select the Alvys field in the last column — only type-compatible Alvys fields appear.
+
+<Note>
+  ![Custom field mapping interface at the Advanced Settings step of the Sage Intacct setup wizard.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958891/c27eb2bee4c9800bc33f8b493fb5/upload_13652103116220195895.png)
+
+  *Custom field mapping interface at the Advanced Settings step of the Sage Intacct setup wizard.*
+</Note>
+
+Custom field mappings can be configured during initial setup or any time afterward. During initial setup, they are configured at **Step 5: Advanced Settings**, where Alvys retrieves your available Sage custom fields and you select the Alvys field for each.
+
+<Note>
+  ![The Custom Field Mappings accordion expanded in the Dimensions and Custom Fields tab.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958935/584cf9c199af0c014256709f2112/upload_5074541637900604208.png)
+
+  *The Custom Field Mappings accordion expanded in the Dimensions and Custom Fields tab.*
+</Note>
+
+After setup, modify mappings from **Settings > Connections > Sage Intacct**: click the integration for your subsidiary, select the **Dimensions and Custom Fields** tab, and use the same mapping interface. Mapping changes apply to future exports only — invoices and bills already in Sage are not retroactively updated.
+
+<Note>
+  ![The Custom Field Mappings table with all columns visible including the Alvys Field dropdown.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2509958965/6e5d1fbba2632ddf5d68f6f2ba89/upload_4668429795226487760.png)
+
+  *The Custom Field Mappings table with all columns visible including the Alvys Field dropdown.*
+</Note>
+
+## Result
+
+After completing all four phases:
+
+- Dimension mappings are active: every financial export from Alvys includes the configured dimension values in the corresponding Sage Intacct fields.
+- Custom field mappings are active: every export includes Alvys data in the configured custom fields on the selected Sage objects.
+- Required dimensions with a Default Value set no longer block financial exports.
+- Tip: export one test transaction and verify the values land correctly in Sage before bulk exporting.
+
+## Variations
+
+- **Updating mappings after initial setup:** Add, change, or remove dimension and custom field mappings any time from the Dimensions and Custom Fields tab. Changes apply to future exports only.
+- **Required dimension with no Default Value:** If a required dimension has no Default Value and an unmapped Alvys value reaches export, the export fails. Open Map Values for that dimension and set a Default Value.
+
+## Troubleshooting
+
+### Financial exports fail after dimension mapping is configured
+
+- Open **Settings > Connections > Sage Intacct > Dimensions and Custom Fields** and expand Dimension Mappings.
+- Identify any dimension with a red Required badge, and confirm an Alvys field is selected for each.
+- Click Map Values for each required dimension and confirm a Default Value is set — exports fail for any unmapped Alvys value when no Default is configured.
+- If a required dimension does not appear, confirm the matching Sage subscription is active (Asset → Fixed Assets Management; Contract → Contracts; Warehouse → Inventory).
+- If none of the above apply, contact Alvys support.
+
+### A custom field does not appear in the Alvys mapping interface
+
+- Confirm the field uses a supported data type (Date, Currency, Number, Text, Text Area). Unsupported types are not displayed.
+- Confirm the field is on a supported object (AR Invoice, AR Invoice Item, AP Bill, AP Bill Item).
+- If recently created, refresh the Sage Intacct integration settings page and expand Custom Field Mappings again.
+- If it still does not appear, contact Alvys support.
+
+### Exported values are truncated in Sage Intacct
+
+- In the Custom Field Mappings table, check the **Chars** column for the field's maximum length in Sage.
+- If the Alvys value typically exceeds that limit, increase the field's maximum length in Sage via Object Customization and export again.
+- If the limit cannot be increased, map a shorter Alvys field or use a Custom Reference with a truncated value.
+
+## FAQs
+
+**Q: What is the main benefit of dimensions instead of modifying my chart of accounts?**
+
+A: Dimensions let you tag, slice, and report on financial data across business segments (location, fleet, driver) without overcomplicating your chart of accounts. When you add a new dimension value, all existing account codes automatically become available to it.
+
+**Q: Can I use Custom Dimensions with the Alvys integration?**
+
+A: No. Only standard Sage Intacct dimension types are supported (Location, Department, Class, Customer, Vendor, Employee, Project, Item, Asset, Contract, Warehouse).
+
+**Q: What does "Active Non-Posting" status mean for a dimension value?**
+
+A: The value is available for reporting and roll-ups in Sage Intacct, but Alvys cannot post transactions directly to it.
+
+**Q: What is the difference between a Default Value and a Specific Value Mapping?**
+
+A Specific Value Mapping is an exact one-to-one match between an Alvys value and a Sage dimension value (e.g., Alvys "Brokerage" → Sage "Boston"). The Default Value is the fallback applied when an Alvys value has no specific mapping, preventing export errors.
+
+**Q: What happens if a dimension has a red "Required" badge in the mapping table?**
+
+A: It is required by your GL accounts in Sage. You must map it in Alvys and set a Default Value, otherwise exports fail with validation errors.
+
+**Q: Which Sage Intacct object types support custom fields in this integration?**
+
+A: Four: AR Invoice (header), AR Invoice Item (line item), AP Bill (header), and AP Bill Item (line item).
+
+**Q: What data types are supported when creating custom fields for Alvys mapping?**
+
+A: Date, Currency, Number, Text, and Text Area. Unsupported types (Picklist, multi-select Picklist, Checkbox, Email, Percent, Sequence, URL, Password) do not appear in the Alvys mapping interface.
+
+**Q: Which Alvys Custom References can I map to Sage Intacct?**
+
+**A**: Two: Custom Load References and Custom Trip References (of the six custom reference entities Alvys supports).
+
+**Q: If I update a custom field mapping today, will it update my past invoices in Sage?**
+
+**A:** No. Mapping changes take effect on future exports only; previously exported transactions are never retroactively updated.
+
+**Q: Why should I pay attention to the "Chars" column in the Custom Field Mappings table?**
+
+**A:** It shows the maximum character length Sage Intacct allows for that text field. If the Alvys value exceeds it, the value is truncated on export.
+
+## Go Deeper
+
+- [Sage Intacct: Transaction Export and Modification](/help/integrations/sage-intacct-transaction-export-and-modification)
+- [Sage Intacct Integration Collection](/help/integrations/sage-intacct-integration-collection)

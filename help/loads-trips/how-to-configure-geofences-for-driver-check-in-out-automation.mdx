@@ -1,0 +1,105 @@
+---
+title: "How to Configure Geofences for Driver Check-In/Out Automation"
+---
+
+<Note>
+  📋 **Applies to:** All users
+
+  **Module:** Management > Company Profile
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  Geofences are virtual boundaries around stop locations that automatically prompt drivers using the Alvys Mobile App to check in or out when they enter the configured area. Configuring an arrival radius per subsidiary lets your team capture more accurate arrival times without requiring dispatch to manually prompt drivers.
+</Note>
+
+## Overview
+
+The Geofence Notification feature lets you define an arrival radius for each subsidiary. When a driver's device enters that radius, the Alvys Mobile App sends a push notification reminding them to check in.
+
+Geofences are configured per subsidiary, so different parts of your company can use different radius sizes.
+
+Synonyms: geofencing, arrival radius, location-based check-in, proximity notification, geofence alert.
+
+## Before You Start
+
+Before configuring geofences, confirm the following:
+
+- You are logged in to Alvys.
+- You have access to Management > Company Profile.
+- Drivers you want to receive notifications are on the latest version of the Alvys Mobile App. Geofence notifications only work on the latest app version; there is no way to force a driver to update.
+
+No specific permission is enforced on the geofence configuration endpoint. Any authenticated Alvys user who can access Management > Company Profile can enable or configure geofences for a subsidiary.
+
+## Steps
+
+1. **Navigate to Geofence Settings**
+2. In the left navigation, go to **Management** and select **Company Profile**.
+3. In the subsidiary panel on the left, select the subsidiary you want to configure.
+4. Confirm you are on the **General Info** tab.
+5. Scroll down to the **Geofence Notification** section.
+6. To turn geofences on, click the **Geofence Notification** toggle to the on position. A configuration dialog opens automatically.
+7. To turn geofences off, click the **Geofence Notification** toggle to the off position. The geofence configuration is removed for that subsidiary.
+
+   ![Geofence Notification section on the General Info tab showing the toggle and inactive state.](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1556400967/7505ec6ebcc07b9f7590a530e0ef/image.png)
+
+   *Geofence Notification section on the General Info tab showing the toggle and inactive state.*
+8. **Set the Arrival Radius**
+
+   When you enable the toggle (or click the edit icon on an already-enabled subsidiary), the **Geofence Notification** dialog opens.
+9. In the **Arrival Radius** field, enter the radius in feet. A recommended starting value is 500 ft.
+10. Click **Activate** to save the configuration.
+
+    ![Geofence Notification dialog showing the Arrival Radius input field and Activate button.](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1556401662/d3d423a47952b56b7caafa8c973c/image.png)
+
+    *Geofence Notification dialog showing the Arrival Radius input field and Activate button.*
+11. **Confirm Mobile Notifications Are Active**
+
+After activating a geofence, drivers on the latest version of the Alvys Mobile App will receive push notifications based on their proximity to stop locations. To edit the radius at any time, click the pencil edit icon in the Geofence Notification section and enter a new value.
+
+![Geofence Notification section after activation showing the configured Arrival Radius value and pencil edit icon.](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1556391543/4490012909056031a0ead1b4a8d5/image.png)
+
+*Geofence Notification section after activation showing the configured Arrival Radius value and pencil edit icon.*
+
+## Result
+
+Once activated, the Alvys Mobile App monitors the driver's location relative to stop locations on their assigned trip. When the driver's device enters the configured arrival radius, they receive a push notification prompting them to check in.
+
+<Info>
+  💡 Since this is a mobile app feature, drivers must be on the latest version of the Alvys Mobile App to receive geofence notifications. There is no way to force a driver to perform this update.
+</Info>
+
+## Variations
+
+**Editing an existing radius:** If a geofence is already enabled for a subsidiary, the Geofence Notification section shows the current arrival radius and a pencil edit icon. Click the pencil icon to open the dialog and update the value, then click **Activate**.
+
+**Disabling geofences:** Toggle the **Geofence Notification** switch off to remove the geofence configuration for that subsidiary. Drivers will no longer receive location-based check-in prompts.
+
+**Per-subsidiary configuration:** Each subsidiary maintains its own geofence radius. Configuring geofences for one subsidiary has no effect on other subsidiaries.
+
+## Troubleshooting
+
+### Geofence toggle has no effect
+
+Reload the Company Profile page and try again. Confirm you have selected a specific subsidiary on the left panel before clicking the toggle, since the Geofence Notification section belongs to the selected subsidiary. If the configuration dialog does not open after enabling the toggle, check that your browser allows modals from the Alvys portal.
+
+### Drivers are not receiving geofence notifications
+
+Confirm the driver is on the latest version of the Alvys Mobile App. Confirm the driver has granted location permissions to the Alvys Mobile App on their device, and that push notifications are enabled for the Alvys Mobile App. Confirm the geofence radius is large enough for the locations the driver visits; a radius that is too small may not trigger reliably in areas with GPS accuracy limitations. If none of these conditions apply, contact Alvys support.
+
+## FAQs
+
+**Q: Does enabling geofences affect all subsidiaries at once?**
+
+**A:** No. Geofences are configured per subsidiary. Enabling or editing the geofence for one subsidiary has no effect on any other subsidiary.
+
+**Q: What unit is the arrival radius entered in?**
+
+**A:** The arrival radius is entered in feet.
+
+**Q: Can I configure geofences to only trigger check-in or only check-out?**
+
+**A:** The Arrival Radius dialog currently exposes only the radius value. Trigger mode configuration (check-in only, check-out only, or both) is not available through the Company Profile UI.
+
+**Q: What happens if a driver does not check in after entering the geofence area?**
+
+**A:** The Alvys Mobile App sends an initial arrival notification when the driver enters the configured radius. The specific follow-up notification behavior is controlled by the mobile app and is not configurable from the Geofence Notification settings screen.

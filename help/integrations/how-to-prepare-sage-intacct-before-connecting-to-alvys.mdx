@@ -1,0 +1,135 @@
+---
+title: "How to Prepare Sage Intacct Before Connecting to Alvys"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Support
+
+  **Module:** Settings > Connections
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Before connecting Sage Intacct to Alvys, you must enable Web Services in your Sage account, create a Web Services user with the correct permissions, and authorize the Alvys application. Completing these steps in Sage prepares the connection wizard in Alvys to authenticate and sync data correctly.
+</Note>
+
+## Overview
+
+Alvys connects to Sage Intacct using the Sage Web Services API. Before you start the connection wizard in Alvys, a Sage administrator must finish a series of configuration tasks in Sage Intacct. These tasks are a one-time setup. Once they are done, the same configuration supports all future Alvys subsidiaries connecting to that Sage entity.
+
+## Features Not Supported
+
+The following capabilities are not available in the Sage Intacct integration:
+
+- **Custom Dimensions (Platform Apps):** Sage Platform Apps Custom Dimensions are not supported. Only the 11 standard Sage dimension types (such as Location, Department, and Class) are available in Alvys. If you have configured custom dimensions through the Sage Platform Apps framework, those will not appear in the Alvys connection settings.
+- **Spend Management:** Sage Spend Management data is not synced by this integration.
+- **Payment Export:** Payments cannot be exported from Alvys to Sage through this integration.
+- **Historical Data Migration:** Existing transactions in Sage or Alvys are not migrated when you connect. Only new transactions created after the connection is established will sync.
+- **Payroll Integration:** Payroll data is not included in this integration.
+
+<Note>
+  ![Screenshot showing Custom Dimensions unavailable or error state in Sage Intacct connection settings in Alvys.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/49b25436-beb8-4c68-9938-142504cdbdfa/image.png)
+
+  *Screenshot showing Custom Dimensions unavailable or error state in Sage Intacct connection settings in Alvys.*
+</Note>
+
+## Alvys Requirements
+
+Before starting the integration setup, ensure the following items are configured in Alvys.
+
+### Alvys Subsidiaries
+
+At least one subsidiary must be set up in Alvys before you can configure the Sage Intacct integration. Each integration connection is tied to a specific subsidiary. If you have multiple subsidiaries, you will set up the integration for one subsidiary first. Once that is complete, you can configure additional subsidiaries using the original setup as a template to save time.
+
+### External Account IDs (Recommended)
+
+During setup, Alvys links customers, carriers, and drivers to their corresponding records in Sage Intacct using one of two methods:
+
+- **External Accounting ID matching (recommended):** Alvys matches records using the External Accounting ID assigned to each profile, which should map directly to the corresponding Customer ID or Vendor ID in Sage Intacct.
+- **Name matching:** If an External Accounting ID is not provided, Alvys will attempt to match records by name. While supported, this method is less reliable and can result in mismatches if names are not identical between the two systems. Name matching is case-insensitive but may produce unexpected results if multiple entities in Sage Intacct share the same name.
+
+For the smoothest integration experience, set up External Accounting IDs on your Customer, Carrier, and Driver profiles for the relevant subsidiary in Alvys before activating the integration.
+
+### Where to Set External Accounting IDs
+
+- **Customers:** Open the customer/broker profile, then access the External Accounting ID dialog.
+- **Carriers:** Open the carrier profile, then access the External Accounting ID dialog.
+- **Drivers:** Open the driver profile, then access the External Accounting ID dialog.
+
+When setting the External Accounting ID, make sure you configure it for the correct entity or subsidiary; the one tied to the Sage Intacct integration you're setting up. IDs are subsidiary-specific, so a value set for the wrong entity will not be matched during sync.
+
+## Before You Start
+
+Before beginning, confirm the following:
+
+- You must have administrator access to both your Sage Intacct account and Alvys.
+- Only **"Admin"**, **"Partner Admin"**, and **"Support"** users in Alvys can access Settings > Connections > Sage Intacct to run the connection wizard. Confirm the person completing the setup has one of these roles before proceeding.
+- Have your Sage company credentials ready, including your Sage Company ID, the Web Services user ID you will create in Step 2, and that user's password.
+
+## Steps
+
+1. **Enable the Web Services subscription in Sage.** In Sage Intacct, go to Company > Subscriptions and confirm that Web Services is enabled. If it is not listed as active, contact your Sage account administrator to activate it before continuing. The connection to Alvys cannot be established without this subscription.
+2. **Create a dedicated Web Services user in Sage.** Create a user in Sage Intacct specifically for the Alvys integration. Using a dedicated user (rather than a personal login) keeps the integration stable if individual user accounts change or are deactivated. Set the user type to Business User and enable Web Services access for that user.
+3. **Add Alvys to Authorized Client Applications in Sage.** Alvys communicates with Sage using the sender ID **AlvysMPP**. You must authorize this sender before Alvys can authenticate with your Sage account.
+4. In Sage Intacct, go to Company > Web Services Authorizations.
+5. Click Add.
+6. Enter the Sender ID: **AlvysMPP**.
+7. Click Save.
+8. Confirm that **AlvysMPP** now appears in the authorized list.
+9. **Assign Web Services role permissions in Sage.** The Web Services user created in Step 2 must have "All" access for each of the following Sage modules. Go to the user's assigned role in Sage and set the permission level to "All" for each module listed below:
+
+   - Administration
+   - Company
+   - Cash Management
+   - General Ledger
+   - Accounts Payable
+   - Platform Services
+   - Accounts Receivable
+   - Inventory Control
+   - Order Entry
+   - Fixed Assets Management
+
+     Incomplete permissions on any module will cause export or sync failures after the connection is established. For example, if Accounts Payable is not set to "All," AP bills for carrier and driver settlements will not post to Sage.
+10. **Gather your Sage connection credentials.** Before starting the Alvys connection wizard, collect the following from Sage Intacct:
+
+    - Company ID
+    - User ID (the dedicated Web Services user created in Step 2)
+    - Password for that user
+
+      You will enter these credentials in the Alvys connection wizard at Settings > Connections > Sage Intacct.
+11. **(Optional) Plan your dimension mapping.** If you plan to use Sage dimensions (such as Location, Department, or Class) to tag Alvys transactions, identify the dimension types you will use before connecting. You can configure dimension mappings after the connection is established at Settings > Connections > Sage Intacct. This step is not required to complete the initial connection.
+12. **(Optional) Plan your custom field mapping.** If you want to pass additional Alvys load or trip data to Sage custom fields, identify which Sage custom fields you will map before connecting. You can configure custom field mappings after the connection is established at Settings > Connections > Sage Intacct. This step is not required to complete the initial connection.
+13. **Confirm user access in Alvys.** Only **"Admin"**, **"Partner Admin"**, and **"Support"** users in Alvys can access Settings > Connections > Sage Intacct to run the connection wizard. Confirm the person completing the setup has one of these roles before navigating to Alvys to begin.
+
+## Result
+
+When all required steps above are complete, your Sage Intacct account is ready for the Alvys connection wizard. Navigate to Settings > Connections > Sage Intacct in Alvys to begin the connection. Steps 6 and 7 are optional and can be completed at any time after the connection is established.
+
+## FAQs
+
+**Q: Do I need to create a new Sage user specifically for Alvys, or can I use an existing user?**
+
+**A:** It is strongly recommended to create a dedicated Web Services user for Alvys. Using a personal user account risks breaking the integration if that user's credentials change or the account is deactivated.
+
+**Q: What is the Sender ID I need to enter in Sage?**
+
+**A:** The Sender ID for Alvys is **AlvysMPP**. Enter this exactly as shown when adding an entry in Company > Web Services Authorizations in Sage.
+
+**Q: What happens if I do not set "All" permissions on a Sage module?**
+
+**A:** The integration will connect, but transactions related to that module will fail to export. For example, if Accounts Payable is not set to "All," AP bills for carrier and driver settlements will not post to Sage.
+
+**Q: Can multiple Alvys subsidiaries connect to the same Sage entity?**
+
+**A:** Yes. Multiple Alvys subsidiaries can connect to the same Sage entity. Each subsidiary is configured separately in the Alvys connection wizard.
+
+**Q: What if Web Services is not available in my Sage subscription?**
+
+**A:** Web Services must be enabled in your Sage Intacct subscription before connecting to Alvys. Contact your Sage account manager or Sage support to add the Web Services module to your subscription.
+
+**Q: Which Alvys roles can complete the connection setup?**
+
+**A:** **"Admin"**, **"Partner Admin"**, and **"Support"** users can access Settings > Connections > Sage Intacct to complete the connection wizard.
+
+## Go Deeper
+
+- [Connecting Sage Intacct to Alvys and Configuring Settings](https://help.alvys.com/en/articles/10737773-how-to-connect-sage-intacct-to-alvys-and-configure-settings)

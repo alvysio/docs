@@ -1,0 +1,106 @@
+---
+title: "How to Switch the Customer on a Released Load"
+description: "How to make a customer change on a released load"
+---
+
+<Note>
+  **Applies to:** Dispatchers · Accounting team members
+
+  **Module:** Loads and Trips
+
+  **Last reviewed:** 2026-06
+
+  **Owner:** Support
+
+  You cannot change the customer directly on a **Released** load. To update the customer, you must first revert the load to **Delivered** status, make the change, and then release it again.
+</Note>
+
+## Overview
+
+Once a load is in **Released** status, the customer field is locked. This prevents edits to billing records while a load is under accounting review. To swap, replace, or correct the customer, you need to revert the load, change the customer, and re-release it.
+
+## Before You Start
+
+- The load must be in **Released** status.
+- You must have the **"ReleaseLoads"** permission to revert and re-release the load. Ask your administrator if you do not see the Revert Status option.
+
+## Steps
+
+1. Revert the load to **Delivered**.
+
+   - Open the load.
+   - Click on the **Manage** dropdown menu
+   - Select **Revert Status**. The load status changes from **Released** back to **Delivered**.
+
+     <Note>
+       ![Image showing “Manage” dropdown menu with “Revert Status” button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f0c6653f-e293-47f9-9ea5-30e55dbda356/image.png)
+
+       *Image showing “Manage” dropdown menu with “Revert Status” button.*
+     </Note>
+
+     ![Image showing “Manage” dropdown menu with “Revert Status” button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f0c6653f-e293-47f9-9ea5-30e55dbda356/image.png)
+
+     *Image showing “Manage” dropdown menu with “Revert Status” button.*
+2. Update the customer.
+
+   - On the load record, click the “**Change Customer” button**.
+   - Select the correct customer and confirm the change.
+
+     <Note>
+       ![Image showing the “Change Customer” button in the load details section.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1fc9808c-b959-484b-8a19-0549924ce160/image.png)
+
+       *Image showing the “**Change Customer**” button in the load details section.*
+     </Note>
+
+     ![Image showing the “Change Customer” button in the load details section.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1fc9808c-b959-484b-8a19-0549924ce160/image.png)
+
+     *Image showing the “**Change Customer**” button in the load details section.*
+3. Re-release the load.
+
+   - Click **Manage** again.
+   - Select **Release**. The load returns to **Released** status and is available to your accounting team.
+
+<Note>
+  ![Image showing “Manage” dropdown menu with “Release” button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/eaeb2c6b-5df8-4252-89a0-5b548c3fa0ba/image.png)
+
+  *Image showing “Manage” dropdown menu with “Release” button.*
+</Note>
+
+## Result
+
+The load is back in **Released** status with the updated customer. Your accounting team can continue invoice processing.
+
+### Request Assistance
+
+If you prefer not to adjust the load or trip status yourself, you can get help from our support team:
+
+1. **Use the Chat Bot:**
+
+   Navigate to the chat feature within Alvys and start a conversation with our **chat bot**..
+2. **Choose "Talk to a Person":**
+
+Select the **Talk to a person** option to connect with a support representative. They can assist you with updating the customer without altering the load or trip status.
+
+## FAQs
+
+**Q: Can I change the customer directly on a released load without reverting?**
+
+**A:** No. The customer field is locked on **Released** loads. You must revert the load to **Delivered** first.
+
+**Q: Will reverting the load affect my accounting team's work?**
+
+**A:** Reverting moves the load out of **Released** status. Any in-progress invoice steps will need to be restarted after you re-release the load.
+
+## Troubleshooting
+
+### Revert Status is not visible in the Manage menu
+
+- Your account does not have the **"ReleaseLoads"** permission, which is required to revert a load from **Released** status. Ask your administrator to assign this permission to your account.
+
+### Change Customer is not visible after reverting
+
+Confirm the load is now in **Delivered** status. If the load returned to **TONU** status instead, a TONU date was recorded on the load and it reverted to **TONU** rather than **Delivered**.
+
+## Go Deeper
+
+- [How to Release a Load to Billing](/help/loads-trips/how-to-release-a-load-to-billing)

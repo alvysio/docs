@@ -1,0 +1,84 @@
+---
+title: "Load Board Region Filters"
+---
+
+<Note>
+  📋 **Applies to:** All users
+
+  **Module:** Loads and Trips (Load Board)
+
+  **Last reviewed:** 2026-06 · **Owner:** Product
+
+  The Load Board includes four region and market filter columns (Origin Region, Origin Market, Destination Region, and Destination Market) that let you filter, sort, and plan loads by DAT-defined geographic boundaries directly within the load board grid, without using external tools.
+</Note>
+
+## Overview
+
+The Load Board Region Filters let you narrow, refine, and segment the load board to loads and trips matching specific geographic regions or markets at the origin or destination. Regions and markets are based on DAT shape files, a standard geographic reference used across the trucking industry.
+
+The four filter columns are:
+
+- **Origin Region**: the DAT region where the load originates
+- **Origin Market**: the DAT market where the load originates
+- **Destination Region**: the DAT region where the load is delivered
+- **Destination Market**: the DAT market where the load is delivered
+
+If a load or trip spans multiple regions or markets, all applicable values appear as a comma-separated list in the column.
+
+## Where to Find It
+
+Navigate to **Loads and Trips**, then open the **Load Board**. The four columns (**Origin Region**, **Origin Market**, **Destination Region**, and **Destination Market**) appear in the load board grid.
+
+Each column supports two filter modes:
+
+- Free-text search: type a region or market name to narrow results
+- Set filter picker: select one or more predefined values from a multi-select list
+
+<Note>
+  📷 **IMAGE:** Screenshot showing the four region and market filter columns in the load board grid.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/925e80d8-cd1a-4498-85bc-3025c7d80b3a/image.png)
+</Note>
+
+## Key Concepts
+
+### DAT Regions
+
+DAT regions are predefined geographic groupings of US states and Canadian provinces, defined by zip code ranges and postal prefixes. There are 18 DAT regions: New England, Upper Atlantic, Lower Atlantic, Carolinas, Florida-So Georgia, Southeast, Ohio River, Great Lakes, Upper Midwest, Lower Midwest, South Central, Lower Mountain, Upper Mountain, California, Pacific Northwest, Canada East, Canada Central, and Canada West.
+
+### DAT Markets
+
+DAT markets are more granular geographic areas within regions, typically centered on a metropolitan area or freight hub. There are 149 DAT markets.
+
+## Settings &amp; Permissions
+
+All authenticated users have access to the **Origin Region**, **Origin Market**, **Destination Region**, and **Destination Market** columns in the load board. No additional role or permission is required to view or use these filters.
+
+## Limits &amp; Behavior
+
+- Region and market values are assigned automatically based on the zip codes of the load's origin and destination stops. You cannot manually set or override a region or market on a load.
+- If a load or trip spans multiple regions or markets, all applicable region or market names appear in the column as a comma-separated list.
+- Region and market values are blank when the load's origin or destination zip code does not fall within any DAT-defined boundary. This can occur for loads with incomplete address data or for locations not covered by the DAT shape file dataset.
+- The filter picker for each column displays only the predefined DAT values. Free-text search within the filter also matches against those same predefined values.
+
+## FAQs
+
+**Q: Why is the Region or Market column blank for some loads?**
+
+**A:** A blank value means the origin or destination zip code on that load does not match any DAT-defined region or market boundary. This typically occurs when the stop address is incomplete or when the zip code falls outside the geographic areas covered by the DAT shape file dataset. Verify that the origin and destination addresses on the load have valid zip codes. If the addresses are correct and the column remains blank, contact Alvys support.
+
+**Q: Can I manually set a region or market on a load?**
+
+**A:** No. Region and market values are assigned automatically based on the zip codes of the load's origin and destination stops. There is no option to manually enter or override these values.
+
+**Q: Why does a load show multiple regions in one column?**
+
+**A:** When a load has stops in more than one DAT region or market, all applicable values are listed together in the column, separated by commas.
+
+**Q: Which users can see these filters?**
+
+**A:** All authenticated users in your organization can see and use these filter columns. No special role or permission is required.
+
+## Go Deeper
+
+- [Alvys Load Board](https://help.alvys.com/en/articles/10001085-alvys-load-board)

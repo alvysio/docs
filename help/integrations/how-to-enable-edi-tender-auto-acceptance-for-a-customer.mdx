@@ -1,0 +1,133 @@
+---
+title: "How to enable EDI tender auto-acceptance for a customer"
+---
+
+<Note>
+  **Module:** Management > EDI &amp; Visibility
+
+  **Applies to:** Admin, Partner Admin
+
+  **Owner:** Support
+
+  **Last reviewed:** 2026-06
+
+  EDI tender auto-acceptance automatically accepts incoming load tenders that match your configured lane criteria, converting them directly into loads without manual review. Also called auto-accept tenders or automated tender acceptance.
+</Note>
+
+## Overview
+
+When your company receives a high volume of load tenders via EDI from shippers and trading partners, manually reviewing and accepting each one is time-consuming. The auto-acceptance feature lets you define lane criteria so that matching tenders are accepted and built into loads automatically. Tenders that do not match your criteria remain on the Tenders board for manual review, giving you full control over edge cases.
+
+Auto-acceptance is configured per customer and requires two things to be in place before the toggle can be turned on: an active EDI integration for that customer and a default fleet selected on their Company Details page.
+
+## Before You Start
+
+Before enabling auto-acceptance, confirm the following:
+
+- The customer already has an active EDI integration set up in Alvys. You can verify this under **Management > EDI &amp; Visibility**.
+- You have the Admin or Partner Admin role. Only users with these roles can access Management and modify customer EDI settings.
+- At least one fleet has been created in your company account to serve as the default fleet for auto-accepted loads.
+
+## Steps
+
+**Verify the customer's EDI integration is active.**
+
+In the main navigation, go to **Management > EDI &amp; Visibility**.
+
+Locate the customer whose auto-acceptance you want to enable.
+
+Confirm the integration status shows as active. If the integration is not active, auto-acceptance cannot be enabled and the toggle will not appear on the Company Details page.
+
+<Note>
+  ![Management > EDI &amp; Visibility page showing customer integration status as active](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1271646652/8db2f7e50f3c2b961e0fa7ec58f5/image+%2848%29.png)
+
+  *Management > EDI &amp; Visibility page showing customer integration status as active*
+</Note>
+
+**Open the customer's Company Details page. From Management > EDI &amp; Visibility, open the customer record to go to their Company Details page.**
+
+**Set a Default Fleet.**
+
+On the Company Details page, locate the **Default Fleet** field.
+
+Click the field and choose a fleet from the suggested list.
+
+Save your selection. The auto-acceptance toggle remains unavailable until a default fleet is set. Once a default fleet is saved, the toggle becomes active and can be switched on or off.
+
+<Note>
+  ![Company Details page showing the Default Fleet field and the Auto-Accept Tender toggle in its unavailable state](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1271646996/bfbcefee14e479cdabef99166a55/image+%2849%29.png)
+
+  *Company Details page showing the Default Fleet field and the Auto-Accept Tender toggle in its unavailable state*
+</Note>
+
+**Turn on the auto-acceptance toggle.**
+
+On the Company Details page, find the **Auto-Accept Tender** toggle.
+
+Switch the toggle on.
+
+Once enabled, qualifying tenders received for this customer will be automatically accepted and converted to loads without any manual action required.
+
+<Note>
+  ![Company Details page with Default Fleet set and the Auto-Accept Tender toggle switched on](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1271647534/5394cc90bde8036abd7eaa9d1b9e/Screenshot_425+%281%29.png)
+
+  *Company Details page with Default Fleet set and the Auto-Accept Tender toggle switched on*
+</Note>
+
+## Result
+
+After enabling auto-acceptance, tenders received for this customer that match your lane-defined zip-to-zip criteria are automatically accepted and built into loads. Tenders that do not match your criteria remain on the Tenders board for manual review. If a location is unknown during the auto-acceptance process, you will be prompted to select a location or company profile before the load can be dispatched.
+
+## Variations
+
+- **Turning off auto-acceptance:** Return to the customer's Company Details page and switch the **Auto-Accept Tender** toggle off. Auto-acceptance stops immediately; new tenders for this customer will then require manual review on the Tenders board.
+- **Changing the default fleet:** Return to the Company Details page and update the **Default Fleet** field. The new fleet will apply to subsequent auto-accepted tenders.
+
+## Troubleshooting
+
+### Auto-acceptance toggle is not visible on Company Details
+
+1. Confirm the customer has an active EDI integration. Go to **Management > EDI &amp; Visibility** and check the customer's integration status. The toggle only appears when an active EDI integration exists for that customer.
+2. If the integration is active and the toggle is still not visible, contact Alvys support.
+
+### Auto-accepted tenders are flagged with an error
+
+When auto-acceptance fails for a tender, the tender is not accepted and appears highlighted in red on the Tenders board with an error message indicating the cause.
+
+1. Go to the Tenders board.
+2. Apply the **Auto-Acceptance Error** filter to see only flagged tenders.
+3. Review each flagged tender. Common causes include an unknown pickup or delivery location, a lane that does not match your configured zip-to-zip criteria, or a validation error on the tender data.
+4. For each flagged tender, either accept or reject the load manually after resolving the issue. If the location is unknown, you will be prompted to select a location or company profile before dispatching.
+5. If the error message does not clearly indicate the cause and you cannot resolve it manually, contact Alvys support with the tender ID and the error message shown.
+
+<Note>
+  ![Tenders board with Auto-Acceptance Error filter applied, showing flagged tenders highlighted in red](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1271648169/d6ac14b7cb36fb6db7af3c3b7ce0/image+%2850%29.png)
+
+  *Tenders board with Auto-Acceptance Error filter applied, showing flagged tenders highlighted in red*
+</Note>
+
+## FAQs
+
+**Q: What happens to tenders that do not meet my auto-acceptance criteria?**
+
+**A:** They remain on the Tenders board for manual review, giving you full control over which loads to accept.
+
+**Q: Can I turn off auto-acceptance for a specific customer without affecting other customers?**
+
+**A:** Yes. The auto-acceptance toggle is configured per customer on their Company Details page. Turning it off for one customer has no effect on others.
+
+**Q: Why do some tenders fail auto-acceptance even when the toggle is on?**
+
+**A:** Common reasons include an unknown pickup or delivery location, a tender that does not match your configured zip-to-zip lane criteria, or a validation error in the tender data. These tenders are flagged in red on the Tenders board with an error message.
+
+**Q: Does auto-acceptance work without an active EDI integration?**
+
+**A:** No. The auto-acceptance toggle only appears and can only be enabled when the customer has an active EDI integration. If no integration is active, the toggle will not be visible on the Company Details page.
+
+**Q: Is a default fleet required to enable auto-acceptance?**
+
+**A:** Yes. The auto-acceptance toggle cannot be switched on until a default fleet is selected on the customer's Company Details page. The default fleet is used to build the load when a tender is auto-accepted.
+
+## Go Deeper
+
+- [EDI Overview](https://help.alvys.com/en/articles/11668782)

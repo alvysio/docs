@@ -1,0 +1,153 @@
+---
+title: "WinFactor FTP: Factoring Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Support staff (setup and configuration); users with the **"Billing"** permission (batch submission and report uploads)
+
+  **Module:** Management > Integrations · Accounting > Factoring Upload · Reports > Financial Reports > Factoring
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article explains how to set up the WinFactor FTP integration in Alvys, submit invoice batches via FTP, and upload purchase and payment reports to update load statuses through the factoring lifecycle.
+</Note>
+
+## What This Integration Does
+
+The WinFactor FTP integration (also called WinFactor factoring or invoice factoring via FTP) transmits invoice batches from Alvys to WinFactor automatically via FTP when you submit a batch from the Factoring Upload page. WinFactor reviews and funds the invoices, then makes purchase and payment reports available in their portal. You download those reports and upload them to Alvys to update the status of factored loads. Synonyms: invoice factoring, accounts receivable financing.
+
+**Provider:** WinFactor · **Integration type:** One-way · **Sync direction:** Alvys to WinFactor (outbound FTP batch); purchase and payment report data uploaded manually by user.
+
+## Prerequisites
+
+Before configuring this integration, confirm the following:
+
+- You hold an Admin, Partner Admin, or Support role to add the Notice of Assignment and configure integration credentials.
+- You hold the **"Billing"** permission to submit batches and upload reports.
+- Your subsidiaries are created in Alvys. Credentials must be configured separately for each subsidiary that uses WinFactor FTP.
+- You have received your FTP host address, username, and password from WinFactor. Contact WinFactor directly if you have not received these credentials.
+- You have received the Notice of Assignment text from WinFactor to add to your invoices.
+
+## Connect / Authenticate
+
+1. **Add your Notice of Assignment.** The Notice of Assignment (NOA) declares to your customers that WinFactor has the right to collect payment on the invoices you factor. It must appear on every invoice submitted through this integration.
+2. Click the Profile button in the upper right corner and select Management to open your Company Profile.
+3. In the Document Configuration section, click the plus sign (+) button. The Manage Important Info window will appear.
+4. In the drop-down menu, select Notice of Assignment.
+5. Paste the NOA text provided by WinFactor into the text box.
+6. Click Save.
+7. **Enter your WinFactor FTP credentials.** You must configure FTP credentials for each subsidiary that will submit batches to WinFactor.
+8. Navigate to Management and open the Integrations page.
+9. Under the Factoring section, find WinFactor FTP.
+10. In the subsidiary list, click the pencil icon next to the subsidiary you want to configure.
+11. Enter the FTP Host, Username, and Password provided by WinFactor.
+12. Click Save.
+13. Repeat for each additional subsidiary that uses WinFactor FTP.
+
+    ![Screenshot showing the WinFactor FTP credential entry form in Alvys Integrations](https://alvys.intercom-attachments-1.com/i/o/1103582662/67d208f4ebc7e0cb33972bc8/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fe1be6540-34f6-464f-b13c-4b9b96f8fa5f-2FUntitled.png)
+
+    *Screenshot showing the WinFactor FTP credential entry form in Alvys Integrations*
+
+## Field &amp; Data Mapping
+
+WinFactor FTP uses two specific CSV report formats for reconciliation:
+
+- Purchase Report: downloaded from the WinFactor portal as the DetailHistorywithfees CSV. This report contains funded invoice records. When uploaded to Alvys, it moves loads to **Financed** status.
+- Payment Report: downloaded from the WinFactor portal as the ReceiptHistoryDetail CSV. This report contains payment records. When uploaded to Alvys, it moves loads to **Completed** status.
+
+Both files must be downloaded from the WinFactor portal in their original CSV format. Do not modify the file before uploading to Alvys.
+
+## Sync Behavior
+
+This integration is one-way and outbound. Alvys transmits batch files to WinFactor via FTP when you submit a batch from the Factoring Upload page. There is no automatic inbound sync from WinFactor to Alvys; purchase and payment reports must be downloaded from the WinFactor portal and uploaded to Alvys manually after each funding and payment event.
+
+## How to Submit a Batch
+
+1. Navigate to Accounting > Factoring Upload.
+2. Select the subsidiary you are submitting for.
+3. Select all loads in **Queued** status that you want to include in the batch.
+
+   ![Screenshot showing the Factoring Upload queue with Queued loads selected](https://alvys.intercom-attachments-1.com/i/o/1103582673/4240fd3925796f071c6c03b1/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F6f0c34c1-92aa-4cb7-9350-13d9c5420dbe-2FUntitled.png)
+
+   *Screenshot showing the Factoring Upload queue with Queued loads selected*
+4. Click Submit Batch.
+
+   ![Screenshot showing the Submit Batch button](https://alvys.intercom-attachments-1.com/i/o/1103582681/b6dd313cbaafb49a4840d776/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fb46fe318-e526-4cf1-bd5f-e5950ce2782f-2FUntitled.png)
+
+   *Screenshot showing the Submit Batch button*
+5. Stay on the page until the submission completes. Navigating away during submission may interrupt the FTP transfer.
+
+   ![Screenshot showing the batch submission in progress or success confirmation](https://alvys.intercom-attachments-1.com/i/o/1103582687/dac08b633b23bb050b43720b/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F773d59a1-c3f7-4043-8d35-5255097bef34-2FUntitled.png)
+
+   *Screenshot showing the batch submission in progress or success confirmation*
+6. After submission, loads will update to **Invoiced** status.
+
+   ![Screenshot showing loads updated to Invoiced status after successful batch submission](https://alvys.intercom-attachments-1.com/i/o/1103582694/825a60a64a2c2b4d574a6be4/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F85312965-52ec-4c24-9ee1-c24c24386645-2FUntitled.png)
+
+   *Screenshot showing loads updated to Invoiced status after successful batch submission*
+
+## How to Upload Your Purchase Report
+
+After WinFactor funds the invoices in a batch, download the purchase report and upload it to Alvys.
+
+1. Log in to the WinFactor portal and download the DetailHistorywithfees CSV for the relevant funding period.
+2. Go to Reports > Financial Reports > Factoring in Alvys.
+3. Click the Upload Purchase Report button in the bottom right corner of the page.
+4. Select the DetailHistorywithfees CSV file from your device and click Upload. Loads included in the report will update to **Financed** status.
+
+   ![Screenshot showing the Upload Purchase Report button and loads updated to Financed status after upload](https://alvys.intercom-attachments-1.com/i/o/1103582700/964c693ac1104d5a11c02fff/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F69f5b7b2-fbae-41c2-926d-c0e875a99318-2FUntitled.png)
+
+   *Screenshot showing the Upload Purchase Report button and loads updated to Financed status after upload*
+
+## How to Upload Your Payment Report
+
+When WinFactor confirms payment has been collected, download the payment report and upload it to Alvys.
+
+1. Log in to the WinFactor portal and download the ReceiptHistoryDetail CSV for the relevant payment period.
+2. Go to Reports > Financial Reports > Factoring in Alvys.
+3. Click the Upload Payment Report button.
+4. Select the ReceiptHistoryDetail CSV file from your device.
+5. Click Upload. Loads included in the report will update to **Completed** status.
+
+   ![Screenshot showing the Upload Payment Report button and loads updated to Completed status after upload.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/962fe3aa-f8d0-44fe-bdc7-c0e7964f69d0/image.png)
+
+   *Screenshot showing the Upload Payment Report button and loads updated to Completed status after upload.*
+
+## Verify It's Working
+
+After submitting a batch, loads should move to **Invoiced** status within a few minutes of a successful batch submission. If a load remains in **Queued** status after submission, see the Troubleshooting section below. After uploading the purchase report, loads included in the report should move to **Financed** status. After uploading the payment report, loads included in the report should move to **Completed** status.
+
+## Troubleshooting
+
+### Batch does not submit or loads remain in Queued status
+
+1. Confirm you stayed on the Factoring Upload page until the submission completed. Navigating away during submission can interrupt the FTP transfer. Retry the submission if the batch did not complete.
+2. Verify that the FTP credentials in Management > Integrations are correct for the subsidiary. Re-enter the host, username, and password from WinFactor if needed and retry.
+3. Confirm with WinFactor that the FTP server is available and your credentials are active.
+4. Contact Alvys support if the batch continues to fail after verifying credentials.
+
+### Purchase or Payment Report upload does not process or loads do not update
+
+1. Confirm you are uploading the correct file type: the DetailHistorywithfees CSV for the purchase report, the ReceiptHistoryDetail CSV for the payment report.
+2. Confirm the CSV file has not been modified or re-saved in a different format before uploading. Upload the file as downloaded from the WinFactor portal.
+3. Contact Alvys support if the upload continues to fail.
+
+## Limits / Unsupported
+
+- Automatic inbound sync from WinFactor to Alvys is not supported. Purchase and payment reports must be uploaded manually.
+- Each subsidiary requires its own set of FTP credentials. A single credential set cannot be shared across multiple subsidiaries.
+- Only loads in **Queued** status can be included in a batch submission.
+
+## FAQs
+
+**Q:** What happens if I navigate away from the Factoring Upload page during submission?
+
+**A:** The FTP transfer may be interrupted and the batch may not complete. Stay on the Factoring Upload page until the submission confirmation appears before navigating away.
+
+**Q:** Which file should I download from WinFactor for the purchase report?
+
+**A:** Download the DetailHistorywithfees CSV from the WinFactor portal. This is the file Alvys expects when you upload a purchase report.
+
+**Q:** Which file should I download from WinFactor for the payment report?
+
+**A:** Download the ReceiptHistoryDetail CSV from the WinFactor portal. This is the file Alvys expects when you upload a payment report.

@@ -1,0 +1,97 @@
+---
+title: "IFTA Reports"
+---
+
+Alvys uses a combination of mileage and fuel data to generate quarterly IFTA reports. Depending on the systems you have integrated with Alvys, you can customize the source of your mileage and fuel information in the Alvys IFTA reporting module.
+
+## How to Use IFTA Reporting
+
+First, find and review the IFTA report for the subsidiary and quarter you wish to complete. To do this, follow the steps below:
+
+1. To find IFTA reporting, find and select the "IFTA" option from the Alvys toolbar on the left hand side. You'll then be navigated to the IFTA Dashboard, which allows you to filter your data by quarter, year, status, and subsidiary.
+2. On the main IFTA dashboard, find the quarterly report you wish to review and click the arrow button to review the miles and fuel data for that quarter.
+3. On your quarterly report, Alvys automatically shows you all trucks which are assigned to that subsidiary, whether they have data associated with them or not.
+4. To remove trucks you do not wish to see in your quarterly report, simply de-select the checkbox in the list for that truck. You are also able to hide a truck from a report by turning on this switch:
+
+   ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103691998/10ab56385be21edd28ebe20a/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Feb989148-25e0-46d4-b745-a698a221ab9c-2FUntitled.png)
+
+And then change the visibility of that truck report using the eye shaped icon:
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692014/fd74bc9cf7696ad6090f831e/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F89cda06e-5345-498d-bfb8-cb4f69f60437-2FUntitled.png)
+
+## Selecting the source that is to be used for each truck:
+
+Initially, you will need to set up the source for the miles for each truck. There are 3 options:
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692026/0f4af1c4dd90aa7a7798a742/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F427db255-1244-40b7-902d-a979955d4966-2FUntitled.png)
+
+1. **ELD (recommended)** - Alvys will read the mileage from the ELD/Telematics provider that has been associated with the respective truck if the ELD integration allows that (Samsara, ELDRider, XELD, TrackEnsure, KeepTruckin, Motive, GeoTab, MonarchTracking). If it does not, and you want to use another service to calculate the miles, please refer to option 2. You are also able to edit the mileage imported from the ELD if necessary, by changing the source to Manual after the mileage import has happened.
+2. **Manual** - If you chose this option, you will be able to manually enter and update the miles on each state the truck has traveled in.
+
+To do so, you need to open the truck detailed report by clicking on the truck number and then select Edit Miles
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692032/7793b37346ba6dcf5224867c/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F1e0c7bdf-2322-4c3c-86bc-38751d52b107-2FUntitled.png)
+
+This will allow you to edit the state traveled miles
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692042/10716058e545701d995c4342/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fbc928e6c-a5a8-4204-a639-601759bd4718-2FUntitled.png)
+
+After all necessary modifications have been made, you can confirm the changes using the Save Miles button:
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692053/d25f40c19215a44a1d13e36e/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F1710a669-6249-4df3-b2e1-8068767a20fe-2FUntitled.png)
+
+You can also upload a mileage report by using the Upload Mileage function:
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692062/2c860767d8f31d629d35a9be/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F1bd2855c-9f9e-40df-a7f4-ffbdb78de917-2FUntitled.png)
+
+From there, you will be able to download a report sample which you can fill out with data received from other sources
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692078/f04023c1b1afd219eebcfc7c/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F8761f854-0f51-4d9f-87c1-0cb8809e9b9a-2FUntitled.png)
+
+Please make sure the data in the file will match the expected formats and values:
+
+a. Truck - needs to match the exact name of the truck in Alvys b. State - must be the 2 letter code of the state. Ex: CA c. Mileage - should be the quantity of miles traveled in each state. if using decimals, please use a dot to separate the decimals. Note: when calculating IFTA, these miles will be rounded to the closest integer
+
+1. **Alvys** - the system will use the stops of the trips that are in Alvys where that truck has been assigned on to calculate the mileage traveled in each state If this Source has been selected, you will need to open the detailed report for each truck by clicking on the respective truck number and confirm each trip by pressing on the check mark next to it:
+
+   ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692085/b99a83676028e5ded48c7586/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fd212556c-36bb-46c4-91a4-88ac8b88c14a-2FUntitled.png)
+
+You can also add, edit or delete individual trips if necessary
+
+## Adding fuel transactions to the IFTA report
+
+The IFTA module syncs with the [Fuel Transactions](https://app.alvys.com/#/reports/fuel) that have already been imported in Alvys and associated with the respective trucks. This happens every time you open the truck report or press the sync button when the respective truck(s) has been selected.
+
+Additionally, you can add more fuel transactions that would only be used in the IFTA calculations, without interfering with the other functionality of the platform (pay drivers, financial reports). It is done by clicking on the Upload Fuel button on the main page of the respective IFTA report:
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692105/4cfc6fe509543c5d3db27126/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F71fbe915-0e69-4971-8a82-9e1643cfe1fb-2FUntitled.png)
+
+You will then have the option to either select a pre-defined layout from some of the major fuel card providers, or, use our template:
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692117/8aa5637d2ca008f4eaf8639f/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fc9ad06d5-5a89-4051-bf8d-08115738ab0e-2FUntitled.png)
+
+## Generating individual truck IFTA reports
+
+After the mileage and fuel has been imported, you can generate a report by opening the respective truck IFTA report by clicking on the truck number and then on the Generate Report button located on the bottom left part of the screen:
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692125/b816aeafff015d885613ecc5/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F652d9e4d-afcd-4cc5-9ee2-fed9cab87d5e-2FUntitled.png)
+
+After the report will have been generated, you will be able to download the IFTA report, Fuel Report or both:
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692138/062543e50e4c358ef11c9a2d/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F057c213c-ba05-44e0-8827-23a9277e0531-2FUntitled.png)
+
+The IFTA report will contain both the balance you would need to pay/obtain a refund from the state you are filing your general IFTA but also an estimate of the balance due to Kentucky, New York and New Mexico. Note: we are doing our best to update the tax rates as soon as we are aware of them. If you notice any discrepancies, please let us know at [support@alvys.com](mailto:support@alvys.com) so we can address that as soon as possible: Q1 2023 example:
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692147/174b1c620a24375a90a19835/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F7816f634-d2ac-460d-a8a6-a00e49cd5757-2FUntitled.png)
+
+After the report has been verified and completed, users with an admin role can lock it so no alterations are made to it either voluntarily or by mistake. This can be done by clicking on the lock button on the respective truck IFTA report:
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692158/564d1bb3f78ed9d627582f36/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Ff03ec046-83ec-4fcf-b38d-93e2c68b6ac6-2FUntitled.png)
+
+## Generating a Company IFTA report
+
+After you will have set the mileage sources for all of your trucks, imported all the fuel transactions and selected all the trucks that are on your IFTA account, you can generate a company report and download it for your records:
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103692169/22851cdfad20f054bdbbf441/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fed16b238-8a65-4f11-a7e3-e7fa50f6886c-2FUntitled.png)
+
+Note: It is recommended for Admins to lock the respective quarter after a report has been generated to prevent future changes whether they have been intentional or not.

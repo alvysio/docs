@@ -1,0 +1,138 @@
+---
+title: "TAFS: Factoring Integration"
+description: "Connect your account to TAFS for automated load submissions and funding requests, simplifying workflows and improving cash flow."
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Support team members (setup and configuration); users with the **"Billing"** permission (batch submission)
+
+  **Module:** Management > Integrations; Accounting > Factoring Upload
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This integration connects Alvys to TAFS via an API to submit invoice batches for factoring and automatically sync purchase and payment statuses back to Alvys each day.
+</Note>
+
+<Note>
+  📋 **Provider:** TAFS
+
+  **Integration type:** Two-way
+
+  **Sync direction:** Alvys to TAFS (outbound invoice batches); TAFS to Alvys (inbound daily status sync)
+</Note>
+
+## Overview
+
+The TAFS integration (also referred to as the TAFS factoring integration or TAFS API integration) allows you to submit invoice batches directly from Alvys to TAFS for funding. Once a batch is submitted, you approve each invoice in the TAFS portal. Alvys then automatically syncs purchase and payment status updates from TAFS once daily, updating the status of all loads financed or settled through factoring. You can also trigger a manual sync at any time from the Factoring Report page.
+
+Loads submitted for factoring must have a truck assigned and must have a Factoring ID populated on the customer profile before they can be sent.
+
+## Prerequisites
+
+Before configuring this integration, confirm the following:
+
+- You hold an Admin, Partner Admin, or Support role to configure the integration in Management > Integrations.
+- You hold the **"Billing"** permission to submit batches from the Factoring Upload page.
+- Your subsidiaries are created in Alvys. The TAFS integration is configured per subsidiary.
+- You have your TAFS login credentials available. Contact TAFS directly if you do not have credentials.
+- The MC Number field is filled out on each customer profile you intend to factor.
+
+## How to connect
+
+### Open the TAFS integration settings
+
+1. Navigate to Management and open the Integrations page.
+2. Under the Factoring section, locate TAFS and click the pencil icon.
+
+   ![Screenshot showing the TAFS integration listed under Factoring in Alvys Integrations, with the pencil icon highlighted](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1345181463/7ddaf9470c850d3d2a20505ca810/image.png)
+
+   *Screenshot showing the TAFS integration listed under Factoring in Alvys Integrations, with the pencil icon highlighted*
+3. You will be prompted to enter your TAFS login credentials and to select which subsidiary this integration will be enabled for.
+4. Enter your credentials and confirm your subsidiary selection, then save.
+
+### How to populate the Factoring ID
+
+After connecting the TAFS integration, you must resync each customer profile to populate the Factoring ID. Without a Factoring ID, invoices cannot be submitted for that customer.
+
+1. Open the customer's profile in Alvys.
+2. Click **Resync**.
+
+   ![Screenshot showing the Resync button on a customer profile in Alvys](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1353926559/0610929a30cdcf8952aaf40c13fc/image.png)
+
+   *Screenshot showing the Resync button on a customer profile in Alvys*
+3. Alvys will attempt to match the customer to a TAFS account and populate the Factoring ID automatically.
+4. If the Factoring ID does not populate, confirm that the MC Number field is filled out on the customer profile and that the Customer Name matches the name on record in TAFS exactly. Correct either field if needed and click Resync again.
+
+### How to submit a batch
+
+1. Confirm that all loads you want to submit have a truck assigned and that their customer profiles have a Factoring ID populated.
+2. Navigate to Accounting > Factoring Upload.
+3. Select the loads you want to include in the batch.
+4. Click **Submit Batch**.
+5. After the batch is submitted, log in to the TAFS portal and approve each incoming invoice individually. TAFS requires manual approval in its portal before invoices are funded.
+
+### How to sync manually
+
+Alvys performs an automatic daily sync of purchase and payment statuses from TAFS. To trigger a sync immediately without waiting for the daily run:
+
+1. Navigate to Reports > Factoring Report.
+2. Click the sync button to start a manual sync.
+
+   ![Screenshot showing the Factoring Report page in Alvys with the sync button](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1353930933/16e66520088580c9eb3aa18f1e89/image.png)
+
+   *Screenshot showing the Factoring Report page in Alvys with the sync button*
+
+## What syncs
+
+Alvys matches each load to the correct TAFS account using the Factoring ID on the customer profile. The Factoring ID is populated by resyncing the customer profile after the integration is connected. If Alvys cannot locate the Factoring ID on the first attempt, it falls back to matching on the MC Number field and the Customer Name entered on the customer profile. Both fields must be accurate and must match the values registered in TAFS.
+
+Each load submitted for factoring must also have a truck assigned. Loads without a truck assignment cannot be included in a batch submission.
+
+Alvys automatically syncs purchase and payment status updates from TAFS once each day. This sync updates the status of all loads that have been financed through factoring or settled by the customer. You can also trigger a manual sync from the Factoring Report page at any time.
+
+After connecting and resyncing customer profiles, the Factoring ID field should be populated on each customer profile. After submitting a batch, loads included in the batch should move to **Invoiced** status once the batch is processed. After a daily sync or manual sync, loads financed by TAFS or settled by the customer should reflect updated statuses.
+
+### Limits and unsupported
+
+- Each load submitted for factoring must have a truck assigned. Loads without a truck cannot be included in a batch.
+- Invoices cannot be submitted for a customer until the Factoring ID is populated on that customer's profile.
+- Purchase and payment report CSV uploads are not available for the TAFS integration. Status updates are handled automatically by the daily sync or by triggering a manual sync.
+- The TAFS integration must be configured separately for each subsidiary.
+
+## Troubleshooting
+
+### Factoring ID does not populate after resyncing
+
+1. Confirm that the MC Number field is filled out correctly on the customer profile. The MC Number must match the value on record in TAFS.
+2. Confirm that the Customer Name on the Alvys customer profile matches the name registered with TAFS exactly. Correct the name if needed and click Resync again.
+3. Contact Alvys support if the Factoring ID still does not populate after verifying both the MC Number and Customer Name.
+
+### Loads cannot be submitted in a batch
+
+1. Confirm that each load in the batch has a truck assigned. TAFS requires a truck on all loads submitted for factoring. Open each load and assign a truck if one is missing.
+2. Confirm that the customer profile for each load has a Factoring ID populated. If not, resync the customer profile as described in How to populate the Factoring ID above.
+3. Contact Alvys support if loads still cannot be submitted after verifying truck assignment and Factoring ID on each load.
+
+### Statuses are not updating after a sync
+
+1. Confirm that the automatic daily sync has had time to run. The sync runs once each day; wait until the following day if a sync has already completed for today.
+2. Navigate to Reports > Factoring Report and trigger a manual sync to update statuses immediately.
+3. Contact Alvys support if statuses remain incorrect after a manual sync.
+
+## FAQs
+
+**Q: Why do I need to resync customer profiles after connecting the integration?**
+
+**A:** The Resync step populates the Factoring ID on each customer profile by matching the customer to a TAFS account. Without the Factoring ID, Alvys cannot route invoices to the correct account in TAFS and the submission will fail.
+
+**Q: What do I do after submitting a batch in Alvys?**
+
+**A:** After submitting a batch, log in to the TAFS portal and approve each incoming invoice individually. TAFS requires manual approval in its portal before invoices are funded.
+
+**Q: Can I update load statuses without waiting for the daily sync?**
+
+**A:** Yes. Navigate to Reports > Factoring Report and click the sync button to trigger a manual status sync at any time.
+
+**Q: Why is a load not eligible for batch submission?**
+
+**A:** The two most common reasons are: the load does not have a truck assigned, or the customer profile does not have a Factoring ID populated. Assign a truck to the load and resync the customer profile to resolve either issue.

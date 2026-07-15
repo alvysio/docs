@@ -1,0 +1,177 @@
+---
+title: "Compass Fuel Integration"
+---
+
+<Note>
+  **Applies to:** Users with permission to manage Integrations
+
+  **Module:** Management > Integrations > Fuel
+
+  **Provider:** Compass Payment Services · **Integration type:** One-way (manual CSV upload)
+
+  **Sync direction:** Compass to Alvys; users download a CSV from the Compass portal and upload it into Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Compass Payment Services connects to Alvys through a manual CSV upload process. Download fuel card transaction data from the Compass portal and upload it into Alvys to apply fuel deductions and maintain fuel records. Also referred to as Compass fuel card import.
+</Note>
+
+## Overview
+
+The Compass fuel integration (Compass Payment Services, fuel card import, manual CSV upload) connects Compass fuel card data with Alvys. This is a manual import process: you download a CSV file from the Compass portal and upload it into Alvys. Alvys then matches each transaction to the correct driver using the fuel card number stored on their profile.
+
+Use this integration to track fuel expenses, apply fuel deductions to driver pay, and maintain accurate fuel records in your Fuel Report. The integration is one-way: data flows from Compass into Alvys only.
+
+## Prerequisites
+
+Before setting up this integration, confirm the following:
+
+- You have access in Alvys to manage Integrations ([https://app.alvys.com/#/manage/integrations](https://app.alvys.com/#/manage/integrations)).
+- You have login credentials for the Compass Payment Services portal at [cps.compasspaymentservices.com](http://cps.compasspaymentservices.com/).
+- Your subsidiaries are already configured in Alvys.
+
+## How to connect
+
+1. In Alvys, select your Username in the bottom-left corner and click the integrations page ([https://app.alvys.com/#/manage/integrations](https://app.alvys.com/#/manage/integrations)).
+2. In the integrations list, expand the **Fuel** category.
+3. Click the gray “Inactive” button next to **Compass**.
+4. Confirm the correct subsidiaries are selected, then click **Save**.
+
+<Info>
+  💡 No API credentials are required for the Compass integration. Enabling the integration registers Compass as an available upload type in the [Fuel Report.](https://app.alvys.com/assets/fuel)
+</Info>
+
+**For Alvys to attribute transactions to the correct driver, each driver must have their Compass fuel card number on their profile:**
+
+1. From the Alvys toolbar, go to **Assets** and select **Drivers**.
+2. Find and open a driver profile.
+3. In the first section, click the plus sign next to **Fuel Card Numbers**.
+
+<Note>
+  ![This image shows the Fuel Card Numbers section of a driver profile with the plus sign highlighted](https://alvys.intercom-attachments-1.com/i/o/1103601762/be1caa7e90a273bb6da2e76c/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F66c4f334-5584-44d9-8d35-7feea1856118-2FAddFuelCard.png)
+
+  *This image shows the Fuel Card Numbers section of a driver profile with the plus sign highlighted*
+</Note>
+
+1. Enter the fuel card number for this driver.
+2. Select **Compass** in the provider dropdown.
+3. Set the deduct fuel and discounted fuel checkboxes if applicable.
+4. Click **Save**.
+5. Repeat the fuel card steps for each driver who has a Compass fuel card.
+
+<Note>
+  ![This image shows the fuel card number entry popup with the Compass provider selected and the deduct fuel checkbox visible.](https://alvys.intercom-attachments-1.com/i/o/1103601774/226065b5f695f9b2a18b5631/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Fd2b938c9-148c-434a-af11-b0026d821890-2FUntitled.png)
+
+  *This image shows the fuel card number entry popup with the Compass provider selected and the deduct fuel checkbox visible.*
+</Note>
+
+### To download fuel transactions from Compass:
+
+- Log in to the Compass portal at [cps.compasspaymentservices.com](http://cps.compasspaymentservices.com/).
+- Open the **Dashboard**.
+- In the Transactions section, select **Export CSV**.
+
+  <Note>
+    ![This image shows the Compass portal Dashboard with the Export CSV option highlighted in the Transactions section.](https://alvys.intercom-attachments-1.com/i/o/1103601790/fc8afe0d4633ed4c63056305/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F650454c5-1de7-4e99-9cb6-a1d3f0ac042d-2FUntitled.png)
+
+    *This image shows the Compass portal Dashboard with the Export CSV option highlighted in the Transactions section.*
+  </Note>
+
+  ![This image shows the Compass portal Dashboard with the Export CSV option highlighted in the Transactions section.](https://alvys.intercom-attachments-1.com/i/o/1103601790/fc8afe0d4633ed4c63056305/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F650454c5-1de7-4e99-9cb6-a1d3f0ac042d-2FUntitled.png)
+
+  *This image shows the Compass portal Dashboard with the Export CSV option highlighted in the Transactions section.*
+- Select your date range and click **Export**.
+- Save the CSV file to your device.
+
+<Note>
+  ![This image shows the date range selector and Export button in the Compass portal.](https://alvys.intercom-attachments-1.com/i/o/1103601804/b17a0c9d0b86af32e97dfbe7/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Ff746d84c-94e5-423d-977b-69cd9afffc5e-2FUntitled.png)
+
+  *This image shows the date range selector and Export button in the Compass portal.*
+</Note>
+
+**To upload the file to Alvys (confirm each driver's Compass fuel card number is saved first):**
+
+From the Alvys toolbar, go to **Assets **and select **Fuel Report**.
+
+<Note>
+  ![This image shows the Fuel Report page with the Transaction File Upload button visible.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e4fe2721-a734-45a9-8c79-d16448e1ba13/image.png)
+
+  *This image shows the Fuel Report page with the Transaction File Upload button visible.*
+</Note>
+
+Click the vertical ellipsis icon **(⋮)** next to the “**Add** **Transaction” **button.
+
+<Note>
+  ![Image showing ellipsis icon next to “Add Transaction” button](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3e68801e-bf95-4542-ba29-e0eabe6fc014/image.png)
+
+  *Image showing ellipsis icon next to “Add Transaction” button*
+</Note>
+
+Select the “**Import Report**” option.
+
+<Note>
+  ![Image showing Import Report option](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/035ced85-0ac7-40fd-8dcd-f9e6ebc05a64/image.png)
+
+  *Image showing Import Report option*
+</Note>
+
+**Select Compass** as the integration type.
+
+Upload the CSV file you downloaded from the Compass portal.
+
+Click the “Save” button
+
+<Note>
+  ![Image showing ”Upload Fuel Report” form with Integration type and Add report input fields.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/87782999-e1ea-453f-8c2e-b1311ba7431f/image.png)
+
+  *Image showing ”Upload Fuel Report” form with Integration type and Add report input fields.*
+</Note>
+
+After the upload completes, use the Transaction Date range filter in the Fuel Report to review the imported transactions.
+
+## What syncs
+
+The Compass integration is a manual, one-way sync from Compass into Alvys. After uploading a Compass CSV, Alvys maps transaction data as follows:
+
+- Fuel card number on the CSV is matched against the digits stored in the driver's profile. Transactions are attributed to the driver whose fuel card number matches.
+- Transaction date, amount, and gallons are imported into the Fuel Report.
+- If the fuel card number on a transaction does not match any driver profile, the transaction will not be attributed to a driver. Add or correct the card number on the driver profile, then re-upload the file.
+- Alvys detects duplicate transactions by transaction ID and will not import duplicates.
+- There is no automatic or scheduled sync for this integration.
+
+<Warning>
+  ⚠️ This integration does not support automatic or scheduled imports. · Transactions with a card number not matching any driver profile will not be attributed to a driver. · Alvys does not write data back to Compass.
+</Warning>
+
+## Troubleshooting
+
+### Driver fuel transactions not appearing after upload
+
+1. Open the driver profile in **Assets > Drivers** and confirm a Compass fuel card number is saved under Fuel Card Numbers.
+2. Verify the card number matches what appears in the Compass CSV export. Alvys matches on the exact digits stored in the profile.
+3. Re-upload the CSV after correcting the card number. Alvys will not import a transaction already imported with the same transaction ID, so if the original upload was rejected entirely, a fresh upload of the same file will work.
+4. If transactions are still missing after correcting the card number, contact Alvys support.
+
+### Upload fails or returns an error
+
+1. Confirm you selected **Compass** (not another provider) in the Integration Type dropdown before uploading.
+2. Confirm the file is a CSV downloaded directly from the Compass portal. Modified or reformatted files may not parse correctly.
+3. Contact Alvys support if the error persists after verifying the file and integration type.
+
+## FAQs
+
+**Q: What happens if I upload the same file twice?**
+
+**A:** Alvys detects duplicate transactions by transaction ID and will not import them again. Re-uploading the same file is safe.
+
+**Q: How often should I upload fuel transaction reports?**
+
+**A:** This depends on your reporting and settlement schedule. Most teams upload weekly or monthly to keep fuel data current.
+
+**Q: What if a driver's transactions are not showing up after upload?**
+
+**A:** Confirm the driver has the correct Compass fuel card number on their profile under Assets > Drivers. Alvys matches transactions to drivers using that number. If the number is missing or incorrect, add or correct it and re-upload the file.
+
+**Q: Do I need API credentials to set up this integration?**
+
+**A:** No. The Compass integration does not require API credentials. You only need to activate it in Management > Integrations and then upload CSV files manually.

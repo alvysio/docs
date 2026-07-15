@@ -1,0 +1,115 @@
+---
+title: "How to Handle Short Payments and Write Off Bad Debt"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Operations Managers · Billers
+
+  **Module:** Accounting
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  When a customer pays less than the full invoice amount (a short payment or write-off), you must follow a specific sequence to zero out the balance correctly: delete the partial payment, add a negative customer accessorial for the unpaid amount, regenerate the invoice, then re-record the payment. Skipping any step will prevent the invoice from regenerating or syncing to your accounting integration.
+</Note>
+
+## Overview
+
+When a customer short-pays an invoice, meaning they pay less than the invoiced total, you need to reduce the invoice balance to match the actual payment received. The correct way to do this in Alvys is to add a negative customer accessorial (sometimes called a write-off or adjustment) that offsets the unpaid amount.
+
+This approach matters because Alvys blocks invoice regeneration whenever a payment is recorded on that invoice. The Regenerate Invoice button becomes inactive as long as any payment exists. If you add the negative accessorial without first deleting the payment, the button stays inactive and the adjusted invoice cannot sync to your accounting system.
+
+This article covers the complete workaround for short payments, underpayments, and bad debt write-offs.
+
+Synonyms: short pay, short payment, underpayment, bad debt, write-off, debt forgiveness, balance adjustment, negative accessorial.
+
+## Before You Start
+
+Before following these steps, confirm:
+
+- The invoice has already been generated for the load (the load is not in **Draft** billing status).
+- You have the **"Billing"** permission, which is required to record and delete customer payments.
+- You have the **"Accessorials"** permission, which is required to add a customer accessorial to the load.
+- You know the exact short-paid amount: the difference between the invoice total and the payment actually received.
+
+If you do not have either permission, contact your account administrator.
+
+## Steps
+
+1. Open the load and confirm the invoice exists.
+2. Navigate to the load.
+3. Confirm the invoice has been generated. The load must not be in **Draft** billing status before proceeding.
+4. Delete the existing partial payment. If you have already recorded a partial payment on this invoice, delete it before making any other changes.
+5. On the load, locate the Payments section.
+6. Find the partial payment you recorded.
+7. Select the option to delete or remove that payment.
+
+   Deleting the payment is required because Alvys prevents invoice regeneration whenever any payment record exists on the invoice. Removing the payment allows the invoice total to be edited and regenerated.
+8. Add a negative customer accessorial to the load with a negative amount equal to the unpaid balance.
+9. On the load, go to the Accessorials section.
+10. Click **Add Accessorial**.
+11. Set the entity to **Customer**.
+12. Select the appropriate accessorial type (for example, a write-off or adjustment type configured in Settings).
+13. Enter the amount as a negative value equal to the short-paid amount (for example, if the invoice is $1,000 and the customer paid $950, enter -$50).
+14. Save the accessorial.
+15. Regenerate the invoice.
+16. On the load, click **Regenerate Invoice**.
+
+    The Regenerate Invoice button is now active because no payment record exists on the invoice and the invoice total has changed as a result of the negative accessorial. Both conditions must be true for the button to become active.
+17. Re-record the payment.
+18. Re-enter the short payment for the amount actually received.
+19. Save the payment.
+
+The payment now matches the new (reduced) invoice total. The invoice and payment will sync correctly to your connected accounting integration.
+
+## Result
+
+After completing these steps, the invoice total reflects the actual amount the customer paid, the recorded payment matches the invoice total, and the invoice syncs to your third-party accounting platform (QuickBooks Online, QuickBooks Desktop, Business Central, Sage Intacct, NetSuite, or other connected system).
+
+## Variations
+
+**Writing off the full balance (bad debt):** If the customer will not pay anything at all, follow the same sequence. In step 2, delete any payments. In step 3, add a negative accessorial equal to the full invoice total. In steps 4 and 5, regenerate the invoice and optionally record a $0 payment or leave the balance at zero.
+
+**Accessorial type not available:** If no write-off or adjustment accessorial type exists in your account, an Admin or Partner Admin must first create one in Settings > Accessorials.
+
+## Troubleshooting
+
+### Regenerate Invoice button is not active after adding the negative accessorial
+
+This occurs when a payment record still exists on the invoice.
+
+1. Return to the load's Payments section and confirm no payment is recorded. If a payment is present, delete it.
+2. Once the payment is removed, attempt to click Regenerate Invoice again.
+
+### Invoice is not syncing to accounting integration after regeneration
+
+This occurs when the invoice was not regenerated after the accessorial was added, or when the payment was re-recorded before regeneration completed.
+
+1. Confirm you regenerated the invoice before re-recording the payment.
+2. If you re-recorded the payment before regenerating, delete the payment again, regenerate the invoice, then re-record the payment.
+3. If the invoice still does not sync, check the Error Transactions page in Alvys for a sync error on this load. If no error appears and the invoice has not synced, contact Alvys support with the load number.
+
+### Negative accessorial type is not available in the dropdown
+
+1. Contact your account administrator and ask them to create an appropriate accessorial type in Settings > Accessorials. Only Admins and Partner Admins can create new accessorial types.
+
+## FAQs
+
+**Q: Why does Alvys block invoice regeneration when a payment is already recorded?**
+
+**A:** Alvys requires that no payment record exists before an invoice can be regenerated. This ensures the invoice total and payment amounts stay in sync. Deleting the payment first removes this constraint and allows the invoice total to be updated.
+
+**Q: Do I need to delete the payment even if the negative accessorial already reduces the balance to zero?**
+
+**A:** Yes. The Regenerate Invoice button checks for the presence of any payment record, regardless of the balance. As long as any payment exists, the button remains inactive.
+
+**Q: What accessorial type should I use for a write-off or short payment?**
+
+**A:** Alvys does not include a dedicated write-off accessorial type by default. Your Admin needs to create one in Settings > Accessorials with a name such as "Write-Off" or "Balance Adjustment." The type should be mapped to your accounting integration if applicable.
+
+**Q: Can I use this workaround for batch invoicing?**
+
+**A:** This workaround applies to individual load invoices. For batch (summary) invoices, the workflow may differ. Consult your accounting team before applying adjustments to summary invoices.
+
+## Go Deeper
+
+- [Custom Accessorials](https://help.alvys.com/en/articles/11668754)

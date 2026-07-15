@@ -1,0 +1,242 @@
+---
+title: "Driver Settlements FAQ"
+description: "This article consolidates the most common questions we received during the"
+---
+
+<Note>
+  📋 **Module:** Accounting > Driver Settlements · **Owner:** Accounting Support team · **Applies to:** Admin, Payroll Clerk · **Last reviewed:** 2026-06
+</Note>
+
+Consolidated answers to the most common questions (FAQ, common issues) from the Driver Settlements webinar, organized by topic. Covers pay periods, driver rates, deductions, trips, statement generation, reversals, accounting integration, and more.
+
+## Overview
+
+This article consolidates the most common questions received during the [Get Started with Driver Settlements: From First Pay Period to Truck-Based Statements](https://youtu.be/lD1Vqpuq15o) webinar, organized by topic so you can jump to what you need. If you do not find your answer here, reach out to [support@alvys.com](mailto:support@alvys.com).
+
+## FAQs
+
+### Pay periods
+
+**Q: How do I set up a pay period?**
+
+**A:** Go to **Settings > Pay Periods** and create or edit your schedule. If you choose **Weekly** with a start day (for example, Monday), the period runs from that day at 00:00 through the following Sunday at 23:59. The default **Statement Date** is the last day of the period. When you generate a statement, you can override the **Statement Date** for that run, so you can pay every Friday for the prior Monday to Sunday period. See [Driver Settlements](https://help.alvys.com/en/articles/11943598-driver-settlements) for full setup steps.
+
+**Q: Why does the pay period default to the current week instead of the previous week?**
+
+**A:** The pay period selector currently defaults to the current week. Defaulting to the previous week is on the roadmap. For now, manually select the prior week when generating each settlement run.
+
+**Q: Can I bulk-select pay periods or pay dates when generating statements?**
+
+**A:** Not yet. Today you select a pay period per run. Bulk selection is on the roadmap.
+
+**Q: Can drivers see the pay period on their statement?**
+
+**A:** No. Drivers only see the **Statement Date** on their statement, not the pay period name.
+
+**Q: Can I generate a statement for a driver without assigning them to a pay period?**
+
+**A:** No. Every driver must be assigned to a pay period before a statement can be generated for them.
+
+### Driver rates
+
+**Q: Can I set tiered rates based on miles driven per pay period?**
+
+**A:** Tiered rates that apply per pay period (for example, one rate for the first 2,000 miles in a statement, a different rate over 2,000) are on the roadmap. Today, tiered rates can only be applied per trip.
+
+**Q: Can I set tiered rates based on miles driven per trip?**
+
+**A:** Yes. Create a driver rate of type **Per Mile**, enable tiers, and configure each tier with its own rate (for example, 0 to 2,999 miles at one rate; 3,000 or more miles at another). See [Driver Settlements](https://help.alvys.com/en/articles/11943598-driver-settlements) for rate setup steps.
+
+**Q: Can I pay a mileage bonus on tiers?**
+
+**A:** Yes. Create a driver rate of type **Per Mile**, enable tiers, and name it "Mileage Bonus." Each tier can have its own rate.
+
+**Q: Can I set different rates for different contracts?**
+
+**A:** Yes. When creating a driver rate, click **Add Rule**, choose **Load > Contract**, and multi-select the contracts the rate should apply to. Multiple contract-specific rules can be stacked on the same driver.
+
+**Q: Are pay tiers based on years of employment supported?**
+
+**A:** Tenure-based pay tiers (for example, one rate for years 1 to 3 and a higher rate for years 4 to 6) are on the roadmap.
+
+**Q: Can I pay a recurring bonus based on revenue generated?**
+
+**A:** Driver rates based on revenue thresholds are not supported today. This has been logged as a feature request.
+
+### Deductions
+
+**Q: How do I add a deduction?**
+
+**A:** There are two ways. From the driver's profile: create a one-time or recurring deduction and choose whether to deduct from escrow. From Driver Settlements: click **New Transaction** or **Add Deduction** on the driver's current settlement.
+
+**Q: How do I add a deduction tied to a specific truck?**
+
+**A:** There are two ways. From the truck's profile: create a one-time or recurring deduction and choose whether to deduct from escrow. From Driver Settlements with truck statements enabled: select the truck you want to deduct from, then click **New Transaction** or **Add Deduction**. The deduction is tied to that truck.
+
+**Q: Will recurring deductions stop automatically when the maximum amount is reached?**
+
+**A:** Yes. Once a recurring deduction reaches its configured maximum, the system stops applying it automatically.
+
+**Q: Can I split a deduction across multiple statements?**
+
+**A:** Yes. Open the deduction table, find the deduction row, and click the three-dot menu on the right. Select **Split** to divide the deduction across statements. If the three-dot menu only shows **Edit** and **Delete** with no **Split** option, contact [support@alvys.com](mailto:support@alvys.com) to check whether the split feature is enabled on your account.
+
+**Q: Can I add custom deduction categories?**
+
+**A:** Custom deduction category names are not supported today, but this is on the roadmap. In the meantime, send the categories you need to [support@alvys.com](mailto:support@alvys.com) and the team will help get you configured.
+
+**Q: Can I bulk-add a deduction across multiple drivers?**
+
+**A:** Not today. This has been logged as a feature request. For now, add deductions per driver from the driver or truck profile, or from Driver Settlements.
+
+**Q: I picked the wrong transaction type (for example, Deduction instead of Reimbursement). How do I fix it?**
+
+**A:** Delete the line item and recreate it with the correct type. An in-place edit option is being evaluated for a future release.
+
+**Q: Why are fuel deductions not on the trip?**
+
+**A:** Fuel deductions are intentionally separated from trips. They appear as line items in their own section near the bottom of Driver Settlements once a driver is selected. Fuel transactions are not associated with a specific trip.
+
+### Trips, trip values, and miles
+
+**Q: How do I correct miles if the dispatcher made a mistake?**
+
+**A:** In the Driver Settlements table, click directly on the miles cell for the trip and edit the value. The statement recalculates automatically.
+
+**Q: How do I edit the trip value (load value)?**
+
+**A:** There are two options. Click the three-dot menu on the right side of the trips table and select the edit option. Or click directly on the trip value cell in the trips table and update it inline. Driver percentage pay recalculates based on the updated trip value.
+
+**Q: Can I pay two drivers from the same load with different gross amounts?**
+
+**A:** This is not directly supported through a single trip today. As a workaround, adjust each driver's pay manually on their respective statements. Contact [support@alvys.com](mailto:support@alvys.com) if you would like help working through your specific setup.
+
+**Q: Why does the per-stop or extra-stop line item not show on my statement?**
+
+**A:** Per-stop and extra-stop charges only appear on the statement when the driver has a per-stop or extra-stop rate configured on their profile. Add the rate under **Driver Profile > Driver Rates** and it will populate automatically on future statements.
+
+**Q: Why does a driver have $0 trips that are not pulling onto the statement?**
+
+**A:** This is controlled by two settings under **Settings > Company Profile**: Enable Trips with $0 Payables to display in settlements, and Enable Trips with no Payables to display in settlements. Toggle these to control whether $0 or no-pay trips flow to driver statements. Your accounting integration settings have a similar checkbox to control whether $0 payables sync to your accounting system.
+
+**Q: Why does an Owner Operator show $0 in the Open status?**
+
+**A:** Check the two checkboxes under **Settings > Company Profile** (Enable Trips with $0 Payables and Enable Trips with no Payables) and the corresponding setting on your accounting integration.
+
+**Q: Can I change the order in which loads appear on the statement?**
+
+**A:** You can sort the trips list inside Driver Settlements by clicking any column header. Customizing the load order on the generated PDF is not supported today, but it is on the roadmap.
+
+### Statements: generation, format, and customization
+
+**Q: Can I download all statements in bulk as PDFs before final generation?**
+
+**A:** Bulk PDF download during the preview phase is on the roadmap.
+
+**Q: Can I create a custom statement template?**
+
+**A:** Custom templates beyond the built-in layout options are not supported today. This has been logged as a feature request.
+
+**Q: Can I hide load rates (trip values) from the driver-facing statement?**
+
+**A:** Hiding the trip value on driver-facing statements is on the roadmap.
+
+**Q: Can I split a single load's linehaul amount across statements by dollar amount?**
+
+**A:** Manually keying split dollar amounts on a linehaul is not supported today. However, you can split a trip across statements at the line-item level: click the trip row and use the checkboxes to select which line items go on which statement.
+
+**Q: Can I show total empty miles and total loaded miles on the statement?**
+
+**A:** Not today. This has been added to the roadmap.
+
+**Q: The company logo looks shrunk on the statement preview. Is that a bug?**
+
+**A:** This is a known visual issue. Send a screenshot to [support@alvys.com](mailto:support@alvys.com) so the team can investigate your account. A fix is coming in an upcoming statement template update.
+
+### Reverting and reopening statements
+
+**Q: What happens if I revert a statement that has already been sent to my accounting system?**
+
+**A:** The behavior depends on your accounting platform (QuickBooks Online, QuickBooks Desktop, Sage, Business Central, NetSuite). Each platform behaves differently when statements are reverted. Contact [support@alvys.com](mailto:support@alvys.com) with your specific platform and the team will send you the exact behavior.
+
+**Q: I reverted a statement by mistake. Is there a way to recover it?**
+
+**A:** Today, reverted statements are not stored or surfaced anywhere after they are reverted. As a workaround, if you need to undo a statement without losing context, use **Revert to Draft** instead of reverting to Open: that keeps the statement intact so you can regenerate it. Surfacing reverted statements is on the roadmap.
+
+### Truck statements (for owner operators)
+
+**Q: Can I generate a statement per truck for an owner operator?**
+
+**A:** Yes. Truck statements let you break down activity per truck for owner operators with multiple trucks. See [Truck Statements for Owner Operators](/help/accounting-settlements/how-to-generate-truck-statements-for-owner-operators) for setup steps.
+
+**Q: Why does an owner operator need at least 2 trucks for a truck statement?**
+
+**A:** With one truck, the individual driver statement and the truck statement contain the same information, so splitting them adds no value. Once an owner operator has 2 or more trucks, separate truck statements are needed to break down activity per truck.
+
+**Q: My owner operator has one truck and a driver who needs to be paid. How do I handle that?**
+
+**A:** The standard owner operator statement covers both the owner and the truck in one statement. If your scenario is more complex, contact [support@alvys.com](mailto:support@alvys.com) so the team can review your specific case.
+
+### Accounting integration
+
+**Q: Does Driver Settlements affect my existing QuickBooks integration?**
+
+**A:** No. The Driver Settlements module does not change your existing QuickBooks integration behavior. The statement built within Driver Settlements is what syncs to QuickBooks and other accounting systems, using the same integration settings you had before.
+
+**Q: Will company driver statements flow to QuickBooks?**
+
+**A:** Today, only owner operator statements sync to QuickBooks. Company driver statements require a QuickBooks Payroll integration, which is not currently supported. In the meantime, company driver pay must be entered manually in QuickBooks.
+
+**Q: Is the QuickBooks integration only for bookkeeping, or can it run payroll?**
+
+**A:** The QuickBooks integration is for bookkeeping today. Payroll-style payouts to drivers from Alvys via QuickBooks are not supported.
+
+**Q: Can I issue payments to drivers directly from Alvys?**
+
+**A:** Not in the current roadmap. Alvys produces the statement; the actual funds movement happens in your accounting or payroll system.
+
+**Q: Does generating a statement actually pay the driver?**
+
+**A:** No. Alvys does not move funds. A statement is a record of what the driver is owed. When you generate a statement, three things happen: the driver receives the statement by email (if email delivery is configured); the driver can view the statement in the Alvys Driver App; and for applicable driver types, the data syncs to your accounting system, where you run payroll or issue payment.
+
+### Permissions and users
+
+**Q: Can I set role-based permissions on Driver Settlements (for example, draft-only vs. view-only vs. approve)?**
+
+**A:** Granular role-based permissions on Driver Settlements are not supported today. This has been logged as a feature request.
+
+### Tables, columns, and search
+
+**Q: Can I pin specific columns so they do not shift around?**
+
+**A:** Yes. Right-click any column header and choose **Pin column to the left** or **Pin column to the right**. You can also right-click and select **Configure Columns** to control which columns are visible and in what order. Column layouts save per user.
+
+**Q: Can I hide columns in the Open and Draft tabs?**
+
+**A:** Yes. Right-click any column header in the Open or Draft tab and select **Configure Columns** to show or hide columns. Selections save per user.
+
+**Q: How do I filter trips by date in Driver Settlements?**
+
+**A:** In the Open tab, set the **Cutoff Date**. Any trips delivered after that date will be hidden from the view. This is useful when migrating to Driver Settlements or when excluding newer items from a settlement run.
+
+**Q: Search is not returning what I expect. Is it broken?**
+
+**A:** Search in Driver Settlements currently supports searching by **Trip Number** only. Broader search (by driver, deduction, or other fields) is on the roadmap.
+
+### Driver reactivation
+
+**Q: When I reactivate an inactive driver, do I need to do anything in Settings to make them appear in Driver Settlements?**
+
+**A:** No extra action is required. Once reactivated, the driver should appear in the Open tab as soon as they have eligible trips for the current pay period. If they are not appearing, contact [support@alvys.com](mailto:support@alvys.com).
+
+### Pricing
+
+**Q: Is Driver Settlements an extra add-on?**
+
+**A:** No. Driver Settlements is included in your existing Alvys subscription at no additional cost.
+
+## Go Deeper
+
+- [Driver Settlements](https://help.alvys.com/en/articles/11943598-driver-settlements)
+- [Truck Statements for Owner Operators](/help/accounting-settlements/how-to-generate-truck-statements-for-owner-operators)
+- [How to set up time-based pay in Driver Settlements](https://help.alvys.com/en/articles/13774513-time-based-pay-in-driver-settlements)

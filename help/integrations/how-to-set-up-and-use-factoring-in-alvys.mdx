@@ -1,0 +1,139 @@
+---
+title: "How to set up and use factoring in Alvys"
+description: "This article explains how factoring works in Alvys on a general level, including setup, invoicing, batch submission, and status tracking."
+---
+
+![Factoring on Alvys article banner](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/78f7aea1-9908-4669-9dbf-7de070375f9d/image.png)
+
+*Factoring on Alvys article banner*
+
+<Note>
+  **Applies to:** Admins · Partner Admins · Support staff (setup, items 1–3); users with the **"Billing"** permission (items 4–10)
+
+  **Module:** Management > Company Profile · Accounting > Factoring Upload · Reports > Financial Reports > Factoring
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article explains the complete 10-step workflow for setting up and using factoring in Alvys, from configuring your Notice of Assignment and connecting your provider through generating invoices, submitting batches, and uploading purchase and payment reports.
+</Note>
+
+## Overview
+
+Factoring in Alvys lets you sell your outstanding invoices to a third-party factoring company for faster payment. This article covers the complete setup and workflow: configuring your Notice of Assignment, adding the Factoring invoicing method, connecting your provider, generating invoices, submitting batches, and uploading purchase and payment reports. Also referred to as invoice factoring, accounts receivable financing, invoice funding, and FTP batch submission.
+
+Factoring is a financial arrangement in which you sell your outstanding invoices to a factoring company. The factoring company advances most of the invoice value upfront and collects payment from your customers directly. Alvys supports the complete factoring lifecycle: from initial setup through load delivery, invoice generation, batch submission, and payment reconciliation, regardless of which factoring provider you use.
+
+## Prerequisites
+
+Confirm the following before beginning:
+
+- You hold an Admin, Partner Admin, or Support role to configure Company Profile settings and manage integrations (items 1–3).
+- You hold the **"Billing"** permission to release loads, generate invoices, submit batches, and upload reports (items 4–10).
+- Your subsidiaries are created in Alvys before configuring the integration. Each subsidiary that uses factoring must be configured separately.
+- You have the Notice of Assignment text from your factoring company. Your provider supplies the exact wording.
+- You have the credentials or login information required by your factoring provider. The credential type varies by provider; refer to the dedicated integration article for your provider for details.
+
+## Steps
+
+1. **Configure your Notice of Assignment.** The Notice of Assignment (NOA) declares to your customers that your factoring company has the right to collect payment on your behalf. It must appear on every invoice submitted through factoring.
+
+   - Click the Profile button in the upper right corner and select Management to open your Company Profile.
+   - In the Document Configuration section, click the plus sign (+) button. The Manage Important Info window will appear.
+   - In the drop-down menu, select Notice of Assignment.
+   - Paste the NOA text provided by your factoring company into the text box.
+   - Click Save.
+2. **Add the Factoring invoicing method.** Factoring must be selected as the invoicing method before loads can be submitted to a factoring company. You can set this at the subsidiary level (applies to all customers under that subsidiary) or override it for a specific customer.
+
+   - To set the invoicing method globally for a subsidiary: go to Company Profile and open Invoicing Settings.
+   - Set the delivery method to Factoring Company.
+   - Enable AutoMerge. AutoMerge is required when using factoring: it automatically combines the Invoice, Proof of Delivery, and Rate Confirmation into a single file, which factoring companies require as the submission format.
+   - Click Save.
+   - To set the invoicing method for a specific customer: open the customer's profile, go to the Invoicing tab, set the invoicing method to Factoring Company for that customer, and click Save.
+
+     ![Screenshot showing the Factoring Company invoicing method selection in Alvys settings](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1499747015/f99561a6806e792d4f29133d7b8a/New%2BProject%2B-284-29.png)
+
+     *Screenshot showing the Factoring Company invoicing method selection in Alvys settings*
+3. **Connect to your factoring provider.**
+
+   - Navigate to Management and open the Integrations page.
+   - Under the Factoring section, locate your provider.
+   - Click the pencil icon next to your provider's name to open the configuration window.
+   - Follow the provider-specific steps to enter credentials or complete authentication. Refer to the dedicated article for your factoring provider for detailed steps.
+
+     Alvys currently supports the following factoring providers and connection types: Apex Capital (API) · OTR Solutions (API) · Saint Johns Capital Factoring (API) · TAFS (API) · TruFunding (API) · Capital Depot (Manual / Download) · Wex FleetOne (Manual / Download) · WinFactor FTP (FTP) · Compass Funding Solutions (FTP) · RTS (FTP) · Sunbelt Finance (FTP) · Triumph (FTP) · Wex FleetOne FTP (FTP).
+4. **Create and deliver a load.** Create a load in Alvys and assign a carrier. Move the load through its standard lifecycle until it reaches **Delivered** status. Collect all required documents (Proof of Delivery and Rate Confirmation) before proceeding.
+5. **Release the load.** Once the load is delivered and all documents are received, move the load to **Released** status. **Released** indicates the load is ready for invoicing.
+6. **Generate the invoice.**
+
+   - Open the released load.
+   - Click Generate Invoice. Alvys merges the required documents (Customer Rate Confirmation, Proof of Delivery, and Invoice) into a single file. The load moves to **Queued** status, meaning the invoice has been created and the load is ready for submission to your factoring company.
+
+     ![Load in Queued status after generating the invoice](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1c55262f-f2e7-47d3-b857-15a2bab7d61a/Recording_2025-04-29_075849_%281%29.gif)
+
+     *Load in Queued status after generating the invoice*
+7. **(Optional) Run a credit check.** Some API-based integrations support broker credit checks; OTR Solutions and Saint Johns Capital Factoring are two examples. Credit checks may run automatically at invoice time if the previous check is older than 24 hours. You can also trigger a check manually from the Customer Profile or from the Load Details page. Loads with a declined credit check may be blocked from batch submission depending on your provider's configuration.
+8. **Submit the batch to your factoring company.**
+
+   - Navigate to Accounting > Factoring Upload.
+   - Select the Subsidiary for which you are submitting.
+   - Select all loads in **Queued** status that you want to include in the submission.
+   - Click Submit Batch.
+   - Do not close this page or navigate away until the submission completes. Navigating away during submission may interrupt the process.
+
+     How submission works depends on your provider type: for API providers (Apex Capital, TAFS, OTR Solutions, Saint Johns Capital Factoring, TruFunding) Alvys submits the data directly to your provider through the integration · for FTP providers (WinFactor, Triumph, Wex FleetOne FTP, Compass Funding Solutions, RTS, Sunbelt Finance) Alvys transmits the batch file to your factoring company automatically via FTP · for manual providers (Capital Depot, Wex FleetOne) Alvys generates a batch file that you download and submit to your provider yourself.
+9. **Upload your Purchase Report.** After your factoring company finances the invoices, download the purchase report from your factoring portal and upload it to Alvys to update the load statuses.
+
+   - Download the purchase report from your factoring provider's portal. The report name and export steps vary by provider; refer to your provider-specific integration article for the exact location and file format.
+   - Go to Reports > Financial Reports > Factoring.
+   - Click the Upload Purchase Report button in the bottom right corner of the page.
+   - Drag and drop the report file onto the upload area, or click the area to select the file from your device.
+   - Click Upload.
+   - Do not close the page until processing is complete. Processing may take several seconds to a few minutes depending on file size. Loads included in the purchase report will be updated to **Financed** status.
+10. **Upload your Payment Report.** When the customer or broker pays the factoring company in full, download the payment report from your factoring portal and upload it to Alvys to mark the loads as fully settled.
+
+    - Download the payment report from your factoring provider's portal. Refer to your provider-specific integration article for the exact report name and steps.
+    - Go to Reports > Financial Reports > Factoring.
+    - Click the Upload Payment Report button.
+    - Drag and drop the file onto the upload area, or click the area to select the file from your device.
+    - Click Upload.
+    - Do not close the page until processing is complete. Loads included in the payment report will be updated to **Completed** status.
+
+## Result
+
+After completing the full workflow, your load will have moved through these statuses in order:
+
+- **Released:** The load is delivered and all documents are received; the load is ready for invoicing.
+- **Queued:** The invoice has been generated; the load is ready for submission to the factoring company.
+- **Invoiced:** The invoice has been submitted to the factoring company or directly to the customer.
+- **Financed:** The factoring company has purchased and funded the invoice.
+- **Completed:** Full payment has been received and the factoring cycle is closed for that load.
+
+For provider-specific differences, including credential types, FTP setup, report names, portal navigation, schedule number lookup (Apex Capital), and reference number requirements (Wex FleetOne FTP), refer to the dedicated integration article for your factoring company.
+
+## Troubleshooting
+
+### Load does not appear in Factoring Upload
+
+1. Confirm the load status is **Queued**. Only loads in **Queued** status appear in the Factoring Upload queue. If the load has not had an invoice generated, generate the invoice first.
+2. Confirm the load's invoicing method is set to Factoring Company. Check the customer's Invoicing tab in their profile, or check Invoicing Settings in Company Profile for the subsidiary.
+3. Confirm you have selected the correct subsidiary on the Factoring Upload page. Submissions are per subsidiary.
+4. Contact Alvys support if none of the above reasons apply.
+
+### Batch submission fails or does not complete
+
+1. Stay on the Factoring Upload page for the full duration of the submission. Closing the page or navigating away during submission will interrupt the process.
+2. Check your integration status in Management > Integrations. If the integration is inactive or credentials have expired, re-enter your credentials and retry.
+3. For FTP providers, confirm with your factoring company that the FTP server is available and your credentials are still valid.
+4. Contact Alvys support if the submission continues to fail after checking credentials.
+
+### Purchase or Payment Report upload does not process
+
+1. Confirm the file format matches what your provider requires. Most providers require a .csv file; check your provider-specific integration article for the required format.
+2. Confirm you downloaded the report from the correct page in your factoring provider's portal. Each provider uses a specific page or report type for purchase and payment data; refer to your provider-specific integration article for the exact location and export steps.
+3. Contact Alvys support if the upload continues to fail after checking the file and source.
+
+## FAQs
+
+**Q:** What do I need to do to switch to a different factoring company?
+
+**A:** Open your current integration in Management > Integrations and click Deactivate to remove the existing connection. Then follow the setup items (configure NOA, add the Factoring invoicing method, and connect to your provider) to configure your new factoring provider.

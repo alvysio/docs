@@ -1,0 +1,217 @@
+---
+title: "Saint Johns Capital Factoring Integration"
+---
+
+<Note>
+  **Applies to:** Admins · Partner Admins · Support staff
+
+  **Module:** Management > Integrations · Management > Company Profile · Accounting > Factoring Upload
+
+  **Provider:** Saint Johns Capital · **Integration type:** Two-way API · **Sync direction:** Alvys submits invoice batches to Saint Johns Capital; Saint Johns Capital returns credit check results to Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Saint Johns Capital connects to Alvys via a two-way API to automate invoice submission and broker credit checks for factoring clients. Synonyms: Saint John Capital, SJC, Saint Johns factoring.
+</Note>
+
+## What This Integration Does?
+
+Saint Johns Capital connects to Alvys through a two-way API. When a batch is submitted, Alvys sends invoice data to Saint Johns Capital directly. Saint Johns Capital also performs automatic and manual broker credit checks, returning results to Alvys in real time.
+
+## Prerequisites
+
+- Active account with Saint Johns Capital
+- Client ID provided by Saint Johns Capital
+- Notice of Assignment text provided by Saint Johns Capital
+- Admin, Partner Admin, or Support access to configure the integration
+- **"Billing"** permission to submit batches
+- MC number set on each customer/broker that will be included in a batch
+
+## Connect / Authenticate
+
+Note: This integration uses an API connection.
+
+### Part 1: Configure Your Notice of Assignment
+
+- Navigate to Management > Company Profile.
+- In the **General Info** tab, locate the **Important Information** section. Click the **(+)** button. The Manage Important Info pop-up opens.
+
+<Note>
+  ![Company Profile General Info tab showing Important Information section with (+) button](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/133e238a-cc9f-40f0-b21a-05aa62dfdcd8/image.png)
+
+  * Company Profile General Info tab showing Important Information section with (+) button*
+</Note>
+
+- In the drop-down menu, select **Notice of Assignment**. Copy and paste the Notice of Assignment text provided by Saint Johns Capital.
+
+<Note>
+  ![Manage Important Info pop-up with Notice of Assignment selected and text pasted](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2627af70-bd78-430b-adb0-b75894c15985/image.png)
+
+  *Manage Important Info pop-up with Notice of Assignment selected and text pasted *
+</Note>
+
+- Click **Save**.
+
+### Part 2: Configure the Saint Johns Capital Integration
+
+- Navigate to Management > Integrations.
+- Select the subsidiary you want to configure. Expand the **Factoring** section. Click the “I**nactive**” button to **Saint John Capital**.
+
+<Note>
+  ![Integrations page showing Factoring section expanded with Saint John Capital “Inactive” button visible](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2a88f996-eced-459d-8743-4a6011af72cb/image.png)
+
+  *Integrations page showing Factoring section expanded with Saint John Capital “**Inactive**” button visible*
+</Note>
+
+- Enter your **Client ID** provided by Saint Johns Capital.
+
+<Note>
+  ![Add Integration dialog with Client ID field](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/68678f7b-75fb-430a-9082-35a82ceb6616/image.png)
+
+  *Add Integration dialog with Client ID field*
+</Note>
+
+- Click the blue **Save** button.
+
+If you have multiple subsidiaries with Saint Johns Capital accounts, repeat the four configuration actions above for each subsidiary.
+
+## Field &amp; Data Mapping
+
+Alvys sends invoice data to Saint Johns Capital, including load number, debtor information, invoice amount, and MC number. Alvys also sends three supporting documents for each invoice: the Bill of Lading (or Rate Confirmation if no Bill of Lading is present), the Rate Confirmation as a separate rate sheet, and the Receipt. Each document type is submitted in a separate field. The customer's MC number must be set in Alvys before a load can be included in a batch.
+
+## Sync Behavior
+
+Credit check results sync automatically from Saint Johns Capital to Alvys. Invoice batch data flows from Alvys to Saint Johns Capital at submission. There is no automated nightly batch sync; load status updates depend on batch submission.
+
+## Submit a Batch
+
+- Navigate to **Accounting > Factoring Upload**. All loads must have a **Queued** status with invoicing method set to factoring.
+- Select the correct subsidiary.
+
+<Note>
+  ![Subsidiary selector on Factoring Upload page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/86c32c79-1b2a-4f18-9494-ba42f856c5ea/image.png)
+
+  *Subsidiary selector on Factoring Upload page*
+</Note>
+
+- Select the invoices to include in the batch. Ensure the MC number is set for each customer.
+
+<Note>
+  ![Load list with checkboxes on Factoring Upload page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/88f94c1f-c391-48b5-8c2c-44743dab207d/image.png)
+
+  *Load list with checkboxes on Factoring Upload page*
+</Note>
+
+- Click **Submit Batch**. A pop-up appears.
+
+<Note>
+  ![Submit Batch button on Factoring Upload page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/20c20757-8433-4273-b09c-8e0c697e652a/image.png)
+
+  * Submit Batch button on Factoring Upload page*
+</Note>
+
+- In the pop-up, select the **Funding Method**: Wire, ACH, Fuel Card, or Visa. Select the **Payment Date** using the calendar.
+
+<Note>
+  ![Batch submission pop-up showing Funding Method selector and Payment Date calendar](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/53e2827e-2e39-483f-958c-9dd5fd9ced58/image.png)
+
+  *Batch submission pop-up showing Funding Method selector and Payment Date calendar*
+</Note>
+
+- Confirm the submission. Wait until the process is complete. Do not close this page or navigate away; doing so may disrupt the submission.
+
+## Broker Credit Checks
+
+Saint Johns Capital performs broker credit checks to assess whether a broker is eligible for factoring. Credit check results appear as colored icons next to the customer/broker name:
+
+- Green: Approved
+- Red: Declined
+- Grey: Unknown (no credit check has been performed yet)
+
+### Automatic Credit Checks
+
+Alvys automatically triggers a credit check in two situations:
+
+- When a load is created: if the last credit check for that broker was performed more than 24 hours ago
+- When a load reaches **Queued** status: if the last credit check was more than 24 hours ago
+
+### Manually Trigger a Credit Check from a Customer/Broker Profile
+
+- Navigate to the customer or broker profile.
+- Add a factoring invoicing method to the subsidiary where the Saint Johns Capital integration was added, then save. This step is required before the refresh icon (↻) becomes visible.
+- Click the refresh icon **(↻)** next to the customer or broker name to trigger a credit check. The credit check result icon updates next to the customer/broker name.
+
+<Note>
+  ![Credit check status icons: green (Approved)](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/dc1ea5b8-96a2-4c1d-9b4f-7076bc6f2f0b/image.png)
+
+  *Credit check status icons: green (Approved)*
+
+  ![Credit check status icons: red (Declined)](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/13e39edb-c81b-4a12-a633-d7250334f2f4/image.png)
+
+  *Credit check status icons: red (Declined)*
+
+  ![Credit check status icons: grey (Unknown)](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/9ddc1dc7-05d6-4011-aa7e-73f14ce04dd8/image.png)
+
+  * Credit check status icons: grey (Unknown)*
+</Note>
+
+### Manually Trigger a Credit Check from a Load Details Page
+
+- Open or create a load. Confirm the customer has a subsidiary with the factoring invoicing method assigned.
+- On the load details page, click the refresh icon **(↻)** to trigger a credit check.
+
+<Note>
+  Load details page showing refresh icon (↻)
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/9c3acc71-392d-487f-b366-82abf1904fe6/image.png)
+</Note>
+
+### Submit a Load Based on Credit Check Status
+
+1. Select or create a load with a customer assigned to the subsidiary using the factoring invoicing method.
+2. Advance the load to **Released** status.
+3. Click **Invoice Load** to generate the invoice.
+4. Merge the required documents: Customer Rate Confirmation, Proof of Delivery (POD), and the invoice. The load moves to **Queued** status.
+5. Navigate to **Accounting > Factoring Upload**. Select the load and submit the batch.
+
+<Note>
+  Factoring Upload page with the load selected for batch submission
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c4afcc51-f61c-4a7b-8daf-487bfa672096/image.png)
+</Note>
+
+## Verify It's Working?
+
+After submitting a batch, confirm that the selected loads have moved from **Queued** status to **Invoiced** status. Credit check results should appear as colored icons next to customer/broker names within a few seconds of triggering a check.
+
+## Troubleshooting
+
+### Batch submission fails?
+
+1. Confirm the customer's MC number is set. Navigate to the customer/broker profile and verify the MC number field is populated. A load cannot be submitted without it.
+2. Confirm the subsidiary has a valid Client ID configured in Management > Integrations.
+3. Contact Alvys support if the batch continues to fail after confirming the above.
+
+### Credit check icon does not appear?
+
+1. Confirm the customer has a factoring invoicing method assigned to the subsidiary where the Saint Johns Capital integration is configured.
+2. Confirm the integration is active in Management > Integrations.
+3. Trigger the credit check manually using the refresh icon (↻). If the icon does not appear after confirming both steps above, contact Alvys support.
+
+## Limits / Unsupported
+
+Each subsidiary must have its own Client ID configured separately. A single Client ID cannot apply across multiple subsidiaries.
+
+## FAQs
+
+**Q: What credit check statuses does Saint Johns Capital return?**
+
+**A:** Saint Johns Capital returns three statuses: green (Approved), red (Declined), and grey (Unknown). There is no additional status for this integration.
+
+**Q: What is the Notice of Assignment and where does the text come from?**
+
+**A:** The Notice of Assignment is a document that informs customers that their receivables have been assigned to a factoring company. Saint Johns Capital provides the text when you set up your account with them.
+
+**Q: Can I submit a load even if the credit check status is grey or red?**
+
+**A:** Yes. The credit check status is informational. You can submit a load regardless of the result. Contact Saint Johns Capital directly if you have questions about a specific broker's eligibility.

@@ -1,0 +1,135 @@
+---
+title: "Managing a Load"
+description: "Managing loads is a lot of work. Alvys is here to simplify that process and keep everything organized for you!"
+---
+
+<Note>
+  📋 **Applies to:** All users
+
+  **Module:** Loads and Trips
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  A load record in Alvys includes a set of management controls for tracking progress, uploading documents, and taking workflow actions at each stage of the freight lifecycle.
+</Note>
+
+### Overview
+
+Every load in Alvys has a row of action buttons and a **Manage** dropdown that control, govern, and adjust what you can do at each stage. The available options change based on the load's current status and your account permissions. This article explains what each control does.
+
+### Where to Find It
+
+Open any load record. The action buttons appear in the management ribbon just below the carrier details panel. The **Manage** button at the top of the load opens a dropdown with status and workflow actions.
+
+![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ae98d045-9d72-4752-93d1-cda1459a4a60/cursorful-video-1753362117457.gif)
+
+### Key Concepts
+
+#### Map
+
+Opens a visual map of the load's route and stop locations so you can review the planned path.
+
+#### Notes
+
+Lets you add free-form internal notes to the load record. Notes are visible to other users on your account but are not sent to the carrier.
+
+#### Docs
+
+Opens the documents panel where you can view and upload load-related files such as the rate confirmation and proof of delivery.
+
+#### Check Calls
+
+Records a driver check-in update for the load, including location and status notes.
+
+#### Add Stop
+
+Inserts an additional stop into the trip route. This option is only available while the load is still in progress.
+
+#### Tender
+
+Accesses bill of lading and load manifest features for the trip.
+
+#### Optimize
+
+Rearranges stop order or initiates a trip split to adjust the route.
+
+#### Manage
+
+Opens a dropdown menu with status and workflow actions. The options shown depend on the load's current status and your account permissions. Common actions include Dispatch, Release, TONU, Reserve, Revert Status, Clone, and Cancel Load.
+
+### How to Use It
+
+For step-by-step instructions on specific actions available from this screen, see:
+
+- [How to Release a Load to Billing](/help/loads-trips/how-to-release-a-load-to-billing)
+- [How to Switch the Customer on a Released Load](/help/loads-trips/how-to-switch-the-customer-on-a-released-load)
+
+### Settings &amp; Permissions
+
+The **Manage** dropdown shows only the actions your account is permitted to take at the load's current status. For example, **Release** appears only if you have the **"ReleaseLoads"** permission and the load is in **Delivered** or **TONU** status. Contact your administrator if an expected action is not visible.
+
+### Limits &amp; Behavior
+
+- **Add Stop** is not available after a load reaches **Delivered** or **TONU** status. Once a load is delivered, the stop list is locked.
+- **Tender** availability varies depending on the load type and carrier setup.
+- **Clone** creates a new load with the same route and carrier information but does not copy document attachments.
+- **Cancel Load** removes the load from active dispatch. A cancelled load cannot be restored; a new load record must be created.
+
+### FAQs
+
+**Q: Why don't I see all the options listed under Manage?**
+
+**A:** The Manage dropdown shows only the actions that are valid for the load's current status and your account's permissions. If an option is missing, either the load's status does not allow that action, or your account does not have the required permission.
+
+**Q: Can I add a stop after the driver has picked up?**
+
+**A:** Yes, as long as the load has not yet reached **Delivered** or **TONU** status. Once a load is delivered or marked TONU, the route is locked.
+
+### Go Deeper
+
+- [How to Release a Load to Billing](/help/loads-trips/how-to-release-a-load-to-billing)
+- [How to Switch the Customer on a Released Load](/help/loads-trips/how-to-switch-the-customer-on-a-released-load)
+
+## Marking a Load as TONU
+
+If a load is canceled after being assigned but before delivery, you may need to mark it as **TONU** (Truck Ordered Not Used).
+
+### Steps to Mark as TONU
+
+1. Open the load via the Global Search bar (by load #, trip #, or broker order #)
+2. Click **Manage** on the Load Management ribbon
+3. Select **TONU** from the dropdown
+4. Confirm when prompted
+
+<Note>
+  💡 TONU is only available for loads with assets assigned and not yet delivered. The load must be in statuses like Covered, Dispatched, or In Transit with the first stop marked as Picked Up.
+</Note>
+
+![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/9802d41f-8ec1-401a-99ef-c854241ff06e/cursorful-video-1753364528273.gif)
+
+### Adjust Stop Status
+
+Update the stop status depending on what occurred in real life:
+
+- **Arrived** if the driver reached the shipper
+- **Covered** if the driver never made it
+
+### Update Money Box
+
+1. Update **Customer Freight Amount** – adjust the amount paid by the broker
+2. Update **Carrier Line Haul** – adjust what the carrier should receive
+3. Update **Driver Trip Value** – for internal carrier payout
+
+### Release to Billing
+
+Once all updates are made and the load shows TONU status, click **Manage** again and choose **Release** to hand it off to your billing team.
+
+## FAQs
+
+**Q: What happens to loaded miles when a load is marked as TONU?**
+
+A: Loaded miles are automatically zeroed out since the trip wasn’t completed.
+
+**Q: Can I mark a load as TONU after delivery?**
+
+A: No. TONU can only be applied before the load is marked delivered.

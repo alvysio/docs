@@ -1,0 +1,253 @@
+---
+title: "Fleetrock — Maintenance Integration"
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin
+
+  **Module:** Integrations
+
+  **Last reviewed:** 2026-06
+
+  **Owner:** Integrations team
+
+  Two-way maintenance integration: Fleetrock pushes repair order updates to Alvys via webhook and Alvys imports open repair orders on activation.
+</Note>
+
+## Overview
+
+Fleetrock is a fleet maintenance management platform that connects with Alvys to keep your repair orders and scheduled maintenance items in sync. It is also known as a fleet maintenance integration, repair order integration, or maintenance tracking integration.
+
+Connecting Fleetrock to Alvys allows your team to view and manage repair orders directly in Alvys without switching to the Fleetrock portal. When a repair order is updated in Fleetrock, Alvys reflects the change automatically. Alvys also receives scheduled maintenance alerts from Fleetrock, which appear in the Dispatch Planner so dispatchers can see upcoming service needs alongside load assignments.
+
+## Prerequisites
+
+Before connecting, confirm you have the following:
+
+- An active Fleetrock account with API access.
+- Your Fleetrock API credentials (username and password from Fleetrock).
+- The **"Admin"** or **"Partner Admin"** role in Alvys. These roles can access **Management > Integrations**.
+
+## How to connect
+
+- Open the Maintenance integrations: go to **Management > Integrations > Maintenance** in the top navigation.
+
+<Note>
+  ![Image showing Maintenance integration drop down.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/635369d4-7e01-44e8-bb65-4e3f4d06df47/image.png)
+
+  *Image showing Maintenance integration drop down.*
+</Note>
+
+- Find Fleetrock in the list and click the “Inactive” status to open the configuration dialog.
+
+<Note>
+  ![Image showing Fleetrock integration card with inactive status, on the Alvys integrations page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e146ea73-6e6f-4609-8f9c-6cce4c994bcc/image.png)
+
+  *Image showing Fleetrock integration card with inactive status, on the Alvys integrations page *
+</Note>
+
+- Enter the Login URL supplied by Fleetrock. For example: [https://www.fleetrock.com](https://www.fleetrock.com/). **Please note that tenants who are reseller partners may have a different login URL.**
+
+<Note>
+  ![Image showing the Alvys “Configure Integration” form for the Fleetrock integration with the login URL and the Username input fields](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/da6b532c-8469-48d3-894e-9c29a590bdf3/0ebc362e-7adf-4de4-bc89-278e4cd0edda.png)
+
+  *Image showing the Alvys “Configure Integration” form for the Fleetrock integration with the login URL and the Username input fields *
+</Note>
+
+- Enter the Username (e.g., **Alvyscustomer**). Only the owner or primary account should be used. This can be found in Fleetrock under Settings > Users.
+
+<Note>
+  ![Image showing Fleetrock Settings page with User details](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d8a18e7f-a04b-4a50-be68-a0b0ea96b9d9/image.png)
+
+  *Image showing Fleetrock Settings page with User details *
+</Note>
+
+- **Generate the API Key. **In Fleetrock, go to the Settings menu, then select API. Enter ‘Alvys’ as the description and make sure to **uncheck **the ‘Use JSON Web Tokens (JWT)’ box, as the integration will not work if it is checked. Click “**Generate Key**” and copy the API key from the grey input field into the Alvys integration setup.
+
+<Note>
+  ![Image showing Fleetrock Settings page with API details](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/06ef65e2-571b-462f-82ca-5c9c8577cded/image.png)
+
+  *Image showing Fleetrock Settings page with API details*
+</Note>
+
+- Select the appropriate Subsidiary for the integration.
+
+<Note>
+  ![Image showing the Alvys “Configure Integration” form for the Fleetrock integration with the “API key' and the “Subsidiaries” input fields](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7e647649-8e18-4c09-91aa-062cd8e6f366/image.png)
+
+  *Image showing the Alvys “Configure Integration” form for the Fleetrock integration with the “API key" and the “Subsidiaries” input fields *
+</Note>
+
+- **Select the Default Asset Group**. Asset Groups in Fleetrock are required for asset creation and help organize units. A default group ensures new assets from Alvys are properly created and categorized in Fleetrock. Groups can be created and managed in Fleetrock by navigating to the **Assets** tab and selecting the **Groups** button.
+
+<Note>
+  ![Image showing the Default Asset Group dropdown during the Alvys Fleetrock integration configuration.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/1642692340/5b84a800661d64f3cef349de0b56/upload_17087988365532595929.png)
+
+  *Image showing the Default Asset Group dropdown during the Alvys Fleetrock integration configuration.*
+</Note>
+
+- **Link Fleetrock and Alvys for Automatic Updates. **Fleetrock uses webhooks to send real-time data to Alvys. Copy the webhook URL provided by Alvys. Within Fleetrock, navigate to the Settings page and select Webhooks. Enable the webhook by selecting the "**Enable**" checkbox. Paste the webhook URL provided by Alvys into the "**Endpoint URL**" field.
+
+<Note>
+  ![Image showing “Setup Webhooks” dialog with webhook details such as secret key and webhook URL](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/37a32f53-e49b-4c83-bb5c-5f7cc6035492/image.png)
+
+  *Image showing “Setup Webhooks” dialog with webhook details such as secret key and webhook URL *
+</Note>
+
+- Copy the secret key from Alvys and enter it into the "**Webhook Secret**" field.
+- Select choose "**All**." for the **Send Events input** field, then Click "**Send Test Webhook**" to verify the connection.
+
+<Note>
+  ![Image showing Fleetrock settings user interface for Webhook Setup.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/1642692372/5e56ce100d0d34fbe3a9a9070be5/upload_9358915294265841909.png)
+
+  *Image showing Fleetrock settings user interface for Webhook Setup.*
+</Note>
+
+- A success message will confirm correct setup. Finally, select "**Update**" to save the webhook configuration.
+
+<Note>
+  ![Image showing successful configuration of webhooks in Fleetrock](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/1642692379/06756fe60300f564fa756830cb5d/upload_1895776961443135964.png)
+
+  *Image showing successful configuration of webhooks in Fleetrock *
+</Note>
+
+- Navigate back to Alvys and select the Activate button.
+
+<Note>
+  ![Image showing “Activate” button in final step of the Fleetrock integration configuration.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/1642692387/4a4973e8d214b362b0ee9d49d5b1/upload_8898541265785603904.png)
+
+  *Image showing “Activate” button in final step of the Fleetrock integration configuration.*
+</Note>
+
+- The integration will now show as active
+
+<Note>
+  ![Image showing active Fleetrock integration](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/1642692396/420b5702fa0e5f9e4cbfdc76795a/upload_304047955230799640.png)
+
+  *Image showing active Fleetrock integration*
+</Note>
+
+## Asset Creation and Syncing with Fleetrock
+
+When the integration with Fleetrock is first activated, Alvys does not create new assets in Fleetrock for units that exist only in Alvys. However, if an asset exists in both systems with the same VIN, the integration will automatically sync those records. After the integration is enabled, any new assets (trucks and trailers) created in Alvys will automatically be created in Fleetrock. This process eliminates duplicate data entry, keeps Fleetrock aligned with your current fleet information, and ensures maintenance schedules are correctly applied to the right assets.
+
+**Fields Synced from Alvys to Fleetrock:**
+
+- Truck/Trailer Number (Unit Number)
+- License Number
+- License State (Registration State)
+- License (Registration Expiration)
+- VIN - Once a valid VIN is provided, additional details such as make, model, and year will be automatically populated by Fleetrock under the **VIN Data** tab for the corresponding truck or trailer
+- Status (Active/Inactive).
+
+<Warning>
+  ⚠️ Changes made to** assets** directly in Fleetrock will **not** sync back to Alvys. (**Alvys is the source of truth**)
+
+  If an asset is deleted in Alvys, its status will be set to **Inactive** in Fleetrock. If that asset is re-created in Alvys using the same VIN, Fleetrock will detect the match and change the status back to **Active**
+</Warning>
+
+## What syncs / data flow
+
+Repair order statuses are mapped between Fleetrock and Alvys as follows:
+
+| Fleetrock status | Alvys status |
+| --- | --- |
+| Not Started | Open |
+| In Progress | In Progress |
+| Waiting | In Progress |
+| Finished | Completed |
+| Invoiced | Completed |
+| Paid | Completed |
+
+Scheduled maintenance items from Fleetrock are also synced to Alvys. These appear as upcoming service reminders in the Dispatch Planner.
+
+Fleetrock sends updates to Alvys automatically via webhook whenever a repair order is created or its status changes. You do not need to manually refresh or re-sync. Scheduled maintenance data is sent from Fleetrock to Alvys once daily at 5:00 AM Eastern Time.
+
+VIN matching is used to link repair orders in Fleetrock to the correct truck in Alvys. The truck's VIN in Alvys must match the VIN in Fleetrock for repair orders to appear on the correct asset.
+
+## How to view repair orders in Alvys
+
+A Repair Order (also known as a Work Order) is a formal request to perform maintenance or repairs on a unit such as a truck or trailer.
+
+Once the Fleetrock integration is enabled, **Alvys will automatically import any repair orders from Fleetrock** that are either **Not Started** or **In Progress**. These repair orders are imported into Alvys as **Asset Events**.
+
+- Go to the Asset List (Truck List or Trailer List) in Alvys
+- Select the **Asset Events** tab on the record. All active and completed repair orders synced from Fleetrock will appear here.
+- Click a repair order to view its line items, status, and service history as reported by Fleetrock.
+
+<Note>
+  ![Image showing sample truck profile , “Asset Events” tab with Work Order details](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/815ec30b-b6de-4c8e-ae81-0a97fbb9ed55/image.png)
+
+  *Image showing sample truck profile , “Asset Events” tab with Work Order details*
+</Note>
+
+## How scheduled maintenance appears in the Dispatch Planner
+
+The Dispatch Planner displays upcoming scheduled maintenance from Fleetrock in a dedicated column. Dispatchers can see:
+
+- The truck that has upcoming service.
+- The type of service scheduled.
+- The due date or mileage threshold for the service.
+- The current status of any active repair order for that truck.
+
+  This allows dispatchers to plan load assignments around maintenance needs before they become urgent.
+
+  <Warning>
+    **Limits / unsupported:**
+
+    - Only repair orders with Not Started or In Progress status are imported at activation.
+    - Scheduled maintenance syncs once daily (5:00 AM Eastern Time), not in real time.
+    - VIN matching is required, repair orders will not link to a truck if the VIN does not match.
+    - The JWT option must remain unchecked; JWT authentication is not supported for this integration.
+  </Warning>
+- Only repair orders with Not Started or In Progress status are imported at activation.
+- Scheduled maintenance syncs once daily (5:00 AM Eastern Time), not in real time.
+- VIN matching is required, repair orders will not link to a truck if the VIN does not match.
+- The JWT option must remain unchecked; JWT authentication is not supported for this integration.
+
+## Troubleshooting
+
+### Repair orders are not appearing after activation
+
+1. Confirm the **JWT** option was **UNCHECKED** when you saved the credentials. If JWT was checked, the connection will not authenticate correctly. Re-enter your credentials with JWT unchecked.
+2. Verify that the repair orders in Fleetrock have a status of Not Started or In Progress. Only these two statuses are imported during the initial activation.
+3. Check that the truck VINs in Alvys match the VINs in Fleetrock exactly. A VIN mismatch will prevent repair orders from appearing on the correct truck.
+
+### A repair order status change in Fleetrock is not updating in Alvys
+
+1. Confirm the Fleetrock webhook is active. Webhook connectivity is required for real-time updates. If the webhook was disrupted, contact Fleetrock to verify the webhook is pointed to the correct Alvys endpoint.
+2. Check the status mapping above — some Fleetrock statuses map to the same Alvys status (for example, Finished, Invoiced, and Paid all map to Completed).
+
+### Scheduled maintenance is not showing in the Dispatch Planner
+
+Scheduled maintenance data syncs once daily at 5:00 AM Eastern Time. If you added a new maintenance schedule in Fleetrock today, it will appear in Alvys the following morning. If it does not appear after 24 hours, contact Alvys support.
+
+## FAQs
+
+**Q: Why are some repair orders missing after I connected Fleetrock?**
+
+**A:** Only repair orders with a Not Started or In Progress status in Fleetrock are imported when you first activate the integration. Repair orders in other statuses (such as Finished, Invoiced, or Paid) are not imported at activation. They will appear in Alvys as Fleetrock sends future webhook updates.
+
+**Q: What happens when I mark a repair order as Paid in Fleetrock?**
+
+**A:** Fleetrock sends a webhook update to Alvys. The repair order status in Alvys updates to Completed.
+
+**Q: Can dispatchers see which trucks need maintenance before assigning loads?**
+
+**A:** Yes. Upcoming scheduled maintenance from Fleetrock appears in the Dispatch Planner so dispatchers can factor service needs into load assignments.
+
+**Q: What does "JWT must be unchecked" mean?**
+
+**A:** During setup, there is an option labeled JWT in the credentials form. This option must be left unchecked. If it is checked, Fleetrock's authentication will not work and the integration will fail to connect.
+
+**Q: What happens if I delete an asset in Alvys?**
+
+A: t becomes Inactive in Fleetrock. If you recreate the asset with the same VIN, Fleetrock will set it back to Active.
+
+**Q: Why don’t I see the Maintenance Status in Alvys right after creating a scheduled maintenance in Fleetrock?**
+
+**A:** Scheduled maintenance data is sent by Fleetrock to Alvys daily at 5 AM EST, so changes won’t show immediately.
+
+**Q: What about accounting? How do Fleetrock invoices/POs make it to external accounting systems?**
+
+A: Fleetrock supports an integration with QuickBooks Online (QBO). If a customer doesn’t use QBO, they’ll need to build their own accounting integration.

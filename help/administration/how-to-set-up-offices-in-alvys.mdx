@@ -1,0 +1,100 @@
+---
+title: "How to Set Up Offices in Alvys"
+description: "This guide explains how to set up offices in the system and manage user access based on office assignments"
+---
+
+<Note>
+  **Applies to:** Admins · Partner Admins
+
+  **Module:** Management > Company Profile > Offices
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Offices are organizational units in Alvys that group users and loads together, limiting each user's data access to the loads and customers linked to their assigned office.
+</Note>
+
+## Overview
+
+Setting up offices in Alvys, also called subsidiaries or organizational units, helps limit the scope of information users can access by associating them with specific offices. It also improves data organization by ensuring users only see loads and customers relevant to their assigned office.
+
+When creating or editing an office, you can configure which other offices it shares load data with. Users from one office can access loads from another office when load sharing (data sharing) is enabled between those offices.
+
+Deletion of an office requires contacting Alvys Support, as there is no self-service delete option for offices.
+
+## Prerequisites
+
+You must have the **"Admin"** or **"Partner Admin"** role to create and edit offices. **"Office Admin"** users can view the Offices section but cannot create or edit offices.
+
+## Steps
+
+**Navigate to Offices.**
+
+1. Click **Management** in the top navigation bar.
+2. Select **Company Profile** from the menu.
+3. Click the **Offices** tab.
+
+   **Create a new office.**
+4. Click **Add Office** to open the office creation form.
+5. Fill in the following fields:
+
+   - **Name:** Enter a name for the office.
+   - **Address:** Enter the office address.
+   - **Commission Rates:** Set the commission rates that apply to loads associated with this office.
+   - **Data Sharing:** Select which other offices this office will share load data with. Users assigned to this office will be able to view loads from the shared offices.
+6. Click **Save** to create the office.
+
+   ![GIF showing the process of navigating to Offices and creating a new office including name, address, commission rates, and data sharing fields](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1417044629/41b1c1acb9cb0d2dbacb75faa8fa/Recording+2025-03-11+103131+%28online-video-cutter_com%29.gif)
+
+   *GIF showing the process of navigating to Offices and creating a new office including name, address, commission rates, and data sharing fields*
+7. Assign users to the office.
+8. When adding a new user, assign them to the appropriate office during the user creation process (Management > Company Profile > Users > Add User).
+9. For existing users, open their user profile and update the Office field to associate them with the correct office.
+10. Users assigned to an office can generally view only the loads and customers linked to that office, unless load sharing is configured between offices.
+11. Configure load sharing (optional).
+12. Open an existing office by clicking on its name in the Offices list.
+13. Under the **Data Sharing** section, select the offices whose loads this office's users should be able to access.
+14. Save the changes.
+
+    ![Screenshot showing the Data Sharing configuration panel on an office, with other offices listed for selection](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1417071711/2963a0d2b61fb375a27d2040a31b/image.png)
+
+    *Screenshot showing the Data Sharing configuration panel on an office, with other offices listed for selection*
+
+Once an office is created and users are assigned, those users see only the loads and customers associated with their office (and any offices included in the data sharing configuration). New loads created by users in that office are linked to that office automatically.
+
+To edit an office, navigate to Management > Company Profile > Offices, click on the office name, update the relevant fields (name, address, commission rates, or data sharing), and save. You cannot delete an office through the Alvys interface; to delete an office, contact Alvys Support with the name of the office you want to remove, and ensure no active users or loads are assigned to the office before requesting deletion.
+
+## Troubleshooting
+
+### Add Office button is not visible
+
+1. Confirm you are signed in with the **"Admin"** or **"Partner Admin"** role. **"Office Admin"** and other roles cannot create offices and will not see the Add Office button.
+2. If you have an **"Admin"** or **"Partner Admin"** role and the button is still not visible, contact Alvys Support with your account name and role for investigation.
+
+### Users can see loads from other offices they should not access
+
+1. Open the office record for the user's assigned office (Management > Company Profile > Offices > click the office name).
+2. Review the **Data Sharing** section. Remove any offices that should not be sharing data with this office and save.
+3. If the issue persists after removing data sharing, contact Alvys Support.
+
+### User is not seeing loads associated with their office
+
+1. Open the user's profile (Management > Company Profile > Users) and confirm the Office field is set to the correct office.
+2. If the office assignment is correct and the user still cannot see the expected loads, verify that those loads are linked to the correct office. Contact Alvys Support if the issue continues.
+
+## FAQs
+
+**Q: Can a user be assigned to more than one office?**
+
+**A:** Each user is assigned to one office. Load visibility across multiple offices is controlled through the Data Sharing setting on each office, not by assigning users to multiple offices.
+
+**Q: Will changing a user's office assignment affect loads they have already worked on?**
+
+**A:** Changing a user's office assignment does not retroactively change the office association on historical loads. It only affects which loads the user can see going forward based on the new office's data sharing configuration.
+
+**Q: Who can delete an office?**
+
+**A:** Offices cannot be deleted through the Alvys interface. Contact Alvys Support to request office deletion. Before requesting, ensure no active users or loads are assigned to that office.
+
+**Q: What is the difference between commission rates set on the office and rates set elsewhere?**
+
+**A:** Commission rates configured on an office apply to loads associated with that office. If you need to understand how office-level commission rates interact with other rate configurations, contact Alvys Support for guidance specific to your setup.

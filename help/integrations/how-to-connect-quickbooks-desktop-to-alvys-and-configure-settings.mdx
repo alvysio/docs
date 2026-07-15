@@ -1,0 +1,324 @@
+---
+title: "How to connect QuickBooks Desktop to Alvys and configure settings"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin
+
+  **Module:** Management > Integrations
+
+  **Provider:** QuickBooks Desktop (Intuit QuickBooks Desktop, QBD) · **Integration type:** Two-way · **Direction:** Exports transactions from Alvys to QuickBooks Desktop; imports payment updates from QuickBooks Desktop to Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Connect (link and authenticate) QuickBooks Desktop to Alvys using the QuickBooks Web Connector and configure how transactions are exported and synced. This article covers initial connection setup, configuration settings, and recommended configuration choices.
+</Note>
+
+## Overview
+
+The Alvys to QuickBooks Desktop integration exports, syncs, and pushes customer invoices, carrier bills, and driver settlements from Alvys to QuickBooks Desktop (also called QuickBooks Desktop, QBD, or Intuit QuickBooks Desktop). It also imports payment status updates from QuickBooks Desktop back into Alvys. The connection is established using the QuickBooks Web Connector, which must be installed and running on the same computer as QuickBooks Desktop.
+
+Each Alvys subsidiary is connected to QuickBooks Desktop separately.
+
+## Before You Start
+
+Before connecting, confirm the following:
+
+- You have the **"Admin"** or **"Partner Admin"** role in Alvys (the **"CompanyProfileManager"** permission controls access to integration settings).
+- QuickBooks Desktop is installed on your computer.
+- The QuickBooks Web Connector is installed on the same computer as QuickBooks Desktop. If you do not have it, download it from the Intuit Developer site before continuing.
+- QuickBooks Desktop is open and you are logged in as a user with permissions to connect third-party applications.
+- The Alvys subsidiary you want to connect has already been created in Alvys.
+
+## Steps
+
+1. Open the QuickBooks Desktop integration in Alvys.
+2. Navigate to your username > Integrations, or go directly to [https://app.alvys.com/#/manage/integrations](https://app.alvys.com/#/manage/integrations).
+3. Select Accounting from the list of integration types.
+4. Click the edit icon next to QuickBooks Desktop to open the integration dialogue.
+
+   <Note>
+     ![Alvys Integrations page showing Accounting section with QuickBooks Desktop edit icon.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/21fbbae9-bb70-4bd2-b87a-c6a2ae2008ac/image.png)
+
+     *Alvys Integrations page showing Accounting section with QuickBooks Desktop edit icon. *
+   </Note>
+
+   ![Alvys Integrations page showing Accounting section with QuickBooks Desktop edit icon.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/21fbbae9-bb70-4bd2-b87a-c6a2ae2008ac/image.png)
+
+   *Alvys Integrations page showing Accounting section with QuickBooks Desktop edit icon. *
+5. Select the Alvys subsidiary you want to connect to QuickBooks Desktop.
+
+   <Note>
+     ![Subsidiary selector in Alvys QuickBooks Desktop integration dialog.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f1552ee0-28b5-4130-9215-72b939554784/image.png)
+
+     *Subsidiary selector in Alvys QuickBooks Desktop integration dialog. *
+   </Note>
+
+   ![Subsidiary selector in Alvys QuickBooks Desktop integration dialog.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f1552ee0-28b5-4130-9215-72b939554784/image.png)
+
+   *Subsidiary selector in Alvys QuickBooks Desktop integration dialog. *
+6. Click Next to continue to the connection step.
+7. Download the QuickBooks Web Connector configuration file. Click the Download QWC File button in the Alvys integration dialog. This downloads a .qwc configuration file that you will open in the QuickBooks Web Connector.
+
+<Note>
+  ![Download QWC File button in Alvys integration dialog.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d5bd95cb-ffc6-434a-9128-2a7b7d7f8d84/image.png)
+
+  *Download QWC File button in Alvys integration dialog. *
+</Note>
+
+Keep the Alvys integration dialog open: you will need the password shown on this screen when you add the configuration file to the Web Connector.
+
+1. Open the QuickBooks Web Connector. Open the QuickBooks Web Connector on your computer. QuickBooks Desktop must be open and running before you proceed. Alternatively, open the Web Connector from inside QuickBooks Desktop by going to File > App Management > Update Web Services.
+
+<Warning>
+  ⚠️ Install the QuickBooks Web Connector on one computer only for each company file. Installing it on multiple computers for the same company file causes a Conflict of Access, which results in Record Locked errors and duplicate transactions. For hosted or cloud environments (such as Rightworks or Ace Cloud), upload both the company file and the .qwc file to the remote environment in the same folder.
+</Warning>
+
+<Note>
+  ![QuickBooks Web Connector application window.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7ae0daf9-e40e-4216-a830-fadad0b24069/image.png)
+
+  *QuickBooks Web Connector application window.*
+</Note>
+
+1. Add the configuration file to the Web Connector.
+2. In the QuickBooks Web Connector, click Add an Application.
+3. Browse to the .qwc file you downloaded earlier and open it.
+4. QuickBooks Desktop will prompt you to authorize the connection. When the Application Certificate window appears, select **"Yes, always; allow access even if QuickBooks is not running"** and click Continue, then Done. Selecting this option allows transactions to sync automatically without requiring QuickBooks Desktop to be manually open each time. If QuickBooks Desktop is closed, transactions queue in Alvys for up to 7 days; after that they must be re-triggered from Alvys.
+5. The Web Connector will prompt you for a password. Enter the password shown in the Alvys integration dialog.
+
+<Note>
+  ![QuickBooks Web Connector Add an Application dialog.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a4b986c5-5eb2-427f-8e2f-87b46c9d6bcd/image.png)
+
+  * QuickBooks Web Connector Add an Application dialog.*
+</Note>
+
+<Note>
+  ![QuickBooks Desktop authorization dialog for third-party application access.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/11925906-2d75-4ae9-9edd-fdb6e4a1fae9/image.png)
+
+  *QuickBooks Desktop authorization dialog for third-party application access.*
+</Note>
+
+<Note>
+  ![QuickBooks Web Connector password entry prompt.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/0cfce899-e159-41fc-8303-37d9ec7c137e/image.png)
+
+  *QuickBooks Web Connector password entry prompt.*
+</Note>
+
+1. Check the box next to the Alvys application entry in the Web Connector.
+2. Set the sync interval and run the first sync.
+3. In the QuickBooks Web Connector, set the auto-run interval for the Alvys entry. A 5-minute interval is recommended to keep QuickBooks Desktop and Alvys in sync without overloading the connection.
+4. Click Update Selected to run the first sync and confirm the connection is working.
+
+   <Note>
+     ![QuickBooks Web Connector with auto-run interval field and Update Selected button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1229f248-f936-4641-b633-5c49b21426f6/image.png)
+
+     * QuickBooks Web Connector with auto-run interval field and Update Selected button. *
+   </Note>
+
+   ![QuickBooks Web Connector with auto-run interval field and Update Selected button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1229f248-f936-4641-b633-5c49b21426f6/image.png)
+
+   * QuickBooks Web Connector with auto-run interval field and Update Selected button. *
+5. Return to Alvys and verify the connection. Return to the Alvys integration dialog. After the Web Connector sync completes, Alvys will display confirmation that QuickBooks Desktop is connected. Click Next to proceed to Configuration Settings.
+
+   To confirm the connection inside QuickBooks Desktop, go to Edit > Preferences > Integrated Applications > Company Preferences and verify the Alvys integration is listed with its access checkbox selected. To find the QuickBooks company file path (required in Alvys Account Settings), press F2 or Fn+F2 inside QuickBooks Desktop to open the Product Information window; copy the path shown in the File Information section and paste it into Account Settings in Alvys. Then select the Auto Sync Checkbox and select the subsidiary before saving.
+6. Configure the Edit Sequence setting before enabling other settings. Before enabling any other configuration settings, review whether Edit Sequence is appropriate for your environment. Edit Sequence controls how Alvys handles QuickBooks Desktop's transaction locking mechanism. Enabling or disabling Edit Sequence after transactions have already been synced can cause sync errors on existing transactions. Set this value before transactions are exported.
+7. Save your configuration. After reviewing and setting your configuration options, click Save. The integration becomes active for the selected subsidiary on the next sync cycle.
+
+<Note>
+  ![Alvys QuickBooks Desktop configuration settings panel](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e9061e2c-b88f-4d42-81f2-8d25832bdfff/image.png)
+
+  *Alvys QuickBooks Desktop configuration settings panel*
+</Note>
+
+## Recommended Settings
+
+The following settings are recommended for most QuickBooks Desktop integrations to reduce manual work and improve export reliability:
+
+- Enable Ignore Driver Bills if your drivers are paid through a payroll system outside QuickBooks Desktop. This prevents duplicate payroll entries and keeps QuickBooks Desktop focused on carrier and customer transactions.
+- Enable Ignore Zero Valued Transactions to prevent $0 transactions from being sent to QuickBooks Desktop. This avoids digit expectation errors if a $0 transaction is later updated and re-exported.
+- Enable Generate Carrier Invoice Separately if your workflow requires physical carrier invoices to be reviewed and confirmed in Alvys before the carrier bill is exported to QuickBooks Desktop.
+- Review Edit Sequence before enabling any other settings and before the first sync. Changing this setting after transactions have been exported can produce sync errors on existing records.
+
+The following recommendations are organized by operational type to help you choose the right combination of settings for your business.
+
+**Carrier operations:** Enable Revenue and Expense transaction types. Enable Single Bill for Driver Statement to consolidate all line items on a driver's statement into a single bill, which prevents clutter in QuickBooks Desktop and simplifies reconciliation. Enable Export Company Fuel Expense and Export Company Toll Expense if your operation deducts fuel and toll costs from driver pay.
+
+**Broker operations:** Enable Revenue and Expense transaction types. Enable Generate Carrier Invoice Separately to prevent the carrier bill from exporting until the physical carrier invoice has been received and verified in Alvys. This ensures the bill in QuickBooks Desktop matches the confirmed carrier invoice amount.
+
+## Configuration Settings
+
+Configure these settings after the connection is established. Settings that interact with or conflict with each other are described in the Configuration Dependencies and Incompatible Settings section below.
+
+*[Heading 4 not supported]*
+
+Select the transaction types to export. Revenue exports customer invoices. Expense exports carrier bills and driver settlements. Your selection here takes precedence over all other configuration settings; if a transaction type is not selected, its associated settings have no effect.
+
+<Note>
+  ![Transaction Types Revenue/Expense checkboxes in QuickBooks Desktop settings.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b938e454-bbde-458b-bbd9-ba6a1ccfd1c8/image.png)
+
+  *Transaction Types Revenue/Expense checkboxes in QuickBooks Desktop settings.*
+</Note>
+
+*[Heading 4 not supported]*
+
+When enabled, driver bills are excluded from export to QuickBooks Desktop.
+
+*[Heading 4 not supported]*
+
+When enabled, all line items on a driver's statement are consolidated into a single bill for export, rather than exporting each individual trip bill.
+
+*[Heading 4 not supported]*
+
+When enabled, a carrier bill is not exported to QuickBooks Desktop until the physical carrier invoice has been received and verified in Alvys.
+
+*[Heading 4 not supported]*
+
+When enabled, driver payments are separated by tax type when exported. Requires Single Bill for Driver Statement to also be enabled.
+
+*[Heading 4 not supported]*
+
+When enabled, billing responsibility shifts to a subsidiary carrier rather than the individual driver. This setting is incompatible with Single Bill for Driver Statement and other driver-based billing settings.
+
+*[Heading 4 not supported]*
+
+When enabled, transactions with a $0 value are excluded from export.
+
+*[Heading 4 not supported]*
+
+When enabled, Alvys creates new vendors in QuickBooks Desktop using the driver's 1099 tax company information rather than the driver's individual profile. Requires Single Bill for Driver Statement to also be enabled.
+
+*[Heading 4 not supported]*
+
+When enabled, carrier statements are exported as a batch rather than as individual carrier bills.
+
+*[Heading 4 not supported]*
+
+When enabled, fuel costs deducted from driver pay are also exported as company overhead expense entries.
+
+*[Heading 4 not supported]*
+
+When enabled, toll costs deducted from driver pay are also exported as company overhead expense entries. If a driver was not previously configured for company fuel or toll expense export and this setting is later enabled, past transactions will not be exported automatically.
+
+*[Heading 4 not supported]*
+
+Enter a prefix to be added to all transaction reference numbers exported to QuickBooks Desktop.
+
+*[Heading 4 not supported]*
+
+Controls how Alvys handles QuickBooks Desktop's transaction edit sequence locking. Enable this setting only if your QuickBooks Desktop environment uses edit sequence locking and you want Alvys to respect it when updating existing transactions. Set this value before the first sync; changing it after transactions have been exported can cause sync errors on existing records.
+
+*[Heading 4 not supported]*
+
+When enabled, Alvys maps each subsidiary to a Class in QuickBooks Desktop for per-entity profit and loss reporting. Before enabling this setting, turn on Class Tracking in QuickBooks Desktop (Edit > Preferences > Accounting > Company Preferences > Use class tracking for transactions). Then create a Class in QuickBooks Desktop for each subsidiary (Lists > Class List > New). In Alvys, select the Subsidiaries checkbox and map each subsidiary to its corresponding Class. Subsidiaries and Fleets are mutually exclusive: enabling one prevents the use of the other.
+
+*[Heading 4 not supported]*
+
+When enabled, Alvys maps each fleet to a Class in QuickBooks Desktop for per-fleet profitability tracking. Before enabling this setting, turn on Class Tracking in QuickBooks Desktop (Edit > Preferences > Accounting > Company Preferences > Use class tracking for transactions). Then create a Class in QuickBooks Desktop for each fleet (Lists > Class List > New). In Alvys, select the Fleets checkbox and map each fleet to its corresponding Class. Fleets and Subsidiaries are mutually exclusive: you must choose one or the other.
+
+*[Heading 4 not supported]*
+
+When enabled, supports intercompany billing scenarios where a load is invoiced by one subsidiary and tendered by another, and both subsidiaries have separate QuickBooks Desktop accounting integrations. Shared Billing must be enabled on both subsidiaries involved in the intercompany transaction. Without it, the intercompany transactions will not export correctly.
+
+## Configuration Dependencies and Incompatible Settings
+
+Some settings must be used together, while others must not be enabled at the same time. Review these rules before saving your configuration.
+
+**Revenue only:** If only the Revenue transaction type is selected, do not enable any of the following: Single Bill for Driver Statement, Generate Carrier Invoice Separately, Process Statement by Tax Category, Pay Subsidiary Carrier, Create Vendor Using 1099 Tax Company, Ignore Driver Bills, Carrier Statements, Export Company Fuel Expense, or Export Company Toll Expense. These settings depend on expense or driver bill data and have no effect without the Expense transaction type.
+
+**Single Bill for Driver Statement:** Do not enable with Ignore Driver Bills or Pay Subsidiary Carrier. Single Bill assumes driver bills are being created and exported; Ignore Driver Bills removes them, and Pay Subsidiary Carrier redirects billing away from the driver entirely.
+
+**Process Statement by Tax Category:** Requires Single Bill for Driver Statement to be enabled. Do not enable with Ignore Driver Bills or Pay Subsidiary Carrier. This setting depends on driver bill data separated by tax type; if driver bills are excluded or billing is redirected to a subsidiary carrier, tax-based filtering cannot function.
+
+**Pay Subsidiary Carrier:** Do not enable with Single Bill for Driver Statement, Process Statement by Tax Category, Create Vendor Using 1099 Tax Company, or Ignore Driver Bills. When billing shifts to a subsidiary carrier, any configuration assuming driver-based billing or driver vendor creation becomes invalid.
+
+**Ignore Driver Bills:** Do not enable with Single Bill for Driver Statement, Process Statement by Tax Category, or Create Vendor Using 1099 Tax Company. Each of these settings depends on driver bills being generated and exported; ignoring driver bills removes the underlying data they require.
+
+**Create Vendor Using 1099 Tax Company:** Requires Single Bill for Driver Statement to be enabled. Do not enable with Pay Subsidiary Carrier or Ignore Driver Bills.
+
+**Edit Sequence:** Set before any transactions are synced. Changing this value after the first sync can cause update errors on previously exported transactions.
+
+## Result
+
+After saving your configuration and confirming the QuickBooks Web Connector is running on a schedule, the integration is active. Alvys will export transactions to QuickBooks Desktop on each Web Connector sync cycle and import payment updates back into Alvys.
+
+## FAQs
+
+**Q: Do I need to keep QuickBooks Desktop open for the integration to work?**
+
+**A:** Yes. The QuickBooks Web Connector requires QuickBooks Desktop to be open and running to sync. If QuickBooks Desktop is closed, the Web Connector will not be able to send or receive data until it is reopened.
+
+**Q: What happens if the QuickBooks Web Connector is not running?**
+
+**A:** Transactions will not be exported or imported until the Web Connector runs again. When it resumes, it will process the pending transactions that accumulated while it was stopped.
+
+**Q: Can I configure the integration for multiple subsidiaries simultaneously?**
+
+**A:** No. The integration must be configured one subsidiary at a time. Return to Management > Integrations and repeat the connection steps for each additional subsidiary.
+
+**Q: What does "Ignore Driver Bills" do?**
+
+**A:** It excludes driver-level bills from export entirely. Use this when drivers are paid through a payroll system outside QuickBooks Desktop.
+
+**Q: Can I enable "Single Bill for Driver Statement" with "Pay Subsidiary Carrier"?**
+
+**A:** No. These settings are incompatible. Single Bill consolidates driver-level billing, while Pay Subsidiary Carrier redirects billing away from drivers entirely.
+
+**Q: Why am I receiving a digit expectation error when exporting a previously $0 transaction?**
+
+**A:** This error can occur when a transaction that previously had a $0 value is updated and re-exported. Enabling Ignore Zero Valued Transactions prevents $0 transactions from being sent in the first place, which avoids this error on subsequent updates. If the error persists after enabling this setting, contact Alvys support.
+
+**Q: Can I enable both "Ignore Driver Bills" and "Single Bill for Driver Statement"?**
+
+**A:** No. These settings are incompatible. Single Bill depends on driver bills being exported; Ignore Driver Bills removes them before export.
+
+**Q: When do fuel and toll expenses sync to QuickBooks Desktop?**
+
+**A:** Fuel and toll expenses sync when the associated load transaction is exported. If Export Company Fuel Expense or Export Company Toll Expense was not enabled when past transactions were processed, those past transactions will not be retroactively exported after the setting is turned on.
+
+**Q: What happens if I change the Edit Sequence setting after transactions have already been synced?**
+
+**A:** Changing Edit Sequence after the first sync can cause errors on existing records in QuickBooks Desktop, because the edit sequence values Alvys stored for those transactions will no longer match what QuickBooks Desktop expects. Set Edit Sequence before the first sync and do not change it afterward unless directed by Alvys support.
+
+**Q: What happens if a vendor match is not found in QuickBooks Desktop during export?**
+
+**A:** If no matching vendor is found by name or External Accounting ID, Alvys automatically creates a new vendor in QuickBooks Desktop using the carrier or driver's profile information.
+
+**Q: Why does a carrier bill not export even though the load invoice was generated?**
+
+**A:** If Generate Carrier Invoice Separately is enabled, the carrier bill will not export until the physical carrier invoice has been received and verified in Alvys. Confirm that the carrier invoice has been marked as received on the load. If the invoice is marked received and the bill still has not exported, contact Alvys support.
+
+**Q: How do I know the integration is working after setup?**
+
+**A:** After running the first sync in the QuickBooks Web Connector, return to the Alvys integration dialog. Alvys will display a confirmation that QuickBooks Desktop is connected. You can also verify by creating a test transaction in Alvys and checking whether it appears in QuickBooks Desktop after the next Web Connector sync cycle.
+
+**Q: What if the "Authorize New Web Service" popup does not appear after I select the .qwc file?**
+
+**A:** Check the Windows taskbar: the authorization prompt sometimes appears minimized. Also confirm you are logged in to QuickBooks Desktop as an Administrator and that you are in Single User Mode. The authorization prompt will not appear in Multi-User Mode.
+
+**Q: Can I install the QuickBooks Web Connector on multiple computers?**
+
+**A:** No. Installing the Web Connector on more than one computer for the same company file causes a Conflict of Access, which results in Record Locked errors and duplicate transactions. Install and run the Web Connector on one computer only.
+
+**Q: Why should I select "Yes, always; allow access even if QuickBooks is not running"?**
+
+**A:** Selecting this option allows the Web Connector to sync in the background without requiring QuickBooks Desktop to be manually open each time. If QuickBooks Desktop is closed, transactions queue in Alvys for up to 7 days before they must be re-triggered manually from Alvys.
+
+**Q: Can I export only revenue transactions, or only expense transactions?**
+
+**A:** Yes. In Configuration Settings, select only the Revenue checkbox to export customer invoices only. Select only the Expense checkbox to export carrier bills and driver settlements only. Your selection controls which transaction types are sent to QuickBooks Desktop.
+
+**Q: Can I map transactions by both Subsidiary and Fleet at the same time?**
+
+**A:** No. The Subsidiaries and Fleets settings are mutually exclusive. You can map by subsidiary or by fleet, but not both simultaneously.
+
+**Q: Can I use QuickBooks Desktop Classes for tracking transactions by entity or fleet?**
+
+**A:** Yes. Enable Class Tracking in QuickBooks Desktop (Edit > Preferences > Accounting > Company Preferences) and create a Class for each subsidiary or fleet. Then in Alvys, enable the Subsidiaries or Fleets setting and map each entry to its corresponding Class.
+
+**Q: Where do I find the QuickBooks company file path to enter in Alvys?**
+
+**A:** Press F2 (or Fn+F2) inside QuickBooks Desktop to open the Product Information window. The full file path to the .QBW company file appears in the File Information section. Copy this path and paste it into Account Settings in Alvys.
+
+## Go Deeper
+
+- [QuickBooks Desktop Account Mappings](/help/integrations/how-to-set-up-quickbooks-desktop-account-mappings-in-alvys)

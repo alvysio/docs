@@ -1,0 +1,103 @@
+---
+title: "iPass Toll Integration"
+---
+
+<Note>
+  **Applies to:** Admin · Support · Partner Admin
+
+  **Module:** Management > Integrations > Tolls
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  The iPass toll integration lets you import toll transaction data from your iPass account into the Alvys Toll Report by downloading a CSV file from iPass and uploading it to Alvys.
+</Note>
+
+## Overview
+
+The iPass toll integration lets you import toll transaction data from your iPass account into the Alvys Toll Report so you can view and manage toll charges (toll transponder activity) alongside your fleet operations. This is a one-way, manual import: you download a CSV file from your iPass account and upload it to Alvys. Alvys matches toll transactions to trucks using the transponder ID stored in each truck's Pass Details.
+
+<Info>
+  💡 This integration is sometimes called the iPass toll transponder import, toll feed, or toll CSV upload. · There is no automatic or scheduled sync between iPass and Alvys.
+</Info>
+
+## Prerequisites
+
+Before configuring this integration, confirm the following:
+
+- You have **"Admin"**, **"Support"**, or **"Partner Admin"** access in Alvys (set on your user role in the Company Profile).
+- Your trucks have been added to Alvys.
+- You have access to your iPass account and can download CSV transaction files.
+- You have the transponder ID for each iPass device assigned to your trucks.
+
+## How to connect
+
+1. Click your username in the bottom left corner of Alvys, then select **Management**.
+2. Select the subsidiary you want to integrate with iPass.
+3. Click the blue **Integrate** button.
+4. Scroll down to the **Tolls** section.
+5. Select **iPass** from the list of integrations.
+6. Select all subsidiaries that will use iPass for toll tracking.
+7. Click **Save**.
+8. Add a transponder ID to each truck so toll data is attributed to the correct asset:
+9. From the blue Alvys toolbar, select **Assets**, then choose **Trucks**.
+10. Find and click the truck that uses the transponder you want to add.
+11. Scroll down to the **Pass Details** section.
+12. Select whether or not to deduct tolls for this truck.
+13. Choose **iPass** in the **Issued By** field.
+14. Enter the transponder ID in the **Pass Number** field.
+15. Click **Add Pass**.
+16. Repeat for every truck that uses an iPass transponder.
+17. Upload a toll report from iPass:
+18. Log in to your iPass account and download a CSV file of your toll transaction data.
+19. From the blue Alvys toolbar, select **Reports**, then navigate to **Toll Report**.
+20. Click the blue upload button on the Toll Report page.
+21. In the pop-up window, add the CSV file from your iPass account.
+22. Upload the file. Once the upload completes successfully, the transactions appear in your Toll Report filtered by the date range of the uploaded file.
+
+## What syncs
+
+The iPass integration imports toll transaction data from your iPass account into the Alvys Toll Report.
+
+- **Direction:** One-way, iPass to Alvys, via manual CSV upload. No data syncs automatically.
+- **Matching:** Alvys matches toll transactions from the uploaded CSV to trucks using the transponder ID stored in the Pass Details section of each truck's profile. The transponder ID in Alvys must match the transponder ID in the iPass CSV export exactly for transactions to be correctly attributed.
+- **File format:** Only standard iPass CSV export files are supported. Custom or reformatted files may not upload correctly.
+
+<Warning>
+  ⚠️ Transponder IDs must be entered individually on each truck's profile; bulk assignment is not supported. · Toll transactions whose transponder ID in the CSV does not match a truck profile in Alvys will not be attributed to any asset. · Alvys detects and skips duplicate transactions, so re-uploading the same file does not create duplicate charges.
+</Warning>
+
+## Troubleshooting
+
+### Toll transactions are not appearing after upload
+
+Confirm that each truck involved in the transactions has a transponder ID entered in its Pass Details section and that **iPass** is selected as the provider. The transponder ID in Alvys must match the ID in the iPass CSV file exactly.
+
+### iPass does not appear as an option in the Integrations list
+
+Confirm the iPass integration is active for the correct subsidiary in Management > Integrations > Tolls. If iPass is not listed, contact Alvys support; the integration may need to be enabled for your account.
+
+### The CSV file fails to upload
+
+Confirm the file is a standard CSV export from your iPass account and has not been reformatted or modified. If the file structure has been changed, re-export from iPass and upload the original file.
+
+## FAQs
+
+**Q: Is the iPass integration automatic or manual?**
+
+**A:** The iPass integration is manual. You download a CSV from your iPass account and upload it to Alvys whenever you want to import toll data.
+
+**Q: How often should I upload toll reports?**
+
+**A:** This depends on your business needs and settlement schedule. Many teams upload weekly or monthly to keep toll data current for driver settlements and accounting.
+
+**Q: What happens if I upload the same toll transactions twice?**
+
+**A:** Alvys detects duplicate transactions and does not import them again, so there is no risk of duplicate toll charges from re-uploading the same file.
+
+**Q: Can I add transponder IDs to trailers as well as trucks?**
+
+**A:** Yes. While transponders are typically mounted on trucks, you can add Pass Details to any asset type in Alvys if needed.
+
+**Q: Where do I find the transponder ID for my trucks?**
+
+**A:** The transponder ID is the ID number printed on the iPass transponder device or visible in your iPass account under your asset or device list.

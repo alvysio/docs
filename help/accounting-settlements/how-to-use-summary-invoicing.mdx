@@ -1,0 +1,132 @@
+---
+title: "How to use Summary Invoicing"
+---
+
+<Note>
+  ℹ️ **Applies to:** Admins, Partner Admins, Billers · **Module:** Accounting > Summary Invoicing · **Last reviewed:** 2026-06 · **Owner:** Support team
+</Note>
+
+Summary Invoicing consolidates multiple loads into a single invoice per customer. Use it for customers who prefer one periodic invoice rather than a separate invoice per load.
+
+## Overview
+
+Summary Invoicing, also called consolidated or grouped invoicing, groups loads for a single customer into one invoice document, reducing invoice volume and simplifying reconciliation for high-volume customers. Loads must be in **Released** or **TONU** status before they appear in a summary invoice draft. Unlike Individual invoicing, Summary Invoicing uses the Amendment update mode only; Supplemental mode is not supported.
+
+## Before You Start
+
+You must have both the **"Billing"** and **"ViewPaystubs"** permissions to access Summary Invoicing. The Summary Invoicing feature flag must also be enabled on your account.
+
+Configure the customer profile for Summary Invoicing (steps 1 through 4 below) before attempting to generate any invoices. Loads for customers not configured for Summary type will not appear on the Loads Not Invoiced tab.
+
+## Steps
+
+1. **Configure the customer profile.** Open the customer or broker profile and navigate to Invoicing Settings. Set the following fields:
+
+   - Invoice Update Mode: set to Amendment
+   - Invoice Type: set to Summary
+   - Required Documents: select any document types the customer requires before invoicing
+   - Auto Merge: on by default; leave enabled unless the customer requires manual grouping control
+   - Delivery Method: select Email or EDI only; Factoring Company and other delivery methods are not supported for Summary Invoicing
+2. **Verify load configuration.** On each load you intend to include, confirm:
+
+   - The Customer field matches the customer configured in step 1
+   - Invoice As is set to the correct subsidiary
+   - All required documents specified in the customer's Invoicing Settings are attached
+3. **Move loads to Released.** Loads must be in **Released** or **TONU** status before they appear on the Summary Invoicing page. Use Batch Invoicing (Accounting > Invoicing) to release loads from the Incomplete tab.
+4. **Open Summary Invoicing.** Navigate to Accounting > Summary Invoicing. The page contains three tabs: Loads Not Invoiced, Drafts, and All Invoices.
+5. **Review the Loads Not Invoiced tab.** This tab lists all **Released** and **TONU** loads eligible for summary invoicing, grouped by customer. Loads appear here only when the customer profile is set to Invoice Type: Summary.
+
+   <Note>
+     🖼️ Image placeholder: Screenshot of the Loads Not Invoiced tab showing loads grouped by customer with Released/TONU status indicators. Upload from IC:12159947.
+   </Note>
+6. **Generate a summary invoice draft.** Two paths are available:
+
+   - Option 1, from the Drafts tab: One active draft exists per customer. Select the customer draft and click Generate to create the summary invoice document.
+   - Option 2, from the Loads Not Invoiced tab: Select the loads you want to include using the checkboxes, then click Generate Invoice directly from this tab.
+
+     <Note>
+       🖼️ Image placeholder: Screenshot of the Drafts tab showing one draft per customer with Remove, Preview, and Generate actions. Upload from IC:12159947.
+     </Note>
+7. **Review and submit the invoice.** Open the All Invoices tab to see all summary invoices. New invoices appear in **Pending** status. From **Pending** you can:
+
+   - Preview the invoice document before sending
+   - Revert the invoice back to draft (only available while the invoice is in **Pending** status)
+   - Submit: click Send Invoice to send the invoice to the customer; status changes to **Invoiced**
+
+Payments on summary invoices are applied at the summary invoice level, not at the individual load level.
+
+## Result
+
+Once submitted, the invoice status is **Invoiced**. All loads included are now associated with the summary invoice record and no longer appear on the Loads Not Invoiced tab.
+
+## Variations
+
+To remove a load from an existing draft before generating: open the Drafts tab, select the draft, and use the checkboxes next to individual load rows to remove them. The Remove action is only available within the draft view, not after the invoice is generated.
+
+## Troubleshooting
+
+### Load not appearing on the Loads Not Invoiced tab
+
+1. Confirm the load is in **Released** or **TONU** status. If the load is still **Incomplete**, complete any outstanding requirements in Batch Invoicing first.
+2. Confirm the load's customer has Invoice Type set to Summary in their profile. If the customer is configured for Individual type, the load will not appear on this tab.
+
+### Summary invoice draft not generating
+
+Check the total size of all documents attached to the loads in the draft. The combined file size must not exceed 20 MB. Remove some loads from the draft or reduce document file sizes, then retry.
+
+### Invoice submitted but customer did not receive it
+
+Verify the customer's Delivery Method in their Invoicing Settings. Only Email and EDI are supported for Summary Invoicing. If the delivery method is set to Factoring Company, Online System, or Originals, the invoice will not be delivered automatically.
+
+### Settings change not reflected on generated invoice
+
+1. Remove the affected loads from the draft.
+2. Confirm the loads have returned to **Released** status.
+3. Save the updated settings.
+4. Regenerate the invoice.
+
+## FAQs
+
+**Q: Can I use Summary Invoicing for a customer configured for Individual invoice type?**
+
+**A:** No. The customer must have Invoice Type set to Summary in their profile before their loads appear on the Summary Invoicing page.
+
+**Q: Does Summary Invoicing support Supplemental mode?**
+
+**A:** No. Summary Invoicing supports only the Amendment update mode. Supplemental mode is not supported.
+
+**Q: Can I apply a payment to an individual load within a summary invoice?**
+
+**A:** No. Payments are applied at the summary invoice level, not at the individual load level.
+
+**Q: Is there a file size limit for summary invoices?**
+
+**A:** Yes. The total size of all attached documents included in a single summary invoice must not exceed 20 MB. An error appears if the limit is exceeded.
+
+**Q: Can I include TONU loads in a summary invoice?**
+
+**A:** Yes. Loads in both **Released** and **TONU** status are eligible and appear on the Loads Not Invoiced tab when the customer is configured for Summary type.
+
+**Q: What is Auto Merge and should I leave it on?**
+
+**A:** Auto Merge automatically consolidates all eligible loads for a customer into a single draft. Leave it on unless the customer requires manual control over which loads are grouped together.
+
+**Q: Can I revert a submitted invoice?**
+
+**A:** No. Once an invoice has been submitted (status **Invoiced**), it cannot be reverted. Only invoices in **Pending** status can be reverted to draft.
+
+**Q: Who can access Summary Invoicing?**
+
+**A:** Users with the **"Billing"** and **"ViewPaystubs"** permissions, with the Summary Invoicing feature flag enabled on their account. If you expect access but the menu item is not visible after verifying your permissions, contact Alvys support.
+
+**Q: What delivery methods are supported for Summary Invoicing?**
+
+**A:** Email and EDI only. Factoring Company, Online System, and Originals are not supported.
+
+**Q: What happens if I change a customer's invoicing settings while a draft already exists?**
+
+**A:** Changes do not automatically update existing drafts. Remove the affected loads, confirm they are back in **Released** status, save the updated settings, and regenerate the invoice.
+
+## Go Deeper
+
+- [Batch Invoicing](https://help.alvys.com/en/articles/11668833)

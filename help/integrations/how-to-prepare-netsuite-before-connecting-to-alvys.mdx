@@ -1,0 +1,411 @@
+---
+title: "How to prepare NetSuite before connecting to Alvys"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Integrations team
+
+  Before connecting Alvys to NetSuite, your NetSuite environment must be properly prepared: the correct features, roles, users, and credentials must be configured, or the integration will fail to authenticate or export transactions.
+</Note>
+
+### Overview
+
+Before configuring (setting up) the Alvys and NetSuite integration, your NetSuite environment must be properly prepared. Most integration failures result from misconfigured features, roles, users, or improper subsidiary access.
+
+Alvys connects to NetSuite using **Token-Based Authentication (TBA)** through **SuiteTalk REST Web Services**. This secure authentication method allows encrypted API communication without storing user credentials. OAuth 2.0 is not used.
+
+### Before You Start
+
+**Required role:** Configuring the accounting integration in Alvys requires the **"CompanyProfileManager"** permission, available to the Admin, Partner Admin, or Support role. On the NetSuite side, a NetSuite Administrator (or a role with equivalent permissions) is needed only during setup to enable features, create roles, and generate tokens.
+
+**Prerequisites:**
+
+- An active NetSuite account with Administrator-level access
+- Access to Setup, Users/Roles, and Integrations in NetSuite
+- If your organization uses NetSuite OneWorld, all subsidiaries must be created and configured before starting
+
+<Info>
+  💡 **Important:** Do not use your personal Administrator login for the live integration. During setup you will create a dedicated integration role and user specifically for Alvys. Your Administrator account is used only to prepare the system, not to run the integration long-term.
+</Info>
+
+### Steps
+
+#### Enable required NetSuite features
+
+The required features are: REST Web Services, SOAP Web Services, Token-Based Authentication (TBA), and SuiteScript.
+
+**Required Features**
+
+- **REST Web Services** – Allows NetSuite to share data with Alvys
+- **SOAP Web Services** – Recommended to ensure compatibility with all supported record types
+- **Token-Based Authentication (TBA)** – Allows secure system access without using a password
+- **SuiteScript** – While Alvys does not deploy custom scripts in your account, SuiteScript is required for NetSuite’s REST and SOAP Web Services to function properly, including internal searches and record queries executed by the integration.
+
+  <Info>
+    💡 **Important:** OAuth 2.0 is not required for this integration. Alvys authenticates exclusively using Token-Based Authentication (TBA).
+  </Info>
+
+1. Log in to NetSuite using your administrator account.
+2. Navigate to **Setup > Company > Enable Features**.
+
+   <Note>
+     ![NetSuite menu: Setup > Company > Enable Features](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1d0fc137-5fff-43d0-b922-276b0937b211/image.png)
+
+     *NetSuite menu: Setup > Company > Enable Features*
+   </Note>
+
+   ![NetSuite menu: Setup > Company > Enable Features](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1d0fc137-5fff-43d0-b922-276b0937b211/image.png)
+
+   *NetSuite menu: Setup > Company > Enable Features*
+3. Open the **SuiteCloud** tab.
+
+   <Note>
+     ![Selecting the SuiteCloud tab](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2edfbfe0-fac6-4df4-8e41-505aa3b8e4af/image.png)
+
+     *Selecting the SuiteCloud tab*
+   </Note>
+
+   ![Selecting the SuiteCloud tab](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2edfbfe0-fac6-4df4-8e41-505aa3b8e4af/image.png)
+
+   *Selecting the SuiteCloud tab*
+4. In the **SuiteTalk (Web Services)** section, enable **SOAP Web Services** and **REST Web Services**.
+
+<Note>
+  ![SuiteTalk (Web Services) section](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a886977d-2bd3-4476-9318-3d675f7c04da/image.png)
+
+  *SuiteTalk (Web Services) section*
+
+  ![SOAP and REST Web Services enabled](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/49f73771-e609-43b0-b2a5-8ba537eaddf5/image.png)
+
+  *SOAP and REST Web Services enabled*
+</Note>
+
+1. In the **Manage Authentication** section, enable **Token-Based Authentication (TBA)**.
+
+   <Note>
+     ![Enabling Token-Based Authentication](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/acdfdd36-a6c2-4800-8fa8-0719a50159d1/image.png)
+
+     *Enabling Token-Based Authentication*
+   </Note>
+
+   ![Enabling Token-Based Authentication](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/acdfdd36-a6c2-4800-8fa8-0719a50159d1/image.png)
+
+   *Enabling Token-Based Authentication*
+2. In the **SuiteCloud** tab, locate **SuiteScript** and enable it.
+
+   <Note>
+     ![Enabling Client and Server SuiteScript](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e8067a4f-5991-45f5-9008-4c08c57305c7/image.png)
+
+     *Enabling Client and Server SuiteScript*
+   </Note>
+
+   ![Enabling Client and Server SuiteScript](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e8067a4f-5991-45f5-9008-4c08c57305c7/image.png)
+
+   *Enabling Client and Server SuiteScript*
+3. Click **Save**.
+
+<Warning>
+  **Important:** Missing any of these features may cause authentication failures or prevent transaction data from being exported correctly.
+</Warning>
+
+#### Create a dedicated integration role
+
+A dedicated role separates automated API access from human administrator accounts and restricts permissions to only what is necessary.
+
+1. Navigate to **Setup > Users/Roles > Manage Roles**, then click **New**.
+
+   <Note>
+     ![Creating a new role under Manage Roles](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c447a058-866c-4b39-9013-fed8c0c792bb/image.png)
+
+     *Creating a new role under Manage Roles*
+   </Note>
+
+   ![Creating a new role under Manage Roles](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c447a058-866c-4b39-9013-fed8c0c792bb/image.png)
+
+   *Creating a new role under Manage Roles*
+2. Enter a descriptive name such as **"Alvys Integration Role"**.
+3. Assign **Subsidiary Access**: if using OneWorld, assign access to all subsidiaries used in Alvys and enable **Cross-Subsidiary Record Viewing**.
+
+   <Note>
+     ![Setting subsidiary access and cross-subsidiary viewing](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/67503758-a475-4086-bb72-3ba20fc74378/image.png)
+
+     *Setting subsidiary access and cross-subsidiary viewing*
+   </Note>
+
+   ![Setting subsidiary access and cross-subsidiary viewing](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/67503758-a475-4086-bb72-3ba20fc74378/image.png)
+
+   *Setting subsidiary access and cross-subsidiary viewing*
+4. Optionally, restrict the role to **Web Services Only** to prevent login through the NetSuite interface.
+
+   <Note>
+     ![Restricting the role to Web Services Only](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e3e157d1-fe70-4f16-b98c-6d107ba9736e/image.png)
+
+     *Restricting the role to Web Services Only*
+   </Note>
+
+   ![Restricting the role to Web Services Only](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e3e157d1-fe70-4f16-b98c-6d107ba9736e/image.png)
+
+   *Restricting the role to Web Services Only*
+5. Click **Save**.
+
+#### Assign permissions to the integration role
+
+**Setup permissions** (all Full Access unless noted):
+
+REST Web Services, SOAP Web Services, Login Using Access Tokens, SuiteScript, Accounting Lists, Custom Fields, Custom Item Fields, Custom Body Fields, Custom Column Fields, Custom Transaction Fields, Custom Entity Fields, Custom Record Types, Custom Segments, Custom Lists, Other Lists, Deleted Records, Manage Accounting Periods (View), Financial Institution Records
+
+<Note>
+  ![Setup permissions tab on the role](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2312746e-70bf-4238-adcd-2ab706dfaf53/image.png)
+
+  *Setup permissions tab on the role*
+</Note>
+
+**Transaction permissions** (all Full Access):
+
+Invoice, Bills, Customer Payments, Pay Bills, Vendor Credits, Credit Memos, Customer Deposit, Make Journal Entry
+
+<Note>
+  ![Transactions permissions tab on the role](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/30c3ff78-646d-4e79-83e8-2968fa814a2f/image.png)
+
+  *Transactions permissions tab on the role*
+</Note>
+
+**Important:** If any transaction permissions are missing, exports may fail even if authentication is successful.
+
+<Note>
+  **List permissions:**
+
+  Accounts (Full), Address List in Search (Full), Contacts (Full), Customers (Full), Vendors (Full), Employees (View), Employee Record (View), Expense Categories (Full), Payment Methods (Full), Currency (Full), Items (Full), Perform Search (Full), Custom Record Entries (Full), Classes (Full), Departments (Full), Locations (Full), Subsidiaries (View), Contact-Subsidiary relationship (View), Companies (Full), Tax Records (View), Documents and Files (Full)
+</Note>
+
+![Lists permissions tab on the role](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c47b3790-09d0-42f5-b0e1-d4566a7a4890/image.png)
+
+*Lists permissions tab on the role*
+
+#### Create a dedicated integration user
+
+1. Navigate to **Lists > Employees**, then select **New** (or choose an existing service account).
+
+   ![Creating the integration user (Lists > Employees > New)](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4791d49b-76fa-4fad-a5cb-74aaa21712bf/image.png)
+
+   *Creating the integration user (Lists > Employees > New)*
+2. Assign the **Alvys Integration Role** under the Roles section.
+
+   ![Assigning the Alvys Integration Role to the user](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/43142d8e-d55b-4f46-a4ee-08621bd625d9/image.png)
+
+   *Assigning the Alvys Integration Role to the user*
+3. Click **Save**.
+
+<Note>
+  💡 Admin account: used only to enable features, create roles, create integration records, and generate tokens. The dedicated integration user (employee record or service account) is used by Alvys to authenticate via REST/TBA.
+</Note>
+
+#### Generate integration credentials
+
+Alvys requires five credentials: Account ID, Consumer Key, Consumer Secret, Token ID, Token Secret.
+
+**Locate your Account ID:** In the NetSuite URL before "[app.netsuite.com](http://app.netsuite.com/)." Example: in `https://123456.app.netsuite.com`, the Account ID is **123456**. Sandbox accounts include a suffix such as "_SB1."
+
+**Create the integration record:**
+
+1. Navigate to **Setup > Integrations > Manage Integrations**, then click **New**.
+
+   <Note>
+     ![Creating a new integration record (Manage Integrations > New)](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/285bdeb9-562b-44cb-8524-87d3761fce68/image.png)
+
+     *Creating a new integration record (Manage Integrations > New)*
+   </Note>
+
+   ![Creating a new integration record (Manage Integrations > New)](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/285bdeb9-562b-44cb-8524-87d3761fce68/image.png)
+
+   *Creating a new integration record (Manage Integrations > New)*
+2. Enter a descriptive name such as **"Alvys TMS Integration"**.
+3. Enable **Token-Based Authentication**.
+
+   <Note>
+     ![Enabling Token-Based Authentication on the integration](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1bfe1122-f186-490c-8d44-1609cb617ae1/image.png)
+
+     *Enabling Token-Based Authentication on the integration*
+   </Note>
+
+   ![Enabling Token-Based Authentication on the integration](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1bfe1122-f186-490c-8d44-1609cb617ae1/image.png)
+
+   *Enabling Token-Based Authentication on the integration*
+4. Click **Save**.
+5. Copy the **Consumer Key** and **Consumer Secret**.
+
+   <Warning>
+     ⚠️ **Important:** The Consumer Key and Consumer Secret are displayed only once. Store them securely.
+   </Warning>
+
+   **Generate access tokens:**
+6. Go to **Setup > Users/Roles > Access Tokens**, then click **New**.
+
+   ![Creating a new access token (Access Tokens > New)](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/6684ba8b-e822-4e2e-beac-0110e716c0b5/image.png)
+
+   *Creating a new access token (Access Tokens > New)*
+7. Select:
+
+   - **Application Name:** "Alvys TMS Integration"
+   - **User:** the dedicated integration user
+   - **Role:** the dedicated integration role
+8. Click **Save**.
+9. Copy the **Token ID** and **Token Secret**.
+
+<Warning>
+  ⚠️ **Important:** The Token ID and Token Secret are displayed only once.
+</Warning>
+
+#### Confirm a complete Chart of Accounts
+
+All required income, expense, asset, liability, and clearing accounts must exist before exporting transactions. See Oracle documentation: [Creating Accounts](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N1440518.html).
+
+1. Log in with a role that has accounting permissions.
+2. Go to **Lists > Accounting > Accounts**, then click **New**.
+3. Select the account **Type**.
+4. Enter the **Account Name**.
+5. If using account numbers, enter a number (account numbering must be enabled under **Setup > Accounting > Accounting Preferences**).
+6. Optionally assign a parent account or subsidiary (for OneWorld users).
+7. Click **Save**.
+
+<Warning>
+  ⚠️ **Important:** All required accounts must be created before pushing transactions from Alvys.
+</Warning>
+
+#### Configure subsidiaries (OneWorld accounts only)
+
+See Oracle documentation: [Creating Subsidiary Records](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N272471.html).
+
+**To create a subsidiary:**
+
+1. Navigate to **Setup > Company > Subsidiaries**.
+2. Click **New**.
+3. Enter the **Name** of the subsidiary.
+4. Assign a **Base Currency**.
+5. Select the **Parent Subsidiary** if applicable.
+6. Assign a **Chart of Accounts**.
+7. Complete tax settings.
+8. Click **Save**.
+
+   **To assign the Alvys Integration Role access to the subsidiary:**
+9. Go to **Setup > Users/Roles > Manage Roles** and select the Alvys Integration Role.
+10. Click **Edit**.
+11. Find the **Subsidiary Access** section.
+12. Set access to **All** (recommended) or select only the subsidiaries used in Alvys.
+13. Enable **Cross-Subsidiary Record Viewing**.
+14. Click **Save**.
+
+### Result
+
+Your NetSuite environment is ready to connect to Alvys. You have enabled required features, created a dedicated role with the required permissions, created a dedicated integration user, generated all five credentials, confirmed your Chart of Accounts, and (if using OneWorld) configured subsidiary access.
+
+Proceed to enter these credentials in **Management > Integrations**.
+
+### Troubleshooting
+
+#### Integration fails to authenticate
+
+**Step 1:** Confirm that REST Web Services, SOAP Web Services, Token-Based Authentication, and SuiteScript are all enabled under **Setup > Company > Enable Features > SuiteCloud**.
+
+**Step 2:** Confirm the integration record has Token-Based Authentication enabled under **Setup > Integrations > Manage Integrations**.
+
+**Step 3:** Confirm the Consumer Key, Consumer Secret, Token ID, and Token Secret were copied correctly. If any value was lost, regenerate the credentials.
+
+**Step 4:** Confirm the token was created with the correct Application Name, User, and Role.
+
+#### Transaction exports fail after successful authentication
+
+**Step 1:** Confirm the integration role includes all required Transaction permissions with Full access.
+
+**Step 2:** Confirm all required Setup and List permissions are present.
+
+**Step 3:** Confirm role permissions have not been modified since the token was generated.
+
+**Step 4:** Confirm all required accounts exist in the Chart of Accounts.
+
+#### Transactions fail for a specific subsidiary
+
+**Step 1:** Confirm the Alvys Integration Role has access to that subsidiary under **Setup > Users/Roles > Manage Roles > [Alvys Integration Role] > Subsidiary Restrictions**.
+
+**Step 2:** Confirm **Cross-Subsidiary Record Viewing** is enabled.
+
+**Step 3:** Confirm the subsidiary has a Base Currency and Chart of Accounts assigned.
+
+#### Token was lost after creation
+
+Delete the existing integration record or access token and repeat the credential generation step. Update Alvys with the new credentials.
+
+<Warning>
+  ⚠️ Common causes of integration failures: required features not enabled, token created under the wrong role, missing transaction or list permissions, subsidiary not assigned to the role, role permissions modified after token generation, or required accounts not created in NetSuite. Any of these will cause authentication or export failures.
+</Warning>
+
+## FAQs
+
+**Q: What level of NetSuite access is required to set up the Alvys integration?**
+
+**A:** An Administrator-level account is required only during setup. The integration itself uses a dedicated integration user.
+
+**Q: Can I use my personal Administrator login for the live integration?**
+
+**A:** No. A dedicated integration user and role must be created to separate API access from human accounts.
+
+**Q: Which NetSuite features must be enabled for Alvys to connect?**
+
+**A:** REST Web Services, SOAP Web Services, Token-Based Authentication (TBA), and SuiteScript must all be enabled. OAuth 2.0 is not required.
+
+**Q: What happens if required NetSuite features are not enabled?**
+
+**A:** Missing features can cause authentication failures or prevent transaction data from being exported correctly.
+
+**Q: What permissions are required for the integration role?**
+
+**A:** The role requires permissions across Setup, Transaction, and List categories, including full access to Web Services, SuiteScript, accounting lists, customers, vendors, items, and all relevant transaction types.
+
+**Q: Should the integration role be restricted to Web Services only?**
+
+**A:** Yes. This enhances security by preventing login through the NetSuite interface.
+
+**Q: How do I create the integration user?**
+
+**A:** Create a new employee record (or use a service account) and assign the dedicated integration role.
+
+**Q: What credentials does Alvys require to connect to NetSuite?**
+
+**A:** Account ID (Realm ID), Consumer Key, Consumer Secret, Token ID, and Token Secret.
+
+**Q: Where can I find my NetSuite Account ID / Realm ID?**
+
+**A:** The Account ID is in the NetSuite URL before "[app.netsuite.com](http://app.netsuite.com/)." Sandbox accounts include a suffix such as "_SB1."
+
+**Q: Can tokens be regenerated if lost?**
+
+**A:** Yes, but you must regenerate them in NetSuite. Each value is shown only once at time of creation.
+
+**Q: Are all Chart of Accounts and subsidiaries required before exporting transactions?**
+
+**A:** Yes. All required accounts must exist and subsidiaries must be fully configured before exporting.
+
+**Q: What are common causes of integration failures?**
+
+**A:** Required features not enabled, tokens created under the wrong role, missing transaction or list permissions, subsidiaries not assigned to the role, role permissions modified after token generation, or required accounts not created in NetSuite.
+
+**Q: Is SuiteScript required for the integration?**
+
+**A:** Yes. SuiteScript must be enabled to allow NetSuite's REST and SOAP Web Services to function properly.
+
+**Q: Can I limit the integration role to selected subsidiaries?**
+
+**A:** Yes, but all subsidiaries used in Alvys must be included; otherwise, transaction exports to those subsidiaries will fail.
+
+**Q: Does the integration support OAuth 2.0 authentication?**
+
+**A:** No. Alvys uses only Token-Based Authentication (TBA) via SuiteTalk REST Web Services.
+
+### Go Deeper
+
+- [NetSuite: Authentication and Settings Configuration in Alvys](/help/integrations/netsuite-authentication-and-settings-configuration-in-alvys)
+- [NetSuite Integration Collection](/help/integrations/netsuite-integration-collection)

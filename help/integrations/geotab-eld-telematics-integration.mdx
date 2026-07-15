@@ -1,0 +1,139 @@
+---
+title: "Geotab — ELD / Telematics Integration"
+description: "How to set up GeoTab ELD integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin, Partner Admin
+
+  **Module:** Integrations
+
+  **Provider:** Geotab · **Integration type:** One-way · **Sync direction:** Alvys pulls data from Geotab
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Geotab is a telematics and ELD provider that connects with Alvys to bring real-time truck and trailer locations, Hours of Service (HOS) status, and IFTA mileage data into your dispatch workflow. Also known as ELD, electronic logging device, fleet tracking, or GPS integration.
+</Note>
+
+## Overview
+
+Geotab is a telematics and ELD provider that connects with Alvys to bring real-time truck and trailer locations, Hours of Service (HOS) status, and IFTA mileage data into your dispatch workflow, also known as ELD, electronic logging device, fleet tracking, or GPS integration. The integration is one-way: Alvys pulls data from Geotab.
+
+Connecting Geotab to Alvys gives your dispatch team visibility into truck and trailer locations, driver HOS remaining-time clocks, and IFTA mileage by state, all without leaving Alvys. Geotab is one of the most comprehensive integrations available in Alvys, supporting trucks, trailers, HOS, and IFTA in a single connection.
+
+## Prerequisites
+
+Before connecting, confirm you have the following:
+
+- An active Geotab account with API access
+- Your Geotab username and password
+- An **"Admin"** or **"Partner Admin"** role in Alvys
+
+<Info>
+  💡 You do not need to look up or enter your Geotab database identifier. Alvys retrieves this automatically when you authenticate, so you only provide your username and password.
+</Info>
+
+## How to connect
+
+1. Open Integrations. Go to **"Management > Integrations"** in the top navigation.
+2. Select your subsidiary and expand ELD. From the left panel, select the correct subsidiary. Expand the **ELD** section of the integrations list and click the pencil icon on the Geotab integration box.
+3. Enter your username and password. Enter your Geotab account username and password. Do not enter a database name; Alvys retrieves this automatically.
+4. Save and activate. Click **"Save"**. Alvys authenticates with Geotab and retrieves your database identifier. Once confirmed, the integration status changes to active.
+
+### Verify it's working
+
+1. Open a load with an assigned truck and driver.
+2. Check truck location. Look for the truck location on the map or in the tracking panel.
+3. Check HOS clocks. The remaining-time HOS values should appear next to the driver's name or in the driver detail panel.
+4. Confirm IFTA data (if applicable). IFTA mileage by state is visible in the IFTA reporting section of Alvys.
+
+## Enable Location Tracking for Assets
+
+After connecting the integration, add the GeoTab asset ID to each truck and trailer that will be tracked in Alvys. Without this step, location tracking will not appear for those assets.
+
+1. Go to **Assets** on the Alvys toolbar and select **Trucks** or **Trailers** depending on which assets you want to configure.
+2. Find and double-click the asset to open the Edit Asset page.
+3. Scroll down to the **ELD Integrations** section and click the blue **Add Integration** button.
+4. In the Add Integration window, click the drop-down menu and select **GeoTab**. Enter the GeoTab asset ID in the **Integration ID** field and click **Save**.
+5. Repeat for each truck and trailer that will use GeoTab location tracking.
+
+After the GeoTab asset ID is saved, the asset can be tracked from the Asset Map by searching with the name of the asset.
+
+### Find Your GeoTab Asset ID
+
+1. Log in to GeoTab and select **Vehicles &amp; Assets** from the sidebar.
+2. Select the vehicle you want to configure.
+3. Copy the asset ID from the URL. Use only the portion that comes after "id:".
+
+## Enable Hours of Service for Drivers
+
+After connecting the integration, add the GeoTab asset ID to each driver's profile to enable Hours of Service (HOS) tracking. Without this step, HOS clocks will not appear in Alvys for those drivers.
+
+1. Go to **Assets** on the Alvys toolbar and select **Drivers**.
+2. Find and double-click the driver to open their profile.
+3. On the right panel of the Driver details page, scroll to the **ELD Providers** section and click **+Add ELD**.
+4. Enter the GeoTab asset ID in the **Integration ID** field and click **Save**.
+5. Repeat for each driver who will use the GeoTab Hours of Service feature.
+
+After setup, Hours of Service can be accessed from the Dispatch planner page and the Load Details Page by selecting the time displayed for the driver.
+
+### Find Driver Asset IDs
+
+1. Log in to GeoTab and select **Activity > HOS > Availability** from the sidebar.
+2. Select the driver you want to configure.
+3. Copy the asset ID from the URL. Use only the portion that comes after "id:".
+
+## What syncs
+
+The following data is pulled from Geotab into Alvys:
+
+- **Truck location:** Current GPS coordinates for each truck asset
+- **Trailer location:** Current GPS coordinates for each trailer asset
+- **HOS clocks:** Remaining time for each driver's daily and cycle limits (drive time, shift time, cycle time, break time). These are countdown clocks showing time remaining
+- **IFTA mileage:** Miles driven by state, used to support fuel tax reporting. When a truck has a GeoTab asset ID configured, you can select GeoTab as the source for IFTA miles for that truck. Mileage is calculated based on the time zone of your subsidiary's address in Alvys.
+
+Alvys requests updated data from Geotab on a regular basis. Locations, HOS clocks, and IFTA mileage all reflect the most recent values from Geotab's servers.
+
+<Warning>
+  ⚠️ IFTA mileage by state is calculated using the time zone associated with your subsidiary's physical address in Alvys. If your subsidiary address is in a different time zone than your drivers operate in, review your subsidiary settings to ensure accurate state-line crossing calculations.
+</Warning>
+
+## Troubleshooting
+
+### Truck or trailer location is not showing
+
+1. Confirm the asset has a Geotab device installed and that the device is powered on and reporting.
+2. Verify your Geotab username and password are correct in Alvys. Go to **"Management > Integrations"** and re-enter your credentials if needed.
+3. Check that the integration status shows as active.
+
+### HOS clocks are blank
+
+1. Confirm the driver is logged in to the Geotab ELD device for their current shift.
+2. Verify the device is actively transmitting data to Geotab's servers. If the device shows as offline in the Geotab portal, the HOS data will not update in Alvys.
+
+### IFTA mileage appears incorrect
+
+1. Check your subsidiary's physical address in Alvys. The time zone of that address is used to determine state-line crossings for IFTA purposes.
+2. Confirm that trips are marked as completed in Alvys. IFTA mileage is calculated for completed trips.
+
+## FAQs
+
+**Q: Do I need to enter my Geotab database name when connecting?**
+
+**A:** No. Alvys retrieves your Geotab database identifier automatically when you enter your username and password. You only need to provide two fields.
+
+**Q: Why is my IFTA mileage different from what I see in Geotab directly?**
+
+**A:** IFTA mileage in Alvys is calculated using the time zone of your subsidiary's physical address. If your subsidiary address in Alvys is in a different time zone than your Geotab account, the state-line crossings may differ slightly.
+
+**Q: Does Geotab support trailer tracking in Alvys?**
+
+**A:** Yes. Geotab returns location data for both trucks and trailers.
+
+**Q: What HOS information is available?**
+
+**A:** Geotab provides remaining-time HOS clocks: drive time, shift time, cycle time, and break time remaining.
+
+## Go Deeper
+
+[Setting Up ELD / Telematics Integrations](https://help.alvys.com/en/articles/9857524-setting-up-eld-telematics-integrations)

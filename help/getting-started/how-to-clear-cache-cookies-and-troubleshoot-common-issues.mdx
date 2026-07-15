@@ -1,0 +1,93 @@
+---
+title: "How to Clear Cache, Cookies, and Troubleshoot Common Issues"
+description: "Learn how to clear cache, cookies, and apply other simple fixes to resolve common issues like login problems and slow performance."
+---
+
+<Note>
+  📋 **Applies to:** All users · **Module:** Browser / System (not specific to an Alvys module) · **Owner:** Support team · **Last reviewed:** 2026-06
+</Note>
+
+If Alvys is loading slowly, displaying incorrectly, or not letting you log in, clearing your browser cache and cookies is the first fix to try. This article walks through each step and provides additional browser and system troubleshooting options.
+
+## Overview
+
+Temporary bugs and glitches in Alvys, also called display issues or rendering problems, are often caused by outdated or corrupted data stored in your browser, not by a problem with the Alvys platform itself. Before escalating an issue, run through the steps below — they resolve the majority of common problems, including login failures, slow page loads, and missing or incorrectly rendered content. These steps are available to all users.
+
+## Prerequisites
+
+No special role or permission is required. Any Alvys user can perform all steps in this article.
+
+You will need access to your browser settings and, for DNS steps, your operating system's command line or terminal.
+
+## Steps
+
+1. Clear your browser cache and cookies. Cached data can become outdated or corrupted. Clearing it resolves issues like improper page rendering, slow performance, and login problems.
+2. **Chrome:** Click the three dots in the top-right corner, then select More Tools, then Clear Browsing Data. Check Cached images and files and Cookies and other site data. Set the time range to All time and click Clear Data.
+3. **Firefox:** Click the three horizontal bars in the top-right corner, then select Settings. Under Privacy &amp; Security, find Cookies and Site Data and click Clear Data. Check Cached Web Content and Cookies, then click Clear.
+4. **Safari:** Go to Safari, then Preferences, then Advanced, and check Show Develop menu in menu bar. Click Develop in the top menu and select Empty Caches. For cookies, go to Privacy, then Manage Website Data, and click Remove All.
+5. Log out and log back in. Logging out and logging back in refreshes your session with Alvys. This resolves minor errors such as incorrect user data or failure to load updated content.
+6. Restart your browser or device. If clearing cache and logging in/out does not resolve the issue, close and reopen your browser entirely, or restart your device. A fresh session resets temporary glitches affecting performance.
+7. Update your browser. Outdated browsers may not work correctly with Alvys. Confirm you are running the latest version:
+8. **Chrome:** Go to Help, then About Google Chrome, to check for and install updates.
+9. **Firefox:** Go to Help, then About Firefox.
+10. **Safari:** Safari updates are bundled with macOS — check the App Store for system updates.
+11. To confirm whether your browser is up to date, visit: [https://www.whatismybrowser.com/](https://www.whatismybrowser.com/)
+12. Disable browser extensions. Ad blockers and privacy-focused extensions can interfere with Alvys functionality. Try disabling your extensions to see whether the issue persists.
+13. In Chrome and Firefox, access extensions from the browser menu and toggle them off.
+14. In Safari, go to Preferences, then Extensions, to manage them.
+15. Try a different browser. If you are still experiencing issues, access Alvys in a different browser. Different browsers handle cookies, cache, and JavaScript differently — this helps determine whether the issue is browser-specific.
+16. Check your internet connection. A slow or intermittent internet connection can produce symptoms that look like app bugs. Confirm your connection is stable, or try switching to a different network (for example, from Wi-Fi to mobile data).
+17. Clear your system DNS cache. Your device stores DNS information to speed up website loading. Occasionally this data becomes outdated. If you are having trouble reaching Alvys specifically, try flushing your DNS cache.
+18. **Windows:** Open Command Prompt and run: `ipconfig /flushdns`
+19. **Mac:** Open Terminal and run: `sudo killall -HUP mDNSResponder`
+20. Clear your browser's DNS and connection caches. If the previous step does not resolve the issue, your browser may be holding onto its own cached DNS and connection data. This is especially common after a network outage or service disruption.
+21. **Chrome:** Open a new tab, type `chrome://net-internals/#dns` in the address bar, and press Enter. Click Clear host cache. Type `chrome://net-internals/#sockets` in the address bar, press Enter, and click Flush socket pools. Close and reopen Chrome.
+22. **Edge:** Open a new tab, type `edge://net-internals/#dns` in the address bar, and press Enter. Click Clear host cache. Type `edge://net-internals/#sockets` in the address bar, press Enter, and click Flush socket pools. Close and reopen Edge.
+23. **Firefox:** Open a new tab, type `about:networking#dns` in the address bar, and press Enter. Click Clear DNS Cache. If that option is not available, close Firefox completely and reopen it — restarting clears its DNS and connection caches automatically.
+24. **Safari (macOS):** Safari uses the system DNS cache, so completing the system DNS step above covers Safari. You can also clear Safari's browser cache by going to Develop, then Empty Caches. To enable the Develop menu, go to Safari, then Settings, then Advanced.
+25. Check for system and app updates. Confirm both your operating system and browser are fully up to date. Software updates often include bug fixes and performance improvements that resolve known issues.
+26. Use incognito or private browsing mode. Incognito and private browsing modes do not store cache or cookies. If Alvys works correctly in incognito mode, the issue is related to your browser's stored data. Clear it using the cache and cookies step above.
+
+After completing the applicable steps, Alvys should load correctly and your login issues or display problems should be resolved. If your browser-level data was the root cause, clearing cache and cookies is typically sufficient.
+
+## Troubleshooting
+
+### Page still not loading after clearing cache
+
+1. Confirm you cleared cache with the All time time range — partial clears (such as "last hour") may not remove the affected data.
+2. Try incognito mode to confirm whether stored data is the cause.
+3. Check for service outages. Visit [https://alvys.statuspage.io/](https://alvys.statuspage.io/) for real-time status updates. If no outage is listed and the issue persists, contact Alvys Support through the Help button in the bottom-left corner of Alvys.
+
+### Login fails after clearing cache
+
+1. Clear cookies specifically (not just cache) — cookies store session tokens that can become corrupted.
+2. Try a different browser to determine whether the issue is browser-specific.
+3. If login continues to fail on all browsers, check the Alvys status page at [https://alvys.statuspage.io/](https://alvys.statuspage.io/) for any ongoing incidents. If none are listed, contact Alvys Support through the Help button in the bottom-left corner of Alvys.
+
+### DNS errors when accessing Alvys
+
+1. Flush the system DNS cache.
+2. Clear your browser's own DNS cache.
+3. Try a different network connection to rule out a network-level DNS issue.
+
+## FAQs
+
+**Q: How often should I clear my cache?**
+
+**A:** There is no required cadence. Clear your cache and cookies whenever you notice display issues, login problems, or slow performance in Alvys. Routine clearing is not necessary.
+
+**Q: Will clearing cookies log me out of other websites?**
+
+**A:** Yes. Clearing all cookies will sign you out of any website where your session is stored in the browser. If you want to clear cookies only for Alvys, use your browser's per-site cookie management tools.
+
+**Q: What is the difference between clearing the browser DNS cache and the system DNS cache?**
+
+**A:** The system DNS cache is managed by your operating system and affects all applications. The browser DNS cache is maintained separately by your browser and only affects browser traffic. Both may need to be cleared if you are experiencing DNS-related access issues.
+
+**Q: Does Alvys support all browsers?**
+
+**A:** Alvys works best on up-to-date versions of Chrome, Firefox, Edge, and Safari. If you are using a browser version that is significantly out of date, some features may not behave as expected. Confirm your browser is current.
+
+## Go Deeper
+
+- [How to Contact Alvys Support](/help/getting-started/how-to-contact-alvys-support)

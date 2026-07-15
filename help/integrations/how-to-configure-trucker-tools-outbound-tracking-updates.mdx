@@ -1,0 +1,83 @@
+---
+title: "How to configure Trucker Tools Outbound Tracking Updates"
+description: "This feature enhances our TruckerTools integration by allowing you to send automated tracking updates directly from TruckerTools to your customers IF you are using TruckerTools for inbound tracking. You can now configure these outbound notifications…"
+---
+
+<Note>
+  📋 **Applies to:** All users
+
+  **Module:** Management > Customers > Customer Profile > Auto Updates
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  Send automated tracking updates from Trucker Tools directly to your customers by configuring outbound notifications on each customer profile. Also called Trucker Tools outbound tracking, outbound check calls, or customer tracking emails.
+</Note>
+
+## Overview
+
+When you use Trucker Tools for inbound load tracking, you can also send tracking updates automatically to your customers. Configure this once on the customer's profile in Alvys, and the settings apply every time you start a Trucker Tools tracking request on a load for that customer.
+
+Streamline your workflows by setting this up once per customer so updates go out automatically without any manual steps during dispatch.
+
+## Before You Start
+
+- The Trucker Tools inbound integration must be active on your account. See [Trucker Tools Inbound Integration](/help/integrations/trucker-tools-inbound-integration).
+- A customer profile must already exist in Alvys for the customer you are configuring.
+
+## Steps
+
+1. Navigate to the customer profile and open Auto Updates. In Alvys, open the profile for the customer you want to configure. Go to the **Auto Updates** section and locate the **TruckerTools** card.
+
+   <Note>
+     ![Customer profile Auto Updates section with the TruckerTools card.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4d90608f-0a0f-46eb-b13c-e77d45d340e3/image.png)
+
+     *Customer profile Auto Updates section with the TruckerTools card.*
+   </Note>
+
+   ![Customer profile Auto Updates section with the TruckerTools card.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4d90608f-0a0f-46eb-b13c-e77d45d340e3/image.png)
+
+   *Customer profile Auto Updates section with the TruckerTools card.*
+2. Enable outbound updates. Select the checkbox to enable outbound tracking updates for this customer. The checkbox defaults on or off based on the customer's existing TruckerTools outbound setting. Then configure the following:
+
+   - **Contacts:** Select one or more customer contacts who will receive email notifications.
+   - **Email Interval:** Set how often the customer receives tracking email updates.
+
+     <Note>
+       ![TruckerTools outbound checkbox enabled with Contacts and Email Interval fields.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a621f2a7-86d8-485b-9ebe-f9604c2c0aae/ai-edited-image.png)
+
+       *TruckerTools outbound checkbox enabled with Contacts and Email Interval fields.*
+     </Note>
+
+     ![TruckerTools outbound checkbox enabled with Contacts and Email Interval fields.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a621f2a7-86d8-485b-9ebe-f9604c2c0aae/ai-edited-image.png)
+
+     *TruckerTools outbound checkbox enabled with Contacts and Email Interval fields.*
+3. Map the load number. Under **Map Load Number**, choose which load identifier TruckerTools should use in customer communications: **Order #**, **PO #**, or **Alvys Load #**. If needed, enter an optional **Shipper ID** in the field provided.
+4. Start a tracking request on the load. When you create or update a Trucker Tools tracking request on a load for this customer, the settings from the customer profile apply automatically to determine how outbound updates are sent. In the tracking form, select **Open Customer Profile in New Tab** if you need to review or update these settings without leaving the load.
+
+<Note>
+  ![TruckerTools outbound checkbox enabled with Contacts and Email Interval fields.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3b3ff302-c9ed-4ffa-921c-cae3160058b2/image.png)
+
+  *TruckerTools outbound checkbox enabled with Contacts and Email Interval fields.*
+</Note>
+
+## Result
+
+Trucker Tools sends tracking update emails to the selected customer contacts at the interval you set. The load identifier you mapped appears in the subject and body of those emails, allowing your customers to match updates to their orders.
+
+## FAQs
+
+**Q: Do I need to configure outbound updates on every load, or just once per customer?**
+
+**A:** Configure it once on the customer profile. Every time you start a Trucker Tools tracking request on a load for that customer, those settings apply automatically. You can update the profile settings at any time.
+
+**Q: Can I disable outbound updates for one customer without turning off the integration?**
+
+**A:** Yes. Open the customer's profile, go to Auto Updates, and uncheck the TruckerTools checkbox. This disables outbound updates for that customer only and does not affect other customers or the inbound tracking integration.
+
+**Q: What happens if I do not configure an Email Interval?**
+
+**A:** The Email Interval sets how frequently Trucker Tools sends tracking emails to the customer. Confirm this field has a value before starting a tracking request to ensure updates are delivered.
+
+## Go Deeper
+
+- [Trucker Tools Inbound Integration](/help/integrations/trucker-tools-inbound-integration)

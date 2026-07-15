@@ -1,0 +1,80 @@
+---
+title: "Default Equipment"
+description: "How to set up the default equipment."
+---
+
+<Note>
+  📋 **Module:** Management > Company Profile; Companies · **Owner:** Support · **Applies to:** Admins, Partner Admins (subsidiary level); all users except Drivers (customer level) · **Last reviewed:** 2026-06
+</Note>
+
+## Overview
+
+Default Equipment lets you pre-select a trailer type at the subsidiary level or on an individual customer profile so that loads are created with the correct equipment type automatically, reducing manual entry.
+
+Default Equipment is a trailer type pre-selection that Alvys applies automatically when a new load is created. You can configure it in two places: on a subsidiary (which applies to all loads created under that subsidiary) and on a customer profile (which applies to loads created for that specific customer). A customer-level default takes precedence over the subsidiary-level default. If a default has been set at both levels, the customer-level value is used. If neither level has a default set, the equipment type field is left blank on the load entry form and the dispatcher fills it in manually. Equipment length is not required when completing load entry.
+
+## Where to Find It
+
+**Subsidiary-level default**
+
+Open the navigation menu and go to Management > Company Profile. Select the subsidiary you want to configure. The Default Equipment field appears in the subsidiary settings.
+
+![Screenshot showing the Default Equipment Type dropdown open with trailer type options](https://downloads.intercomcdn.com/i/o/1083609402/dc616d9d6d1d32cca30d0306/Untitled.png)
+
+*Screenshot showing the Default Equipment Type dropdown open with trailer type options*
+
+**Customer-level default**
+
+Open the navigation menu and go to Companies. Find and open the customer record. Edit the customer profile. The Default Equipment field appears in the customer details section.
+
+![Screenshot showing the Default Equipment field on a customer profile](https://downloads.intercomcdn.com/i/o/1083609567/6f5955b12d8cbb1b703c2089/Default+equipment+selection+preference+per+customer.png)
+
+*Screenshot showing the Default Equipment field on a customer profile*
+
+![Screenshot showing the Default Equipment selection dropdown on a customer profile with trailer type options](https://downloads.intercomcdn.com/i/o/1083609612/4551bf7ef21b07fd7dd964f6/Untitled.png)
+
+*Screenshot showing the Default Equipment selection dropdown on a customer profile with trailer type options*
+
+## Key Concepts
+
+**Subsidiary-level default:** A trailer type assigned to a subsidiary that pre-fills the equipment type on all new loads created under that subsidiary. This is useful when a company primarily ships on one trailer type.
+
+**Customer-level default:** A trailer type assigned to a specific customer profile that pre-fills the equipment type on loads created for that customer. This setting takes precedence over the subsidiary-level default.
+
+**Load-level override:** A dispatcher can always change the equipment type on an individual load at the time of entry, regardless of any subsidiary or customer default. The hierarchy is load-level, then customer-level, then subsidiary-level.
+
+**Blank equipment:** If no default is configured at either level, the equipment type field is left blank on load entry and must be filled in manually. This is the expected behavior; Alvys does not force a selection.
+
+## How to Use It
+
+For step-by-step instructions on setting or removing the equipment type default on a subsidiary or customer profile, refer to the relevant configuration guide for your role.
+
+## Settings and Permissions
+
+Access to configure the subsidiary-level default is restricted to users with the **"Admin"** or **"Partner Admin"** role. These users reach the setting through Management > Company Profile.
+
+Access to configure the customer-level default is available to all users except Drivers. These users reach the setting through Companies, then open the customer, then edit the profile.
+
+## Limits and Behavior
+
+Equipment length is not a required field on load entry.
+
+If both a customer-level and a subsidiary-level default are defined, the customer-level default applies to loads created for that customer.
+
+If neither a customer-level nor a subsidiary-level default is defined for a load, the equipment type field is left blank. The dispatcher must select an equipment type manually on load entry.
+
+The default equipment type is applied at the time the load is created, whether the load is created by manual entry or by accepting an EDI tender. The dispatcher can override the pre-filled value before saving the load.
+
+## FAQs
+
+**Q:** Will changing the default equipment on a subsidiary update existing loads?
+
+**A:** No. The default only applies to new loads created after the change. Existing loads are not affected.
+
+**Q:** Can I set different defaults for different customers?
+
+**A:** Yes. Each customer profile has its own Default Equipment field. Set the field on each customer record individually. Customers without a customer-level default will use the subsidiary-level default, if one is configured.
+
+**Q:** What happens if the equipment type on an EDI tender does not match the default?
+
+**A:** The equipment type sent in the EDI tender takes precedence over both the subsidiary and customer defaults when Alvys creates a load from the tender. Contact Alvys support if the tender equipment type is not appearing correctly on the created load.

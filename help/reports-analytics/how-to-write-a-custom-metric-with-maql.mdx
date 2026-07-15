@@ -1,0 +1,145 @@
+---
+title: "How to write a custom metric with MAQL"
+---
+
+<Note>
+  📋 **Module:** Reports &amp; Analytics · **Owner:** Support team · **Last reviewed:** 2026-06 · **Applies to:** Users with the **"Analytic"** reporting role (Reports > Report Designer)
+</Note>
+
+## Overview
+
+A metric is a formula that turns raw numbers from your data into a calculated value, for example "total revenue this month" or "on-time delivery rate." Metrics live in the Analytics Catalog and can be reused on any visualization. MAQL is the formula language Alvys Reports uses for measures (custom metrics, calculated fields). It looks a little like SQL but stays inside the Report Designer. Related terms for this topic include MAQL, measure, metric, custom metric, calculated field, formula, and Analytics Catalog.
+
+This article is for the rare case where the Analytics Catalog does not already have the metric you need, for example a count with a very specific filter, or arithmetic over two facts that no one has wired up yet. In those cases you write the missing measure yourself in MAQL.
+
+Before you write anything, check the Catalog. Your tenant's Analytics Catalog is rich: hundreds of pre-built metrics covering trips, revenue, cost, on-time performance, miles, drivers, and more. Search the Catalog first; there is a good chance the metric you need already exists. For the drag-and-drop walkthrough that uses existing metrics, see "Build visualizations with drag-and-drop" in the Go Deeper section.
+
+## Before You Start
+
+- **Required role:** You need the **"Analytic"** reporting role to author metrics and visualizations. The **"Analytic"** role on the Custom tier grants the permissions that let you create and save measures. Users with the **"Viewer"** reporting role can open dashboards but cannot author or save custom metrics.
+- **Required tier:** Authoring is part of the Custom Reporting tier. If your tenant is on the read-only Free tier, the Report Designer opens in view-only mode and Save is unavailable. An admin enables Custom Reporting under **Manage > Integrations**, and a tier upgrade is handled by Alvys support.
+- **Where to begin:** Open the Report Designer from the **Reports** area, then open or create a visualization so the formula bar is available above the canvas.
+
+<Note>
+  📋 Screenshot of the Report Designer with the formula bar open above the canvas.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a97fd7af-e020-408c-821b-8324bcb8364e/image.png)
+</Note>
+
+## Writing a custom metric
+
+1. **Open the metric editor.** In the **Metrics** bucket on the Configuration panel, click **+** and pick **New metric**. The formula bar opens above the canvas.
+2. **Write a simple sum.** Every MAQL metric starts with SELECT. The simplest one references an existing metric directly:
+
+   ```javascript
+   SELECT {metric/trip_count_all}
+   ```
+
+This returns the total trip count, sliced by whatever attributes are on the visualization. To pick a reference, type the opening brace and the editor offers autocomplete from your tenant's catalog (metrics, facts, attributes, and labels). Pick the item you want and the editor inserts the full reference.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/81db02cb-7bdb-4b8c-afa6-824661b8ecec/image.png)
+</Note>
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b24e8d54-85fd-41f9-8779-f985aae6c3e4/image.png)
+</Note>
+
+1. **Filter inside the metric.** To restrict the metric to a subset, use WHERE:
+
+   ```javascript
+   SELECT {metric/trip_count_all} WHERE {label/load_origin_state.load_origin_state} = "US-TX"
+   ```
+
+   This returns the trip count where the load originates from Texas. Use IN ("US-TX","US-CA","US-FL") to match multiple states at once.
+2. **Compare to a previous period.** To compare this period to the previous one, combine FOR Previous(...) with a date label:
+
+   ```javascript
+   SELECT {metric/trip_count_all} FOR Previous({label/load_created_at.year}) WHERE {label/load_origin_state.load_origin_state} = "US-TX"
+   ```
+
+   This returns the trip count from the previous year, filtered to Texas-origin loads. The visualization's current time axis (year, quarter, or month) determines what "previous" actually means.
+3. **Save the metric.** Click **Save** in the formula bar. Give the metric a clear name like Revenue, Texas only. It is now in your tenant's Analytics Catalog and reusable across visualizations. Custom metrics are tenant-visible: just like saved visualizations, custom metrics are shared with everyone who has access to the Report Designer on your tenant, so name them clearly.
+
+## Result
+
+Your new measure is saved to the Analytics Catalog and behaves exactly like a pre-built metric: you can drag it onto any visualization, slice it by attributes, and reuse it across dashboards. Because MAQL is context-aware, the value adapts to whichever attributes are on the visualization.
+
+## Variations
+
+These are real-shape examples from Alvys-curated dashboards. Copy one, swap the metric or label references for the question you are asking, and save the result.
+
+- Count of all trip IDs:
+
+  ```javascript
+  SELECT COUNT({label/TRIPS.TRIP_ID})
+  ```
+- Trips per driver, a ratio of two existing metrics:
+
+  ```javascript
+  SELECT {metric/operational_trip_count_excluding_cancelled_tonu} / {metric/operational_trip_driver_count}
+  ```
+- Average delivery delay, counting only trips that were actually late:
+
+  ```javascript
+  SELECT AVG(CASE WHEN {metric/trip_late_minutes} &gt; 0 THEN {metric/trip_late_minutes} END)
+  ```
+- Active driver count, filtered on a boolean label:
+
+  ```javascript
+  SELECT COUNT({label/driver_id}) WHERE {label/ACTIVE_ASSET} = "true"
+  ```
+
+Two tips for naming and testing: Name custom metrics for the audience ("Revenue YoY %" reads better than "rev_yoy_pct"). Test the same metric in multiple slicings before saving; MAQL is context-aware, and the number can change depending on which attributes are on the visualization.
+
+## Troubleshooting
+
+### The formula fails when a CASE or IF condition references an attribute that is not on the visualization
+
+This is the multidimensionality rule. Wrap the CASE or IF inside SUM(...) when the WHEN condition references an attribute that is not on the visualization. Otherwise the formula fails.
+
+### A metric returns NULL instead of a number
+
+Arithmetic on a NULL yields NULL. Use IF or CASE to substitute zero:
+
+```javascript
+SELECT IF SUM({fact/x}) IS NULL THEN 0 ELSE SUM({fact/x}) END
+```
+
+For division safety, guard against a zero or NULL denominator with an IF that returns 0 when the denominator is 0 or NULL.
+
+### The same metric shows a different number in different visualizations
+
+MAQL is context-aware, so the result depends on which attributes are on the visualization. This is expected behavior, not an error. Test the metric in each slicing before you save it, and use a BY clause to override the context when you need a fixed grouping.
+
+### The Save button is missing or the Report Designer opens in view-only mode
+
+Authoring requires the **Custom** tier and the **"Analytic"** reporting role. If your tenant is on the read-only Free tier, or your user has the **"Viewer"** role, you can view dashboards but not save custom metrics. Ask an admin to enable Custom Reporting under **Manage > Integrations**, confirm your reporting role is set to **"Analytic"**, and contact Alvys support if a tier upgrade is needed.
+
+## FAQs
+
+**Q: Do I have to write MAQL to get the metric I want?**
+
+**A:** Usually no. Your tenant's Analytics Catalog already has hundreds of pre-built metrics. Search the Catalog first and only write MAQL when the specific metric does not exist yet.
+
+**Q: What does a MAQL metric look like at minimum?**
+
+**A:** Every MAQL metric starts with SELECT. The simplest valid metric references an existing one directly, for example SELECT &#123;metric/trip_count_all&#125;. References are wrapped in braces: &#123;fact/...&#125; for a raw numeric column, &#123;metric/...&#125; for a saved metric, &#123;attribute/...&#125; for a categorical attribute, and &#123;label/...&#125; for a textual label used in filter values. Arithmetic uses plus, minus, multiply, divide; strings use double quotes; comments start with a hash.
+
+**Q: Who can see the custom metrics I save?**
+
+**A:** Everyone on your tenant who has access to the Report Designer. Custom metrics are tenant-visible, just like saved visualizations, so give them clear, descriptive names.
+
+**Q: How do I control how the number is displayed?**
+
+**A:** The number format lives on the metric, not in the MAQL itself. Open the **Format** dropdown in the metric editor. Format strings use placeholders: 0 is a required digit that pads with zero, hash is an optional digit with no padding, period is the decimal point, comma is the thousands separator, percent multiplies the value by 100 and appends a percent sign. Truncation suffixes are K for thousands, M for millions, B for billions. You can also add colors and conditional formatting, where rules apply left to right and the first match wins.
+
+## Go Deeper
+
+- Build visualizations with drag-and-drop: [https://help.alvys.com/en/articles/15217763-build-visualizations-with-drag-and-drop](/help/reports-analytics/how-to-build-visualizations-with-drag-and-drop)
+
+## MAQL function reference
+
+This reference is preserved verbatim from the original; carried over from the authoritative source as the embedded analytics formula language is not defined in product code.
+
+Basic syntax: every MAQL metric starts with SELECT. Clause order is alphabetical: BY, WHERE, WITHOUT. Aggregation: SUM, AVG, MIN, MAX, COUNT, MEDIAN, APPROXIMATE_COUNT. Math: ABS, ROUND, CEILING, FLOOR, POWER, SQRT, LN, LOG, EXP, GREATEST, LEAST, SIGN, TRUNC. Conditional: IF/THEN/ELSE/END and CASE/WHEN/THEN/ELSE/END (no ELSE match yields null); multidimensionality rule applies. Filtering: WHERE on label values, IN, NOT, LIKE (% any sequence, _ single char), HAVING on aggregated results, TOP(n)/BOTTOM(n). Logical operators: AND, OR, NOT, IN, NOT IN, comparisons. Time-series: FOR Previous, FOR Next, FOR Each, FOR PreviousPeriod, FOR NextPeriod. Time macros: THIS, PREVIOUS, NEXT with granularities DAY, WEEK, MONTH, QUARTER, YEAR and variants. Running totals: RUNSUM, RUNAVG, RUNMIN, RUNMAX, RUNVAR, RUNSTDEV with WITHIN. Ranking: RANK, TOP, BOTTOM. BY clauses override context: BY attr, BY ALL attr, BY ALL OTHER, BY attr ALL OTHER. Statistical: STDEV, VAR, PERCENTILE, CORREL, MOVING_AVG. A chart type and configuration reference is coming soon.

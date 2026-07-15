@@ -1,0 +1,832 @@
+---
+title: "Sage Intacct: Transaction Export and Modification"
+---
+
+<Note>
+  **Applies to:** Users with **"Billing"** and **"Invoice"** permissions (AR invoices) · Users with **"Billing"** and **"ViewCarrierRate"** permissions (carrier settlements) · Users with **"Billing"** and **"PayDriver"** permissions (driver settlements)
+
+  **Module:** Accounting > Invoicing; Accounting > Carrier Settlements; Accounting > Driver Settlements
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article (covering Sage Intacct transaction export, record matching, and post-export modification) explains how Alvys exports AR invoices, AP bills, and settlement transactions to Sage Intacct, how customer and carrier records are matched in Sage, and how to modify transactions that have already been exported.
+</Note>
+
+## Overview
+
+When Alvys exports transactions to Sage Intacct, it matches each AR transaction to a Sage customer record and each AP transaction to a Sage vendor record. If a match is not found, the transaction fails and appears in Accounting > Error Transactions. Once exported, the way Alvys handles a modification depends on the transaction's current state in Sage.
+
+## Sync Controls
+
+The integration provides two **(2)** levels of sync control that must both be enabled for transactions to flow to Sage Intacct.
+
+### Master Sync Toggle
+
+At the top of the integration settings page, the **Sync Active / Sync Paused** toggle controls the overall integration. When paused, no transactions are exported to Sage Intacct. Neither AR invoices nor AP bills will flow, regardless of their individual sync settings.
+
+<Note>
+  Shows an active integration dashboard with the **Sync active** toggle enabled and statuses highlighted as **Active**.
+
+  ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530007875/edf7666fc89e7c0d2c64e3ea1773/upload_2381072811914495836.png)
+</Note>
+
+The integration status badge next to the toggle displays one of three (3) states:
+
+- **Active** (green): Sync is running.
+- **Paused** (gray): Sync is disabled.
+- **Not Set Up** (orange): The setup wizard has not been completed.
+
+<Note>
+  ![Displays the integration sidebar list tracking multiple connections categorized by statuses like Active, Not set up, and Paused.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530007884/6d0f650b30c7a865cfdd83b9db47/upload_10809779023261863939.png)
+
+  *Displays the integration sidebar list tracking multiple connections categorized by statuses like **Active**, **Not set up**, and **Paused**.*
+</Note>
+
+### AR and AP Sync Toggles
+
+Within the integration settings, the **Accounts Receivable** and **Accounts Payable** sections each have their own independent sync toggle, located in the accordion header of their respective sections.
+
+<Note>
+  ![Shows the accounting integration toggles confirming that both AP sync and AR sync are active.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530007890/36fa07497eaf133dcd68cc3f476f/upload_1150820861501706160.png)
+
+  *Shows the accounting integration toggles confirming that both **AP sync** and **AR sync** are active.*
+</Note>
+
+Both the master sync and the individual section sync must be enabled for transactions to flow. For example:
+
+- **Master sync on, AR sync on, AP sync off:** Only customer invoices are exported. Vendor bills are not.
+- **Master sync on, AR sync off, AP sync on:** Only vendor bills are exported. Customer invoices are not.
+- **Master sync off:** Nothing is exported, regardless of the AR or AP toggle states.
+
+<Check>
+  💡 If you attempt to disable the last remaining active sync (for example, turning off AR sync when AP sync is already off), Alvys will prompt you to use the master sync toggle instead. This ensures you always have a single, clear control for fully pausing the integration.
+
+  ![Displays a 'Disable sync?' confirmation modal alerting the user that AP sync is already disabled, highlighting the final Disable confirmation action.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530007899/2d48c171b66ec608bd8ca0e60dd2/upload_17195212902797419682.png)
+
+  *Displays a "Disable sync?" confirmation modal alerting the user that AP sync is already disabled, highlighting the final **Disable** confirmation action.*
+</Check>
+
+## Subsidiary Determination for Transaction Exports
+
+When a transaction is exported from Alvys to Sage Intacct, Alvys must determine which subsidiary's integration should handle the export. This determines which Sage entity receives the transaction, which GL accounts are used, and which dimension and custom field mappings apply.
+
+### Customer Invoices and the Invoice As Field
+
+Customer invoices are exported to Sage based on the subsidiary specified in the **Invoice As** field on the load. The Invoice As field determines which Alvys subsidiary "owns" the revenue for that load, and therefore which Sage integration handles the invoice export.
+
+<Note>
+  ![Features the customer load details page with a blue outline focusing on the Invoice Customer As configuration dropdown.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530007914/8500e49e274ac16aa190f6201ca9/upload_6390957067241242804.png)
+
+  *Features the customer load details page with a blue outline focusing on the **Invoice Customer As** configuration dropdown.*
+</Note>
+
+If the Invoice As subsidiary has an active Sage Intacct integration with AR sync enabled, the invoice is exported to that subsidiary's connected Sage entity. If the Invoice As subsidiary does not have an active integration, the invoice is not exported.
+
+<Check>
+  💡 You can verify which subsidiary a load will invoice under by checking the **Invoice As** field on the load detail page. This field is set when the load is created and can be changed before the invoice is exported.
+</Check>
+
+### Carrier Bills and the Tender As Field
+
+Carrier bills are exported based on the **Tender As** field on the load. The Tender As field determines which subsidiary is responsible for paying the carrier, and therefore which Sage integration handles the bill export.
+
+<Note>
+  ![Shows carrier dispatch metrics with a blue outline highlighting that the load is being Tendered As Alvys Brokerage.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530007940/47b7bc0a4eeaf11e00b76b9a5aac/upload_14368537967399225431.png)
+
+  *Shows carrier dispatch metrics with a blue outline highlighting that the load is being Tendered As Alvys Brokerage.*
+</Note>
+
+*[Heading 4 not supported]*
+
+For carriers operating with dual authority, the operational mode is automatically determined based on the Tender As subsidiary. Users can manually change the operational mode to Carrier or Broker, which may affect how bills are categorized and exported to Sage Intacct.
+
+<Note>
+  ![Displays the operational advanced settings module with the mode toggle set specifically to Carrier.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530007952/0ad5282ec87de58a5bc81f997776/upload_8137886330106088657.png)
+
+  *Displays the operational advanced settings module with the mode toggle set specifically to Carrier.*
+</Note>
+
+### Driver Bills and the Driver Subsidiary Field
+
+Every driver in Alvys is assigned to a subsidiary, which represents the business unit that driver belongs to. When a driver statement is generated, the resulting vendor bill is sent to Sage Intacct based on the driver's subsidiary, not the subsidiary used to invoice or tender the load.
+
+<Note>
+  ![Shows a driver's employment summary card with a blue box emphasizing its assigned Subsidiary as Alvys Inc.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530007971/2d526fd57a3220801ebef8e824f4/upload_2989293014733691151.png)
+
+  *Shows a driver's employment summary card with a blue box emphasizing its assigned Subsidiary as Alvys Inc.*
+</Note>
+
+## Customer Matching, Creation, and Accounting Fields
+
+Before Alvys can export an invoice to Sage Intacct, it must **find or create** the corresponding customer record in Sage. This section explains how Alvys matches customers and brokers to Sage records, what happens when no match is found, and which fields from the customer profile in Alvys are used during that process.
+
+### Customer External Accounting ID (Primary match)
+
+The External Accounting ID on the customer or broker profile in Alvys is the primary field used to identify the corresponding customer in Sage Intacct. When an invoice is exported, Alvys searches Sage for a customer whose ID matches this value. If a match is found, the invoice is linked to that customer.
+
+<Note>
+  ![A minimal interface view displaying the External Accounting ID heading and its clickable 'View All' action link.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530007976/0055cb78eec83f30921e704c361b/upload_3543032982086437104.png)
+
+  *A minimal interface view displaying the External Accounting ID heading and its clickable "View All" action link.*
+</Note>
+
+If the External Accounting ID is set but no matching customer exists in Sage and auto-creation is disabled, the export fails with an error asking you to either correct the ID in Alvys or enable auto-creation.
+
+### Name matching fallback
+
+If no External Accounting ID is set and **Name Matching Fallback** is enabled in your AR settings, Alvys searches Sage by the customer's **External Accounting Name** (or company name if no External Accounting Name is set). If exactly one match is found, Alvys uses that record. If multiple customers in Sage share the same name, the export fails with an error. To resolve this, set the External Accounting ID on the customer profile so the system can identify the correct record.
+
+<Warning>
+  ⚠️ When an External Accounting ID is provided, Alvys does not fall back to name matching, even if the ID is not found in Sage. This ensures precise matching and prevents accidental linkage to the wrong customer. If the ID is incorrect, correct it on the customer profile in Alvys.
+</Warning>
+
+### Auto-creation
+
+When no match is found by either method (**Primary Id** or **Name Matching**):
+
+If **Auto Create Customer** is enabled, Alvys creates a new customer in Sage using the **External Accounting Name** (or Customer name if not set), contact information, invoicing address, and payment terms from the customer profile. If disabled, the export fails with an error stating that no matching customer was found.
+
+<Note>
+  ![Displays accounts receivable parameters with a green highlight around the checked Auto create customer option.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530007990/a5806880cde77228b66832616c7a/upload_2498219759491158581.png)
+
+  *Displays accounts receivable parameters with a green highlight around the checked Auto create customer option.*
+</Note>
+
+### External Accounting Name vs. Invoicing Name
+
+The Invoicing Name (previously called Billing Name) controls how the customer or broker appears on invoices generated within Alvys. It does **not** affect the customer record in Sage Intacct and is not used during invoice exports. The customer’s External Accounting Name is used to identify a customer or broker in Sage Intacct. The customer name sent to Sage is determined by the **External Accounting Name, or if that is not set, the company name on the customer profile.**
+
+<Note>
+  ![Displays a customer profile header with a green box framing the Alvys Customer name alongside its unknown credit status.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008018/e1222bc37548e9ffaea32f4b9b30/upload_17121487078882014475.png)
+
+  *Displays a customer profile header with a green box framing the **Alvys Customer** name alongside its unknown credit status.*
+
+  ![Shows the Invoicing Info pane with green highlights around the section header and the configured External Accounting Name ('Alvys Acct').](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008030/734127d0a7ca0d19aec7f4c41096/upload_14692163081675711671.png)
+
+  *Shows the **Invoicing Info** pane with green highlights around the section header and the configured **External Accounting Name** ("Alvys Acct").*
+</Note>
+
+### Customer/Broker Payment Terms
+
+The Payment Terms field on the customer profile defines how many days a customer has to pay an invoice, calculated from the invoice date. When an invoice is exported, Alvys sends the corresponding payment term (for example, "Net 25") to Sage Intacct. If that term does not exist in your Sage environment, Alvys retries using **Net 30** as a fallback. If Net 30 also does not exist, the export fails.
+
+<Note>
+  ![Features the Invoicing Info panel emphasizing the Payment Terms field which is set to 'Net 25'.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008039/cf355b61403f3d2c4e0126df4568/upload_17920476095817008896.png)
+
+  *Features the **Invoicing Info** panel emphasizing the **Payment Terms** field which is set to "Net 25".*
+</Note>
+
+Make sure the payment terms you use in Alvys have matching entries in Sage Intacct. Common terms such as Net 15, Net 30, Net 60, and Net 90 are typically set up by default in Sage.
+
+### Setting Up AR Payment Terms in Sage Intacct
+
+**To add or verify payment terms in Sage Intacct:**
+
+Go to **Accounts Receivable → Setup → More** and click **Add** next to **Terms**.
+
+<Note>
+  ![Illustrates system navigation within the Accounts Receivable setup tab, highlighting the path to configure billing Terms.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008059/460f2007ca5be86de3f52b7bef5e/upload_12988819889728997661.png)
+
+  *Illustrates system navigation within the **Accounts Receivable** setup tab, highlighting the path to configure billing **Terms**.*
+</Note>
+
+Enter a name that matches what Alvys will send (for example, **Net 30**), and add a description.
+
+Set the due date calculation by entering the number of days in the **Day** field and selecting **AR sales invoice** or **AP purchase invoice date** from the dropdown.
+
+<Note>
+  ![Displays the AR terms information form window for creating a 'Net 30' term, highlighting the input block and the upper right Save button.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008067/c8517eb577ffe7041f9ba7ed576d/upload_477486372175257659.png)
+
+  * Displays the **AR terms information** form window for creating a "Net 30" term, highlighting the input block and the upper right **Save** button.*
+</Note>
+
+Click **Save**.
+
+## Carrier and Vendor Matching, Creation, and Accounting Fields
+
+Before Alvys can export a bill to Sage Intacct, it must find or create the corresponding vendor record in Sage. This section explains how Alvys matches carriers, drivers, and factoring companies to Sage vendor records, what happens when no match is found, and which fields from the carrier and driver profiles in Alvys are used during that process.
+
+### External Accounting ID (primary match)
+
+The **External Accounting ID** on the carrier or driver profile is the primary identifier used to locate the corresponding vendor in Sage Intacct. When set, Alvys searches Sage for a vendor whose ID matches this value. If a match is found, the bill is linked to that vendor.
+
+<Check>
+  💡 If no External Accounting ID is set and Name Matching Fallback is enabled in your AP settings, Alvys searches Sage using the carrier's External Accounting Name (or company name if not set). If multiple vendors share the same name, the export fails. Set the External Accounting ID on the carrier profile to resolve this.
+</Check>
+
+### Carrier link strategy
+
+The “**Link existing carriers by”** setting in your AP configuration provides an additional matching strategy. When configured, Alvys can use the carrier's External Id, MC number or DOT number to look up a matching vendor in Sage before falling back to name matching.
+
+<Note>
+  ![Shows the Link existing carriers by dropdown menu open, presenting identifier options like External ID, MC Number, and USDOT Number.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008076/f27a649f36f1817f61afef451ebe/upload_17792563196751794193.png)
+
+  *Shows the **Link existing carriers by** dropdown menu open, presenting identifier options like External ID, MC Number, and USDOT Number.*
+</Note>
+
+### Name matching fallback
+
+If no match has been found and **Name Matching Fallback** is enabled in your AP settings, Alvys searches Sage by the carrier's **External Accounting Name** (or carrier name if not set). If exactly one match is found, Alvys uses that record. If multiple vendors share the same name, the export fails with an error asking you to set the External Accounting ID on the carrier profile.
+
+<Note>
+  ![Features a checked option for the Name Matching Fallback toggle, which enables automated fallback matching by name when primary identifiers miss.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008085/a45ffa481980049ec2741f6ce29f/upload_14619588930292367329.png)
+
+  *Features a checked option for the **Name Matching Fallback** toggle, which enables automated fallback matching by name when primary identifiers miss.*
+
+  ![Displays a carrier's general contact profile with a green box spotlighting the assigned External Accounting Name ('AL Ext Carrier').](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008112/015d58bff8679efe863dcfe5357b/upload_10494873142974032282.png)
+
+  *Displays a carrier's general contact profile with a green box spotlighting the assigned **External Accounting Name** ("AL Ext Carrier").*
+</Note>
+
+The External Accounting Name takes priority. If it differs from an existing Sage vendor name, even if the carrier name in Alvys matches, Alvys will create a new vendor using the External Accounting Name.
+
+### Auto-creation
+
+When no match is found by either method (Primary Id or Name Matching):
+
+If **Auto Create Vendor** is enabled, Alvys creates a new vendor in Sage using the External Accounting Name (or carrier/driver name if not set), contact information, address, and payment terms. If **Auto Create Vendor** is disabled, the export fails with an error stating that no matching vendor was found.
+
+### Driver Name and 1099 Tax Details
+
+Drivers, including company drivers and owner-operators, may operate as 1099 independent contractors. These drivers have additional tax fields on their profiles, including Tax Company Name, Tax Company Address, and Tax Identification Number.
+
+<Note>
+  ![Shows the structured corporate Tax Information data section containing identification numbers, classification type, and the company address.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008129/8b2447319bd376ec3703b98001cf/upload_2068075906772769135.png)
+
+  *Shows the structured corporate **Tax Information** data section containing identification numbers, classification type, and the company address.*
+</Note>
+
+When a driver statement is exported as a bill, Alvys determines which information to use for the vendor record:
+
+- If the driver is classified as a 1099 contractor and has a **Tax Company Name** on file, Alvys uses the 1099 tax company information (name, tax ID, address, email, and phone) to create the vendor. The tax company name becomes the vendor name in Sage.
+- If the driver does not have 1099 tax information configured, Alvys uses the driver's own name and contact details for the vendor record.
+
+### Carrier Payment Terms
+
+When exporting a bill, Alvys resolves the carrier's payment terms in the following order:
+
+- If the carrier has a factoring company with payment terms configured, those terms are used.
+- If no factoring terms apply, the carrier's own payment terms (Terms in Days) are used.
+- If the carrier does not have Terms in Days set, Alvys uses the default payment terms configured for that payment type in your company subsidiary settings.
+- If none of the above are set, Alvys defaults to 30 days.
+
+  *[Heading 4 not supported]*
+
+To avoid export failures, create the necessary payment terms in Sage Intacct before exporting bills.
+
+In Sage Intacct, go to Accounts Payable, then **Setup → More** and click **Add** next to **Terms**.
+
+<Note>
+  ![Illustrates navigation inside the application's side menu under Accounts Payable, focusing on the Setup menu row for managing Terms.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008140/6b7b7fcff053c09526e5bee9522c/upload_18307327251763550042.png)
+
+  *Illustrates navigation inside the application's side menu under **Accounts Payable**, focusing on the **Setup** menu row for managing **Terms**.*
+</Note>
+
+Set the Name to match the format Alvys sends (for example, "Net 30", "Net 45", "Net 60").
+
+<Check>
+  💡 At minimum, create a "**Net 30**" payment term. This is the fallback Alvys uses when a carrier's specific term does not exist in Sage.
+</Check>
+
+<Note>
+  ![Displays the AP terms information form window for a 'Net 30' term, highlighting the core configuration fields and the top-right Save button.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008150/498a3a5dc2112966344cec2f6ffc/upload_12852148478882309750.png)
+
+  *Displays the **AP terms information** form window for a "Net 30" term, highlighting the core configuration fields and the top-right **Save** button.*
+</Note>
+
+Set the due date calculation to the corresponding number of days.
+
+Save the payment term.
+
+### Carrier Factoring Companies
+
+When an external carrier has a factoring company set as their payment method, Alvys handles the factoring company setup in Sage Intacct as part of vendor creation.
+
+<Note>
+  ![Shows the Remittance section with green highlights on the 'Factoring Company' payment method selection and its detailed address profile.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008156/a54f8b92939f0e1e21fed7484629/upload_9557687820234065179.png)
+
+  *Shows the Remittance section with green highlights on the "Factoring Company" payment method selection and its detailed address profile.*
+</Note>
+
+This only applies when the carrier's vendor record does not already exist in Sage Intacct. If Alvys finds an existing vendor (matched by Sage ID, MC/DOT number, or name), it updates that vendor rather than creating a new one.
+
+The **Create Factoring Companies As** setting in your Accounts Payable configuration controls how the factoring company is represented in Sage Intacct:
+
+- **Contact**: The factoring company is added as a Pay To contact on the carrier's vendor record. No separate vendor is created.
+- **Vendor**: The factoring company is created as its own vendor record in Sage Intacct.
+
+<Note>
+  ![Displays the Create factoring companies as setting dropdown menu with 'Contact' actively selected.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008168/ff08d9f0b039a00915abd5615370/upload_9498215241930561618.png)
+
+  *Displays the Create factoring companies as setting dropdown menu with "Contact" actively selected.*
+</Note>
+
+## Where to Find It
+
+Transaction exports are triggered from these sections:
+
+- AR invoices: Accounting > Invoicing
+- Carrier settlement bills: Accounting > Carrier Settlements
+- Driver settlement bills: Accounting > Driver Settlements
+- Failed and re-syncable transactions: Accounting > Error Transactions
+
+## How to Use It
+
+### Individual Load Invoices Export
+
+Before generating the invoice, confirm the following:
+
+- The correct customer is assigned to the load.
+- The **Invoice As** field on the load is set to a subsidiary with an active Sage Intacct integration and AR sync enabled.
+
+  <Note>
+    ![Features a load detail page , highlighting its Released status badge and the Invoice Customer As selection dropdown menu.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008181/257fe94bb3bb043ec7ff7aee0da1/upload_1364892863302924339.png)
+
+    *Features a load detail page , highlighting its Released status badge and the Invoice Customer As selection dropdown menu.*
+  </Note>
+
+  ![Features a load detail page , highlighting its Released status badge and the Invoice Customer As selection dropdown menu.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008192/b6271719d4dbf01bd747bddb893f/upload_7614592524648044776.png)
+
+  *Features a load detail page , highlighting its Released status badge and the Invoice Customer As selection dropdown menu.*
+- The load is in **Released** status. Loads in earlier statuses (Queued, Dispatched, In Transit) cannot be invoiced.
+- The customer has an **External Accounting ID** set on their profile (recommended), or the External Accounting Name or company name matches a customer record in Sage Intacct
+
+  <Note>
+    ![Displays a customer invoicing overview layout with a blue box framing the configured External Accounting Name ('Alvys Acct').](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008206/741ccc217efb3fecb26f7ee6f617/upload_16590930108500982627.png)
+
+    *Displays a customer invoicing overview layout with a blue box framing the configured **External Accounting Name** ("Alvys Acct").*
+  </Note>
+
+  ![Displays a customer invoicing overview layout with a blue box framing the configured External Accounting Name ('Alvys Acct').](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008213/b3c2f3ab5667da8f8cf63d7ec74c/upload_7511982446742922879.png)
+
+  *Displays a customer invoicing overview layout with a blue box framing the configured **External Accounting Name** ("Alvys Acct").*
+- The customer's **Payment Terms** exist in your Sage environment (for example, Net 30).
+
+### Step-by-Step: Generate an Individual Invoice
+
+Navigate to the load you want to invoice by searching for the load number or selecting it from the load board.
+
+On the **Load Details** page, verify the load status is **Released**.
+
+Review the charges on the load to confirm they are correct.
+
+Click the **Generate Invoice** button below the Money Box.
+
+<Note>
+  ![Shows money box buttons with a green box highlighting the clickable Generate Invoice action.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008227/7095de2ddb25612420ad6b349715/upload_10354031865340537719.png)
+
+  *Shows money box buttons with a green box highlighting the clickable **Generate Invoice** action.*
+</Note>
+
+The load status changes from **Released** to Queued.
+
+<Note>
+  ![Displays a minimal status line confirming that Load  has successfully entered the Queued state](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008240/f350c8be5947fdbdf8a4d7d2e51f/upload_4877445893881909763.png)
+
+  *Displays a minimal status line confirming that **Load ** has successfully entered the **Queued** state*
+</Note>
+
+The invoice is automatically queued for export to Sage Intacct. No additional action is required to trigger the export.
+
+*[Heading 4 not supported]*
+
+The invoice appears in Sage Intacct under **Accounts Receivable → Transactions → AR Invoices**.
+
+<Note>
+  ![Features the Invoices data table ledger with green highlights surrounding the specific invoice number ('1084738') and its Posted status state.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008246/fbd69495cc67652b4c59c984977f/upload_1769681378462957492.png)
+
+  *Features the **Invoices** data table ledger with green highlights surrounding the specific invoice number ("1084738") and its **Posted** status state.*
+
+  ![Shows the comprehensive transaction view for Invoice -- 1084738, with a green frame calling attention to the main system document header.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008257/ca2b28f48242d4b77af74f1a7410/upload_16733227601984109808.png)
+
+  *Shows the comprehensive transaction view for **Invoice -- 1084738**, with a green frame calling attention to the main system document header.*
+</Note>
+
+If auto-post is enabled in your AR settings (**Autopost Invoices”**), the invoice is posted automatically. Otherwise, it appears as a draft in Sage.
+
+<Warning>
+  ⚠️ If the export fails, the transaction appears on the **Accounting → **[Error Transactions](https://app.alvys.com/accounting/error-transactions) page in Alvys. Review the error message, correct the issue and retry the sync.
+</Warning>
+
+The **PO Number Mapping** setting in your AR configuration controls which value appears in the PO Number / Reference Number field on exported invoices. It can use either the load's order number (default) or the load's PO number.
+
+<Note>
+  ![Displays a breakdown panel from the invoice transaction view with a green box outlining the specific mapped Reference number ('ALO76674').](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008274/f4230234c65a7473ac93d6176226/upload_10157682858945046791.png)
+
+  *Displays a breakdown panel from the invoice transaction view with a green box outlining the specific mapped **Reference number** ("ALO76674").*
+
+  ![Shows a completed load details pane with a green box highlighting the mapped PO # ('ALPO65563')](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008289/acb02d4c61778392de3c1f888fdc/upload_1202562752480844267.png)
+
+  *Shows a completed load details pane with a green box highlighting the mapped PO # ("ALPO65563")*
+</Note>
+
+### Batch Invoice Export
+
+The Invoicing page in Alvys is located under **Accounting > **[Invoice](https://app.alvys.com/#/accounting/invoicing) in the left navigation menu.
+
+<Note>
+  ![Shows the side navigation menu with the Invoice option selected under the Accounting dropdown.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008300/21d389c4260f1001d07160755263/upload_1801252899003996205.png)
+
+  *Shows the side navigation menu with the Invoice option selected under the Accounting dropdown.*
+</Note>
+
+This page allows users to create invoices for multiple loads across one or more customers simultaneously. Each selected load is processed as an individual AR invoice, and exporting to Sage Intacct is triggered automatically when the invoices are generated. This approach enables faster and more efficient invoicing while ensuring accurate transaction records for each load.
+
+<Note>
+  ![Displays the billing dashboard with a green box outlining the selected Released status filter tab.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008315/717503bcb8d1dbd2b9018991d8c5/upload_2385696909651849209.png)
+
+  *Displays the billing dashboard with a green box outlining the selected Released status filter tab.*
+</Note>
+
+From the Released tab, select the loads for which you want to generate invoices. Ensure that the customer being invoiced is correct. If an External Accounting Name is configured, it must match the corresponding customer record in Sage Intacct. If no External Accounting Name is configured, the standard customer or broker name must match the customer record.
+
+<Note>
+  ![Displays an Invoice Summary popup listing three selected customer loads and their respective billing amounts.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008325/13c76e014379b0708e34de22e4c0/upload_217345720754193084.png)
+
+  *Displays an Invoice Summary popup listing three selected customer loads and their respective billing amounts.*
+
+  ![Shows billing execution controls with a green box highlighting the blue Generate Invoice button.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008342/14e6e55369069185b1cb41b9aa14/upload_10067199054428217989.png)
+
+  *Shows billing execution controls with a green box highlighting the blue Generate Invoice button.*
+</Note>
+
+Additionally, the Invoice As subsidiary on each load must be correctly configured, as this determines which specific Sage Intacct entity receives the transaction data. After verifying these details, invoices can be generated using the Generate Invoice option, which creates the invoices and exports them to Sage Intacct. Alternatively, the “**Create and Send**” option generates the invoices, exports them to Sage Intacct, and sends them to the customer according to the invoicing method configured for that customer.
+
+Once exported, the AR invoices are recorded in Sage Intacct under the corresponding customer and can be located in **Accounts Receivable > AR Invoices.**
+
+<Note>
+  ![Features the main Invoices ledger table with a green outline framing the successfully generated invoice numbers.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008351/eb1fbd063df84d1addcb8da9422c/upload_15111620489221008060.png)
+
+  *Features the main Invoices ledger table with a green outline framing the successfully generated invoice numbers.*
+</Note>
+
+<Check>
+  💡 If the invoice was not exported due to an error, the issue can be reviewed on the Error Transactions page** (Accounting > **[Error Transactions](https://app.alvys.com/accounting/error-transactions)**)**. Additional information about the Error Transactions page and how to interpret error details is provided in the error resolution documentation.
+</Check>
+
+### Summary Invoice Export
+
+Summary invoicing consolidates multiple loads for a customer into a single invoice. The Summary Invoicing page can be accessed from Accounting > [Summary Invoicing](https://app.alvys.com/#/accounting/summary-invoicing). For more information on configuring customers for summary invoicing, see the [Summary Invoicing help center article](/help/accounting-settlements/how-to-use-summary-invoicing).
+
+*[Heading 4 not supported]*
+
+- The customer's **Invoice Type** must be set to **Summary** on their customer profile. Customers set to individual invoicing will not appear in the Summary Invoicing module.
+
+<Note>
+  ![Displays the customer profile overlayed by the Invoicing settings modal, with green boxes highlighting the entry link and the active Summary invoice type radio button.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008361/af436fb06eb30b8e32953405d494/upload_877906304876927945.png)
+
+  *Displays the customer profile overlayed by the Invoicing settings modal, with green boxes highlighting the entry link and the active Summary invoice type radio button.*
+</Note>
+
+- The loads to be included must be in **Released** or **TONU** status.
+- The customer must have an External Accounting ID or matching name in Sage Intacct.
+
+### Step-by-Step: Generate a Summary Invoice
+
+Navigate to **Accounting → Summary Invoicing** from the main navigation menu.
+
+**Select a customer** from the left panel. The right panel populates with all available loads for that customer in **Released** or **TONU** status.
+
+<Note>
+  ![Shows the batch invoicing screen with a green box selecting Summary Inv Customer to pull up their associated un-invoiced loads.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008380/e7669ffd652623e8b6857bce37d4/upload_11869293717566205879.png)
+
+  *Shows the batch invoicing screen with a green box selecting Summary Inv Customer to pull up their associated un-invoiced loads.*
+</Note>
+
+Review the loads in the right panel. Check or uncheck individual loads to include or exclude them from the invoice.
+
+Choose one of two options:
+
+- **Create a Draft**: Generates a draft summary invoice that you can review before finalizing. The draft appears under the **Drafts** tab in the Previous Invoices section.
+- **Generate Invoice: ** Generates and finalizes the summary invoice immediately.
+
+<Note>
+  ![Features the final workflow execution buttons providing options to Generate Invoice or Add to Draft.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008390/edc149a1b0f0455cded06cc629d4/upload_12134520344900454718.png)
+
+  *Features the final workflow execution buttons providing options to Generate Invoice or Add to Draft.*
+</Note>
+
+If you created a draft, navigate to the **Drafts** tab, review the invoice, and click **Generate Invoice.**
+
+Once generated, the included loads change status from **Released** to **Queued.**
+
+<Note>
+  ![Shows a generated summary invoice document (S1000063) consolidating multiple line-item loads into a single statement.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008409/774d2e29b4791c6199055b9c3f2a/upload_14574201619304199550.png)
+
+  *Shows a generated summary invoice document (S1000063) consolidating multiple line-item loads into a single statement.*
+</Note>
+
+*[Heading 4 not supported]*
+
+The summary invoice appears in Sage Intacct as a single AR invoice with each load's charges as separate line items.
+
+<Note>
+  ![Displays the transaction view for Invoice -- S1000063 belonging to 'Summary Inv Customer,' highlighting its Posted status block.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008432/8acb73008304935e2010630d5026/upload_5629207805668396172.png)
+
+  *Displays the transaction view for Invoice -- S1000063 belonging to "Summary Inv Customer," highlighting its Posted status block.*
+</Note>
+
+### Carrier Bill Export from Load Invoicing
+
+When you generate a customer invoice for a load that has an external carrier assigned, the carrier's AP bill may also be exported at the same time. The behavior depends on two settings in your AP configuration: **Export Carrier Statements** and **Send Carrier Invoice Upon Upload**.
+
+<Note>
+  ![Shows configuration checkboxes outlined in green for enabling carrier invoice exports upon upload and exporting carrier statements.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008457/ddb8baaf5978d9a5ec3689dd12d4/upload_12258950725736440454.png)
+
+  *Shows configuration checkboxes outlined in green for enabling carrier invoice exports upon upload and exporting carrier statements.*
+</Note>
+
+### How the Settings Work Together
+
+When both settings are off, the carrier bill exports automatically when the customer invoice is generated. No carrier invoice document is required.
+
+When **Send Carrier Invoice Upon Upload** is on but **Export Carrier Statements** is off, the carrier bill exports automatically as soon as a carrier invoice document is uploaded to the trip. The customer invoice does not need to be generated first.
+
+When **Export Carrier Statements** is on, carrier bills do not export from load invoicing regardless of the **Send Carrier Invoice Upon Upload** setting. Carrier bills are managed exclusively through the Carrier Settlements module.
+
+### Step by Step: Carrier Bill Export via Load Invoicing (When Applicable)
+
+Navigate to the **Load Details** page for a **Released load** with an external carrier.
+
+If your settings require a carrier invoice document, go to the trip level details for the carrier's trip, upload the carrier's invoice document, and enter the **carrier invoice number** when prompted.
+
+<Note>
+  ![Shows a segment of the load action menu bar highlighting the selection of the Docs tab.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008476/d6d9299c15f7fad1c2f010953df7/upload_9982651664091285508.png)
+
+  *Shows a segment of the load action menu bar highlighting the selection of the Docs tab.*
+
+  ![Displays a document staging panel where a PDF file is designated as a Carrier Invoice type and is ready for upload.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008493/a770e3921295aa51302f81242388/upload_533378701065354472.png)
+
+  *Displays a document staging panel where a PDF file is designated as a Carrier Invoice type and is ready for upload.*
+
+  ![Features the Carrier Invoice Upload modal with a green box framing the designated invoice number ('AL7676INV').](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008519/7153c97280cb7b002565a24a6008/upload_643232379088859599.png)
+
+  *Features the Carrier Invoice Upload modal with a green box framing the designated invoice number ("AL7676INV").*
+</Note>
+
+If your configuration triggers carrier bill export at this point (see above), the AP bill is automatically queued for export to Sage Intacct.
+
+### After Export
+
+The carrier's AP bill appears in Sage Intacct under **Accounts Payable > Bills**. The carrier invoice number inputted during submission is used as the sage intacct reference number field and also included in the memo field.
+
+<Note>
+  ![Displays the full ledger sheet for Bill 1000276, emphasizing the mapped reference number and automated trip description blocks in green frames.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008533/70753d9cd2aef161fac222703dd0/upload_14175596214413361743.png)
+
+  *Displays the full ledger sheet for Bill 1000276, emphasizing the mapped reference number and automated trip description blocks in green frames.*
+</Note>
+
+If auto post is enabled (**Autopost Bills**), the bill is posted automatically. Otherwise, it remains in draft state or submitted state (if **bill approval** is enabled in sage intacct). If the export fails, the error appears on the **Accounting > **[Error Transactions](https://app.alvys.com/accounting/error-transactions)[ page](https://app.alvys.com/accounting/error-transactions) in Alvys.
+
+<Check>
+  💡 If your team prefers to review and batch carrier payments before exporting, enable **Export Carrier Statements** and use the Carrier Settlements module instead. This gives you a consolidated view and lets you generate a single AP bill per carrier with multiple trips as line items.
+</Check>
+
+## Exporting Carrier Bills: Carrier Settlements Module
+
+The Carrier Settlements module provides a centralized view for managing carrier payments and exporting AP bills. Instead of exporting one bill per trip from the load, this module consolidates multiple trips into a single AP bill per carrier statement.
+
+### Prerequisites:
+
+- **Export Carrier Statements** must be enabled in your AP settings (Settings → Connections → Sage Intacct → Accounts Payable section).
+
+  <Note>
+    ![Shows the Export Carrier Statements checkbox option checked, enabling multiple trips to be combined as line items on a single bill.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008549/b14f0464f6869cc3a6534315093c/upload_15124127484826286349.png)
+
+    *Shows the Export Carrier Statements checkbox option checked, enabling multiple trips to be combined as line items on a single bill.*
+  </Note>
+
+  ![Shows the Export Carrier Statements checkbox option checked, enabling multiple trips to be combined as line items on a single bill.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008575/a366e97007dc97da0ff2dbd1fd2d/upload_9949283078814659289.png)
+
+  *Shows the Export Carrier Statements checkbox option checked, enabling multiple trips to be combined as line items on a single bill.*
+- The carrier must have an External Accounting ID or matching name in Sage Intacct.
+- Trips must have reached a billable status.
+
+### Step-by-Step: Generate and Export a Carrier Statement
+
+From the main navigation menu, go to **Accounting → **[Carrier Settlements](https://app.alvys.com/accounting/carrier-settlements).
+
+On the **Carrier Settlements** home page, click on a **carrier's name** to view their pending trips.
+
+<Note>
+  ![Features a filtered open payables list with a green box highlighting a row for VIPER FREIGHT LLC showing two pending trips.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008591/ce8dca5ded254f85fae8fbe25f1e/upload_16400149080798370334.png)
+
+  *Features a filtered open payables list with a green box highlighting a row for VIPER FREIGHT LLC showing two pending trips.*
+</Note>
+
+Review the list of trips available for settlement. Each row shows trip details, amounts, and status.
+
+Select the trips you want to include in the statement by checking the boxes next to each trip then select the **Approve Selected Trips** button.
+
+<Note>
+  ![Shows a carrier's trip settlement workspace with a green outline framing two selected trips and the corresponding Approve Selected Trips action button.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008619/ce69034c358236b9725c96074dea/upload_12501275275895553623.png)
+
+  *Shows a carrier's trip settlement workspace with a green outline framing two selected trips and the corresponding Approve Selected Trips action button.*
+</Note>
+
+Click **Generate Statement** to create the carrier settlement.
+
+<Note>
+  ![Displays the statement compilation panel for the carrier with a green frame focusing on the blue Generate Statement execution button.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008633/9fbc56915ca6f1a0656fda97f37b/upload_2569197040935726735.png)
+
+  *Displays the statement compilation panel for the carrier with a green frame focusing on the blue Generate Statement execution button.*
+</Note>
+
+The system generates a single AP bill in Sage Intacct with each selected trip as a line item. Select the statement to view the statement details, the accounting sync status will be displayed.
+
+<Note>
+  ![Shows the statement ledger for Viper Freight LLC with a green box in the right panel highlighting a successful Accounting Sync status.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008642/9e178ec32980ad5870581e6ee5bb/upload_3416249273645335255.png)
+
+  *Shows the statement ledger for Viper Freight LLC with a green box in the right panel highlighting a successful Accounting Sync status.*
+
+  ![Displays the external ledger sheet for Bill 1000026, with green boxes highlighting the bill identifier, vendor name, and statement description.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008656/281ceb7e73c8ebbbf3ebe3e62734/upload_7541634958420513744.png)
+
+  *Displays the external ledger sheet for Bill 1000026, with green boxes highlighting the bill identifier, vendor name, and statement description.*
+</Note>
+
+## Exporting Driver Bills
+
+Driver statements generate AP bills in Sage Intacct for driver compensation. Driver bill export always operates in single bill mode. All trips, deductions, and credits included in a driver statement are consolidated into a single AP bill.
+
+### Driver Filtering Settings
+
+Two settings in your AP configuration control which driver bills are exported:
+
+**Include Driver Bills: ** Master toggle for all driver bill export. When disabled, no driver statements are exported to Sage, regardless of other settings.
+
+**1099 Drivers Only: ** When enabled, only statements for drivers classified as 1099 independent contractors are exported. Statements for W2 employee drivers are excluded.
+
+These settings are found in **Settings → Connections → Sage Intacct → Accounts Payable** section.
+
+<Note>
+  ![Shows system configuration checkboxes for export settings, specifically outlining options to Include driver bills and filter by 1099 drivers only.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008668/50554fc76e771da0a74554dd8e28/upload_1617846682467902582.png)
+
+  *Shows system configuration checkboxes for export settings, specifically outlining options to Include driver bills and filter by 1099 drivers only.*
+</Note>
+
+### Driver Settlements Module
+
+The [Driver Settlements module](https://help.alvys.com/en/articles/11943598-driver-settlements) is the modern workflow for managing driver payments. It provides a more structured process with draft statements, predefined pay periods, approval workflows, and bulk actions.
+
+*[Heading 4 not supported]*
+
+From the main navigation menu, go to **Accounting → **[Driver Settlements](https://app.alvys.com/accounting/driver-settlements).
+
+On the **Open** tab, click on a **driver's name** to view their pending transactions.
+
+<Note>
+  ![Features a driver settlement list with a green box focusing on the active overview data row for company driver.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008678/9d1e941f686e7d62869a6b5e44d3/upload_7776343349737223309.png)
+
+  *Features a driver settlement list with a green box focusing on the active overview data row for company driver.*
+</Note>
+
+Review the list of available transactions (trips, deductions, credits, reimbursements).
+
+**Select the items** you want to include in this statement by checking the boxes next to each transaction.
+
+<Note>
+  ![Displays an expanded table view of a driver's assigned Trips, framing their corresponding statuses, load numbers, and net income values within a green border.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008681/5ad52db841adb90eec08c6b8492a/upload_11419767326275977958.png)
+
+  *Displays an expanded table view of a driver's assigned Trips, framing their corresponding statuses, load numbers, and net income values within a green border.*
+</Note>
+
+**Choose the pay period** for this statement from the pay period dropdown.
+
+<Note>
+  ![Features a payroll summary panel with a green box outlining the active Pay period drop-down date selection field.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008686/1e08168408e88f46cac02a2d42db/upload_17911496060351046496.png)
+
+  *Features a payroll summary panel with a green box outlining the active Pay period drop-down date selection field.*
+</Note>
+
+Click **Approve** to move the selected transactions into a draft statement. The statement moves to the **Drafts** tab.
+
+<Note>
+  ![Shows the driver settlement workspace with a green frame emphasizing the blue Approve 3 Items button on the bottom right.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008707/ac05caae5c2bf027e2338f76022e/upload_10585485455038712966.png)
+
+  *Shows the driver settlement workspace with a green frame emphasizing the blue Approve 3 Items button on the bottom right.*
+</Note>
+
+When ready, click **Generate Statement** to finalize the statement.
+
+<Note>
+  ![Displays the finalized payroll calculation summary sheet, highlighting the Approve 3 Items action button to process the driver's statement.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008728/1b5f0d449b48cd7b6681c038ffb7/upload_17555983147530144808.png)
+
+  *Displays the finalized payroll calculation summary sheet, highlighting the Approve 3 Items action button to process the driver's statement.*
+</Note>
+
+The finalized statement moves to the **Statements** tab and the AP bill is automatically queued for export to Sage Intacct.
+
+<Note>
+  ![Displays the processed statements dashboard for driver, showing that Statement #1000028 has been successfully generated, processed, and synced to accounting.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008746/957a6a367d42ea48ed8fa7a494d8/upload_84188963237528489.png)
+
+  *Displays the processed statements dashboard for driver, showing that Statement #1000028 has been successfully generated, processed, and synced to accounting.*
+
+  ![Shows the external accounting platform entry for Bill 1000028, with green highlights calling out the bill identifier, driver name, and its finalized Submitted state.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2530008763/b983dd3365fde22c3b4157ef9271/upload_6028147603467486257.png)
+
+  *Shows the external accounting platform entry for Bill 1000028, with green highlights calling out the bill identifier, driver name, and its finalized Submitted state.*
+</Note>
+
+### Modifying an Exported Transaction
+
+How Alvys handles a change to an exported transaction depends on its current state in Sage:
+
+- **Draft:** Alvys updates the transaction directly in Sage with the new values.
+- **Posted:** Alvys creates a reversal entry in Sage and posts a new corrected transaction automatically.
+- **Paid or Partially Paid:** You must Remove the payment from the transaction in Sage first. Once the payment is removed, Alvys can apply the reversal and post the corrected transaction.
+- **Closed:** This state is a Sage-side restriction; the transaction period has been closed and cannot be modified from Alvys. Contact Alvys support with the load number and the error message if a transaction is stuck in Closed state.
+- **Selected:** Alvys cannot automatically reverse a transaction in Selected state. Manually reverse the transaction in Sage Intacct, then re-sync it from Accounting > Error Transactions in Alvys.
+
+## Settings &amp; Permissions
+
+Access to transaction export pages is controlled by Alvys permissions:
+
+- Accounting > Invoicing requires **"Billing"** and **"Invoice"** permissions.
+- Accounting > Carrier Settlements requires **"Billing"** and **"ViewCarrierRate"** permissions.
+- Accounting > Driver Settlements requires the DriverSettlement feature flag plus **"Billing"** and **"PayDriver"** permissions.
+- Accounting > Error Transactions requires the **"Billing"** permission.
+
+## Limits &amp; Behavior
+
+- Transactions in Closed state in Sage cannot be modified from Alvys; they require Alvys support to resolve.
+- Transactions in Selected state require a manual reversal in Sage before re-syncing from Alvys.
+- If a customer or carrier cannot be matched to a Sage record, the transaction fails and appears in Error Transactions.
+- The Driver Settlement feature must be enabled on your account for Accounting > Driver Settlements to be available.
+- Alvys does not automatically create Sage customer or vendor records; all matching is against existing records in Sage.
+
+## Key Concepts
+
+### Customer and Carrier Matching
+
+Alvys matches exported AR transactions to Sage customers in this order:
+
+1. By Customer ID set on the Alvys customer record (if configured)
+2. By exact customer name match in Sage
+3. If no match is found: the transaction fails and appears in Error Transactions; the customer must be created or linked in Sage before re-syncing
+
+   For AP transactions, Alvys matches to Sage vendors in this order:
+4. By Vendor ID set on the Alvys carrier record (if configured)
+5. By exact carrier name match in Sage
+6. By MC number
+7. If no match is found: the transaction fails; the vendor must be created or linked in Sage before re-syncing
+
+## Troubleshooting
+
+### AR invoice did not export to Sage
+
+Verify that the customer record in Alvys has a valid match in Sage by Customer ID or exact name. Verify that a GL account is mapped for the invoice line item types. Check Accounting > Error Transactions for the specific failure reason.
+
+### AP bill did not export to Sage
+
+Verify that the carrier record in Alvys has a valid vendor match in Sage by Vendor ID, exact name, or MC number. Check Accounting > Error Transactions for the specific failure reason.
+
+### Payment terms are not appearing on exported invoices
+
+Verify that Payment Terms are configured on the customer or carrier record in Alvys. If no record-level terms are set, verify that a Default Payment Terms value is configured in the Advanced Settings of the Sage Intacct connection.
+
+### Driver Settlements section is not visible
+
+Accounting > Driver Settlements requires the DriverSettlement feature to be enabled on your account. Verify that your user has the **"Billing"** and **"PayDriver"** permissions in Alvys.
+
+## FAQs
+
+**Q: What happens if a customer in Alvys does not have a matching record in Sage?**
+
+**A:** The AR invoice will fail to export and appear in Accounting > Error Transactions. Create the customer in Sage or set the Sage Customer ID on the Alvys customer record, then re-sync the transaction from Error Transactions.
+
+**Q: Can Alvys automatically create Sage customer or vendor records?**
+
+**A:** No. Alvys matches to existing records in Sage. If a matching record does not exist, the transaction fails. You must create the customer or vendor in Sage manually.
+
+**Q: What is the difference between a Posted and a Closed transaction in Sage?**
+
+**A:** A Posted transaction has been journalized in Sage but can still be reversed by Alvys automatically. A Closed transaction has been closed for the accounting period and cannot be modified; Alvys support is required.
+
+**Q: What should I do if a transaction is in Selected state in Sage?**
+
+**A:** Manually reverse the Selected transaction in Sage Intacct, then return to Alvys and re-sync the transaction from Accounting > Error Transactions.
+
+**Q: Does Alvys export driver settlement transactions to Sage?**
+
+**A:** Yes, if the DriverSettlement feature is enabled on your account and the export driver settlements toggle is enabled in AP Settings.
+
+**Q: What controls whether an AR invoice is split by subsidiary in Sage?**
+
+**A:** The Invoice As field on the Alvys invoice determines whether it exports as a single entity invoice or is split by subsidiary.
+
+**Q: Can I re-sync a failed transaction after fixing the underlying issue?**
+
+**A:** Yes. After fixing the root cause, go to Accounting > Error Transactions and re-sync the transaction.
+
+**Q: What permissions are required to export AR invoices?**
+
+**A:** You need both the **"Billing"** and **"Invoice"** permissions in Alvys.
+
+**Q: When does Alvys export carrier AP bills — immediately on upload or on a schedule?**
+
+**A:** This depends on AP settings. If "Send carrier invoice upon upload" is enabled, the AP bill exports immediately when the carrier invoice is uploaded. If "Export Carrier Statements" is also enabled, a combined carrier statement AP bill is exported in addition to the individual bill.
+
+## Go Deeper
+
+- [Sage Intacct: Account Mappings](https://help.alvys.com/en/articles/10737765-sage-intacct-account-mappings)
+- [Sage Intacct: Payments and Error Transactions](https://help.alvys.com/en/articles/10737766-sage-intacct-payments-and-error-transactions)
+- [How to Connect Sage Intacct to Alvys and Configure Settings](https://help.alvys.com/en/articles/10737773-how-to-connect-sage-intacct-to-alvys-and-configure-settings)

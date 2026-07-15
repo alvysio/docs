@@ -1,0 +1,205 @@
+---
+title: "Company Management Permissions"
+---
+
+<Note>
+  📋 **Applies to:** Admins, Partner Admins, Office Admins, Operation Managers, Dispatchers, Billers, Sales Agents, Data Entry · **Module:** Management > Users · **Last reviewed:** 2026-06 · **Owner:** Support · Company Management Permissions control who can create, edit, activate, and delete non-customer company records such as shippers, warehouses, and factoring companies. Safety and Driver roles do not have these permissions by default.
+</Note>
+
+## Overview
+
+In Alvys, "companies" encompass a wide range of business entities beyond customers. The system supports multiple company types, and the Company Management Permissions category governs who can create, modify, activate, and delete non-customer company records. This includes shippers, warehouses, factoring companies, terminals, lease companies, and other business entities your operation interacts with.
+
+<Info>
+  💡 **Company Management permissions** govern actions on non-customer company types, while [Customer Management permissions](/help/administration/customer-management-permissions) govern actions on Customer and Broker/3PL types.
+</Info>
+
+The Companies List in Alvys is visible to all non-Driver roles. Having navigation access to the Companies page does not automatically grant the ability to create, edit, activate, or delete records; each of these actions requires the specific permissions described in this article.
+
+With four individual permissions, this category mirrors the [Customer Management category](/help/administration/customer-management-permissions) in structure but applies to different company types.
+
+## Where to Find It
+
+Company Management Permissions are configured at the individual user level within the User Management interface. This interface is located at Management > Company Profile > Users tab.
+
+<Warning>
+  ⚠️ To modify these permissions, the logged-in user, preferably an administrator, must possess the **"Set Permission"** permission located within the Management category. Without **"Set Permission"**, a user can view the user profile or form but cannot adjust any permissions. For additional information, refer to the [Management &amp; Privacy Permissions article](/help/administration/management-privacy-permissions).
+</Warning>
+
+To open the Company Management permissions for a user:
+
+1. Select your username located in the bottom left corner of the Alvys interface.
+
+   <Note>
+     ![Screenshot showing the username in the bottom left corner of the Alvys navigation, with the user menu expanded.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8fb42671-3236-4a1a-a2e4-2ec88a9400ed/image.png)
+
+     *Screenshot showing the username in the bottom left corner of the Alvys navigation, with the user menu expanded.*
+   </Note>
+
+   ![Screenshot showing the username in the bottom left corner of the Alvys navigation, with the user menu expanded.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8fb42671-3236-4a1a-a2e4-2ec88a9400ed/image.png)
+
+   *Screenshot showing the username in the bottom left corner of the Alvys navigation, with the user menu expanded.*
+2. Navigate to Management > Company Profile and select the **Users** tab
+
+   <Note>
+     ![Screenshot of the Management tab with Users highlighted](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1ce68dd9-e865-4c9a-b46c-97284c9c1ca5/image.png)
+
+     *Screenshot of the Management tab with Users highlighted*
+   </Note>
+
+   ![Screenshot of the Management tab with Users highlighted](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1ce68dd9-e865-4c9a-b46c-97284c9c1ca5/image.png)
+
+   *Screenshot of the Management tab with Users highlighted*
+3. Choose an existing user to **Edit**, or select the **Add User** button to create a new profile.
+4. Scroll to the **Permissions** section and locate the **Company Management** category. Identify the four individual checkboxes: **"Create Company"**, **"Edit Company"**, **"Activate Company"**, and **"Delete Company"**.
+
+<Note>
+  ![Screenshot showing the Permissions section with the Company Management category expanded and all four permission checkboxes visible.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3bed0708-f6bb-4573-8792-2134066648ef/image.png)
+
+  *Screenshot showing the Permissions section with the Company Management category expanded and all four permission checkboxes visible.*
+</Note>
+
+## Company Management Permissions Breakdown
+
+### "Create Company"
+
+The **"Create Company"** permission controls whether a user can create new non-customer company records and import shippers into the system. This applies to company types such as Shippers, Warehouses, Lease Companies, Terminals, Factoring Companies, and other business entities that are not classified as Customer or Broker/3PL.
+
+<Note>
+  ![Screenshot showing the Companies page with the New Customer button visible in the top right.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2a7b809c-bf18-4930-a958-b9bd8cab2d11/image.png)
+
+  *Screenshot showing the Companies page with the New Customer button visible in the top right. *
+</Note>
+
+The **New Company** button is displayed if a user has either the **"Create Customer"** permission (for Customer or Broker-type companies) or the **"Create Company"** permission (for non-customer companies, such as a Shipper or Warehouse).
+
+However, if a user has only the **"Create Customer"** permission, they will receive an error if they attempt to create a non-customer company type, such as a Shipper or Warehouse, because they do not have the **"Create Company"** permission.
+
+<Note>
+  ![Screenshot showing the error message a user receives when attempting to create a non-customer company type without the 'Create Company' permission.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/45088586-69f0-4867-9234-1e074fb59e23/image.png)
+
+  *Screenshot showing the error message a user receives when attempting to create a non-customer company type without the "Create Company" permission.*
+</Note>
+
+By default, this permission is assigned to: Support, Partner Admin, Admin, Operation Manager, Dispatcher, Biller, Sales Agent, Data Entry, and Office Admin. Not assigned by default to: Safety or Driver.
+
+<Info>
+  💡 **Best Practice:** Assign **"Create Company"** only to roles responsible for operational setup, such as Data Entry staff, managers, owners, or a dedicated Operations Coordinator. Always review new company records promptly to ensure accuracy before they are referenced on loads.
+</Info>
+
+### "Edit Company"
+
+The **"Edit Company"** permission allows a user to modify information on an existing company profile for company types such as Shippers, Warehouses, Terminals, and others. This includes updating addresses, contacts, phone numbers, operating hours, notes, and any other editable fields on the company record. Without this permission, the user can view the company profile, but all fields appear in read-only mode and no changes can be made.
+
+By default, this permission is assigned to: Support, Partner Admin, Admin, Operation Manager, Dispatcher, Biller, Sales Agent, Data Entry, and Office Admin. Not assigned by default to: Safety or Driver.
+
+<Info>
+  💡 **Best Practice:** Grant **"Edit Company"** alongside **"Edit Customer"**. Users who maintain one type of company record typically need access to modify all company types.
+</Info>
+
+### "Activate Company"
+
+The **"Activate Company"** permission controls whether a user can modify the activation status of non-customer company records, including Shippers, Warehouses, and other non-customer entity types. Status options include **Active**, **Inactive**, **On Hold**, **Do Not Use**, and **Disabled**.
+
+**Active** companies are available for use in load operations. Deactivating a company removes it from active use, preventing it from being referenced in new loads while preserving all historical records tied to that entity. Without this permission, a user cannot change a non-customer company's activation status.
+
+<Info>
+  💡 Deactivating a company does not affect loads that have already been created referencing that entity. In-progress and historical loads remain fully intact. Deactivation only prevents the company from being selected for new transactions going forward.
+</Info>
+
+By default, this permission is assigned to: Support, Partner Admin, Admin, Operation Manager, Dispatcher, Biller, Sales Agent, Data Entry, and Office Admin.
+
+To modify a company's activation status:
+
+1. Navigate to the Companies page.
+2. Open the Shipper, Warehouse, or relevant company profile.
+3. Locate the status button in the top right corner of the company profile.
+
+   <Note>
+     ![Screenshot showing the status button in the top right corner of a company profile.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/54376056-819a-4548-8258-58a5ca6925ba/image.png)
+
+     *Screenshot showing the status button in the top right corner of a company profile. *
+   </Note>
+
+   ![Screenshot showing the status button in the top right corner of a company profile.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/54376056-819a-4548-8258-58a5ca6925ba/image.png)
+
+   *Screenshot showing the status button in the top right corner of a company profile. *
+4. Click the status dropdown and select the desired status (for example, **Inactive**).
+
+<Note>
+  ![Screenshot showing the status dropdown open with the available status options: Active, Inactive, On Hold, Do Not Use, Disabled.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3b7eb125-56f7-47ab-9347-abea33bcafc4/image.png)
+
+  *Screenshot showing the status dropdown open with the available status options: Active, Inactive, On Hold, Do Not Use, Disabled. *
+</Note>
+
+To reactivate a company: navigate to the Companies page (filter for inactive records if needed), open the inactive company's profile, locate the status button, click the dropdown and select **Active**.
+
+<Info>
+  💡 **Best Practice:** Use deactivation as the default action when a shipper, warehouse, or facility relationship ends or becomes temporarily unavailable. Reserve deletion for confirmed duplicate records or test entries with no load history.
+</Info>
+
+### "Delete Company"
+
+The **"Delete Company"** permission allows a user to remove a non-customer company record, such as Shippers, Warehouses, and other non-customer entity types, from Alvys. When this permission is enabled, a **Delete** button appears in the top-right corner of the company's profile.
+
+<Note>
+  ![Screenshot showing Delete button in top right corner of customer profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c9a47a13-77b1-4bc8-aa10-71c97ae09c08/image.png)
+
+  *Screenshot showing Delete button in top right corner of customer profile*
+</Note>
+
+Deletion is rarely the right tool. In almost every case, what a user actually wants is deactivation (see "Activate Company" above). This permission should be tightly restricted and used only in clearly justified, exceptional circumstances. The **"Delete Company"** permission is restricted to the highest-level administrators as a last resort.
+
+By default, this permission is assigned exclusively to Support and Partner Admin. Not assigned by default to any other role.
+
+<Info>
+  💡 **Best Practice:** Never grant **"Delete Company"** to non-admin roles. Assign it only to one or two trusted administrators in your Alvys account, typically the owner and a senior manager. Before deleting a company, verify that it has no current or active records. Consider requiring a second approval via your internal process before proceeding.
+</Info>
+
+## Limits &amp; Behavior
+
+Viewing company records does not require any Company Management permission. All non-Driver roles can navigate to the Companies page and view records in read-only mode.
+
+The **New Company** button is visible to any user who holds either **"Create Customer"** or **"Create Company"** permission. Attempting to create a non-customer company type without **"Create Company"** produces an error, even if **"Create Customer"** is held.
+
+Deactivating a company does not affect in-progress or historical loads that reference it. Those loads remain fully intact.
+
+Deleting a company is permanent. There is no undo. This is why deactivation is the strongly preferred action in all but exceptional circumstances.
+
+Company Management permissions and Customer Management permissions are independent. A user can hold one set without the other.
+
+## Troubleshooting
+
+### The New Company button is visible but creating a Shipper or Warehouse throws an error
+
+The user holds only **"Create Customer"**, which surfaces the button but does not authorize non-customer company types. Grant **"Create Company"** to allow creating Shippers, Warehouses, and other non-customer entities.
+
+### A user cannot change a company's status
+
+The user is missing **"Activate Company"**. Without it, the status control on the company profile is unavailable.
+
+### The Delete button does not appear on a company profile
+
+The **"Delete Company"** permission is not granted. By default it is restricted to Support and Partner Admin only.
+
+### Company fields appear read-only
+
+The user is missing **"Edit Company"**. View access alone displays the profile in read-only mode.
+
+## FAQs
+
+**Q: What company types use Company Management permissions?**
+
+**A:** Any company type that is not Customer or Broker/3PL uses Company Management permissions. This includes Shippers, Warehouses, Terminals, Lease Companies, Factoring Companies, and other non-customer entities.
+
+**Q: Can a user see all company types without Company Management permissions?**
+
+**A:** Yes. Viewing company records is separate from management permissions. Users without Company Management permissions can see records in read-only mode but cannot create, edit, activate, or delete them.
+
+**Q: How should deactivation be used versus deletion?**
+
+**A:** Deactivate companies by default when relationships end or become temporarily unavailable. Deletion should only be used for duplicates or test records without historical references, and only by the highest-level administrators.
+
+## Go Deeper
+
+[App Permissions](/help/administration/app-permissions): Learn how to manage driver and carrier access in the Alvys mobile app.

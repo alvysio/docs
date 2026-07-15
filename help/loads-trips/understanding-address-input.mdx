@@ -1,0 +1,138 @@
+---
+title: "Understanding Address Input"
+---
+
+<Note>
+  **Applies to:** Users with the **"Dispatch"** permission (for load stop addresses); users with **"EditCustomer"** or **"EditAsset"** permission (for profile addresses)
+
+  **Module:** Loads and Trips; Companies; Fleet
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  Alvys address fields support Google autocomplete, manual entry, an optional Address Line 2 field, and coordinate-based map pinning. These options appear consistently across load stops, company profiles, and other address forms to ensure accurate location data for routing, mileage, and invoicing.
+</Note>
+
+## Overview
+
+Accurate addresses are essential for driver routing, mileage calculations, and document generation. Alvys address input fields offer multiple entry methods so you can capture precise locations even when Google autocomplete does not have a result.
+
+<Note>
+  ![Alvys Cover Image](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1304929715/1252e94fa6c11c4e6e3f6e460651/New%2BProject%2B-281-29.png)
+
+  *Alvys Cover Image *
+</Note>
+
+These input methods are available on address forms:
+
+- **Google autocomplete:** The primary method. Start typing in the Address Line 1 field and select from the suggestions list. City, State, ZIP, and Country fill in automatically.
+- **Manual entry:** When autocomplete does not return a match, type each field directly. All fields including Country are required for a valid address.
+- **Address Line 2:** An optional field for suite numbers, apartment numbers, dock numbers, or other location details.
+- **Map Pinning for Coordinates**: When accurate coordinates are necessary, you can drop a pin on the map to specify the location manually.
+
+<Note>
+  ![Address input form showing all entry options, including Google autocomplete, Address Line 2, and the map panel.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a5cf689e-5f19-4991-bc3d-c1d32bd5d933/image.png)
+
+  *Address input form showing all entry options, including Google autocomplete, Address Line 2, and the map panel.*
+</Note>
+
+## Where to Find It
+
+Address input fields appear in the following locations:
+
+**Loads and Trips**
+
+- Load creation form: the stop panels for each pickup and delivery
+- Load Details Page: the Stops section when adding or editing a stop (Add Stop, Split Trip)
+- Load Details Page: the Tenders section, External tab, carrier details panel
+
+  **Companies**
+- Company profile: Physical Address section
+- Company profile: Invoicing address section
+
+  **Fleet**
+- Driver Profile: Physical Address and Company Address fields
+- Trucks: New Truck form, Asset Leased From and Asset Leased To fields
+- Subsidiary General Info: Physical Address and Remit Address fields
+
+## Key Concepts
+
+### Google Autocomplete
+
+Google autocomplete is the default search tool on every Address Line 1 field in Alvys. As you type, a dropdown of suggestions appears. Selecting a suggestion populates City, State, ZIP, and Country automatically.
+
+<Note>
+  ![Image displaying Address Line 1 field with Google autocomplete dropdown appearing as the user types](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a51b1e63-e454-40c5-be22-7d764602fb7f/image.png)
+
+  *Image displaying Address Line 1 field with Google autocomplete dropdown appearing as the user types*
+</Note>
+
+Autocomplete may not return results for newly built locations, rural addresses, or internal facility locations such as a specific dock door within a large warehouse. When no suggestion appears, use manual entry instead.
+
+### Manual Entry (if Address Not Found)
+
+If autocomplete does not return a match, type the full address directly into each field: Address Line 1, City, State, ZIP, and Country. Country is required and must be selected from the dropdown.
+
+### Address Line 2
+
+Address Line 2 is an optional field present on every address form. Use it to specify details critical for drivers:
+
+- Suite or office number (for example, Suite 200)
+- Apartment number (for example, Apt 125)
+- Dock or door number (for example, Dock 3)
+- Building number or floor
+
+This field does not affect geocoding or mileage calculations. Its value appears on rate confirmations, invoices, and other documents where the address is shown.
+
+<Note>
+  ![Address Line 2 field with an example value entered (dock or suite number).](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/be2beabd-baae-4f67-99c9-086ab8adcc09/image.png)
+
+  *Address Line 2 field with an example value entered (dock or suite number).*
+</Note>
+
+### Map Coordinates
+
+For addresses where precise geolocation is required (e.g., for stops on a load), you can now manually set the exact coordinates by dropping a pin on a map. You can set coordinates two ways:
+
+- Type latitude and longitude directly into the Coordinates field using the format "lat, lng."
+- Click anywhere on the map to drop a pin at that location, or drag the existing pin to adjust the position.
+
+<Note>
+  ![Map panel with an interactive pin dropped and the Coordinates field populated.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8e993505-0506-47ed-aa27-1ebeee83d12c/image.png)
+
+  *Map panel with an interactive pin dropped and the Coordinates field populated.*
+</Note>
+
+When coordinates are set, the system performs a reverse geocode to suggest address field values. Existing user-entered address fields are preserved; only the Coordinates field is updated.
+
+## Settings and Permissions
+
+Access to address input is governed by the permission required to edit the parent record.
+
+- Editing stop addresses on a load requires the **"Dispatch"** permission.
+- Editing company, customer, or carrier profile addresses requires the **"EditCustomer"** permission.
+- Editing asset record addresses (trucks, trailers) requires the **"EditAsset"** permission.
+- Editing driver profile addresses requires driver record edit access.
+
+If you can open and edit the load, profile, or asset record, the address fields within it are accessible.
+
+## Limits and Behavior
+
+- Country is required when entering an address manually. Google autocomplete fills Country automatically when a suggestion is selected.
+- Address Line 2 is always optional. Leaving it blank does not prevent saving the record.
+- Coordinates are optional on load stops.
+- The interactive map pin is only available on non-revenue stop address forms when the location mode is set to Address. On all other forms, the map is a read-only preview when coordinates have been set.
+- When you click the map to set coordinates, existing user-entered Address Line 1, City, State, and ZIP values are preserved.
+
+## FAQs
+
+**Q: Why would I need to manually enter an address if Google autocomplete is available?**
+
+**A:** Google autocomplete may not recognize new construction sites, rural addresses, or specific internal locations such as a particular dock door at a large facility. Manual entry lets you capture those details accurately.
+
+**Q: How does adding Address Line 2 help my operations?**
+
+**A:** Address Line 2 lets you include precise details critical for drivers, such as the exact suite, apartment, or dock number. This reduces confusion at pickup and delivery locations and ensures the correct details appear on rate confirmations and invoices.
+
+**Q: Why can I see the map but cannot click on it to place a pin?**
+
+**A:** The interactive map pin is only available on non-revenue stop address forms when the location mode is set to Address. On all other forms, the map is a read-only preview.

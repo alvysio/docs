@@ -1,0 +1,177 @@
+---
+title: "Identifying and resolving failed QuickBooks Desktop transaction exports"
+---
+
+<Note>
+  📋 **Applies to:** All users with the **"Billing"** permission, except Drivers
+
+  **Module:** Accounting > Error Transactions
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article explains how to find transactions that failed to export to QuickBooks Desktop, understand why they failed, and resolve them using the options on the Error Transactions page.
+</Note>
+
+## Overview
+
+QuickBooks Desktop (QBD) is a two-way integration: Alvys pushes invoices, bills, and other financial records to QuickBooks Desktop through the QuickBooks Web Connector (QBWC). When Alvys exports these records and the Web Connector encounters a problem, the affected transaction is placed on the Error Transactions page in Alvys rather than being silently lost. From this page you can review the error code and message for each failed export, retry the sync, or mark a transaction as resolved without re-syncing. This guide walks through locating failed exports, interpreting why they did not go through, and clearing them.
+
+## Symptom
+
+One or more of the following conditions is present:
+
+- Transactions appear on the Error Transactions page (Accounting > Error Transactions) in Alvys.
+- An error code such as QBWC1039, QBWC1088, Error 3140, or Error 3070 appears in the Error Code or Error Message column.
+- The banner at the top of the Error Transactions page shows a count of transactions that have not yet been synced to QuickBooks Desktop.
+- A transaction was previously exported but reappeared on the Error Transactions page after a QuickBooks Desktop version change.
+
+## Cause
+
+Each error code indicates a distinct cause.
+
+### QBWC1039: Duplicate name already exists in QuickBooks
+
+QBWC1039 occurs when QuickBooks rejects a record because the External Accounting Name in Alvys already exists in another list in QuickBooks Desktop. QuickBooks does not allow duplicate names across its lists (customers, vendors, employees, and others). For example, if a customer is named "ABC Trucking" in Alvys and a vendor with the same name already exists in QuickBooks, the sync fails with this error.
+
+A related variant of QBWC1039 occurs when a QuickBooks Desktop company file already contains a registration for the Alvys application. This happens when you add the Alvys Web Connector (.QWC) file to the Web Connector program and a registration for that application already exists in the file. Selecting "Remove" in the Web Connector deletes only the scheduler; it does not remove the application registration from the QuickBooks company file itself.
+
+### QBWC1088: QuickBooks company file is not open
+
+QBWC1088 occurs when the Web Connector cannot verify the status of an integration because the QuickBooks company file is not open. This error also occurs during initial connection setup when the company file is not open at the time the Application Certificate prompt should appear.
+
+### Error 3140: Invalid or missing account
+
+Error 3140 occurs when a transaction references a QuickBooks account that does not exist in the company file or that was entered incorrectly in the Alvys account mappings.
+
+### Error 3070: Field length exceeded
+
+Error 3070 occurs when a value in the transaction exceeds the maximum field length allowed by QuickBooks Desktop, most often triggered by a customer name, class name, or description that is longer than QuickBooks will accept.
+
+### $0 transaction appearing on Error Transactions page
+
+If the **Ignore Zero Valued Transactions** setting was previously enabled and was then disabled, any original $0 transactions that were previously skipped are reprocessed. If a transaction now has a non-zero value and the export does not complete successfully, it appears on the Error Transactions page.
+
+### Transactions reappearing after a QuickBooks version change
+
+If you upgrade or downgrade your QuickBooks Desktop version, the Web Connector registration becomes mismatched. Transactions that previously synced correctly may reappear on the Error Transactions page.
+
+## Resolution
+
+### Navigate to the Error Transactions page
+
+Go to **Accounting > Error Transactions** in Alvys. The page displays all transactions that have failed to export, with columns: Entity Type, Transaction Id, Transaction Type, User Name, Class, Name, Reference Number, PO Number, Account, Description, Error Message, Error Code, Date Created, and Transaction Total.
+
+A banner at the top shows the total count and dollar value of unsynced transactions.
+
+<Note>
+  ![Screenshot of the Error Transactions page in Alvys showing the column layout and the unsynced transactions banner.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/96459b58-21d3-4362-8d93-e91c5f875163/image.png)
+
+  *Screenshot of the Error Transactions page in Alvys showing the column layout and the unsynced transactions banner.*
+</Note>
+
+### Resolving QBWC1039: Duplicate name in QuickBooks
+
+1. Note the name referenced in the Error Message column.
+2. Open QuickBooks Desktop and search for that name across all list types (Customers, Vendors, Employees, Other Names).
+3. Determine whether the duplicate is the same entity or a different entity that shares the name. If the same entity, merge or delete the duplicate. If different entities, rename one so the names no longer conflict.
+4. Return to the Error Transactions page in Alvys, select the transaction, and select **Retry sync**.
+
+   Resolving the QBWC1039 duplicate Web Connector registration variant:
+5. Open QuickBooks Desktop and sign in as an Administrator.
+6. Press F2 or Ctrl + 1 to open the Product Information window and confirm the company file details.
+7. In the QuickBooks Web Connector program, locate the Alvys entry and select "Remove." This removes the scheduler only.
+8. Download a new .QWC file from Alvys (Management > Integrations > QuickBooks Desktop) and add it back to the Web Connector. When the Application Certificate window appears in QuickBooks Desktop, select "Yes, whenever this QuickBooks company file is open."
+9. Run the Web Connector sync and confirm the transactions process without error.
+
+<Note>
+  ![Screenshot of the QuickBooks Web Connector showing the Alvys entry with the Remove button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/462bce79-9617-444a-b9d4-35675762795c/image.png)
+
+  *Screenshot of the QuickBooks Web Connector showing the Alvys entry with the Remove button.*
+</Note>
+
+### Resolving QBWC1088: Company file not open
+
+1. Open QuickBooks Desktop and open the company file connected to Alvys.
+2. If this is an initial connection setup, confirm the Application Certificate window appears in QuickBooks Desktop after adding the .QWC file. If the prompt does not appear, close the Web Connector, ensure QuickBooks Desktop is open with the correct company file, and re-add the .QWC file.
+3. Run the Web Connector sync. Confirm the connection completes and the transactions on the Error Transactions page clear.
+
+### Resolving Error 3140: Invalid account
+
+1. Note the account name referenced in the Error Message column.
+2. Open QuickBooks Desktop and go to **Lists > Chart of Accounts**. Verify the account exists and its name exactly matches what is configured in Alvys.
+3. In Alvys, go to Management > Integrations > QuickBooks Desktop and review the Account Mappings. Correct any account names that do not match.
+4. Return to the Error Transactions page, select the affected transaction(s), and select **Retry sync**.
+
+### Resolving Error 3070: Field length exceeded
+
+1. Note the field referenced in the Error Message column.
+2. In Alvys, locate the load or entity referenced by the Reference Number and shorten the value that exceeded the limit. QuickBooks Desktop limits most name fields to 41 characters and description fields to 4,095 characters.
+3. Return to the Error Transactions page, select the affected transaction(s), and select **Retry sync**.
+
+### Resolving $0 transactions that reappeared
+
+1. Locate the $0 transaction on the Error Transactions page.
+2. If the transaction has no value and does not need to be in QuickBooks, select it and select **Mark as synced**.
+3. If the transaction should be exported, verify the **Ignore Zero Valued Transactions** setting in Management > Integrations > QuickBooks Desktop, then select **Retry sync**.
+
+### Resolving transactions that reappeared after a QuickBooks version change
+
+1. In the QuickBooks Web Connector, remove the existing Alvys entry.
+2. Download a new .QWC file from Management > Integrations > QuickBooks Desktop in Alvys.
+3. Open QuickBooks Desktop with the correct version and the correct company file. Add the new .QWC file to the Web Connector. When prompted in QuickBooks Desktop, grant Alvys access by selecting "Yes, whenever this QuickBooks company file is open."
+4. Run the Web Connector sync and confirm the transactions process correctly.
+
+### Using Sync all and Mark as synced
+
+At any time, you can use the following actions on the Error Transactions page:
+
+- **Sync all:** Select the **Sync all** button (top right) to attempt re-export of all transactions currently on the Error Transactions page.
+- **Retry sync:** Select a single transaction and select **Retry sync** in the bulk action bar to re-export that specific transaction.
+- **Mark as synced:** Select one or more transactions and select **Mark as synced** in the bulk action bar to dismiss them without exporting to QuickBooks Desktop. Use this when a transaction was resolved directly in QuickBooks Desktop or is no longer needed.
+
+<Note>
+  ![Screenshot showing the Sync Transaction and Mark as Synced context menu options on the Error Transactions page.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1954abaf-9785-4876-b129-bc20b8b10097/image.png)
+
+  *Screenshot showing the Sync Transaction and Mark as Synced context menu options on the Error Transactions page.*
+</Note>
+
+## Troubleshooting
+
+If the steps above did not resolve the error:
+
+- Confirm the QuickBooks Web Connector is running and connected to the correct company file.
+- Confirm the Alvys integration settings under Management > Integrations > QuickBooks Desktop match the active QuickBooks company file.
+- Check the Error Message column on the Error Transactions page for additional detail beyond the error code.
+
+If none of the verified causes apply, contact Alvys Support with the error code, the error message text, and the Reference Number of the affected transaction.
+
+## FAQs
+
+**Q: What is the difference between "Retry sync" and "Sync all"?**
+
+**A:** Retry sync re-exports a single selected transaction. Sync all attempts to re-export every transaction currently on the Error Transactions page at once.
+
+**Q: What does "Mark as synced" do?**
+
+**A:** Mark as synced removes the selected transaction(s) from the Error Transactions page without sending them to QuickBooks Desktop. Use this when the transaction was already entered directly in QuickBooks or when it does not need to be exported.
+
+**Q: Why does selecting "Remove" in the QuickBooks Web Connector not fully remove the Alvys connection?**
+
+**A:** Selecting "Remove" deletes only the scheduler: the rule that tells the Web Connector when to run. The application registration inside the QuickBooks company file is not removed. To fully re-register, add a new .QWC file and grant access again through the Application Certificate window.
+
+**Q: Why did transactions reappear on the Error Transactions page after I upgraded QuickBooks Desktop?**
+
+**A:** When the QuickBooks Desktop version changes, the company file registration can become mismatched with the Web Connector entry. Remove the old Web Connector entry, download a new .QWC file from Alvys, and re-add it with the correct QuickBooks version open.
+
+**Q: Can I export the Error Transactions list?**
+
+**A:** Yes. On the Error Transactions page, select the Export table button (top right) and choose "Export all as CSV" or "Export all as Excel."
+
+**Q: Why does a $0 transaction appear on the Error Transactions page?**
+
+**A:** If the Ignore Zero Valued Transactions setting was previously enabled and then disabled, Alvys reprocesses transactions that were previously skipped. Use Mark as synced if it does not need to be exported, or Retry sync if it should be.
+
+## Go Deeper
+
+- [QuickBooks Desktop: Connection and Configuration Settings](https://help.alvys.com/en/articles/14019713)
+- [QuickBooks Desktop: Transaction Export and Modification Workflow](https://help.alvys.com/en/articles/14019712)

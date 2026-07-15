@@ -1,0 +1,121 @@
+---
+title: "TruFunding: Factoring Integration"
+---
+
+- Click Save.
+- Paste the NOA text provided by TruFunding into the text box.
+- In the drop-down menu, select Notice of Assignment.
+
+<Note>
+  ![Image showing Document Configuration on Company/Tenant Profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ed51933c-39cb-4c14-a216-870a46f0ed31/image.png)
+
+  *Image showing Document Configuration on Company/Tenant Profile *
+</Note>
+
+<Note>
+  **Applies to:** Admins · Partner Admins · Support staff (setup and configuration); users with the **"Billing"** permission (batch submission)
+
+  **Module:** Management > Integrations · Accounting > Factoring Upload
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article explains how to configure the TruFunding API integration in Alvys and submit invoice batches directly to TruFunding from the Factoring Upload page.
+</Note>
+
+## What This Integration Does
+
+The TruFunding integration (also called TruFunding factoring or invoice factoring) sends invoice batches from Alvys to TruFunding through an API connection when you submit a batch from the Factoring Upload page. After setup, batch submission works directly from Accounting > Factoring Upload without any manual file transfer or CSV upload required. Synonyms: invoice factoring, accounts receivable financing.
+
+**Provider:** TruFunding · **Integration type:** One-way · **Sync direction:** Alvys to TruFunding (outbound API batch submission).
+
+## Prerequisites
+
+Before configuring this integration, confirm the following:
+
+- You hold an Admin, Partner Admin, or Support role to add the Notice of Assignment and configure integration credentials.
+- You hold the **"Billing"** permission to submit batches from the Factoring Upload page.
+- Your subsidiaries are created in Alvys. The TruFunding username must be configured for each subsidiary separately.
+- You have received your TruFunding username from TruFunding. Contact TruFunding directly if you have not received your credentials.
+- You have received the Notice of Assignment text from TruFunding to add to your invoices.
+
+## Connect / Authenticate
+
+**Add your Notice of Assignment.** The Notice of Assignment (NOA) declares to your customers that TruFunding has the right to collect payment on the invoices you factor. It must appear on every invoice submitted through this integration.
+
+- Click the Profile button in the upper right corner and select Management to open your Company Profile.
+- In the “**Document Configuration**” section, click the plus sign (+) button. The Manage Important Info window will appear.
+
+<Note>
+  ![Image showing Document Configuration Form](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5b126084-ea37-42de-82c9-4c0adc773045/image.png)
+
+  *Image showing Document Configuration Form *
+</Note>
+
+**Configure your TruFunding credentials.**
+
+- Navigate to Management and open the Integrations page ([https://app.alvys.com/#/manage/integrations](https://app.alvys.com/#/manage/integrations)).
+- Under the Factoring section, locate TruFunding.
+- Select the subsidiary you want to configure.
+
+<Note>
+  ![Image showing inactive Tru Funding Integration](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d2aac57f-4d08-4be5-9dd2-ab9fcafa52a8/image.png)
+
+  *Image showing inactive Tru Funding Integration*
+</Note>
+
+- Click the “Inactive” button next to TruFunding.
+- Enter your TruFunding username in the field provided.
+- Click Save.
+- Repeat this process for each subsidiary that will submit batches to TruFunding.
+
+## Field &amp; Data Mapping
+
+This integration uses an API connection. Invoice data is submitted to TruFunding directly through the API when you click Submit Batch in Alvys. No CSV file download or upload is required.
+
+## Sync Behavior
+
+This integration is one-way and outbound. Alvys sends invoice batch data to TruFunding via API when you submit a batch from the Factoring Upload page. Purchase and payment report uploads are not available for this integration.
+
+## How to Submit a Batch
+
+1. Ensure invoices have been generated for the loads you want to factor. Loads must be in **Queued** status to appear in the Factoring Upload queue.
+2. Navigate to Accounting > Factoring Upload.
+3. Select the subsidiary you are submitting for.
+4. Select all loads in **Queued** status that you want to include in the batch.
+5. Click Submit Batch.
+6. Stay on the page until the submission completes. Navigating away may interrupt the process. Loads submitted in the batch will update to **Invoiced** status.
+
+## Verify It's Working
+
+After submitting a batch, loads included in the batch should move to **Invoiced** status. If a load remains in **Queued** status after submission, confirm that the TruFunding username is correctly configured in Management > Integrations for the relevant subsidiary, then retry.
+
+## Troubleshooting
+
+### Batch does not submit or loads remain in Queued status
+
+1. Confirm that the TruFunding username is entered correctly in Management > Integrations for the subsidiary you are submitting for.
+2. Confirm you stayed on the Factoring Upload page until the submission completed. Navigating away during submission may interrupt the process. Retry the submission if needed.
+3. Contact Alvys support if the batch continues to fail after verifying your credentials.
+
+### Loads do not appear in the Factoring Upload queue
+
+1. Confirm the load status is **Queued**. Only loads in **Queued** status appear in the Factoring Upload queue. Generate invoices for any loads that have not yet had invoices created.
+2. Confirm the load's invoicing method is set to Factoring Company. Check the customer's Invoicing tab in their profile, or check Invoicing Settings in Company Profile for the subsidiary.
+3. Confirm you have selected the correct subsidiary on the Factoring Upload page.
+4. Contact Alvys support if none of the above reasons apply.
+
+## Limits / Unsupported
+
+- Purchase and payment report uploads are not available for the TruFunding integration. Load status reconciliation after funding and payment is not handled through Alvys for this provider.
+- Each subsidiary requires its own TruFunding username configuration. A single username cannot be shared across multiple subsidiaries.
+- Only loads in **Queued** status can be included in a batch submission.
+
+## FAQs
+
+**Q: Do I need to upload a purchase or payment report after TruFunding funds my invoices?**
+
+**A:** No. Purchase and payment report uploads are not supported for the TruFunding integration. Batch submission sends the invoice data to TruFunding, and load status reconciliation after funding is handled outside of Alvys for this provider.
+
+**Q: Where do I find my TruFunding username?**
+
+**A:** Your TruFunding username is provided by TruFunding when you set up your account. Contact TruFunding directly if you have not received it.

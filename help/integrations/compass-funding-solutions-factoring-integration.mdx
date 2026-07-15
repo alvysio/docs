@@ -1,0 +1,137 @@
+---
+title: "Compass Funding Solutions Factoring Integration"
+---
+
+<Note>
+  **Applies to:** Admins · Partner Admins · Support staff (integration setup); all users with the **"Billing"** permission (batch submission and report uploads)
+
+  **Module:** Management > Integrations; Accounting > Factoring Upload; Reports > Factoring
+
+  **Provider:** Compass Funding Solutions · **Integration type:** One-way (FTP) · **Sync direction:** Alvys submits invoice batches to Compass Funding via FTP; purchase report data returns through manual uploads
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Compass Funding Solutions connects to Alvys via FTP to automate invoice batch submission. Purchase reports are downloaded from the Compass Funding client portal and uploaded into Alvys. Synonyms: Compass Funding, Compass factoring.
+</Note>
+
+## What This Integration Does
+
+Compass Funding Solutions is an FTP-based factoring integration. Alvys submits invoice batches to Compass Funding via FTP using your client username and password. You then download the purchase report from the Compass Funding client portal and upload it into Alvys to update load statuses. Synonyms: Compass Funding, Compass factoring.
+
+## Prerequisites
+
+- Active account with Compass Funding Solutions
+- Client username and password from the Compass Funding client portal
+- Admin, Partner Admin, or Support access to configure the integration
+- **"Billing"** permission to submit batches and upload reports
+
+## Connect / Authenticate
+
+- Navigate to Management > Integrations.
+- Select **Factoring** from the list of integration types to filter the list.
+- Click the pencil icon next to **Compass Funding** to open the integration configuration.
+- Select the desired subsidiary. The Add Integration dialog appears with fields for your username and password.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5683d619-1487-4f1e-bc59-ab6493ddfdf6/image.png)
+</Note>
+
+- Enter your Compass Funding username and password. Click the blue **Save** button. Repeat the subsidiary selection and credential entry steps for each subsidiary if needed.
+
+## Field &amp; Data Mapping
+
+Alvys generates a batch file containing invoice data for the selected loads and submits it to Compass Funding via FTP. No manual data entry is required for the batch file.
+
+## Sync Behavior
+
+Batch submission is initiated manually from Accounting > Factoring Upload. Purchase report data returns via manual upload from the Compass Funding client portal. There is no automated nightly sync.
+
+## Submit a Batch
+
+- Navigate to **Accounting > Factoring Upload**.
+- Select the correct subsidiary from the subsidiary selector.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f409c574-518e-4c08-8e04-cfc120310ad2/image.png)
+</Note>
+
+- Select the loads to include in the batch.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f83faa5f-74ef-4e58-9fa3-d7ccdaa129bb/image.png)
+</Note>
+
+- Click the blue **Submit Batch** button.
+- Wait until the submission is complete. The system will notify you when the batch submission has finished. Do not close this page or navigate away before the notification appears; doing so may disrupt the submission.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d6ef0e3f-11bc-400d-b778-066248c72f54/image.png)
+</Note>
+
+## Upload Your Purchase Report
+
+- Download the purchase report for the submitted batch from the Compass Funding client portal.
+- In Alvys, navigate to **Reports > Factoring** under the Operational Reports section.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8373fb89-87d3-490a-b5fe-6db40c91bc5a/image.png)
+</Note>
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ec2cf13a-df20-4fc0-bbb5-879da974136b/image.png)
+</Note>
+
+- Find the respective batch and select it. Click the blue upload button in the **lower-right corner** of the page.
+- Drag and drop the report file into the upload area, or click to select it from your device.
+
+<Note>
+  ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103555139/c24c10bc5325a2266434aebe/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F69f5b7b2-fbae-41c2-926d-c0e875a99318-2FUntitled.png)
+</Note>
+
+- Click **Upload**.
+
+Repeat this process for each subsidiary if you submitted batches for multiple subsidiaries.
+
+## Verify It's Working
+
+After submitting a batch, confirm the batch appears in the Compass Funding client portal. After uploading the purchase report, verify that load statuses have updated in Alvys as expected.
+
+## Troubleshooting
+
+### Batch submission does not complete
+
+1. Confirm you did not navigate away from Accounting > Factoring Upload before the system completion notification appeared. If you did, return to the page and check whether the loads still show a pre-submission status.
+2. Confirm the subsidiary has valid FTP credentials configured. Navigate to Management > Integrations, locate Compass Funding, and verify the username and password are saved.
+3. Contact Alvys support if the batch continues to fail after confirming credentials.
+
+### Upload button is not visible on the Factoring report page
+
+1. Confirm you have the **"Billing"** permission. Users without this permission cannot see the upload button.
+2. Confirm the batch appears in Reports > Factoring. If it does not appear, confirm the batch was submitted from Accounting > Factoring Upload and that the system completion notification was received before navigating away.
+3. Contact Alvys support if the batch was submitted and the notification was received, but the batch does not appear in Reports > Factoring.
+
+## Limits / Unsupported
+
+- Separate credentials must be configured for each subsidiary. One set of credentials cannot cover multiple subsidiaries.
+- Compass Funding does not support Payment Report uploads through this integration. Only Purchase Reports are uploaded in Alvys.
+- There is no automated or scheduled sync. All batch submissions and report uploads are initiated manually.
+
+## FAQs
+
+**Q: Where do I download the purchase report?**
+
+**A:** Download the purchase report from the Compass Funding client portal for the submitted batch. Then upload it to Alvys from Reports > Factoring.
+
+**Q: Can I use one set of credentials for multiple subsidiaries?**
+
+**A:** No. Each subsidiary requires its own username and password configured separately in Management > Integrations.
+
+**Q: What happens if I navigate away during batch submission?**
+
+**A:** Navigating away before the system sends a completion notification may disrupt the submission. Wait on the Accounting > Factoring Upload page until the notification appears before moving to another page.
+
+**Q: Do I need to repeat the upload process for each subsidiary?**
+
+**A:** Yes. If you submitted batches for multiple subsidiaries, download the purchase report for each subsidiary from the Compass Funding client portal and upload each one separately in Reports > Factoring.
+
+![Notion Image](https://alvys.intercom-attachments-1.com/i/o/1103555155/49d92d8e760e2796402f80a3/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fe728122f-33d1-4d43-9e02-c84f0b79eb0f-2FUntitled.png)

@@ -1,0 +1,605 @@
+---
+title: "How to export and modify transactions in NetSuite"
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin · Support · **Module:** Management > Integrations
+
+  **Provider:** NetSuite · **Integration type:** Two-way · **Direction:** Alvys exports invoices and bills to NetSuite; payments sync back to Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article explains how Alvys exports customer invoices, carrier bills, and driver bills to NetSuite, how subsidiaries, customers, and vendors are linked during export, and how to correct a transaction after it has been exported.
+</Note>
+
+## Overview
+
+When you generate an invoice or release a load in Alvys, transaction data is automatically queued for export (push) to NetSuite. Alvys determines which NetSuite subsidiary receives each transaction based on fields set on the load (Invoice As, Tender As) and the driver profile. Once exported, all corrections must originate in Alvys and then synchronize to NetSuite. Editing or deleting transactions directly in NetSuite while Alvys still manages that record will cause sync conflicts.
+
+## Before You Start
+
+Complete the following before exporting transactions:
+
+1. NetSuite: Prerequisites (Start Here)
+2. NetSuite: Authentication and Settings Configuration in Alvys
+3. NetSuite: Account Mappings and Item Mappings
+
+You also need the **"CompanyProfileManager"** permission, available to users with the Admin, Partner Admin, or Support role, to access Management > Integrations.
+
+## Subsidiary Determination for Transaction Exports
+
+*[Heading 4 not supported]*
+
+The **Invoice As** field on a load represents the billing subsidiary responsible for issuing the customer invoice. All Accounts Receivable (AR) transactions are exported to NetSuite and linked to the subsidiary mapped to the Invoice As field.
+
+<Note>
+  ![Invoice As field on a load record.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636223/a4fbf5e36952b7851d69ba17c68f/upload_3980433335187635286.png)
+
+  *Invoice As field on a load record.*
+</Note>
+
+*[Heading 4 not supported]*
+
+The **Tender As** field identifies the subsidiary responsible for dispatching the load and paying the carrier. It also determines the trip type: Brokerage (if the subsidiary is set up as a broker) or Carrier (if set up as a carrier). Carrier bills are exported and the Subsidiary field on the Vendor Bill is set to the NetSuite subsidiary linked to the Tender As field.
+
+<Note>
+  ![Tender As field on a trip.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636244/d69b05d99ebf33fc2f3c07df6f23/upload_6711451933097987732.png)
+
+  *Tender As field on a trip.*
+</Note>
+
+**Dual Authority Carriers:** For carriers operating with dual authority, the operational mode is automatically determined based on the Tender As subsidiary. You can manually change the operational mode to Carrier or Broker on the trip.
+
+<Note>
+  ![Dual authority carrier operational mode toggle on trip.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636256/1884c28afbe735c3a397d2589438/upload_14621810021054179505.png)
+
+  *Dual authority carrier operational mode toggle on trip.*
+</Note>
+
+*[Heading 4 not supported]*
+
+Each driver profile includes a **Subsidiary** field. When generating driver statements, the Vendor Bill is exported to the NetSuite subsidiary linked to the driver's assigned subsidiary.
+
+<Note>
+  ![Subsidiary field on a sample driver profile.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636272/bde9cd9c74602dc65bf01f7b1e54/upload_1061130858794383929.png)
+
+  * Subsidiary field on a sample driver profile.*
+</Note>
+
+## Customer Linkage, Creation, and Accounting Fields
+
+### Customer External Accounting Name
+
+By default (when **Use Existing Customers** is disabled), the customer's **External Accounting Name** is used to identify the customer in NetSuite. Alvys first searches for an exact match using this field. If a match exists, the invoice is linked to that customer. If no match is found and the External Accounting Name is set, Alvys automatically creates a new customer in NetSuite using the External Accounting Name. If no External Accounting Name is set, Alvys falls back to the Customer Name.
+
+<Note>
+  ![External Accounting Name field on customer profile.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636287/5f234410cd53b2b3d80a1dc2add7/upload_12370866522276076039.png)
+
+  *External Accounting Name field on customer profile.*
+</Note>
+
+**Important:** The External Accounting Name always takes priority. If it differs from an existing NetSuite customer name, a new customer will be created using the External Accounting Name.
+
+### Use Existing Customers
+
+The **Use Existing Customers** setting in the NetSuite integration determines whether Alvys links invoices to existing customers using their NetSuite customer IDs, bypassing name-based matching. When enabled, set the NetSuite customer ID on each customer profile in Alvys for the relevant subsidiary.
+
+<Note>
+  ![Customer profile with External Accounting ID Field](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636300/4e67670e906dfc9c219e7fabf270/upload_17980860034717474930.png)
+
+  *Customer profile with External Accounting ID Field*
+</Note>
+
+<Note>
+  ![External Accounting form with Customer ID Field](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636308/b08eb59e3fe8cb75a536705abd6a/upload_2030613747431725920.png)
+
+  *External Accounting form with Customer ID Field*
+</Note>
+
+The customer ID can be found in the URL of the customer record in NetSuite (the parameter **id=12345** in the URL).
+
+**Important:** If the ID is missing, incorrect, or points to a non-existent customer record, the invoice export will fail with this error on the Error Transactions page: `CustomerNotFound: Customer not found. Customer not found for name '[Customer Name]' and id '[Customer ID]'`
+
+### Invoicing Name
+
+The **Invoicing Name** determines how the customer or broker appears on invoices generated in Alvys. It does not affect the customer record created or matched in NetSuite.
+
+<Note>
+  ![Invoicing Name field on sample customer profile.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636321/15c0ed794b4d95d191e5143a08f9/upload_15642021679650878220.png)
+
+  *Invoicing Name field on sample customer profile.*
+</Note>
+
+Alvys is the source of truth for customer fields (invoicing address, email, phone). If a customer is created in NetSuite by Alvys and a user later updates the information directly in NetSuite, those changes will be overridden on the next invoice sync from Alvys.
+
+### Payment Terms
+
+The **Payment Terms** field specifies the agreed-upon payment period, calculated from the invoice date. In Alvys, this can be set between 0 and 365 days and determines the invoice due date exported to NetSuite.
+
+<Note>
+  ![Payment Terms field on a sample customer profile.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636338/1c657ddfa5e4dbd093babd2b11ff/upload_12267280640284566999.png)
+
+  *Payment Terms field on a sample customer profile. *
+</Note>
+
+## Vendor Linkage, Creation, and Accounting Fields
+
+### Carrier External Accounting Name
+
+The carrier's **External Accounting Name** is used to identify a vendor in NetSuite. If a matching vendor exists, the bill is linked to it. If no match is found, Alvys creates a new vendor using the External Accounting Name (or the Carrier Name if External Accounting Name is not set).
+
+<Note>
+  ![External Accounting Name field on a sample carrier profile.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636354/0660ea7081c869b204f576414902/upload_10236377931906258455.png)
+
+  *External Accounting Name field on a sample carrier profile.*
+</Note>
+
+<Warning>
+  ⚠️ The External Accounting Name takes priority. If it differs from an existing NetSuite vendor name, Alvys will create a new vendor.
+</Warning>
+
+### Driver Name and 1099 Tax Details
+
+Drivers may have additional tax fields on their profiles: Tax Company Name and Tax Company Address.
+
+<Note>
+  ![Tax detail fields on driver profile (Tac Category, Tax Company Name and Tax Company Address).](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636376/d48401a4937c57af594230065dac/upload_12109405317600870986.png)
+
+  *Tax detail fields on driver profile (Tac Category, Tax Company Name and Tax Company Address).*
+</Note>
+
+When generating driver statements, if these fields are set and the integration is configured to create vendors using 1099 details, Alvys creates the vendor in NetSuite using the tax information. If this setting is not enabled, the vendor is created using the driver's name.
+
+### Carrier Payment Terms
+
+The **Carrier Payment Terms** field defines the time frame for paying a carrier, configured on the company profile (Management > Company Profile) for each subsidiary.
+
+<Note>
+  ![Carrier Payment Terms field on company profile.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636385/24d5fe4a25a13f9338283a325b20/upload_4120534859416053907.png)
+
+  *Carrier Payment Terms field on company profile.*
+</Note>
+
+For external carriers, the due date is determined using the Carrier Payment Terms from the company profile of the subsidiary specified in the Tender As field on the trip.
+
+## Steps
+
+### Individual Load Invoice Export
+
+**Verify pre-export conditions for a single-load invoice.**
+
+- Confirm the customer being invoiced is correct.
+- Ensure the **External Accounting Name** is set on the customer profile. If not set, the standard customer or broker name must exactly match the corresponding customer record in NetSuite.
+
+<Note>
+  ![Customer profile with External Accounting Name field highlighted.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636416/f3c46f83e7d2aa9a8b43361f754f/upload_7114761104305336922.png)
+
+  *Customer profile with External Accounting Name field highlighted.*
+</Note>
+
+<Note>
+  ![Image showing Customer Name in NetSuite](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636432/4ce9effa1a0a0e98e1bbcc87a61d/upload_8259295931226262489.png)
+
+  *Image showing Customer Name in NetSuite*
+</Note>
+
+- If **Use Existing Customers** is enabled, confirm the NetSuite customer ID is entered in the **External Accounting ID** field and matches the customer ID in NetSuite.
+- Verify the customer's invoice settings for the subsidiary used as the Invoice As subsidiary on the load.
+
+<Note>
+  ![Customer invoice settings per subsidiary.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636449/c94c01521fabe40ee1a025708f1b/upload_65701427694335677.png)
+
+  *Customer invoice settings per subsidiary.*
+</Note>
+
+Generate the invoice to trigger export.
+
+- Once pre-export conditions are met and the load is in **Released** status, generating the invoice automatically initiates the export to NetSuite.
+
+<Note>
+  ![Generate Invoice button on Load Details.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636462/8e3172566bde6629c643b8ea4831/upload_15569669769550986606.png)
+
+  *Generate Invoice button on Load Details.*
+</Note>
+
+*[Heading 4 not supported]*
+
+The Batch Invoicing page in Alvys is located under accounting, then Invoice in the left navigation menu or directly at [https://app.alvys.com/#/accounting/invoicing](https://app.alvys.com/#/accounting/invoicing).
+
+<Note>
+  ![Image showing navigation to invoicing page](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636473/2fcf55079dfade7fc72beec43ba8/upload_14686852736306889373.png)
+
+  *Image showing navigation to invoicing page *
+</Note>
+
+This page allows users to create invoices for multiple loads across one or more customers simultaneously. Each selected load is processed as an individual invoice, and exporting to NetSuite is triggered automatically when the invoices are generated. This approach enables faster and more efficient invoicing while ensuring accurate transaction records for each load.
+
+From the **Released** tab, select the loads for which you want to generate invoices.
+
+<Note>
+  ![Image showing loads selected for invoicing in the released tab](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636487/4b1cbdc08c69eb89628c39853bde/upload_8125343834555621862.png)
+
+  *Image showing loads selected for invoicing in the released tab*
+</Note>
+
+<Info>
+  💡 Ensure that the customer being invoiced is correct. If an **External Accounting Name** is configured, it must exactly match the corresponding customer record in NetSuite. If no External Accounting Name is configured, the standard customer or broker name must match the customer record.
+
+  For users with the **Use Existing Customers** setting enabled, verify that the NetSuite customer ID is set on the customer profile. Additionally, the **Invoice As** subsidiary on each load must be correctly configured, as this determines which NetSuite subsidiary will be linked to the exported invoice.
+</Info>
+
+After verifying these details, invoices can be generated using the **Generate Invoice** option, which creates the invoices and exports them to NetSuite. Alternatively, the **Create and Send** option generates the invoices, exports them to NetSuite, and sends them to the customer according to the invoicing method configured for that customer.
+
+<Note>
+  ![Image showing Generate Invoicing button](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636500/9358d22b3a5a4a500df284e56e2f/upload_7573622484618841559.png)
+
+  *Image showing Generate Invoicing button*
+</Note>
+
+Once exported, the invoices are recorded in NetSuite under the corresponding customer and can be located either using the search field or by browsing the Invoices list.
+
+<Note>
+  ![Image showing the exported invoices from Alvys in NetSuite](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636509/1dbf1758e72cc0daa1a5b3ae8e71/upload_9844688453564293768.png)
+
+  *Image showing the exported invoices from Alvys in NetSuite *
+</Note>
+
+*[Heading 4 not supported]*
+
+Summary invoicing consolidates multiple loads for a customer into a single invoice. The Summary Invoicing page can be accessed from Accounting then Summary Invoicing. For more information on configuring customers for summary invoicing, see [How to use Summary Invoicing](/help/accounting-settlements/how-to-use-summary-invoicing).
+
+The invoice export is triggered when the consolidated summary invoice is generated, creating a single invoice that reflects the total amount for all included loads. Only customers configured with the summary invoice type will appear when selecting a subsidiary. Ensure that the subsidiary is correct, as this determines the NetSuite subsidiary to which the invoice will be linked.
+
+On the [Summary Invoicing page](https://app.alvys.com/#/accounting/summary-invoicing), from the Loads Not Invoiced tab, select the loads to include and add them to a draft summary invoice. Once the draft is prepared, generating the invoice will create the summary invoice and export it to NetSuite.
+
+<Note>
+  ![Image showing the “Loads Not Invoiced” tab on the Summary invocing page with loads selected and the “Add To Draft” button highlighted.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636529/9e523080f293d5974ad8783b2036/upload_5802929154328913748.png)
+
+  *Image showing the “**Loads Not Invoiced**” tab on the Summary invocing page with loads selected and the “**Add To Draft**” button highlighted.*
+
+  ![Image showing the “Draft Invoice” tab on the Summary invocing page with loads selected and the “Generate Invoice” button highlighted.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636554/4475fb4c11d5eb4ad97b00b406cc/upload_11672600724347579891.png)
+
+  *Image showing the “**Draft Invoice**” tab on the Summary invocing page with loads selected and the “**Generate Invoice**” button highlighted.*
+</Note>
+
+After the invoice is exported, it can be located in the NetSuite **Invoices** list, where users can browse all invoices and apply date filters to narrow the results.
+
+<Note>
+  ![Image showing the exported summary invoice from Alvys in NetSuite](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636564/c1fde7e54301cf8496ca28bf9805/upload_1183216506063110953.png)
+
+  *Image showing the exported summary invoice from Alvys in NetSuite *
+</Note>
+
+<Warning>
+  ⚠️ If the summary invoice is not exported due to an error, the issue can be reviewed on the Error Transactions page. However, summary invoices cannot be re-sent directly from the Error Transactions page. Any required modifications must be made on the Summary Invoicing page, and the invoice must be regenerated from there. Additional guidance on modifying summary invoices can be found in the section titled “**Modifying Previously Exported Transactions**”**.**
+</Warning>
+
+## Bill Transaction Export Demonstration
+
+This section explains the different methods available in Alvys for exporting bill transactions to NetSuite. It covers external carrier bills, carrier settlements, and driver bill exports, including the configuration requirements that determine when and how each bill is exported.
+
+*[Heading 4 not supported]*
+
+External carrier bills can be exported directly from individual loads based on the configured external accounting settings. The export is triggered when the customer invoice is generated. Before generating the invoice, ensure that the correct external carrier is assigned to the trip. The subsidiary selected in the **Tender As** field must also be verified, as this subsidiary determines which NetSuite subsidiary the carrier bill will be linked to. The selected subsidiary must be configured to receive carrier bills through the NetSuite integration.
+
+<Warning>
+  ⚠️ For tenants operating in dual-authority mode, an additional validation is required. The operational mode must be set to **Brokerage**. If the operational mode is set to **Carrier**, the external carrier bill export will not occur.
+
+  ![Image showing operational mode with brokerage selected](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636573/5b8a83cccac1738b1b8642eb9f10/upload_4052926230272612020.png)
+
+  *Image showing operational mode with brokerage selected*
+</Warning>
+
+When an external carrier is assigned and the trip is released to billing, the system evaluates the **Generate Carrier Invoice Separately** setting.
+
+If this setting is not enabled, the carrier bill is exported automatically when the customer invoice is generated. However, if the setting is enabled, the system checks whether a document of type **Carrier Invoice** has been uploaded to the trip. If the document is present, the carrier bill is exported to NetSuite when the customer invoice is generated.
+
+<Note>
+  ![Image showing document upload form with sample carrier invoice document](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636586/f2646ac936b6d0c22c6f512f9e52/upload_9081186267942499600.png)
+
+  *Image showing document upload form with sample carrier invoice document*
+</Note>
+
+*[Heading 4 not supported]*
+
+In Alvys, the carrier invoice number is entered when uploading a document of type **Carrier Invoice** to a trip. When the carrier bill is exported to NetSuite, this number is automatically appended to both the **Memo** field and the **Reference Number** field. This allows accounting teams to easily search for, reference, and reconcile carrier bills using the carrier’s original invoice number.
+
+<Note>
+  ![Image showing carrier invoice number on load details page](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636595/f56b51a41d16317f49cb64a71d5f/upload_12113706063331626921.png)
+
+  *Image showing carrier invoice number on load details page*
+
+  ![Image showing carrier invoice number added to the memo field onthe carrier billing Netsuite](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636610/0e0fc3d58b4360ed9643f7aff30d/upload_6376015749238371645.png)
+
+  *Image showing carrier invoice number added to the memo field onthe carrier billing Netsuite*
+
+  ![Image showing Carrier Invoice number used as reference number on carrier bill exported to NetSuite](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636635/f7c5650d3199a25e0c75814cc9da/upload_14652203969553320711.png)
+
+  *Image showing Carrier Invoice number used as reference number on carrier bill exported to NetSuite *
+</Note>
+
+### Carrier Settlements
+
+The Carrier Settlements module provides brokers with tools to generate transparent and accurate carrier statements and settlement bills. This page can be accessed from the accounting section of Alvys under Carrier Settlements.
+
+When carrier settlements are used, the carrier bill is exported when a carrier statement is generated. To allow this export, the **Carrier Statements External Accounting** setting must be enabled for the subsidiary. If this setting is not enabled, no carrier bill will be exported when the statement is generated
+
+<Note>
+  ![Image showing the carrier statements setting enabled in the accounting integration setup.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636638/c4cc9c1815172eb0dca50b6d9d79/upload_12813200678723468646.png)
+
+  *Image showing the carrier statements setting enabled in the accounting integration setup.*
+</Note>
+
+If this setting is enabled and a user generates a customer invoice for an individual load with an external carrier, the carrier bill will not be exported from the load. In this scenario, the system expects the bill to be exported from the Carrier Settlements module when the statement is generated.
+
+<Info>
+  💡 If a carrier bill requires modification after export, refer to the **Modifications to Transactions** section for guidance.
+</Info>
+
+<Warning>
+  ⚠️ **Carrier Settlements Module Payment Sync Limitation**
+
+  The current version of the Carrier Settlements feature **does not** support payment synchronization. While carrier bills are exported from the Carrier Settlements module to NetSuite, payments applied in NetSuite do not automatically sync back to Alvys. Payments must be recorded manually within Alvys for the external carriers.
+</Warning>
+
+If an error occurs while exporting a carrier bill from the Carrier Settlements module, the error details are displayed directly within the module. Carrier statements cannot be re-sent from the Error Transactions page. All corrections must be made within the Carrier Settlements module, and the statement must be regenerated there.
+
+For tenants that use the Carrier Settlements module but prefer carrier bills to export when the carrier invoice is uploaded on the trip, it is recommended not to enable the Carrier Statements external accounting setting. In this configuration, enabling the generate carrier invoice separately setting and uploading the carrier invoice to the trip then generating the customer invoice will trigger the carrier bill export.
+
+### Driver Bill Export
+
+Driver bills can be exported either from the legacy **Pay Drivers** page or from the newer **Driver Settlements** module. The export behavior depends on the configured driver billing settings.
+
+The recommended configuration is **Single Bill Export**. When enabled, multiple trips, deductions, and credits included in a driver statement are consolidated into a single bill and exported to NetSuite. This approach is ideal for tenants operating on weekly or biweekly pay cycles.
+
+The subsidiary used for exporting driver bills is determined by the subsidiary assigned on the driver profile in Alvys.
+
+*[Heading 4 not supported]*
+
+For tenants still using the legacy **Pay Drivers** page, driver statements generated from this page may be reverted from the driver profile. Reverting a driver statement deletes the corresponding driver bill from NetSuite, provided the bill remains open and no payments have been applied.
+
+*[Heading 4 not supported]*
+
+Driver Settlements replaces the Pay Drivers module and introduces enhancements such as draft statements, predefined pay periods, and bulk actions. Additional details can be found at: [Driver Settlements Help Center Article](https://help.alvys.com/en/articles/11943598-driver-settlements)
+
+For statements generated using the Driver Settlements module, reverting the statement from the **Statements** tab removes the associated driver bill from NetSuite, as long as the bill remains open and no payments have been applied.
+
+## Modifying Exported Transactions
+
+Once a transaction has been exported from Alvys to NetSuite, all corrections and updates must be made in Alvys and then synchronized to NetSuite through the regeneration process. Alvys serves as the **system of record** for all accounting transactions that were exported. Changes made directly in NetSuite will *not* sync back to Alvys and can result in data inconsistencies or failed export updates. This section explains how previously exported transactions can be modified, which changes are supported, and the conditions under which those modifications are allowed.
+
+For transactions that have already been exported from Alvys to NetSuite, Alvys remains the system of record. Do *not* edit or delete these transactions directly in NetSuite if you plan to update and resend them from Alvys. All updates must be made in Alvys and then regenerated to ensure accurate synchronization and maintain data integrity.
+
+### Customer Invoices Exported from Load and Invoicing Pages
+
+Previously exported invoices can only be modified while they are still considered **open** (i.e., not fully paid) in NetSuite. Once a payment is fully applied and synced, the invoice becomes closed in Alvys and no further modifications are permitted. In these situations, [Alvys Support](mailto:support@alvys.com) must be contacted for assistance.
+
+Invoice updates are typically synchronized by regenerating the customer invoice after changes are made. However, certain fields automatically update the NetSuite invoice without requiring regeneration.
+
+Updates to the following load invoice fields are applied automatically to NetSuite without requiring invoice regeneration:
+
+**Customer linehaul amount**
+
+**Customer fuel surcharge**
+
+<Note>
+  ![Image showing customer rate card in money box with linehaul and fuel surcharge fields](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636659/ee5a3875834f918294365133492b/upload_6129488721952547616.png)
+
+  *Image showing customer rate card in money box with linehaul and fuel surcharge fields*
+</Note>
+
+Accessorial charges added, edited, or removed
+
+<Note>
+  ![Image showing a sample accessorial with the accessorial options highlighted.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636677/e43c4fa03c7f1b4db401aa62d784/upload_3579828740724300101.png)
+
+  *Image showing a sample accessorial with the accessorial options highlighted.*
+</Note>
+
+**Invoice Date**
+
+**Invoice Due Date**
+
+<Note>
+  ![Image showing “Invoice Date” and Invoice Due Date fields on the load details page.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636694/b05180c3995a550fcf3f5c193c65/upload_15291658432833055035.png)
+
+  *Image showing “Invoice Date” and Invoice Due Date fields on the load details page.*
+</Note>
+
+To apply these updates, make the changes in Alvys and then refresh the invoice page in NetSuite. The updates should appear immediately without regenerating the invoice. Other changes will require invoice regeneration to sync correctly
+
+*[Heading 4 not supported]*
+
+Fields such as invoicing address, customer email, and customer phone are managed in the customer profile.
+
+<Warning>
+  ⚠️ For these changes to take effect, the load status must be **prior to "Invoiced"**. If the load has already been invoiced, contact [Alvys Support](mailto:support@alvys.com) to revert the status to **Queued** before making updates.
+</Warning>
+
+**Steps to update customer fields:**
+
+1. Navigate to the customer profile in Alvys.
+2. Apply the necessary changes.
+3. Save the updates.
+4. Regenerate the invoice.
+5. Refresh or reopen the invoice in NetSuite to view the changes.
+
+### Customer Payment terms
+
+Alvys does not set customer payment terms on exported invoices. Instead, the payment terms configured on the **customer profile** are used to calculate the invoice due date.
+
+<Note>
+  ![Image showing exported Invoice in NetSuite with invoice due date set.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636703/a0924b12e88bc78b7aba7fadf28f/upload_356479097105744135.png)
+
+  *Image showing exported Invoice in NetSuite with invoice due date set.*
+</Note>
+
+Any updates to payment terms made directly in NetSuite will affect the invoice due date. However, if the invoice is regenerated from Alvys, the due date will be recalculated based on the invoice settings in Alvys and may override any manual changes made in NetSuite.
+
+### Modifications to Summary Invoices
+
+Modifications to summary invoices that have already been exported can be made depending on the scenario.
+
+*[Heading 4 not supported]*
+
+In Alvys, the **only supported mechanism** for adding or removing loads from a summary invoice is to **revert the summary invoice**. A summary invoice can be reverted **only when its status is “Processed”**. If the invoice has already been **Sent** or **Paid**, further modification requires intervention from [Alvys Support.](mailto:support@alvys.com)
+
+<Warning>
+  ⚠️ Reverting a summary invoice does **not update the original invoice in NetSuite**. After reverting, the user must **generate a new summary invoice in Alvys**. This new invoice will receive a **new summary invoice number**, which will be exported to NetSuite. The old summary invoice remains in NetSuite unless manually deleted.
+</Warning>
+
+**Procedure:**
+
+- Revert the summary invoice by navigating to the **All-Invoices** tab in Alvys.
+- Locate the invoice and Click the **Delete** icon for the specific summary invoice.
+
+<Note>
+  ![Image showing Summary invoice page, “All invoices” tab with “Delete” icon highlighted for a sample invoice.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636711/e4f92ed688acb87673865be79b0d/upload_6936341055104637558.png)
+
+  *Image showing Summary invoice page, “All invoices” tab with “Delete” icon highlighted for a sample invoice.*
+</Note>
+
+- Navigate to the **Loads Not Invoiced** tab.
+- Select the loads to be included in the new summary invoice.
+- Regenerate the summary invoice.
+- Verify that the updated summary invoice amount is accurately reflected in NetSuite.
+- Manually delete the old summary invoice from NetSuite to avoid duplicate records.
+
+### Modifying or Adding Charges to Loads within a Summary Invoice
+
+Loads included in a summary invoice can be edited to add charges or make adjustments. Only summary invoices in the following statuses can be regenerated: Pending, Sent, or Partially Paid. If a summary invoice is fully paid, regeneration is not permitted.
+
+**Steps to Modify or Add Charges to Loads:**
+
+Confirm that the summary invoice status is not **Paid **in Alvys. If the invoice is marked as Paid, all loads included in the summary invoice are set to Completed, and any subsequent modifications will not sync to NetSuite for completed loads.
+
+Navigate to the **Load Details** page for the specific load included in the summary invoice that requires modification.
+
+Apply the necessary updates (e.g., add charges, adjust amounts, update notes). In the image below, the fuel surcharge amount and an accessorial charge were added to the load
+
+<Note>
+  ![Image showing customer rate card in money box with linehaul, fuel surcharge field and accessorials highlighted.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636723/4013b7a3b73af215bd82e60813fd/upload_1900436832721872640.png)
+
+  *Image showing customer rate card in money box with linehaul, fuel surcharge field and accessorials highlighted.*
+</Note>
+
+Navigate back to the **Summary Invoice** in Alvys and **regenerate the summary invoice**.
+
+<Note>
+  ![Image showing summary invoicing page with regenerate button](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636741/76df845f7ee8c28515624aeae72a/upload_12431195499613721439.png)
+
+  *Image showing summary invoicing page with regenerate button*
+</Note>
+
+Verify in NetSuite that the updated invoice amount and associated load details are accurately reflected.
+
+<Note>
+  ![Image showing updated exported invoice in NetSuite](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2527636773/18e9f4f8c862346a7e778636e90a/upload_1512650048421695498.png)
+
+  *Image showing updated exported invoice in NetSuite*
+</Note>
+
+<Warning>
+  ⚠️ Some changes are currently not supported in Alvys. Specifically, changing the customer on an invoice or changing the Invoice As or Tender As subsidiary for previously exported transactions will not update the corresponding transaction in NetSuite. If a transaction was previously exported with incorrect information, please contact [Alvys Support](mailto:support@alvys.com) for assistance.
+</Warning>
+
+## Troubleshooting
+
+### Invoice export fails immediately after generation
+
+**Step 1:** Check the Error Transactions page in Alvys (Management > Integrations).
+
+**Step 2:** Review the error message: common causes are the External Accounting Name not matching any customer in NetSuite, missing or incorrect External Accounting ID when Use Existing Customers is enabled, or the Invoice As subsidiary not mapped in integration settings.
+
+**Step 3:** Correct the underlying issue in the customer profile or integration settings.
+
+**Step 4:** Re-export from the Error Transactions page or by regenerating the invoice.
+
+### Carrier bill or driver bill not appearing in NetSuite
+
+**Step 1:** Confirm the carrier or driver has an External Accounting Name set. If not set, the name must match an existing vendor exactly.
+
+**Step 2:** Check the Error Transactions page for any error on that transaction.
+
+**Step 3:** If the driver bill is not appearing, verify that **Ignore Driver Bills** is not enabled in the NetSuite integration settings.
+
+### Shared Billing transactions not exporting correctly
+
+**Step 1:** Confirm Shared Billing is enabled on both the Invoice As subsidiary and the Tender As subsidiary.
+
+**Step 2:** Verify both subsidiaries are mapped to their respective NetSuite subsidiaries in the integration settings.
+
+**Step 3:** Confirm the load has a different subsidiary set in Invoice As and Tender As.
+
+**Step 4:** Check the Error Transactions page for errors related to either subsidiary.
+
+### Updated transaction not reflected in NetSuite after re-export
+
+**Step 1:** Confirm the correction was saved in Alvys before the re-export was triggered.
+
+**Step 2:** Check the Error Transactions page. If a conflict error appears mentioning the transaction's internal ID, the transaction may have been manually edited in NetSuite. Contact Alvys Support if none of the above reasons apply.
+
+## FAQs
+
+**Q: Can I edit a transaction directly in NetSuite instead of in Alvys?**
+
+**A:** No. All corrections must be made in Alvys and then synchronized to NetSuite. Editing a transaction directly in NetSuite may cause sync conflicts or result in the NetSuite record being overwritten on the next export.
+
+**Q: Why was a new customer created in NetSuite instead of linking to an existing one?**
+
+**A:** Alvys uses the External Accounting Name on the customer profile to find a match in NetSuite. If the External Accounting Name does not exactly match an existing NetSuite customer name, Alvys creates a new customer. To prevent duplicates, set the External Accounting Name to match the exact name in NetSuite, or enable the Use Existing Customers setting and enter the NetSuite customer ID in the External Accounting ID field.
+
+**Q: What happens if the Invoice As subsidiary on a load is not mapped to a NetSuite subsidiary?**
+
+**A:** The invoice export will fail. An error will appear on the Error Transactions page. The Invoice As subsidiary must be mapped in the integration settings before invoices can be exported for that load.
+
+**Q: Does the Invoicing Name affect which customer record is created or matched in NetSuite?**
+
+**A:** No. The Invoicing Name controls how the customer appears on invoices in Alvys. The External Accounting Name or Customer Name is used for NetSuite matching.
+
+**Q: Can driver bills be excluded from the NetSuite export?**
+
+**A:** Yes. The **Ignore Driver Bills** setting in the NetSuite integration configuration prevents driver-associated bills from being exported to NetSuite when enabled.
+
+**Q: What is the error format when a customer is not found during export?**
+
+**A:** `CustomerNotFound: Customer not found. Customer not found for name '[Customer Name]' and id '[Customer ID]'`
+
+**Q: For Shared Billing loads, how many transactions are created in NetSuite?**
+
+**A:** Four: a customer invoice linked to the Invoice As subsidiary, a carrier vendor bill linked to the Tender As subsidiary, an intercompany sales invoice from the Tender As subsidiary to the Invoice As subsidiary, and an intercompany vendor bill from the Invoice As subsidiary to the Tender As subsidiary.
+
+**Q: What should I enter for the External Accounting Name?**
+
+**A:** Enter the customer or vendor name exactly as it appears in NetSuite. Alvys uses this field to match records during invoice and bill exports. If the field is not set, Alvys falls back to the Customer Name or Vendor Name.
+
+**Q: Can Alvys pull customers or vendors from NetSuite automatically?**
+
+**A:** No. The integration is push-only from Alvys to NetSuite. You must manually enter the External Accounting Name (or Customer ID if using Use Existing Customers), which defines the linkage to NetSuite. If no match is found, Alvys can create the customer or vendor automatically in NetSuite.
+
+**Q: Which changes are not supported in Alvys after export?**
+
+**A:** Modifying the customer on an invoice or changing the Invoice As or Tender As subsidiary for previously exported transactions will not update the corresponding transaction in NetSuite. Contact Alvys Support to assist with correcting the export in these cases.
+
+**Q: How do I update customer details like address, email, or phone?**
+
+**A:** Update the customer profile in Alvys before regenerating the invoice. If the invoice has already been generated, it must be reverted to Queued in Alvys before changes take effect. After updating, regenerate the invoice to sync the changes to NetSuite.
+
+**Q: How can I locate an exported invoice or bill in NetSuite?**
+
+**A:** Use the NetSuite search bar to enter the load number or invoice number, including any prefix if configured. Invoices appear under the corresponding customer in the Invoices list; bills appear in the Bills list.
+
+**Q: Does the carrier invoice number appear in NetSuite?**
+
+**A:** Yes. When uploading a carrier invoice to a trip, the number is appended to both the Memo and Reference Number fields in the NetSuite bill.
+
+**Q: How do I modify a summary invoice after it has been exported?**
+
+**A:** Loads can be added or removed only by reverting the summary invoice (when the status is Processed) and regenerating it. Fully paid or sent invoices require Alvys Support intervention. Each regenerated summary invoice receives a new invoice number in NetSuite; the original remains unless manually deleted.
+
+## Go Deeper
+
+- [NetSuite: Identifying and Resolving Failed Transactions](https://help.alvys.com/en/articles/13689008)
+- [NetSuite: Account Mappings and Item Mappings](https://help.alvys.com/en/articles/13689006)
+- [NetSuite: Authentication and Settings Configuration in Alvys](/help/integrations/netsuite-authentication-and-settings-configuration-in-alvys)
+- [Alvys Payment Synchronization for Accounting Integrations](/help/integrations/alvys-payment-synchronization-for-accounting-integrations)

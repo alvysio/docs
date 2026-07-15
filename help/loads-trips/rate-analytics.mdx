@@ -1,0 +1,114 @@
+---
+title: "Rate Analytics"
+description: "The rate widget shows the median rate for a lane based on distance and type of trailer used for that load."
+---
+
+<Note>
+  📋 **Applies to:** Users with the **"ViewTenantRateHistory"** permission
+
+  **Module:** Loads and Trips > Rate Analytics
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  Rate Analytics is a beta tool that shows your historical Customer and Carrier rates for a lane alongside market rate benchmarks, helping you price loads competitively.
+</Note>
+
+## Overview
+
+Rate Analytics (also called the rates widget) lets you look up rate history for any lane by entering an origin and destination. The tool shows two data sets side by side: your own historical rates from loads you have run on that lane, and an aggregate market rate drawn from the broader Alvys network. This comparison helps you evaluate whether a rate you are quoting is competitive given current market conditions.
+
+Rate Analytics is a beta feature. Rate coverage varies by lane and values may update as new data arrives.
+
+## Where to Find It
+
+Rate Analytics is available in two places in Alvys.
+
+**Dedicated Rate Analytics page:** Navigate to Loads and Trips > Rate Analytics in the left navigation. This opens the full search interface where you can enter an origin, destination, search radius, and equipment type to retrieve rate history for any lane.
+
+**Load board side panel (Marketplace):** When you open a load in the Marketplace and expand its side panel, a Rate Analytics chart appears automatically in the Rates section. This chart shows the last 30 days of Carrier rate history for that load's lane without requiring a manual search.
+
+<Note>
+  ![Load board side panel showing the Rate Analytics section with a rate history chart](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306386/83302f6414ffa253008befc882c9/upload_10939038433611878599.png)
+
+  *Load board side panel showing the Rate Analytics section with a rate history chart*
+</Note>
+
+<Note>
+  ![Load detail page showing the Rate Analytics chart in the Rates section.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532306401/84c51b6d64ca4110d2e59016a384/upload_9457318283855451427.png)
+
+  *Load detail page showing the Rate Analytics chart in the Rates section.*
+</Note>
+
+## Key Concepts
+
+**Your Rates vs. Market Rates**
+
+Each chart displays two lines:
+
+- Your Rates: the median rate your company has charged for that lane, drawn from your own load history.
+- Market Rates: an aggregate median rate from the broader Alvys network for the same lane and time period. This line appears only when you have the **"ViewAlvysRateHistory"** permission.
+
+  **Customer tab and Carrier tab**
+
+  The Rate Analytics page organizes data into two tabs:
+- Customer tab: shows rates on the Customer side of the load.
+- Carrier tab: shows rates on the Carrier side of the load.
+
+Both tabs display a Your Rates line and a Market Rates line for the selected lane.
+
+**Time window**
+
+All charts show rate data for the last 30 days. The window is fixed; it is not user-adjustable.
+
+**Equipment types**
+
+You can filter rate data by equipment type. Supported equipment types: Van, Reefer, Flatbed, Tanker, and Power Only. If no equipment type is selected, the search defaults to Van and Reefer.
+
+## How to Use It
+
+For step-by-step instructions on searching for rates on the Rate Analytics page, see the Contracted Rates article linked in Go Deeper.
+
+## Settings and Permissions
+
+Access to Rate Analytics requires at least one of the following permissions: **"ViewTenantRateHistory"**, **"ViewAlvysRateHistory"**, **"ViewCarrierRate"**, **"ViewCustomerRate"**, or **"Bidding"**.
+
+The **"ViewTenantRateHistory"** permission is required to retrieve any rate data. Users without this permission receive an access error when the tool loads.
+
+The **"ViewAlvysRateHistory"** permission controls whether the Market Rates line appears on the charts. Users with only **"ViewTenantRateHistory"** see their own company's rates but not the market benchmark.
+
+If the Rate Analytics menu item does not appear under Loads and Trips, the feature may not be enabled for your account. First confirm you have one of the required permissions listed above; if so, contact Alvys support.
+
+## Limits and Behavior
+
+- The search window is always the last 30 days. Historical data beyond 30 days is not displayed.
+- Rate coverage varies by lane. Low-volume lanes may return no data or data with wider min/max ranges.
+- If no data is found, the tool displays a "No Data Available" message. Adjusting the origin, destination radius, or equipment type may return results.
+- The Market Rates line is visible only to users with the **"ViewAlvysRateHistory"** permission. If only your company's line appears, your account does not have this permission.
+- The Customer tab notes that customer rates do not include accessorials.
+- Rate Analytics is a beta feature. Values may update as new data arrives.
+
+## FAQs
+
+**Q: Why does the Rate Analytics option not appear in my Loads and Trips menu?**
+
+**A:** The menu item is hidden when your account does not have any of the required permissions: **"ViewTenantRateHistory"**, **"ViewAlvysRateHistory"**, **"ViewCarrierRate"**, **"ViewCustomerRate"**, or **"Bidding"**. If your account should have access, contact Alvys support.
+
+**Q: Why do I see only one line on the chart instead of two?**
+
+**A:** The Market Rates line requires the **"ViewAlvysRateHistory"** permission. If your account has only **"ViewTenantRateHistory"**, only your company's historical rates are shown.
+
+**Q: Why does the search return no data for a lane I have run loads on?**
+
+**A:** Rate data is retrieved for the last 30 days. If no loads matching the origin, destination, and equipment type were found in that window, the tool shows "No Data Available." Try widening the search radius or selecting a different equipment type.
+
+**Q: Can I view rates for more than 30 days?**
+
+**A:** No. The current time window is fixed at the last 30 days and is not user-adjustable.
+
+**Q: What equipment types are supported?**
+
+**A:** Van, Reefer, Flatbed, Tanker, and Power Only. If no equipment type is selected, the search defaults to Van and Reefer.
+
+## Go Deeper
+
+- [Contracted Rates](/help/loads-trips/contracted-rates)

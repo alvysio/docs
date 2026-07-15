@@ -1,0 +1,127 @@
+---
+title: "E-Check Permissions"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Operations Managers · Billers · Dispatchers
+
+  **Module:** Management > Company Profile > Users
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  E-Check permissions control which users can issue, cancel, move, and modify e-checks (also called comchecks or Comcheks). Five individual permissions govern these actions; each is set per user in the Users tab of Company Profile.
+</Note>
+
+## Overview
+
+E-check functionality in Alvys is gated by five separate permissions. Each permission controls a distinct action. Users without the correct permission will not see the corresponding button or option. Permissions are assigned at the user level in Management > Company Profile > Users.
+
+E-checks are also called comchecks, Comcheks, money codes, or electronic checks.
+
+## Where to Find It
+
+Navigate to Management > Company Profile, then open the Users tab. Locate the user whose permissions you want to update and click to open their profile. Scroll to the Permissions section to view and toggle the e-check permissions.
+
+<Note>
+  ![Screenshot of the Company Profile Users tab](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a92fb46b-cd24-4e22-a290-a776e9b2cf38/image.png)
+
+  * Screenshot of the Company Profile Users tab*
+
+  ![Screenshot of the User tab of the Company Profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ccd2b083-652e-4cec-9c01-5f018a869cba/image.png)
+
+  *Screenshot of the User tab of the Company Profile*
+</Note>
+
+## Key Concepts
+
+**"Issue ECheck":** Allows the user to issue a new e-check from a load. Without this permission, the Manage E-Check button is not visible on the load. This permission is required before any other e-check action is available.
+
+<Note>
+  ![Issue ECheck permission toggle](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e59600ee-4717-4ede-8f4b-721a278a54fa/image.png)
+
+  * Issue ECheck permission toggle*
+</Note>
+
+**"Cancel ECheck":** Allows the user to cancel an e-check that has not yet been used or cashed. This permission also requires the **"Add Accessorials"** permission, because cancelling reverses the associated accessorial charge. Without **"Add Accessorials"**, the cancel action will fail even if **"Cancel ECheck"** is enabled.
+
+<Note>
+  ![Cancel ECheck permission toggle](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/090b19c9-db2e-4b09-a57d-4aeb9024f9e4/image.png)
+
+  *Cancel ECheck permission toggle*
+</Note>
+
+**"Move Comchek":** Allows the user to move an e-check from one load to another load assigned to the same driver. This permission also requires **"Add Accessorials"** to function, because moving an e-check transfers its associated accessorial charges. The destination load must have the same driver assigned.
+
+<Note>
+  ![Move Comchek permission toggle](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/11dd99a0-5b2b-4286-b3c6-f63f83202f69/image.png)
+
+  *Move Comchek permission toggle*
+</Note>
+
+**"Modify E-Check Fee":** Allows the user to edit the fee amount on an existing e-check after it has been issued. This permission also grants access to the Accounting > E-Checks page, which lists all e-checks across loads. Without this permission, users cannot view or search the company-wide e-check list.
+
+<Note>
+  ![Modify E-Check Fee permission toggle](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a39930f5-9c74-4ac9-b18a-3f3be60c1735/image.png)
+
+  *Modify E-Check Fee permission toggle*
+</Note>
+
+**"Delete Notes":** Allows the user to delete notes associated with an e-check record. This is a standalone permission independent of the other four e-check permissions.
+
+<Note>
+  ![Delete Notes permission toggle](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4ff2c7f5-d48a-4337-bc94-a3f295e5a5a4/image.png)
+
+  *Delete Notes permission toggle*
+</Note>
+
+## How to Use It
+
+To grant or remove an e-check permission: open Management > Company Profile > Users, locate the user, open their profile, scroll to the Permissions section, and toggle the relevant permission on or off. Save the change. The user's access updates immediately.
+
+## Settings &amp; Permissions
+
+Only Admins and Partner Admins can view and modify permissions in the Users tab. Operations Managers cannot grant permissions.
+
+By default, e-check permissions are pre-selected for Admin, Partner Admin, and Operations Manager roles when an active EFS or Comdata integration is detected on the account. Billers and Dispatchers receive no e-check permissions by default.
+
+## Limits &amp; Behavior
+
+**"Cancel ECheck"** requires **"Add Accessorials"** to function. Enabling **"Cancel ECheck"** alone is not sufficient.
+
+**"Move Comchek"** requires **"Add Accessorials"** to function. Enabling **"Move Comchek"** alone is not sufficient.
+
+**"Modify E-Check Fee"** grants view access to Accounting > E-Checks in addition to fee editing. This is the only permission that unlocks the E-Checks accounting page.
+
+Driver-level e-check fee edits (adjusting the cap or percentage on a driver profile) require the **"Edit Asset"** permission, not **"Modify E-Check Fee"**. These are separate controls.
+
+A user who has **"Issue ECheck"** but not **"Cancel ECheck"** can issue e-checks but cannot cancel them. Each action requires its own permission.
+
+## FAQs
+
+**Q: Why can a user see the Manage E-Check button but not cancel an e-check?**
+
+**A:** The user has **"Issue ECheck"** but not **"Cancel ECheck"**. Both are separate permissions. Enable **"Cancel ECheck"** and confirm **"Add Accessorials"** is also enabled on that user.
+
+**Q: Why does the cancel action fail even though Cancel ECheck is enabled?**
+
+**A:** Cancelling an e-check also requires the **"Add Accessorials"** permission. Enable **"Add Accessorials"** on the user and retry.
+
+**Q: Who can access the Accounting > E-Checks page?**
+
+**A:** Only users with the **"Modify E-Check Fee"** permission. This permission controls both fee editing and access to the E-Checks accounting page.
+
+**Q: Can a Dispatcher issue e-checks?**
+
+**A:** Not by default. Dispatchers receive no e-check permissions by default. An Admin or Partner Admin must explicitly enable **"Issue ECheck"** on the Dispatcher's user profile.
+
+**Q: Why can't a user edit the e-check cap on a driver profile?**
+
+**A:** Editing the e-check settings on a driver profile requires the **"Edit Asset"** permission, not any of the five e-check permissions. Enable **"Edit Asset"** on the user's profile.
+
+**Q: Can I bulk-assign e-check permissions to multiple users at once?**
+
+**A:** No. Permissions are set individually per user in Management > Company Profile > Users.
+
+## Go Deeper
+
+- [How to issue an e-check](/help/accounting-settlements/how-to-issue-and-manage-e-checks-in-alvys)

@@ -1,0 +1,149 @@
+---
+title: "Project44 (P44) Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins
+
+  **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  **Provider:** Project44 (P44) · **Integration type:** One-way · **Direction:** Alvys sends carrier location data to P44
+
+  The Project44 (P44) integration automatically sends carrier location data from Alvys to P44 at configured intervals so shippers can monitor freight in real time; this is an outbound-only integration.
+</Note>
+
+## Overview
+
+The Project44 (P44) integration (also referred to as P44 visibility or carrier push tracking) enables Alvys to automatically submit carrier location information to P44 at specific time intervals. P44 is a logistics visibility platform that shippers use to monitor freight in transit. Once connected, Alvys activates automatic location updates on qualifying loads, sending position data to P44's system so shippers can view real-time tracking for their shipments.
+
+This integration is outbound only: Alvys sends data to P44. P44 does not push data back into Alvys.
+
+## Prerequisites
+
+Before setting up the integration in Alvys, the following conditions must be met:
+
+- P44 must create a dedicated integration user for your carrier. This is not a standard P44 portal login. The integration user is scoped by region (for example, North America or Europe) and by the P44 carrier profile. Carriers with multiple SCACs may need separate integration users if those SCACs are tied to different carrier profiles.
+- The shipper must enable Carrier Push Tracking for your carrier inside the P44 portal. If the shipper has not enabled this setting, no tracking data will flow regardless of how the integration is configured in Alvys.
+
+To request a dedicated integration user, fill out the [TMS self-serve form](https://support.p-44.com/hc/en-us/requests/new?ticket_form_id=19537289922205) or contact P44 directly. P44 will ask for an email address you manage and the name of at least one shipper customer you want the integration activated for.
+
+## How to connect
+
+1. Add the integration in Alvys.
+
+   - Navigate to Management > Integrations.
+   - Select the integration type Visibility and choose Project 44.
+
+<Note>
+  ![Image: Screenshot of the Visibility / Project 44 integration selection screen.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/dfa5957e-6620-40ef-b0bc-af0b63815911/E832BF30-AD1A-4458-9152-05A2D4F4155D.png)
+
+  *Image: Screenshot of the Visibility / Project 44 integration selection screen.*
+</Note>
+
+1. Enter credentials. Enter the credentials for the P44-created integration user provided by P44. Do not use a standard P44 portal login — using a regular portal login will cause 401 authentication errors.
+2. Save and validate. Save the integration, then proceed to the validation checklist in the What syncs section below to confirm the connection is functioning correctly.
+
+### Configure P44 portal permissions
+
+After the integration user is created by P44, sign in with that integration user (or have P44 manage it) and navigate to User Management in the P44 portal. Locate the OAuth client associated with this user, which is typically labeled with Alvys.
+
+Add the permission Carrier Push Tracking API to that OAuth client. This permission is required for all API calls from Alvys to P44.
+
+If the shipper has not yet enabled Carrier Push Tracking for your carrier in P44, ask them to do so before testing. Without this shipper-side setting, the integration will authenticate successfully but no updates will be received by the shipper.
+
+## What syncs
+
+Alvys sends carrier location updates to P44 tied to the Shipment ID associated with each load. P44 matches incoming location data to the correct shipment record using this identifier.
+
+Event settings and event sources for each customer can be customized within Alvys. Customization controls which location events are sent and from which data source (for example, ELD or GPS).
+
+Once the conditions for sending the initial location update are met for a load, Alvys activates the automatic location update indicator for P44 in Load Details. From that point, Alvys submits location information at regular intervals. Updates can be paused at two levels:
+
+- Per load: disable sending directly from Load Details.
+- Per customer: adjust the P44 preferences on the Customer Profile to stop updates for all loads tied to that customer.
+
+### Customize P44 preferences
+
+P44 event settings and event sources can be customized per customer in the Customer Profile. This controls which tracking events are submitted to P44 and from which location source.
+
+<Note>
+  ![P44 preferences section in the Customer Profile showing event settings and source controls](https://alvys.intercom-attachments-1.com/i/o/1103665293/37897de180c53ead079a69c7/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F3c03111d-f6c4-4860-9e91-8bc43fdfd000-2FUntitled.png)
+
+  *P44 preferences section in the Customer Profile showing event settings and source controls*
+</Note>
+
+### Manage automatic location updates
+
+Once initial conditions are met for a load, Alvys activates the automatic location update indicator for P44 in Load Details. You can disable updates for that specific load directly from Load Details.
+
+<Note>
+  ![Load Details screen showing the P44 automatic location update indicator and the control to disable it](https://alvys.intercom-attachments-1.com/i/o/1103665315/b37edd5ef0bd9db418c83a1c/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F92226fee-3ca6-45b9-879f-39e3f1d1d9e5-2FUntitled.png)
+
+  *Load Details screen showing the P44 automatic location update indicator and the control to disable it*
+</Note>
+
+To disable updates at the customer level, repeat the Customize P44 preferences workflow for the relevant Customer Profile.
+
+Use this checklist after setup to confirm the integration is functioning correctly:
+
+- The integration authenticates without 401 errors.
+- The Carrier Push Tracking API permission is enabled on the integration user's OAuth client in P44.
+- The shipper has enabled Carrier Push Tracking for your carrier in the P44 portal.
+- A test shipment's location updates appear in P44 under the correct Shipment ID.
+
+<Note>
+  📋 Limits and unsupported: This integration does not support inbound visibility: P44 cannot push data into Alvys. · Co-Pilot integration with P44 is not currently supported. · Carriers with multiple SCACs tied to separate P44 carrier profiles may require separate integration users per profile.
+</Note>
+
+## Troubleshooting
+
+### 401 authentication errors
+
+A 401 error means the integration cannot authenticate with P44. Check the following in order:
+
+1. Confirm you are using the dedicated P44 integration user credentials, not a standard portal login.
+2. Confirm the integration user's OAuth client in P44 has the Carrier Push Tracking API permission enabled.
+3. Confirm the integration user is scoped to the correct region (for example, North America vs. Europe).
+4. Ask the shipper to confirm Carrier Push Tracking is enabled for your carrier in their P44 portal.
+
+### Location updates not appearing for the shipper
+
+If authentication succeeds but the shipper cannot see location updates in P44:
+
+1. Confirm the shipper has enabled Carrier Push Tracking for your carrier in P44.
+2. Confirm the Shipment ID in Alvys matches what P44 is expecting for the shipment.
+3. Check whether updates are disabled at the load or customer level in Alvys.
+
+### ELD telematics conflict
+
+If the carrier also sends telematics data (for example, from Samsara) using a different Shipment ID, P44 prioritizes the ELD source. To resolve this, align the Shipment IDs across both data sources or pause the telematics feed as needed.
+
+### Cross-region account issues
+
+If a carrier operates in one region (for example, EU) but the shipper's P44 account is in another region (for example, North America), P44 may need to mirror the carrier's account across regions. Contact P44 support directly to request this.
+
+If none of the above steps resolve the issue, contact Alvys Support and provide the Shipment ID, the integration user email, and the specific error. Alvys Support will coordinate with P44 as needed.
+
+## FAQs
+
+**Q: Can I use my regular P44 portal login for this integration?**
+
+**A:** No. You must use a dedicated integration user created by P44 specifically for API access. Using a standard portal login will cause 401 errors.
+
+**Q: Why am I getting 401 authentication errors after entering my credentials?**
+
+**A:** Confirm that you used the dedicated integration user credentials (not a regular P44 login), that the Carrier Push Tracking API permission is enabled on the user's OAuth client in P44, and that the shipper has enabled Carrier Push Tracking for your carrier in P44.
+
+**Q: What if my carrier operates in multiple regions?**
+
+**A:** You may need separate integration users scoped to each region, or P44 can mirror your account across regions. Contact P44 to request cross-region mirroring.
+
+**Q: How do I stop location updates for a specific load?**
+
+**A:** Open the load in Load Details and disable the P44 automatic location update indicator. To stop updates for all loads under a customer, adjust the P44 preferences in the Customer Profile.
+
+## Go Deeper
+
+- [How to Set Up and Manage Integrations in Alvys](/help/integrations/project44-p44-integration)

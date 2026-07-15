@@ -1,0 +1,126 @@
+---
+title: "How to connect Trackensure to Alvys"
+description: "How to set up Trackensure Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Support · Operations Manager · Dispatcher
+
+  **Module:** Integrations
+
+  **Provider:** Trackensure · **Integration type:** One-way · **Direction:** Truck location and HOS data flows from Trackensure into Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Connect your Trackensure ELD account to Alvys to pull live truck locations and driver hours of service (HOS) clocks into Alvys automatically.
+</Note>
+
+## What This Integration Does
+
+The Trackensure integration connects your Trackensure account to Alvys so that truck location and driver HOS data flow into Alvys automatically. Once connected and mapped, dispatchers can view live truck positions and driver remaining drive time directly in Alvys without switching between systems.
+
+## Prerequisites
+
+Before connecting:
+
+- You have an active Trackensure account with API access enabled.
+- You have your Trackensure API key, available in your Trackensure account settings.
+- You have the truck number for each truck you want to track, exactly as it appears in Trackensure.
+- You have the User ID for each driver you want to track. User IDs are listed on the Drivers page in your Trackensure account.
+- Your role in Alvys is Admin, Partner Admin, or Support.
+
+## How to connect
+
+1. Go to **Management > Company Profile > Integrations tab** in Alvys.
+2. Locate the Trackensure integration, enter your API key in the field provided, and click **Save**.
+
+<Note>
+  ![Integrations tab in Alvys showing the Trackensure section with the API key field and Save button.](https://alvys.intercom-attachments-1.com/i/o/1103544517/113072932a706ebab9c39e37/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F9b89dbf1-dee1-479d-af03-97951458fad3-2FUntitled.png)
+
+  * Integrations tab in Alvys showing the Trackensure section with the API key field and Save button.*
+</Note>
+
+Alvys confirms the connection once the key is accepted. If the connection fails, verify the API key is correct and active in your Trackensure account settings.
+
+After connecting, map each truck and driver in Alvys to the corresponding record in Trackensure. Each asset must be mapped individually; there is no bulk mapping option.
+
+**Mapping trucks**
+
+1. Go to **Management > Fleets > Trucks** and open the truck record you want to map.
+2. In the ELD Integration section, select **Trackensure** from the provider dropdown.
+3. In the Integration ID field, enter the truck number exactly as it appears in Trackensure.
+4. Click **Save**.
+
+<Note>
+  ![Truck record in Alvys showing the ELD Integration section with Trackensure selected, the Integration ID field, and the Save button.](https://alvys.intercom-attachments-1.com/i/o/1103544525/7114cf137b854f7d9259f4d8/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fc683859b-e8ea-499b-a125-26b834e11cc2-2FUntitled.png)
+
+  *Truck record in Alvys showing the ELD Integration section with Trackensure selected, the Integration ID field, and the Save button. *
+</Note>
+
+Repeat for each truck you want to track.
+
+**Mapping drivers**
+
+1. Go to **Management > Drivers** and open the driver record you want to map.
+2. In the ELD Integration section, click **Add ELD**.
+
+<Note>
+  ![Driver record in Alvys showing the ELD Integration section with the Add ELD button.T rackensure Drivers page showing the User ID column listing the ID for each driver.](https://alvys.intercom-attachments-1.com/i/o/1103544532/54def04047f1f6037b772f18/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Ff5540e5e-9ac6-4f31-962d-ced03b86ddf1-2FUntitled.png)
+
+  *Driver record in Alvys showing the ELD Integration section with the Add ELD button.T rackensure Drivers page showing the User ID column listing the ID for each driver.*
+</Note>
+
+1. Select **Trackensure** from the dropdown.
+2. Locate the driver's User ID in Trackensure. Go to the Drivers page in your Trackensure account. The User ID column shows the ID for each driver.
+
+<Note>
+  ![Trackensure menu showing Drivers page.](https://alvys.intercom-attachments-1.com/i/o/1103544540/ad17c7e0fa121c267f042476/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fc161f61f-9b21-4a67-9df3-7aa0f0a74457-2FUntitled.png)
+
+  *Trackensure menu showing Drivers page.*
+
+  ![Trackensure Drivers page showing the User ID column listing the ID for each driver.](https://alvys.intercom-attachments-1.com/i/o/1103544550/ee70214bbc264684c826b4d7/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Ff9adc51f-c087-4e24-bb51-00df4319eb5d-2FUntitled.png)
+
+  *Trackensure Drivers page showing the User ID column listing the ID for each driver.*
+</Note>
+
+1. Copy the User ID and paste it into the Integration ID field in Alvys.
+2. Click **Save**.
+
+Repeat for each driver you want to track.
+
+## What syncs
+
+Once trucks and drivers are mapped, Alvys pulls data from Trackensure automatically. The following data syncs from Trackensure to Alvys:
+
+- Truck GPS location
+- Driver HOS clocks: break, cycle, drive, and shift remaining time
+
+Data refreshes on Alvys's standard polling interval, not in real time.
+
+## Troubleshooting
+
+### Truck location not showing in Alvys
+
+Confirm the truck is powered on and has an active GPS signal in Trackensure. Verify the Integration ID in Alvys matches the truck number in Trackensure exactly: go to **Management > Fleets > Trucks**, open the truck record, and compare the Integration ID to the truck number shown in Trackensure. If neither of those conditions applies, contact Alvys support.
+
+### Driver HOS not showing in Alvys
+
+Confirm the driver has active HOS data in Trackensure. Verify the Integration ID in Alvys matches the driver's User ID in Trackensure exactly: go to **Management > Drivers**, open the driver record, and compare the Integration ID to the User ID shown on the Drivers page in Trackensure. If neither of those conditions applies, contact Alvys support.
+
+## FAQs
+
+**Q: Where do I find my Trackensure driver User IDs?**
+
+**A:** Go to the Drivers page in your Trackensure account. The User ID column displays the ID for each driver. Copy the value exactly and paste it into the Integration ID field in the driver record in Alvys.
+
+**Q: Can I track both truck locations and driver HOS with this integration?**
+
+**A:** Yes. The Trackensure integration supports both truck location tracking and driver HOS clock data in Alvys. Both sync automatically once trucks and drivers are mapped.
+
+**Q: What happens if I enter an incorrect API key?**
+
+**A:** Alvys will not be able to connect to Trackensure and the integration will not be active. Return to **Management > Company Profile > Integrations tab**, re-enter the correct API key, and click **Save**.
+
+## Go Deeper
+
+- [Setting Up ELD / Telematics Integrations](https://help.alvys.com/en/articles/9857524-setting-up-eld-telematics-integrations)

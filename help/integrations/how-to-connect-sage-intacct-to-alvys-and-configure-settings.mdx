@@ -1,0 +1,182 @@
+---
+title: "How to Connect Sage Intacct to Alvys and Configure Settings"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin
+
+  **Module:** Settings > Connections
+
+  **Provider:** Sage Intacct (Intacct) · **Integration type:** Two-way · **Sync direction:** AR invoices export from Alvys to Sage; payments import from Sage to Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article walks through connecting (linking and authenticating) a Sage Intacct entity to an Alvys subsidiary and configuring AR and AP sync and export settings, payment terms, and carrier export behavior. Complete the Sage preparation steps before starting this wizard.
+</Note>
+
+## Overview
+
+The Sage Intacct (also called Intacct) connection wizard links one Alvys subsidiary to one Sage Intacct entity. After connecting, AR invoices export, sync, and post from Alvys to Sage and payments import from Sage to Alvys on a 12-hour schedule. You configure which transaction types sync using the AR Settings and AP Settings tabs. Each Alvys subsidiary you want to connect requires its own separate connection.
+
+## Before You Start
+
+- Sage Intacct preparation must be complete: Web Services must be enabled in your Sage subscription, AlvysMPP must be authorized under Company > Web Services Authorizations, and a Web Services user must be created with "All" permissions on all 10 required modules. See [How to Prepare Sage Intacct Before Connecting to Alvys](https://help.alvys.com/en/articles/10737776-how-to-prepare-sage-intacct-before-connecting-to-alvys) before proceeding.
+- Have your Sage Company ID, Web Services User ID, and password ready before starting the wizard.
+- Only users with the **"Admin"** or **"Partner Admin"** role can access Settings > Connections > Sage Intacct (the **"CompanyProfileManager"** permission controls access).
+
+## Steps
+
+1. Select your Alvys subsidiary. Go to Settings > Connections > Sage Intacct. Click Connect. From the dropdown, select the Alvys subsidiary you want to connect to Sage Intacct. Each subsidiary must be connected separately; repeat this process for each subsidiary you want to link.
+2. Choose where transactions will post in Sage. Select how Alvys transactions will be routed in your Sage entity structure:
+
+   - **Matching child entities (Recommended):** Transactions post to the Sage entity whose name matches the Alvys subsidiary. Use this option if your Sage structure has separate child entities for each subsidiary.
+   - **Top-level entity:** All transactions post to the top-level Sage entity, regardless of which Alvys subsidiary generated them.
+
+     **Important:** This selection is permanent and cannot be changed after setup. If you need to change the posting destination later, you must disconnect the subsidiary and reconnect with the correct setting. If you are unsure which option applies to your Sage structure, consult your Sage administrator before proceeding.
+3. Enter your Sage credentials. Enter the Sage Intacct Company ID, the Web Services User ID, and the password for that user. Alvys uses these credentials to authenticate with the Sage Web Services API. Click Connect to validate the credentials and proceed.
+4. Configure AR Settings. Under the AR Settings tab, configure which accounts receivable transactions export to Sage:
+
+   - **Export AR Invoices:** Master toggle. This must be enabled for any AR transactions to export. Disabling this toggle stops all AR exports for this subsidiary, regardless of individual toggle settings.
+   - **Include driver bills in AR:** Includes driver-related charges on AR invoices exported to Sage.
+   - **Export Carrier Statements:** Exports carrier statement transactions as AR invoices in Sage.
+   - **Export E-check Transactions:** Exports e-check payments as AR transactions in Sage.
+   - **Export deductions as credits on AR invoice:** Exports deductions as credit line items on the AR invoice rather than as separate transactions.
+5. Configure AP Settings. Under the AP Settings tab, configure which accounts payable transactions export to Sage:
+
+   - **Export AP Bills:** Master toggle. This must be enabled for any AP transactions to export. Disabling this toggle stops all AP exports for this subsidiary, regardless of individual toggle settings.
+   - **Export driver settlements:** Exports driver settlement statements as AP bills in Sage.
+   - **Export carrier settlements:** Exports carrier settlement statements as AP bills in Sage.
+   - **Export E-check Transactions:** Exports e-check payments as AP transactions in Sage.
+   - **Include fuel transactions:** Includes fuel card charges as line items on AP bills.
+   - **Include toll transactions:** Includes toll charges as line items on AP bills.
+   - **Include accessorial expenses:** Includes accessorial charges as line items on AP bills.
+   - **Export Carrier Statements:** Exports carrier statement transactions as AP bills in Sage. This is a separate toggle from the AR Settings "Export Carrier Statements" toggle; each controls a distinct transaction flow.
+   - **Send carrier invoice upon upload:** When enabled, Alvys exports a carrier AP bill to Sage immediately when a carrier invoice document is uploaded in Alvys, rather than waiting for the next scheduled sync cycle.
+
+     **Important:** You cannot disable the last remaining active sync toggle on a subsidiary. If only one sync toggle is still enabled and you attempt to turn it off, Alvys will prevent the change. To pause all syncing without disconnecting, use the Primary Sync toggle for that subsidiary, which acts as a master on/off switch for the entire connection.
+6. Configure Advanced Settings. Under the Advanced Settings tab, configure payment terms:
+
+   - **Default Payment Terms:** Sets the fallback payment terms applied when no specific terms are defined for a given customer or carrier. This controls the due date and terms that appear on exported AR invoices and AP bills in Sage.
+   - **Custom Payment Terms:** Define payment terms for specific customers or carriers to override the default. Custom terms apply to matching customers or carriers only.
+   - **Cross Subsidiary Billing:** If your Sage environment uses cross-subsidiary billing, enable this setting when a load is invoiced by one subsidiary and tendered by another. The Invoice As subsidiary creates a customer invoice and an intercompany bill to the Tender As subsidiary. The Tender As subsidiary creates an intercompany invoice back to the Invoice As subsidiary and a vendor bill to the carrier or driver. Cross Subsidiary Billing must be enabled on both participating subsidiaries for intercompany transactions and carrier bills to export correctly.
+   - **Dimension Mappings:** Map Sage Intacct dimensions (such as Location, Department, and Class) to Alvys fields (such as Subsidiary, Fleet, Office, Driver, Truck, Trailer, or Contractor Type). Dimensions are categorization tags in Sage that let you slice financial data by business segment. For full details, see Sage Intacct: Dimensions and Custom Fields.
+   - **Custom Field Mappings:** Map Sage custom fields to Alvys data fields. Custom fields let you push additional Alvys data (such as load details, shipper and consignee information, dispatch data, driver names, and equipment numbers) into custom fields on Sage invoices and bills. For full details, see Sage Intacct: Dimensions and Custom Fields.
+7. Save and verify the connection. Click Save. Before the connection becomes active, Alvys runs a reconciliation check to validate your configuration against Sage Intacct. If errors are found, Alvys displays a list of the issues along with links to the wizard step where each error can be resolved. Common errors include: a mapped GL account does not exist in Sage, a dimension value references a value removed from Sage, or required fields are missing. Correct each flagged item and click Save again. If the reconciliation succeeds, the connection status for that subsidiary will display as **Active** in Settings > Connections > Sage Intacct. The first sync will run on the next scheduled 12-hour cycle. To confirm transactions are exporting and to review any errors, see [Sage Intacct: Payments and Error Transactions](https://help.alvys.com/en/articles/10737766-sage-intacct-payments-and-error-transactions).
+
+## Result
+
+Your Alvys subsidiary is now connected to Sage Intacct. AR invoices and AP bills will export from Alvys to Sage according to your configured settings. Payments recorded in Sage will import back into Alvys on a 12-hour schedule. Each subsidiary you connect maintains its own independent AR, AP, and Advanced settings.
+
+## Modifying Settings After Setup
+
+To change AR, AP, or Advanced settings after the initial connection:
+
+1. Go to Settings > Connections > Sage Intacct.
+2. Find the subsidiary whose settings you want to change.
+3. Click Edit to open that subsidiary's settings.
+4. Select the AR Settings, AP Settings, or Advanced tab and make your changes.
+5. Click Save.
+
+The posting destination chosen during the connection wizard cannot be modified after setup. To change it, disconnect the subsidiary and reconnect.
+
+## Setting Up Additional Subsidiaries Using a Template
+
+After completing your first Sage Intacct integration, you can set up additional subsidiaries using an existing integration as a template. Using a template copies all AP settings, AR settings, account mappings, dimension mappings, and custom field mappings from the existing integration to the new subsidiary.
+
+### How to use a template
+
+1. Go to **Settings > Connections > Sage Intacct**.
+2. Click the button to add a new integration.
+3. From the dropdown, select the Alvys subsidiary you want to connect.
+4. Choose where transactions will post in Sage.
+5. Enter your Sage credentials and click **Connect**.
+6. When prompted to choose a setup method, select "from an existing integration."
+7. Select the existing integration you want to use as a template.
+8. Select the Sage entity for the new subsidiary.
+9. Review the copied settings and make any changes specific to the new subsidiary.
+10. Turn on syncing to activate the connection.
+
+After creating an integration from a template, changes made to the template integration do not automatically update integrations that were created from it. Each integration must be maintained independently.
+
+## Disconnecting Sage Intacct
+
+To disconnect a subsidiary from Sage Intacct:
+
+1. Go to Settings > Connections > Sage Intacct.
+2. Find the subsidiary you want to disconnect.
+3. Click Disconnect.
+4. Confirm the disconnection when prompted.
+
+Disconnecting stops all future syncs for that subsidiary. It does not delete any previously exported transaction data in Sage Intacct.
+
+## FAQs
+
+**Q: Can I connect more than one Alvys subsidiary to Sage Intacct?**
+
+**A:** Yes. Each subsidiary connects separately through the wizard. Repeat the connection steps for each subsidiary you want to connect.
+
+**Q: Can multiple Alvys subsidiaries connect to the same Sage entity?**
+
+**A:** Yes. Multiple subsidiaries can connect to the same Sage entity. Each subsidiary's transactions will post according to the posting destination setting configured during its individual setup.
+
+**Q: What is the difference between the "Matching child entities" and "Top-level entity" posting options?**
+
+**A:** Matching child entities routes each subsidiary's transactions to the Sage child entity whose name matches that Alvys subsidiary. Top-level entity posts all transactions to the parent Sage company regardless of which subsidiary generated them. Consult your Sage administrator to determine which option matches your Sage structure.
+
+**Q: Can I change the posting destination after setup?**
+
+**A:** No. The posting destination is permanent once the connection is saved. To change it, disconnect the subsidiary from Settings > Connections > Sage Intacct and reconnect with the correct setting.
+
+**Q: What happens if I disable the Export AR Invoices or Export AP Bills toggle?**
+
+**A:** Disabling either master toggle stops all AR or AP exports for that subsidiary. Individual transaction toggles (such as driver settlements or e-checks) will not export even if their individual toggles remain enabled.
+
+**Q: Which Alvys roles can access the Sage Intacct connection settings?**
+
+**A:** Users with the **"Admin"** or **"Partner Admin"** role can access Settings > Connections > Sage Intacct to connect, edit, or disconnect integrations.
+
+**Q: What does "Send carrier invoice upon upload" do?**
+
+**A:** When this toggle is enabled, Alvys exports a carrier AP bill to Sage immediately when a carrier invoice document is uploaded in Alvys, rather than waiting for the next scheduled 12-hour sync cycle.
+
+**Q: How do I pause syncing temporarily without disconnecting?**
+
+**A:** Use the Primary Sync toggle for the subsidiary. This acts as a master on/off switch for the entire connection. You cannot disable the last active individual sync toggle; if you attempt to do so, Alvys will prevent the change and you will need to use the Primary Sync toggle instead.
+
+**Q: What credentials do I need to enter in the connection wizard?**
+
+**A:** You need the Sage Intacct Company ID, the User ID of the Web Services user created for Alvys, and that user's password. Gather these from Sage before starting the wizard.
+
+**Q: What should I do if the connection wizard returns an authentication error?**
+
+**A:** Verify that the Sage Web Services user credentials are correct, that Web Services is enabled in your Sage subscription, and that AlvysMPP is listed in Company > Web Services Authorizations in Sage. See [How to Prepare Sage Intacct Before Connecting to Alvys](https://help.alvys.com/en/articles/10737776-how-to-prepare-sage-intacct-before-connecting-to-alvys) for the full prerequisites checklist.
+
+**Q: Does disconnecting Sage Intacct delete my historical data?**
+
+**A:** No. Disconnecting stops future syncs but leaves all previously exported transactions intact in Sage Intacct.
+
+**Q: Can I configure different AR and AP settings for different subsidiaries?**
+
+**A:** Yes. Each subsidiary has its own AR Settings, AP Settings, and Advanced Settings. Changes to one subsidiary's settings do not affect any other subsidiary.
+
+**Q: What are Custom Payment Terms used for?**
+
+**A:** Custom Payment Terms let you define payment terms for specific customers or carriers, overriding the Default Payment Terms for those parties. This controls the due date and terms that appear on exported AR invoices and AP bills in Sage.
+
+**Q: If I enable "Export Carrier Statements" in both AR Settings and AP Settings, will carrier statements export twice?**
+
+**A:** No. The AR and AP "Export Carrier Statements" toggles control separate transaction flows. The AR toggle exports carrier revenue invoices; the AP toggle exports carrier cost bills. Each controls a distinct set of transactions.
+
+**Q: What happens to transactions that were created before the connection was established?**
+
+**A:** Only transactions created or modified after the connection is established will export to Sage. Historical data from before the connection date is not exported automatically. If you need to bring historical data into Sage, that must be done manually within Sage Intacct.
+
+**Q: What does it mean if the reconciliation check flags a GL account error after saving?**
+
+**A:** It means that a GL account you mapped in Alvys does not exist or is inactive in your Sage Intacct Chart of Accounts. Return to the account mappings step in the wizard, correct the flagged mapping, and click Save again.
+
+## Go Deeper
+
+- [How to Prepare Sage Intacct Before Connecting to Alvys](https://help.alvys.com/en/articles/10737776-how-to-prepare-sage-intacct-before-connecting-to-alvys)
+- [Sage Intacct: Account Mappings](https://help.alvys.com/en/articles/10737765-sage-intacct-account-mappings)
+- [Sage Intacct: Payments and Error Transactions](https://help.alvys.com/en/articles/10737766-sage-intacct-payments-and-error-transactions)

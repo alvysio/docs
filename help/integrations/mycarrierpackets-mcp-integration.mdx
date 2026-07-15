@@ -1,0 +1,187 @@
+---
+title: "MyCarrierPackets (MCP) Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins
+
+  **Provider:** MyCarrierPackets (MCP)
+
+  **Integration type:** One-way
+
+  **Direction:** MyCarrierPackets → Alvys
+
+  **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  Connect MyCarrierPackets (MCP) to Alvys to automatically sync carrier compliance data — including insurance coverage, W9 information, and carrier profile details — so Alvys can block non-compliant carriers from being added to loads.
+</Note>
+
+## What This Integration Does
+
+MyCarrierPackets (MCP) is a carrier compliance management platform. When connected to Alvys, it automatically pulls carrier compliance data from your MyCarrierPackets monitoring list into Alvys every 5 minutes whenever there are changes.
+
+Once the integration is active, Alvys checks each carrier's MCP compliance status when you add them to a load. If a carrier has an unacceptable compliance status, Alvys will prevent them from being added to the load.
+
+## Prerequisites
+
+Before connecting MyCarrierPackets to Alvys, you need:
+
+- An active MyCarrierPackets account with access to the Integration Tools tab
+- Admin or Partner Admin access in Alvys to configure integrations under Management > Integrations
+
+## Connect / Authenticate
+
+### Create API credentials in MyCarrierPackets
+
+Log in to [MyCarrierPackets](https://mycarrierpackets.com/) and navigate to the Integration Tools tab. Click the Add Integration button and fill out the fields to create your API credentials.
+
+![MyCarrierPackets Integration Tools tab showing the Add Integration button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d4884845-0fb4-4b72-ab89-9466a89a2638/image.png)
+
+*MyCarrierPackets Integration Tools tab showing the Add Integration button. *
+
+![MyCarrierPackets Add Integration form with fields filled in.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3a87b24f-1987-49b8-b5b4-4e81aab6eb1c/image.png)
+
+*MyCarrierPackets Add Integration form with fields filled in.*
+
+Save your API credentials. You will need them in the next step.
+
+### Enter your credentials in Alvys
+
+Navigate to [Integrations](https://app.alvys.com/#/manage/integrations) in Alvys. Expand the Compliance section and click the pencil icon on the MyCarrierPackets integration box.
+
+![Alvys Integrations page showing the Compliance section with the MyCarrierPackets integration box and pencil icon.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/05b74d83-a6a3-45f7-86b9-31ebe0e3f569/image.png)
+
+*Alvys Integrations page showing the Compliance section with the MyCarrierPackets integration box and pencil icon.*
+
+In the dialog box that appears, enter your MyCarrierPackets API credentials and click Save.
+
+![Alvys dialog box for entering MyCarrierPackets credentials with Save button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/22fb4b36-0352-4943-87e6-eb477cf4a2cf/image.png)
+
+*Alvys dialog box for entering MyCarrierPackets credentials with Save button.*
+
+### Request a manual sync for existing carriers (if applicable)
+
+If you already have carriers on your MyCarrierPackets monitoring list at the time you connect the integration, contact Alvys support to perform a manual sync. This imports all existing monitored carriers into Alvys. If your monitoring list is empty, skip this step — carriers will sync automatically once you start monitoring them in MyCarrierPackets.
+
+## Field &amp; Data Mapping
+
+The integration imports the following carrier information from MyCarrierPackets into Alvys:
+
+**Carrier profile**
+
+- Name
+- MC number and DOT number
+- Address
+- Contact information
+
+  **Insurance coverage**
+- Coverage type
+- Policy number
+- Issue and expiration dates
+- Limit amount
+- Underwriter (insurance agency)
+
+  **W9 information**
+- SSN (where available)
+- TIN (where available)
+
+Note: the integration imports only the information extracted from documents such as insurance certificates and W9 forms. The actual documents are not imported.
+
+## Sync Behavior
+
+- Compliance data syncs from MyCarrierPackets to Alvys every 5 minutes when there are changes to a carrier's compliance status in MyCarrierPackets.
+- Sync is one-way: data flows from MyCarrierPackets into Alvys only. Changes made in Alvys do not update MyCarrierPackets.
+- Only carriers on your MyCarrierPackets monitoring list are synced to Alvys. Carriers not on your monitoring list will not appear with MCP compliance data in Alvys.
+
+## Add Carriers to Your Monitoring List
+
+If your MyCarrierPackets monitoring list is empty when you first connect the integration, follow these steps to start monitoring carriers:
+
+Log in to MyCarrierPackets and select Carrier Search in the left sidebar. Search for the carrier you want to add to your monitoring list.
+
+![MyCarrierPackets Carrier Search page in the left sidebar.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e643e432-eeda-47c1-b829-cf53bd084ac2/image.png)
+
+*MyCarrierPackets Carrier Search page in the left sidebar.*
+
+![MyCarrierPackets carrier search results.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/aa448370-a085-4334-8141-37fa6597ae80/image.png)
+
+*MyCarrierPackets carrier search results.*
+
+Select the carrier to view their profile, then click the Start Monitoring button. The carrier will be added to your monitoring list and their compliance data will sync to Alvys.
+
+![MyCarrierPackets carrier profile with the Start Monitoring button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4229733f-f91c-4c99-a1b9-4f47311fe1ff/image.png)
+
+*MyCarrierPackets carrier profile with the Start Monitoring button.*
+
+![MyCarrierPackets carrier added to monitoring list confirmation.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/44412e45-7208-4abf-958b-743d53f9cd9f/image.png)
+
+*MyCarrierPackets carrier added to monitoring list confirmation.*
+
+## Verify It's Working
+
+After saving your credentials and activating the integration, confirm the connection is working:
+
+Navigate to the Carriers page in Alvys and search for a carrier that is on your MyCarrierPackets monitoring list. Select the carrier to open their profile and check the MCP status field. If the MCP status field shows compliance data, the integration is active.
+
+![Alvys Carriers page search results showing a carrier.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/0d7cd26b-b34c-4641-9e5b-4c1d4ddbd4ad/image.png)
+
+*Alvys Carriers page search results showing a carrier.*
+
+![Alvys carrier profile showing the MCP status field with compliance data.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5a8e4dda-3626-4bc3-9bd8-f2aa5b1b6fcf/image.png)
+
+*Alvys carrier profile showing the MCP status field with compliance data.*
+
+When you add a carrier to a load, Alvys automatically checks whether the carrier is compliant with MCP requirements. If the carrier has an unacceptable compliance status, Alvys will prevent them from being added to the load.
+
+## Troubleshooting
+
+### MCP status field is empty on a carrier profile
+
+**Step 1:** Confirm the carrier is on your MyCarrierPackets monitoring list. Only carriers you are actively monitoring in MyCarrierPackets will sync to Alvys.
+
+**Step 2:** Wait up to 5 minutes after adding a carrier to your monitoring list for the first sync to complete.
+
+**Step 3:** If the carrier is on your monitoring list and the MCP status field remains empty after 5 minutes, contact Alvys support to confirm the integration credentials are saved correctly and request a manual sync if needed.
+
+### Carrier cannot be added to a load
+
+**Step 1:** Open the carrier's profile in Alvys and check the MCP status field.
+
+**Step 2:** If the MCP status shows a non-compliant status, the carrier must resolve their compliance issue in MyCarrierPackets before they can be added to a load. The compliance restriction is applied by Alvys based on the data synced from MyCarrierPackets.
+
+**Step 3:** After the carrier's compliance status is updated in MyCarrierPackets, wait up to 5 minutes for the updated status to sync to Alvys, then retry adding the carrier to the load.
+
+## Limits / Unsupported
+
+- The integration does not import actual insurance documents, W9 forms, or other compliance documents — only the data extracted from them.
+- The integration is one-way. You cannot push carrier data from Alvys to MyCarrierPackets.
+- Carriers not on your MyCarrierPackets monitoring list are not synced and will have no MCP compliance data in Alvys.
+
+## FAQs
+
+**Q: How often does compliance data update in Alvys?**
+
+**A:** Compliance data syncs from MyCarrierPackets to Alvys every 5 minutes when there are changes to a carrier's compliance status.
+
+**Q: What happens if I try to add a non-compliant carrier to a load?**
+
+**A:** If a carrier has an unacceptable compliance status in MyCarrierPackets, Alvys will prevent them from being added to the load.
+
+**Q: Do I need to manually add each carrier to MyCarrierPackets?**
+
+**A:** Yes. You need to search for and start monitoring each carrier in the MyCarrierPackets portal. Once you are monitoring a carrier, their compliance data automatically syncs to Alvys.
+
+**Q: Can I see the actual insurance documents in Alvys?**
+
+**A:** No. The integration imports only the information extracted from documents such as insurance certificates and W9 forms. The actual documents are not imported.
+
+**Q: I already had carriers monitored in MyCarrierPackets before connecting the integration. Will they sync automatically?**
+
+**A:** No. If you already have carriers on your MyCarrierPackets monitoring list at the time you connect the integration, contact Alvys support to perform a manual sync that will import all existing monitored carriers into Alvys.
+
+## Go Deeper
+
+- [Why Am I Seeing an Override Authorization Error When Assigning a Carrier?](/help/loads-trips/override-authorization-error-when-assigning-a-carrier)
+- [RMIS Integration](/help/integrations/rmis-integration)

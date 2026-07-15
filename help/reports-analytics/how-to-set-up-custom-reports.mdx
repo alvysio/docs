@@ -1,0 +1,181 @@
+---
+title: "How to set up Custom Reports"
+---
+
+<Note>
+  **Applies to:** Admin, Partner Admin, Support, plus any user with an Analytic or Viewer reporting role
+
+  **Module:** Reports &amp; Analytics (Custom Reports)
+
+  **Owner:** Support team · **Last reviewed:** 2026-06
+</Note>
+
+## Overview
+
+Once you are comfortable navigating dashboards and using filters, you can start tailoring reports to better fit your needs. This article covers how to customize, personalize, edit, and set up existing dashboards, including rearranging layouts, managing visualizations, organizing with tabs and sections, adding rich text, exporting data, and scheduling automatic report delivery. If you are looking to personalize, edit, or configure your analytics views, this is where to start. People also call this customizing dashboards, editing reports, building dashboards, or tailoring your reporting workspace.
+
+## Where to Find It
+
+Reports live under the **Reports** area of Alvys. Open a dashboard from there to view it, and use the **Analyze** view in your reporting workspace to browse available data and build visualizations.
+
+<Note>
+  ![Reports section of the Sidebar with Custom Reports visible](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533281044/f34ada3e8e52a3ec2d5b5fd20775/upload_1977702909756933303.png)
+
+  *Reports section of the Sidebar with Custom Reports visible*
+</Note>
+
+## Key Concepts
+
+Before customizing a dashboard, it helps to know what data is available. The data catalog is a browsable list of all the metrics, facts, and attributes you can use in your reports. To explore it: open the **Analyze** view; the data catalog panel on the left shows all available items, organized alphabetically or by group; use the filter buttons at the top to narrow by type (**Metrics**, **Facts**, or **Attributes**); use the search bar to find specific items by name. **Metrics** are calculated values (like total revenue or average miles per trip). **Facts** are raw numerical data points. **Attributes** are categories you can group or filter by (like customer name, region, or driver).
+
+<Note>
+  ![Pre-built Operational Dashboard that can be customized](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533281088/57bb1448305654109376a6a76eff/upload_17508152813697208931.png)
+
+  *Pre-built Operational Dashboard that can be customized*
+</Note>
+
+## How to Use It
+
+### Editing a dashboard
+
+To customize an existing dashboard, you need permission to edit dashboards in your workspace (see Settings and Permissions). Open the dashboard, click **Edit** to enter edit mode, make your changes, then click **Save**. While in edit mode, you have full control over the dashboard layout, filters, and content.
+
+<Note>
+  ![Edit option in top right corner of dashboard](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533281116/010a378bb59d62eab7f85f1aad24/upload_14238793035575407259.png)
+
+  *Edit option in top right corner of dashboard*
+
+  ![Edit view enabled](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533281153/3d3f452b74f376d9aa560779b74e/upload_16253165395374354540.png)
+
+  *Edit view enabled*
+
+  ![Settings that apply to the entire dashboard](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533281188/828788e1804061ae4772cc14b596/upload_11080589205112172456.png)
+
+  *Settings that apply to the entire dashboard*
+</Note>
+
+### Rearranging visualizations
+
+Dashboards use a flexible grid layout. Drag and drop any visualization to move it to a new position; visualizations snap into place on the grid.
+
+### Resizing visualizations
+
+Hover over the edge or corner of any visualization and drag to resize it. Each visualization has a minimum width to ensure readability.
+
+### Adding visualizations
+
+In edit mode, look for the **Saved visualizations** catalog on the left, drag and drop a visualization onto the dashboard, and position and resize it as needed.
+
+<Note>
+  ![Saved Visualization list and widget with Configuration and Remove options](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533281233/ed43d9ddee22fb531f6a76f5aee5/upload_7045531014377355508.png)
+
+  *Saved Visualization list and widget with Configuration and Remove options*
+</Note>
+
+### Removing visualizations
+
+Hover over a visualization, click the three-dot button, and select **Remove from dashboard**. This does not delete the visualization itself; it only removes it from this dashboard.
+
+### Configuring individual visualizations
+
+Hover over a visualization, click the three-dot button, then select **Configuration** for options like **Hide title**, **Change description**, **Disable filters**, and **Enable zoom**.
+
+<Note>
+  ![Configure date mapping and cross-filtering behavior for each widget](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533281260/69ab2c3a4c95fd895ec8f7ea8cb7/upload_5053571450445486695.png)
+
+  *Configure date mapping and cross-filtering behavior for each widget *
+</Note>
+
+### Organizing with dashboard tabs
+
+Tabs let you split a dashboard into multiple pages, each with its own set of visualizations. In edit mode, click the plus icon next to the existing tab name to add a new tab, name it, and drag visualizations into it. Each tab can have its own independent filters.
+
+### Organizing with sections
+
+Within a tab, you can organize visualizations into named sections. Drag a visualization to a new area to create a section, click the section header to add a **title** (max 256 characters) and **description** (max 1,024 characters), and rearrange sections by dragging the section header.
+
+### Adding rich text
+
+In edit mode, drag a **Rich Text** widget onto the dashboard, enter your text using Markdown formatting (headings, bold, italic, lists, links, and images are supported), and position it like any other visualization.
+
+### Adding attribute filters
+
+In edit mode, drag an **Attribute Filter** widget into the filter bar at the top, select the attribute from the dropdown, and click **Save**.
+
+<Note>
+  ![Adding a new filter](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533281284/360dd286dd24e6f23465a6427c6a/upload_2016882038473309419.png)
+
+  *Adding a new filter*
+
+  ![Applying a filter once added](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533281312/c1caab42954eded46dbd1737ca72/upload_13333431931041957284.png)
+
+  *Applying a filter once added*
+</Note>
+
+### Configuring filter behavior
+
+Click the cogwheel icon on any filter for options: **Title**, **Selection mode** (multi-select or single-select), **Display value**, **Filter values** (restrict the dropdown to relevant values), and **Mode** (interactive, locked, or hidden).
+
+### Creating dependent filters
+
+In edit mode, click the cogwheel on the filter you want to make dependent, then in the **Filter Values By** section select the parent filter or filters and click **Save**. For example, linking a State filter to a Region filter means selecting "Northeast" shows only northeastern states.
+
+### Exporting an entire dashboard
+
+Dashboard export options: **PDF snapshot** (full-page capture as it currently appears, including active filters), **Slide deck (PDF or PPTX)** (each visualization becomes its own slide), and **Data export (XLSX)** (raw tabular data behind the dashboard).
+
+### Exporting a single visualization
+
+For individual visualizations: **PNG** (snapshot image), **CSV** (raw data), and **PDF** (formatted single-page export). To export, click the three-dot button on a dashboard or visualization and select your format.
+
+<Info>
+  💡 Tip: All exports reflect the current filters and layout. If you want to export a specific filtered view, apply your filters first, then export.
+</Info>
+
+### Scheduling recurring exports
+
+Open the dashboard, click **Schedule export** (or find it under the three-dot menu), and configure: **Format** (PDF snapshot, slide deck PDF/PPTX, or data XLSX), **Frequency** (daily, weekly, monthly), and **Recipients**. Click **Create**. Scheduled exports are sent as email attachments and always reflect the latest data at the time the export runs.
+
+<Note>
+  ![Configure automated export delivery with recipients and schedule](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533281338/7fbd11cc21f070604c146e610c5a/upload_5238534760130617587.png)
+
+  *Configure automated export delivery with recipients and schedule*
+</Note>
+
+## Settings and Permissions
+
+Users with the **Admin**, **Partner Admin**, or **Support** role have reporting access, as does any user assigned a reporting role of **Analytic** or **Viewer**. A **Viewer** can open and view dashboards. An **Analytic** user can analyze data, build and author dashboards and visualizations, and set up scheduled exports when the workspace is on the **Custom** tier. On the **Free** tier, dashboards are read-only; admins can share Alvys-curated dashboards, but no one can author new dashboards or visualizations. To edit and save dashboards, build visualizations, or schedule exports, your workspace must be on the **Custom** tier and you must have an **Admin** role or an **Analytic** reporting role.
+
+<Note>
+  📋 Note: Your administrator must configure email destinations before you can schedule exports. If you do not see the scheduling option, ask your administrator to set up email delivery for your workspace.
+</Note>
+
+## Limits and Behavior
+
+- Removing a visualization from a dashboard does not delete it; it remains saved and available in the catalog.
+- Section titles are limited to 256 characters and section descriptions to 1,024 characters.
+- Each visualization has a minimum width on the grid to keep it readable.
+- Exports always reflect the current filters and layout at the time you run them; scheduled exports reflect the latest data at the time the export runs.
+
+## FAQs
+
+**Q: Can I undo changes I made in edit mode?**
+
+**A:** Yes. While in edit mode, use the **Undo** and **Redo** buttons in the toolbar. If you have already saved, you will need to manually revert your changes.
+
+**Q: Will removing a visualization from a dashboard delete it?**
+
+**A:** No. Removing a visualization from a dashboard only takes it off that dashboard. The visualization itself remains saved and available in the catalog for use on other dashboards.
+
+**Q: Can I schedule different exports for the same dashboard?**
+
+**A:** Yes. You can create multiple scheduled exports with different formats, frequencies, and recipients.
+
+**Q: Why can't I edit a dashboard?**
+
+**A:** Editing requires the **Custom** workspace tier plus an **Admin** role or an **Analytic** reporting role. If your workspace is on the **Free** tier, dashboards are read-only. If your reporting role is **Viewer**, you can view dashboards but not edit them. Ask your administrator to adjust your workspace tier or your reporting role.
+
+## Go Deeper
+
+- [Filter, drill, and save the view you want](/help/reports-analytics/how-to-filter-drill-and-save-the-view-you-want)
+- [How to share, export, schedule, and alert on a dashboard](/help/reports-analytics/how-to-share-export-schedule-and-alert-on-a-dashboard)

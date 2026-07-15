@@ -1,0 +1,119 @@
+---
+title: "How to set up Assignment Preferences for drivers"
+description: "Assign Drivers to Assets and Dispatchers"
+---
+
+<Note>
+  📋 **Module:** Assets > Assignment Preferences · **Owner:** Support team · **Applies to:** Users with **"ViewDrivers"** and **"ViewTrucks"** · **Last reviewed:** 2026-06
+</Note>
+
+## Overview
+
+Assignment Preferences, also called dispatch preferences or driver-truck pairings, let you link a driver (or a driver team) to a specific truck and a dispatcher ahead of time. When a load needs to be assigned, Alvys checks these pairings and can suggest or automatically apply the right combination, saving dispatchers from re-entering the same information on every trip.
+
+Each preference has a status: it is Planned before its start time, Active during the window you set, and Archived after it ends or when you manually archive it.
+
+## Prerequisites
+
+- You must have the **"ViewDrivers"** and **"ViewTrucks"** permissions to access the Assignment Preferences page. These permissions are required for the page to appear in the left navigation.
+- You must have at least one driver and one truck already created in Alvys before you can set up a preference.
+- If you need to add drivers or trucks first, do that in Assets > Drivers and Assets > Trucks before returning here.
+
+## Steps
+
+1. Open Assignment Preferences.
+
+In the left navigation, select Assets.
+
+Select Assignment Preferences from the Assets submenu.
+
+<Note>
+  ![Screenshot of Assignment Preferences list view.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532305462/b48e97bf3fd8b0dcaeb35f5dbf04/upload_13113849989637782814.png)
+
+  *Screenshot of Assignment Preferences list view. *
+</Note>
+
+1. Open the new assignment form.
+
+On the Assignment Preferences page, click **New assignment** in the top right.
+
+<Note>
+  ![Screenshot of the New Assignment Preference modal.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532305484/b8879d10ad7ef01e1ca31326424e/upload_12426856324225740607.png)
+
+  *Screenshot of the New Assignment Preference modal.*
+</Note>
+
+1. Fill in the preference details.
+2. In the Driver 1 field, type the driver's name and select them from the results.
+3. If this is a team assignment, toggle on Driver team and then fill in the Driver 2 field.
+4. In the Truck field, type the truck number and select it from the results.
+5. Optionally, select one or more values in the Equipment field to record the trailer equipment type for this pairing.
+6. In the Dispatcher field, type a name to associate a dispatcher with this preference.
+7. Set a Starts at date and time for when this preference becomes active.
+8. Optionally, set an Ends at date and time. If left blank, the preference remains active until you archive it manually.
+
+<Note>
+  ![Screenshot of the Assignment Preferences table with columns visible](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532305501/1476d9376449c6b4fc690ed21b4b/upload_1997979084896347156.png)
+
+  *Screenshot of the Assignment Preferences table with columns visible*
+</Note>
+
+1. Save the preference.
+
+Click **Save**. The new preference appears in the Assignment Preferences list. Its status is Planned until the Starts at time is reached, at which point it becomes Active.
+
+<Note>
+  ![Screenshot of the Details sidebar with Edit button visible.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532305524/b94fab4236f551c457c2f6b0ed01/upload_8063289361648893066.png)
+
+  *Screenshot of the Details sidebar with Edit button visible. *
+</Note>
+
+After saving, the preference is visible in the Assignment Preferences list. When a load is assigned from the Dispatch Planner and the driver in the preference is selected, Alvys checks for a matching preference and can apply the saved truck and dispatcher automatically.
+
+### Editing an existing preference
+
+Select a preference from the list. If its status is Active or Planned, an Edit button appears. Click Edit to open the form with the existing values prefilled, make your changes, then click Save.
+
+### Archiving an active preference
+
+Select an Active preference from the list and click Archive. The preference moves to archived status and is no longer suggested during dispatch assignment.
+
+### Deleting a planned preference
+
+Select a Planned preference from the list and click Delete. This permanently removes the preference before it becomes active.
+
+## Troubleshooting
+
+### Assignment Preferences page is not visible in the navigation
+
+The Assignment Preferences page only appears for users who have both the **"ViewDrivers"** and **"ViewTrucks"** permissions. If either permission is missing, the menu item does not display. Contact your account administrator to review your permission settings.
+
+### Preference is not suggested during dispatch assignment
+
+Alvys checks Assignment Preferences when assigning a driver to a trip in the Dispatch Planner. The preference must be Active at the time of assignment. A preference with Planned status or one that has been Archived is not evaluated. Verify the preference status and adjust the Starts at date if needed.
+
+### Driver or truck does not appear in the search results
+
+The driver or truck must be active in Alvys before it can be added to a preference. If the record is inactive or has not yet been created, it will not appear. Check Assets > Drivers or Assets > Trucks to confirm the record exists and is active.
+
+## FAQs
+
+**Q:** Can I assign a driver to more than one truck at the same time?
+
+**A:** Yes. A driver can appear in multiple preferences with different trucks, as long as the active date ranges do not overlap for the same pairing. If overlapping preferences exist for the same driver and truck combination, Alvys will surface a similar-assignments warning when you create the second preference.
+
+**Q:** Can I set a preference without an end date?
+
+**A:** Yes. Leaving the Ends at field blank means the preference stays Active until you manually archive it.
+
+**Q:** What happened to Dispatch Preferences?
+
+**A:** Dispatch Preferences was renamed to Assignment Preferences in December 2025. The feature works the same way; only the name changed.
+
+**Q:** Does setting up an Assignment Preference automatically dispatch the driver?
+
+**A:** No. An Assignment Preference saves a standing pairing so the Dispatch Planner can suggest or apply it when you assign a load. The actual dispatch action is a separate step performed from the Dispatch Planner.
+
+## Go Deeper
+
+- [Dispatch Assist](https://help.alvys.com/en/articles/10438043-dispatch-assist)

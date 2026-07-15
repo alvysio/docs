@@ -1,0 +1,150 @@
+---
+title: "Trucker Tools Inbound Integration"
+---
+
+<Note>
+  **Applies to:** Admins · Partner Admins ** ·** **Module:** Profile Menu > EDI &amp; Visibility
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  **Provider:** Trucker Tools · **Integration type:** Two-way · **Direction:** Alvys sends load details and driver information to Trucker Tools; location and status updates sync back from Trucker Tools to Alvys.
+
+  Connect Trucker Tools to Alvys to track freight in real time using the driver's cell phone; location and status updates flow from Trucker Tools into Alvys automatically.
+</Note>
+
+## Overview
+
+Track your freight in real time by connecting Alvys with **Trucker Tools**. This integration lets brokers monitor every shipment using the driver's cell phone and sends location updates directly into your Alvys account.
+
+**Synonyms**: Trucker Tools tracking, TT visibility, inbound tracking, driver cell phone tracking, real-time freight visibility.
+
+The Trucker Tools integration connects your Alvys account with the Trucker Tools carrier network. When you start tracking on a load, Alvys sends the load details to Trucker Tools, which contacts the assigned driver and begins collecting location and status data. Those updates flow back into Alvys automatically, giving you real-time visibility from pickup to delivery.
+
+This integration tracks freight through the driver's cell phone number. Tracking through electronic logging devices is not supported at this time.
+
+This is a two-way integration. Location and status data flows from Trucker Tools to Alvys, and load details flow from Alvys to Trucker Tools to initiate tracking.
+
+## Prerequisites
+
+Before connecting, make sure you have:
+
+- An active Trucker Tools account with your credentials ready
+- Admin or Partner Admin access in Alvys
+- A carrier assigned to any load you want to track before you can start tracking
+
+## How to connect?
+
+**Open the integration settings.**
+
+- Select your user profile in the bottom left corner of Alvys, then choose **EDI &amp; Visibility** from the menu. You will see a list of available integrations divided into EDI Tenders and Visibility sections.
+- Find **Trucker Tools** under the Visibility section. Select which subsidiary you want to enable this feature for.
+- Enter your Trucker Tools credentials. Alvys will verify your credentials and activate the integration once confirmed.
+
+<Note>
+  ![Trucker Tools credentials entry screen in the EDI &amp; Visibility settings](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/418db79c-514c-495d-bcaf-4a06919df0b4/image.png)
+
+  * Trucker Tools credentials entry screen in the EDI &amp; Visibility settings*
+</Note>
+
+**Provide the connection addresses to Trucker Tools.**
+
+In the Trucker Tools integration window, copy the two connection addresses shown and send them to your Trucker Tools contact at [david@truckertools.com](mailto:david@truckertools.com) and [integrations@truckertools.com](mailto:integrations@truckertools.com):
+
+- **Location Updates:** `https://api.alvys.com/api/truckerTools/locationUpdates/XXXXX`
+- **Order Status:** `https://api.alvys.com/api/truckerTools/statusUpdates/XXXXX`
+
+Replace XXXXX with your Alvys Tenant ID, which is shown in the integration window. Trucker Tools will install these addresses on their end and confirm when complete. This step is required for Trucker Tools to send tracking data back to your Alvys account.
+
+## What syncs?
+
+Once you start tracking a load, Alvys sends the following load details to Trucker Tools: the assigned driver's phone number, stop addresses, stop appointment times, and stop company names. Trucker Tools uses this information to initiate contact with the driver and begin collecting location updates.
+
+Trucker Tools returns location coordinates and order status events to Alvys via the connection addresses set up in the connection steps above.
+
+### Start tracking a load
+
+Open the load details page and go to the **Load Tracking** tab. The load must have a carrier assigned before you can begin tracking.
+
+Review the pre-filled tracking settings that appear based on your previous preferences and the load details. Adjust them as needed, then confirm to start tracking.
+
+<Note>
+  ![Load Tracking tab showing the tracking initiation form](https://alvys.intercom-attachments-1.com/i/o/1103662455/4aca96c33f51a33fe17e517a/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F55e4520f-955b-4103-80ef-4706ac50d793-2FUntitled.png)
+
+  *Load Tracking tab showing the tracking initiation form*
+</Note>
+
+<Note>
+  ![Tracking settings panel with pre-filled options](https://alvys.intercom-attachments-1.com/i/o/1103662474/b108b5685f3f9f7dd69140bd/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F1a08ed5f-365e-4b03-9403-db0d01b2e94e-2FUntitled.png)
+
+  *Tracking settings panel with pre-filled options*
+</Note>
+
+<Note>
+  ![Tracking confirmation screen](https://alvys.intercom-attachments-1.com/i/o/1103662488/9fcd3215eec13302a8de3f89/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F1da387aa-1caa-4117-b521-bed54caa1944-2FUntitled.png)
+
+  *Tracking confirmation screen*
+</Note>
+
+### Edit or disable tracking
+
+To update or turn off an active tracking request, go to the **Load Tracking** tab on the load details page. Select the option to edit or disable the Trucker Tools tracking request.
+
+<Note>
+  ![Edit and disable options in the Load Tracking tab](https://alvys.intercom-attachments-1.com/i/o/1103662505/dd03a0e33a9b8bf34663f72b/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Fdb448847-7bc4-4f3c-a895-cc333660e62d-2FUntitled.png)
+
+  *Edit and disable options in the Load Tracking tab*
+</Note>
+
+### Automatic updates
+
+Your tracking request updates automatically in Trucker Tools when any of the following change on the load: stop company name, stop coordinates, stop address, appointment time, or the driver's phone number. Adding a new stop or splitting a trip also triggers an update.
+
+The tracking request disables automatically if you remove the assigned carrier from the load. This keeps your tracking information accurate and in sync with the current state of the load.
+
+### Verify it is working
+
+Once Trucker Tools confirms the connection addresses are installed, start tracking on a test load and check that the **Trip Location Tracking** section in Alvys shows driver location data flowing in from Trucker Tools. Location and status data should refresh as the driver moves.
+
+<Note>
+  ![Trip Location Tracking section showing real-time driver location data](https://alvys.intercom-attachments-1.com/i/o/1103662523/81fa1c9e9b87480db5a2e95f/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F82953364-ddca-4fb7-a6b2-b7def05fd554-2FUntitled.png)
+
+  *Trip Location Tracking section showing real-time driver location data*
+</Note>
+
+## Troubleshooting
+
+### Tracking does not start after confirming the request
+
+1. Confirm a carrier is assigned to the load. A tracking request cannot start without an assigned carrier.
+2. Confirm the assigned driver has a valid cell phone number on the load. Trucker Tools tracks through the driver's cell phone only.
+3. If a carrier and driver phone number are present but tracking still does not start, contact Alvys support.
+
+### Location data is not flowing into Alvys
+
+1. Confirm Trucker Tools has installed both connection addresses (Location Updates and Order Status) on their end. Tracking data cannot reach Alvys until this step is complete.
+2. Confirm the Tenant ID in each connection address matches your Alvys Tenant ID shown in the integration window.
+3. If the connection addresses are installed correctly and data is still not appearing, contact Alvys support.
+
+## Limits and unsupported
+
+- Tracking works through the driver's cell phone number only. Electronic logging device tracking is not supported.
+- The connection addresses must be installed by Trucker Tools. You cannot complete this step directly in Alvys.
+- A carrier must be assigned to the load before you can start a tracking request.
+
+## FAQs
+
+**Q: What happens to my tracking request if I remove the carrier from the load?**
+
+**A:** The tracking request disables automatically in Trucker Tools when you remove the assigned carrier. You will need to restart tracking after assigning a new carrier.
+
+**Q: Which load changes automatically update my Trucker Tools tracking request?**
+
+**A:** Changes to the stop company name, stop coordinates, stop address, appointment time, or the driver's phone number are sent automatically. Adding a new stop or splitting a trip also triggers an update.
+
+**Q: Can I use this integration to send tracking updates directly to my customers?**
+
+**A:** Yes. The Trucker Tools Outbound Tracking Updates feature lets you send automated updates to your customers from their profile in Alvys. See the article linked below.
+
+## Go Deeper
+
+[How to configure Trucker Tools Outbound Tracking Updates](/help/integrations/how-to-configure-trucker-tools-outbound-tracking-updates)

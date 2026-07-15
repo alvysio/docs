@@ -1,0 +1,54 @@
+---
+title: "MacroPoint Inbound Visibility: Tracking Data Not Appearing"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins
+
+  **Module:** Management > EDI &amp; Visibility
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  If MacroPoint Inbound is configured but tracking data is not appearing on a load, verify that the MacroPoint portal is configured to deliver data to Alvys, that tracking is enabled on the specific load, and that a relevant tracking event has occurred.
+</Note>
+
+## Overview
+
+MacroPoint Inbound must be configured and tracking must be enabled on each load before data will flow. If tracking data is not appearing in your Load Board, Load Details, or Logs, this article explains expected behavior and how to resolve missing data.
+
+Synonyms: MacroPoint inbound, tracking data missing, no location updates, visibility not appearing, Descartes MacroPoint.
+
+## Troubleshooting
+
+### Tracking data is not appearing in Alvys after enabling MacroPoint Inbound
+
+Cause: The MacroPoint Inbound integration receives data passively. It only processes incoming updates when MacroPoint detects a relevant event and delivers it to Alvys. The integration handles tracking status updates, live location updates, arrival and departure timestamps, and trip status changes triggered by arrival and departure events. Data will not flow unless all of the following conditions are met: the MacroPoint portal has been configured to deliver tracking data to Alvys, tracking is enabled on the specific load, and MacroPoint has detected a relevant location or status event.
+
+<Note>
+  ![Load Tracking tab on a load showing active MacroPoint tracking status](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1532154003/b0b1aa2bfa51b72fe468db93f1e4/920889dd-9ba5-4cac-9366-5924e9fac1bf+%281%29.png)
+
+  *Load Tracking tab on a load showing active MacroPoint tracking status*
+</Note>
+
+Resolution:
+
+1. Confirm the MacroPoint portal is configured to deliver data to Alvys via webhooks. The MacroPoint portal must be configured with the correct webhook URLs before any tracking updates can appear. Without correctly configured webhooks, Alvys receives no data from MacroPoint regardless of how the load is configured. Contact your MacroPoint representative or account administrator to confirm the webhook setup is active and pointing to your Alvys account.
+2. Enable tracking on the load. The MacroPoint integration must be enabled on each individual load. Open the load, navigate to the **Load Tracking** tab, and confirm tracking is active. Even if the integration is active at the account level, no data appears for loads where tracking has not been turned on.
+3. Wait for a relevant event. Tracking data appears only after MacroPoint detects a relevant event such as a stop arrival, departure, or location update from the driver. If the driver has not yet reached a checkpoint or the truck has not moved since tracking was enabled, there may be no data to display yet. Data will appear within the load once MacroPoint sends the update.
+4. Refresh and verify tracking is still active. If tracking was working and has since stopped, refresh the load and confirm tracking remains active on both the driver's side and in Alvys. If tracking appears disabled, re-enable it. Collect screenshots or recordings if the issue is intermittent.
+5. Review for data errors. If incoming data contains errors such as incorrect timestamps or location mismatches, certain updates may fail. Check the Logs section of the load for any error indicators before escalating.
+6. If you have confirmed the MacroPoint portal is configured correctly, tracking is enabled on the load, and a relevant event has occurred but data is still not appearing, contact Alvys support. Include the load number, the time range when data was expected, and any screenshots or recordings of the issue.
+
+## FAQs
+
+**Q: How long does it take for tracking data to appear?**
+
+**A:** Data appears once MacroPoint detects a relevant location event.
+
+**Q: Do I need to enable tracking on every load?**
+
+**A:** Yes. Tracking must be enabled per load.
+
+**Q: What if tracking was working and then stopped?**
+
+**A:** Confirm tracking is still active on the driver's side and in Alvys, collect screenshots or recordings, and contact Alvys support if the issue continues.

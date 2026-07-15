@@ -1,0 +1,373 @@
+---
+title: "Rates Permissions"
+---
+
+<Note>
+  **Applies to:** Dispatchers, Billers, Operations Managers, Admins, Partner Admins
+
+  **Module:** Management > Users > Permissions (Rates category)
+
+  **Last reviewed:** 2026-06** ·** **Owner:** Support
+
+  The Rates category controls who can view and edit financial rate data on loads, including customer rates, carrier rates, trip values, accessorials, and driver pay rates.
+</Note>
+
+## Overview
+
+Rates Permissions govern access to the financial data at the core of every load in Alvys. Nine permissions are organized into four view-and-edit pairs plus one standalone permission, giving administrators precise control over who can see and who can change the numbers that drive revenue, cost, and driver pay.
+
+Restricting rate visibility and editing rights (rate access, rate control) protects your company from unauthorized changes that could affect profitability, customer billing accuracy, and driver settlement integrity.
+
+## Where to Find It
+
+To view or modify Rates Permissions for a user, navigate to **Management > Users**, open the user's profile, and select **Edit**. The Rates section appears within the permissions panel. The logged-in user must have the **"Set Permission"** permission (located in the Management category) to make any changes.
+
+<Warning>
+  ⚠️ To modify permissions, the logged-in user must have the **"Set Permission"** permission in the Management category. Without it, a user can view the profile but cannot adjust any permissions.
+</Warning>
+
+Navigate to **Management > Users** and open the **Users** tab.
+
+<Note>
+  ![Image showing navigation to the Company/tenant profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a92fb46b-cd24-4e22-a290-a776e9b2cf38/image.png)
+
+  *Image showing navigation to the Company/tenant profile*
+</Note>
+
+Choose an existing user to **Edit**, or select **Add User** to create a new profile.
+
+<Note>
+  ![Image showing “Users” tab on Company Profile with “Add User” button](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ccd2b083-652e-4cec-9c01-5f018a869cba/image.png)
+
+  *Image showing “Users” tab on Company Profile with “Add User” button*
+</Note>
+
+Scroll to the **Permissions** section and locate the **Rates** category. The nine Rates checkboxes are **"View Customer Rate"**, **"Edit Customer Rate"**, **"View Carrier Rate"**, **"Edit Carrier Rate"**, **"View Trip Value"**, **"Edit Trip Value"**, **"Add Accessorials"**, **"View Driver Rates"**, and **"Edit Driver Rates"**.
+
+<Note>
+  ![Image showing Rates permissions checkboxes (9 permissions) on user profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/80bc0f1a-6f8a-4d8d-89bc-f893abfc5173/image.png)
+
+  *Image showing Rates permissions checkboxes (9 permissions) on user profile*
+</Note>
+
+## Key Concepts
+
+The Rates category contains nine permissions in four view-and-edit pairs plus one standalone:
+
+- **"View Customer Rate"** and **"Edit Customer Rate"** — control access to the customer-facing revenue side of a load
+- **"View Carrier Rate"** and **"Edit Carrier Rate"** — control access to the carrier cost side of a load
+- **"View Trip Value"** and **"Edit Trip Value"** — control access to the driver compensation amount
+- **"View Driver Rates"** and **"Edit Driver Rates"** — control access to driver pay rate configurations in driver profiles
+- **"Add Accessorials"** — controls the ability to create and manage supplemental charges (detention, lumper fees, TONU, etc.)
+
+## How to Use It
+
+For step-by-step instructions on managing user permissions, see [How to Add and Manage Users in Alvys](/help/administration/how-to-add-and-manage-users-in-alvys).
+
+## "View Customer Rate"
+
+The **"View Customer Rate"** permission controls whether a user can see the customer-facing rate on a load, which represents what the company charges the customer for moving freight. When enabled, users can view the Customer Money Box on the Load Details page and see the Customer Freight Charge and Customer Revenue columns in the Load Board grid.
+
+<Note>
+  ![Image showing Customer Rate card / Customer Money Box](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/58082e68-ec08-4fa0-96cf-6df432e474f7/image.png)
+
+  *Image showing Customer Rate card / Customer Money Box*
+</Note>
+
+<Warning>
+  ⚠️ This permission is strictly for viewing and does not allow users to modify customer rates. To make changes to customer rates, the **"Edit Customer Rate"** permission is required.
+</Warning>
+
+<Note>
+  ![Image showing Customer Freight Charge and Customer Revenue columns in Load Board](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/67146cc4-2c00-4ca4-a01b-f3b4a391bed8/image.png)
+
+  *Image showing Customer Freight Charge and Customer Revenue columns in Load Board*
+</Note>
+
+<Info>
+  💡 **Best Practice:** Grant **"View Customer Rate"** to users who need to monitor rates such as Billers and Dispatchers so they can see what loads are worth and make informed sourcing decisions.
+</Info>
+
+## "Edit Customer Rate"
+
+The **"Edit Customer Rate"** permission allows users to modify the customer-facing rate on a load. Editing customer rates directly affects the revenue side of every load and can impact invoicing accuracy, so this permission should be granted carefully.
+
+<Note>
+  ![Edit Customer Rate (Customer Money Box editable)](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/047e9e9a-1f03-4dd3-97d0-b55a9ccd670d/image.png)
+
+  *Edit Customer Rate (Customer Money Box editable)*
+</Note>
+
+<Info>
+  💡 **Best Practice:** Separate **"View Customer Rate"** (broad access, most dispatchers) from **"Edit Customer Rate"** (restricted access, billing and management only). This is the most important rate permission split in Alvys. Letting dispatchers see rates without being able to change them strikes the right balance between operational transparency and financial control.
+</Info>
+
+## "View Carrier Rate"
+
+The **"View Carrier Rate"** permission controls whether a user can see the carrier cost on a load, including the Carrier Money Box on the Load Details page, the Carrier Rate and Carrier All-in Rate columns in the Load Board grid, and the Payment History table in the carrier's profile.
+
+<Note>
+  ![Image showing Carrier Rate card / Carrier Money Box](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b3c66c47-6934-4665-8b81-b6173211f794/image.png)
+
+  *Image showing Carrier Rate card / Carrier Money Box*
+</Note>
+
+The Carrier Rate and Carrier All-in Rate columns in the Load Board grid become visible with this permission.
+
+<Note>
+  ![Image showing Carrier Rate and Carrier All-in Rate columns in Load Board](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8938b915-059e-4b1d-9ce7-0e10e91fd186/image.png)
+
+  *Image showing Carrier Rate and Carrier All-in Rate columns in Load Board*
+</Note>
+
+For trips with external carriers that have a carrier payment, this permission also reveals the Payment History table in the Carrier Details section.
+
+<Note>
+  ![Image showing Payment History table in Carrier Details section on a Trip.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/85202e29-a2f4-4327-ab69-a228f6a57d4f/image.png)
+
+  * Image showing Payment History table in Carrier Details section on a Trip.*
+</Note>
+
+<Info>
+  💡 **Best Practice:** Grant **"View Carrier Rate"** to users involved in the load's financial lifecycle: dispatchers, billers, and operations managers. Withhold this access from personnel who do not require cost visibility.
+</Info>
+
+## "Edit Carrier Rate"
+
+The **"Edit Carrier Rate"** permission allows users to modify the carrier cost on a load. Because carrier rates directly affect profit margins and settlement calculations, editing is status-dependent and restricted on loads that have already entered billing or payment workflows.
+
+<Note>
+  ![Image displaying Carrier Rate (Carrier Money Box editable)](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b14f2a19-5438-43f0-a237-845b68ef506f/image.png)
+
+  * Image displaying Carrier Rate (Carrier Money Box editable)*
+
+  ![Image showing Payment History table in Carrier Details with Add carrier payment buttons and delete icon to remove carrier payments](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/38bf1cf7-977f-41e9-aff9-2c48b86ab4ba/image.png)
+
+  *Image showing Payment History table in Carrier Details with Add carrier payment buttons and delete icon to remove carrier payments *
+
+  ![Image showing Edit Carrier Rate in Carrier Settlements Module](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/47e4144a-9baf-4e4b-bbab-b1a4c8966199/image.png)
+
+  *Image showing Edit Carrier Rate in Carrier Settlements Module *
+</Note>
+
+<Info>
+  💡 **Best Practice:** Pair **"Edit Carrier Rate"** with **"View Carrier Rate"** so that users who can edit rates can also see them. Consider limiting **"Edit Carrier Rate"** to senior dispatchers and billing staff rather than granting it to all operational roles.
+</Info>
+
+## "View Trip Value"
+
+The **"View Trip Value"** permission controls whether a user can see the driver compensation amount on a load. Trip value is distinct from carrier rate: it reflects what the driver or owner-operator earns rather than what the company pays the carrier. When enabled, users can see the Trip Value Money Box, the Driver Money Box (covering Driver 1, Driver 2, and Owner-Operator pay), the Trip Value column in the Trip Board, and driver pay information in the Alvys mobile app.
+
+<Note>
+  ![View Trip Value / Trip Value Money Box](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/29e72889-4982-4b43-869f-d360cacc4965/image.png)
+
+  *View Trip Value / Trip Value Money Box*
+</Note>
+
+When enabled, the Driver Money Box becomes accessible, showing the trip value for Driver 1, Driver 2, and the Owner-Operator depending on how the load is set up.
+
+<Note>
+  ![Driver Moneybox (Driver 1, Driver 2, Owner Operator) Displaying trip value](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1f2efb8f-3222-460d-adb7-8a9ae3f803cb/image.png)
+
+  *Driver Moneybox (Driver 1, Driver 2, Owner Operator) Displaying trip value*
+</Note>
+
+The same permission also controls trip value visibility in the Alvys mobile app; it is selected automatically in the App category when View Trip Value is enabled in the Rates category.
+
+<Note>
+  ![Image showing View Trip Value permission which also controls viewing the trip value in the mobile app](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/33bba7d5-d566-4f23-a748-ad3a673552e5/image.png)
+
+  *Image showing View Trip Value permission which also controls viewing the trip value in the mobile app*
+</Note>
+
+This permission also controls the visibility of the **Trip Value** column in the [Trip Board](https://app.alvys.com/#/loads/v2).
+
+<Note>
+  ![Image showing the Trip Value column in Trips Board](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ca8cf3b9-fb86-441f-b162-9006a1638d07/image.png)
+
+  *Image showing the Trip Value column in Trips Board*
+</Note>
+
+<Info>
+  💡 **Best Practice:** Grant **"View Trip Value"** to all users involved in load financial planning and driver settlement. Withhold it from Driver role users (who have separate app-level permissions for viewing their own pay) and Safety personnel who do not need compensation visibility.
+</Info>
+
+## "Edit Trip Value"
+
+The **"Edit Trip Value"** permission allows users to modify the driver compensation amount on a load. Changes to trip value directly affect driver settlements and paystubs, so this permission carries significant financial risk if granted broadly.
+
+The trip value fields are interactive when this permission is enabled, but they lock automatically once a driver has been marked as **Paid** or a truck statement has been generated. This prevents retroactive changes to finalized pay.
+
+<Note>
+  ![Edit Trip Value (fields interactive) in Money Box](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3755a53c-e1ec-4eec-945a-c7e22065549d/image.png)
+
+  *Edit Trip Value (fields interactive) in Money Box*
+</Note>
+
+<Note>
+  ![Image showing Driver 1 Moneybox Trip Value field (editable)](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1f2efb8f-3222-460d-adb7-8a9ae3f803cb/image.png)
+
+  *Image showing Driver 1 Moneybox Trip Value field (editable)*
+</Note>
+
+If a trip value must be edited after a driver has been marked Paid, the truck statement must first be reverted to unlock the fields.
+
+<Note>
+  ![Image showing error message displayed to user when the Trip Value locked because a driver was paid.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d5349623-2ecd-47f5-93ea-6bc435a0e546/image.png)
+
+  *Image showing error message displayed to user when the Trip Value locked because a driver was paid.*
+</Note>
+
+<Info>
+  💡 **Best Practice:** Restrict **"Edit Trip Value"** to users who actively manage driver pay, typically dispatchers and billing personnel. For operations managers and sales agents who need to see trip values for planning purposes, grant **"View Trip Value"** only without the edit capability.
+</Info>
+
+## "Add Accessorials"
+
+The **"Add Accessorials"** permission enables users to create, edit, and manage supplemental charges beyond the base freight rate. These accessorials cover specialized services or conditions encountered during a load's lifecycle, such as detention, lumper fees, fuel surcharges, layovers, and TONU (Truck Ordered Not Used). Within Alvys, these charges can be applied to three distinct pillars: the Customer for revenue, the Carrier for cost, and the Driver or Owner-Operator for pay.
+
+<Note>
+  ![Image showing “Add Accessorial” button](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/82ad40b8-0c50-4f92-b669-cbfa46394896/image.png)
+
+  *Image showing “Add Accessorial” button*
+
+  ![Image showing Alvys money box with options or accessorials such as edit amount, mark as paid and remove accessorial](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/77cafcff-15df-45dd-9078-05284baf8844/image.png)
+
+  *Image showing Alvys money box with options or accessorials such as edit amount, mark as paid and remove accessorial*
+</Note>
+
+<Warning>
+  ⚠️ The **"Add Accessorials"** permission is also required for performing some E-Check operations such as adding an e-check, canceling an e-check, moving an e-check between loads, and marking an e-check as paid. These e-check operations are considered modifications to load charges that fall under the accessorials umbrella.
+</Warning>
+
+If accessorials are added carelessly or incorrectly, the company either absorbs an unnecessary cost or bills a customer incorrectly, damaging the business relationship. By restricting **"Add Accessorials"**, companies ensure that only authorized personnel can create and modify these charges. By default, this permission is granted to all roles except Safety and Driver. It is essential for Dispatchers managing real-time transit issues and Billing personnel who reconcile final invoices and settlements.
+
+<Info>
+  💡 **Best Practice:** Grant **"Add Accessorials"** to dispatchers and billers who regularly manage load charges. Require documentation (such as uploaded receipts) for accessorial charges to maintain an audit trail. Review accessorial patterns periodically to identify unusual activity.
+</Info>
+
+## "View Driver Rates"
+
+The **"View Driver Rates"** permission regulates a user's ability to access sensitive compensation structures stored within driver profiles and load-level contexts throughout Alvys. This authority encompasses the specific rate data that determines how company drivers and owner-operators are remunerated, such as per mile, per load, percentage, or hourly configurations. This permission is distinct from trip value or carrier rates because it governs the underlying pay methodology rather than just the final settlement amount. Upon being granted, the Rate section of the driver profile becomes visible, driver rates on individual loads are accessible, and the Driver Rate column appears in the Load Board grid.
+
+When **"View Driver Rates"** is enabled, the Rate section of the driver profile is visible, displaying the rate structure (for example: per mile, rate per job, percentage, etc.). This information can be used to calculate expected driver pay for a given load, verify payroll accuracy, or review compensation structures during performance discussions. Without this permission, the compensation section of driver profiles remains hidden.
+
+<Note>
+  ![View Driver Rates: driver profile Rate section](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/09572034-29dc-4f2a-8f93-f4a259b76248/image.png)
+
+  *View Driver Rates: driver profile Rate section*
+</Note>
+
+Driver and owner-operator rate information is also visible at the load level when this permission is enabled:
+
+<Note>
+  ![Image showing driver rate at the load level](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a9a20715-454c-483e-80b8-f315b38e4c01/image.png)
+
+  *Image showing driver rate at the load level*
+</Note>
+
+This permission additionally governs the visibility of the Driver Rate column within grid views and the column selection on the Trip Board. If this permission is withheld, the Driver Rate column is suppressed entirely, preventing users from manually adding it to their Trip Board. This ensures that granular financial metrics remain hidden in the trip details and driver asset pages.
+
+<Note>
+  ![Image showing Driver Rate column in Trip Board grid](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8950033d-02be-49ad-9087-6dcdcc4d1ced/image.png)
+
+  * Image showing Driver Rate column in Trip Board grid*
+</Note>
+
+**"View Driver Rates"** is assigned by default to all roles except Safety and Driver. It remains most relevant for Operations Managers, Dispatchers, and Billers who require visibility into compensation for planning, settlement, and cost analysis. For payroll personnel, this access is indispensable for auditing and verifying the accuracy of settlements before processing payments.
+
+<Info>
+  💡 **Best Practice:** Provide **"View Driver Rates"** only to users who require it for payroll, HR, or fleet management purposes, as general dispatchers typically do not need to observe individual driver pay rates to assign and manage loads. Grant this permission alongside **"View Trip Value"** for users responsible for managing driver compensation.
+</Info>
+
+## "Edit Driver Rates"
+
+The **"Edit Driver Rates"** permission grants authorized personnel the ability to modify pay rate configurations within driver profiles, including cents-per-mile, flat rates, percentage-based structures, and other compensation parameters. Any adjustment directly influences all subsequent payroll calculations and financial settlements. This permission operates as a view-edit pair with **"View Driver Rates"**: while **"View Driver Rates"** enables a user to observe the data, **"Edit Driver Rates"** provides the authorization to perform inline editing within the driver money box for both revenue and non-revenue load details and driver asset profiles. Without this permission, even users who can view the rates are restricted from making any alterations, ensuring that sensitive financial data remains secure from accidental or unauthorized modification.
+
+<Note>
+  ![Image showing Rates section on Driver Profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8b0a9548-7572-4ee7-b993-88f13a61511e/image.png)
+
+  * Image showing Rates section on Driver Profile *
+
+  ![Image showing the Edit option for the driver rate on the driver profile.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1a53cdff-4cdb-4829-94c6-fbc34ef3d516/image.png)
+
+  *Image showing the Edit option for the driver rate on the driver profile.*
+</Note>
+
+**"Edit Driver Rates"** is assigned by default to all roles with the exception of Safety and Driver. It remains most relevant to personnel involved in settlement processing, cost analysis, and driver management. For accounting teams, this authorization is vital for rectifying billing errors and ensuring that driver compensation aligns with the most current negotiated terms.
+
+<Info>
+  💡 **Best Practice:** Grant **"Edit Driver Rates"** to users who manage driver compensation as part of their daily workflow. For users who only need to review rates, such as auditors, grant **"View Driver Rates"** exclusively.
+</Info>
+
+## FAQs
+
+**Q:** How are Rates Permissions organized in Alvys?
+
+**A:** The Rates category contains nine permissions arranged into four view-and-edit pairs along with a standalone **"Add Accessorials"** permission. Each view permission governs the visibility of rate data, while each edit permission governs the ability to modify that data.
+
+**Q:** Can a user edit a rate without being able to view it?
+
+**A:** The system does not strictly prevent granting edit access without view access, but doing so creates a poor user experience because the fields will remain hidden. Always grant the view permission alongside its corresponding edit permission.
+
+**Q:** Why does the Billing permission sometimes allow users to see rate information?
+
+**A:** Billers require access to all financial data to process invoices and settlements. If a user has the Billing role, they may see rates even without explicit rate view permissions enabled.
+
+**Q:** Why can't I edit the carrier rate on a load even though I have the "Edit Carrier Rate" permission?
+
+**A:** Carrier rate editing is status-dependent. The system blocks editing on loads in **TONU**, **Released**, **Queued**, **Invoiced**, **Financed**, **Completed**, or **On Hold** status. Only loads in **Open**, **Quoted**, **Reserved**, **Covered**, or **Delivered** status allow carrier rate editing. Check the current status of the load to determine if editing is available.
+
+**Q:** What happens if I remove all Rates Permissions from a user?
+
+**A:** The user will lose visibility of all financial rate information on loads. The Money Box on the Load Details page will not show customer rate, carrier rate, or trip value sections. The Load Board will not display rate columns. The user can still see non-financial load information such as origin, destination, status, and equipment type, and perform other actions based on their remaining permissions.
+
+**Q:** Does the "Add Accessorials" permission affect e-check operations?
+
+**A:** Yes. The **"Add Accessorials"** permission is required for some e-check operations such as canceling an e-check, moving an e-check between loads, and marking an e-check as paid. These operations modify load charges that fall under the accessorials umbrella.
+
+**Q:** Can a Driver role user ever see rates?
+
+**A:** The Driver role receives no Rates Permissions by default. However, separate permissions in the App category, such as **"View Trip Value"**, **"View Payable Amount"**, and **"View App Paystubs"**, can grant drivers limited visibility into their own compensation through the Alvys mobile application. These App permissions are distinct from the web-facing Rates Permissions covered in this article.
+
+**Q:** Why do Safety and Driver roles not receive Rates Permissions by default?
+
+**A:** These roles focus on compliance and hauling rather than financial management, so they do not require access to sensitive company revenue and cost data.
+
+**Q:** If I grant "Edit Customer Rate", does the user also need "Edit Carrier Rate" to modify both sides of a load?
+
+**A:** Yes. Customer rates and carrier rates have separate edit permissions. Granting **"Edit Customer Rate"** only allows the user to modify the customer side. To modify both sides, the user needs both **"Edit Customer Rate"** and **"Edit Carrier Rate"**.
+
+**Q:** What is the relationship between "Edit Carrier Rate" and "Add Accessorials"?
+
+**A:** Some parts of the system require both permissions to modify carrier charges. If a user has **"Edit Carrier Rate"** but not **"Add Accessorials"**, they may have limited ability to modify carrier-side line items. Grant both permissions to users who manage carrier rates and charges.
+
+**Q:** Should dispatchers or billing staff have the "Add Accessorials" permission?
+
+**A:** Most operations grant this to both roles so dispatchers can log real-time issues like detention while billers ensure all charges are captured during final reconciliation.
+
+**Q:** I want dispatchers to be able to see both sides of the load margin (customer rate and carrier rate). Do I need to enable four permissions?
+
+**A:** You need two permissions for view-only access to both rates: **"View Customer Rate"** and **"View Carrier Rate"**. These two permissions together give the dispatcher a full margin picture including what the load earns and what it costs, without the ability to change either figure. The Edit permissions are separate and not required for read-only visibility.
+
+## Troubleshooting
+
+### "Edit Carrier Rate" is granted but the carrier rate field will not change
+
+Carrier rate editing is status-dependent. Editing is blocked on loads in TONU, Released, Queued, Invoiced, Financed, Completed, or On Hold status. Confirm the load is in Open, Quoted, Reserved, Covered, or Delivered status.
+
+### Rate columns are missing from the Load Board grid
+
+The user is missing the corresponding view permission. Customer rate columns require **"View Customer Rate"**, carrier rate columns require **"View Carrier Rate"**, and the Driver Rate column requires **"View Driver Rates"**.
+
+### A user can view rates but cannot edit them
+
+The user holds only the view permission for that rate. Grant the paired edit permission (for example, **"Edit Customer Rate"** alongside **"View Customer Rate"**).
+
+## Go Deeper
+
+Proceed to the [E-Check Permissions](/help/administration/e-check-permissions) article to learn how to issue, cancel, and move e-checks for both carriers and drivers, including how to configure processing fees and the specific permissions required to delete load notes.
+
+<Info>
+  📁 Back to [User Roles &amp; Permissions Collection](/help/administration/user-roles-permissions-collection)
+</Info>

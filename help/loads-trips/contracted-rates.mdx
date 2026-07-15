@@ -1,0 +1,182 @@
+---
+title: "Contracted Rates"
+---
+
+<Note>
+  📋 **Applies to:** Users with **"ViewContractedRates"** permission
+
+  **Module:** Companies
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  Contracted Rates, also called Contracted Lanes, are fixed-rate agreements tied to specific origin-destination pairs on a customer profile. When a load matches the contract's stops, equipment class, and active date range, Alvys can automatically apply the contracted rate to the load.
+</Note>
+
+## Overview
+
+Contracted Rates let you pre-negotiate lane rates with customers and store them directly in Alvys. Instead of manually entering rates each time a load is created on a familiar lane, the contracted rate is applied automatically when the load matches the agreement.
+
+Each contract specifies the origin, destination, equipment class, rate type, rate amount, optional minimum rate, and the contract period. Alvys checks all of these conditions before applying a contracted rate to a new load.
+
+Synonyms: contracted lanes, lane rates, contract rates, rate agreements, lane agreements.
+
+## Where to Find It
+
+Contracted Rates are managed on the customer profile in the Companies module.
+
+Navigate to **Companies**, open a customer profile, and select the **Contracted Lanes and Fuel Surcharges** tab. The Contracted Rates section lists all active and expired contracts for that customer.
+
+<Note>
+  ![Customer profile showing the Contracted Lanes and Fuel Surcharges tab with a list of active contracts.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532415140/a984fb5ee2af0c224105e41870ce/upload_242434827436505622.png)
+
+  *Customer profile showing the Contracted Lanes and Fuel Surcharges tab with a list of active contracts.*
+</Note>
+
+## Key Concepts
+
+### Rate Types
+
+Each contract uses one of the following rate types.
+
+**Flat**: A fixed dollar amount per load, regardless of miles, weight, or volume.
+
+**Per Mile**: A dollar rate multiplied by the total miles on the load.
+
+**Per Weight**: A dollar rate multiplied by the weight of the shipment.
+
+**Per Volume**: A dollar rate multiplied by the volume of the shipment.
+
+<Note>
+  ![Create Contract dialog showing the Rate Type dropdown with Flat, Per Mile, Per Weight, and Per Volume options.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532415187/c5326e42dfe5a97d52b1ddcb30e4/upload_9625473864499700087.png)
+
+  *Create Contract dialog showing the Rate Type dropdown with Flat, Per Mile, Per Weight, and Per Volume options. *
+</Note>
+
+### Minimum Rates
+
+For Per Mile, Per Weight, and Per Volume contracts, you can set a minimum rate floor.
+
+**Min Rate**: The minimum dollar amount that will be billed, regardless of the calculated rate. If the calculation produces a value lower than Min Rate, the Min Rate value is used instead.
+
+**Min Quantity**: The minimum unit count (miles, pounds, or volume) used in the calculation, even if the actual load quantity is lower.
+
+Minimum rate fields are not available on Flat rate contracts because a Flat rate is already a fixed amount.
+
+### Equipment Class Matching
+
+Each contract specifies the equipment class it applies to. When Alvys checks whether a load matches a contract, the load's equipment class must match the contract's equipment class. If the load uses a different equipment class, the contract is not applied.
+
+### Contract Period
+
+Each contract has a start date and end date. Alvys only applies a contract if the load's pickup date falls within the contract period. Contracts with an end date in the past are expired and are not applied to new loads.
+
+## How to Use It
+
+### Creating a Contract
+
+Required permission: **"WriteContractedRates"**
+
+1. Go to **Companies** and open the customer profile.
+2. Select the **Contracted Lanes and Fuel Surcharges** tab.
+3. Click **Create Contract**.
+4. Enter the contract details: origin, destination, equipment class, rate type, rate amount, minimum rate (if applicable), and contract start and end dates.
+5. Save the contract.
+
+<Note>
+  📷 **Image placeholder:** Contracted Lanes list showing the newly created contract.
+
+  ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532415249/aac43ac9eb70ba74753214b737ec/upload_3458412645150162067.png)
+</Note>
+
+### Editing a Contract
+
+Required permission: **"WriteContractedRates"**
+
+Click the edit icon next to any contract in the Contracted Lanes list to open the edit dialog. Update the desired fields and save.
+
+### Removing a Contract
+
+Required permission: **"DeleteContractedRates"**
+
+Click the delete icon next to a contract to remove it. Deleting a contract is permanent. Loads that were created before deletion are not affected.
+
+### Bulk Importing Contracts
+
+Required permission: **"EditCompany"**
+
+Use the **Import Contracts** button to upload multiple contracts at once from a CSV file.
+
+1. Click **Import Contracts** on the Contracted Lanes and Fuel Surcharges tab.
+2. Select the subsidiary the contracts belong to, then click **Next**.
+3. Download the sample CSV template to see the required format.
+4. Fill in the template with your contract data. If a lane has multiple location options (for example, multiple valid pickup ZIP codes), each must be a separate row. All non-location fields (rate type, rate amount, equipment class, contract dates) must be identical across all rows for the same lane.
+5. Upload the completed file.
+6. Review the validation results. Any rows with errors are flagged.
+7. Click **Import** to confirm and create all valid contracts.
+
+<Note>
+  ![Import Contracts dialog showing the subsidiary selection step and the CSV template download link.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532415282/ae5b575019e0b872e7df9a652014/upload_8239443502915856591.png)
+
+  *Import Contracts dialog showing the subsidiary selection step and the CSV template download link.*
+</Note>
+
+### Applying a Contract to a New Load
+
+Required permission: **"ApplyContractedRatesOnNewLoad"**
+
+When creating a new load, Alvys checks whether the load matches any active contracted rate for the selected customer. A contract matches when all of the following are true:
+
+- The load's pickup and delivery stops match the contract's origin and destination.
+- The load's equipment class matches the contract's equipment class.
+- The load's pickup date falls within the contract's start and end dates.
+
+When a match is found, Alvys prompts you to apply the contracted rate. You can accept or skip the suggestion.
+
+<Note>
+  ![New Load form showing the contracted rate match prompt.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532415328/86d0930735dee6acbadba60ab3cd/upload_9559668725466658950.png)
+
+  *New Load form showing the contracted rate match prompt.*
+</Note>
+
+## Settings and Permissions
+
+- **"ViewContractedRates"**: Required to see contracted rates on a customer profile.
+- **"WriteContractedRates"**: Required to create or edit contracted rates.
+- **"DeleteContractedRates"**: Required to delete a contracted rate.
+- **"ApplyContractedRatesOnNewLoad"**: Required to apply a contracted rate when creating a new load.
+
+<Note>
+  ![Permissions panel showing the four Contracted Rates permissions.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532415351/3de794cae79496b705d2de3bf57f/upload_3720151651862344502.png)
+
+  *Permissions panel showing the four Contracted Rates permissions. *
+</Note>
+
+## Limits and Behavior
+
+- Contracted rates are tied to a specific customer profile. They do not apply across customers.
+- A contract is only applied to a new load, not to loads that already exist when the contract is created.
+- When multiple contracts match a load, Alvys presents all matches and lets the user select which to apply.
+- Expired contracts (end date in the past) remain visible in the Contracted Lanes list for reference but are not applied to new loads.
+- For bulk import, all non-location fields across rows representing the same lane must be identical. Rows with conflicting non-location field values will fail validation.
+
+## FAQs
+
+**Q: Why is the contracted rate not being applied when I create a load?**
+
+**A:** The load must match the contract on all three conditions: stops (origin and destination), equipment class, and pickup date within the contract period. Check that the load's equipment class matches the contract, the pickup date falls within the start and end dates, and the stops map to the correct origin and destination. If none of these conditions explain the issue, contact Alvys support.
+
+**Q: Can I apply a contracted rate to a load after it has already been created?**
+
+**A:** Contracted rates are applied at the time a new load is created. They cannot be applied automatically to an existing load after creation. You can manually update the billing rate on an existing load to match a contracted value.
+
+**Q: What happens if two contracts match the same load?**
+
+**A:** Alvys presents all matching contracts and asks you to choose which one to apply.
+
+**Q: Do minimum rate settings apply to Flat rate contracts?**
+
+**A:** No. Min Rate and Min Quantity fields are not available for Flat rate contracts. A Flat rate is already a fixed amount and does not require a floor.
+
+**Q: Can I import contracts for multiple subsidiaries in a single CSV upload?**
+
+**A:** No. The Import Contracts process asks you to select a subsidiary before uploading. Each import applies to one subsidiary at a time.

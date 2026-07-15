@@ -1,0 +1,110 @@
+---
+title: "Connecting OneStepGPS to Alvys"
+description: "How to set up OneStepGPS Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Support · Operations Manager · Dispatcher
+
+  **Module:** Integrations
+
+  **Provider:** OneStepGPS · **Integration type:** One-way · **Direction:** Location data flows from OneStepGPS into Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  The OneStepGPS integration connects your GPS-equipped trucks and trailers to Alvys, automatically pulling real-time location data so your fleet appears live on the Asset Map and in dispatch planning, with no manual location entry required.
+</Note>
+
+## What This Integration Does
+
+OneStepGPS is a telematics provider that delivers real-time GPS tracking and asset monitoring. When connected to Alvys, it pushes location data from your OneStepGPS-equipped trucks and trailers directly into Alvys, giving dispatchers live visibility on the Asset Map and enabling more accurate trip planning.
+
+This is a one-way integration: location data flows from OneStepGPS into Alvys only. No load, trip, or driver data is sent back to OneStepGPS.
+
+## Prerequisites
+
+Before you can connect OneStepGPS to Alvys, confirm the following:
+
+- You have an active OneStepGPS account with GPS-equipped trucks or trailers.
+- You have the Admin, Partner Admin, or Support role in Alvys (required to access the Integrations tab in Company Profile).
+- You have the truck number for each asset you want to map, exactly as it appears in your OneStepGPS portal.
+- You have emailed [integration@onestepgps.com](mailto:integration@onestepgps.com) to request an API key. Include a brief description of your intended use (integration with Alvys TMS). OneStepGPS will send your API key by reply — keep it ready before proceeding.
+
+## How to connect
+
+1. Navigate to Company Profile. Click your profile icon in the lower-left corner of Alvys. From the menu that appears, select the subsidiary you want to configure. Then click the **Integrations** tab.
+2. Open the OneStepGPS ELD settings. Expand the **ELD** section on the Integrations tab. Locate the OneStepGPS card and click the pencil (edit) icon.
+
+   ![ELD section on the Integrations tab, showing the OneStepGPS card with pencil edit icon highlighted.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c5f5435b-1607-4a96-a72b-6a72a67b8fa4/image.png)
+
+   *ELD section on the Integrations tab, showing the OneStepGPS card with pencil edit icon highlighted.*
+3. Enter your API key and save. Enter your OneStepGPS **API Key** in the field provided, then click **Save**.
+
+   ![OneStepGPS API Key input field and Save button on the ELD integration settings screen.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8dddbdb1-9af2-440f-9204-245814f9c6a6/image.png)
+
+   *OneStepGPS API Key input field and Save button on the ELD integration settings screen.*
+
+   Alvys will verify your API key immediately. If the key is accepted, the integration status updates to active. If Alvys shows a validation error, your API key is incorrect — request a replacement key from OneStepGPS.
+
+   After the integration is active, link each physical truck or trailer in Alvys to its corresponding asset in OneStepGPS. Alvys uses the truck number from OneStepGPS as the Integration ID to match location signals to the correct asset.
+4. Open the asset you want to configure. Go to **Assets** in the left navigation menu and select **Trucks** or **Trailers**.
+
+   Go to **Assets** in the left menu and select **Trucks** or **Trailers**.
+
+   ![Left navigation menu showing Assets section with Trucks and Trailers options.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f47d3da8-c133-4176-ae1a-5aa875b2a736/image.png)
+
+   *Left navigation menu showing Assets section with Trucks and Trailers options.*
+
+   Double-click the truck or trailer you want to configure to open its asset profile.
+5. Add the OneStepGPS integration to the asset. Scroll down to the **ELD Integrations** section on the asset profile and click **Add Integration**. From the provider dropdown, select **OneStepGPS**. In the **Integration ID** field, enter the truck number exactly as it appears in your OneStepGPS portal. Click **Save**.
+
+   ![Asset profile ELD Integrations section with OneStepGPS selected in the provider dropdown and Integration ID field.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c4454456-c709-43ae-ac10-321fbca318a5/image.png)
+
+   *Asset profile ELD Integrations section with OneStepGPS selected in the provider dropdown and Integration ID field.*
+
+Repeat the asset steps above for every truck or trailer you want to track.
+
+## What syncs
+
+- Location data flows from OneStepGPS to Alvys only. No data is sent from Alvys back to OneStepGPS.
+- Once an asset is mapped, its position updates automatically based on location updates from OneStepGPS.
+- Location data appears on the **Asset Map** (Assets > Map) and in dispatch planning views.
+- Only GPS position data (location) is pulled from OneStepGPS. Hours of service, driver behavior scores, and other OneStepGPS data points are not imported into Alvys.
+
+To confirm the integration is working, go to **Assets > Map** in the left navigation, locate the truck or trailer you configured, and confirm the **Address** field shows a recent location.
+
+## Troubleshooting
+
+### Asset shows no location or stale location after setup
+
+1. Confirm the integration is active: open your company profile, open the **Integrations** tab, expand the **ELD** section, and verify the OneStepGPS card shows an active status.
+2. Confirm the asset is mapped: open the asset profile (Assets > Trucks or Trailers > double-click the asset), scroll to the **ELD Integrations** section, and verify OneStepGPS is listed with an Integration ID.
+3. Confirm the truck number in the Integration ID field matches exactly what appears in your OneStepGPS portal; a mismatch will cause location data to fail silently.
+4. Confirm the GPS device on the asset is powered on and transmitting in OneStepGPS by logging in to your OneStepGPS portal.
+5. If the asset shows a current location in your OneStepGPS portal but not in Alvys after completing these checks, contact Alvys support.
+
+### Validation error when saving the API key
+
+Confirm you are entering the API key exactly as provided by OneStepGPS, with no extra spaces at the beginning or end. If the key may have expired, email [integration@onestepgps.com](mailto:integration@onestepgps.com) to request a fresh API key, then re-enter it.
+
+## FAQs
+
+**Q: Where do I find my OneStepGPS truck numbers?**
+
+**A:** Your truck numbers are available in your OneStepGPS portal. Log in to OneStepGPS and look up each asset to find the number as it appears there — this is the value to enter in the Integration ID field in Alvys.
+
+**Q: Can I track both trucks and trailers with OneStepGPS?**
+
+**A:** Yes. You can add the OneStepGPS integration to both trucks and trailers by completing the asset mapping steps for each asset type.
+
+**Q: What happens if I enter an incorrect API key?**
+
+**A:** Alvys verifies the key at the time you click Save. If the API key is incorrect, you will see a validation error immediately and the integration will not activate. Correct the key and try again.
+
+**Q: Do I need to repeat the setup for each subsidiary?**
+
+**A:** Yes. The integration is configured at the subsidiary level. Navigate to each subsidiary's Company Profile and complete the setup steps separately for each one.
+
+## Go Deeper
+
+- [Asset Map](/help/assets-fleet/asset-map)

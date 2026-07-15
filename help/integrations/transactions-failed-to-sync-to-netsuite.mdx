@@ -1,0 +1,264 @@
+---
+title: "Transactions failed to sync to NetSuite"
+---
+
+<Note>
+  📋 **Applies to:** Users with the **"Billing"** permission
+
+  **Module:** Accounting > Error Transactions
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  When one or more transactions fail to export from Alvys to NetSuite (also called NS sync failures, accounting export errors, or failed sync), they appear on the Error Transactions page. This article explains how to identify the cause of each failure and resolve it so the transaction syncs successfully.
+</Note>
+
+## Symptom
+
+One or more transactions did not sync from Alvys to NetSuite. The failed transactions appear on the Error Transactions page (Accounting > Error Transactions) with an error message describing why the export failed. Affected transactions are not recorded in NetSuite until the error is resolved and the transaction is successfully re-synced.
+
+## Cause
+
+Transactions fail to sync when NetSuite rejects the export. Common rejection reasons include duplicate records, unrecognized customer or vendor names, multiple matching entities, mismatched subsidiary assignments, and internal ID conflicts on previously zero-valued transactions. Each failure is logged with a specific error message and error code to help identify the root cause.
+
+## Resolution
+
+### Error Transactions page overview
+
+The Error Transactions page (Accounting > Error Transactions) is a centralized list of all transactions that failed to export from Alvys to NetSuite or another connected accounting system.
+
+<Note>
+  ![The Error Transactions page (Accounting > Error Transactions)](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/557c1bac-ffe4-4585-bab4-caf83fd36b99/image.png)
+
+  *The Error Transactions page (Accounting > Error Transactions)*
+</Note>
+
+### The Error Transactions page includes the following columns:
+
+- **Entity Type:** The type of Alvys transaction that failed to export, showing where the transaction originated. Examples include Load, Trip, Paystub, Deduction, Accessorial Revenue, Toll, Fuel, Escrow, E-check, and Accounting Invoice.
+- **Transaction Type:** How the record is classified in the external accounting system, such as Invoice, Bill, Credit Memo, Vendor Credit, or Journal Entry.
+- **Class:** The subsidiary associated with the transaction.
+- **Error Message**: The message returned by the external accounting system explaining why the transaction failed.
+- **Status: **The current state of the transaction, such as Failed or Resolved.
+- **Reference**: Additional identifiers to link the transaction, such as load number, summary invoice number, or trip number.
+- **Transaction Total**: The total amount of the transaction.
+- **Date Created**: The date the transaction was first attempted to be exported.
+
+### Supported Transaction Types That Can Be Re-Synced from Error Transactions
+
+Not all transactions can be automatically re-synced from this page. Currently, only the following entity types can be re-synced:
+
+- **Load**
+- **Trip**
+- **E-check**
+- **Paystub**
+
+  Before re-syncing, ensure that any necessary corrections have been made to the transaction. To re-sync:
+
+1. Select one or more transactions from the Error Transactions page.
+2. Right-click to reveal the context menu options **“Sync Transaction”** or **“Sync All Transactions.”**
+3. Click **Sync Transaction** and confirm the action in the prompt.
+
+<Note>
+  ![Context menu with the Sync Transaction option](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8b924eeb-9a7f-4ce4-a05c-46d107b4cdcd/image.png)
+
+  *Context menu with the Sync Transaction option*
+</Note>
+
+Use **Sync All Transactions** only if all transactions in the Error Transactions list are ready for export. Any transactions that still require corrections will be skipped.
+
+### The following entity types cannot be re-synced from the Error Transactions page:
+
+- Deduction
+- Accessorial Revenue
+- Fuel
+- Toll
+- Accounting Invoice (same as a summary invoice)
+- Escrow
+- Carrier Statement
+- Driver Statement
+
+For **carrier settlements, summary invoices, and driver pay**, corrections and re-syncs must be performed directly from their respective pages rather than from the general Error Transactions page.
+
+### Clearing an Error Transaction Manually Fixed in the External System
+
+If a transaction has been manually corrected in the external accounting system and no longer requires action in Alvys, it can be cleared from the Error Transactions page:
+
+1. Select one or more transactions from the Error Transactions page.
+2. Right-click to reveal the context menu option **“Mark as Synced.”**
+3. Click **Mark as Synced** and confirm the action in the prompt.
+
+<Note>
+  ![Context menu with the Mark as Synced option](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b373d833-b72b-4599-b41b-358930fd4624/image.png)
+
+  *Context menu with the Mark as Synced option*
+</Note>
+
+Only mark a transaction as synced if the issue is fully resolved. This action cannot be undone.
+
+### Duplicate Record error on export
+
+**Error message:** "DuplicateRecord: An attempt to create a duplicate record has been detected. The external id of the transaction matches an already existing transaction."
+
+**Cause:** A record (invoice or bill) already exists in NetSuite with the same transaction number or External ID. NetSuite prevents creation of duplicate records.
+
+<Note>
+  DuplicateRecord: An attempt to create a duplicate record has been detected. The external id of the transaction matches an already existing transaction.
+
+  ![DuplicateRecord error in the Error Message column](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e369675b-f6ca-47c4-afea-de6b2f8347cb/image.png)
+
+  *DuplicateRecord error in the Error Message column*
+</Note>
+
+1. Search for the duplicate in NetSuite using Global Search or the transaction list. Search by transaction number, External ID, or the vendor or customer name associated with the transaction.
+2. Resolve the conflict using one of the following approaches:
+
+   - If the existing NetSuite record is valid and correct: the transaction has already been recorded. Go to the Error Transactions page in Alvys, select the transaction, right-click, and choose **Mark as synced** to clear it from the error list.
+   - If the existing NetSuite record is incorrect or was created as a test: delete it in NetSuite, then proceed to the next step.
+3. Go to Accounting > Error Transactions in Alvys. Select the transaction, right-click, and click **Retry sync**. Confirm the action in the prompt.
+4. Verify in NetSuite that the transaction was created successfully and is linked to the correct customer, vendor, and subsidiary.
+
+If the error persists after completing these steps, proceed to **If That Didn't Work** below.
+
+### Customer not found in NetSuite
+
+**Error message:** "CustomerNotFound: Customer not found for name '[Customer Name]' and id '[Customer ID]'"
+
+**Cause:** Alvys cannot locate the customer in NetSuite using the NetSuite customer ID. This error is triggered when the "Use Existing Customers" setting is enabled and the External Accounting ID field in Alvys is missing, contains an incorrect ID, or points to a customer that no longer exists in NetSuite.
+
+1. Verify that the customer exists and is active in NetSuite for the relevant subsidiary. To find the NetSuite customer ID, open the customer record in NetSuite; the ID appears in the page URL in the format: `https://[netsuite-url]/app/common/entity/custjob.nl?id=12345`.
+2. In Alvys, open the customer or broker profile. Enter the correct NetSuite customer ID in the External Accounting ID field for the relevant subsidiary. Save the record.
+3. Go to Accounting > Error Transactions. Select the transaction, right-click, and click **Retry sync**. Confirm the action in the prompt.
+4. Verify in NetSuite that the invoice was created and is linked to the correct customer and subsidiary.
+
+### Multiple entities found with the same name
+
+**Error message:** "MultipleItems: Multiple items found. Multiple vendors found for name '[Entity Name]'"
+
+**Cause:** Alvys found more than one record in NetSuite with the same name and cannot determine which one to attach the transaction to. For bills, the entity is a vendor. For invoices, the entity is a customer.
+
+1. Determine the transaction type: invoices use a customer as the entity; bills use a vendor.
+2. Locate the duplicate entity records in NetSuite:
+
+   - For customers: navigate to Lists > Relationships > Customers and search for the entity name.
+   - For vendors: navigate to Lists > Relationships > Vendors and search for the entity name.
+3. Resolve the duplicates. The recommended approach is to rename the duplicate records so each entity name is unique in NetSuite. This allows Alvys to identify the correct entity on retry.
+4. Go to Accounting > Error Transactions. Select the transaction, right-click, and click **Retry sync**. Confirm the action in the prompt.
+5. Verify in NetSuite that the transaction was created and is linked to the correct entity.
+
+### Invalid combination of entity and subsidiary
+
+**Error message:** "UnknownError: Error while accessing a resource. Invalid combination of entity and subsidiary."
+
+**Cause:** The customer or vendor linked to the transaction is not assigned to the subsidiary being used. NetSuite requires each entity record to be explicitly assigned to the subsidiary referenced on the transaction.
+
+<Note>
+  UnknownError: Error while accessing a resource. Invalid combination of entity and subsidiary.
+
+  ![UnknownError: invalid combination of entity and subsidiary](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f961f898-ab4a-4d81-83e7-ab26464c6aff/image.png)
+
+  *UnknownError: invalid combination of entity and subsidiary*
+</Note>
+
+For bills, the entity is a vendor. For invoices, the entity is a customer.
+
+1. Identify the transaction type to determine the entity type: invoices use a customer; bills use a vendor.
+2. In NetSuite, open the entity record and check the Subsidiary field:
+
+   - For customers: navigate to Lists > Relationships > Customers and open the customer record.
+   - For vendors: navigate to Lists > Relationships > Vendors and open the vendor record.
+3. Correct the subsidiary assignment in NetSuite. Edit the entity record and add or assign the correct subsidiary. Save the record. If your NetSuite account uses multi-subsidiary entities, verify that Multi-Subsidiary Customers or Multi-Subsidiary Vendors is enabled under Setup > Company > Enable Features > OneWorld.
+4. Go to Accounting > Error Transactions. Select the transaction, right-click, and click **Retry sync**. Confirm the action in the prompt.
+5. Verify in NetSuite that the transaction was created and is linked to the correct entity and subsidiary.
+
+### Failed export of an updated zero-valued transaction
+
+**Error message:** "UnknownError: Unknown error. An unexpected error occurred. Error ID: [Sample Id]"
+
+**Cause:** The transaction was originally zero-valued ($0.00) while the "Ignore Zero Valued Transactions" setting was enabled in Alvys. Because the transaction was ignored at the time, NetSuite has no record of it. When the transaction was later updated to a non-zero value and an export was attempted, NetSuite rejected the export due to internal ID or edit sequence conflicts.
+
+<Note>
+  UnknownError: Unknown error. An unexpected error occurred. Error ID: [Sample Id]
+
+  ![UnknownError: unexpected error with an Error ID](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2354ff5c-15db-4ab6-b361-ca36fdb627b5/image.png)
+
+  *UnknownError: unexpected error with an Error ID*
+</Note>
+
+1. Identify the affected transaction. Confirm that it was originally $0.00 and has since been updated to a non-zero value.
+2. This error cannot be resolved manually. Contact Alvys Support and provide the following:
+
+   - Load Number
+   - Full error message
+   - Error ID (shown in the error message)
+
+## If That Didn't Work
+
+If a transaction continues to fail after following the resolution steps above, check the following before contacting support:
+
+- Confirm the correction was saved in NetSuite before retrying. Changes in NetSuite sometimes require a moment to propagate before a retry will succeed.
+- Confirm the transaction is a supported entity type (Load, Trip, E-check, or Paystub). Unsupported types cannot be retried from the Error Transactions page and must be corrected from their source page.
+- Review the Error Message and Error Code columns on the Error Transactions page. A changed error message after retry indicates the original issue was resolved but a new issue was introduced.
+
+If the error persists and none of the causes above apply, contact Alvys Support. Provide the transaction's Error Message, Error Code, Transaction Id, and Load Number (if applicable) so the team can investigate.
+
+## Related
+
+- NetSuite Integration Collection: [https://help.alvys.com/en/articles/13689009-netsuite-integration-collection](/help/integrations/netsuite-integration-collection)
+
+## FAQs
+
+**Q: What is the Error Transactions page used for?**
+
+**A:** It is a centralized view of transactions that failed to sync from Alvys to NetSuite or another connected accounting system. It allows users to review error messages, identify the cause of each failure, correct the underlying issue, and retry eligible transactions.
+
+**Q: Where can I access the Error Transactions page?**
+
+**A:** Navigate to Accounting > Error Transactions.
+
+**Q: How do I manually clear an error for a transaction that has already been fixed in NetSuite?**
+
+**A:** Select the transaction on the Error Transactions page, right-click, choose **Mark as synced**, and confirm. Only use this option if the issue is fully resolved. This action cannot be undone.
+
+**Q: Can all failed transactions be re-synced from the Error Transactions page?**
+
+**A:** No. Only Load, Trip, E-check, and Paystub entity types can be re-synced directly from this page. Other entity types must be corrected and re-synced from their respective source pages.
+
+**Q: Why don't I see the Retry sync option for a record?**
+
+**A:** The Retry sync option is only available for supported entity types. If the transaction is a Deduction, Fuel, Toll, Escrow, Summary Invoice (Accounting Invoice), Carrier Statement, Accessorial Revenue, or Driver Statement, it must be re-synced from the page where that record originates.
+
+**Q: What should I do if I manually fixed the transaction in NetSuite?**
+
+**A:** Select the transaction on the Error Transactions page, right-click, and choose **Mark as synced**. This removes the transaction from the error list and marks it as resolved. This action cannot be undone.
+
+**Q: What causes a Duplicate Record error?**
+
+**A:** A transaction already exists in NetSuite with the same transaction number or External ID. NetSuite prevents the creation of duplicate records.
+
+**Q: How do I resolve a Customer Not Found error?**
+
+**A:** Verify that the customer exists and is active in NetSuite and that the correct NetSuite customer ID is entered in the External Accounting ID field in the customer or broker profile in Alvys. After correcting, retry syncing from the Error Transactions page.
+
+**Q: What does the Multiple Items Found error mean?**
+
+**A:** NetSuite found more than one customer or vendor with the same name and could not determine which one to attach the transaction to. Rename the duplicate records in NetSuite so each entity name is unique, then retry.
+
+**Q: Why am I seeing "Invalid combination of entity and subsidiary"?**
+
+**A:** The customer or vendor assigned to the transaction is not linked to the subsidiary used on that transaction in NetSuite. The entity record must be explicitly assigned to the correct subsidiary in NetSuite before the export will succeed.
+
+**Q: Can subsidiary-related errors be fixed in Alvys?**
+
+**A:** No. Subsidiary assignments must be corrected in NetSuite by updating the customer or vendor record to include the correct subsidiary.
+
+**Q: What causes the UnknownError for updated zero-valued transactions?**
+
+**A:** The transaction was originally $0.00 while the "Ignore Zero Valued Transactions" setting was enabled, then later updated to a non-zero value. NetSuite rejects the export due to internal ID or edit sequence conflicts because no record was created for the transaction when it was first processed.
+
+**Q: Can I fix zero-valued transaction errors myself?**
+
+**A:** No. Contact Alvys Support and provide the Load Number, the full error message, and the Error ID shown in the error message.
+
+**Q: When should I contact Alvys Support?**
+
+**A:** Contact Alvys Support if a transaction continues to fail after you have applied the relevant resolution steps, if the error message is unclear and does not match any of the scenarios above, or if you encounter an UnknownError that cannot be resolved through standard troubleshooting.

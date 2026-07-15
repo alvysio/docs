@@ -1,0 +1,161 @@
+---
+title: "Customer Management Permissions"
+---
+
+<Note>
+  📋 **Applies to:** Admins, Partner Admins, Office Admins, Operation Managers, Dispatchers, Billers, Sales Agents, Data Entry
+
+  **Module:** Management > Company Profile > Users
+
+  **Last reviewed:** 2026-06
+
+  **Owner:** Support team
+</Note>
+
+Customer Management permissions control who can create, edit, activate, and delete customer and Broker/3PL records in Alvys. This article explains each permission, its default role assignments, and how to configure it in User Management.
+
+## Overview
+
+The Customer Management permissions category in Alvys controls who can create, modify, activate, and delete customer records (also called client records or shipper-customer accounts). These permissions are separate from the broader Company Management permissions and apply specifically to entities classified as type Customer or BrokerOr3PL in the system. Shippers, warehouses, and other company types fall under Company Management permissions instead. See the [Company Management Permissions](/help/administration/company-management-permissions) article for additional details.
+
+There are four permissions in this category:
+
+- **"Create Customer"**: controls the ability to create new customer and Broker/3PL records and import customers
+- **"Edit Customer"**: controls the ability to modify existing customer and Broker/3PL profiles
+- **"Activate Customer"**: controls the ability to change a customer's status (active, on hold, inactive, disabled)
+- **"Delete Customer"**: controls the ability to permanently remove a customer record
+
+## Where to Find It
+
+Customer Management permissions are configured at the individual user level within the User Management interface.
+
+<Note>
+  📋 To modify these permissions, the logged-in user must possess the **"Set Permission"** permission located within the Management category. Without **"Set Permission"**, a user can view the user profile or form but cannot adjust any permissions. For additional information regarding **"Set Permission"**, refer to the [Management &amp; Privacy Permissions](/help/administration/management-privacy-permissions) article.
+</Note>
+
+1. Open User Management. Select your **username** located in the bottom left corner of the screen.
+2. Navigate to the Users tab. Go to Company Profile and select the **Users** tab.
+
+   <Note>
+     📋 Image placeholder: The Company Profile page with the Users tab selected, showing the user list.
+
+     ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/17933f7b-90e6-4d3e-a630-a96c2d3a74c7/image.png)
+   </Note>
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/17933f7b-90e6-4d3e-a630-a96c2d3a74c7/image.png)
+3. Open a user profile. Choose an existing user to **Edit** or select the **Add User** button to create a new profile.
+4. Locate the Customer Management category. Scroll to the **Permissions** section and locate the **Customer Management** category.
+5. Configure the checkboxes. Identify the four individual checkboxes: **Create Customer**, **Edit Customer**, **Activate Customer**, and **Delete Customer**.
+
+<Note>
+  📋 Image placeholder: The Customer Management section in the Permissions panel with four checkboxes:
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c083d578-bbd9-40a9-ba6c-da08f569560e/image.png)
+</Note>
+
+## Key Concepts
+
+**Customer vs. Company types:** The system applies Customer Management permissions to exactly two company types: Customer and BrokerOr3PL. All other company types (Shippers, Warehouses, and other operational entities) are governed by Company Management permissions. The system automatically checks the relevant permission based on the company type being created or modified.
+
+**Deactivation vs. deletion:** Deactivating a customer (setting status to Inactive) prevents new loads from being created for that account while preserving all historical invoices, load records, and documents. Deletion permanently removes the record. In almost every situation, deactivation is the correct action.
+
+## Settings &amp; Permissions
+
+### "Create Customer"
+
+The **"Create Customer"** permission controls whether a user can create new customer records and Broker/3PL records, as well as import customers into the system. Customer records are the foundation of the revenue cycle: every load starts with a customer booking, and every invoice is sent to a customer. Creating a customer record establishes the business relationship in the system, including billing preferences, credit terms, and contact information. Unrestricted customer creation could lead to duplicate records, incomplete profiles, or unauthorized business relationships. This permission ensures that only designated staff can onboard new customers.
+
+Without this permission, a user cannot import existing customers or create new Customer or Broker/3PL records. The **New Company** button is displayed if a user has either the **"Create Customer"** permission (for Customer or Broker-type companies) or the **"Create Company"** permission (for non-customer companies). However, if the user has only the **"Create Company"** permission, they will receive an error if they access the company creation form and select a company type of Broker or Customer, because they do not have the **"Create Customer"** permission.
+
+By default, this permission is granted to the Support, Partner Admin, Admin, Operation Manager, Dispatcher, Biller, Sales Agent, Data Entry, and Office Admin roles.
+
+<Info>
+  💡 **Best Practice:** Assign the **"Create Customer"** permission only to roles trained in your company's customer intake process, typically a lead dispatcher, office manager, or owner. Always review new customer records within 24 hours to catch data entry errors before a load is built against them.
+</Info>
+
+### "Edit Customer"
+
+The **"Edit Customer"** permission lets a user modify information on an existing broker or customer profile. This includes changing contact details, billing addresses, payment terms, credit limits, factoring company assignments, notes, and any other editable fields on the customer record. Without this permission, all customer and broker fields appear in read-only mode; the user can view the information but cannot change anything. The **"Edit Customer"** permission ensures that customer data can be maintained by authorized staff while preventing unauthorized modifications that could disrupt business relationships or financial processes.
+
+By default, this permission is granted to the Support, Partner Admin, Admin, Operation Manager, Dispatcher, Biller, Sales Agent, Data Entry, and Office Admin roles.
+
+<Info>
+  💡 **Best Practice:** Grant the **"Edit Customer"** permission to dispatchers and billers who actively manage customer relationships day-to-day. Consider restricting it for roles that only need to view customer information.
+</Info>
+
+### "Activate Customer"
+
+The **"Activate Customer"** permission controls whether a user can modify a customer's status: activating, placing on hold, deactivating (inactive), or disabling a customer or Broker/3PL record. Active customers can have loads booked and invoices generated against them. Deactivating a customer prevents new loads from being created for that account while preserving all historical invoices, load records, and documents. Without this permission, a user cannot change a customer's activation status.
+
+By default, this permission is granted to the Support, Partner Admin, Admin, Operation Manager, Dispatcher, Biller, Sales Agent, Data Entry, and Office Admin roles.
+
+<Note>
+  📋 Deactivating a customer does not affect loads that have already been created and assigned to that customer. In-progress loads, pending invoices, and historical records remain fully intact and accessible. Deactivation only prevents new loads from being created for that customer.
+</Note>
+
+To modify a customer's status:
+
+1. Navigate to the Companies page.
+2. Open the broker or customer's profile.
+3. Locate the customer status button in the top right.
+4. Select the status dropdown and change the status, for example to **Inactive**.
+
+<Note>
+  📋 Image placeholder: The customer status button in the top right of a customer profile page.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c039186c-722a-42f7-95da-36c1d3dea5c1/image.png)
+</Note>
+
+To reactivate a customer: navigate to the Companies page (use the Inactive or Show All filter to find the record), open the inactive customer's profile, locate the status button, select **Active** from the dropdown.
+
+<Info>
+  💡 **Best Practice:** Make deactivation the default action when a customer relationship ends. Reserve deletion for confirmed duplicate records or test entries with no load history. When uncertain, always choose deactivation.
+</Info>
+
+### "Delete Customer"
+
+The **"Delete Customer"** permission allows a user to remove a customer record from Alvys. With this permission, a Delete button or menu option is visible on the customer's profile.
+
+Deletion is rarely the right tool. In almost every case, what a user actually wants is deactivation (see **"Activate Customer"** above). This permission should be tightly restricted and used only in clearly justified, exceptional circumstances. It is granted by default to the Support and Partner Admin roles only.
+
+<Warning>
+  ⚠️ **Best Practice:** Never grant the **"Delete Customer"** permission to non-admin roles. Assign it only to one or two trusted administrators in your Alvys account, typically the owner and a senior manager. Before deleting a customer, verify that they have no current loads. Consider requiring a second approval outside of Alvys, via your internal process, before proceeding with the deletion.
+</Warning>
+
+## Limits &amp; Behavior
+
+The **"Create Customer"** permission covers both creating and importing records of type Customer and BrokerOr3PL. It does not cover creating other company types such as Shippers or Warehouses.
+
+The **New Company** button remains visible to any user who has either **"Create Customer"** or **"Create Company"**. A user with only **"Create Company"** will receive an error if they attempt to create a Customer or Broker/3PL type from the creation form.
+
+Deactivating a customer does not interrupt any load already in progress. Existing loads, pending invoices, and all historical records continue through their normal lifecycle regardless of the customer's activation status.
+
+A deleted customer record is permanently removed; there is no undo. All historical load and invoice records that referenced that customer remain in the system, but the customer profile itself is gone.
+
+## FAQs
+
+**Q: What is the difference between Customer Management and Company Management permissions?**
+
+**A:** Both categories control the same operations (Create, Edit, Activate, Delete) but apply to different entities. Customer Management specifically governs Customer and BrokerOr3PL types. Company Management governs other types like Shippers and Warehouses. The system automatically checks the relevant permission based on the company type.
+
+**Q: Can a user with the Create Customer permission also create a Shipper or Warehouse?**
+
+**A:** No. Creating Shippers or Warehouses requires the **"Create Company"** permission. If a user only has **"Create Customer"** and tries to select "Shipper" on the creation form, the system will return an error because the permissions are gated by company type.
+
+**Q: What happens to active loads if a customer is deactivated?**
+
+**A:** Deactivating a customer only prevents the creation of new loads. Any loads already in progress and pending invoices will continue through their lifecycle normally without interruption.
+
+**Q: What is the benefit of deactivating a customer instead of deleting them?**
+
+**A:** Deactivation (setting a status to Inactive) prevents new business while preserving all historical data and audit trails. An inactive customer can be reactivated at any time, whereas a deleted customer record is permanently lost.
+
+**Q: Which company types are governed by Customer Management permissions?**
+
+**A:** These permissions specifically apply to two company types: Customer and BrokerOr3PL.
+
+## Go Deeper
+
+- [Company Management Permissions](/help/administration/company-management-permissions)
+- [Management &amp; Privacy Permissions](/help/administration/management-privacy-permissions)
+- [User Roles &amp; Permissions Collection](/help/administration/user-roles-permissions-collection)

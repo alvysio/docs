@@ -1,0 +1,195 @@
+---
+title: "How to Map Accounts for QuickBooks Online"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Management > Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Account mappings connect Alvys transaction line items to specific accounts in your QuickBooks Online Chart of Accounts. This article explains how to configure both default fallback accounts and specific mappings for loads, trips, accessorials, e-checks, deductions, fuel, tolls, and escrow liability.
+</Note>
+
+## Overview
+
+Account mappings (also called account assignments) tell Alvys which QBO account to post each type of transaction line item to when exporting. Each mapping has two levels: a default account that applies when no specific mapping is configured, and specific mappings that override the default for particular load types, trip types, accessorials, or other line items.
+
+If a line item does not have a specific mapping, Alvys falls back to the default account for that category. If neither a specific nor a default mapping exists, the export will fail for that transaction.
+
+## Before You Start
+
+Before configuring account mappings:
+
+- Confirm the QuickBooks Online integration is connected. If not, complete [How to Connect and Configure QuickBooks Online in Alvys](/help/integrations/how-to-connect-and-configure-quickbooks-online-in-alvys) first.
+- Confirm your QBO Chart of Accounts includes all accounts you intend to map to. Alvys displays the accounts available in your connected QBO file; if an account is missing, add it in QBO first and then return to this page.
+- You need the **"CompanyProfileManager"** permission to configure account mappings. This permission is available to users with the Admin, Support, or Partner Admin role.
+
+## Steps
+
+Open the integrations settings.
+
+Navigate to Management > Integrations and open the QuickBooks Online settings.
+
+Locate the Account Mappings section.
+
+Scroll to the Account Mappings section within the QBO settings page.
+
+<Note>
+  ![Screenshot showing the Account Mappings section in QuickBooks Online settings](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c61231de-b7f5-4be1-8a5f-82c633c99f82/image.png)
+
+  *Screenshot showing the Account Mappings section in QuickBooks Online settings*
+</Note>
+
+Set the default revenue account.
+
+In the Revenue Mappings section, select the QBO income account that Alvys should use when no specific revenue mapping exists. This is typically your primary freight revenue or freight income account.
+
+<Note>
+  ![Screenshot showing the default Revenue account and Accounts Receivable mapping fields in Alvys QBO settings.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/cdeaf680-ad4d-44ef-a880-a45688c7adc7/image.png)
+
+  *Screenshot showing the default Revenue account and Accounts Receivable mapping fields in Alvys QBO settings. *
+</Note>
+
+Set the default expense account.
+
+In the Expense Mappings section, select the QBO expense account that Alvys should use when no specific expense mapping exists. This is typically your purchased transportation or carrier cost account.
+
+Configure specific load type mappings.
+
+Expand the Load Type Mappings section. For each load type used in your Alvys account (such as asset loads or brokerage loads), select the QBO income or expense account to post that load type's transactions to. If a load type does not have a specific mapping, Alvys uses the default accounts set in steps 3 and 4.
+
+<Note>
+  ![Screenshot showing the Load Type Mappings section in Alvys QBO settings with load category and trip category account dropdown selectors.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a7107c46-5dc4-4620-a7c6-ab3dfeb8acbe/image.png)
+
+  *Screenshot showing the Load Type Mappings section in Alvys QBO settings with load category and trip category account dropdown selectors.*
+</Note>
+
+Configure accessorial mappings.
+
+Expand the Accessorials section. For each accessorial charge used in your Alvys account (such as detention, fuel surcharges, or layover), assign a QBO income account for customer-facing accessorials and a QBO expense account for carrier-facing accessorials. Accessorials without a specific mapping post to the default revenue or expense account.
+
+<Note>
+  ![Screenshot showing the Accessorials mapping section in Alvys QBO settings with revenue and expense account dropdowns for each accessorial type.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/07c743a4-1ff6-47a8-8c84-22b259d8bcf1/image.png)
+
+  *Screenshot showing the Accessorials mapping section in Alvys QBO settings with revenue and expense account dropdowns for each accessorial type.*
+</Note>
+
+Configure e-check and deduction mappings.
+
+Expand the Deductions and E-check sections. Assign QBO expense or liability accounts for driver e-checks and deduction line items that appear on driver settlements. These map to the accounts Alvys uses when exporting driver bills to QBO.
+
+<Note>
+  ![Screenshot showing the E-Check and Deductions mapping sections in Alvys QBO settings.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/fb7a6ea9-e039-4fdd-9f60-a36ffc6f4390/image.png)
+
+  *Screenshot showing the E-Check and Deductions mapping sections in Alvys QBO settings.*
+</Note>
+
+Configure fuel and toll mappings.
+
+Expand the Fuel and Tolls sections. Assign QBO accounts for fuel advances and toll charges. These line items appear on driver settlements and carrier bills when applicable.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/effc1b4a-7df4-44d8-a75b-bd6555762ad1/image.png)
+
+  ![Screenshot showing the Fuel and Tolls mapping sections in Alvys QBO settings.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/521224b0-d5b8-4d33-9770-6cbec1a9a59f/image.png)
+
+  *Screenshot showing the Fuel and Tolls mapping sections in Alvys QBO settings.*
+</Note>
+
+Configure escrow liability mappings.
+
+If your operation holds escrow for drivers, expand the Escrow Liability section and assign the QBO liability account used to track funds held in escrow. This account receives the credit entry when escrow is deducted from a driver settlement.
+
+<Note>
+  ![Screenshot showing the Escrow Liability mapping section in Alvys QBO settings.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5c23792c-0e41-476f-9cee-2f3ff079b4b3/image.png)
+
+  *Screenshot showing the Escrow Liability mapping section in Alvys QBO settings.*
+</Note>
+
+Save the mappings.
+
+Click **Save** at the bottom of the Account Mappings section. Alvys applies the saved mappings to all future exports. Existing exported transactions are not retroactively updated.
+
+<Note>
+  ![Screenshot showing the Save button at the bottom of the Account Mappings section.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/66cdea04-14e2-4cd9-821a-eeb77eb44202/image.png)
+
+  *Screenshot showing the Save button at the bottom of the Account Mappings section.*
+</Note>
+
+<Note>
+  ![Screenshot showing the green checkmark confirmation state after Account Mappings are saved successfully in Alvys.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d566e673-963b-4af4-97ae-ea73c7e9a2e1/image.png)
+
+  * Screenshot showing the green checkmark confirmation state after Account Mappings are saved successfully in Alvys.*
+</Note>
+
+## Result
+
+After saving, Alvys uses the configured mappings for all QBO exports. Each transaction line item posts to its specific mapped account; line items without a specific mapping post to the applicable default account. If an export fails because a required mapping is missing, the transaction appears in the Error Transactions queue with an error indicating which account is missing.
+
+## Troubleshooting
+
+### A line item is posting to the wrong QBO account
+
+Check whether a specific mapping exists for that line item type. If no specific mapping is found, Alvys uses the default account. Update the specific mapping or the default account to correct future exports. Transactions already exported must be corrected manually in QBO.
+
+### An account I need is not appearing in the mapping dropdown
+
+The dropdown shows accounts available in your connected QBO company file. If an account is missing, add it in QBO first, then return to Management > Integrations and refresh the account mappings page. The new account should now appear in the dropdown.
+
+### Exports are failing with an account-related error
+
+Open the Error Transactions queue at Management > Integrations > Error Transactions and review the error message. Errors referencing an invalid account type indicate that the QBO account type does not match the expected type for that line item (for example, an income account was assigned where an expense account is required). Correct the mapping and re-export the transaction.
+
+## FAQs
+
+**Q: What happens if I have a line item with no mapping configured?**
+
+**A:** Alvys falls back to the default account for that line item category. If no default is set either, the export fails and the transaction appears in the Error Transactions queue.
+
+**Q: Do I need to set specific mappings for every accessorial?**
+
+**A:** No. Only set specific mappings for accessorials that should post to a different account than the default. All others will use the default revenue or expense account.
+
+**Q: Can I update account mappings after transactions have already been exported?**
+
+**A:** Yes. Updated mappings apply to all future exports. Transactions that have already been exported to QBO are not retroactively changed; those must be corrected manually in QBO if the original posting was incorrect.
+
+**Q: What is the escrow liability mapping used for?**
+
+**A:** The escrow liability mapping specifies which QBO liability account receives the credit entry when escrow is deducted from a driver settlement. It tracks funds your operation holds on behalf of drivers.
+
+**Q: Is the Tax category mapping required?**
+
+**A:** No. The Tax category is deprecated. Skip this step when configuring your QuickBooks Online account mappings.
+
+**Q: What if I do not see the green checkmark after submitting?**
+
+**A:** Verify that all required account fields have valid QBO account names mapped. If the checkmark does not appear, check that your QBO connection is active under Management > Integrations and reconnect if needed.
+
+**Q: What happens if I update my Chart of Accounts in QuickBooks after setting up mappings?**
+
+**A:** You will need to update your account mappings in Alvys to match. Go to Management > Integrations > QuickBooks Online and update any accounts that have changed.
+
+**Q: How do Specific Account Mappings differ from default mappings?**
+
+**A:** Default mappings apply to all line items in that category unless a Specific Account Mapping overrides them. Specific mappings let you assign a different QBO account for a particular line item type when the default does not apply.
+
+**Q: Why are E-Check fees mapped to a Revenue account?**
+
+**A:** E-Check fees are collected from the payer and recorded as income before the corresponding expense is deducted; mapping them to a Revenue account keeps your QBO ledger consistent with how Alvys processes the transaction.
+
+**Q: Which QBO account type should be used for Escrow mappings?**
+
+**A:** Map the Escrow asset account to a Bank or Other Current Asset account in QBO. Map the Escrow liability account to a Current Liability account to correctly reflect funds held in trust.
+
+**Q: What if I do not have a specific account for Tolls or Fuel in QBO?**
+
+**A:** You can map Tolls and Fuel to your general expense accounts. If no specific account is configured for those categories, Alvys falls back to the default account mapping.
+
+## Go Deeper
+
+- [How to Connect and Configure QuickBooks Online in Alvys](/help/integrations/how-to-connect-and-configure-quickbooks-online-in-alvys)
+- [How to Export and Manage Transactions in QuickBooks Online](/help/integrations/how-to-export-and-manage-transactions-in-quickbooks-online)
+- [QuickBooks Online: Identifying and Resolving Failed Transactions](/help/integrations/quickbooks-online-identifying-and-resolving-failed-transactions)

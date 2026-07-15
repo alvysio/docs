@@ -1,0 +1,144 @@
+---
+title: "How to get started with Custom Reports"
+---
+
+<Note>
+  📋 **Module:** Reports &amp; Analytics · **Owner:** Support team · **Last reviewed:** 2026-06 · **Applies to:** Admin, Partner Admin, the **"Analytic"** reporting role, the **"Viewer"** reporting role
+</Note>
+
+## Overview
+
+Custom Reports (also called Alvys Intelligence) lets your team build dashboards on top of your live Alvys data. You can answer questions like "which customers brought us the most revenue last month?", "how is on-time delivery trending across our top lanes?", or "which carriers have the best record over the last 90 days?" without writing any code. Build a dashboard once and it updates automatically as your operational data changes. Related terms for this topic include Custom Reports, Alvys Intelligence, dashboard, report, analytics view, visualization, chart, and catalog. By the end of this walkthrough you will have built your first dashboard, with no formulas, using visualizations that are already in your tenant's catalog.
+
+<Note>
+
+</Note>
+
+## Before You Start
+
+Custom Reports has to be turned on for your tenant before anyone can use it, and your role determines what you can do once it is on. Make sure Custom Reports is enabled: if you do not see the **Custom Reports** group in your left sidebar yet, an Admin or Partner Admin needs to enable it under **Manage > Integrations** before anyone on your tenant can use it. For the full enablement and access walkthrough, read "Set up Custom Reports." Confirm what you can do: Admins and Partner Admins, and anyone assigned the **"Analytic"** reporting role, can build and edit dashboards and visualizations. The **"Viewer"** reporting role can open dashboards that have been shared with them but cannot author new ones. Authoring requires the Custom tier; on the Free tier you can view dashboards an admin has shared with you but cannot build your own. Start with the curated dashboards first: before you build anything, click through the dashboards Alvys ships with your tenant. Most teams find that 80% of the questions they would build for already have a home.
+
+## The Custom Reports sidebar
+
+Everything lives under the **Custom Reports** group in the left sidebar. You will see: the Alvys-curated dashboards (every dashboard Alvys ships with your tenant, ready to open); the dashboards your team has built or shared with you; **Create Dashboard** (start a new blank dashboard); and **Create Visualization** (open the Report Designer to author a single chart from scratch; you will not need this for the walkthrough).
+
+<Note>
+  📋 Custom Reports sidebar group.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/625fd42d-7360-4be4-b5b9-c21a85b5e5de/image.png)
+</Note>
+
+## Build your first dashboard, a weekly operations check-in
+
+You will assemble a four-tile dashboard from visualizations already in your tenant's catalog: **Total Revenue**, **On-Time Delivery %**, **Load Count Trend**, and **Top 10 Customers by Revenue**. This takes about five minutes. No formulas, no chart-building, just drag, arrange, and filter.
+
+1. **Open the dashboard editor.** From the **Custom Reports** sidebar, click **Create Dashboard**. An empty dashboard opens with a 12-column grid in the center and a panel on the left listing every saved visualization in your tenant.
+
+   <Note>
+     📋 Empty dashboard editor with 12-column grid and visualization panel.
+
+     ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/758f5a9c-747d-446a-870c-c674b527d72c/image.png)
+   </Note>
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/758f5a9c-747d-446a-870c-c674b527d72c/image.png)
+2. **Drop in the first KPI, Total Revenue.** In the left-side panel, search for **Total Revenue**. Drag it onto the canvas. The tile renders immediately, a single big-number KPI showing your tenant's revenue.
+
+   <Note>
+     📋 Total Revenue KPI tile on the canvas.
+
+     ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/eaa4bdf3-ec87-4961-b2e5-ef0467ac63d7/image.png)
+   </Note>
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/eaa4bdf3-ec87-4961-b2e5-ef0467ac63d7/image.png)
+3. **Drop in the second KPI, On-Time Delivery %.** Search the panel for **On-Time Delivery %**. Drag it onto the grid next to Total Revenue. You should now see two KPI tiles side by side.
+4. **Add a trend, Load Count Trend.** Search for **Load Count Trend**. Drag it below the two KPI tiles. The line chart shows your load volume over time.
+5. **Add a breakdown, Top 10 Customers by Revenue.** Search for **Top 10 Customers by Revenue**. Drag it below the trend chart. The chart ranks your top 10 customers by revenue.
+
+   <Note>
+     📋 Top 10 Customers by Revenue chart added below the trend.
+
+     ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/447a6b93-9ae0-4d53-b7d6-d764653d1a98/image.png)
+   </Note>
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/447a6b93-9ae0-4d53-b7d6-d764653d1a98/image.png)
+6. **Resize and arrange the tiles.** Hover over a tile's edge and drag the handle to resize. The grid snaps to 12 columns. A comfortable layout: top row, the two KPIs side by side (6 columns each); middle row, Load Count Trend (full width); bottom row, Top 10 Customers by Revenue (full width). Drag a tile by its title bar to reorder.
+7. **Add a dashboard-level date filter.**
+8. From the left-side panel, drag the **Filter** item onto the top filter bar.
+9. Click the new tile; a list opens, pick the attribute or date you want to filter by.
+10. For this dashboard, pick a date attribute like **Trip Picked Up At**.
+11. Set the time window to **Last 30 days** and click **Apply**. All four tiles now respect the filter.
+
+<Note>
+  📋 Adding the Filter item to the top filter bar.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/bb92fa1a-a878-4cab-901a-eb6c4ed15000/image.png)
+</Note>
+
+<Note>
+  📋 Filter applied for “Trip Picked up At” = Last Week
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/defcefa9-aea6-4fb9-b357-6f0771646b0e/image.png)
+</Note>
+
+1. **Save the dashboard.** Click **Save** in the top-right. Name it **Weekly operations check-in** and save. You land on the dashboard in view mode. The dashboard is private to you; nobody else on your team sees it until you explicitly share it.
+
+<Note>
+  📋 Save dialog with the dashboard name.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/0154b12f-6f2e-493b-9cd9-57469ddd5cfa/image.png)
+</Note>
+
+<Note>
+  📋 Saved dashboard in view mode.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/f7635460-dd3d-4c92-873a-b71c9bf9e977/image.png)
+</Note>
+
+## Result
+
+You have built your first dashboard from the catalog, no formula required. You now have a saved "Weekly operations check-in" dashboard with two KPIs, a trend chart, and a customer breakdown, all scoped to the last 30 days and updating automatically as your operational data changes. The dashboard is private to you until you choose to share it.
+
+## Variations
+
+- Browse the curated dashboards instead of building. Most teams find that 80% of their questions already have a dashboard built for them in the **Custom Reports** sidebar.
+- Author a single chart from scratch. Use **Create Visualization** to open the Report Designer. To customize a visualization with drag-and-drop, read "Build visualizations with drag-and-drop."
+
+## Troubleshooting
+
+### Custom Reports group is missing from the sidebar
+
+Custom Reports has not been enabled for your tenant, or your role does not have access. An Admin or Partner Admin enables it under **Manage > Integrations**. If it is enabled and you still cannot see it, confirm you have an Admin or Partner Admin role or have been assigned the **"Analytic"** or **"Viewer"** reporting role. For details, read "Set up Custom Reports."
+
+### Create Dashboard and Create Visualization are not available
+
+Authoring requires the Custom tier and an authoring role. On the Free tier you can view dashboards shared with you but cannot build your own. The **"Viewer"** reporting role can only open shared dashboards. To create dashboards or visualizations, you need an Admin or Partner Admin role or the **"Analytic"** reporting role on a Custom-tier tenant.
+
+### A teammate cannot see the dashboard you built
+
+A new dashboard is private to you when you save it. Nobody else on your team sees it until you explicitly share it. To share, export, schedule, or set alerts, read "Share, export, schedule, alert."
+
+## FAQs
+
+**Q: Do I need to know how to write formulas or code to build a dashboard?**
+
+**A:** No. This walkthrough assembles a dashboard entirely from visualizations already in your tenant's catalog using drag, arrange, and filter. If you later need a metric the catalog does not have, that is an advanced step covered separately.
+
+**Q: Who can build dashboards versus only view them?**
+
+**A:** Admins and Partner Admins, and anyone assigned the Analytic reporting role, can build and edit dashboards and visualizations on a Custom-tier tenant. The Viewer reporting role can open dashboards shared with them but cannot author new ones.
+
+**Q: Is my new dashboard visible to my whole team?**
+
+**A:** No. A dashboard is private to you until you explicitly share it.
+
+**Q: Does the dashboard update on its own?**
+
+**A:** Yes. You build a dashboard once and it updates automatically as your operational data changes.
+
+## Go Deeper
+
+- Set up Custom Reports: [https://help.alvys.com/en/articles/15217767-set-up-custom-reports](/help/reports-analytics/how-to-set-up-custom-reports)
+- Build visualizations with drag-and-drop: [https://help.alvys.com/en/articles/15217763-build-visualizations-with-drag-and-drop](/help/reports-analytics/how-to-build-visualizations-with-drag-and-drop)
+- Filter, drill, and save the view you want: [https://help.alvys.com/en/articles/15217770-filter-drill-and-save-the-view-you-want](/help/reports-analytics/how-to-filter-drill-and-save-the-view-you-want)
+- Share, export, schedule, alert: [https://help.alvys.com/en/articles/15217768-share-export-schedule-alert](/help/reports-analytics/how-to-share-export-schedule-and-alert-on-a-dashboard)
+- Advanced: write custom metrics with MAQL: [https://help.alvys.com/en/articles/15217764-advanced-write-custom-metrics-with-maql](/help/reports-analytics/how-to-write-a-custom-metric-with-maql)

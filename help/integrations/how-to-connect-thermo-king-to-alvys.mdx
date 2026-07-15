@@ -1,0 +1,112 @@
+---
+title: "How to connect Thermo King to Alvys"
+description: "How to set up Thermo King Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Support
+
+  **Module:** Management > Integrations
+
+  **Provider:** Thermo King · **Integration type:** One-way · **Direction:** Thermo King sends trailer location and temperature data to Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  The Thermo King integration, also called Thermo King reefer tracking or trailer telematics, connects your Thermo King account to Alvys so that trailer location and temperature data sync automatically.
+</Note>
+
+## Overview
+
+The Thermo King integration, also known as Thermo King reefer tracking or trailer telematics, connects your Thermo King account to Alvys so that trailer location and temperature data sync into Alvys automatically. The integration is one-way: Thermo King sends data to Alvys. Once connected and mapped, dispatchers can view trailer positions and temperature readings directly in Alvys without switching between systems.
+
+## Prerequisites
+
+Before connecting, confirm you have the following:
+
+- An active Thermo King account with API access enabled
+- Your External Customer ID, username, and password from Thermo King. If you do not have these credentials, contact Thermo King at [tracking@thermoking.com](mailto:tracking@thermoking.com)
+- The trailer name for each trailer you want to track, exactly as it appears in Thermo King
+- An **"Admin"**, **"Partner Admin"**, or **"Support"** role in Alvys
+
+## How to connect
+
+1. Go to **"Management > Company Profile > Integrations"** tab in Alvys.
+2. Locate the Thermo King integration, enter your External Customer ID, Username, and Password in the fields provided, and click **"Save"**.
+
+Alvys confirms the connection once your credentials are accepted. If the connection fails, verify your External Customer ID, username, and password with Thermo King.
+
+<Note>
+  ![Integrations tab in Alvys showing the Thermo King section with the External Customer ID, Username, and Password fields.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c0a07122-3db6-45a1-946f-11258fb3b7c0/image.png)
+
+  *Integrations tab in Alvys showing the Thermo King section with the External Customer ID, Username, and Password fields.*
+</Note>
+
+### Map your trailers
+
+After connecting, map each trailer in Alvys to the corresponding record in Thermo King. Each trailer must be mapped individually; there is no bulk mapping option.
+
+1. Go to **"Management > Fleets > Trailers"** and open the trailer record you want to map.
+2. In the ELD Integration section, select **"Thermo King"** from the provider dropdown.
+3. In the Integration ID field, enter the trailer name exactly as it appears in Thermo King, including capitalization and spacing.
+4. Click **"Save"**.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/9e2cff8e-2623-46a6-99ae-f60789a81352/image.png)
+</Note>
+
+<Note>
+  ![Trailer record in Alvys showing the Integration ID field filled in with the trailer name from Thermo King](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/6100179b-9e4e-4e29-9329-1202ee85717a/image.png)
+
+  *Trailer record in Alvys showing the Integration ID field filled in with the trailer name from Thermo King*
+</Note>
+
+Repeat for each trailer you want to track.
+
+### Verify it's working
+
+1. Open a mapped trailer in Alvys and confirm that a location is showing in the tracking view.
+2. Confirm that temperature data is displaying on the trailer record.
+
+If data is not appearing within a few minutes of completing setup, see the Troubleshooting section below.
+
+## What syncs
+
+Once trailers are mapped, Alvys pulls data from Thermo King automatically. The following data syncs from Thermo King to Alvys:
+
+- Trailer GPS location
+- Temperature readings for up to three zones: ambient, probe, supply air, and return air
+- Setpoint temperatures
+- Fuel percentage
+- Power status
+
+Data refreshes on Alvys's standard polling interval, not in real time.
+
+<Note>
+  📋 What is not available through Thermo King: truck location tracking · driver HOS data · IFTA mileage reporting. Each trailer must be mapped individually; there is no bulk mapping option.
+</Note>
+
+## Troubleshooting
+
+### Trailer location or temperature not showing in Alvys
+
+1. Confirm the trailer unit is powered on and has an active connection in Thermo King.
+2. Verify the Integration ID in Alvys matches the trailer name in Thermo King exactly, including capitalization and spacing. Go to **"Management > Fleets > Trailers"**, open the trailer record, and compare the Integration ID to the trailer name shown in Thermo King.
+3. If neither of those conditions applies, contact Alvys support.
+
+## FAQs
+
+**Q: Where do I find my Thermo King External Customer ID?**
+
+**A:** Contact Thermo King at [tracking@thermoking.com](mailto:tracking@thermoking.com). They can provide your External Customer ID along with your API username and password.
+
+**Q: Can I use this integration to track trucks or driver HOS?**
+
+**A:** No. The Thermo King integration in Alvys supports trailer tracking only. Truck location tracking and driver HOS data are not available through this integration.
+
+**Q: What temperature data does the integration bring into Alvys?**
+
+**A:** The integration pulls ambient, probe, supply air, and return air temperatures for up to three zones, along with setpoint temperatures, fuel percentage, and power status.
+
+**Q: What happens if I enter invalid credentials?**
+
+**A:** As of February 2025, Alvys validates credentials before saving. An error appears immediately if your credentials are incorrect; the integration will not be saved until valid credentials are entered. Contact Thermo King at [tracking@thermoking.com](mailto:tracking@thermoking.com) if you need to verify your credentials.

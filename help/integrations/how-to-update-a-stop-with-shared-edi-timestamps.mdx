@@ -1,0 +1,126 @@
+---
+title: "How to update a stop with shared EDI timestamps ?"
+description: "Manage EDI stop updates directly from the stop card. Record your operational times while streamlining what gets communicated to shippers."
+---
+
+<Note>
+  **Applies to:** Users with the **"EDI Share"** permission (Admin, Partner Admin, Operations Manager by default)
+
+  **Module:** Loads and Trips > Stops** · Last reviewed:** 2026-06** ·** **Owner:** Support
+
+  On EDI-enabled loads, Alvys shows separate timestamp fields for your internal operational record and the timestamp shared externally with the shipper via EDI. Use the shared fields to control what gets communicated to the shipper without affecting your operational load record.
+</Note>
+
+## Overview
+
+On EDI-enabled loads, changing a stop's status to **Arrived**, **Picked Up**, or **Empty** reveals two sets of timestamp fields on the stop card: one for your operational record inside Alvys, and one for the timestamp shared externally with the shipper over EDI (outbound visibility, EDI 214).
+
+The fields interact in a specific way: updating your operational arrival or departure time automatically refreshes the corresponding shared EDI time. Updating the shared EDI time does not change your operational time. This protects your internal load record while giving you full control over what gets communicated to the shipper.
+
+Synonyms: EDI stop update, share arrival, share departure, outbound visibility, stop card EDI fields, EDI 214 update.
+
+## Before you start
+
+Before using the shared EDI timestamp fields, confirm the following:
+
+- The load must have an active EDI integration for its assigned customer. The share arrival and share departure fields appear only on loads where outbound visibility sharing is enabled. If the fields are not visible, the load is not EDI-enabled for that customer.
+- Your account must have the **"EDI Share"** permission. This permission is located in the Tendering category of the user permissions panel (Management > Company Profile > Users). Without it, the EDI sharing fields do not appear on the stop card even if the load is EDI-enabled.
+- Waypoints are not included in EDI updates. The share arrival and share departure fields appear only at pickup and delivery stops.
+
+## How to update a stop
+
+- Open the load. Go to **Loads and Trips** and open the load you need to update.
+- Open the stop card. Expand the Trips / Stops section and click the pickup or delivery stop you want to update.
+- Change the stop status to **Arrived**. Two additional sections appear below the standard arrival timestamp:
+
+**Arrived:** Your operational arrival time, saved to the Alvys load record.
+
+**Share Arrival:** The timestamp sent to the shipper via EDI. Pre-filled from your operational arrival time.
+
+**Reason:** Pre-filled based on your EDI integration's configuration (default is Normal Status). Adjust if the situation requires a different code.
+
+<Note>
+  ![Stop card showing the Arrived status with Share Arrival fields and Reason dropdown](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/238ab4aa-b461-46f7-8e77-9c35f4db570c/image.png)
+
+  *Stop card showing the Arrived status with Share Arrival fields and Reason dropdown*
+</Note>
+
+**Enter timestamps and save:**
+
+- Enter the **Arrived** date and time (your operational record).
+- Review the **Share Arrival** date and time. Adjust it if the time you want to communicate to the shipper differs from your operational time.
+- Confirm or change the **Reason**.
+- Click **Save**.
+
+The operational arrival time is saved to the load record in Alvys. The shared EDI timestamp is transmitted to the shipper. Both timestamps are stored independently: the operational time is visible internally in Alvys, and the shared time is included in the EDI message sent to the shipper.
+
+## Variations
+
+### Depart from a stop
+
+Change the stop status to **Picked Up** (at a pickup stop) or **Empty** (at a delivery stop). Departure fields appear below the standard departure timestamp:
+
+- **Departed:** Your operational departure time.
+- **Share Departure:** The timestamp sent to the shipper via EDI. Pre-filled from your operational departure time.
+- **Reason:** Pre-filled from your integration's configuration.
+- Enter the **Departed** date and time, review or adjust the **Share Departure** date and time, confirm the **Reason**, and click **Save**.
+
+<Note>
+  ![Stop card showing the Share Departure fields](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/70a43e44-aed8-42c4-9fd6-ecf07d7d56ac/image.png)
+
+  *Stop card showing the Share Departure fields*
+</Note>
+
+### Skip directly to Picked Up or Empty
+
+If you change a stop's status from **Covered** directly to **Picked Up** or **Empty**, both arrival and departure fields appear together. Enter the actual times for arrival and departure, review or adjust both shared EDI times, and click **Save**.
+
+<Note>
+  ![Stop card showing both Share Arrival and Share Departure fields together](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a316b3f0-b755-4780-b604-4d7547c11c3c/image.png)
+
+  *Stop card showing both Share Arrival and Share Departure fields together*
+</Note>
+
+## Troubleshooting
+
+### Share Arrival and Share Departure fields are not visible on the stop card
+
+1. Confirm the load is EDI-enabled. These fields appear only on loads where outbound visibility sharing is active for the assigned customer. Check the customer's company profile to confirm EDI integration is configured and enabled.
+2. Confirm your account has the **"EDI Share"** permission. Go to Management > Company Profile > Users, open your user profile, scroll to the Tendering permissions section, and verify **"EDI Share"** is checked. Contact your Admin if you need the permission granted.
+3. Confirm the stop is a pickup or delivery stop, not a waypoint. EDI timestamp fields do not appear on waypoints.
+4. If the load is EDI-enabled, your permission is confirmed, and the stop is a pickup or delivery stop, but the fields still do not appear, contact Alvys support.
+
+### Shared EDI time did not update after saving
+
+1. Confirm the stop status change was saved successfully. Refresh the stop card and verify the new status is displayed.
+2. If the shared EDI time still reflects the previous value after refreshing, allow a few minutes for the EDI message to process, then check again. If the issue persists after waiting, contact Alvys support.
+
+## FAQs
+
+**Q: Do I need to fill in both the operational time and the shared EDI time?**
+
+**A:** The operational Arrived or Departed date and time is required. The shared EDI time is pre-filled from your operational entry and can be left as-is or adjusted before saving.
+
+**Q: What happens if I change the operational arrival or departure time?**
+
+**A:** The shared EDI time updates automatically to match the new operational time.
+
+**Q: What happens if I change only the shared EDI time?**
+
+**A:** The operational time remains unchanged. Only the timestamp sent to the shipper over EDI is updated.
+
+**Q: Can I still use the manual EDI update panel?**
+
+**A:** Yes, the manual EDI update panel is still available. For most stop updates on EDI-enabled loads, using the stop card fields directly is faster and keeps your operational and EDI records in sync.
+
+**Q: Does this apply to waypoints?**
+
+**A:** No. Waypoints are not included in EDI updates. Share Arrival and Share Departure fields appear only at pickup and delivery stops.
+
+**Q: What is the Reason field for?**
+
+**A:** The Reason field sets the shipment status reason code included in the EDI message sent to the shipper. It is pre-filled based on your integration's default configuration (typically Normal Status). Adjust it when the situation requires a specific code.
+
+## Go Deeper
+
+- [How to configure EDI Auto Update Settings](/help/integrations/how-to-configure-edi-auto-update-settings)

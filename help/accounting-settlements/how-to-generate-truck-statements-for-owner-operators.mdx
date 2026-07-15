@@ -1,0 +1,89 @@
+---
+title: "How to Generate Truck Statements for Owner Operators"
+---
+
+<Note>
+  📋 **Module:** Assets > Drivers > Driver Profile · **Owner:** Driver Settlements team · **Support:** Owner Support team · **Last reviewed:** 2026-06
+</Note>
+
+### Overview
+
+Truck statements (truck-level statements, per-truck statements) are an optional view available for Owner Operator drivers. They consolidate all trips run by the same truck into a single statement view, allowing companies to review total truck earnings and deductions before processing individual driver statements. When enabled, Alvys generates a statement grouped by truck rather than by individual driver. This is useful for companies that pay Owner Operators on a per-truck basis or want to review total truck-level earnings before finalizing driver payouts.
+
+Truck statements do not replace driver paystubs. They are a separate aggregation view. Driver paystubs are still generated individually per driver.
+
+<Info>
+  💡 Generating a statement does not pay the driver. It creates a finalized record for the pay period. Payment is handled separately through your accounting or payroll system.
+</Info>
+
+### Before You Start
+
+You need the **"EditAsset"** permission to enable or disable the Truck Statements setting on a driver profile. Contact your Alvys Admin if this setting is unavailable.
+
+Confirm the following before starting:
+
+- The driver is set up as an Owner Operator in Alvys.
+- The driver has completed trips that fall within the statement period you want to generate.
+
+### Steps
+
+1. Open the driver's profile. Navigate to **Assets > Drivers**, find the Owner Operator driver, and open their profile.
+2. Enable Truck Statements. In the driver's profile, locate the **Truck Statements** toggle and turn it on. You must have the **"EditAsset"** permission to toggle this setting. If the toggle is not visible or not editable, contact your Alvys Admin to confirm your permissions.
+
+   ![Driver profile showing the Truck Statements toggle in the enabled position.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/435515e5-d78e-4641-b476-f3979a3ae034/driver-settle03.png)
+
+   *Driver profile showing the Truck Statements toggle in the enabled position. *
+3. Open the driver's settlements. With the driver's profile open, navigate to the **Settlements** tab. The settlements view shows all statement periods for this driver.
+
+   ![Driver Settlements tab showing payable items in “Open Status”](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/eddc637e-89b3-403d-8b3a-6669c40a81ce/driver-settle02.png)
+
+   *Driver Settlements tab showing payable items in “Open Status” *
+4. Select the statement period and generate the truck statement. Find the statement period you want to generate and click **Generate** next to that period. Alvys creates the truck statement and groups all qualifying trips by truck for that period.
+
+   ![Driver Settlements tab showing the Generate button next to a statement period.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8e3a809d-bf46-4294-a4c5-aec9649a1439/driver-settle01.png)
+
+   *Driver Settlements tab showing the Generate button next to a statement period. *
+
+## FAQs
+
+**What happens if I already have a draft open when I switch between owner-operator and truck statements?**
+
+The system will notify you that switching back to owner-operator pay will convert your existing drafts back to open items. You will be prompted to confirm before the change takes effect.
+
+**What happens if I revert an owner operator statement but they recently switched over to being paid by truck?**
+
+This statement will be deleted and all transactions will be reverted back to an open status. You can resolve this conflict yourself by enabling truck statements for this driver, then coming back here to revert to a statement draft.
+
+**What happens if I revert a truck statement but they recently switched over to being paid as a single owner-operator statement?**
+
+This statement will be deleted and all transactions will be reverted back to an open status. You can resolve this conflict yourself by disabling truck statements for this driver, then coming back here to revert to a statement draft.
+
+**Why are my open and draft tabs disabled while viewing an owner operator?**
+
+If you’ve enable truck statements for an owner operator, you’ll need to select a truck to view open and draft transactions. This ensures any changes you make will always apply to a specific truck given you’re now generating statements by truck, not as a single owner-operator statement.
+
+**How do I split a deduction between the driver’s pay and an escrow account?**
+
+Simply add the deduction to the statement then add a new transaction for an escrow withdrawal to split the escrow amount onto - you can also add a description on the transaction to help clarify why it’s applied to the statement. By creating two separate transactions, this ensures a more accurate accounting sync to 3rd party platforms and follows better accounting practices. Previously, in driver pay there was a way to split to an escrow account by editing a deduction but to ensure safer accounting this is now handled as a separate escrow withdrawal.
+
+**Why does an owner operator need at least 2 trucks for a truck statement?**
+
+This is intentional. With one truck, the individual driver statement and the truck statement contain the same information — splitting them adds no value. Once an owner operator has 2 or more trucks, separate truck statements are required to break down activity per truck.
+
+**My owner has one truck and a driver who needs to be paid. How do I handle that?**
+
+The standard owner operator statement covers both the owner operator and the truck in one. If your scenario is more complex, reach out to [support@alvys.com](mailto:support@alvys.com) so we can review your specific case.
+
+**How do I add a deduction tied to a specific truck?**
+
+There are two ways:
+
+- **From the truck’s profile**: create a one-time or recurring deduction. You can choose whether to deduct from escrow.
+- **From Driver Settlements**: with truck statements enabled, select the truck you want to deduct from, then click **New Transaction** or **Add Deduction**. The deduction is tied to the truck.
+
+## Go Deeper
+
+Check out these related articles to learn more:
+
+- [Driver Settlements Overview](https://help.alvys.com/en/articles/11943598-driver-settlements)
+- [Time-based Pay](https://help.alvys.com/en/articles/13774513-time-based-pay-in-driver-settlements)

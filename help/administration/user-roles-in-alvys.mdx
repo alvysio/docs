@@ -1,0 +1,347 @@
+---
+title: "User Roles in Alvys"
+---
+
+<Note>
+  **Applies to:** All users **·** **Module:** Company Profile > Users
+
+  **Last reviewed:** 2026-06 **·** **Owner:** Support team
+
+  Every Alvys user is assigned exactly one role that defines their default permissions, determines what they can see and do, and establishes their level of authority: Alvys includes eleven built-in roles arranged in a strict hierarchy.
+</Note>
+
+## Overview
+
+Every user who logs into Alvys is assigned exactly one role (sometimes called a user type or access profile). A role is a predefined profile that determines a user's default set of permissions, including what they can see, what actions they can take, and which other users they can manage. Roles are the foundation of access control in Alvys and establish each user's baseline permissions at the time of account creation.
+
+Roles can be further customized on a per-user basis after the account is created. Alvys includes eleven built-in roles arranged in a strict hierarchy. A role's position in the hierarchy reflects its level of authority and determines which users a given user is permitted to manage.
+
+<Note>
+  ![Sample Image displaying roles](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2b1191f0-f548-4f17-b026-ecaf80d37b77/image.png)
+
+  *Sample Image displaying roles *
+</Note>
+
+## Where to Find It
+
+User roles are managed from Company Profile > Users. To navigate there, select the gear icon in the main navigation, then select Company Profile, then select the Users tab. Each user row displays the role currently assigned to that account.
+
+When creating or editing a user, the role is selected from a dropdown list in the user form.
+
+## Key Concepts
+
+### Roles and Permissions: How They Work Together
+
+A role and a permission are two different things. A role is a named profile, such as Dispatcher or Biller, assigned to a user when their account is created. Each role comes with a default set of permissions that reflect the typical responsibilities of that job. A permission is a specific capability, such as **"Generate Invoice"** or **"View Customer Rate"**, that controls a user's access to a particular action or piece of data.
+
+Think of it this way: a role is a job title, and permissions are the keys on that person's keychain. The role determines which keys they start with. Users with the **"Set Permission"** permission can then add or remove individual keys without changing the person's role.
+
+<Note>
+  ![Image illustrating individual permission toggles alongside a role assignment.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/3fb19cde-ee4d-4ad5-8480-5032c8cef44b/image.png)
+
+  *Image illustrating individual permission toggles alongside a role assignment.*
+</Note>
+
+Some permissions control what a user can view (read-only access), while others control what they can do (create, edit, or delete). For example, **"View Customer Rate"** lets a user see the rate charged to a customer, but **"Edit Customer Rate"** is required before they can change it. When in doubt, assign view-only access first and expand from there.
+
+Changes to a user's permissions take effect the next time they log in or upon refresh of their session.
+
+A role is not the same as a permission set. A role provides a user's default permissions at the time of account creation, but those permissions can be individually added or removed at any point afterward. Two users sharing the same role may have different active permissions if their configurations have been customized after role assignment.
+
+### Hierarchy
+
+While higher-level roles generally have a broader set of default permissions, this is not always the case. Some roles are designed around specific job functions and include specialized permissions that reflect those responsibilities, regardless of their position in the hierarchy.
+
+A user's hierarchy position governs their management reach: users can only manage or modify the permissions of users who sit below them in the hierarchy. For example, a Dispatcher cannot modify an Office Admin's account settings or permissions.
+
+## How to Use It
+
+For step-by-step instructions on assigning roles when creating or editing a user account, see [Adding and Managing Users in Alvys](/help/administration/how-to-add-and-manage-users-in-alvys).
+
+## Settings &amp; Permissions
+
+### Support (Alvys Staff Only)
+
+The Support role is the highest-privilege role in the system and is reserved exclusively for Alvys employees. It is not available to any company account and cannot be assigned to company staff members under any circumstances. Alvys support staff may access your account only to assist with troubleshooting, investigate issues, or perform corrective actions on your behalf.
+
+If you see the Support role assigned to a user in your system, that individual is a member of the Alvys internal support team.
+
+<Note>
+  ![Screenshot of the Support role as it appears in the Users section of Company Profile](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d18e6879-390e-4c8d-a931-6c9762047de9/image.png)
+
+  *Screenshot of the Support role as it appears in the Users section of Company Profile*
+</Note>
+
+### Admin
+
+The Admin role is the highest role available to company users and receives the broadest set of permissions available to non-Alvys staff. This role is intended for company owners, directors of operations, and administrators who need near-complete system access.
+
+Admins are responsible for managing the full user lifecycle, including creating, editing, and deactivating users, as well as configuring carriers, customers, and companies. They have the authority to manage load operations end-to-end, access financial reports, configure pay plans, and control team-wide settings and integrations.
+
+<Note>
+  ![Screenshot of the Admin role in Company Profile > Users.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/037fa1d2-11c7-46af-82e1-6a0e014e6d62/image.png)
+
+  *Screenshot of the Admin role in Company Profile > Users.*
+</Note>
+
+By default, Admin users are granted comprehensive access, excluding a small set of the most sensitive permissions. These are intentionally withheld to safeguard data, though an Admin maintains full authority to enable them for themselves or others as required.
+
+<Info>
+  💡 Best practice: Reserve the Admin role for the fewest people necessary, ideally the company owner and one backup manager. Use the Office Admin or Operation Manager role for day-to-day supervisory work.
+</Info>
+
+### Partner Admin
+
+The Partner Admin is a primary administrator role, typically assigned to the owner of the company or general managers. Partner Admin users receive full permissions and operate with nearly the same level of access as Admin, but they rank below Admin in the hierarchy. A Partner Admin cannot promote another user to Admin, because users cannot be assigned a role that sits higher in the hierarchy than their own.
+
+<Note>
+  ![Screenshot of the Partner Admin role in Company Profile > Users.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/264fec39-d56b-4099-bba5-3f7676b453a3/image.png)
+
+  *Screenshot of the Partner Admin role in Company Profile > Users.*
+</Note>
+
+### Operation Manager
+
+The Operation Manager role is designed for middle management and senior operations staff who oversee dispatchers, loads, carriers, and customers. It is positioned between Admin and Office Admin in the hierarchy.
+
+This role is the appropriate choice for trusted supervisors such as operations managers, fleet managers, and terminal managers whose primary responsibilities include overseeing daily dispatch and load operations, managing carriers and customers, reviewing financial summaries and reports, and monitoring driver and asset activity.
+
+<Note>
+  ![Screenshot of the Operation Manager role in Company Profile > Users.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/264fec39-d56b-4099-bba5-3f7676b453a3/image.png)
+
+  *Screenshot of the Operation Manager role in Company Profile > Users.*
+</Note>
+
+### Office Admin
+
+The Office Admin role is designed for users who coordinate and manage general office procedures and policies. This role's default permissions focus on managing user accounts, companies, assets (trucks, trailers, drivers), load templates, and marketplace access.
+
+Office managers, administrative managers, or back-office coordinators are the intended users for this role.
+
+<Note>
+  ![Screenshot of the Office Admin role in Company Profile > Users.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/255164d3-64cc-41d6-a792-a54e0d551bb0/image.png)
+
+  *Screenshot of the Office Admin role in Company Profile > Users.*
+</Note>
+
+Primary goals and actions for Office Admin users:
+
+- Maintain carrier and customer records
+- Manage rates (customer and carrier)
+- Add new users and adjust permissions for lower-level staff
+- Work with load templates
+- Monitor asset, driver, and safety data
+- Access the marketplace to view, book, and bid on loads
+
+Default permissions include: **"Pay Owner Operator"**, all Rate permissions, **"Add User"**, **"Set Permission"**, **"Edit Carrier"**, **"Activate Carrier"**, all Customer and Company Management permissions, **"Edit Asset"**, **"View Load Templates"**, **"Manage Load Templates"**, all Marketplace permissions, all Asset View permissions, all Safety View permissions, **"View Driver Rates"**, and **"Edit Driver Rates"**.
+
+This role does not include access to financial reports, settlement permissions, or the ability to pay drivers. Office Admins can add users and adjust permissions, but only for users at a lower hierarchy level than themselves. They cannot promote another user to Office Admin or any higher role.
+
+### Dispatcher
+
+Dispatcher is the primary load management role. Dispatchers are the operational backbone of freight operations; they create and manage loads, assign carriers and drivers, and coordinate pickups and deliveries.
+
+This role is intended for freight dispatchers, load planners, load coordinators, and driver managers.
+
+<Note>
+  ![Screenshot of the Dispatcher role in Company Profile > Users.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/6f262c2a-7048-427b-b79d-2e80c46c1af0/image.png)
+
+  *Screenshot of the Dispatcher role in Company Profile > Users.*
+</Note>
+
+Primary goals and actions for Dispatcher users:
+
+- Create, assign, and track loads
+- Book carriers and manage carrier relationships
+- Manage customers and companies
+- Override stop statuses when needed
+- Use load templates for repeating lanes
+- Access the load marketplace
+- Monitor drivers, trucks, and trailers
+- View accident, claim, and roadside inspection records
+
+Default permissions include: All Rate permissions, **"Add Accessorials"**, **"Edit Miles"**, **"Dispatch"**, all Load Operation permissions, **"Edit Carrier"**, **"Activate Carrier"**, all Customer and Company Management permissions, **"View Load Templates"**, **"View Driver Rates"**, **"Edit Driver Rates"**, all Marketplace permissions, all Asset View permissions, and all Safety View permissions.
+
+Dispatchers do not have access to billing, invoicing, pay stubs, financial reports, or user management. The **"Dispatch"** permission is included in this role by default, but it can also be enabled on other roles such as Sales Agent or Data Entry.
+
+### Biller
+
+The Biller role is designed for users who handle invoicing, settlements, carrier payments, and financial reporting. Billers have the broadest set of financial permissions among non-admin roles.
+
+This role is intended for billing clerks, accounts receivable specialists, accounts payable clerks, payroll specialists, and transportation accountants.
+
+<Note>
+  ![Screenshot of the Biller role in Company Profile > Users.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/85504d2b-9e2c-4c75-b3a3-58a66c51a1c1/image.png)
+
+  *Screenshot of the Biller role in Company Profile > Users.*
+</Note>
+
+Primary goals and actions for Biller users:
+
+- Generate and manage customer invoices
+- Process driver and owner-operator payments
+- Manage pay stubs and pay plans
+- Approve payable items
+- Create and manage carrier statements
+- Run financial reports (summary, detailed, statement list, statement items, and driver year-to-date)
+- Roll back, void, and override transactions when corrections are needed
+- Export financial data
+
+Default permissions include: **"Pay Owner Operator"**, **"Add Accessorials"**, **"Billing"**, **"Export"** (integration-gated), **"Edit Miles"**, all Rate permissions, **"Modify E-Check Fee"** (integration-gated), **"Generate Invoice"**, **"Override Invoice"**, **"Rollback Transaction"** (integration-gated), **"Void Transaction"** (integration-gated), **"View Paystubs"**, **"Fuel Report"**, **"Toll Report"**, all Load Operation permissions, **"Edit Carrier"**, **"Activate Carrier"**, all Customer and Company Management permissions, **"Edit Asset"**, **"View Load Templates"**, **"Edit Paystubs"**, **"View Summary Financial Report"**, **"View Detailed Financial Report"**, **"View Statement List Report"**, **"View Statement Items Report"**, **"View Driver YTD"**, **"View Driver Rates"**, **"Edit Driver Rates"**, **"Pay Driver"**, **"Approve Payable Items"**, **"Create Carrier Statement"**, **"Edit Invoice Customer As"**, and all Asset View permissions.
+
+### Sales Agent
+
+The Sales Agent role is designed for users who manage customer and carrier relationships, negotiate rates, and support load booking. Sales Agents have a permission set similar to Dispatchers, with full visibility into customer and carrier rates.
+
+This role is intended for sales agents, freight brokers, logistics sales representatives, account executives, and business development representatives.
+
+<Note>
+  ![Screenshot of the Sales Agent role in Company Profile > Users.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1c16e26a-1024-4cab-ae0f-390856c9feda/image.png)
+
+  *Screenshot of the Sales Agent role in Company Profile > Users.*
+</Note>
+
+Primary goals and actions for Sales Agent users:
+
+- Create and manage loads for their accounts
+- Book carriers and manage carrier relationships
+- Create and manage customers and companies
+- Work with load templates for repeating business
+- View and edit driver rates
+
+Default permissions include: **"Pay Owner Operator"**, all Rate permissions, **"Edit Miles"**, **"Dispatch"**, all Load Operation permissions, **"Edit Carrier"**, **"Activate Carrier"**, all Customer and Company Management permissions, **"View Load Templates"**, **"View Driver Rates"**, and **"Edit Driver Rates"**.
+
+This role does not include Billing, Invoicing, any financial report permissions, Marketplace access, Safety View permissions, or any payment permissions.
+
+### Data Entry
+
+The Data Entry role is designed for users who create loads, enter shipment data, and handle tender intake. This role has a targeted permission set centered on load creation and basic operations.
+
+This role is intended for data entry clerks, administrative assistants, load builders, and EDI coordinators.
+
+Data Entry is the only non-admin role that includes **"Participate In Tender"** by default, reflecting its use in processing incoming EDI tenders from trading partners.
+
+<Note>
+  ![Screenshot of the Data Entry role in Company Profile > Users.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1a874135-3fe3-4f7e-915c-1722f93faba4/image.png)
+
+  *Screenshot of the Data Entry role in Company Profile > Users.*
+</Note>
+
+Primary goals and actions for Data Entry users:
+
+- Enter and maintain carrier, customer, and company records
+- Build loads using templates
+- Set up and maintain rate records
+- Create and participate in tenders
+
+Default permissions include: All Rate permissions, **"Edit Carrier"**, **"Activate Carrier"**, all Customer and Company Management permissions, **"Edit Miles"**, **"Add Accessorials"**, all Load Operation permissions, **"Edit Asset"**, **"Participate In Tender"**, **"View Load Templates"**, **"View Driver Rates"**, **"Edit Driver Rates"**, and all Asset View permissions.
+
+Data Entry users cannot dispatch loads, override stop statuses, access billing, manage users, or view safety and maintenance records. Despite its position in the hierarchy, the Data Entry role has a substantial permission set covering load creation, carrier management, and customer management.
+
+### Safety
+
+The Safety role is designed for compliance and safety personnel who monitor fleet safety, manage assets, and review safety reports. This is a specialized, narrow-access role.
+
+This role is intended for safety managers, DOT compliance officers, fleet safety coordinators, and risk and compliance specialists.
+
+<Note>
+  ![Screenshot of the Safety role in Company Profile > Users.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/538700e0-66bf-4745-8788-14e17dbdfcb7/image.png)
+
+  *Screenshot of the Safety role in Company Profile > Users.*
+</Note>
+
+Primary goals and actions for Safety users:
+
+- Monitor vehicle maintenance records
+- Review accident and claims records
+- Track roadside inspection results
+- Generate safety and fuel/toll reports
+- Maintain driver and asset records from a compliance perspective
+
+Default permissions include: **"Edit Asset"**, **"Calendar Past Dates"**, **"Fuel Report"**, **"Toll Report"**, all Asset View permissions (**"View Drivers"**, **"View Trailers"**, **"View Trucks"**), and all Safety View permissions (**"View Accidents"**, **"View Claims"**, **"View Roadside Inspections"**, **"View Maintenance Records &amp; Totals"**, **"View Maintenance Amounts"**, **"View Asset Safety Report"**).
+
+Safety users have no access to loads, rates, billing, dispatch, marketplace, customer management, or user administration.
+
+### Driver
+
+The Driver role is for company drivers, owner-operators, contractors, and other personnel who use the Alvys Mobile App. This role provides access to the mobile app and carries no desktop permissions.
+
+By default, the Driver role has an empty permission set. Each driver's permissions should be configured explicitly based on their specific responsibilities. For information on mobile app permissions, see [App Permissions](/help/administration/app-permissions).
+
+<Warning>
+  ⚠️ Do not create drivers through the Add User form. Driver account creation is handled through the driver setup and mobile app verification process. Always follow the proper driver creation workflow:
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8c6fcb34-3b7e-4825-afc7-6f07cc3b0ddb/image.png)
+</Warning>
+
+<Info>
+  💡 Create drivers in the Driver List by entering essential details such as name, address, and mobile phone number. The mobile phone number serves as the unique identifier linking the driver to the Alvys Mobile App. After successful SMS verification, the system automatically creates a user account with the Driver role under Company Profile > Users.
+</Info>
+
+Primary goals and actions for Driver users:
+
+- View and update schedules
+- Log trips and manage their driving records
+- Update stop statuses on the road via the mobile app
+- Submit documents (BOLs, PODs) through the mobile app
+- Access pay stubs through the mobile app (if enabled)
+
+Drivers logging into the desktop application will have no access to any module.
+
+## Limits &amp; Behavior
+
+### Role Hierarchy Summary
+
+The Support role sits at the top of the hierarchy, reserved for Alvys internal staff only. Admin and Partner Admin follow, providing company-level administrative control. Below those are the operationally focused roles: Operation Manager, Office Admin, Dispatcher, Biller, Sales Agent, and Data Entry. The Safety role provides specialized access for compliance and asset management. The Driver role carries no default permissions and must be explicitly configured.
+
+A user's position in the hierarchy governs their management reach: users can only manage or modify the permissions of users who sit below them in the hierarchy. For example, a Dispatcher cannot modify an Office Admin's permissions.
+
+<Note>
+  ![Screenshot of the full role hierarchy chart as displayed in Alvys.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/539f50ea-c793-46f1-903f-de758b12961d/image.png)
+
+  *Screenshot of the full role hierarchy chart as displayed in Alvys.*
+</Note>
+
+## FAQs
+
+**Q:** What is the difference between a role and a permission?
+
+**A:** A role is a predefined profile (such as Dispatcher) assigned to a user at account creation that provides a starting set of default permissions and establishes their place in the hierarchy. A permission is an individual toggle for a specific action, such as **"Edit Miles"** or **"View Customer Rate"**.
+
+**Q:** Can a user be assigned more than one role at a time?
+
+**A:** No. Each user account is assigned exactly one role. If a user performs tasks that span multiple roles, assign the role closest to their primary function and then manually enable the specific permissions they need.
+
+**Q:** What happens to a user's customized permissions if I change their role?
+
+**A:** Changing a user's role resets all their permissions to the new role's defaults. Any previously added or removed permissions are overwritten, so any custom access must be reconfigured after the role change is saved.
+
+**Q:** Why does the Admin role not have Delete or Contracted Lanes permissions by default?
+
+**A:** This is a deliberate safety measure to protect sensitive data. Deleting users or carriers and managing customer-specific pricing contracts are high-risk actions. While Admins have the authority to enable these for themselves, they are off by default to prevent accidental data loss.
+
+**Q:** What is the primary difference between an Office Admin and an Operation Manager?
+
+**A:** The Office Admin role centers on administrative tasks such as adding new users and managing equipment assets. The Operation Manager role is a supervisory role focused on high-level operational oversight such as reviewing financial summaries and monitoring fleet-wide driver activity.
+
+**Q:** What does the hierarchy position control?
+
+**A:** The hierarchy position determines a user's organizational authority. A user can only manage or modify the permissions of users who sit at a lower hierarchy level than themselves. For example, a Dispatcher cannot modify the account of an Office Admin.
+
+**Q:** Can a user with the Safety role see load and rate information?
+
+**A:** No. The Safety role is limited to compliance, maintenance, and inspection data. It is designed to allow safety officers to perform their duties without exposing commercial or financial information.
+
+**Q:** What is the Support role I see in my user list?
+
+**A:** The Support role is reserved exclusively for internal Alvys staff. These individuals are not employees of your company; they access your system only to provide technical assistance, troubleshoot issues, or perform requested corrective actions.
+
+**Q:** If a user needs to do both dispatching and billing, which role should I choose?
+
+**A:** Choose the role that represents their primary responsibility. If they need broad financial access, assign Biller and then enable the **"Dispatch"** permission toggle so they can also manage loads.
+
+## Go Deeper
+
+- [Adding and Managing Users in Alvys](/help/administration/how-to-add-and-manage-users-in-alvys)
+- [App Permissions](/help/administration/app-permissions)
+- [User Roles &amp; Permissions Collection](/help/administration/user-roles-permissions-collection)

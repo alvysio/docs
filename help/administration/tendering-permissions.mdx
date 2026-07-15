@@ -1,0 +1,144 @@
+---
+title: "Tendering Permissions"
+---
+
+👥 **Primary Audience:** `**Admins**`** , **`**Partner Admins**`, `**Operation Managers**`**, **`**Data Entry**`, `**Dispatchers**`
+
+📁[Return to User Roles &amp; Permissions Collection ](/help/administration/user-roles-permissions-collection)
+
+The Tendering Permissions category in Alvys controls access to EDI (Electronic Data Interchange) tendering functionality, the automated process by which shippers send load offers (tenders) to carriers and brokers. Users with these permissions can accept, reject, or update tenders. This category includes **two (2)** permissions that govern who can participate in the tender workflow by viewing and acting on the Tender Board, as well as who can share EDI data externally.
+
+Tendering is a specialized function in freight logistics. Unlike load creation, which is usually done manually, tendering relies on electronic messaging standards, primarily EDI 204 and 990, to exchange load information between trading partners’ systems. Not all Alvys users interact with tenders; this functionality is mainly relevant to users whose companies have active EDI integrations with shippers or other trading partners.
+
+<Warning>
+  ⚠️ Tendering functionality requires EDI integrations between your company and your trading partners. If your company does not use EDI, these permissions will have no practical effect even if granted.
+</Warning>
+
+### Where to Manage Tendering Permissions
+
+<Warning>
+  ⚠️ To modify these permissions, the logged-in user, preferably an administrator, must possess the “Set Permission**”** permission located within the Management category. Without “Set Permission”, a user can view the user profile or form but cannot adjust any permissions. For additional information regarding the “Set Permission**”**, please refer to the [Management &amp; Privacy Permissions article.](/help/administration/management-privacy-permissions)
+</Warning>
+
+Tendering Permissions are configured at the individual user level within the User Management interface. To adjust these settings:
+
+1. Select your **username** located in the bottom left corner.
+2. Navigate to Company Profile and select the **Users** tab.
+
+<Note>
+  ![Screenshot showing the Company Profile page with the Users tab selected.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a92fb46b-cd24-4e22-a290-a776e9b2cf38/image.png)
+
+  *Screenshot showing the Company Profile page with the Users tab selected.*
+</Note>
+
+1. Choose an existing user to **Edit** or select the **Add User** button to create a new profile.
+
+   <Note>
+     ![Screenshot showing the user list with Edit and Add User options visible.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7b544309-040e-4bb7-be2d-8297180f9a82/image.png)
+
+     *Screenshot showing the user list with Edit and Add User options visible.*
+   </Note>
+
+   ![Screenshot showing the user list with Edit and Add User options visible.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7b544309-040e-4bb7-be2d-8297180f9a82/image.png)
+
+   *Screenshot showing the user list with Edit and Add User options visible.*
+2. Scroll to the **Permissions** section and locate the **Tendering** category. Identify the two individual checkboxes: **"Participate In Tender"** and **"EDI Share"**.
+
+<Note>
+  ![Screenshot showing the Permissions section with the Tendering category expanded, displaying both checkboxes.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/deb87c25-df33-4c84-8b26-717d663ae100/image.png)
+
+  *Screenshot showing the Permissions section with the Tendering category expanded, displaying both checkboxes.*
+</Note>
+
+### Participate In Tender
+
+The **Participate In Tender** permission allows a user to access the [Tender Board page](https://app.alvys.com/#/tenders/board), where they can view, accept, reject, and manage incoming EDI tenders from shippers and trading partners. Without this permission, the Tender Board is not accessible. Responding to inbound tenders requires specialized knowledge, including lane pricing, equipment availability, and the company’s capacity to fulfill the tendered loads. Limiting access to the Tender Board ensures that only qualified personnel handle load offers, protecting the company’s commitments and revenue. For more information on participating in tendering, see the [help center article](/help/loads-trips/tenders).
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/45acd885-6f51-4e1b-a69b-edb4bb380c66/image.png)
+</Note>
+
+Users with the **"Participate In Tender"** permission can accept or reject tenders, view tender details, and review EDI history. When accepting a tender, each stop must be linked to a company. If the required company does not yet exist in the system, the user can create it inline. This action triggers a company creation permission check: the user must have the **"Create Customer"** permission for brokers or customers, or the **"Create Company"** permission for non-customer entities such as shippers or terminals, depending on the type of company being created.
+
+<Note>
+  ![Screenshot of the Tender Board page showing incoming tenders with accept and reject options.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/fa46407a-c18c-4833-9c8b-4bf74550cd95/image.png)
+
+  *Screenshot of the Tender Board page showing incoming tenders with accept and reject options.*
+</Note>
+
+<Warning>
+  ⚠️ **EDI integration required:** Inbound tenders come from trading partners via EDI. Without valid and active [EDI integrations](https://app.alvys.com/#/manage/edi-visibility), no tenders will appear on the Tender Board.
+</Warning>
+
+**Default role assignments**
+
+By default, this permission is granted to the **Support**, **Partner Admin**, **Admin**, **Operation Manager**, and **Data Entry** roles. It is not assigned by default to the **Dispatcher**, **Biller**, **Sales Agent**, **Office Admin**, **Safety**, or **Driver** roles.
+
+Data Entry is the only non-admin role that receives **"Participate In Tender"** by default. This may seem unusual, but Data Entry users often handle EDI tender intake and load creation from incoming tenders as part of their data processing workflow.
+
+<Info>
+  💡 **Best Practice:** Grant the **"Participate In Tender"** permission to users responsible for handling incoming load offers from EDI trading partners, in addition to Data Entry staff. In companies that use EDI tenders extensively, also consider granting this permission to Dispatchers so they can respond to tenders in real time based on available capacity and operational knowledge.
+</Info>
+
+For more information on the tendering workflow, see the [Tenders help center article](/help/loads-trips/tenders).
+
+### EDI Share
+
+The **"EDI Share"** permission allows a user to share load visibility data externally with EDI trading partners. This includes status updates, tracking information, appointment times, and other operational details. Without this permission, users cannot perform outbound EDI sharing.
+
+Without **"EDI Share"**, teams must manually receive load information from shippers by email, phone, or customer portal and re-enter it into Alvys. For large shippers sending dozens or hundreds of loads weekly, this manual process is slow, error-prone, and unsustainable. Granting **"EDI Share"** automates this step and positions your company as a preferred carrier or broker for shippers who require EDI capability.
+
+<Warning>
+  ⚠️ External sharing requires configured EDI integrations with trading partners.
+</Warning>
+
+To share an EDI update for a stop:
+
+1. Open an EDI load in the system.
+2. On the Load Details page, scroll to the **Trips / Stops** section.
+3. Expand a stop and click into an individual stop, either pickup or delivery.
+4. The **Share EDI Update** button will appear on the stop card when the stop is in a valid status (**Arrived**, **Picked up**, or **Empty**). The button will only appear if the EDI integration is properly configured to allow updates for that load.
+
+<Note>
+  ![Screenshot of an expanded stop card on an EDI load showing the Share EDI Update button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/9213205a-aedf-4167-bd3d-a59bf941ec88/image.png)
+
+  *Screenshot of an expanded stop card on an EDI load showing the Share EDI Update button.*
+</Note>
+
+By default, this authorization is conferred upon the **Support**, **Partner Admin**, **Admin**, and **Operation Manager** roles. Conversely, this specific permission is not assigned by default to the **Dispatcher**, **Biller**, **Sales Agent**, **Data Entry**, **Office Admin**, **Safety**, or **Driver** roles.
+
+<Info>
+  ✅ **Best Practice:** Grant EDI Share to users responsible for managing EDI relationships and controlling the sharing of load visibility data with trading partners. If your company automates EDI visibility sharing, this permission is typically only needed for manual overrides or to initiate updates in exceptional cases.
+</Info>
+
+## Frequently Asked Questions (FAQs)
+
+**Q: Do these permissions work if my company does not use EDI?** A: No. Tendering is entirely EDI-based. Without active EDI integrations with your shippers or trading partners, these permissions will have no functional effect in the system.
+
+**Q: Why does the Data Entry role receive Participate In Tender by default while Dispatchers do not?** A: In many workflows, Data Entry staff are responsible for the initial intake and conversion of EDI tenders into active loads. Dispatchers usually manage the loads after they have been accepted, though they can be granted this permission manually if they need to make capacity-based decisions.
+
+**Q: What specific actions can a user take on the Tender Board?** A: Users with the **Participate In Tender** permission can view tender details, review EDI history, and either accept or reject incoming load offers.
+
+**Q: Does the Tender Board update automatically when a new offer arrives?** A: Yes. The Tender Board uses a real-time connection to the shipper hub. New tenders and updates to existing ones will appear instantly on the board without requiring a page refresh.
+
+**Q: What is the purpose of the EDI Share permission?** A: **EDI Share** allows a user to send outbound status updates to trading partners, such as arrived/departed notifications, appointment confirmations, and location tracking. This automates the visibility process for large shippers.
+
+**Q: Can a user access the Tender Board without the Participate In Tender permission?** A: No. Access to the Tender Board is strictly guarded. Without this permission, the route is blocked, and the user will be unable to navigate to the page.
+
+**Q: Why is EDI Share not assigned to Data Entry by default?** A: Data Entry typically handles the "intake" of loads. **EDI Share** is an operational function used to send updates as a load progresses, a task usually handled by Dispatchers or Operations Managers who monitor real-time shipment status.
+
+**Q: How do I share an EDI update for a specific stop?** A: With the **EDI Share** permission, navigate to the **Trips/Stops** section of an EDI load, expand the specific stop, and click the **Share EDI Update** button. This button only appears if the EDI integration is properly configured for that load.
+
+**Q: Is manual load creation the same as Create Tender?** A: No. Manual load creation is an internal process within Alvys. **Create Tender** sends a formal, electronic EDI 204 message to an external trading partner’s system, creating a legal and operational commitment.
+
+## Next Steps
+
+<Info>
+  ⏭️ Proceed to the [Additional Load Permissions article](/help/administration/additional-load-permissions) to understand how to manage supplementary permissions that support load creation, pricing, and management. This includes permissions for Load Templates and Load Rate History.
+</Info>
+
+## Return to Collection
+
+<Info>
+  📁 [Back to User Roles &amp; Permissions Collection](/help/administration/user-roles-permissions-collection)
+</Info>

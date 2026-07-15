@@ -1,0 +1,97 @@
+---
+title: "Understanding Load Statuses and How to Revert Them"
+description: "Learn what each load status means and when or how you can revert them to keep your workflow smooth and error-free."
+---
+
+![Notion Image](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1355520219/406659c5dacf15ff05a77b1e58cf/New+Project+%283%29.png)
+
+In Alvys, load statuses represent key stages in a load's lifecycle, helping you track progress from dispatch to payment. Understanding these statuses is essential for efficient operations and ensures accuracy when adjustments are needed. This guide explains each load status, what they mean, and provides step-by-step guidance on when and how to revert a status if necessary.
+
+| **Status** | **Brokers** | **Carriers** |
+| --- | --- | --- |
+| **Open** | A load that has been created but has not yet been assigned to a carrier. | A load that has been created but has not yet been assigned to a carrier or driver. |
+| **Quoted** | A load for which bids or quotes have been received from carriers, but no further action has been taken yet. |   |
+| **Reserved** | A load assigned to a carrier, but the carrier has not yet completed the required carrier packet. |   |
+| **Covered** | A load that has a carrier assigned but is awaiting the carrier’s signature on the rate confirmation. | A load that has been assigned assets (drivers and/or equipment) but has not yet been dispatched. |
+| **Dispatched** | A load with an assigned carrier that has been officially dispatched to begin the shipping process. | A load with assigned assets that has been officially dispatched to begin the shipping process. |
+| **Delivered** | A load is marked as **Delivered** once it reaches its final destination and all stops have been successfully completed. This status signifies that the load is ready to move forward in the billing process. | A load is marked as **Delivered** once it reaches its final destination and all stops have been successfully completed. This status signifies that the load is ready to move forward in the billing process. |
+
+### ↩️ Reverting from Delivered to In Transit
+
+If a load needs to be reverted to **In Transit**, users can update the status of the final stop by marking it as **Arrived** or **Covered**. This will automatically change the load/trip status back to **In Transit**—*unless* the assets have already been paid.
+
+![Notion Image](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1355465401/23d6dce150e5c73f1285aaaa6ef5/image.png)
+
+## Released
+
+A load enters the **Released** status after it has been delivered and verified as ready for the billing process. Users can move a load to **Released** by selecting **Manage > Release**. Once a load is in **Released**, the next step is typically to verify the documentation and generate the invoice.
+
+### ↩️ Reverting from Released to Delivered
+
+Users have the option to revert a load from **Released** by selecting **Manage > Revert Status**. This allows them to make any necessary adjustments or updates before continuing with the billing process.
+
+![Notion Image](https://downloads.intercomcdn.com/i/o/jmo4m9ce/1355465815/6f854ebbdb69939fc9c9cc249714/image.png)
+
+## Queued
+
+A load is marked as **Queued** when its invoice has been generated and is ready to be submitted to a customer, broker, or factoring company.
+
+### ↩️ Reverting from Queued to Released
+
+Users cannot currently revert a load from **Queued**; this can only be done by the support team. If you believe a change is necessary, please contact support, and they will assist after reviewing your request.
+
+Before reverting from **Queued** to **Released**, the support team will:
+
+- Assess why the change is needed, as it may not be required.
+- Note that adjustments, such as rate changes or adding/removing accessorials, can still be made while the load is in **Queued** or **Invoiced** status.
+
+  **Situations Where Reverting to Released Is *****Not***** Necessary:**
+- You need to adjust the freight rate.
+- You need to add or remove accessorials.
+
+  **Situations Where Reverting to Released *****Might***** Be Necessary:**
+- The load is not yet ready for invoicing, and dispatchers still need to work on it.
+- Users responsible for generating invoices want to prevent others from accidentally submitting the invoice while it’s in **Queued**.
+- You need to change the **Invoice As** setting, which requires the load to be in **Released**.
+- You need to change the customer, which can only be done in **Delivered** status.
+- A recent change to invoicing settings needs to be applied, requiring the load to revert to **Released** for the settings to take effect.
+
+## Invoiced
+
+A load is marked as Invoiced when its invoice has been submitted directly to a customer, broker, or factoring company. This status indicates that the invoicing process is complete on your end, and the next step is awaiting payment or processing by the recipient.
+
+### ↩️ Reverting from Invoiced to Queued
+
+Reverting a load from Invoiced can be a complex process, and it’s essential to first determine why the change is necessary and understand any potential consequences. Below are scenarios where reverting may apply:
+
+### When It Should Remain Invoiced
+
+If you need to adjust the rate, add accessorial charges, or make other changes to the invoice after it’s already submitted, the status should generally remain Invoiced.
+
+- For invoices submitted to factoring, any updated invoice should be sent to the factoring company directly by email.
+
+### When It Can Be Reverted
+
+**For Non-Factoring Invoicing Methods:**
+
+If the load was invoiced incorrectly (e.g., wrong amounts or details), the status can be reverted so you can re-create and submit the invoice. You’ll be able to re-invoice the load yourself once the changes are finalized.
+
+**For Factoring Invoicing Methods:**
+
+If the invoice was submitted to factoring in the wrong batch or under the wrong subsidiary, additional steps are required:
+
+- Ensure the factoring company is aware of the issue and has removed the invoice from their batch.
+- Contact support to manually remove the load from the batch in the system.
+- Once removed, you can re-create the invoice under the correct subsidiary and send it in a new batch.
+
+## Financed
+
+A load is marked as **Financed** when its invoice has been purchased and funded by the factoring company.
+
+↩️ Reverting a **Financed** status is not possible. If you require help, please contact the support team.
+
+## Completed
+
+A load is marked as **Completed** once the customer or factoring company has paid the full linehaul amount, and no other payments are outstanding. This represents the final stage in a load's lifecycle.
+
+↩️ Reverting a **Completed** status is not possible. If you need assistance, please contact the support team.

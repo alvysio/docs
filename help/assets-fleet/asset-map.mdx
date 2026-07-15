@@ -1,0 +1,135 @@
+---
+title: "Asset Map"
+description: "The Asset Map gives you a real-time, bird's-eye view of your entire fleet"
+---
+
+<Note>
+  **Applies to:** Users with **"ViewTrucks"** or **"ViewTrailers"**
+
+  **Module:** Assets > Map
+
+  **Last reviewed:** 2026-06 ** · Owner:** Support team
+</Note>
+
+## Overview
+
+The Asset Map (also called the fleet map, live map, asset tracking map, or truck map) gives you a real-time, bird's-eye view of your entire fleet: every truck and trailer on a single interactive map. Use it to locate assets instantly, check statuses without switching screens, and make faster dispatch and routing decisions.
+
+To open the Asset Map, go to Assets > Map in the side navigation. The map loads automatically with all fleet assets plotted.
+
+The Asset Map is included for all Alvys accounts at no additional cost. There is nothing to enable or purchase. Users need either the **"ViewTrucks"** or **"ViewTrailers"** permission to access the map; users with only one of the two permissions can still access it and will see the asset types covered by their permission. Asset positions are populated automatically once a tracking integration is connected to Alvys.
+
+## How it works
+
+### Asset icons
+
+Each asset type appears as a distinct icon on the map:
+
+- Trucks appear as blue squares.
+- Trailers appear as red dots.
+- Trips (trucks on an active trip) appear as green triangles.
+
+When a truck and trailer share an active trip, only the truck icon appears on the map. The trailer is hidden to avoid duplicate markers for the same moving rig.
+
+### Clustering
+
+When you are zoomed out and many assets are close together, the map automatically groups them into numbered circle clusters. Click a cluster or zoom in to expand it and see individual assets. You can turn clustering off in the Map layers menu.
+
+### Last Modified timestamp
+
+The asset sidebar shows a Last Modified timestamp: the moment the asset's location was last received from the connected tracking provider. Use this to assess how current the position data is.
+
+## How to use
+
+### Filtering
+
+The controls at the top of the map let you narrow what is displayed:
+
+- Asset type: All, Trucks, or Trailers, shown as a segmented control with live counts.
+- Status (via the Filters button): All, Active, or Inactive, which filters by the asset's record-level active status.
+
+### Map layers
+
+Open the Map layers menu to toggle:
+
+- Clustering: group nearby assets into numbered circles when zoomed out.
+- Traffic: overlay real-time road traffic conditions.
+- Weather (Beta): overlay weather radar and road conditions. Available when enabled for your account.
+- Events (Beta): overlay severe weather event markers on the map. Available when enabled for your account.
+- Map style: switch between Default (street map) and Satellite views.
+
+### Search
+
+Use the search bar at the top of the map to jump directly to a truck number, trailer ID, driver name, trip number, or address.
+
+### Right-click tools
+
+Right-click anywhere on the map to access:
+
+- Copy coordinates: copies the latitude and longitude of the clicked point to your clipboard.
+- Center here: re-centers the map on the clicked point.
+- Measure driving distance: calculates the driving distance between two points you select on the map.
+- Open in Google Maps: opens that location in Google Maps in a new tab.
+
+### Truck sidebar
+
+Click a truck on the map to open a sidebar showing the truck ID, current status, source, operating status, fuel level, odometer, ELD ID, current address, last modified timestamp, assignment preference, notes, and recent events. Click Edit in the sidebar to open the full truck profile.
+
+### Trailer sidebar
+
+Click a trailer on the map to open a sidebar showing the trailer name and ID, current status, source, operating status, power status, ambient temperature, ELD ID, current address, last modified timestamp, notes, and recent events. Click Edit in the sidebar to open the full trailer profile.
+
+### Trip route
+
+When you click a truck that is on an active trip, the sidebar shows a View Trip button. Click it to render the trip route on the map and see trip details in a panel on the right side of the screen.
+
+The Load Details page also displays a map showing the route for a specific load. That view is display-only. The full interactive experience, including filters, search, right-click tools, and clustering, is available only in Assets > Map.
+
+### Related how-to articles
+
+- How to navigate and filter the Asset Map
+- How to view asset and trip details on the Asset Map
+
+## Troubleshooting
+
+### Asset shows a stale or old location
+
+Asset positions are updated from your connected tracking provider. If an asset shows a stale location, check that the tracking device on that asset is connected and transmitting. The Last Modified timestamp in the sidebar tells you when the last position update was received. If the device appears connected but the position is still not updating, contact Alvys support.
+
+### Weather or Events overlays are missing from the Map layers menu
+
+Weather and severe weather event overlays are available as Beta features. If you do not see the Weather or Events options in the Map layers menu, contact Alvys support to ask about enabling them for your account.
+
+## FAQs
+
+**Q:** How do I access the Asset Map?
+
+**A:** Go to Assets > Map in the side navigation. The map loads automatically with all fleet assets plotted.
+
+**Q:** Is the Asset Map an add-on? Do I need to pay extra?
+
+**A:** No. The Asset Map is included for all Alvys accounts at no additional cost. There is nothing to purchase or enable.
+
+**Q:** What do the different icons mean?
+
+**A:** Blue squares are trucks, red dots are trailers, and green triangles are trucks on an active trip. Trailers that are hitched to a truck on the same active trip are hidden; the truck icon represents the rig.
+
+**Q:** Why do I see numbered circles instead of individual assets?
+
+**A:** Those are clusters. The map groups nearby assets together when you are zoomed out. Zoom in or click a cluster to see individual assets. You can also turn clustering off in the Map layers menu.
+
+**Q:** Why does an asset show an old location?
+
+**A:** Asset positions depend on data received from the connected tracking provider. Check the Last Modified timestamp in the asset sidebar. If the timestamp is stale, verify that the tracking device on that asset is connected and transmitting. If the device appears connected but the position is still not updating, contact Alvys support.
+
+**Q:** Can I filter to see only active trucks?
+
+**A:** Yes. Use the asset type segmented control to select Trucks, then open the Filters menu and set Status to Active.
+
+**Q:** Can I see the route for a trip?
+
+**A:** Yes. Click a truck that is on an active trip, then click View Trip to render the route on the map.
+
+**Q:** Is weather available on the map?
+
+**A:** Weather and severe weather event overlays are available as Beta features. If you do not see the Weather or Events options in the Map layers menu, contact Alvys support to ask about enabling them for your account.

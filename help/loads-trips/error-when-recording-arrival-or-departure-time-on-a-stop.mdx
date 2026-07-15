@@ -1,0 +1,95 @@
+---
+title: "Error when recording arrival or departure time on a stop"
+---
+
+<Note>
+  📋 **Applies to:** Dispatchers
+
+  **Module:** Loads and Trips
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  When you try to save an arrival or departure time on a stop and see an error, Alvys is enforcing one of two rules: the arrival time must not be later than the departure time, and neither time can be set in the future. Also known as: stop time error, arrival time won't save, departure time won't save, stop time validation.
+</Note>
+
+## Symptom
+
+When saving arrived or departed times on a stop, one or more of the following error messages appears and the save is blocked:
+
+- "Arrival/Departure: Arrival must be before departure."
+- "Arrival should not be in future."
+- "Departure should not be in future."
+
+<Note>
+  🖼️ Set Arrival/Departure Times modal showing the departure-before-arrival validation error.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a4bb5ee1-ff40-4907-96c7-ab2461f1ca75/image.png)
+</Note>
+
+<Note>
+  🖼️ Set Arrival/Departure Times modal showing the arrival-in-future validation error.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/854f1183-da08-4fee-9a81-74d10ed8aa11/image.png)
+</Note>
+
+## Cause
+
+These errors occur because the system enforces two rules when recording actual arrived and departed times:
+
+**Rule 1: Arrival must be before or equal to departure.**
+
+A stop cannot show a departed time that is earlier than the arrived time. This prevents data entry errors where a driver appears to have left before arriving.
+
+**Rule 2: Neither arrived nor departed time can be in the future.**
+
+The system checks the entered time against the current real-world time in the stop's time zone. Times that have not yet occurred cannot be recorded as actual arrived or departed times.
+
+These validations protect data accuracy and prevent errors in connected integrations such as EDI and visibility platforms.
+
+## Resolution
+
+### Error: "Arrival/Departure: Arrival must be before departure."
+
+1. Review the Arrived time and the Departed time currently entered on the stop.
+2. Confirm which value is incorrect. The arrival time must be earlier than or equal to the departure time.
+3. Correct the Arrived time, the Departed time, or both so that arrival comes before departure.
+4. Save the stop. The error will clear when the values are in the correct sequence.
+
+### Error: "Arrival should not be in future."
+
+1. Check the Arrived time you entered and compare it to the current date and time in the stop's time zone.
+2. The entered time is later than the current moment. Enter a time that has already occurred.
+3. Save the stop.
+
+### Error: "Departure should not be in future."
+
+1. Check the Departed time you entered and compare it to the current date and time in the stop's time zone.
+2. The entered time is later than the current moment. Enter a time that has already occurred.
+3. Save the stop.
+
+## If That Didn't Work
+
+If the error persists after correcting the times, check the following:
+
+- Confirm the stop's time zone is set correctly. The system evaluates future-time violations based on the stop's assigned time zone. If the time zone is wrong, a valid time may still appear as a future time.
+- Confirm you are not mixing 12-hour and 24-hour formats. An AM/PM entry error can cause the arrival to appear later than intended.
+
+If the error still appears after verifying both of the above, contact Alvys support. Provide the load number, the stop in question, and the times you attempted to enter.
+
+## FAQs
+
+**Q: Can I record a departure time without first recording an arrival?**
+
+**A:** No. A departure time requires an arrival time to be on record for the same stop. Enter the arrival time first, then record the departure.
+
+**Q: Why does Alvys validate against the stop's time zone instead of my device's time?**
+
+**A:** Stop times reflect when an event occurred at the stop location. Using the stop's time zone ensures accurate records and correct data for integrations such as EDI.
+
+**Q: Who can record arrival and departure times on a stop?**
+
+**A:** Users with the **"Dispatch"** permission can record arrival and departure times. If you do not see these fields on a stop, contact your account administrator to confirm your permissions.
+
+## Related
+
+- [Stop Dates and Times](/help/loads-trips/stop-dates-and-times): Learn how arrived and departed fields are shown based on stop status, and how schedule types (FCFS and APPT) work.

@@ -1,0 +1,82 @@
+---
+title: "Connecting Power BI to Alvys Public API"
+description: "Learn how to connect Power BI to Alvys API for advanced data queries and dynamic reports."
+---
+
+<Note>
+  **Applies to:** Admin** ·** Partner Admin **· Module:** Public API / Integrations
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  **Provider:** Power BI · **Integration type:** one-way · **Direction:** Alvys to Power BI.
+
+  Connect Power BI to the Alvys Public API to pull live operational data into Power BI dashboards and reports using GET and POST methods for filtering and retrieval.
+</Note>
+
+## Overview
+
+This integration connects Microsoft Power BI (also called Power BI, PowerBI, Microsoft Power BI, or business intelligence) to the Alvys Public API (OData/REST API) so you can pull live operational data into Power BI for reporting and analytics. Once connected, Power BI retrieves data from Alvys in real time so you can build up-to-date dashboards and use Power BI's visualization tools to represent Alvys data. The connection supports both GET requests for basic data retrieval and POST methods for advanced searches, which add filtering, date range selection, and status-based queries that go beyond basic reporting. The data moves in one direction only: from Alvys into Power BI. With access to endpoints such as Loads, Drivers, Fuel, Invoices, Trips, and Trucks, you can explore data across multiple operational areas and generate analytics tailored to your needs.
+
+## Prerequisites
+
+Before you connect Power BI to Alvys, make sure you have the following. Your account has one of the required roles: generating and managing Alvys Public API credentials requires the **Admin** or **Partner Admin** role. Your Alvys API credentials are ready: you need your Client ID, Tenant ID, and Client Secret from the Alvys platform, generated under Profile then API. Power BI Desktop is installed with the latest version available. Power BI privacy settings are configured to disable privacy checks, so the API integration runs smoothly.
+
+## How to Connect?
+
+1. In the Alvys platform, go to Profile then API to open the Public API page.
+2. Locate your API credentials on that page. You need the Client ID, Tenant ID, and Client Secret. These three values authenticate Power BI to the Alvys Public API.
+3. Generate an API token. The token authenticates each request that Power BI sends to the Alvys API endpoints.
+4. Open Power BI Desktop and confirm you are on the latest version.
+5. In Power BI Desktop, configure your settings to disable privacy checks so the API integration runs without interruption.
+6. Use your credentials and token to connect Power BI to the Alvys Public API endpoints you want to report on.
+
+For full setup and configuration details, including query examples and a preconfigured Power BI file for quick integration, use the [Alvys Public API documentation](https://docs.alvys.com/docs/connecting-power-bi-to-alvys-public-api-guide).
+
+## What Syncs?
+
+Power BI pulls data from individual Alvys Public API endpoints, and each endpoint maps to an operational area in Alvys. The Loads Search endpoint returns load data and lets you filter loads by criteria such as date and status. The Drivers Search endpoint returns driver details and lets you query by fleet or status. The Fuel Search endpoint returns fuel transaction histories. The Invoices Search endpoint returns invoice data and lets you retrieve invoices by date or status. Additional endpoints are available for Trips and Trucks, so you can pull data across multiple operational areas into Power BI.
+
+The connection is one-way and on-demand. Power BI retrieves data from the Alvys Public API in real time when you run or refresh a query, so your Power BI dashboards reflect current Alvys data at the time of retrieval. GET requests handle basic data retrieval. POST methods handle advanced searches, including filtering by status or by date ranges. Data flows only from Alvys into Power BI; nothing is written back to Alvys.
+
+### Verify it is working
+
+1. In Power BI Desktop, run a query against one of the Alvys endpoints, such as Loads Search.
+2. Confirm that Alvys data loads into Power BI without an authentication or privacy error.
+3. Build a simple visualization from the returned data to confirm the fields populate as expected.
+
+## Troubleshooting
+
+### Power BI cannot authenticate to the Alvys API
+
+1. Confirm you are signed in to Alvys with the **Admin** or **Partner Admin** role, since only these roles can generate and manage Public API credentials.
+2. Go to Profile then API and confirm your Client ID, Tenant ID, and Client Secret are correct and copied without extra spaces.
+3. Generate a fresh API token and use it for your requests.
+
+### Power BI blocks the connection with a privacy error
+
+1. Open Power BI Desktop settings.
+2. Disable privacy checks so Power BI allows the Alvys API connection to run.
+3. Re-run your query.
+
+### A query returns no data or limited results
+
+1. Confirm you are using a POST method when you need filtering, date range, or status-based searches, since GET requests only return basic data.
+2. Check your filter, date range, and status values against the query examples in the Alvys Public API documentation.
+
+### Limits and unsupported
+
+This is a one-way, read-only connection. Power BI pulls data from Alvys and cannot write or push data back into Alvys. Advanced filtering, date range selection, and status-based queries require POST methods. GET requests support basic data retrieval only.
+
+## FAQs
+
+**Q: Can I use Power BI to connect directly to the Alvys API?**
+
+**A:** Yes. The Alvys Public API supports integration with Power BI and enables both GET and POST methods for retrieving data.
+
+**Q: Why use POST methods with Power BI?**
+
+**A:** GET requests allow basic data retrieval. POST methods unlock advanced search capabilities, including filtering by status or by date ranges.
+
+**Q: Where can I find my API credentials?**
+
+**A:** Your API credentials (Client ID, Tenant ID, and Client Secret) are available under Profile then API on the Alvys platform.

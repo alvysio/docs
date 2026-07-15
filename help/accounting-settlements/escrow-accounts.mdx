@@ -1,0 +1,141 @@
+---
+title: "Escrow Accounts"
+description: "An Alvys Escrow account functions similarly to a savings account, involving deductions in anticipation of upcoming expenses."
+---
+
+<Note>
+  📋 **Module:** Assets > Drivers / Owner-Operators > Escrow Account tab; Accounting > Pay Drivers · **Owner:** Support team · **Last reviewed:** 2026-06 · **Applies to:** All users
+</Note>
+
+## Overview
+
+An Alvys Escrow Account (also called a driver reserve or driver holdback) works similarly to a savings account. Its purpose is to reserve a portion of a driver's or owner-operator's earnings to cover anticipated costs associated with their trucking operations.
+
+Also known as: driver reserve, driver holdback, escrow deposit, escrow withdrawal.
+
+Expenses that escrow accounts commonly cover include Insurance, Equipment, Security deposit, General reserves, Tolls, Plates, 2290 fees, and Maintenance.
+
+Deposits and withdrawals can be made on a scheduled basis (recurring) or as a one-time deduction from payroll. The system supports scheduling based on a calendar, a set number of occurrences, or other customizable parameters.
+
+Escrow account balances are monitored with support for minimum and maximum limits. If a balance falls below the minimum, the system alerts you to create a deposit to replenish it. If a balance exceeds the maximum, scheduled deposits are adjusted accordingly.
+
+## How it works
+
+Key concepts:
+
+- **Escrow Account:** A named reserve account created for a specific driver or owner-operator. Each account has a defined purpose (such as Insurance or Maintenance), and can have minimum and maximum balance limits.
+- **Deposit:** An amount added to the escrow account, deducted from the driver's payroll.
+- **Withdrawal:** An amount removed from the escrow account, returned to the driver or applied to a specific expense.
+- **Split Deduction:** A one-time expense that is divided between the driver's payroll and the escrow account. The user decides how much comes from each source.
+- **Balance Visibility:** Balances are not reflected in the escrow account until a paystub is generated that includes the relevant transaction.
+
+  Behavior and limits:
+- Escrow account balances are updated only when a paystub is generated that includes the deposit or withdrawal transaction.
+- When a one-time escrow deposit or withdrawal is added, two entries appear in the deductions table: one for the initial account balance and one for the deposit or withdrawal.
+- Scheduled deposits are automatically paused or adjusted when the maximum balance is reached.
+- If the balance falls below the minimum, you will receive an alert to create a new deposit.
+- When splitting an expense between payroll and the escrow account, entering the payroll amount calculates the escrow portion automatically (or vice versa).
+
+## How to use
+
+Where to find it: navigate to the driver or owner-operator profile.
+
+1. Open the profile from **Assets > Drivers** (for company drivers) or **Assets > Owner-Operators** (for owner-operators).
+2. Select the **Escrow Account** tab on the profile to view, create, and manage escrow accounts.
+3. To create deposits or withdrawals, go to the **Deductions** tab on the same driver or owner-operator profile.
+
+Settings and permissions: **All users** can create and manage escrow accounts, add deposits and withdrawals, and split deductions. No additional permissions are required beyond standard Alvys access. After creation, only the **"Min Balance"** and **"Max Balance"** fields can be edited; all other account fields are set at creation and cannot be changed. To change other fields, delete the account and create a new one. To delete an escrow account, select the bin (trash) icon next to the account in the Escrow Account tab.
+
+<Note>
+  📋 This image shows a driver profile with the Escrow Account tab selected and the Add Escrow Account button visible.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/46d472c7-ed62-4171-a985-f0771252ddd4/image.png)
+</Note>
+
+<Note>
+  📋 This image shows the Add Escrow Account pop-up form with fields filled in and the Save button.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c8e98e69-583a-4061-9afa-0fc100d553d6/image.png)
+</Note>
+
+<Note>
+  📋 This image shows the escrow account list with the pen (edit) and bin (delete) icons visible next to an account.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5a3005c1-ea46-45bd-ac83-54fa249076b7/image.png)
+</Note>
+
+<Note>
+  📋 This image shows the Deductions tab on a driver profile with the Add Deduction button clicked.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/308fc170-e398-45ed-b949-9ad5c2816dc3/image.png)
+</Note>
+
+<Note>
+  📋 This image shows the transaction type dropdown open with Escrow Deposit and Escrow Withdrawal options visible.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/fe7e47ce-dce7-40c1-90f2-0a086049c935/image.png)
+</Note>
+
+<Note>
+  📋 This image shows the escrow account selector dropdown showing existing escrow accounts to choose from.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/68365d45-8e5b-452e-a2c3-38722cd1c4a8/image.png)
+</Note>
+
+<Note>
+  📋 This image shows the amount field and frequency set to Once with a start date entered.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e4d73aef-3a74-4e9d-9d07-0a7e4fa2d7f1/image.png)
+</Note>
+
+<Note>
+  📋 This image shows the deductions table after saving a one-time transaction, displaying two entries, one for the initial balance and one for the deposit or withdrawal.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/78cb09ca-b6c0-4fbd-a6a9-4e0c163f94b4/image.png)
+</Note>
+
+<Note>
+  📋 This image shows the transactions history table under the Escrow Account tab after a transaction has been recorded.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5e1f5332-82d1-44fd-9868-60b77ebcaaab/image.png)
+</Note>
+
+<Note>
+  📋 This image shows the Driver Settlements page with a driver selected and the Deductions/Reimbursement section scrolled into view. Source:
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/0d64add3-4424-41a7-9d1c-b32d78a53338/image.png)
+</Note>
+
+## FAQs
+
+**Q: Who can create and manage escrow accounts?**
+
+**A:** All users can create and manage escrow accounts. No special role or permission is required.
+
+**Q: Can I edit an escrow account after it has been created?**
+
+**A:** Only the **"Min Balance"** and **"Max Balance"** fields can be edited after creation. To change any other field, delete the account and create a new one.
+
+**Q: When does the escrow account balance update?**
+
+**A:** Balances are not reflected until a paystub is generated that includes the relevant transaction. The balance updates when that paystub is produced, not when the deposit or withdrawal is entered.
+
+**Q: What is a split deduction?**
+
+**A:** A split deduction divides a one-time expense between the driver's payroll and the escrow account. You enter the amount for one source, and the system calculates the other automatically.
+
+**Q: Can I schedule recurring deposits or withdrawals?**
+
+**A:** Yes. When adding a deduction of type Escrow Deposit or Escrow Withdrawal, select a frequency of Monthly, Annually, Weekly, or Every Statement, then set a recurring date and start date.
+
+**Q: What happens if the escrow balance exceeds the maximum?**
+
+**A:** Scheduled deposits are automatically modified so the balance does not exceed the maximum limit you set.
+
+**Q: What happens if the escrow balance falls below the minimum?**
+
+**A:** The system alerts you to create a deposit to replenish the balance.
+
+**Q: Can I view escrow transaction history?**
+
+**A:** Yes. After a transaction is conducted on an escrow account, it is recorded in the transactions history table under the Escrow Account tab on the driver or owner-operator profile.

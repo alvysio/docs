@@ -1,0 +1,212 @@
+---
+title: "Triumph Business Capital: Factoring Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Support staff (setup); users with the **"Billing"** permission (batch submission and report uploads)
+
+  **Module:** Management > Integrations (setup); Accounting > Factoring Upload (batch submission); Reports > Factoring (report uploads)
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Send invoice batches from Alvys to Triumph Business Capital via FTP, then upload purchase and payment reports from the Triumph portal back to Alvys for reconciliation.
+</Note>
+
+<Note>
+  📋 **Provider:** Triumph Business Capital
+
+  **Integration type:** One-way
+
+  **Sync direction:** Alvys to Triumph Business Capital (outbound FTP batch); purchase and payment reports uploaded from the Triumph portal to Alvys manually
+</Note>
+
+## Overview
+
+Send invoice batches from Alvys to Triumph Business Capital via FTP, then upload purchase and payment reports from the Triumph portal back to Alvys for reconciliation. Also referred to as Triumph factoring, Triumph Business Capital factoring, or TBC factoring.
+
+The Triumph Business Capital integration connects Alvys to Triumph's FTP server so you can submit invoice batches for factoring directly from Alvys. After Triumph funds the invoices, you download a purchase report from the Triumph portal and upload it to Alvys. When Triumph processes payment, you download a payment report from [mytriumph.com](http://mytriumph.com/) and upload it to Alvys. These uploads update your factoring records in Alvys for reconciliation.
+
+## Prerequisites
+
+Before configuring the integration, confirm the following:
+
+- Your company has an active factoring agreement with Triumph Business Capital.
+- You have at least one subsidiary set up in Alvys. The integration must be configured per subsidiary.
+- You have an Admin, Partner Admin, or Support role in Alvys to configure the integration in Management > Integrations.
+- You have received or will request FTP credentials from Triumph. A separate set of credentials is required for each subsidiary.
+
+## How to connect
+
+### Add your Notice of Assignment
+
+1. Navigate to Company Profile.
+2. Locate the **Document Configuration** section of the **General Info** tab. Click the **+** button. The **Manage Important Info** window opens.
+3. Select **Notice of Assignment** from the dropdown.
+4. Copy and paste the following text exactly as it appears into the Notice of Assignment field:
+
+   <Note>
+     📋 THIS INVOICE HAS BEEN ASSIGNED TO AND MUST BE PAID DIRECTLY TO, ADVANCE BUSINESS CAPITAL LLC, d/b/a TRIUMPH BUSINESS CAPITAL, P.O. BOX 610028 Dallas, TX 75261-0028, For paperwork requests please email [requests@tbcap.com](mailto:requests@tbcap.com), CLAIMS OR OFFSETS SHOULD BE DIRECTED TO (866) 414-9600, JURISDICTION FOR ANY LEGAL DISPUTES WILL BE IN DALLAS COUNTY, TEXAS
+   </Note>
+5. Click **Save**.
+
+### Request credentials and configure each subsidiary
+
+1. Contact Triumph Business Capital to request FTP credentials. A separate set of credentials is required for each subsidiary you plan to factor through this integration.
+2. After receiving credentials, click the **Profile** button in the upper right corner of Alvys and select **Management**.
+3. On the Management page, select the subsidiary you are configuring from the left panel. Scroll to the **Integrations** section and click the blue **Integrate** button. The **Add Integration** pop-up opens.
+4. Select **Triumph** from the dropdown.
+5. Enter the FTP credentials Triumph provided for this subsidiary, then click **Save**.
+
+   ![Credential entry form for Triumph FTP integration in the Add Integration pop-up](https://alvys.intercom-attachments-1.com/i/o/1103577423/6a1385557f14413108f152f2/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Ffd8c22d9-93a2-46e8-b246-43508da6e93a-2FTriumph.png)
+
+   *Credential entry form for Triumph FTP integration in the Add Integration pop-up*
+6. Repeat steps 3 through 5 for each additional subsidiary.
+7. After configuring all subsidiaries, submit a test batch. Contact your Triumph sales representative to confirm the submission was received successfully.
+
+### How to submit a batch
+
+Users with the **"Billing"** permission can submit invoice batches to Triumph from the Factoring Upload page.
+
+1. Navigate to **Accounting > Factoring Upload**.
+2. Select the subsidiary for this batch.
+
+   ![Subsidiary selection screen on the Factoring Upload page](https://alvys.intercom-attachments-1.com/i/o/1103577433/92b2992523963dc81dbd9588/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F6f0c34c1-92aa-4cb7-9350-13d9c5420dbe-2FUntitled.png)
+
+   *Subsidiary selection screen on the Factoring Upload page*
+3. Select the invoices you want to include in the batch. Only invoices with a status of **Invoiced** are eligible for submission.
+
+   ![Invoice selection on the Factoring Upload page](https://alvys.intercom-attachments-1.com/i/o/1103577443/5473e5672c8ba5ddea316916/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fb46fe318-e526-4cf1-bd5f-e5950ce2782f-2FUntitled.png)
+
+   *Invoice selection on the Factoring Upload page*
+4. Click **Submit Batch**.
+
+   ![Submit Batch button on the Factoring Upload page](https://alvys.intercom-attachments-1.com/i/o/1103577449/c6f3a97c82f75f50937d6834/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F773d59a1-c3f7-4043-8d35-5255097bef34-2FUntitled.png)
+
+   *Submit Batch button on the Factoring Upload page*
+5. Wait for the submission to complete. Do not navigate away from the page until the submission finishes.
+
+### How to upload a purchase report
+
+After Triumph funds your invoices, a purchase report becomes available in the Triumph portal. Download the report and upload it to Alvys for reconciliation.
+
+1. Log in to the Triumph Factoring portal and go to the **Dashboard**.
+
+   ![Triumph Factoring portal Dashboard showing the Recent Fundings card](https://alvys.intercom-attachments-1.com/i/o/1103577460/a43f3e844307db7bdf564095/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F3c12c827-bb97-4406-a54f-d8ce39ea67b4-2FUntitled.png)
+
+   *Triumph Factoring portal Dashboard showing the Recent Fundings card*
+2. In the **Recent Fundings** card, click the report you want to download.
+
+   ![Recent Fundings card in the Triumph Factoring portal with a selectable report](https://alvys.intercom-attachments-1.com/i/o/1103577467/05120727b9862c7d56d99e4c/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2Ff816dd0a-6e47-4ba9-a131-336644464710-2FUntitled.png)
+
+   *Recent Fundings card in the Triumph Factoring portal with a selectable report*
+3. Click **Export Results**, then select **Export to Excel**. Save the file to your device.
+
+   ![Export Results menu with Export to Excel option in the Triumph Factoring portal](https://alvys.intercom-attachments-1.com/i/o/1103577480/4da73018def0a83d88ccd828/https-3A-2F-2Fprod-files-secure_s3_us-west-2_amazonaws_com-2Fd6ffe62a-73ce-4a4d-a390-4ef61001b182-2F83a74e2b-0370-4e8d-9999-a3a6a50e6a34-2FUntitled.png)
+
+   *Export Results menu with Export to Excel option in the Triumph Factoring portal*
+4. In Alvys, navigate to **Reports > Factoring**. Click **Upload Purchase Report** in the lower right.
+
+   ![Upload Purchase Report button on the Factoring Report page in Alvys](https://alvys.intercom-attachments-1.com/i/o/1103577489/d3de2928aca31804b1d8d1b3/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F85312965-52ec-4c24-9ee1-c24c24386645-2FUntitled.png)
+
+   *Upload Purchase Report button on the Factoring Report page in Alvys*
+5. Drag and drop the exported file onto the upload area, or click to browse and select the file from your device.
+
+   ![File drag-and-drop upload area on the Factoring Report page](https://alvys.intercom-attachments-1.com/i/o/1103577504/a6173b541595ca97850a62d2/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F69f5b7b2-fbae-41c2-926d-c0e875a99318-2FUntitled.png)
+
+   *File drag-and-drop upload area on the Factoring Report page*
+6. Click **Upload**.
+
+   ![Upload button on the Factoring Report page](https://alvys.intercom-attachments-1.com/i/o/1103577518/727445b1e92758d23dbfbc34/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fe728122f-33d1-4d43-9e02-c84f0b79eb0f-2FUntitled.png)
+
+   *Upload button on the Factoring Report page*
+7. Do not close the page until processing is complete. Processing may take several seconds to a few minutes depending on the size of the file.
+
+### How to upload a payment report
+
+After Triumph processes payment, a payment report becomes available at [mytriumph.com](http://mytriumph.com/). Download the report and upload it to Alvys for reconciliation.
+
+1. Log in to [mytriumph.com](http://mytriumph.com/). Navigate to **Reports**, then select **Payments Received**.
+
+   ![Reports > Payments Received in the Triumph portal menu](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/510015d0-68b1-42f8-ba45-ab571b382ef3/image.png)
+
+   *Reports > Payments Received in the Triumph portal menu*
+2. Adjust the timeframe as needed. Click **Export from Detail View** and select Excel format. Save the file to your device.
+
+   ![Exporting the Payments Received report to Excel](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/0a07cb30-7861-4a7d-99cf-f77a7eb7f234/image.png)
+
+   *Exporting the Payments Received report to Excel*
+3. In Alvys, navigate to **Reports > Factoring**. Click **Upload Payment Report**.
+
+   ![Upload Payment Report button on the Factoring Report page in Alvys](https://alvys.intercom-attachments-1.com/i/o/1103577555/3df2fa23c682be5f5d881943/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2F10ac96fa-7382-4c8f-a4fa-0692cd7d6e43-2FUntitled.png)
+
+   *Upload Payment Report button on the Factoring Report page in Alvys*
+4. Drag and drop the exported file onto the upload area, or click to browse and select the file from your device.
+
+   ![File drag-and-drop upload area for the payment report](https://alvys.intercom-attachments-1.com/i/o/1103577565/97f4a455e1b6a4fa2645670e/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fe35f926e-e6b9-4a80-ad2e-c882a469965e-2FUntitled.png)
+
+   *File drag-and-drop upload area for the payment report*
+5. Click **Upload**.
+
+   ![Upload button for the payment report on the Factoring Report page](https://alvys.intercom-attachments-1.com/i/o/1103577574/33759aa550754b838ec0272a/https-3A-2F-2Fs3-us-west-2_amazonaws_com-2Fsecure_notion-static_com-2Fabd104b2-8ecd-4f87-bc8c-fbbda68c1b18-2FUntitled.png)
+
+   *Upload button for the payment report on the Factoring Report page*
+6. Do not close the page until processing is complete. Processing may take several seconds to a few minutes depending on the size of the file.
+
+## What syncs
+
+When a batch is submitted, Alvys sends the following invoice data to Triumph via FTP: invoice number, invoice amount, debtor name, load reference number, and subsidiary identifier. Triumph uses these fields to create and track the purchase report. No additional field mapping configuration is required in Alvys.
+
+This is a one-way integration. Alvys sends invoice batches outbound to Triumph's FTP server. Triumph does not send data back to Alvys automatically. Purchase reports and payment reports must be downloaded from the Triumph portal and uploaded to Alvys manually.
+
+After submitting your first test batch and uploading reports, confirm the following:
+
+- Contact your Triumph sales representative to verify they received and accepted the FTP batch submission.
+- After uploading a purchase report, verify that the corresponding invoices in Alvys reflect the correct factored amounts.
+- After uploading a payment report, verify that payment records in Alvys match the amounts in the report.
+
+If invoices do not appear on the Factoring Upload page, confirm they have a status of **Invoiced** in Alvys and that the correct subsidiary is selected.
+
+### Limits and unsupported
+
+- A separate FTP integration must be configured for each subsidiary. One set of FTP credentials cannot cover multiple subsidiaries.
+- The integration uses FTP only. No alternative file transfer methods are supported.
+- Report uploads (purchase and payment) are manual. There is no automatic sync of report data from the Triumph portal to Alvys.
+- Only invoices with a status of **Invoiced** are eligible for batch submission.
+
+## Troubleshooting
+
+### Batch submission does not appear in Triumph portal
+
+1. Confirm the FTP credentials entered in Management > Integrations match the credentials Triumph provided for this subsidiary exactly, including capitalization and special characters.
+2. Check that you submitted a test batch after initial setup and that Triumph confirmed receipt. If Triumph did not confirm, resubmit and contact your Triumph sales representative.
+3. If credentials are correct and Triumph cannot locate the submission, contact Alvys Support.
+
+### Purchase or payment report upload returns an error
+
+1. Confirm the file was exported from the Triumph portal in Excel (.xlsx) format. Files in other formats are not accepted.
+2. Confirm the file is not open in another application before uploading.
+3. If the upload continues to fail, contact Alvys Support.
+
+### Invoices do not appear on the Factoring Upload page
+
+1. Confirm the invoices have a status of **Invoiced** in Alvys. Invoices in other statuses are not eligible for batch submission.
+2. Confirm the correct subsidiary is selected on the Factoring Upload page. Each subsidiary shows only its own eligible invoices.
+3. If invoices are **Invoiced** and the correct subsidiary is selected but invoices still do not appear, contact Alvys Support.
+
+## FAQs
+
+**Q: Why do I need separate FTP credentials for each subsidiary?**
+
+**A:** Triumph Business Capital requires a distinct set of FTP credentials per subsidiary. A single set of credentials cannot cover multiple subsidiaries; each must be configured separately in Management > Integrations.
+
+**Q: What do I do after submitting a test batch?**
+
+**A:** After submitting the test batch, contact your Triumph sales representative to confirm they received and accepted it. Triumph will verify the submission on their end before you proceed with live invoice batches.
+
+**Q: What is the exact Notice of Assignment text required for Triumph Business Capital?**
+
+**A:** The required text is: THIS INVOICE HAS BEEN ASSIGNED TO AND MUST BE PAID DIRECTLY TO, ADVANCE BUSINESS CAPITAL LLC, d/b/a TRIUMPH BUSINESS CAPITAL, P.O. BOX 610028 Dallas, TX 75261-0028, For paperwork requests please email [requests@tbcap.com](mailto:requests@tbcap.com), CLAIMS OR OFFSETS SHOULD BE DIRECTED TO (866) 414-9600, JURISDICTION FOR ANY LEGAL DISPUTES WILL BE IN DALLAS COUNTY, TEXAS.
+
+**Q: How long does it take for a report upload to process?**
+
+**A:** Processing time ranges from a few seconds to a few minutes depending on the size of the file. Do not close the Factoring Report page until processing is complete.

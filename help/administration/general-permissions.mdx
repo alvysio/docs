@@ -1,0 +1,319 @@
+---
+title: "General Permissions"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Office Admins · Operation Managers · Dispatchers · Safety personnel · Data Entry · Sales Agents · **Module:** Management > Company Profile > Users · **Last reviewed:** 2026-06 · **Owner:** Support team · General Permissions control access to foundational features that span the entire system, from load-board integrations to editing historical records and viewing financial amounts in maintenance logs.
+</Note>
+
+## Overview
+
+General Permissions (sometimes called system-wide permissions or platform permissions) in Alvys control access to foundational features that span the entire system: from integrating with external load boards to editing historical records and viewing financial data in maintenance logs. Unlike rate permissions, which are scoped to individual loads, general permissions typically affect entire sections of the platform or unlock capabilities that apply system-wide.
+
+General Permissions are a set of five individual user-level toggles found in the **General** category of a user's permissions section. Each permission unlocks a distinct capability: enabling DAT or Truckstop freight load board features, selecting past dates on stop dialogs, overriding locks set by other users, and viewing dollar amounts in maintenance records.
+
+General Permissions are distinct from Dispatch or Billing permissions even though they may affect workflows in those areas. For example, **"Unlock Loads"** affects load management but is categorized under General because it is not specific to dispatching or billing alone.
+
+## Where to Find It
+
+General Permissions are configured at the individual user level within the User Management interface, accessible through Management > Company Profile > Users.
+
+<Warning>
+  ⚠️ To modify these permissions, the logged-in user must have the **"Set Permission"** permission located within the Management category. · Without it, a user can view a user profile but cannot adjust any permissions. · For more information, see the [Management &amp; Privacy Permissions article](/help/administration/management-privacy-permissions).
+</Warning>
+
+To reach the General permissions category:
+
+1. Select your **username** in the bottom-left corner, then navigate to **Company Profile** and select the **Users** tab.
+
+   <Note>
+     ![Users tab in Company Profile.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a92fb46b-cd24-4e22-a290-a776e9b2cf38/image.png)
+
+     *Users tab in Company Profile.*
+   </Note>
+
+   ![Users tab in Company Profile.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a92fb46b-cd24-4e22-a290-a776e9b2cf38/image.png)
+
+   *Users tab in Company Profile.*
+2. Select an existing user to edit, or select **Add User** to create a new profile.
+
+   <Note>
+     ![Edit user or Add User button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ccd2b083-652e-4cec-9c01-5f018a869cba/image.png)
+
+     *Edit user or Add User button.*
+   </Note>
+
+   ![Edit user or Add User button.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ccd2b083-652e-4cec-9c01-5f018a869cba/image.png)
+
+   *Edit user or Add User button.*
+3. Scroll to the **Permissions** section and locate the **General** category. You will see five individual checkboxes: **"DAT User"**, **"TruckStop User"**, **"Calendar Past Dates"**, **"Unlock Loads"**, and **"View Maintenance Amounts"**.
+
+<Note>
+  ![Five General permission checkboxes in the user permissions form.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/6102be04-4fc5-4a37-be6c-664e76f827ca/image.png)
+
+  *Five General permission checkboxes in the user permissions form.*
+</Note>
+
+## Key Concepts
+
+General Permissions operate at the per-user level. Each permission is an independent toggle — enabling one does not affect the others. Permissions can be granted or revoked at any time by a user with the **"Set Permission"** permission (Admin, Partner Admin, and Operation Manager roles receive this by default, as does any user who has been explicitly granted the **"Set Permission"** permission).
+
+The five General Permissions are:
+
+- **"DAT User"**: enables DAT load board features within Alvys for that user
+- **"TruckStop User"**: enables Truckstop load board features within Alvys for that user
+- **"Calendar Past Dates"**: allows the user to select past dates in stop dialogs
+- **"Unlock Loads"**: allows the user to unlock loads locked by other users
+- **"View Maintenance Amounts"**: shows financial columns in the Maintenance module
+
+## How to Use It
+
+For step-by-step instructions on managing user permissions, see [How to manage user roles and permissions](/help/administration/user-roles-permissions-collection).
+
+## DAT User
+
+DAT (Dial-A-Truck / DAT Freight and Analytics) is one of the largest digital freight marketplaces in North America, providing load board services, rate data, and carrier-shipper matching. When a company integrates its Alvys account with DAT, the **"DAT User"** permission controls which individual users can access DAT-powered features within the Alvys interface: posting loads to the DAT load board, deleting postings from DAT, updating posted rates on DAT, and modifying external board rates on loads.
+
+Without this permission, the user will not see DAT-related options in the right-click context menu on the Load Board, even if the company has an active DAT integration.
+
+<Warning>
+  ⚠️ This permission is relevant only when your company has the DAT integration enabled at the subsidiary level. · It does not grant access to DAT's own platform or billing; it simply unlocks the DAT features built into the Alvys interface. · For more details on setting up your DAT integration, see [Post Loads to DAT Load Board](/help/integrations/post-loads-to-dat-load-board).
+
+  ![DAT integration note callout with screenshot](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8b6c2c80-344b-426e-9172-70c097f1078c/image.png)
+
+  *DAT integration note callout with screenshot*
+</Warning>
+
+This permission affects the following areas:
+
+- **Load Board context menu:** When a user has the **"DAT User"** permission and the subsidiary's DAT integration is active, right-clicking a load with **Open**, **Quoted**, or **Reserved** status displays additional options: **Post Load** (when the load does not yet have a DAT board record), **Update Rate** (for loads already posted), and **Delete Posting** (when a load already has a DAT board record).
+
+  <Note>
+    ![Load Board right-click context menu showing DAT options.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e0a55609-3c89-4dee-b1ac-3ed94df2ff18/image.png)
+
+    *Load Board right-click context menu showing DAT options.*
+  </Note>
+
+  ![Load Board right-click context menu showing DAT options.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e0a55609-3c89-4dee-b1ac-3ed94df2ff18/image.png)
+
+  *Load Board right-click context menu showing DAT options.*
+- **Load Details page — Post load:** The Post Load action is also available from within the load details page.
+
+  <Note>
+    ![Load Details page showing Post Load option for DAT.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/9f16c5d5-82a7-4b55-98fa-4752d6130419/image.png)
+
+    *Load Details page showing Post Load option for DAT.*
+  </Note>
+
+  ![Load Details page showing Post Load option for DAT.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/9f16c5d5-82a7-4b55-98fa-4752d6130419/image.png)
+
+  *Load Details page showing Post Load option for DAT.*
+- **Load Details — Posted Rate:** When the DAT integration is active and the user has this permission, they can modify the Posted Rate field on loads in **Open**, **Quoted**, or **Reserved** status.
+
+<Note>
+  ![Load Details Posted Rate field (DAT).](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c40eacf8-f9e6-462f-8aaf-dfd7ccc1ccc1/image.png)
+
+  *Load Details Posted Rate field (DAT).*
+</Note>
+
+Upon user creation, the Admin, Partner Admin, and Operation Manager roles are automatically granted this permission.
+
+<Info>
+  💡 Grant **"DAT User"** to Dispatchers, Operation Managers, and Sales Agents who handle spot freight or manage carrier sourcing. If your company operates exclusively with dedicated carrier relationships, leave this permission disabled for most users to prevent accidental postings.
+</Info>
+
+## TruckStop User
+
+The **"TruckStop User"** permission controls whether a specific user can interact with Truckstop-powered features within Alvys. Truckstop (formerly [Truckstop.com](http://truckstop.com/), now part of Truckstop Group) is a major digital freight marketplace that provides load board services, rate intelligence, and freight-matching tools to carriers and brokers across North America. Similar to **"DAT User"**, **"TruckStop User"** acts as a per-user control on top of the company-wide Truckstop integration. Without it, the user will not see Truckstop-related options in the Load Board context menu.
+
+<Warning>
+  ⚠️ This permission is relevant only when your company has the Truckstop integration configured and active at the subsidiary level. · It does not grant access to Truckstop's platform or billing; it simply unlocks the Truckstop features within the Alvys interface. · For more details on setting up your Truckstop integration, see [Truckstop Integration](/help/integrations/truckstop-load-board-integration).
+
+  ![TruckStop integration note callout with screenshot.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7b819405-ea3a-455a-a488-da30828730e3/image.png)
+
+  *TruckStop integration note callout with screenshot.*
+</Warning>
+
+The **"TruckStop User"** permission functions almost identically to **"DAT User"** in terms of where it is evaluated and which UI elements it controls. The primary difference is the target integration: DAT versus Truckstop. Many companies maintain integrations with both platforms simultaneously and may grant one or both permissions to the same user, depending on which load boards that user needs to access.
+
+This permission affects the following areas:
+
+- **Load Board context menu:** When a user has the **"TruckStop User"** permission and the company has an active Truckstop integration, right-clicking a qualifying load displays: **Post Load** (for loads in **Open**, **Quoted**, or **Reserved** status without an existing Truckstop record), **Delete Posting** (when the load has an existing Truckstop board record), and **Update Rate** (for loads in **Open**, **Quoted**, or **Reserved** status).
+
+  <Note>
+    ![Load Board right-click context menu showing Truckstop options.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b8e1040e-2e19-484e-8858-d967a78874ce/image.png)
+
+    * Load Board right-click context menu showing Truckstop options. *
+  </Note>
+
+  ![Load Board right-click context menu showing Truckstop options.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b8e1040e-2e19-484e-8858-d967a78874ce/image.png)
+
+  * Load Board right-click context menu showing Truckstop options. *
+- **Load Details — External Board Rate:** The user can modify the external board rate field on loads in **Open**, **Quoted**, or **Reserved** status when a Truckstop integration is active.
+
+<Note>
+  ![Load Details External Board Rate field (TruckStop).](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c40eacf8-f9e6-462f-8aaf-dfd7ccc1ccc1/image.png)
+
+  *Load Details External Board Rate field (TruckStop). *
+</Note>
+
+Upon user creation, the Admin, Partner Admin, and Operation Manager roles are automatically granted this permission. The following roles do not receive **"TruckStop User"** by default: Dispatcher, Biller, Sales Agent, Data Entry, Office Admin, Safety, and Driver.
+
+<Info>
+  💡 If your company uses both DAT and Truckstop, decide whether each dispatcher needs access to both or just one. Assign **"TruckStop User"** only to users who are trained on the Truckstop platform and understand your company's posting strategy.
+</Info>
+
+## Calendar Past Dates
+
+The **"Calendar Past Dates"** permission controls whether a user can select past dates in the Add Stop dialog when building a load. When the permission is absent, the date picker's minimum selectable date is set to today, preventing the user from picking any date in the past. When the permission is present, the full calendar is available, including all past dates.
+
+This is useful for back-dating scenarios that occur routinely in trucking: for example, adding a stop with a date that has already passed due to a late system entry or a correction.
+
+<Note>
+  ![Add Stop calendar without Calendar Past Dates permission (past dates restricted).](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/63e8847d-c856-4e5a-8ce1-35576bae4cab/image.png)
+
+  *Add Stop calendar without Calendar Past Dates permission (past dates restricted).*
+
+  ![Add Stop calendar with Calendar Past Dates permission](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/145fa42e-4844-4ad3-8491-f2f4460e9ce6/image.png)
+
+  *Add Stop calendar with Calendar Past Dates permission *
+</Note>
+
+The only role that does not receive **"Calendar Past Dates"** by default is Driver. This permission is relevant to nearly all office-based roles: Dispatchers, Billers, Data Entry, Sales Agents, Office Admins, Operation Managers, and Safety personnel.
+
+<Info>
+  💡 Grant **"Calendar Past Dates"** to roles that regularly perform data entry or manage loads. For roles that are intended to be view-only, consider leaving this permission disabled to prevent accidental changes to historical dates.
+</Info>
+
+## Unlock Loads
+
+The **"Unlock Loads"** permission allows a user to unlock any load that has been locked by another user. Without this permission, users are limited to unlocking only the loads they have locked themselves.
+
+This capability is essential for maintaining operational continuity when a load becomes inaccessible because the original user is unavailable. A locked load prevents other team members from performing time-sensitive actions such as assigning a carrier, updating rates, or confirming delivery — all of which can impact revenue and customer satisfaction. Granting this permission to designated users provides a controlled override, ensuring that locked loads do not stall operations.
+
+When a load is locked, a closed lock icon is displayed in the top right corner of the load details page. Selecting the icon produces one of two outcomes:
+
+- **With "Unlock Loads" permission:** A confirmation dialog appears asking if the user wants to unlock the load. Confirming releases the lock and allows editing.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e4f25d7d-dcd2-4162-a23f-0bee092acf00/image.png)
+
+  ![Load details page showing the closed lock icon in the top right corner.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2676e229-3966-4d70-aebb-b2990bd8a456/image.png)
+
+  *Load details page showing the closed lock icon in the top right corner. *
+
+  ![Confirmation dialog asking the user to confirm unlocking the load.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/6497f4e0-d111-44a7-a313-a59502d5babc/image.png)
+
+  *Confirmation dialog asking the user to confirm unlocking the load.*
+</Note>
+
+- **Without "Unlock Loads" permission:** The user can see that the load is locked but will not receive a prompt to unlock it (unless they are the user who originally locked it).
+
+The Safety and Driver roles do not receive **"Unlock Loads"** by default. This permission is most relevant for Dispatchers, Billers, Data Entry, Sales Agents, Office Admins, and Operation Managers who regularly edit loads and may encounter locks set by other users.
+
+<Info>
+  💡 Ensure that at least two users per shift have the **"Unlock Loads"** permission so that someone is always available to release stuck loads. Avoid granting this permission to users who do not regularly work with loads, as unnecessary access increases the risk of accidental unlocks.
+</Info>
+
+## View Maintenance Amounts
+
+The **"View Maintenance Amounts"** permission controls whether a user can see the dollar amounts associated with maintenance records and maintenance expense totals. Without this permission, a user can still view maintenance records if they have the appropriate Management-category permission, but the financial columns — "Amount" in the records grid and "Expenses" in the totals table — are hidden.
+
+By separating the ability to view maintenance records from the ability to view maintenance costs, Alvys provides a clear separation of concerns: operational users see operational data, and financial users see financial data.
+
+<Info>
+  💡 **"View Maintenance Amounts"** is only useful if the user also has the **"View Maintenance Records &amp; Totals"** permission from the Management category, which controls access to the Maintenance module itself. Without the Management-category permission, the user cannot access the Maintenance pages where amounts would be displayed.
+
+  ![Maintenance module callout showing the relationship between View Maintenance Amounts and the Management-category permission.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/773d05d1-6ce3-4654-b241-2ecefdd17a20/image.png)
+
+  *Maintenance module callout showing the relationship between View Maintenance Amounts and the Management-category permission.*
+</Info>
+
+This permission specifically affects two areas of the Maintenance module:
+
+- **Maintenance Records Board:** When a user lacks **"View Maintenance Amounts"**, the "Amount" column is removed from the maintenance records grid. The user can still see all other maintenance record details — asset, date, type of service, vendor, and so on — but the dollar amount of each record is hidden.
+
+  <Note>
+    ![Maintenance Records Board with the Amount column hidden.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ad1b8e32-b0a5-4c54-a0fe-0b15b2552c57/image.png)
+
+    *Maintenance Records Board with the Amount column hidden.*
+  </Note>
+
+  ![Maintenance Records Board with the Amount column hidden.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ad1b8e32-b0a5-4c54-a0fe-0b15b2552c57/image.png)
+
+  *Maintenance Records Board with the Amount column hidden.*
+- **Maintenance Totals Table:** When a user lacks this permission, the "Expenses" column is removed from the maintenance totals summary table. The totals table provides an aggregated view of maintenance spending by asset or category; without the permission, the financial aggregations are not visible.
+
+<Note>
+  ![Maintenance Totals Table with the Expenses column hidden.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/8d453a52-4640-49a8-a540-62b48e5d8341/image.png)
+
+  * Maintenance Totals Table with the Expenses column hidden.*
+</Note>
+
+The following roles do not receive **"View Maintenance Amounts"** by default: Biller, Sales Agent, Data Entry, and Driver. The default assignment reflects the principle that roles involved in fleet operations and safety need to see maintenance costs, while roles focused on sales, data entry, or billing — which deal with load-related finances rather than maintenance finances — do not require this visibility by default.
+
+<Info>
+  💡 Grant **"View Maintenance Amounts"** only to users who have a business need to see maintenance costs, such as fleet managers, safety officers, operations managers, and owners. For users who only need to verify that maintenance was performed — such as checking if a truck is road-ready — the **"View Maintenance Records &amp; Totals"** permission alone is sufficient.
+</Info>
+
+## Settings &amp; Permissions
+
+All five General Permissions are set at the individual user level. A user can hold any combination of these permissions regardless of their role. The list below summarizes which roles receive each permission by default upon user creation.
+
+- **"DAT User"**: Admin, Partner Admin, and Operation Manager receive this by default. Dispatcher, Biller, Sales Agent, Data Entry, Office Admin, Safety, and Driver do not.
+- **"TruckStop User"**: Admin, Partner Admin, and Operation Manager receive this by default. Dispatcher, Biller, Sales Agent, Data Entry, Office Admin, Safety, and Driver do not.
+- **"Calendar Past Dates"**: All roles except Driver receive this by default.
+- **"Unlock Loads"**: Admin, Partner Admin, Operation Manager, Dispatcher, Biller, Data Entry, Sales Agent, and Office Admin receive this by default. Safety and Driver do not.
+- **"View Maintenance Amounts"**: Admin, Partner Admin, Operation Manager, Dispatcher, Office Admin, and Safety receive this by default. Biller, Sales Agent, Data Entry, and Driver do not.
+
+To modify any of these permissions, the editing user must hold the **"Set Permission"** permission. Admins, Partner Admins, and Operation Managers have this by default; it can also be granted explicitly to any other user.
+
+## Limits &amp; Behavior
+
+- **"DAT User"** and **"TruckStop User"** have no effect unless the corresponding integration is enabled at the subsidiary level. Enabling the permission for a user when no integration is active does not produce any visible UI change.
+- **"Calendar Past Dates"** affects the Add Stop dialog date picker only. It does not affect other date fields in the system.
+- **"Unlock Loads"** is not required to unlock a load the user locked themselves; any user can unlock their own locks. The permission is only required to override locks set by other users.
+- **"View Maintenance Amounts"** is only meaningful if the user also has the **"View Maintenance Records &amp; Totals"** permission from the Management category. Without it, the user cannot navigate to the Maintenance module at all.
+- Permissions changes take effect immediately upon saving; no page refresh or re-login is required.
+
+## FAQs
+
+**Q:** Where can I find the General Permissions section in Alvys?
+
+**A:** Select your username in the bottom-left corner, navigate to **Company Profile**, open the **Users** tab, and select a user to edit. General Permissions are located in the **General** category within the permissions section.
+
+**Q:** What does the **"DAT User"** permission allow a user to do?
+
+**A:** This permission enables users to post loads to the DAT load board, update rates, and delete postings directly from the Alvys interface. These options appear in the right-click context menu on the Load Board for loads in **Open**, **Quoted**, or **Reserved** status.
+
+**Q:** Is the **"TruckStop User"** permission different from the **"DAT User"** permission?
+
+**A:** While they function similarly, they target different platforms. **"TruckStop User"** specifically unlocks Truckstop-powered features such as posting and rate management, whereas **"DAT User"** applies only to DAT Freight and Analytics features.
+
+**Q:** Does the **"Calendar Past Dates"** permission affect all date fields in the system?
+
+**A:** No. It primarily impacts the Add Stop dialog. Without this permission, the date picker restricts the user to today's date or future dates only.
+
+**Q:** How does the **"Unlock Loads"** permission work when a load is locked by another user?
+
+**A:** If a user has this permission, selecting the closed lock icon on the load details page triggers a confirmation dialog. Once the user confirms, the lock is released and they can edit the load. Without this permission, the user can see that the load is locked but will not receive a prompt to unlock it.
+
+**Q:** Can a user unlock a load they locked themselves without the **"Unlock Loads"** permission?
+
+**A:** Yes. Any user can unlock a load they personally locked, regardless of whether they have the **"Unlock Loads"** permission. The permission is only required to override locks set by other team members.
+
+**Q:** What is the relationship between **"View Maintenance Amounts"** and the Management category?
+
+**A:** **"View Maintenance Amounts"** is only functional if the user also has the **"View Maintenance Records &amp; Totals"** permission from the Management category. Without the Management-category permission, the user cannot access the Maintenance module at all.
+
+**Q:** What specific data is hidden if a user lacks the **"View Maintenance Amounts"** permission?
+
+**A:** The "Amount" column is removed from the Maintenance Records grid and the "Expenses" column is removed from the Maintenance Totals summary table. All other non-financial maintenance details remain visible.
+
+## Go Deeper
+
+- [User Roles and Permissions Collection](/help/administration/user-roles-permissions-collection)
+- [Marketplace Permissions](/help/administration/marketplace-permissions)
+- [Management and Privacy Permissions](/help/administration/management-privacy-permissions)
+- [Post Loads to DAT Load Board](/help/integrations/post-loads-to-dat-load-board)
+- [Truckstop Integration](/help/integrations/truckstop-load-board-integration)

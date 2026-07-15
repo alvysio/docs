@@ -1,0 +1,127 @@
+---
+title: "KSK ELD — ELD / Telematics Integration"
+description: "How to set up KSK ELD Integration"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Partner Admin · Support · Operations Manager · Dispatcher
+
+  **Module:** Management > Integrations
+
+  **Provider:** KSK ELD · **Integration type:** One-way · **Direction:** Location and HOS data flows from KSK ELD into Alvys
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  KSK ELD is a telematics provider that connects with Alvys to bring real-time truck locations and Hours of Service (HOS) status into your dispatch workflow. This integration is also known as KSK ELD, electronic logging device, or fleet tracking.
+</Note>
+
+## What This Integration Does
+
+Connecting KSK ELD to Alvys allows your dispatch team to view current truck locations and driver HOS remaining-time clocks without leaving Alvys.
+
+Trailer tracking and IFTA mileage are not supported by KSK ELD. Only truck assets with KSK ELD devices will appear in tracking.
+
+## Prerequisites
+
+Before connecting, confirm you have the following:
+
+- An active KSK ELD account with API access
+- Your KSK ELD API key
+- The Admin, Partner Admin, or Support role in Alvys
+
+## How to connect
+
+### Step 1: Generate an API token in KSK ELD
+
+1. Log into your KSK ELD account.
+2. Go to **Management > API Tokens**.
+3. Click **Generate Token**.
+4. Enter **"Alvys Integration"** as the token name and click **OK**.
+5. Copy the token. You will need it in the next step.
+
+### Step 2: Connect KSK ELD in Alvys
+
+1. Click your profile icon in the lower-left corner of Alvys to open **Company Profile**.
+2. Select the subsidiary you want to configure and click the **Integrations** tab.
+3. Expand the **ELD** section and click the pencil icon on the KSK ELD card.
+4. Enter your KSK ELD API token and click **Save**.
+5. Alvys will validate your credentials. Once confirmed, the integration status changes to active.
+
+   After connecting, the following data is pulled from KSK ELD into Alvys:
+
+   - **Truck location:** Current GPS coordinates for each truck with a KSK ELD device
+   - **HOS clocks:** Remaining time values for each driver's HOS limits — these are countdown clocks showing time remaining
+
+Additional detail data such as odometer readings and fuel levels is also pulled when the device's identifier is a numeric value. If the device uses a non-numeric identifier, basic location and HOS data will still display; only the additional detail fields (odometer, fuel) may not appear.
+
+## Map assets in Alvys
+
+After connecting, link each truck or trailer in Alvys to its KSK ELD asset ID so location data flows correctly.
+
+1. Go to **Assets** in the left menu and select **Trucks** or **Trailers**.
+2. Double-click the asset you want to configure.
+3. Scroll down to the **ELD Integrations** section and click **Add Integration**.
+4. Select **KSK ELD** from the dropdown.
+5. Find your KSK ELD asset ID from the URL when viewing that asset in your KSK ELD account. For example, if the URL is [app.kskeld.com/client/vehicle/25236](http://app.kskeld.com/client/vehicle/25236), the ID is **25236**.
+6. Enter the asset ID in the **Integration ID** field and click **Save**.
+
+Repeat for each truck or trailer you want to track.
+
+## Map drivers in Alvys
+
+To view driver Hours of Service in loads and the Dispatch Planner, link each driver to their KSK ELD driver ID.
+
+1. Go to **Assets** in the left menu and select **Drivers**.
+2. Double-click the driver you want to configure.
+3. Find the **ELD Providers** section and click **Add ELD**.
+4. Select **KSK** from the dropdown.
+5. Find your KSK ELD driver ID from the URL when editing that driver in your KSK ELD account. For example, if the URL is [app.kskeld.com/client/driver/25236/details](http://app.kskeld.com/client/driver/25236/details), the driver ID is **25236**.
+6. Enter the driver ID in the **Integration ID** field and click **Save**.
+
+Repeat for each driver who uses KSK ELD for their Hours of Service.
+
+## What syncs
+
+Alvys requests updated data from KSK ELD on a regular basis. Truck locations and HOS clocks reflect the most recent values reported by the device.
+
+- **Truck location:** Current GPS coordinates for each truck with a KSK ELD device.
+- **HOS clocks:** Remaining-time countdown values for each driver's HOS limits.
+- **Odometer and fuel level:** Pulled only for devices with numeric identifiers.
+
+To confirm the integration is working, go to **Loads**, open a load that has a driver and truck assigned, and look for the truck location on the map or in the asset tracking section. If the integration is active and the truck has a KSK ELD device, the current location should be visible. The remaining-time HOS values should appear next to the driver's name or in the driver detail panel.
+
+## Troubleshooting
+
+### Truck location is not showing
+
+Confirm the truck has a KSK ELD device installed and powered on. Verify the API key in Alvys matches the one provided by KSK ELD — go to Management > Integrations and re-enter the key if needed. Check that the integration status shows as active.
+
+### HOS clocks are blank
+
+Confirm the driver is logged in to the KSK ELD device for their current shift. Verify the device is actively transmitting to KSK ELD's servers.
+
+### Odometer or fuel level is not showing
+
+KSK ELD returns additional detail data (odometer, fuel level) only for devices with numeric identifiers. If the device uses a non-numeric identifier format, this detail will not display. Basic location and HOS data will still be available.
+
+<Warning>
+  ⚠️ Trailer tracking is not supported — only trucks. · IFTA mileage reporting is not available through KSK ELD. · Odometer and fuel level detail may not display for devices with non-numeric identifiers.
+</Warning>
+
+## FAQs
+
+**Q: Can I track trailers with KSK ELD?**
+
+**A:** No. KSK ELD does not return trailer data. Only truck assets are supported through this integration.
+
+**Q: Why is odometer data not showing for one of my trucks?**
+
+**A:** Odometer and fuel level detail data is available only for devices with numeric identifiers. If a specific truck's device uses a non-numeric ID, those additional fields will not display. Basic location and HOS data will still appear for that truck.
+
+**Q: Is IFTA mileage available?**
+
+**A:** No. IFTA mileage is not supported by KSK ELD and is not available in Alvys through this integration.
+
+## Go Deeper
+
+- [Setting Up ELD / Telematics Integrations](https://help.alvys.com/en/articles/9857524-setting-up-eld-telematics-integrations)

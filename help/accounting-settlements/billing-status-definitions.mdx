@@ -1,0 +1,99 @@
+---
+title: "Billing Status Definitions"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Operation Managers · Billers
+
+  **Module:** Accounting > Invoice
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Every load that moves through Alvys billing carries one of these statuses, which tells your team exactly where the load stands in the invoicing lifecycle, from dispatcher release through final payment.
+</Note>
+
+## Overview
+
+In Alvys, every load in the billing workflow is assigned a status that reflects its current position in the invoicing lifecycle. These statuses appear on the Invoice tab under Accounting and update automatically as your team takes action on each load. Understanding what each status means helps dispatchers, billers, and accounting staff coordinate handoffs and track outstanding invoices without confusion.
+
+Billing status is also referred to as load billing status or invoice status in Alvys.
+
+## Where to Find It
+
+Select **Accounting** from the left navigation menu, then select **Invoice**. Each load row in the list displays its current billing status. You can filter the list by status to focus on a specific stage of the billing process.
+
+## Key Concepts
+
+### The billing lifecycle
+
+Loads move through billing statuses in this order as your team invoices and receives payment:
+
+**Released** → **Queued** → **Invoiced** → **Financed** (if applicable) → **Completed** → **Paid**
+
+Loads that were canceled before delivery but still require invoicing follow a separate path and appear with a **TONU** status.
+
+## How to Use It
+
+For step-by-step instructions on moving a load through the billing workflow, see the following articles:
+
+- Releasing a Load to Billing
+- Batch Invoicing
+
+## Settings and Permissions
+
+Viewing and acting on loads in the Invoice tab requires the **"Billing"** and **"Invoice"** permissions. Users without these permissions do not see the Invoice option under Accounting.
+
+## Limits and Behavior
+
+### Released
+
+A load moves to **Released** when a dispatcher releases it to the billing team. The load has been delivered and is ready for invoicing. No invoice has been created yet.
+
+### Queued
+
+A load moves to **Queued** after an invoice has been created but before that invoice has been submitted to the customer. The invoice exists in Alvys but has not yet been sent.
+
+### Invoiced
+
+A load moves to **Invoiced** once the invoice has been submitted to the customer. The invoice is in the customer's hands and payment is pending.
+
+### Financed
+
+A load moves to **Financed** when the invoice has been purchased by a factoring company. The factoring company now owns the receivable, and payment will come from the factor rather than directly from the customer.
+
+### Completed
+
+A load moves to **Completed** once it has been paid in full. For factored loads, this status is set when the factoring company confirms the transaction is settled.
+
+### Paid
+
+A load moves to **Paid** after the Completed step when final payment processing is confirmed. This is the terminal status in the billing lifecycle.
+
+### TONU (Truck Order Not Used)
+
+A load receives a **TONU** status when the truck was dispatched but the shipment did not take place (for example, the customer canceled after the driver was already en route). TONU loads are invoiceable and appear in the billing queue so that a cancellation fee can be invoiced to the customer. TONU is also written as "truck order not used" or "truck ordered not used."
+
+## FAQs
+
+**Q: Why does a load show as Released but my billing team says it is not in their queue?**
+
+**A:** The **"Billing"** and **"Invoice"** permissions must both be enabled. If **"Billing"** is not checked, no billing pages will be visible. Confirm both permissions are enabled on the user's profile. If permissions are correct and the load still does not appear, contact Alvys support with the load number.
+
+**Q: Can a load go back to a previous billing status?**
+
+**A:** Billing statuses generally move forward through the lifecycle. Reversing a billing status requires specific actions such as voiding a transaction or rolling back an invoice; these actions require the **"VoidTransaction"** or **"RollBackTransaction"** permissions. If you have those permissions and are still unable to reverse a status, contact Alvys support with the load number.
+
+**Q: What is the difference between Completed and Paid?**
+
+**A:** **Completed** means the invoice has been paid in full and the billing cycle for the load is closed. **Paid** is the terminal status that follows Completed once final payment processing is confirmed at the system level.
+
+**Q: Does a TONU load follow the same billing steps as a normal delivered load?**
+
+**A:** A **TONU** load enters the billing queue at **Released** (after the dispatcher releases it) and can then be invoiced using the same steps as a delivered load. The difference is that TONU loads are invoiced for a cancellation or dry-run fee rather than a freight charge.
+
+## Go Deeper
+
+- [Batch Invoicing](https://help.alvys.com/en/articles/11668833)
+- [Understanding Load Statuses and How to Revert Them](/help/loads-trips/understanding-load-statuses-and-how-to-revert-them)
+- [Understanding Factoring in Alvys](/help/integrations/how-to-set-up-and-use-factoring-in-alvys)
+- [Billing Permissions](/help/administration/billing-permissions)

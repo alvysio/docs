@@ -1,0 +1,250 @@
+---
+title: "How to Add and Manage Users in Alvys"
+---
+
+<Note>
+  📋 **Applies to:** Admins · Partner Admins · Office Admins
+
+  **Module:** Management > Company Profile > Users
+
+  **Last reviewed:** 2026-06 · **Owner:** Product / Support
+
+  This article covers the full lifecycle of a user account in Alvys: creating a new account, assigning a role and permissions, editing an existing profile, deactivating an account when someone leaves, and resetting a password.
+</Note>
+
+## Overview
+
+Every person on your team who needs access to Alvys must have their own unique user account. This article walks you through the entire lifecycle of a user account: creating it for the first time, assigning the appropriate role and permissions, updating access as responsibilities change, deactivating the account when someone leaves, and resetting passwords.
+
+Synonyms: add user, create user, invite user, manage users, user setup, user account management, enable user, disable user, deactivate user.
+
+## Before You Start
+
+Before you can create or edit users, both of the following conditions must be met:
+
+1. Your user account must have one of the following roles: **Admin**, **Partner Admin**, or **Office Admin**. Users assigned any other role — such as **Dispatcher**, **Biller**, **Sales Agent**, **Data Entry**, **Safety**, **Operations Manager**, or **Driver** — will not see the Company Profile menu option and cannot create, view, or modify user accounts.
+2. To create a new user, your account must have the **"Add User"** permission enabled. To adjust permissions on a new or existing user, your account must also have the **"Set Permission"** permission enabled. Without **"Set Permission"**, you can create an account but cannot modify its permissions, which results in an incomplete setup.
+
+<Info>
+  ℹ️ The **Operations Manager** role can update existing users but cannot create new users.
+</Info>
+
+## Open the Users tab in Company Profile
+
+1. Select your username in the bottom left corner of Alvys.
+2. Click **Company Profile** from the menu.
+3. On the Company Profile page, select the **Users** tab from the top navigation bar. This displays a list of all active and inactive users in your organization.
+
+<Note>
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c97a3060-5df5-4aa1-b1f3-e11f1c464e45/image.png)
+</Note>
+
+## Open the new user creation form
+
+Click the **Add User** button in the upper right corner of the Users screen. This opens the new user creation form.
+
+<Note>
+  📷 Image: screen with Add User button highlighted.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/23271bba-e3f8-4df6-b18d-8e1ebd4e3167/image.png)
+</Note>
+
+<Info>
+  ℹ️ If the **Add User** button is not visible, your account does not have the **"Add User"** permission. Contact your Admin to request access.
+</Info>
+
+## Enter the user's basic information
+
+Fill in the following fields:
+
+1. **First and Last Name:** Enter the user's legal or preferred name. This name appears in notifications, activity logs, and throughout Alvys.
+2. **Email Address:** Provide a valid work email address. This becomes the user's unique login username and must not already exist in the system.
+3. **Password:** Assign a temporary password. Instruct the user to update it immediately on their first login.
+4. **Office Location:** Select the branch or office to which the user is assigned.
+5. **Role:** Skip this field for now — role selection is covered in the next step.
+
+## Assign a base role
+
+The role you select determines the starting set of permissions the user receives. In the **Role** dropdown, select the role that best matches the user's job function. Refer to the [User Roles in Alvys](/help/administration/user-roles-in-alvys) article for a detailed comparison of all roles.
+
+<Note>
+  📷 Image: Role dropdown on the user creation form.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/85042f30-e88b-4449-9f09-e2ef39c35f0d/image.png)
+</Note>
+
+Common role assignments by job title:
+
+- IT or System Administrator: assign the **Admin** role.
+- Company Owner, President, CEO, or General Manager: assign the **Partner Admin** role.
+- Operations Manager, Fleet Manager, or Terminal Manager: assign the **Operation Manager** role.
+- Office Manager, Administrative Manager, or Back-Office Coordinator: assign the **Office Admin** role.
+- Freight Dispatcher, Load Planner, Load Coordinator, or Driver Manager: assign the **Dispatcher** role.
+- Billing Clerk, Accounts Receivable/Payable Specialist, Payroll Clerk, or Transportation Accountant: assign the **Biller** role.
+- Freight Broker, Logistics Sales Representative, Account Executive, or Business Development Representative: assign the **Sales Agent** role.
+- Data Entry Clerk, Administrative Assistant, Load Builder, or EDI Coordinator: assign the **Data Entry** role.
+- Safety Manager, DOT Compliance Officer, Fleet Safety Coordinator, or Risk/Compliance Specialist: assign the **Safety** role.
+
+<Warning>
+  ⚠️ Do not assign the **Admin** role to every user as a shortcut to give them full access. The Admin role carries significant permissions, including the ability to edit pay plans, view financial data, and modify carrier and customer records, that most dispatchers and data entry staff should not have. Assign the most appropriate restricted role first, then adjust specific permissions as needed.
+</Warning>
+
+## Review and adjust permissions
+
+Once a base role is selected, Alvys automatically populates the default permissions for that role. Before saving the account, review and refine the user's access:
+
+1. Scroll down to the **Permissions** area of the user form to view the available toggles organized by operational category.
+
+   <Note>
+     📷 Image: Permissions area showing toggle groups by category.
+
+     ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/09e90bc3-439d-455a-9904-b41c84598994/image.png)
+   </Note>
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/09e90bc3-439d-455a-9904-b41c84598994/image.png)
+2. Any toggle currently on (checked) represents an active permission. Evaluate these defaults against the user's specific job responsibilities.
+3. Turn individual toggles off for any capability this user should not have.
+4. Turn individual toggles on for any additional capability the user specifically needs that is not in the default set.
+5. For a full explanation of what each permission does, see the [User Roles and Permissions Collection](/help/administration/user-roles-permissions-collection).
+
+<Info>
+  ✅ **Best Practice:** Do not rush this step. Taking a few minutes to review permissions when creating an account is far less disruptive than troubleshooting access issues afterward or discovering that a user had access to sensitive financial data they should not have.
+</Info>
+
+## Save the account
+
+1. Once you are satisfied with the role and permission configuration, click the **Add User** button in the bottom left corner of the form.
+2. The user will receive a login invitation at their email address. Alternatively, you can share the temporary password directly, depending on your company's onboarding process.
+3. The new user now appears in your Users list and is active immediately upon saving.
+
+<Info>
+  ℹ️ If you are setting up an account for someone who has not yet started, you can create it in advance and ask them to change their password on their first day.
+</Info>
+
+## Confirm access
+
+After saving the new account, follow these steps to verify the user has the correct access:
+
+1. Ask the new user to log in and confirm they can reach all operational sections required for their role.
+2. Have them report any areas where they receive an "Access Denied" message or do not see expected buttons. These instances indicate a missing permission toggle.
+3. Return to the user's profile in **Company Profile > Users** to enable any missing permissions.
+
+## Variations
+
+### Editing an existing user's profile
+
+To change a user's name, email, role, or individual permissions:
+
+1. Select your username in the bottom left corner, navigate to **Company Profile**, and select the **Users** tab.
+2. Find the user by name or email. Use the search bar if your team is large.
+3. Click the user's name or row to open their profile.
+4. You will see the user's basic information, assigned role, and current permission toggles.
+5. Modify the fields you need to change. To reassign the user to a different role, change the **Role** dropdown.
+
+<Note>
+  📷 Image: Role dropdown on the edit user form.
+
+  ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1e719c9a-3c07-4732-a2de-a560b40c85ad/image.png)
+</Note>
+
+<Warning>
+  ⚠️ Changing a role automatically resets all permissions to the new role's defaults. Review the permission toggles after a role change to ensure they reflect the intended access.
+</Warning>
+
+1. Adjust individual permission toggles as needed, then save.
+
+<Info>
+  ✅ **Best Practice:** Review user profiles periodically, ideally quarterly, to ensure people only have access that matches their current job responsibilities.
+</Info>
+
+### Resetting a user's password
+
+If a user forgets their password or you need to reset access:
+
+1. Open the user's profile (steps above).
+2. Select the **Reset** option next to the password field.
+
+   <Note>
+     📷 Image: Password reset option on the user profile.
+
+     ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1b7208c1-7e9b-48b3-9a04-a03e508298ba/image.png)
+   </Note>
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1b7208c1-7e9b-48b3-9a04-a03e508298ba/image.png)
+3. Alvys sends a password reset link to the user's registered email address.
+4. Notify the user to check their email and click the link to set a new password.
+
+### Deactivating and reactivating a user
+
+Deactivating a user account is the correct action when someone leaves your company or takes an extended leave. Deactivation prevents the user from logging in immediately, preserves their historical activity log and audit trail in Alvys, and allows the account to be reactivated in the future if needed.
+
+To deactivate a user:
+
+1. Find the user by name or email in the Users list.
+2. From the user row, select the status dropdown menu.
+3. Set the account to **Disabled**.
+
+   <Note>
+     📷 Image: Status dropdown on the user row showing Active and Disabled options. Upload from IC:14396325.
+
+     ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ba3fd077-935c-44ac-9adf-f5b867785a3c/image.png)
+   </Note>
+
+   ![Notion Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ba3fd077-935c-44ac-9adf-f5b867785a3c/image.png)
+4. Save. The user will be unable to log in from this point forward.
+
+<Info>
+  ✅ **Best Practice:** Deactivate a departing employee's account on their last day, ideally before their shift ends. Do not wait until their IT equipment has been returned or their email has been shut down, as an active Alvys login still allows access from any device.
+</Info>
+
+To reactivate: return to the user's profile, select the status dropdown, set it to **Active**, and save. The user will regain access with their previous permissions intact.
+
+## Troubleshooting
+
+### Add User button is not visible
+
+The **Add User** button is controlled by the **"Add User"** permission. If the button does not appear on the Users screen, your account does not have this permission enabled. Contact your Admin and ask them to enable the **"Add User"** permission on your profile.
+
+### Management section is not visible in the navigation
+
+The Company Profile section is only accessible to users with the **Admin**, **Partner Admin**, or **Office Admin** role. If the Management option does not appear in your navigation, your account is assigned a different role. Contact your Admin if you believe your role is incorrect.
+
+### User receives Access Denied after account is created
+
+This indicates a missing permission toggle. Identify which action the user was attempting, then open their profile in **Company Profile > Users** and enable the corresponding permission. If the permission is not visible in their profile, verify that your own account has the **"Set Permission"** permission enabled.
+
+### Cannot adjust permissions on a user profile
+
+Modifying permissions requires the **"Set Permission"** permission on your own account. If the permission toggles are visible but not editable, contact your Admin and ask them to enable **"Set Permission"** on your profile.
+
+### Role change reset the user's custom permissions
+
+This is expected behavior. Changing a user's base role automatically resets all permission toggles to the new role's defaults. After any role change, scroll to the Permissions area and re-apply any custom toggles the user needed.
+
+## FAQs
+
+**Q: Which roles can access the Company Profile or Management section?**
+
+**A:** The Company Profile section is visible only to users with the **Admin**, **Partner Admin**, or **Office Admin** role. Users with any other role will not see this menu option.
+
+**Q: What happens if I change a user's base role after customizing their permissions?**
+
+**A:** Changing a role automatically resets all permissions to the new role's defaults. You must review and re-apply the permission toggles after switching a role to ensure the intended access is maintained.
+
+**Q: Should I delete or deactivate an account when an employee leaves?**
+
+**A:** Deactivation is strongly preferred. It prevents the user from logging in while preserving their historical activity logs and audit trails. Permanent deletion of a user account is handled by Alvys Support only and is not available through the platform. If you need a user removed entirely, contact Alvys Support.
+
+**Q: Can multiple employees share a single Alvys login?**
+
+**A:** No. Every user must have a unique email address. Shared accounts compromise security and make it impossible to track which individual performed specific actions.
+
+**Q: Does deactivating a user affect the loads they previously dispatched?**
+
+**A:** No. Deactivation only blocks future logins. All historical records, including dispatched loads and processed invoices associated with that user, remain intact for reporting and audit purposes.
+
+## Go Deeper
+
+- [User Roles in Alvys](/help/administration/user-roles-in-alvys)
+- [User Permissions Glossary](/help/administration/user-permissions-glossary)
+- [User Roles and Permissions Collection](/help/administration/user-roles-permissions-collection)

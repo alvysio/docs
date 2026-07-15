@@ -1,0 +1,98 @@
+---
+title: "How to map accessorials for EDI"
+description: "How to configure accessorials for EDI to ensure smooth and accurate communication across trading partners."
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin** · Module:** Settings > EDI &amp; Visibility
+
+  **Last reviewed:** 2025-10 · **Owner:** Help Center Team
+
+  Accessorial EDI mapping ensures that extra charges on loads are correctly identified in EDI files: each trading partner requires their own unique trading codes and vendor descriptions before the mapping is active.
+</Note>
+
+Accessorial EDI mapping ensures that extra charges on your loads (such as detention or fuel surcharges) are correctly identified in EDI files exchanged with your trading partners. Each partner requires their own unique trading codes and exact vendor descriptions.
+
+## Overview
+
+Accessorial mapping for EDI (Electronic Data Interchange) configures how extra shipping charges, also called surcharges or add-on fees, appear in EDI files exchanged with trading partners. Without correct mapping, accessorial charges may fail validation or be misrouted during EDI transactions. Each trading partner requires their own partner trading code and exact vendor description before the mapping is active.
+
+## Before You Start
+
+You must have Admin or Partner Admin access to reach the EDI &amp; Visibility settings.
+
+To map accessorial types, **partner trading codes** and **exact vendor descriptions** are required to ensure smooth and accurate communication between trading partners. Here’s why:
+
+- **Partner Trading Codes**: These are unique identifiers assigned to each trading partner. They help the system recognize where the data is coming from and ensure it is routed to the correct partner. Without these codes, transactions may fail or be misdirected.
+- **Exact Vendor Descriptions**: These provide precise details about the items or services being exchanged. They ensure that both partners interpret the data the same way, avoiding confusion or errors in orders, shipments, or billing.
+
+## Steps
+
+**Open EDI &amp; Visibility settings**
+
+Navigate to Settings > EDI &amp; Visibility.
+
+**Select the EDI partner**
+
+Locate the partner you want to configure and click to open their settings panel.
+
+**Scroll to Accessorial Mapping**
+
+Scroll down within the partner settings panel to find the Accessorial Mapping section.
+
+<Note>
+  ![Screenshot showing the Accessorial Mapping section within an EDI partner settings panel.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2531199012/80bde1877e595bf91365fc6aadaf/upload_7458823132286115179.png)
+
+  *Screenshot showing the Accessorial Mapping section within an EDI partner settings panel.*
+</Note>
+
+**Enter trading codes and vendor descriptions**
+
+For each accessorial type you want to map, enter:
+
+- Partner Trading Code: the unique identifier your trading partner uses for this accessorial type
+- Exact Vendor Description: the precise description text your trading partner expects for this charge
+
+If an EDI partner is not correctly mapped you’ll notice a yellow “needs attention” badge within the card. This will also appear in the accessorial settings area, alerting you that an EDI partner may not be configured correctly. Once configured correctly this will display as **Active.**
+
+<Note>
+  ![Screenshot showing a completed accessorial mapping row with trading code and vendor description filled in, with the status showing Active vs an incomplete one that needs attention](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2531199053/83be3472c7a12802bf959b3231df/upload_8597787940238418340.png)
+
+  *Screenshot showing a completed accessorial mapping row with trading code and vendor description filled in, with the status showing Active vs an incomplete one that needs attention*
+</Note>
+
+**Save and verify**
+
+Save the settings. A correctly mapped accessorial shows as **Active** on its card. An unmapped or incorrectly entered accessorial displays a yellow "needs attention" badge.
+
+## Result
+
+Once all accessorial types show as **Active**, EDI files exchanged with that partner will include the correct codes and descriptions. The yellow "needs attention" badge will no longer appear.
+
+## Troubleshooting
+
+### Yellow "needs attention" badge remains after saving
+
+Return to the Accessorial Mapping section. One or more accessorial types are still missing a trading code or vendor description, or the entered values do not exactly match what the partner expects. Verify each entry against the partner's specification and save again.
+
+### Accessorial not appearing in EDI files after mapping
+
+Confirm the accessorial type is also added to the load in the Money Box. Mapping only configures the code translation in EDI; the accessorial must be present on the load for it to be included in EDI output.
+
+## FAQs
+
+**Q: What are partner trading codes?**
+
+**A:** Partner trading codes are unique identifiers assigned by your EDI trading partner to each type of extra charge. They ensure the receiving system routes the accessorial data to the correct record. Obtain them directly from your trading partner.
+
+**Q: What happens if a trading code is entered incorrectly?**
+
+**A:** The mapping will not function correctly. EDI transactions that include that accessorial type may fail or be misrouted. Correct the code in Settings > EDI &amp; Visibility and save.
+
+**Q: Can I map the same accessorial type to multiple EDI partners?**
+
+**A:** Yes. Each EDI partner has its own Accessorial Mapping section. The same accessorial type can be mapped separately for each partner with different trading codes and descriptions as required.
+
+## Go Deeper
+
+- [How to create and add accessorials](/help/loads-trips/how-to-create-and-add-accessorials)

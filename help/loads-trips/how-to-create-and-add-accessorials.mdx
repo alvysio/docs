@@ -1,0 +1,76 @@
+---
+title: "How to create and add accessorials"
+description: "Profits and expenses that you might have on a load besides the amount indicated on the Rate Confirmation."
+---
+
+<Note>
+  **Applies to:** Admins · Partner Admins (**create accessorial types**);
+
+  Admins · Partner Admins · Operations Managers · **Billers **(add to loads)
+
+  **Module:** Settings > Accessorials; Loads and Trips > Money Box
+
+  **Last reviewed:** 2026-05 · **Owner:** Help Center Team
+
+  Accessorials (also called accessorial charges or add-on fees) are extra charges added to a load beyond the base linehaul rate, such as detention, lumper fees, or fuel surcharges. Admins create accessorial types in Settings; users with the correct permission add them to individual loads in the Money Box.
+</Note>
+
+## Overview
+
+Accessorials (also called accessorial charges or add-on fees) are line-item charges applied to loads to capture costs or revenue beyond the standard freight rate. Common types include detention, fuel surcharge, layover, lumper fees, and TONU charges. Creating an accessorial type in Settings makes it available to select on any load. Adding it to a load records the charge against that load's financials.
+
+## Before You Start
+
+Creating accessorial types requires Admin or Partner Admin access. Adding accessorials to loads requires the **"Add Accessorials"** permission on the user profile.
+
+## Steps
+
+1. **Create an accessorial type (Admins only).** Navigate to **Settings > Accessorials**. Click **Add Accessorial**. Enter a name for the accessorial type, set the default amount if applicable, choose whether it applies to the customer side, driver side, or both, and save.
+2. **Open the load.** Navigate to Loads and Trips and open the load to which you want to add a charge.
+3. **Open the Money Box.** On the load details page, scroll to the Money Box section and expand it.
+4. **Add the accessorial.** Click **Add Accessorial** in the Money Box. Select the accessorial type from the list. Enter the amount and any notes, then save.
+5. **Confirm the charge appears.** The accessorial appears as a line item in the Money Box. Verify the amount and type are correct before invoicing.
+
+## Result
+
+The accessorial charge is recorded on the load and flows into the customer-facing invoice and driver pay settlement, depending on whether the type is configured for customer, driver, or both sides.
+
+## Variations
+
+**Editing an existing accessorial:** Click the pencil icon next to the accessorial line item in the Money Box to update the amount or notes. Changes apply only to this load.
+
+**Removing an accessorial:** Click the trash icon next to the accessorial line item. Accessorials that have already been included in a processed settlement or sent invoice cannot be removed.
+
+**EDI accessorial mapping:** To ensure accessorial charges export correctly in EDI files, each type must be mapped to your trading partner's codes. See [How to map accessorials for EDI](https://help.alvys.com/en/articles/11668835) for the full EDI mapping setup.
+
+## Troubleshooting
+
+### Add Accessorial button is not visible in the Money Box
+
+- Verify the **"Add Accessorials"** permission is enabled on your user profile. If it is not, contact your administrator to have it added.
+
+### An accessorial type is not in the list
+
+- Confirm the accessorial type has been created in **Settings > Accessorials**. An Admin or Partner Admin must add it before it is available to select on loads.
+
+### Accessorial cannot be removed from the load
+
+- The accessorial has already been included in a processed driver pay statement or a sent invoice. Contact your accounting team if the charge needs to be corrected after processing.
+
+## FAQs
+
+**Q: Can I set a default amount for an accessorial type?**
+
+**A:** Yes. When creating or editing the accessorial type in Settings > Accessorials, set the default amount. This pre-fills the amount field when the type is added to a load, but it can be overridden per load.
+
+**Q: Do accessorials appear on the customer invoice automatically?**
+
+**A:** Accessorials configured for the customer side are included in the invoice when the load is invoiced. Confirm the type is set correctly in Settings > Accessorials.
+
+**Q: Who can create accessorial types?**
+
+**A:** Admins and Partner Admins can create and manage types in Settings > Accessorials. Operations Managers and Billers can add accessorials to loads using the **"Add Accessorials"** permission.
+
+## Go Deeper
+
+- [How to map accessorials for EDI](https://help.alvys.com/en/articles/11668835)

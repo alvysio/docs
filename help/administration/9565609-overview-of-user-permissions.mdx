@@ -1,0 +1,146 @@
+---
+title: "Overview of User Permissions"
+---
+
+<Note>
+  📋 **Applies to:** All users
+
+  **Module:** Management > Users
+
+  **Last reviewed:** 2026-06 · **Owner:** Support
+
+  Alvys uses a permission-based access system; this article lists every available permission and explains what each one controls.
+</Note>
+
+## Overview
+
+Alvys uses a permission-based access system. Each user account has a set of individual permissions (also called access rights or privileges) that control what that user can see and do within the platform. Permissions are grouped into categories that reflect the area of the product they affect.
+
+This article lists every available permission along with a plain-language description of what it does.
+
+## Where to Find It
+
+Permissions are managed from **Management > Users**. Open a user's profile and navigate to their permissions tab to view or edit the permissions assigned to that account.
+
+## Key Concepts
+
+Permissions are distinct from roles. A role is a bundle of pre-configured permissions assigned to a user at account creation. Individual permissions can be added to or removed from a user account at any time by a user who holds the **"Set Permission"** permission.
+
+Some permissions depend on other permissions to be meaningful. For example, editing a carrier requires the **"Edit Carrier"** permission, but activating or deactivating that carrier also requires **"Activate Carrier"** to be enabled separately.
+
+Delete permissions carry significant risk. If a carrier, company, customer, or asset that has been assigned to any load is deleted, it will also be removed from those loads in Alvys. Enable delete permissions only when necessary, and apply them with caution.
+
+## Settings &amp; Permissions
+
+### Rates Permissions
+
+- **"View Customer Rate"**: Ability to view the customer rate on a load
+- **"Edit Customer Rate"**: Ability to view and edit the customer rate on a load
+- **"View Carrier Rate"**: Ability to view the carrier rate on a load
+- **"Edit Carrier Rate"**: Ability to view and edit the carrier rate on a load
+- **"View Trip Value"**: Ability to view the trip value on a load
+- **"Edit Trip Value"**: Ability to view and edit the trip value on a load
+- **"Add Accessorials"**: Ability to add, edit, and remove accessorials on a load
+- **"View Driver Rates"**: Ability to view driver rates
+- **"Edit Driver Rates"**: Ability to view and edit driver rates
+
+### E-Check Permissions
+
+- **"Issue ECheck"**: Ability to issue e-checks
+- **"Cancel ECheck"**: Ability to cancel e-checks
+- **"Modify E-Check Fee"**: Ability to make changes to existing e-checks
+- **"Move Comchek"**: Ability to move an e-check from one load to another
+- **"Delete Notes"**: Ability to delete notes added to a load
+
+### Billing Permissions
+
+- **"Billing"**: Allows the user to view and access the billing loads board
+- **"Generate Invoice"**: Ability to generate invoices
+- **"Pay Driver"**: Ability to see the Pay Drivers option in the main menu, and provides access to the pay driver tab and menu option
+- **"View Paystubs"**: Ability to see paystubs within driver profiles
+
+### Report Permissions
+
+- **"Fuel Report"**: Ability to access the Fuel Report option from the main menu
+- **"Toll Report"**: Ability to access the Toll Report option in the main menu
+
+### Dispatch Permissions
+
+- **"Dispatch"**: Marks the user as a dispatcher within the Dispatchers list in the Assets pages of Alvys
+- **"Assign Carrier"**: Ability to assign a carrier to a load
+- **"Override Stop Status"**: Ability to override stop statuses
+- **"Override Load Weight"**: Ability to override weights set on a load
+- **"Release Loads"**: Ability to release a load
+- **"Override Carrier Restriction"**: Ability to assign a carrier whose compliance status is flagged as NonCompliant or RequiresReview
+
+### Privacy Permissions
+
+- **"View Tax ID/SSN"**: Ability to see the Tax ID/SSN information in driver profiles and carrier profiles
+- **"Edit Tax ID/SSN"**: Ability to edit the Tax ID/SSN information in driver profiles and carrier profiles
+
+### General Permissions
+
+- **"DAT User"**: Only to be enabled for companies that use a DAT integration. This allows the user to enter the DAT credentials necessary for their company's DAT integration.
+- **"TruckStop User"**: Only to be enabled for companies that use a TruckStop integration. This allows the user to enter the TruckStop credentials necessary for their company's TruckStop integration.
+
+### Management Permissions
+
+- **"Add User"**: Ability to create users
+- **"Set Permission"**: Ability to update or change permission settings for other user accounts
+- **"Activate Carrier"**: Allows the user to create, activate, or inactivate a carrier
+- **"Edit Carrier"**: Allows the user to edit an existing carrier. Activating or inactivating a carrier also requires the **"Activate Carrier"** permission.
+- **"Delete Carrier"**: Ability to delete a carrier from the carriers list. If the carrier has been assigned to any loads in Alvys, deleting it will also remove it from those loads.
+- **"Delete User"**: Ability to delete a user
+- **"Edit Asset"**: Ability to edit a trailer, truck, or driver within the assets lists
+- **"Delete Asset"**: Ability to delete a trailer, truck, or driver within the assets lists. If the asset has been assigned to any loads in Alvys, deleting it will also remove it from those loads.
+
+### Customer Management Permissions
+
+- **"Create Customer"**: Allows the user to create or import a company where the company type is Customer or Broker/3PL
+- **"Edit Customer"**: Ability to edit companies in the companies list where the company type is Customer or Broker/3PL
+- **"Activate Customer"**: Allows the user to activate or inactivate a company where the company type is Customer or Broker/3PL
+- **"Delete Customer"**: Ability to delete a company from the companies list where the company type is Customer or Broker/3PL. If the company has been assigned to any loads in Alvys, deleting it will also remove it from those loads.
+
+### Company Management Permissions
+
+- **"Create Company"**: Allows the user to create a company where the company type is Cold-Warehouse, Dry-Warehouse, Factoring Company, Lease, Shipper/Consignee, or Terminal
+- **"Edit Company"**: Ability to edit companies in the companies list where the company type is Cold-Warehouse, Dry-Warehouse, Factoring Company, Lease, Shipper/Consignee, or Terminal
+- **"Activate Company"**: Allows the user to activate or inactivate a company where the company type is Cold-Warehouse, Dry-Warehouse, Factoring Company, Lease, Shipper/Consignee, or Terminal
+- **"Delete Company"**: Ability to delete a company from the companies list where the company type is Cold-Warehouse, Dry-Warehouse, Factoring Company, Lease, Shipper/Consignee, or Terminal. If the company has been assigned to any loads in Alvys, deleting it will also remove it from those loads.
+
+### App Permissions (Alvys Mobile App)
+
+These permissions apply to driver-facing access within the Alvys mobile app.
+
+- **"View Trip Value"**: Allows the driver to view the trip value
+- **"Issue ECheck"**: Ability for the driver to create and access e-checks
+- **"Cancel ECheck"**: Ability for the driver to cancel e-checks
+- **"View Customer Rate Confirmation"**: Allows the driver to view the customer rate
+- **"View Carrier Rate Confirmation"**: Allows the driver to view the carrier rate
+- **"View Payable Amount"**: Allows the driver to see their payable amount
+
+### Load Permissions
+
+- **"Edit Miles"**: Ability to edit the loaded and empty miles on a load
+
+## FAQs
+
+**Q: Who can change a user's permissions?**
+
+**A:** Any user who holds the **"Set Permission"** permission can update or change permission settings for other user accounts.
+
+**Q: Do delete permissions affect load history?**
+
+**A:** Yes. If a carrier, company, customer, or asset that has been assigned to loads is deleted, it is also removed from those loads in Alvys. Enable delete permissions with caution.
+
+**Q: What is the difference between "Activate Carrier" and "Edit Carrier"?**
+
+**A:** **"Edit Carrier"** allows editing the details of an existing carrier record. **"Activate Carrier"** is a separate permission required to create, activate, or inactivate a carrier. Both permissions must be enabled for a user who needs full carrier management access.
+
+**Q: Why would I enable "DAT User" or "TruckStop User"?**
+
+**A:** These permissions are only relevant for companies that have set up a DAT or TruckStop integration respectively. Enabling them allows the user to enter their personal credentials for those integrations. If your company does not use these integrations, these permissions are not needed.
+
+## Go Deeper
+
+- [User Roles &amp; Permissions Collection](/help/administration/user-roles-permissions-collection)

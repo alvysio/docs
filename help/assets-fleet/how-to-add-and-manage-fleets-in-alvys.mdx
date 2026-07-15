@@ -1,0 +1,167 @@
+---
+title: "How to Add and Manage Fleets in Alvys"
+description: "Introducing Fleets, an operational grouping within a single tenant. Fleets can be utilized by one or more subsidiaries to effectively classify segments of the business."
+---
+
+<Note>
+  **Applies to:** Admin · Partner Admin · Support** · Module:** Management > Fleets
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Create and manage fleets, also called truck groups or asset groups, to organize assets by region, division, or trailer type for use in dispatch planning and reporting.
+</Note>
+
+## Overview
+
+A fleet (also called a truck group, asset group, or vehicle group) is a named grouping of trucks. Fleets help you organize your assets by region, division, trailer type, or any other category that fits your operation. Once a fleet is created, you can assign trucks to it and use fleet filters in the Dispatch Planner and reporting tools.
+
+Use this article to create a new fleet, assign trucks to it, and update or delete fleets as your operations change. Fleets are managed from Management > Fleets. Access to this section requires the Admin, Partner Admin, or Support role. Dispatchers and other roles do not have access to the Management section.
+
+## Prerequisites
+
+- You must have the Admin, Partner Admin, or Support role. If the Management menu is not visible in your left navigation, your role does not include access to this area. Contact your company administrator to verify your role.
+- Have the fleet name ready before you begin. Each fleet name must be unique within your company.
+- To assign trucks to a fleet, those truck records must already exist in Alvys. If trucks have not been added yet, create them first under Assets > Trucks.
+
+## Steps
+
+**Navigate to Fleets:**
+
+- Select your username in the bottom left corner
+- Select Fleets from the Management submenu. The Fleets list opens and shows all fleets currently configured for your company.
+
+<Note>
+  ![Image showing navigation to the fleets page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/1cda3c51-ebed-4192-8c3a-ceb7f96fdc1b/image.png)
+
+  *Image showing navigation to the fleets page*
+</Note>
+
+**Create a new fleet:**
+
+- Click **Add Fleet** in the upper right corner of the Fleets page.
+- In the dialog that appears, enter the Fleet Name.
+- Click **Add Fleet** to confirm. The new fleet is created and appears in the Fleets list.
+
+<Note>
+  ![Image displaying “Add Fleet” form with fleet input details and add fleet buttons](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/08aefc66-e3e2-41f8-8f38-55e9fe28e878/image.png)
+
+  *Image displaying “Add Fleet” form with fleet input details and add fleet buttons*
+</Note>
+
+### Delete a fleet
+
+<Warning>
+  ⚠️ You can only delete a fleet that has no trucks, trailers, companies, drivers, or automations linked or assigned to it. These must be removed prior to deleting the fleet.
+</Warning>
+
+1. Navigate to the Fleets List ([https://app.alvys.com/#/manage/fleets](https://app.alvys.com/#/manage/fleets)).
+2. Click the **Delete icon (🗑) for the specific fleet**.
+3. Confirm the deletion in the dialog.
+
+## Invoice Prefix
+
+Each fleet can have an optional invoice prefix. An invoice prefix is a short code that appears at the start of the invoice number for any load assigned to that fleet. This makes it easier to identify fleet-specific invoices in Alvys and in external accounting systems such as QuickBooks, Sage Intacct etc.
+
+**Steps: **
+
+1. Navigate to the Fleets List ([https://app.alvys.com/#/manage/fleets](https://app.alvys.com/#/manage/fleets)).
+2. **Add or Edit Fleet: **You can either click **"Add Fleet"** to create a new one, or select an existing fleet from the list to **modify** it by clicking the row.
+3. **Enter Invoice Prefix: **In the fleet details form (for adding or editing), locate the **"Invoice Prefix"** field.
+4. Fill out your chosen prefix (e.g., "RF-" for a Reefer Fleet).
+5. Click **"Submit"** to apply the prefix to the fleet
+
+<Note>
+  ![Image displaying “Edit Fleet” form with editable “Invoice Prefix” input field.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/7ceb31a9-cb55-4986-acd3-c59279478f55/image.png)
+
+  *Image displaying “Edit Fleet” form with editable “Invoice Prefix” input field.*
+</Note>
+
+<Warning>
+  ⚠️ Invoices generated prior to the fleet prefix being added are not updated.
+</Warning>
+
+## Assigning drivers and trailers to a fleet
+
+To assign a driver to a fleet, open the driver record from the Drivers list in Assets ([https://app.alvys.com/assets/drivers](https://app.alvys.com/assets/drivers)), locate the Fleet field, select the desired fleet, and click Save.
+
+<Note>
+  ![Image showing sample driver profile with “Fleet” input field.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/5622b60c-692f-4952-8668-bc4ad07762e8/image.png)
+
+  *Image showing sample driver profile with “Fleet” input field.*
+</Note>
+
+To assign a trailer to a fleet, open the trailer record from the Trailers list in Assets ([https://app.alvys.com/assets/trailers](https://app.alvys.com/assets/trailers)), locate the Fleet field, select the desired fleet, and click Update Trailer.
+
+<Note>
+  ![Image showing sample truck profile with “Fleet” input field](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/516ce198-651f-4826-b595-a47c4ce96aa9/image.png)
+
+  *Image showing sample truck profile with “Fleet” input field*
+</Note>
+
+## Assigning a load to a fleet
+
+- To assign a fleet to a new load, locate the Fleet field in the new load form during load creation and select the desired fleet.
+
+<Note>
+  ![Image Displaying New load form with Fleet field](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/47d5bf49-ffcd-4a82-b191-5cf2bee6bbb8/image.png)
+
+  *Image Displaying New load form with Fleet field *
+</Note>
+
+- To assign a fleet to an existing load, open the load from the Loads Board, click the Assign Fleet button, select the fleet, and click Update.
+
+<Note>
+  ![Image showing “Assign Fleet” button on load details page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/725b3216-c90c-466d-a47c-d7db17d4bc63/image.png)
+
+  *Image showing “Assign Fleet” button on load details page*
+</Note>
+
+## Where Does Fleet Information Appear?
+
+Once a fleet is assigned to a load or an asset, the fleet name appears in several places across Alvys. This section shows where to find it.
+
+### Loads Board
+
+The fleet assigned to a load appears as a column on the Loads Board, letting you quickly see which fleet each load belongs to without opening the load.
+
+<Note>
+  ![Image showing Fleet columns on Alvys load board.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e9fd6154-3014-41bf-8721-0da98a4cfa2a/image.png)
+
+  *Image showing Fleet columns on Alvys load board.*
+</Note>
+
+### Load Summary
+
+The fleet assigned to a load is shown in the Load Summary section when you open a load from the Loads Board.
+
+<Note>
+  ![Image displaying load summary](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c49912d3-c6df-4abb-94da-e176aff9a0f3/image.png)
+
+  *Image displaying load summary *
+</Note>
+
+### Load Details Page
+
+The fleet assignment appears in the load details alongside other dispatch information such as driver and truck assignments.
+
+<Note>
+  ![Image showing fleet details on the load details page for a sample load.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/d8b37d61-b238-437e-818a-901f99f17d7e/image.png)
+
+  *Image showing fleet details on the load details page for a sample load.*
+</Note>
+
+### Asset Profiles
+
+Fleet assignments are visible on Driver, Truck, and Trailer profile pages. The Fleet field on each asset profile shows which fleet that asset belongs to.
+
+<Note>
+  ![Image showing sample driver profile with fleet assigned.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c9f287aa-f01b-44a8-a108-7cf59ef47957/image.png)
+
+  *Image showing sample driver profile with fleet assigned.*
+</Note>
+
+## Frequently Asked Questions (FAQ)
+
+**Q: Can I change a fleet's Invoice Prefix after it's been set?** A: Yes, you can modify a fleet's Invoice Prefix at any time by editing the fleet details in the Fleets section. However, please note that changing a prefix will only affect newly generated invoices, not invoices that were already created with the old prefix.
+
+**Q: If I don't assign a fleet to a load, will it still get an Invoice Prefix?** A: If a load is not assigned to a fleet, it will not use a fleet-specific Invoice Prefix. It will follow your system's default invoice numbering conventions. To ensure an invoice prefix is applied, the load must be explicitly assigned to a fleet that has a prefix configured.

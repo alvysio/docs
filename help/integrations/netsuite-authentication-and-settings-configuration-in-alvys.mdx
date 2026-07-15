@@ -1,0 +1,259 @@
+---
+title: "NetSuite: Authentication and Settings Configuration in Alvys"
+---
+
+<Note>
+  📋 **Applies to:** Admin · Support · Partner Admin
+
+  **Module:** Management > Integrations > NetSuite
+
+  **Provider:** NetSuite · **Integration type:** Two-way · **Sync direction:** Alvys exports financial transactions to NetSuite
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  This article explains how to authenticate the NetSuite integration in Alvys using Token-Based Authentication and how to configure all transaction, dimension, and operational settings after connecting.
+</Note>
+
+## Overview
+
+NetSuite is a two-way integration in which Alvys exports financial transactions to NetSuite. The integration connects Alvys to NetSuite so financial records (customer invoices, driver bills, carrier bills, fuel expenses, toll expenses, and customer payments) are automatically sent from Alvys to NetSuite. Setting up the connection involves three stages: authentication, settings configuration, and account mapping. This guide covers authentication and settings configuration. For account mapping, see the NetSuite: Account Mapping article.
+
+Before starting this article, complete all steps in the NetSuite Prerequisites article.
+
+## Prerequisites
+
+Complete the following before configuring authentication in Alvys:
+
+- A dedicated integration role and user must be created in NetSuite with all required permissions (see NetSuite Prerequisites)
+- The following five credentials must be generated and saved: Account ID (also called Realm ID), Consumer Key, Consumer Secret, Token ID, and Token Secret
+- Your Alvys account must have the **"CompanyProfileManager"** permission to access Management > Integrations. This permission is available to users with the Admin, Support, or Partner Admin role.
+
+If your organization uses multiple subsidiaries, this integration requires the NetSuite OneWorld edition.
+
+## Connect / Authenticate
+
+Alvys connects to NetSuite using Token-Based Authentication (TBA) exclusively. TBA uses OAuth 1.0 and requires five credential fields: Account ID (Realm ID), Consumer Key, Consumer Secret, Token ID, and Token Secret. Alvys does not support OAuth 2.0 for the NetSuite integration.
+
+### Open the NetSuite integration
+
+1. In Alvys, select your username in the bottom-left corner.
+2. Select **Management** from the menu, then navigate to **Integrations**.
+3. Select the subsidiary you want to configure.
+4. Select the edit icon next to NetSuite.
+
+<Note>
+  ![Management Menu with Integrations page highlighted](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/a26d4566-13a9-4ecd-bc76-35b811dbfc5c/image.png)
+
+  *Management Menu with Integrations page highlighted*
+
+  ![Integrations page with Accounting section highlighted](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/b42b35fa-e2b2-4a39-a384-403a3181362c/image.png)
+
+  *Integrations page with Accounting section highlighted*
+
+  ![NetSuite Integration in Accounting Area of Integrations page](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4de7b3ba-1c79-4d32-9673-026249cef0cc/image.png)
+
+  *NetSuite Integration in Accounting Area of Integrations page*
+</Note>
+
+### Enter your credentials
+
+1. In the dialog that opens, enter all five credential fields:
+
+   - **Account ID** (also called Realm ID): your NetSuite account number
+   - **Consumer Key**: generated when creating the integration record in NetSuite
+   - **Consumer Secret**: generated alongside the Consumer Key
+   - **Token ID**: generated when creating the access token in NetSuite
+   - **Token Secret**: generated alongside the Token ID
+2. Select **Save** to validate the credentials. If validation is successful, the wizard advances to the next step.
+
+<Note>
+  ![Screenshot showing the credential entry dialog for the NetSuite integration with all five fields visible.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/c73a0887-6fa2-473f-a08d-1efcbe13278e/image.png)
+
+  *Screenshot showing the credential entry dialog for the NetSuite integration with all five fields visible.*
+</Note>
+
+<Warning>
+  ⚠️ If you use NetSuite OneWorld with multiple subsidiaries, enabling the Subsidiaries setting in the configuration will add a subsidiary mapping step to the setup wizard. Complete that mapping before saving. Complete the integration for one subsidiary at a time.
+</Warning>
+
+### Configure settings
+
+After credentials are saved, configure the transaction types, dimension mappings, and operational settings described in the Field &amp; Data Mapping and Sync Behavior sections below.
+
+## Field &amp; Data Mapping
+
+### Accounts Receivable Settings
+
+**Transactions Type:** Controls which financial transaction types are exported. Sub-options are Revenue (exports customer invoices) and Expense (exports driver and carrier bills). Enable only the transaction types you intend to export.
+
+<Warning>
+  ⚠️ Your selection here takes precedence over all other configuration settings. Enable only the options you intend to export to NetSuite.
+</Warning>
+
+**Use Existing Customers:** When enabled, Alvys matches customers and brokers to NetSuite records using an Accounting ID instead of name. To configure: navigate to each customer or broker profile in Alvys, locate the **External Accounting ID** field, select the subsidiary, enter the customer's ID from NetSuite, and select **Save**.
+
+**Export Customer Payments:** When enabled, customer payments recorded manually against a load or uploaded via a factoring integration are exported to NetSuite. Partial payments are not exported; payment is sent only when the total paid amount equals the total billable amount. After enabling this setting, you will be prompted to select a deposit account.
+
+**Reference Number Prefix:** Applies a prefix to transaction reference numbers in NetSuite. This helps identify transactions that originated from Alvys.
+
+**Custom Field:** Supports mapping the Load Order Number from a load to a NetSuite custom field on customer invoices.
+
+**Shared Billing (Intercompany Billing):** Used when a load is invoiced by one subsidiary (Invoice As) and tendered by another subsidiary (Tender As), and both subsidiaries have separate accounting integrations configured. This setting must be enabled on both subsidiaries.
+
+**Equipment Types:** Maps Alvys equipment types to custom fields in NetSuite.
+
+### Accounts Payable Settings
+
+**Ignore Driver Bills:** Prevents export of all driver bills to NetSuite. Typically used when driver pay is managed in an external payroll system.
+
+**Single Bill for Driver Statement:** When enabled, all charges for a driver are consolidated into a single bill per driver statement. When disabled, individual trip bills are exported when the customer invoice is generated.
+
+**Generate Carrier Invoice Separately:** Applies to brokerage-type trips with an external carrier. When enabled, the system waits for a document of type "Carrier Invoice" to be uploaded to the trip before exporting the carrier bill.
+
+**Process Statement by Tax Category:** When enabled, only bills for 1099 drivers are exported to NetSuite; W-2 driver bills are excluded. Requires Single Bill for Driver Statement to also be enabled.
+
+**Pay Subsidiary Carrier:** When enabled, instead of billing the driver on paystub generation, the system bills the subsidiary carrier on invoice generation.
+
+**Ignore Zero Valued Transactions:** Excludes invoices and bills with a total value of zero from export.
+
+**Create Vendor Using 1099 Tax Company:** When enabled, vendors are created in NetSuite using the Tax Company Name and Address from the driver profile's Tax Information section, for drivers classified as 1099.
+
+**Carrier Statements:** Must be enabled to export carrier statements as bills when generating a Carrier Statement from the Carrier Settlements module.
+
+**Export Company Fuel Expense:** When enabled, exports fuel transactions where fuel was not deducted from the driver to NetSuite as bills. Exports run daily at 6:30 AM UTC.
+
+<Warning>
+  ⚠️ If this setting was not previously enabled, past fuel transactions will not be exported automatically when you turn it on.
+</Warning>
+
+**Export Company Toll Expense:** When enabled, exports toll transactions where the toll was not deducted from the driver to NetSuite as bills. Exports run daily at 7:30 AM UTC.
+
+<Warning>
+  ⚠️ If this setting was not previously enabled, past toll transactions will not be exported automatically when you turn it on.
+</Warning>
+
+### Dimension Settings
+
+**Subsidiaries:** Each Alvys subsidiary must be mapped to the corresponding NetSuite subsidiary. This is mandatory for NetSuite OneWorld accounts. Selecting the Subsidiaries checkbox creates an additional subsidiary mapping step in the integration wizard.
+
+**Fleets:** Alvys fleets can be mapped to Classes, Departments, or Locations in NetSuite. Only one classification type can be used per fleet at a time. Selecting the Fleets checkbox creates an additional fleet mapping step in the integration wizard.
+
+## Sync Behavior
+
+### Incompatible setting combinations
+
+The following settings cannot be enabled at the same time:
+
+**Single Bill for Driver Statement** is incompatible with: Ignore Driver Bills, Pay Subsidiary Carrier.
+
+**Process Statement by Tax Category** requires Single Bill for Driver Statement and is incompatible with: Ignore Driver Bills, Pay Subsidiary Carrier.
+
+**Pay Subsidiary Carrier** is incompatible with: Single Bill for Driver Statement, Process Statement by Tax Category, Create Vendor Using 1099 Tax Company, Ignore Driver Bills.
+
+**Ignore Driver Bills** is incompatible with: Single Bill for Driver Statement, Process Statement by Tax Category, Create Vendor Using 1099 Tax Company.
+
+**Create Vendor Using 1099 Tax Company** requires Single Bill for Driver Statement and is incompatible with: Pay Subsidiary Carrier, Ignore Driver Bills.
+
+### Export schedules
+
+Fuel expense exports run daily at 6:30 AM UTC. Toll expense exports run daily at 7:30 AM UTC. All other transactions are exported at the time of invoice or bill generation.
+
+## Verify It's Working
+
+After completing authentication and settings configuration:
+
+1. Generate a test invoice or bill in Alvys.
+2. Navigate to **Management > Integrations** and check the integration status. A status of **Partial** indicates that required fields (such as Classes or account mappings) are not yet completed.
+3. Confirm the transaction appears in NetSuite under the expected customer or vendor record.
+
+## Recommended Settings by Operation Type
+
+### Carrier operations
+
+For companies that primarily operate as carriers, the following settings are typically enabled: Revenue, Expense, Single Bill for Driver Statement, Export Company Fuel Expense, Export Company Toll Expense, Custom Field, and Export Customer Payments.
+
+<Note>
+  ![Screenshot showing the recommended settings for carrier operations.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/2420009b-8fd5-4924-a18f-488dc6d0d1fe/image.png)
+
+  *Screenshot showing the recommended settings for carrier operations.*
+</Note>
+
+### Broker operations
+
+For companies that primarily operate as freight brokers, the following settings are typically enabled: Revenue, Expense, and Generate Carrier Invoice Separately.
+
+<Note>
+  ![Screenshot showing the recommended settings for broker operations.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/e44a0292-130f-4636-ac22-39284b375bd5/image.png)
+
+  *Screenshot showing the recommended settings for broker operations. *
+</Note>
+
+## Troubleshooting
+
+### Integration status shows Partial after saving credentials
+
+The integration requires Classes to be mapped in addition to the five credential fields. Complete the fleet and class mappings, or verify that the Subsidiaries and Fleets mappings are fully configured.
+
+### Carrier bill was not created for a brokerage trip
+
+If Generate Carrier Invoice Separately is enabled, the carrier bill is not created until a document of type "Carrier Invoice" is uploaded to the trip. Upload a Carrier Invoice document to the trip, then select **Regenerate Invoice** on the load.
+
+### Past fuel or toll transactions did not export after enabling the setting
+
+Enabling Export Company Fuel Expense or Export Company Toll Expense does not retroactively export past transactions. Only new transactions created after the setting is enabled will be exported.
+
+### Customer payments are not exporting to NetSuite
+
+Partial payments are not exported. Payment is sent to NetSuite only when the total amount paid equals the total billable amount on the load. Verify that a deposit account is selected in the Export Customer Payments configuration.
+
+## Limits / Unsupported
+
+- OAuth 2.0 is not supported. Only OAuth 1.0 Token-Based Authentication (TBA) is supported.
+- Partial customer payments are not exported; only full payments are sent to NetSuite.
+- Past fuel and toll transactions are not retroactively exported when the corresponding settings are first enabled.
+- Only one classification type (Classes, Departments, or Locations) can be used per fleet mapping at a time.
+
+## FAQs
+
+**Q: Does Alvys support OAuth 2.0 for the NetSuite integration?**
+
+**A:** No. Alvys connects to NetSuite using OAuth 1.0 Token-Based Authentication (TBA) only.
+
+**Q: What are the five credential fields required to connect NetSuite to Alvys?**
+
+**A:** Account ID (Realm ID), Consumer Key, Consumer Secret, Token ID, and Token Secret. All five must be entered and saved before the integration can authenticate.
+
+**Q: Why does the integration show a Partial status even after I entered my credentials?**
+
+**A:** A Partial status indicates that Classes are not yet mapped. Complete the fleet and class mappings and check the status again.
+
+**Q: Can I use Single Bill for Driver Statement and Ignore Driver Bills at the same time?**
+
+**A:** No. These two settings are incompatible.
+
+**Q: What is cross-subsidiary billing and when should I enable it?**
+
+**A:** Cross-subsidiary billing (Shared Billing or Intercompany Billing) applies when a load is invoiced by one subsidiary and tendered by another, and both subsidiaries have separate accounting integrations. This setting must be enabled on both subsidiaries involved.
+
+**Q: Does the NetSuite integration require OneWorld?**
+
+**A:** OneWorld is required only if your organization uses multiple subsidiaries in NetSuite.
+
+**Q: What happens if Use Existing Customers is enabled but no NetSuite customer ID is set on the customer profile?**
+
+**A:** The invoice will fail to sync. A valid NetSuite Customer ID must be entered in the External Accounting ID field on the customer or broker profile in Alvys.
+
+**Q: Are customer payments exported to NetSuite automatically?**
+
+**A:** Yes, when Export Customer Payments is enabled. Payments are exported every five minutes once the total amount paid equals the full invoice amount. Partial payments are not exported.
+
+**Q: Should customer payments be recorded in Alvys or NetSuite?**
+
+**A:** Although exporting payments from Alvys is supported, it is generally recommended to record payments directly in NetSuite and allow them to sync back to Alvys.
+
+## Go Deeper
+
+- [NetSuite Prerequisites](https://help.alvys.com/en/articles/13688988)
+- [NetSuite: Account Mapping](https://help.alvys.com/en/articles/13688993)
+- [NetSuite: Transaction Export and Modification Workflow](https://help.alvys.com/en/articles/13688994)
+- [NetSuite: Identifying and Resolving Failed Transactions](https://help.alvys.com/en/articles/13688997)

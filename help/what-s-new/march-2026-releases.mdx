@@ -1,0 +1,138 @@
+---
+title: "March 2026 Releases"
+---
+
+<Note>
+  **Applies to:** All users ** · Module:** What's New
+
+  **Last reviewed:** 2026-06 **·** **Owner:** Support team
+
+  March 2026 brought major Dispatch Planner V2 improvements, automatic driver availability calculation, a unified redesign of multiple table pages, and real-time webhooks for tender events.
+</Note>
+
+## Overview
+
+This release recap covers Dispatch Planner V2 enhancements (filtering, notes, trip sidebar, references, and bugfixes), smarter automatic driver availability, the rollout of a unified table-page design across Trucks, Trailers, Accounting Error Transactions, and E-Checks, and new webhooks for tender lifecycle events.
+
+## Dispatch Planner V2 (March 30)
+
+### 82 plus Dispatch Planner improvements shipped in 2026
+
+Dispatch Planner has improved substantially over the prior two months, with more than 82 improvements shipped so far in 2026. The sections below cover the highlights. The Planner is faster, more reliable, and easier to use day-to-day, and the filtering overhaul alone changes how dispatchers interact with the product. More is in flight, including a timeline view, expanded filters for the Trips and Drivers tables, and continued saved views enhancements. You can start using Dispatch Planner from the Planner area of Alvys.
+
+### Completely rebuilt inline column filtering
+
+The old filter bar has been removed. Planner now uses modern, inline column filters, the same style of filtering people already know from spreadsheets. It is faster, more intuitive, and consistent across every column type.
+
+**What this includes:**
+
+- Shareable filter URLs. Bookmark or send a filtered view to a teammate and it loads exactly as you left it.
+- Better text search with more flexible operators and smarter matching.
+- Consistent behavior everywhere. Text, number, date, and set filters all behave the same way.
+- Auto-filtering by driver team. Equipment types in the Trips table now auto-filter when you switch teams.
+
+Additional filter operators and filters for all remaining columns across the Planner are coming soon.
+
+### Notes inside the Planner sidebars
+
+Dispatchers can now create, edit, and manage notes directly inside the Planner sidebars, without leaving the workflow.
+
+**What this includes:**
+
+- Driver notes. A dedicated Notes tab on the driver sidebar, with a quick-launch icon on every driver row.
+- Trip and load notes. The same treatment on the trip sidebar.
+- Notes grouped by time period (Today, Yesterday, This Week, and so on), so recent context is always at the top.
+
+The old popup modal has been removed. Everything now lives inline.
+
+### Smarter trip sidebar
+
+The trip sidebar now surfaces the information dispatchers need most without digging for it.
+
+**What this includes:**
+
+- ETA to next stop, displayed right on the upcoming stop card.
+- Last ping at a glance, in a clean "12 min ago" format that shows just the source (such as Samsara or Driver App).
+- HOS-aware ETAs under the hood. ETAs now factor in hours-of-service data via Trimble, with smart fallbacks when HOS data is not available. This is an Alvys Intelligence feature.
+
+### Cleaner default grid layout
+
+Every user now starts with a clean, standardized grid layout.
+
+### Load and trip custom references visibility
+
+Both load custom references and trip custom references are now fully visible in the Planner grid. Customers who tag loads or trips with their own reference codes (such as PO numbers, BOLs, and internal IDs) can see those fields as columns and can filter and sort by them, all without leaving the Planner.
+
+### New columns and visual improvements
+
+What this includes:
+
+- New Last Ping and Number of Stops columns.
+- Tighter row density, putting more data on screen with reduced row heights.
+- Colors and emojis on custom references. You can visually tag trip and load custom references with colors and emojis for at-a-glance organization.
+
+## Over 20 Dispatch Planner bug-fixes
+
+More than 20 bugs were fixed, including wrong trailers, missing driver messages, broken temperature displays, brokerage trips leaking in, and incorrect filter results. The Planner is meaningfully more reliable than it was two months ago.
+
+## Smarter Driver Availability in Dispatch Planner (March 27)
+
+### Automatic driver availability calculation
+
+Driver availability is now calculated automatically, removing the need for manual PTA tracking and giving planning teams data they can trust. Availability is calculated using two configurable parameters, Minimum Available Duration and Average Dwell Time. Instead of relying on appointment window end times, availability now factors in realistic turnaround, so you see when a driver is actually free rather than only when a load delivers.
+
+This addressed the top gap that prevented operations from trusting Planner availability data. Local operations need one-hour windows, regional needs 12 hours, and long-haul needs days, so each operation can now define what "available" actually means for them.
+
+You can find these changes in the Drivers table of Dispatch Planner.
+
+### New driver availability columns
+
+New columns in the Drivers table:
+
+- Available For, showing how long the driver is available (for example, 14h 30m, or infinity if there is no next commitment).
+- Next Planned At, showing when their next commitment starts.
+- Next Planned In, showing where the next commitment is.
+- Available In (formerly Final Stop), showing where the driver becomes available, synced with the new calculation.
+
+### How to configure driver availability settings?
+
+Settings are available at three levels: Alvys defaults, tenant-level overrides, and fleet-level overrides. Your admin can adjust Minimum Available Duration and Average Dwell Time under Dispatch Planner Settings. Sensible defaults are set, but you will get the most value by tuning these to match how your operation actually runs.
+
+## Redesigned Table Pages (March 30)
+
+### Unified grid design for Trucks, Trailers, Accounting Error Transactions, and E-Checks
+
+Table pages across Alvys are transitioning to a unified design. Every table will use the same filters, sorting, column layouts, and actions, which reduces the time your team spends re-learning controls as they move between modules.
+
+**What is new:**
+
+- Consistent grid experience. Trucks, Trailers, Accounting Error Transactions, and E-Checks now use the same grid layout, so your team uses the same filters, sorting, and actions everywhere and there is less re-learning when moving between modules.
+- Faster performance. The grids are rebuilt with modern front-end architecture for faster load times and smoother interactions.
+- Faster onboarding. New hires learn one grid pattern and apply it across the entire system, and experienced users move between modules without adjusting.
+
+You can find the new experience on the Trucks, Trailers, Accounting Error Transactions, and E-Checks pages.
+
+### Table page rollout schedule
+
+Live as of March 30: Trucks, Trailers, Accounting Error Transactions, and E-Checks.
+
+Coming in April (in development): Safety Accidents, Safety Claims, Safety Roadside Inspections, Maintenance Records, Carriers, and Companies.
+
+No action is required. Updates roll out automatically and your data stays exactly where it is. If your account has early access enabled, you can check the Trucks and Trailers grids to see the new experience today.
+
+## Webhooks for Tender Events (March 2)
+
+### Real-time webhooks for tender lifecycle events
+
+With webhooks for tender events, Alvys can now push information to your external systems, such as middleware or ERPs, in real time. This keeps your data in sync whenever a tender is modified.
+
+**The impact:**
+
+- Eliminate the tender sync gap. Your internal dashboards and custom ERPs sync with Alvys in real time, so your team never works with outdated data.
+- Act on exceptions fast. Respond to tender status changes or new opportunities when they happen.
+
+To get started, provide your IT or development team with the setup guide so they can activate real-time tender updates for your systems via webhooks. The setup guide is available at [https://docs.alvys.com/changelog/alvys-webhooks-now-available-for-tender-lifecycle-events](https://docs.alvys.com/changelog/alvys-webhooks-now-available-for-tender-lifecycle-events)
+
+## Go Deeper
+
+- [Dispatch Planner](/help/loads-trips/dispatch-planner)

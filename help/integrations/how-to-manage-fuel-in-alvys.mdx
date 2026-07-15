@@ -1,0 +1,144 @@
+---
+title: "How to Manage Fuel in Alvys"
+description: "This article walks you through the general fuel workflow, from integration setup to report uploads and how it all ties into your drivers."
+---
+
+<Note>
+  **Module:** Management > Integrations; Assets > Drivers; Reports > Fuel Report
+
+  **Owner:** Support team · **Last reviewed:** 2026-06 · **Access:** All users
+</Note>
+
+## Overview
+
+Fuel is one of the biggest recurring expenses in trucking. This article walks you through the complete fuel workflow in Alvys (fuel card setup, fuel transaction import, fuel deductions, fuel reporting): connecting your fuel card provider, linking cards to drivers, and importing fuel transactions, either automatically or by manual upload.
+
+Alvys supports fuel card integrations with providers like EFS, Comdata, TCS, QuikQ (Love's), and Compass, offering automatic and manual fuel uploads, deductions, and reporting tied directly to your drivers. This guide covers the end-to-end fuel workflow: from connecting your provider to importing transactions into the Fuel Report.
+
+## Before you start
+
+Before setting up fuel management in Alvys:
+
+- You must have active fuel card credentials from your provider (EFS, Comdata, TCS, QuikQ/Love's, or Compass).
+- Some providers (such as QuikQ and EFS) require you to contact their support team and request API credentials or enable partner access before the Alvys integration will work. Complete that step with your provider before proceeding.
+- Fuel cards must be linked to individual drivers before transaction matching will work.
+- All users can connect integrations, link fuel cards, and import fuel transactions.
+
+## Steps
+
+### Connect your fuel provider
+
+1. Go to **Management > Integrations**.
+2. Select the **Fuel** category.
+3. Find your provider and click the **Pencil** (edit) button.
+4. Enter the required credentials provided by your fuel card company.
+5. Choose the **subsidiaries** this provider should apply to.
+6. Click **Save**.
+
+<Note>
+  ![Upload fuel-provider-integration-setup.gif here. This image shows the Integrations page with the Fuel category selected, the pencil icon being clicked, and the credential entry form being completed and saved](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533283370/4a3598e6c9c9d6565b663c4000f1/upload_11944171210740158084.png)
+
+  *Upload fuel-provider-integration-setup.gif here. This image shows the Integrations page with the Fuel category selected, the pencil icon being clicked, and the credential entry form being completed and saved*
+</Note>
+
+For provider-specific setup steps, refer to the integration guide for your provider (EFS, Comdata, TCS, QuikQ/Love's, or Compass).
+
+### Link fuel cards to drivers
+
+Once the integration is active, Alvys must know which driver is using which fuel card. Transactions are matched to drivers using card numbers, so this step must be completed before importing.
+
+1. Go to **Assets > Drivers**.
+2. Select a driver and open their profile.
+3. Click the **Fuel Card Numbers +** button.
+4. Enter the following:
+
+   - The **fuel card number** (some providers like TCS require only partial numbers, such as the last 4 digits, so check your provider's formatting guidelines).
+   - The **provider** (for example: Comdata, EFS, Love's).
+   - Whether fuel should be **discounted** or **deducted** from the driver's pay. Note: discount information is imported directly from your fuel provider and cannot be set to a custom value within Alvys.
+5. Click **Save**.
+6. Repeat for all drivers using fuel cards.
+
+<Note>
+  ![This image shows a driver profile open with the Fuel Card Numbers + button clicked](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533283411/07b9111df23f97f3f82dde289ac1/upload_16157157155399522468.png)
+
+  *This image shows a driver profile open with the Fuel Card Numbers + button clicked*
+</Note>
+
+### Import fuel transactions
+
+You can upload fuel data in two ways: automatic sync (if your provider supports it) or manual import.
+
+Most providers support manual uploads via CSV file:
+
+1. Download the fuel transaction file from your fuel card provider's portal.
+2. Go to **Reports > Fuel Report**.
+3. Click **Transaction File Upload**.
+4. Select your provider from the dropdown.
+5. Upload your CSV file.
+
+<Note>
+  ![This image shows the Fuel Report page with the Transaction File Upload button visible](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533283455/7fd1d752d72974ce48bafdd95b2d/upload_3272422095875395375.png)
+
+  *This image shows the Fuel Report page with the Transaction File Upload button visible*
+</Note>
+
+Alvys automatically matches transactions to drivers using the card numbers configured in the previous section.
+
+If your provider supports automatic upload (such as EFS or Love's), Alvys can pull transactions daily on a scheduled basis, typically around 1 to 2 AM EST. Once enabled:
+
+<Warning>
+  ⚠️ Alvys scans for duplicate transactions during automatic import. · Manual changes made directly in your provider's portal between import jobs may cause Alvys to not recognize a transaction, which can result in a near-duplicate being imported. · Review your Fuel Report after each import to catch any duplicates.
+</Warning>
+
+## Result
+
+After completing these steps:
+
+- Your fuel provider is connected and active for the selected subsidiaries.
+- Each driver's fuel card is linked to their profile.
+- Fuel transactions appear in **Reports > Fuel Report**, matched to the correct drivers.
+- If automatic sync is enabled, transactions are imported daily without manual action.
+
+## Variations
+
+Fuel providers use different time formats: some store transactions in UTC, others in local time. Alvys standardizes all transaction times to UTC but displays them in your local time zone based on your user profile settings. This keeps filtering and reporting accurate when working with multiple providers across time zones.
+
+If you notice transactions appearing to fall outside your expected date range, expand your date filter by plus or minus one day to catch edge-case transactions.
+
+## Troubleshooting
+
+### Transactions are not appearing in the Fuel Report
+
+1. Confirm the driver's fuel card number is entered correctly under their profile (Assets > Drivers > fuel card). Check the formatting your provider requires (partial vs. full card number).
+2. Confirm the integration credentials are saved under Management > Integrations > Fuel for the correct subsidiary.
+3. For automatic sync, allow up to 24 hours after enabling the integration for the first transactions to appear.
+4. For manual uploads, confirm the CSV file is from the correct provider and matches the format expected by that provider's upload option.
+5. If none of the above applies, contact Alvys support with the provider name, affected card number, and the date range of the missing transactions.
+
+### Duplicate transactions appear in the Fuel Report
+
+This occurs when manual changes are made directly in the provider portal between automatic import jobs. Alvys does scan for duplicates programmatically, but provider-side changes made between imports can result in near-duplicates being imported.
+
+Review and delete the duplicate entry from the Fuel Report. If duplicates continue to appear, contact Alvys support.
+
+## FAQs
+
+**Q: Which fuel providers does Alvys integrate with?**
+
+**A:** Alvys integrates with EFS, Comdata, TCS, QuikQ (Love's), and Compass. Each provider has its own setup requirements, so refer to the provider-specific integration guide for credential and access details.
+
+**Q: Does Alvys support both automatic and manual fuel transaction imports?**
+
+**A:** Yes. Providers such as EFS and Love's support automatic daily sync. All providers support manual CSV uploads via Reports > Fuel Report > Transaction File Upload.
+
+**Q: Can I connect multiple fuel providers at the same time?**
+
+**A:** Yes. You can connect multiple providers under Management > Integrations > Fuel, assigning each to the applicable subsidiaries.
+
+**Q: What happens if a fuel card transaction cannot be matched to a driver?**
+
+**A:** If the card number on the transaction does not match any card number entered on a driver profile, the transaction will not be automatically assigned. Confirm the card number is correctly entered on the driver's profile, then re-import or contact Alvys support.
+
+**Q: Can I set a custom fuel discount rate in Alvys?**
+
+**A:** No. Discount information is imported directly from your fuel provider. It is not possible to set a custom discount value within Alvys.

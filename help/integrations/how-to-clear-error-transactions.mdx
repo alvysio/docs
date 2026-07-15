@@ -1,0 +1,79 @@
+---
+title: "How to clear Error Transactions"
+description: "Use 'Mark as Synced' to clean up your Error Transactions list. Manually clear resolved errors to focus on what matters."
+---
+
+<Note>
+  **Applies to:** Admin · Biller · Partner Admin** ·** **Module:** Accounting > Error Transactions
+
+  **Last reviewed:** 2026-06 · **Owner:** Support team
+
+  Use the Mark as Synced action to remove resolved error transactions from the Error Transactions list so your sync queue (export failures) shows only what still needs attention.
+</Note>
+
+## Overview
+
+The Error Transactions page surfaces transactions that failed to sync, export, or post to your connected accounting system (also called sync errors or failed exports). If you have manually resolved the underlying issue in the external accounting system (e.g., manually creating the invoice in QBO), you can mark, clear, or dismiss those transactions as synced to remove them from the list and keep your workspace focused on active errors.
+
+<Note>
+
+</Note>
+
+## Before You Start
+
+- You must have the **"Admin"**, **"Biller"**, or **"Partner Admin"** role to use the Mark as Synced action.
+- Navigate to Accounting > Error Transactions in Alvys.
+
+## Steps
+
+1. Open the Error Transactions page.
+
+   - Navigate to Accounting > Error Transactions.
+
+<Note>
+  ![Alvys Accounting menu with Error Transactions highlighted](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/ad9f3b39-40eb-4a5b-965c-418dfd1782db/image.png)
+
+  *Alvys Accounting menu with Error Transactions highlighted*
+</Note>
+
+1. Select the transactions to clear.
+
+   - Select the checkbox next to each transaction you want to mark as synced.
+
+     <Info>
+       💡 You can multi-select transactions to save time when clearing several at once.
+     </Info>
+2. Mark the transactions as synced.
+
+   - Click the “Mark as synced”
+   - Confirm your choice in the prompt that appears.
+
+<Note>
+  ![Error Transactions page showing “Mark as synced” button highlighted](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4b89abd1-d078-473e-bb3d-ee33f35934b6/image.png)
+
+  *Error Transactions page showing “Mark as synced” button highlighted*
+</Note>
+
+## Result
+
+The selected transactions are removed from the Error Transactions list. Your list now shows only transactions that still need attention.
+
+<Warning>
+  ⚠️ In this first version, cleared transactions will not show up anywhere else in the interface after being removed from the list.
+</Warning>
+
+## Troubleshooting
+
+### Marked a transaction as synced by mistake
+
+In this version, there is no built-in way to revert a transaction that has been marked as synced. If you marked a transaction as synced by mistake:
+
+1. Note the transaction details (load number, amount, date) before leaving the page if possible.
+2. Re-sync the transaction from the source system if your accounting integration supports re-triggering exports.
+3. If the transaction cannot be recovered through re-sync, contact Alvys support with the transaction details so the record can be reviewed.
+
+## FAQs
+
+**Q: Will I be able to see which user cleared a transaction?**
+
+**A:** Not yet; UI-level traceability and audit logs are planned for a future update.

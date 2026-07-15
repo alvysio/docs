@@ -1,0 +1,133 @@
+---
+title: "How to Set Up Multi-Factor Authentication (MFA) in Alvys"
+---
+
+<Note>
+  📋 **Module:** Profile (sign-in screen) · **Applies to:** All users · **Owner:** Support team · **Last reviewed:** 2026-06
+</Note>
+
+Alvys requires multi-factor authentication (MFA) for all users to protect your account with a second verification step beyond your password. This article explains how to set up and manage MFA using an authenticator app, SMS, or a hardware security key.
+
+## Overview
+
+Alvys uses multi-factor authentication (MFA), also called two-factor authentication or 2FA, to add a second layer of protection to your account. In addition to your password, MFA requires you to verify your identity using something you have: a code from an authenticator app, an SMS text message, or a hardware security key.
+
+MFA is enforced for all users. You will be prompted to set it up when you sign in if it has not yet been configured on your account.
+
+Setting up more than one method is strongly recommended so you always have a backup if one method becomes unavailable.
+
+## Prerequisites
+
+- You must have an active Alvys account.
+- To use an authenticator app, download one before starting: Google Authenticator, Microsoft Authenticator, Authy, 1Password, or any TOTP-compatible app.
+- To use SMS, confirm your country is in the supported list in the FAQs section below.
+- To use a security key, have your FIDO2/WebAuthn hardware device (such as a YubiKey or Feitian key) ready.
+
+## Steps
+
+1. Sign in to Alvys.
+2. Go to the Alvys sign-in screen and enter your username and password.
+3. After signing in, Alvys will prompt you to set up MFA if it has not been configured.
+4. You will be asked to choose at least one verification method.
+
+   ![MFA setup prompt screen shown after sign-in, displaying the three method options](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/4f84a791-bb1a-42bb-b35b-655e7ce95297/cursorful-video-1758735037204.gif)
+
+   *MFA setup prompt screen shown after sign-in, displaying the three method options*
+5. Choose your authentication method.
+6. Select one of the three available methods: Authenticator App, Phone (SMS), or Security Key.
+7. Follow the steps for your chosen method below.
+
+   ![Screen showing the method selection step with Authenticator App, Phone (SMS), and Security Key options](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/6d777022-87f9-4c8d-9258-a8460d11c502/image.png)
+
+   *Screen showing the method selection step with Authenticator App, Phone (SMS), and Security Key options*
+8. Set up an authenticator app (recommended).
+9. Select **Authenticator App** when prompted.
+10. Open your authenticator app on your phone.
+11. Scan the QR code displayed in Alvys. If your app does not support scanning, enter the code manually instead.
+12. Your app will begin generating a 6-digit code that refreshes every 30 seconds.
+13. Enter the current 6-digit code in Alvys to complete setup.
+14. On future sign-ins, open your authenticator app and enter the current code when prompted.
+
+    ![QR code scan screen shown during authenticator app setup in Alvys.](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6ffe62a-73ce-4a4d-a390-4ef61001b182/35ad347f-1eab-421f-8076-c8a2e5f622f6/image.png)
+
+    *QR code scan screen shown during authenticator app setup in Alvys. *
+15. Set up SMS verification (alternative).
+16. Select **Phone (SMS)** when prompted.
+17. Enter your mobile phone number including the country code.
+18. Alvys will send a 6-digit code to that number via text message.
+19. Enter the code in Alvys to complete setup.
+20. SMS is less secure than an authenticator app. Use it as a backup method rather than your primary method. SMS is only available in supported countries; see the FAQs below for the full list.
+21. Set up a security key (alternative).
+22. Select **Security Key** when prompted.
+23. Insert or tap your FIDO2/WebAuthn hardware key (such as a YubiKey or Feitian device).
+24. Follow the on-screen instructions to register the key.
+25. On future sign-ins, insert or tap your key when prompted to verify your identity.
+
+Once setup is complete, MFA is active on your account. On future sign-ins from unrecognized devices, new locations, or flagged IP addresses, Alvys will prompt you to verify using your configured method. Trusted devices and recognized locations may not require a prompt on every sign-in.
+
+After completing initial setup, you can add additional verification methods from your profile so you can still access your account if one method becomes unavailable. Password managers such as 1Password and Keeper that support TOTP codes can serve as your authenticator app: add your Alvys MFA setup code to the password manager during the QR code step, and it will generate codes just like a dedicated authenticator app. MFA is designed for individual user logins; service accounts used exclusively for integrations and automations should be secured with a third-party credential management tool that supports 2FA codes, such as Keeper or 1Password, and all individual users must configure MFA with their own credentials.
+
+## Troubleshooting
+
+### SMS code not received
+
+1. Confirm your country is in the supported list (see FAQs below). SMS is not available in all countries.
+2. Verify you have mobile coverage and that the phone number you entered is correct.
+3. Click Resend Code on the Alvys screen to request a new code.
+4. If the issue continues after resending, some carriers delay delivery. Switch to an authenticator app instead, as it does not rely on mobile coverage.
+
+### Authenticator app code not accepted
+
+1. Check that your phone's date and time are set to automatic. Authenticator apps require accurate time synchronization; a time drift of more than 30 seconds will produce codes that fail.
+2. If the time is correct and codes still fail, remove your Alvys account from the authenticator app and add it again using a new QR code from Alvys.
+
+### Cannot sign in after losing phone or key
+
+1. Try any other MFA method you have configured on your account.
+2. If you cannot access any configured method, contact Alvys Support through the in-app messenger or at [support@alvys.com](mailto:support@alvys.com) to have your MFA reset.
+
+## FAQs
+
+**Q: Is MFA required for all users?**
+
+**A:** Yes. MFA is required for all Alvys users. You will be prompted to set it up on your first sign-in if it has not been configured.
+
+**Q: What happens if I skip MFA setup?**
+
+**A:** You will not be able to access your Alvys account until MFA is configured. Setup is required before the account becomes fully accessible.
+
+**Q: How often will I be prompted for MFA?**
+
+**A:** Alvys uses adaptive MFA, which means you are prompted based on risk signals detected at sign-in: a new or unrecognized device, a new location, an unusual location (such as impossible travel between two sign-ins), or an untrusted IP address. If you sign in regularly from a recognized device and location, you may not be prompted on every sign-in. Risk signals will always trigger a prompt regardless of device history.
+
+**Q: Can I add more than one MFA method?**
+
+**A:** Yes. You can configure multiple methods on your account. Having at least two methods (for example, an authenticator app plus SMS) is recommended so you have a backup if one method becomes unavailable.
+
+**Q: What do I do if I lose my phone or security key?**
+
+**A:** Use another MFA method you have configured. If you have no other method available, contact Alvys Support through the in-app messenger or at [support@alvys.com](mailto:support@alvys.com) to reset your MFA.
+
+**Q: Which countries support SMS verification?**
+
+**A:** SMS-based MFA is available in the following countries: Afghanistan, Australia, Bosnia and Herzegovina, Bulgaria, Canada, Colombia, Egypt, Germany, India, Ireland, Jamaica, Lithuania, Mexico, Moldova, Morocco, Netherlands, North Macedonia, Norway, Philippines, Poland, Serbia, Spain, Turkey, Ukraine, United Kingdom, United States, and Uzbekistan.
+
+**Q: Can I use a TOTP password manager instead of a dedicated authenticator app?**
+
+**A:** Yes. Any TOTP-compatible app or password manager works, including 1Password, Keeper, Bitwarden, and similar tools. During setup, add the Alvys MFA key to your password manager the same way you would in a dedicated authenticator app.
+
+**Q: What is adaptive MFA?**
+
+**A:** Adaptive MFA is an AI-driven risk detection system that analyzes each sign-in attempt and determines whether a verification prompt is necessary. It evaluates signals such as device recognition, location history, and IP address reputation. When risk signals are present, a prompt is required. When no risk signals are detected, sign-in may proceed without a prompt on recognized trusted devices.
+
+**Q: What if I travel frequently? Will MFA block me from signing in?**
+
+**A:** No. MFA will not prevent you from signing in. If you sign in from a new location, the adaptive system may detect it as unusual and prompt you for verification. As long as you have an MFA method configured, you can complete verification and access your account normally.
+
+**Q: Can service accounts use MFA?**
+
+**A:** MFA is designed for individual user logins. Shared or service accounts used only for integrations and automations cannot use interactive MFA. Secure those credentials with a credential management tool that supports 2FA codes, such as 1Password or Keeper. All individual users must use their own credentials and configure MFA.
+
+## Go Deeper
+
+- [Signing in to Alvys and account access](https://help.alvys.com/en/articles/9489944)

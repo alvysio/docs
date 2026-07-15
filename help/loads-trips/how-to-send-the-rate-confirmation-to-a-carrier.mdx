@@ -1,0 +1,124 @@
+---
+title: "How to Send the Rate Confirmation to a Carrier"
+description: "Learn how to send the rate confirmation to carriers for signing and automatically assign driver details to the load."
+---
+
+<Note>
+  📋 **Applies to:** Users with **"EditCarrierRate"** and **"SendCarrierRateConEmail"** permissions
+
+  **Module:** Loads &amp; Trips
+
+  **Last reviewed:** 2026-06
+
+  **Owner:** Support
+</Note>
+
+Send the rate confirmation to a carrier directly from the Tender panel on the Load Details Page. The carrier receives a secure link to accept or reject and sign the document without needing an Alvys account. Signed confirmations automatically assign driver details to the load and send email copies to both parties.
+
+## Overview
+
+The carrier rate confirmation is the document that formalizes the agreed-upon rate and trip details with the carrier. You send it from the Tender panel on the Load Details Page. The carrier receives a unique secure link and can sign without an Alvys account.
+
+Once the carrier signs, any driver details they provide are automatically applied to the load. Both your organization and the carrier receive an email copy of the signed document.
+
+You can also send a preliminary rate confirmation before all load details are finalized. The preliminary version shows only essential information (lane, rate, equipment type, and commodity) and hides sensitive details like full addresses and exact times.
+
+Synonyms: rate con, carrier rate con, rate confirmation email, send rate confirmation, tender document.
+
+## Before You Start
+
+You need the **"EditCarrierRate"** permission to generate rate confirmations, and the **"SendCarrierRateConEmail"** permission to email them to the carrier.
+
+The load must have a carrier assigned to the trip before you can send the rate confirmation.
+
+## Steps
+
+1. Open the Tender panel. From the Load Details Page, locate the management ribbon and click the **Tender** button.
+
+   <Note>
+     ![The Tender button in the management ribbon on the Load Details Page.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532450413/5972f15253033cf86ddb009aa2be/upload_13872309238107848467.png)
+
+     *The Tender button in the management ribbon on the Load Details Page.*
+   </Note>
+
+   ![The Tender button in the management ribbon on the Load Details Page.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532450444/7f70c92a1bf17840dd179c259963/upload_18110694813999698786.png)
+
+   *The Tender button in the management ribbon on the Load Details Page.*
+2. Generate the rate confirmation. In the Tender panel, click the **Generate** drop-down menu and select **Carrier Rate Confirmation**.
+
+   <Note>
+     ![The Generate drop-down menu in the Tender panel showing the Carrier Rate Confirmation option.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532450461/1df5754bee319376b13ff324671e/upload_9834864345630173383.png)
+
+     *The Generate drop-down menu in the Tender panel showing the Carrier Rate Confirmation option.*
+   </Note>
+
+   ![The Generate drop-down menu in the Tender panel showing the Carrier Rate Confirmation option.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532450480/56c1b716c67a47f842e070afba5a/upload_5538162371482255837.png)
+
+   *The Generate drop-down menu in the Tender panel showing the Carrier Rate Confirmation option.*
+3. Email the rate confirmation to the carrier. After generating the document, click the option to email it to the carrier. The carrier receives a secure link to view and sign. This link expires 48 hours after it is sent.
+
+## Result
+
+The carrier receives an email with a unique link to their rate confirmation. They can accept or reject it through that link without needing an Alvys account. If they accept and sign:
+
+- The driver details they provide are automatically assigned to the load.
+- Both the carrier and your organization receive an email copy of the signed rate confirmation.
+
+## Variations
+
+### Send a preliminary rate confirmation
+
+Use the preliminary rate confirmation to confirm a carrier's interest before all load details are finalized. It shares only the lane (city and state), rate, equipment type, and commodity. Full addresses, exact times, and other sensitive details are hidden.
+
+Once the carrier signs the preliminary version, Alvys automatically generates and emails the full rate confirmation without any additional steps from you.
+
+1. Open the Tender panel from the Load Details Page.
+2. Click the **Generate** drop-down and select **Preliminary Carrier Rate Confirmation**.
+
+   <Note>
+     ![The Generate drop-down menu in the Tender panel showing the Preliminary Carrier Rate Confirmation option.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532450493/c174d955082e1e65d64f725228d5/upload_14628161064478282454.png)
+
+     *The Generate drop-down menu in the Tender panel showing the Preliminary Carrier Rate Confirmation option.*
+   </Note>
+
+   ![The Generate drop-down menu in the Tender panel showing the Preliminary Carrier Rate Confirmation option.](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532450503/7ce12060aa1c3bf96debc3bb0bb8/upload_2966466077335420273.png)
+
+   *The Generate drop-down menu in the Tender panel showing the Preliminary Carrier Rate Confirmation option.*
+3. Email the preliminary rate confirmation to the carrier. The carrier receives a link to review and sign. The same 48-hour expiry applies.
+
+## Troubleshooting
+
+### Generate option is not visible in the Tender panel
+
+The Generate controls are only shown to users with the **"EditCarrierRate"** permission. Contact your Admin or Partner Admin to request this permission.
+
+### Email option is not available after generating
+
+Sending the rate confirmation by email requires the **"SendCarrierRateConEmail"** permission. Contact your Admin or Partner Admin if this option is missing.
+
+### Carrier says the link has expired
+
+Rate confirmation links expire 48 hours after they are sent. Return to the Tender panel and generate and send a new rate confirmation.
+
+### Driver details were not applied to the load after the carrier signed
+
+Driver details are applied automatically only when the carrier enters them during the signing step. If the carrier signed without providing driver details, assign them manually on the load.
+
+## FAQs
+
+**Q: Does the carrier need an Alvys account to sign the rate confirmation?**
+
+**A:** No. The carrier receives a unique secure link and signs through that link without needing an Alvys account.
+
+**Q: How long does the carrier have to sign?**
+
+**A:** The link expires 48 hours after it is sent. If the link expires before the carrier signs, generate and send a new rate confirmation.
+
+**Q: What is the difference between the Carrier Rate Confirmation and the Preliminary Carrier Rate Confirmation?**
+
+**A:** The full Carrier Rate Confirmation includes all load and trip details. The Preliminary Carrier Rate Confirmation shows only the lane (city and state), rate, equipment type, and commodity, keeping full addresses and exact times hidden. Use the preliminary version when you want the carrier's commitment before all details are finalized.
+
+## Go Deeper
+
+- [Tenders](/help/loads-trips/tenders)
+- [Tendering Permissions](/help/administration/tendering-permissions)
