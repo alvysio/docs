@@ -42,8 +42,8 @@ Construct a URL with the following parameters in the request body:
 
 1. `client_id`: The unique identifier assigned to your application by Alvys.
 2. `client_secret`: The confidential token provided by Alvys upon application registration.
-3. `audience`: Must be `"https://api.alvys.com/public/"` .
-4. `grant_type`: The type of grant flow to use. **Must be`client_credentials`**
+3. `audience`: Must be `"https://api.alvys.com/public/"`.
+4. `grant_type`: The type of grant flow to use. **Must be `client_credentials`**
 
 ### 🔐 New Token Endpoint
 
@@ -72,12 +72,12 @@ https://auth.alvys.com/oauth/token
   When including a "scope" field in the token request body, please note:
 
   * The returned token will **always include all scopes** that have been granted to your client application, regardless of what you specify in the scope field.
-  * Therefore, including a `scope `field in the request **does not override or limit the access** defined by your assigned permissions in the issued token.
+  * Therefore, including a `scope` field in the request **does not override or limit the access** defined by your assigned permissions in the issued token.
   * The only functional effect of providing a `scope` field is that the token request will fail (unauthorized) if you include any scope that has not been granted to your client.
-  * If the `scope `field is omitted, the token will still include **all scopes** granted to your application.
+  * If the `scope` field is omitted, the token will still include **all scopes** granted to your application.
 </Tip>
 
-Either format may be used (JSON or Form-Encoded) ; both will return the same token and enforce scopes identically.
+Either format may be used (JSON or Form-Encoded); both will return the same token and enforce scopes identically.
 
 ### Curl JSON Content-Type Example
 
@@ -127,7 +127,7 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
 <Warning>
   ***Note***
 
-  *While you can assign`create`, `update`, and `delete` scopes and your token will include them, the corresponding write endpoints are **not yet available**. At this time, the Public API only exposes **read** operations—those additional scopes are in place for seamless adoption once write functionality is release*
+  *While you can assign `create`, `update`, and `delete` scopes and your token will include them, the corresponding write endpoints are **not yet available**. At this time, the Public API only exposes **read** operations—those additional scopes are in place for seamless adoption once write functionality is released.*
 </Warning>
 
 ***

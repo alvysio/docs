@@ -5,7 +5,7 @@ title: "Timestamps"
 Alvys primarily uses two formats for handling date-time values in its system:
 
 * Standard Timestamps (UTC-based):
-  * Stored in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html)  compliant [RFC 3339](https://tools.ietf.org/html/rfc3339)  format using `DateTimeOffset` objects.
+  * Stored in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) compliant [RFC 3339](https://tools.ietf.org/html/rfc3339) format using `DateTimeOffset` objects.
   * Always returned in Coordinated Universal Time (UTC).
 * Localized Timestamps for Specific Use Cases
   * In some instances, such as location normalization, timestamps are returned in the local stop time of the event.
@@ -21,11 +21,11 @@ Alvys primarily uses two formats for handling date-time values in its system:
   The examples below will be in Python3 programming language, please install the following dependencies before executing the functions.
 
   [pytz](https://pypi.org/project/pytz/)\
-  [dateutil](https://dateutil.readthedocs.io/en/stable/)
+  [dateutil](https://dateutil.readthedocs.io/en/stable/)\
   [datetime](https://pypi.org/project/DateTime/)
 </Info>
 
-The function below will convert the date-time in RFC 339 format to the specified timezone.\
+The function below will convert the date-time in RFC 3339 format to the specified timezone.\
 Function Usage: `convert\_timezone('2025-01-27T07:06:25Z', 'US/Eastern')`
 
 ```python

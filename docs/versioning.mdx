@@ -13,8 +13,8 @@ Alvys uses a versioning system to manage changes in our API, especially when tho
 ## Current API Version
 
 * Version in Use: All API requests must use v1. This ensures compatibility and access to the latest features and functionality supported in the `v1` version of our API.
-* Example:  `GET /api/p/v1/{resource}`\
-  *Replace`{resource}` with the specific endpoint you are calling, such as `drivers`, `loads`, etc.*
+* Example: `GET /api/p/v1/{resource}`\
+  *Replace `{resource}` with the specific endpoint you are calling, such as `drivers`, `loads`, etc.*
 
 ### Understanding Semantic Versioning
 
@@ -42,7 +42,7 @@ There are two ways API versions can be selected or changed:
 
 ## Backwards Incompatible Changes
 
-Alvys use major version changes for the API for any of the following types of changes:
+Alvys uses major version changes for the API for any of the following types of changes:
 
 * Adding required request body fields, request body field values, or query parameters.
 * Removing allowed request body fields, request body field values, query parameters, or query parameter values.
@@ -50,8 +50,8 @@ Alvys use major version changes for the API for any of the following types of ch
 * Renaming request/response body fields, request body field values, query parameters, or query parameter values.
 * Renaming or removing valid values for enumerated fields (e.g., different options for types of safety events).
 * Changing the data type of a field (e.g., from string to int).
-* Changing the nested JSON structure of requests/responses
-* Changing the expected payload of a response (e.g., returning active and inactive drivers versus just active)
+* Changing the nested JSON structure of requests/responses.
+* Changing the expected payload of a response (e.g., returning active and inactive drivers versus just active).
 * Deprecating access to certain endpoints.
 
 ## Backwards Compatible Changes

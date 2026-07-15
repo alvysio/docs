@@ -1572,7 +1572,7 @@ rss: true
   * **`/trips`** → New detail arrays for:
 
     * `Carrier.AccessorialsDetails[]`
-    * `Driver1.AccessorialsDetails[]`  for Driver and OwnerOperator .
+    * `Driver1.AccessorialsDetails[]` for Driver and OwnerOperator.
   * **Each accessorial includes**:
 
     * Default: `Id`, `Type`, `Total { Amount, Currency }`, `Rate { Amount, Currency }`, `RateType`, `Uom`, `Quantity`
@@ -1749,9 +1749,9 @@ rss: true
 
   **Endpoints Affected:**
 
-  `GET /api/p/verion/trips`
+  `GET /api/p/version/trips`
 
-  `POST /api/p/verion/trips/search`
+  `POST /api/p/version/trips/search`
 
   **Why?**
 
@@ -1818,7 +1818,7 @@ rss: true
 
   > ❗️ **Important:**
   >
-  > The legacy `POST /authentication/{tenant_id}/token` token endpoint will be **permanently shut down on July 31, 2025**.**All integrations using this authentication flow must be updated to use the new token endpoint before this date to avoid disruption.**
+  > The legacy `POST /authentication/{tenant_id}/token` token endpoint will be **permanently shut down on July 31, 2025**. **All integrations using this authentication flow must be updated to use the new token endpoint before this date to avoid disruption.**
 </Update>
 
 {/* source: /changelog/enhanced-carrier-payment-details-in-trips-endpoints */}
@@ -1949,7 +1949,9 @@ rss: true
 
 {/* source: /changelog/expose-carrierpaymentonhold-field-in-trips-endpoints */}
 <Update label="March 25, 2025" description="Expose CarrierPaymentOnHold Field in Trips Endpoints" tags={["Added", "Carriers", "Invoices"]}>
-  **Release Date:** March 25, 2025What’s New?
+  **Release Date:** March 25, 2025
+
+  What’s New?
 
   Exposed the `CarrierPaymentOnHold` field in the following Public API Trips endpoints:
 
@@ -1979,7 +1981,7 @@ rss: true
 
 {/* source: /changelog/load-rates-enhancements */}
 <Update label="February 6, 2025 · 8:55 AM" description="Load Rates Enhancements" tags={["Improved", "Loads"]}>
-  **Release Date:** February 01,  2025
+  **Release Date:** February 01, 2025
 
   **What’s Improved?**
 
@@ -1998,7 +2000,7 @@ rss: true
 
 {/* source: /changelog/exposing-asset-events-endpoints */}
 <Update label="February 6, 2025 · 8:48 AM" description="Exposing Asset Events Endpoints" tags={["Added"]}>
-  **Release Date:** February 01,  2025
+  **Release Date:** February 01, 2025
 
   **What’s New?**
 
@@ -2022,7 +2024,7 @@ rss: true
   **What's New?**:
 
   * **Increased Limit**: The maximum number of loads allowed in the search request body has been increased from **50** to **150**.
-    * **Impact**: Users can now include more load IDs in a single search request operations.
+    * **Impact**: Users can now include more load IDs in a single search request operation.
     * **Error Handling**: Requests exceeding 150 load IDs will return an error message.
 </Update>
 
@@ -2220,7 +2222,7 @@ rss: true
      * **`customerServiceRepId`**: Customer Service Representative assigned to the load.
      * **`customerSalesAgentId`**: Customer Sales Agent responsible for the load.
      * **`customerSalesManagerId`**: Customer Sales Manager assigned to the load.
-     * **`customerLoadPlannerId`**:  Customer Sales Manager assigned to the load.
+     * **`customerLoadPlannerId`**: Customer Sales Manager assigned to the load.
      * **`carrierSalesAgentId`**: Carrier Sales Agent assigned to the load, enabling customers to attribute credit and calculate commissions for securing the carrier.
 
   2. **Purpose**:
