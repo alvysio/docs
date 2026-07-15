@@ -3,22 +3,22 @@ title: "Dates & Timestamps"
 description: "How the Alvys API represents dates, timezone-aware datetimes, and UTC datetimes using the RFC 3339 string format, with serialization examples for each type."
 ---
 
-Alvys handles various temporal data types for representing dates and times and uses the [RFC 3339](https://tools.ietf.org/html/rfc3339)  format to represent timestamps as strings. These types include:
+Alvys handles various temporal data types for representing dates and times and uses the [RFC 3339](https://tools.ietf.org/html/rfc3339) format to represent timestamps as strings. These types include:
 
 * **Date Only**: Represents a specific day in the calendar (without time), defined by year, month, and day. Example: `2024-07-04 (July 4, 2024)`.
-* **Date Time (Timezone Aware)**  Represents a datetime value that includes a specific timezone offset from Coordinated Universal Time (UTC), based on the users entered timezone. Example:  `2024-07-04T17:24:53-07:00`\
+* **Date Time (Timezone Aware)**: Represents a datetime value that includes a specific timezone offset from Coordinated Universal Time (UTC), based on the user's entered timezone. Example: `2024-07-04T17:24:53-07:00`\
   (`July 4, 2024, at 5:24:53 PM`, 7 hours behind UTC).
-* **Date Time (UTC)** Refers to a datetime value that is standardized to Coordinated Universal Time (UTC), without any local time zone information or offset. This ensures that the datetime is consistently represented regardless of the local time zone. Example: `2024-07-04T17:24:53Z`  (`July 4, 2024, at 5:24:53 PM` in UTC)
+* **Date Time (UTC)**: Refers to a datetime value that is standardized to Coordinated Universal Time (UTC), without any local time zone information or offset. This ensures that the datetime is consistently represented regardless of the local time zone. Example: `2024-07-04T17:24:53Z` (`July 4, 2024, at 5:24:53 PM` in UTC)
 
 ## Serialization Formats
 
 * **Date Only**: Serialized as `yyyy-MM-dd`. Example: `2024-07-04`.
-* **Date Time (timezone aware)**: Serialized as `yyyy-MM-ddTHH:mm:ss±HH:mm` including the offset from UTC. Example: `2024-07-04T17:24:53-07:00.`
-* **Date Time (UTC)**: Serialized as `yyyy-MM-ddTHH:mm:ssZ` in UTC. Example: `2024-07-04T17:24:53Z` .
+* **Date Time (timezone aware)**: Serialized as `yyyy-MM-ddTHH:mm:ss±HH:mm` including the offset from UTC. Example: `2024-07-04T17:24:53-07:00`.
+* **Date Time (UTC)**: Serialized as `yyyy-MM-ddTHH:mm:ssZ` in UTC. Example: `2024-07-04T17:24:53Z`.
 
 ## RFC 3339
 
-The current version of Alvys APIs uses the [RFC 3339](https://tools.ietf.org/html/rfc3339)  format for timestamps. RFC 3339 is a widely adopted standard for representing date and time as strings.
+The current version of Alvys APIs uses the [RFC 3339](https://tools.ietf.org/html/rfc3339) format for timestamps. RFC 3339 is a widely adopted standard for representing date and time as strings.
 
 Here is a basic example:
 
@@ -34,6 +34,6 @@ Unix timestamps represent the number of seconds that have elapsed since the Unix
 
 Examples:
 
-* **Date Only to Unix Timestamp:**  Date: `2024-07-04`, Unix Timestamp: `1720147200`
-* **Date Time (Timezone Aware) to Unix Timestamp:** Date Time: `2024-07-04T17:24:53-07:00` Unix Timestamp: `1720172693`
-* **Date Time (UTC) to Unix Timestamp: Date Time:** `2024-07-04T17:24:53Z` Unix Timestamp: `1720172693`
+* **Date Only to Unix Timestamp:** Date: `2024-07-04`, Unix Timestamp: `1720147200`
+* **Date Time (Timezone Aware) to Unix Timestamp:** Date Time: `2024-07-04T17:24:53-07:00`, Unix Timestamp: `1720172693`
+* **Date Time (UTC) to Unix Timestamp:** Date Time: `2024-07-04T17:24:53Z`, Unix Timestamp: `1720172693`
