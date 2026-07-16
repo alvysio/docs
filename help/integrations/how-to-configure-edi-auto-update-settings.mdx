@@ -78,6 +78,10 @@ Additional options for Arrivals:
 
 - **Send Late Arrivals Automatically:** Enable this to auto-send even when the truck arrives late. When enabled, select a Late Reason Code.
 - **Grace Period:** Enable this to treat arrivals within a set window as on time. Set the grace window (15 minutes to 2 hours) and select a Reason Code for arrivals within that window.
+
+<Info>
+  Reason Code dropdowns list the EDI 214 status codes configured on this customer's active EDI integration. If the list looks wrong or empty, see the troubleshooting section below.
+</Info>
 - Configure Departures. Enable the **Auto Send** toggle for Departures to send departure EDI updates automatically when the truck leaves a stop.
 
 <Note>
@@ -122,6 +126,12 @@ After saving, Alvys will automatically send EDI 214 updates to the customer for 
 1. Confirm the customer has an active EDI integration. The Auto Update Settings section only appears for customers with an active EDI connection.
 2. Confirm you have the **"EditCustomer"** permission. Contact your Admin if you need this permission adjusted.
 3. If the Auto Update Settings section is still not visible after confirming both of the above, contact Alvys support and provide the customer name and your user role.
+
+### Reason Code dropdown is empty or shows the wrong codes
+
+1. Confirm the customer has an active EDI integration and that EDI 214 status codes have been configured on that integration. Reason Code dropdowns only list codes configured on this customer's active EDI integration.
+2. Save and reopen the customer record. The dropdown loads the current configured list each time the panel is opened.
+3. If the list is still empty or incorrect, contact Alvys support with the customer name and the Reason Code field that's affected so the integration's configured codes can be reviewed.
 
 ### EDI updates are not being sent after enabling a setting
 
