@@ -1,0 +1,75 @@
+---
+title: "How to Change or Add a Contact on a Load"
+description: "Change the customer contact on a load, either by picking an existing contact or by adding a new one that is saved back to the customer's profile."
+---
+
+<Note>
+  **Applies to:** Dispatchers · Brokers · Accounting team members
+
+  **Module:** Loads and Trips
+
+  **Last reviewed:** 2026-07 · **Owner:** Support team
+
+  Every load carries a **customer contact** — the person at the customer's company you coordinate with for that load. You can swap that contact for another one already on file, or add a brand-new contact from the load itself. New contacts you add here are also saved to the customer's profile so they are available on future loads.
+</Note>
+
+## Overview
+
+The Load Details page shows the current customer contact for the load. Use the **Change Contact** flow when you need to:
+
+- Point the load at a different person on the customer's team (for example, coverage during PTO).
+- Add a new customer contact you have just been given, without leaving the load.
+- Correct a contact that was set incorrectly when the load was created.
+
+Two paths are available from the same modal:
+
+- **Select an existing contact** — pick from contacts already saved on the customer's profile. Only the load is updated.
+- **Add a new contact** — enter the new contact's details. The contact is saved to the customer's profile and assigned to the load in one step.
+
+## Before You Start
+
+- The load must have a **customer** assigned. If it does not, an error appears and you must set the customer first.
+- The load does not need to be in any particular status to change the contact.
+- You do not need the customer to have a **Physical Address** on file. Adding a new contact works for customers set up with a **billing/invoicing address only**.
+
+## Change to an Existing Contact
+
+Use this path when the person you need is already saved on the customer.
+
+1. Open the load. You land on the Load Details page.
+2. In the customer section, click **Change Contact**.
+3. In the Change Contact modal, select the contact you want from the list.
+4. Confirm the selection. The load's contact updates immediately; the customer's profile is unchanged.
+
+## Add a New Contact from the Load
+
+Use this path when the contact is not yet saved on the customer.
+
+1. Open the load and click **Change Contact**.
+2. In the Change Contact modal, choose to add a new contact and enter the contact's details (name, email, phone, and any other requested fields).
+3. Save the new contact.
+
+Alvys does two things on save:
+
+- Adds the new contact to the **customer's profile**, so it is available for future loads.
+- Assigns the new contact to **this load** as the current customer contact.
+
+<Tip>
+  You can add a new contact even if the customer has no Physical Address on file — for example, a billing-only customer set up with just an invoicing address. Both the profile update and the load-contact assignment still run.
+</Tip>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title='"Cannot find customer to change contact" error'>
+    This appears when the load has no customer assigned, or when the customer cannot be loaded. Set (or reselect) the customer on the load, then try **Change Contact** again.
+  </Accordion>
+
+  <Accordion title="New contact I just added is not on the load">
+    If you added the contact from **Change Contact** on a load, the contact is saved to the customer and assigned to the load in the same step. Refresh the Load Details page — you should see the new contact selected. If it is still missing, confirm the customer on the load is the one you expected, and repeat the flow.
+
+    <Note>
+      Before July 16, 2026, adding a new contact from **Change Contact** could silently fail when the customer had no Physical Address (for example, billing-only customers). This has been fixed — adding a new contact now works for every customer, regardless of address setup.
+    </Note>
+  </Accordion>
+</AccordionGroup>
