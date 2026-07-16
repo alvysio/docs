@@ -4,6 +4,20 @@ description: "Release notes and updates for the Alvys Public API, webhooks, MCP 
 rss: true
 ---
 
+<Update label="July 16, 2026" description="Paylocity Export: Fuel Cash Advances Now Use the Cash Advance Code (SET-3952)" tags={["Fixed", "Integrations", "Driver Settlements"]}>
+  ## Paylocity payroll export
+
+  For tenants on **Driver Settlements** that export to **Paylocity**, fuel **cash advance** deductions on a driver statement are now exported under the tenant's **Cash Advance** Paylocity code (for example, `ADV`) instead of the generic **Fuel** code (`FUEL`).
+
+  * **Fixed** — a fuel cash advance line on a driver settlement is now matched to the tenant's `Cash Advance` Paylocity code first, so it posts to Paylocity under the correct deduction code. Ordinary fuel deductions continue to fall back to the tenant's `Fuel` code.
+  * This aligns Driver Settlements exports with the legacy paystub behavior, where cash advances already posted under `ADV`.
+  * No configuration change is required. If your Paylocity codes are already mapped correctly, new exports will pick up the fix automatically. Previously exported statements are not rewritten — adjust those in Paylocity if needed.
+
+  <Note>
+    If your tenant does not have a distinct `Cash Advance` code mapped in Paylocity, fuel cash advances continue to post under the `Fuel` code as before. To take advantage of this fix, make sure a `Cash Advance` deduction code exists in your Paylocity setup.
+  </Note>
+</Update>
+
 <Update label="July 13, 2026" description="Carrier Payment Trip Status Fix (ACC-1677)" tags={["Fixed", "Invoices", "MCP"]}>
   Released with the [Week of July 6–13 platform fixes](https://app.notion.com/p/39ca5b0d388a812e9db2e30d7b9526aa).
 
