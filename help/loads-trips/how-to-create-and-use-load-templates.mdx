@@ -137,11 +137,25 @@ Enter the **Order Number** for each load. You can also edit the stop start and e
   ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532905750/06ac1fb378777cedc971dea0ddcb/upload_3494235164283857509.png)
 </Note>
 
-Click **Create Loads**. The loads are created and you are taken to the Load Board, filtered to show your new loads.
+Click **Create Loads**.
+
+- If **every** load is created successfully, you are taken to the Load Board, filtered to show your new loads.
+- If **some or all** loads fail to create (for example, the template's customer is not Active), a **result dialog** opens instead. It lists the loads that could not be created, grouped by the error message, alongside any loads that were created. You stay on the builder so you can fix the missing loads without duplicating the ones that already succeeded — see [When a load fails to create](#when-a-load-fails-to-create) below.
 
 <Note>
   ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532905791/32aa7725c9e22994855b0d3b5b1d/upload_331827569010937976.png)
 </Note>
+
+**When a load fails to create**
+
+If one or more loads cannot be created, Alvys keeps the builder open and shows a result dialog so you can see exactly what failed and why:
+
+- **Failed to create** — every order number that could not be built, grouped by the error message returned for it (for example, "Customer is not Active"). Use this to fix the underlying issue (activate the customer, correct the data, and so on).
+- **Created loads** — the order numbers that were successfully created, each linking to that load's detail page. This section only appears when at least one load was created.
+- **View Loads** — opens the Load Board filtered to the order numbers that were just created, so you can review them.
+- **Close** — dismisses the dialog and leaves you on the builder.
+
+Because the builder state is preserved, remove the created order numbers from the list before clicking **Create Loads** again, so the loads that already exist are not duplicated on retry.
 
 ## Result
 
@@ -151,7 +165,7 @@ A new or duplicated template is saved and available for all users with **"ViewLo
 
 A saved view is stored so you can return to your preferred filter, sort, and column setup at any time.
 
-Loads created from a template open pre-filled with the template's details; after generating them you are taken to the Load Board, filtered to your new loads.
+Loads created from a template open pre-filled with the template's details. When every load is created successfully, you are taken to the Load Board, filtered to your new loads. When some or all loads fail, the builder stays open and a result dialog lists the failures (grouped by error) alongside any loads that were created, so you can retry only the missing ones.
 
 An edited template reflects your changes on all future loads built from it (it does not change loads that were already created).
 
@@ -162,6 +176,10 @@ A deleted template is removed from the list and can no longer be used to create 
 ### Load Templates tab is not visible
 
 Confirm you are logged in to the correct account and company. Ask your administrator to verify that your user profile has either the **"ViewLoadTemplates"** or **"ManageLoadTemplates"** permission enabled; neither permission will show the tab if both are absent. If the permission is enabled but the tab still does not appear, contact Alvys support.
+
+### Some loads failed to create when building from a template
+
+When you click **Create Loads**, Alvys creates the loads one by one. If any fail, a result dialog opens listing the failed order numbers grouped by the error message (for example, "Customer is not Active") along with the order numbers that were created. Fix the underlying issue for each failure — most commonly, activate the template's customer or correct the load's data — then remove the order numbers that were already created from the builder before clicking **Create Loads** again. This prevents duplicate loads while you retry the ones that failed.
 
 ### Create, edit, duplicate, and delete options are not available
 
@@ -184,6 +202,10 @@ The create, edit, duplicate, and delete actions require the **"ManageLoadTemplat
 **Q: Can I duplicate an existing template instead of creating one from scratch?**
 
 **A:** Yes. On the Load Templates page, open the **…** (more) menu on the template you want to copy and select **Duplicate**, then rename and adjust it as needed.
+
+**Q: What happens if some loads fail when I build from a template?**
+
+**A:** Alvys keeps the builder open and shows a result dialog. Failed order numbers are grouped by the error message so you can see the cause, and any loads that were created are listed with links to their detail pages. Use **View Loads** to open the Load Board filtered to the created loads, then fix the failed ones and retry — remove the order numbers that already succeeded from the builder first so they are not duplicated.
 
 **Q: Can I save my filters and sorting on the Load Templates page?**
 
