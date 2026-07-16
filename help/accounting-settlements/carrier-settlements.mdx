@@ -91,13 +91,33 @@ A trip in **Delivered** or **Released** status moves to **Invoiced** when a stat
 
 ### Syncing with external accounting systems
 
-Carrier Settlements integrates with QuickBooks, Business Central, and NetSuite through your existing accounting integration settings.
+Carrier Settlements integrates with QuickBooks Online, QuickBooks Desktop, Sage Intacct, and NetSuite through your existing accounting integration settings.
 
 When both Carrier Settlements and **Generate Carrier Invoice Separately** are enabled, the Carrier Settlements setting takes precedence.
 
 Payments recorded in a third-party accounting system do not sync back to Alvys when Carrier Settlements is enabled. To record payment in Alvys, use **Mark as Paid** from the Statements tab.
 
 To allow payment sync from your accounting system to Alvys, disable the Carrier Settlements setting. This changes the sync direction so that payments recorded in your accounting system flow back into Alvys.
+
+### Reference number on synced bills and payments
+
+When a carrier settlement statement syncs to your accounting system, the reference number on the resulting bill or payment is prefixed with `s-` (for example, `s-1234` or `s-TRIP-777`). The prefix appears in:
+
+- **QuickBooks Online** — the `Doc Number` field on the bill or payment.
+- **QuickBooks Desktop** — the `Ref Number` field on the bill or payment.
+- **Sage Intacct** — the `Bill Number` field.
+- **NetSuite** — the `Transaction ID` on the bill or payment.
+
+The prefix makes carrier settlement transactions easy to identify and filter alongside other bills and payments in your accounting system. Only the reference number changes — the memo (`Statement {N}`), trip number, carrier invoice number, and PO fields are not affected.
+
+The prefix is recorded on the statement at the moment it is generated, so:
+
+- Statements generated before this change stay as-is (no prefix).
+- After a statement is generated, changing the setting does not update statements that already exist.
+
+<Note>
+  If your workflow requires the reference number to stay as a bare number (with no `s-` prefix), contact Alvys support and ask to opt out of the carrier statement reference prefix for your tenant. New statements generated after opt-out will sync without the prefix; existing statements are unchanged.
+</Note>
 
 ![Screenshot of the Accounting Integration settings](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2533283789/3f01c22f5fb58ce76da421fdb610/upload_4772549523427367403.png)
 
@@ -124,3 +144,7 @@ To allow payment sync from your accounting system to Alvys, disable the Carrier 
 **Q: What does it mean when a statement shows a Failed status?**
 
 **A:** A Failed status means an error occurred during statement processing. Contact Alvys support with the statement details so the team can investigate the cause and help you regenerate it.
+
+**Q: Why do carrier settlement bills and payments show up in my accounting system with an `s-` prefix?**
+
+**A:** By default, Alvys prefixes the reference number on synced carrier settlement bills and payments with `s-` so they're easy to distinguish from other transactions (for example, `s-1234` appears in the QuickBooks Online `Doc Number`, QuickBooks Desktop `Ref Number`, Sage Intacct `Bill Number`, or NetSuite `Transaction ID`). The memo and other fields are unchanged. If you need bare reference numbers, contact Alvys support to opt out for your tenant; the opt-out applies to statements generated after the change and does not affect statements that already synced.

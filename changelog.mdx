@@ -4,6 +4,29 @@ description: "Release notes and updates for the Alvys Public API, webhooks, MCP 
 rss: true
 ---
 
+<Update label="July 16, 2026" description="Carrier Settlement Reference Prefix for Accounting Sync (SET-3789)" tags={["Changed", "Accounting", "Integrations"]}>
+  Carrier settlement statements now sync to accounting systems with an `s-` prefix on the external reference number, making them easy to identify alongside other bills and payments.
+
+  ## What changed
+
+  * When a carrier settlement statement syncs to an accounting integration, the reference number on the resulting bill or payment is now prefixed `s-` (for example, `s-1234` or `s-TRIP-777`).
+  * The prefix appears in:
+    * **QuickBooks Online** — `Doc Number`.
+    * **QuickBooks Desktop** — `Ref Number`.
+    * **Sage Intacct** — `Bill Number`.
+    * **NetSuite** — `Transaction ID` (`tranId`).
+  * Only the reference number is affected. The memo (`Statement {N}`), trip number, carrier invoice number, and PO fields are unchanged.
+  * Applies to all statement references, including the single-trip Triumph Pay case.
+
+  ## Behavior
+
+  * The prefix is resolved and stored when the statement is generated, then reused for every downstream sync from that statement — so the value never changes after creation.
+  * Statements generated before this release continue to sync with a bare reference number.
+  * Tenants that need to keep bare reference numbers can request an opt-out from Alvys support. Opt-out applies only to statements generated after the change is made; existing statements are not modified.
+
+  See the updated [Carrier Settlements](/help/accounting-settlements/carrier-settlements#reference-number-on-synced-bills-and-payments) help article for details.
+</Update>
+
 <Update label="July 13, 2026" description="Carrier Payment Trip Status Fix (ACC-1677)" tags={["Fixed", "Invoices", "MCP"]}>
   Released with the [Week of July 6–13 platform fixes](https://app.notion.com/p/39ca5b0d388a812e9db2e30d7b9526aa).
 
