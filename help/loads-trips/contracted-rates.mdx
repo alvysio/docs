@@ -67,6 +67,22 @@ Minimum rate fields are not available on Flat rate contracts because a Flat rate
 
 Each contract specifies the equipment class it applies to. When Alvys checks whether a load matches a contract, the load's equipment class must match the contract's equipment class. If the load uses a different equipment class, the contract is not applied.
 
+Each equipment class covers a group of specific equipment types. When you choose a class in the **Equipment Type** dropdown on the Create Contract dialog, a **Covers:** hint appears underneath listing the equipment types that class matches, so you can confirm you are filing the contract under the right class before saving.
+
+The class-to-type mapping is:
+
+| Equipment Class | Equipment Types Covered |
+| --- | --- |
+| **Van** | Van, Van w/ Team, Van - Air-Ride, Van - Hazardous, Van - Vented, Van w/ Curtains, Van w/ Pallet Exchange, Drop Frame Van, Sprinter |
+| **Reefer** | Reefer, Reefer - Hazardous, Reefer w/ Pallet Exchange, Van/Reefer, Flatbed/Reefer, Reefer w/ Team, Container - Reefer, Milk Tanker, Reefer/Van, Flatbed/Reefer/Van |
+| **Flatbed** | Flatbed, Double Drop, Flatbed/Conestoga, Flatbed - Hazardous, Flatbed w/ Pallet Exchange, Flatbed w/ Sides, Lowboy, Maxi, Removable Gooseneck, Step Deck, Conestoga, Flatbed/Step Deck, Flatbed/Van, Rollerbed, Flatrack, Flatbed w/ Tarps, Stretch Trailer, Booster |
+| **Tanker** | Tanker, Tanker - Gasoline, Intermodal Tanker, Pneumatic Tanker, Vacuum Tanker, Tanker - Pressurized |
+| **Other** | Auto Carrier, Dump Trailer, Hopper Bottom, Hotshot, Intermodal, Open Deck/Specialized, Container 40, Landoll, B-Trains, Cargo Van, Straight Truck, Straight Box Truck, Power Only, Mobile Homes, Container, Belt Trailer, Walking Floor Trailer, Belt, Dolly, Towy |
+
+<Tip>
+  If a load's equipment type is not listed under the class you selected, the contract will not match that load. For example, a Pneumatic Tanker load belongs under **Tanker**, not **Other**. Check the **Covers:** hint under the Equipment Type dropdown to confirm the class before saving.
+</Tip>
+
 ### Contract Period
 
 Each contract has a start date and end date. Alvys only applies a contract if the load's pickup date falls within the contract period. Contracts with an end date in the past are expired and are not applied to new loads.
@@ -164,7 +180,7 @@ When a match is found, Alvys prompts you to apply the contracted rate. You can a
 
 **Q: Why is the contracted rate not being applied when I create a load?**
 
-**A:** The load must match the contract on all three conditions: stops (origin and destination), equipment class, and pickup date within the contract period. Check that the load's equipment class matches the contract, the pickup date falls within the start and end dates, and the stops map to the correct origin and destination. If none of these conditions explain the issue, contact Alvys support.
+**A:** The load must match the contract on all three conditions: stops (origin and destination), equipment class, and pickup date within the contract period. Check that the load's equipment type falls under the contract's equipment class (see the class-to-type table above, or the **Covers:** hint under the Equipment Type dropdown on the contract form), the pickup date falls within the start and end dates, and the stops map to the correct origin and destination. If none of these conditions explain the issue, contact Alvys support.
 
 **Q: Can I apply a contracted rate to a load after it has already been created?**
 

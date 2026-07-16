@@ -1,0 +1,40 @@
+---
+title: "July 2026 Releases"
+description: "July 2026 adds a class coverage hint to the customer contract Equipment Type dropdown so you can see which equipment types each class matches before saving a contract."
+---
+
+<Note>
+  **Applies to:** Users with **"WriteContractedRates"** permission **· Module:** Companies
+
+  **Last reviewed:** 2026-07 · **Owner:** Support team
+
+  July 2026 makes it easier to file customer contracts under the right equipment class. The Equipment Type dropdown on the customer contract form now shows which equipment types the selected class covers, so contracts match the loads you expect them to match.
+</Note>
+
+## Overview
+
+This release note covers the July 2026 update to Contracted Rates on customer profiles (July release notes, What's New for July 2026), focused on preventing equipment-class misclassification on customer contracts.
+
+## What shipped in July 2026?
+
+### Equipment class coverage hint on the customer contract form
+
+Released July 16th, 2026.
+
+When you create or edit a Contracted Rate on a customer profile, the **Equipment Type** dropdown now displays a **Covers:** hint beneath it listing every equipment type the selected class matches. Previously the dropdown only showed the five class names (**Van**, **Reefer**, **Flatbed**, **Tanker**, **Other**) with no indication of which equipment types belonged to each class.
+
+**What changed:**
+
+- Selecting an equipment class in the contract form now shows a hint such as *"Covers: Tanker, Tanker - Gasoline, Intermodal Tanker, Pneumatic Tanker, Vacuum Tanker, Tanker - Pressurized"* directly under the dropdown.
+- The hint only appears once a class is selected and updates whenever you change the selection.
+- The equipment class covers the same set of types Alvys uses when matching loads to contracts, so the hint tells you exactly which loads the contract will apply to.
+
+**Why it matters:**
+
+Filing a contract under the wrong equipment class silently prevents it from matching loads. For example, a load with a **Pneumatic Tanker** equipment type belongs under the **Tanker** class, not **Other** — a contract created under **Other** for that lane never fires. The new hint makes class membership visible at the point of contract entry so you can catch this before saving.
+
+**Where to see it:**
+
+Go to **Companies**, open a customer profile, select the **Contracted Lanes and Fuel Surcharges** tab, and click **Create Contract** (or edit an existing one). Choose an equipment class from the **Equipment Type** dropdown to see the covered types.
+
+For the full class-to-type mapping and the rest of the contract-matching rules, see [Contracted Rates](/help/loads-trips/contracted-rates).
