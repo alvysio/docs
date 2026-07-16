@@ -8,7 +8,7 @@ description: "Build and manage load templates to reuse stops, equipment, and ord
 
   **Module:** Loads and Trips > Load Templates
 
-  **Last reviewed:** 2026-07 · **Owner:** Support
+  **Last reviewed:** 2026-07-16 · **Owner:** Support
 
   Load templates let you save a reusable set of load details so you can build new loads faster. Users with view access can create loads from a template; users with manage access can also create, edit, duplicate, and delete templates.
 </Note>
@@ -137,6 +137,14 @@ Enter the **Order Number** for each load. You can also edit the stop start and e
   ![Notion Image](https://alvys.intercom-attachments-1.com/i/o/jmo4m9ce/2532905750/06ac1fb378777cedc971dea0ddcb/upload_3494235164283857509.png)
 </Note>
 
+<Tip>
+  **Duplicate order numbers are allowed in the same batch.** If two or more loads you're about to build share the same order number, each affected card shows an inline **"Duplicate order number in this batch"** message on the order number field, but **Create Loads** will still submit them. Use the inline warning as a chance to double-check the values — clear the message by editing the order number, or leave the duplicates in place and continue.
+
+  Only a **missing** order number blocks creation. If any load has an empty order number, submitting shows *"Every load needs an order number before creating"* and no loads are built. Missing stop times block the same way with *"Every stop needs a scheduled time before creating"*.
+
+  If an order number in the batch already exists on a load elsewhere in Alvys (a cross-system duplicate), you'll see a confirmation prompt before the loads are built, and you can choose to proceed.
+</Tip>
+
 Click **Create Loads**. The loads are created and you are taken to the Load Board, filtered to show your new loads.
 
 <Note>
@@ -188,6 +196,10 @@ The create, edit, duplicate, and delete actions require the **"ManageLoadTemplat
 **Q: Can I save my filters and sorting on the Load Templates page?**
 
 **A:** Yes. Apply the filters and sorting you want, then save them as a named view. Saved Views work the same way here as on other Alvys grids, so you can recall your preferred setup at any time.
+
+**Q: Can I create multiple loads with the same order number from a template?**
+
+**A:** Yes. When you build loads from a template, two or more loads in the same batch can share an order number. Each affected card shows an inline **"Duplicate order number in this batch"** message so you can catch a typo, but the message does not block **Create Loads**. Only an empty order number stops submission. If an order number is already in use on a load elsewhere in Alvys, you'll get a separate confirmation prompt before the loads are built.
 
 ## Go Deeper
 
