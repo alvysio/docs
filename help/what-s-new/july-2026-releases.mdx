@@ -1,0 +1,44 @@
+---
+title: "July 2026 Releases"
+description: "July 2026 fixes the customer contract dropdown so lane rate contracts appear for loads with combined or empty equipment types."
+---
+
+<Note>
+  **Applies to:** Dispatchers, brokers, and anyone building loads with customer contracted rates **· Module:** What's New
+
+  **Last reviewed:** 2026-07 **·** **Owner:** Support team
+
+  July 2026 includes a fix that makes customer lane rate contracts appear reliably in the load **Contract** dropdown, even when the load's equipment type is a combined type (like Reefer/Van) or has not been set yet.
+</Note>
+
+## Overview
+
+Customer lane rate contracts are matched to a load by customer, lane, active date range, and **equipment class**. A small number of equipment types were not mapped to any class, which caused their contracts to silently disappear from the **Contract** dropdown on the Customer Rate section of the load. This release closes that gap and also treats a load with no equipment type yet as a wildcard so all eligible contracts remain visible while the load is still being built.
+
+## What changed
+
+### Combined equipment types now match their expected class
+
+Loads carrying any of these equipment types will now surface class-restricted contracts they previously missed:
+
+- **Reefer/Van** → matches **Reefer**-class contracts.
+- **Flatbed/Reefer/Van** → matches **Reefer**-class contracts.
+- **Towy** → matches **Other**-class contracts.
+
+Combined types that include Reefer are grouped with Reefer to follow the same convention already used for VanorReefer and FlatbedReefer.
+
+### Empty equipment type is treated as a wildcard
+
+If a load does not yet have an equipment type selected, every active contract for that customer now appears in the **Contract** dropdown. Once you set an equipment type on the load, the dropdown narrows to contracts whose equipment class covers that type. This aligns the dropdown with the validation that already runs when a contract is applied.
+
+## Why this matters
+
+Before this fix, a load with one of the three equipment types above matched zero class-restricted contracts, so negotiated lane rates never showed up as an option and had to be entered manually. Nothing about the contract or the load was actually wrong — the equipment type simply belonged to no class. Contracts are still offered in a dropdown for a person to pick, so this change only makes more of the correct options visible; it never auto-applies a rate.
+
+For a full reference of which equipment types belong to which class, see [Contracted Rates: Equipment Class Matching](/help/loads-trips/contracted-rates#equipment-class-matching).
+
+## Do I need to do anything?
+
+No. The fix rolls out with the release; there are no settings to change and no data to migrate.
+
+If you have an existing contract that was filed under the wrong equipment class (for example, a contract for **Pneumatic Tanker** filed under **Other**), it will still not match those loads — Pneumatic Tanker belongs to the **Tanker** class. Edit the contract and re-select the correct equipment class using the equipment class table in the Contracted Rates guide.
