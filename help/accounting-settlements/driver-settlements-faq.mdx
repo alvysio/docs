@@ -4,7 +4,7 @@ description: "Answers to common driver settlements questions from the Alvys webi
 ---
 
 <Note>
-  📋 **Module:** Accounting > Driver Settlements · **Owner:** Accounting Support team · **Applies to:** Admin, Payroll Clerk · **Last reviewed:** 2026-06
+  📋 **Module:** Accounting > Driver Settlements · **Owner:** Accounting Support team · **Applies to:** Admin, Payroll Clerk · **Last reviewed:** 2026-07
 </Note>
 
 Consolidated answers to the most common questions (FAQ, common issues) from the Driver Settlements webinar, organized by topic. Covers pay periods, driver rates, deductions, trips, statement generation, reversals, accounting integration, and more.
@@ -19,7 +19,20 @@ This article consolidates the most common questions received during the [Get Sta
 
 **Q: How do I set up a pay period?**
 
-**A:** Go to **Settings > Pay Periods** and create or edit your schedule. If you choose **Weekly** with a start day (for example, Monday), the period runs from that day at 00:00 through the following Sunday at 23:59. The default **Statement Date** is the last day of the period. When you generate a statement, you can override the **Statement Date** for that run, so you can pay every Friday for the prior Monday to Sunday period. See [Driver Settlements](https://help.alvys.com/en/articles/11943598-driver-settlements) for full setup steps.
+**A:** Go to **Settings > Pay Periods** and click **New** (or edit an existing schedule). In the modal:
+
+1. Give the schedule a **Name** and choose which drivers it applies to (All, By Type, By Subsidiary, By Fleet, or a Custom list).
+2. Pick **How often do you pay these drivers?** — **Daily**, **Weekly**, **Bi-weekly**, or **Semi-monthly** (the 1st–15th and the 16th through the last day of the month). Frequency can only be set when the schedule is created; it is locked on edit.
+3. Pick **When should these pay periods start?** — any date within one year back or one year forward. For **Weekly** and **Bi-weekly**, this date sets the day of the week the period runs from; for **Semi-monthly** the halves are fixed and the start date only picks which half your first period lands in. The start date is locked once the schedule is saved.
+4. Pick a **Default statement date** — 0 to 30 days after each pay period ends. `0 days after pay period` means the statement date is the last day of the period (the previous default).
+
+The **Payroll Preview** panel on the right shows the starting pay period, the current pay period, and the resulting statement date so you can confirm the schedule before saving. When you generate a statement you can still override the **Statement Date** for that run — for example, keep a Monday–Sunday period but pay on the following Friday.
+
+<Note>
+  **Legacy Monthly schedules.** Monthly is no longer offered when creating a new pay period, but existing Monthly schedules keep working and can still be opened and edited. The frequency selector is read-only for those schedules.
+</Note>
+
+After you save, a **This may take a moment** confirmation appears while pay periods regenerate in the background. From that prompt you can jump straight to **Driver Settlements** to review the results. See [Driver Settlements](https://help.alvys.com/en/articles/11943598-driver-settlements) for full setup steps.
 
 **Q: Why does the pay period default to the current week instead of the previous week?**
 
