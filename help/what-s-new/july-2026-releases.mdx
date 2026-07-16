@@ -1,0 +1,35 @@
+---
+title: "July 2026 Releases"
+description: "July 2026 fixes date-type Custom References on the Trucks and Trailers lists so they show the same calendar date as the asset profile in every timezone."
+---
+
+<Note>
+  📋 **Applies to:** All users
+
+  **Module:** What's New
+
+  **Last reviewed:** 2026-07 · **Owner:** Support team
+
+  July 2026 corrects how date-type Custom References render on the Trucks and Trailers list pages, so the date on the list always matches the date on the asset profile.
+</Note>
+
+## Overview
+
+This release recaps the July 2026 fixes that change what end-users see in the app.
+
+## What shipped in July 2026
+
+### Date-type Custom References render correctly on Trucks and Trailers lists
+
+Previously, date-type [Custom References](https://help.alvys.com/en/articles/11668745-setting-up-custom-references) on the **Trucks** and **Trailers** list pages could appear **one day earlier** than the value shown on the asset profile. The mismatch only affected users in negative-offset timezones (most of the US), and only when the reference type was Date. For example, a truck reference set to `01/10/2025` on the profile could render as `01/09/2025` in the Trucks list.
+
+Date references on the Trucks and Trailers lists now render in UTC, the same way the asset profile already did, so both views always show the same calendar date regardless of the browser's timezone.
+
+**What this affects:**
+
+- Trucks list and Trailers list columns for any custom reference whose type is **Date**.
+- Non-date custom references (Text, Boolean, List) were not affected and continue to render unchanged.
+- Blank, empty, or missing values continue to render as a dash (`—`).
+- Column filters, sorting, and exports were not affected — only the displayed calendar date was corrected.
+
+This affects **Dispatchers, Fleet managers, and Admins** who use date-type Custom References on trucks or trailers. No action is required; the fix rolls out automatically and applies to all existing and new date references.
