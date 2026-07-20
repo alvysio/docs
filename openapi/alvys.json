@@ -19720,10 +19720,10 @@
     },
     "securitySchemes": {
       "Public": {
-        "type": "apiKey",
-        "description": "JWT token needed to access the endpoints. (eg.) Bearer: <token>",
-        "name": "Authorization",
-        "in": "header"
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "OAuth 2.0 client-credentials access token. Obtain one from https://auth.alvys.com/oauth/token (grant_type=client_credentials, audience=https://api.alvys.com/public/), then paste it here. The playground sends it as `Authorization: Bearer <token>`."
       }
     }
   },
