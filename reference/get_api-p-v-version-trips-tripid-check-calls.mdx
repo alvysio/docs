@@ -1,0 +1,105 @@
+---
+title: "List trip check calls"
+description: "List the check calls logged against a trip in Alvys by trip ID via the Public API."
+openapi: "GET /api/p/v{version}/trips/{tripId}/check-calls"
+---
+
+Retrieve the check calls (driver status updates) logged on a specific trip by its unique `tripId`, most recent first. Check calls are trip-level: a driver is assigned per trip, and each trip carries its own latest check call.
+
+### Endpoint
+
+```
+GET /api/p/v{version}/trips/{tripId}/check-calls
+```
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                    |
+| --------- | ------ | -------- | ------------------------------ |
+| version   | String | Yes      | API version to use (`2.0`).    |
+| tripId    | String | Yes      | Unique identifier of the trip. |
+
+### Example CURL request
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v{version}/trips/{tripId}/check-calls' \
+--header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+```
+
+Replace `{version}` with `2.0`, `{tripId}` with the actual trip ID, and `YOUR_ACCESS_TOKEN` with a valid token.
+
+### Response Body
+
+Array of check-call objects:
+
+| Name                | Type            | Description                                                                 |
+| ------------------- | --------------- | --------------------------------------------------------------------------- |
+| Id                  | string          | Unique identifier of the check call.                                        |
+| LoadNumber          | string          | Load number the check call belongs to.                                      |
+| Description         | string          | Free-text note captured with the check call (e.g. the driver's reply).      |
+| Location            | object, null    | Structured location (`Street`, `City`, `State`, `Zip`, `Country`, `Coordinates`). |
+| CreatedAt           | string, null    | UTC timestamp when the check call was recorded.                             |
+| Activity            | string, null    | The activity reported (e.g. `Driving`, `At Pickup`).                        |
+| ResponseType        | string, null    | Categorization of the response (e.g. arrival, departure).                  |
+| CreatedBy           | string, null    | Name of the user or integration that logged the check call.                |
+| DriverName          | string, null    | Assigned driver's name, if known.                                          |
+| TripId              | string          | Id of the trip the check call belongs to.                                   |
+| TripNumber          | string, null    | Related trip number, if known.                                             |
+| SetpointTemperature | object, null    | Reefer set-point temperature (`Value`, `Unit`).                            |
+| ReturnTemperature   | object, null    | Reefer return temperature (`Value`, `Unit`).                              |
+
+### Example Response (200 OK)
+
+```json
+[
+  {
+    "Id": "9f1c2a7b3e4d4f8a9b0c1d2e3f4a5b6c",
+    "LoadNumber": "L100245",
+    "Description": "Driver reports on schedule",
+    "Location": {
+      "Street": "123 Main St",
+      "City": "Dallas",
+      "State": "TX",
+      "Zip": "75001",
+      "Country": "US",
+      "Coordinates": { "Latitude": "32.7767", "Longitude": "-96.7970" }
+    },
+    "CreatedAt": "2026-07-08T15:04:07+00:00",
+    "Activity": "Driving",
+    "ResponseType": null,
+    "CreatedBy": "public-api-tl743-integration",
+    "DriverName": "Jordan Rivera",
+    "TripId": "b93e5cf1b6134f5e9a78b07af2870d9b",
+    "TripNumber": "T100245-1",
+    "SetpointTemperature": { "Value": 34, "Unit": "Fahrenheit" },
+    "ReturnTemperature": null
+  }
+]
+```
+
+### Status Codes
+
+| Code | Meaning                                                                                     |
+| ---- | ------------------------------------------------------------------------------------------- |
+| 200  | Check calls returned (most recent first).                                                   |
+| 401  | Missing or invalid access token.                                                            |
+| 403  | Token lacks the required scope.                                                             |
+| 404  | Trip not found (or not accessible to your tenant).                                          |
+| 429  | Rate limit exceeded.                                                                        |
+
+***
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes.
+For detailed information, see the [Rate Limits](/docs/rate-limits) section.
+
+***
+
+### Try It Out
+
+This page is interactive, allowing you to try a request by specifying the **API version** and **tripId** in the URL path.
+
+As you fill out the parameters, the cURL command on the right side of the page will be automatically updated. Alternatively, you can directly edit the cURL command.
+
+⚠️ Don’t forget: make sure to **authorize yourself** before trying a request.

@@ -1,0 +1,144 @@
+---
+title: "Search carrier settlement statements"
+description: "Search carrier settlement statements in Alvys with paginated POST filters, including date range and carrier."
+openapi: "POST /api/p/v{version}/carrier-settlement-statements/search"
+---
+
+The Search Carrier Settlement Statements endpoint returns a paged list of finalized carrier settlement statements (the "Statements" tab), each with its per-trip breakdown, line items, payments, and totals. It mirrors the in-app carrier "Statements List and Items" report and is intended for external reporting.
+
+Only settled statements are returned - deleted and failed statements are excluded. Each statement identifies its payee (the carrier directly, or a factoring company when the carrier is factored).
+
+For carriers, `Failed` and `Deleted` are lifecycle statuses, so those statements are excluded from the export. This differs from driver settlement statements, where a `Failed` status reflects a downstream step failure on an otherwise-finalized statement, which is returned.
+
+This endpoint requires the `carrier:read` scope.
+
+### Request Parameters
+
+The following parameter is required in the URL path:
+
+| Parameter | Type | Required | Description                         |
+| ------------- | -------- | ------------ | --------------------------------------- |
+| version       | String   | Yes          | The version of the API being requested. |
+
+### Request Body
+
+| Parameter              | Type           | Required | Description                                                                                       |
+| -------------------------- | ------------------ | ------------ | ----------------------------------------------------------------------------------------------------- |
+| Page                       | Number             | Yes          | The page number for pagination (starts from 0).                                                       |
+| PageSize                   | Number             | Yes          | The number of results per page. Must be greater than 0 and cannot exceed 100.                         |
+| StatementDateRange         | Object             | Yes          | The inclusive statement-date window to filter on. Both bounds are treated as whole UTC calendar days. |
+| StatementDateRange.Start   | String (Date-Time) | Yes          | Start of the range (inclusive).                                                                       |
+| StatementDateRange.End     | String (Date-Time) | Yes          | End of the range (inclusive). Required - an open-ended range is rejected.                              |
+| CarrierId                  | String (UUID)      | No           | Filter to a single carrier.                                                                           |
+| SubsidiaryId               | String (UUID)      | No           | Filter to a single subsidiary.                                                                        |
+
+### Example CURL Request
+
+Use the current API version number and replace the Authorization header value with your actual Bearer token:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/carrier-settlement-statements/search' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ....' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "Page": 0,
+  "PageSize": 50,
+  "StatementDateRange": {
+    "Start": "2026-06-01T00:00:00Z",
+    "End": "2026-06-30T00:00:00Z"
+  },
+  "CarrierId": "6c7f5ee3-f44c-4c19-92bf-89cfbd5d87a0"
+}'
+```
+
+### Response Parameters
+
+The response is a paged envelope. Each item is a finalized statement. Monetary values are objects of the form `{ "Amount": <number>, "Currency": <ISO 4217 numeric code, may be null> }`.
+
+| Parameter              | Type         | Description                                                                 |
+| -------------------------- | ---------------- | ------------------------------------------------------------------------------- |
+| Page                       | Number           | The current page number.                                                        |
+| PageSize                   | Number           | The number of items per page.                                                   |
+| Total                      | Number           | The total number of matching statements across all pages.                       |
+| Items                      | Array of Objects | The statements on this page.                                                    |
+| Items[].Number             | Number           | The statement number.                                                           |
+| Items[].Status             | String           | The statement status (e.g. `Processed`, `Paid`).                                |
+| Items[].StatementDate      | String (Date-Time) | The statement date.                                                           |
+| Items[].RemittanceDate     | String (Date-Time) | The scheduled remittance date. Null if not set.                               |
+| Items[].SubsidiaryId       | String           | The subsidiary the statement belongs to.                                        |
+| Items[].Payee              | Object           | Who gets paid: `Type` (`Carrier` or `FactoringCompany`), `Id`, `Name`, `McNumber`, `DotNumber`. |
+| Items[].RemitTo            | String           | The resolved remit-to name. Null if not set.                                    |
+| Items[].PaymentProvider    | String           | The payment provider (e.g. `Standard`, `TriumphPay`).                           |
+| Items[].NetAmount          | Money            | The statement net (payable) amount.                                             |
+| Items[].PaidAmount         | Money            | The amount paid so far.                                                         |
+| Items[].RemainingAmount    | Money            | The amount still outstanding.                                                   |
+| Items[].Trips              | Array of Objects | Per-trip breakdown.                                                             |
+| Items[].Trips[].TripId     | String           | The stable unique trip identifier (always present).                             |
+| Items[].Trips[].TripNumber | String           | The trip number.                                                                |
+| Items[].Trips[].LoadNumber | String           | The load number.                                                                |
+| Items[].Trips[].Origin / Destination | String | Trip origin and destination. Null if not set.                                 |
+| Items[].Trips[].PickedUpAt / DeliveredAt | String (Date-Time) | Pickup and delivery timestamps. Null if not set.                    |
+| Items[].Trips[].InvoiceNumber / InvoiceDueDate | String | Carrier invoice number and due date. Null if not set.                    |
+| Items[].Trips[].NetAmount / LineHaulAmount / AccessorialsAmount | Money | Trip-level totals.                                             |
+| Items[].Trips[].Items      | Array of Objects | Trip line items: `Description`, `Type`, `Amount`, `AccountingTag`.              |
+| Items[].Payments           | Array of Objects | Recorded payments: `Id`, `Amount`, `PaymentDate`, `PaymentMethod`, `ReferenceNumber`, `CheckNumber`. |
+
+### Example Response
+
+```json
+{
+  "Page": 0,
+  "PageSize": 50,
+  "Total": 1,
+  "Items": [
+    {
+      "Number": 1042,
+      "Status": "Processed",
+      "StatementDate": "2026-06-15T12:00:00+00:00",
+      "RemittanceDate": "2026-06-20T00:00:00+00:00",
+      "SubsidiaryId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "Payee": {
+        "Type": "Carrier",
+        "Id": "6c7f5ee3-f44c-4c19-92bf-89cfbd5d87a0",
+        "Name": "Acme Carrier",
+        "McNumber": "MC123456",
+        "DotNumber": "4204692"
+      },
+      "RemitTo": "Acme Carrier LLC",
+      "PaymentProvider": "Standard",
+      "NetAmount": { "Amount": 1150.00, "Currency": 840 },
+      "PaidAmount": { "Amount": 0.00, "Currency": 840 },
+      "RemainingAmount": { "Amount": 1150.00, "Currency": 840 },
+      "Trips": [
+        {
+          "TripId": "b2c3d4e5-1111-2222-3333-444455556666",
+          "TripNumber": "TRIP-1",
+          "LoadNumber": "L-55021",
+          "Origin": "Chicago, IL",
+          "Destination": "Atlanta, GA",
+          "PickedUpAt": "2026-06-12T09:00:00+00:00",
+          "DeliveredAt": "2026-06-14T16:00:00+00:00",
+          "InvoiceNumber": "INV-1042",
+          "InvoiceDueDate": "2026-07-14T00:00:00+00:00",
+          "NetAmount": { "Amount": 1150.00, "Currency": 840 },
+          "LineHaulAmount": { "Amount": 1000.00, "Currency": 840 },
+          "AccessorialsAmount": { "Amount": 150.00, "Currency": 840 },
+          "Items": [
+            { "Description": "Line Haul", "Type": "LineHaul", "Amount": { "Amount": 1000.00, "Currency": 840 }, "AccountingTag": "Carrier Rate" },
+            { "Description": "Detention", "Type": "Accessorial", "Amount": { "Amount": 150.00, "Currency": 840 }, "AccountingTag": "Detention" }
+          ]
+        }
+      ],
+      "Payments": []
+    }
+  ]
+}
+```
+
+<br />
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the Rate Limits section.
+
+This page is interactive, allowing you to try a request by completing the fields for the parameters below. As you fill out the parameters, the CURL command on the right side of the page will be automatically updated.

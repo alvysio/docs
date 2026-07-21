@@ -1,0 +1,69 @@
+---
+title: "Load Events"
+description: "Webhook events for the Alvys load lifecycle: load.status.changed and load.changed, including optional data.diff payloads."
+---
+
+Alvys emits webhook events for the load lifecycle, so external systems stay in sync in real time instead of polling the Loads API.
+
+| Event | Fires when | Carries `data.diff` |
+| --- | --- | --- |
+| `load.status.changed` | A load's status transitions (e.g. `Covered` → `Dispatched`) | No |
+| `load.changed` | Any meaningful load write (rate, appointments, stops, carrier, references, …) | Yes (optional) |
+
+Subscribe to either or both when creating or updating a webhook (see [Webhook Lifecycle & Configuration](/reference/webhook-lifecycle-configuration)). The full list of valid event-type strings is returned by `GET /api/p/v1/webhooks/event-types`.
+
+## Status vs. changed
+
+`load.status.changed` fires **only** on a status transition and never includes a `data.diff`.
+
+`load.changed` fires on **every** meaningful write — including status changes — and can include an optional `data.diff` describing what changed. See [Change Diffs (data.diff)](/reference/change-diffs).
+
+<Info>
+    A single underlying write can emit **both** events — one `load.status.changed` and one `load.changed`. They are distinguished by the suffix on the event `id`: `-1` for the status event and `-0` for the changed event. Use `X-Alvys-Event-Id` for idempotency so the two are processed independently and duplicates are ignored.
+</Info>
+
+## Payload
+
+Load events use the standard Alvys webhook [envelope](/reference/event-delivery-reliability#event-request-format). The `data.load` object carries the **full current snapshot** of the load — the same shape the Loads API returns from its `GET` endpoint.
+
+### `load.status.changed`
+
+```json
+{
+  "id": "3cd9960e-ef75-446c-92e4-e9815f6e4024-1",
+  "type": "load.status.changed",
+  "timestamp": "2026-02-23T15:19:35.8794642+00:00",
+  "version": "v1",
+  "data": {
+    "load": { "...": "full current Load snapshot (matches GET /api/p/v1/loads)" }
+  }
+}
+```
+
+### `load.changed`
+
+```json
+{
+  "id": "3cd9960e-ef75-446c-92e4-e9815f6e4024-0",
+  "type": "load.changed",
+  "timestamp": "2026-02-23T15:19:35.8794642+00:00",
+  "version": "v1",
+  "data": {
+    "load": { "...": "full current Load snapshot" },
+    "diff": {
+      "changes": [
+        { "kind": "StatusChanged" },
+        { "kind": "RateChanged" },
+        { "kind": "FieldChanged", "target": { "type": "Field", "id": "PONumber" } }
+      ],
+      "previousAttributes": { "...": "previous values (opt-in)" }
+    }
+  }
+}
+```
+
+## Notes
+
+* Because `data.load` always carries the full snapshot, you can apply the current state directly without a follow-up `GET`. To react to only what changed, use [`data.diff`](/reference/change-diffs).
+* Delivery is **at-least-once** — deduplicate on `X-Alvys-Event-Id`. See [Event Delivery & Reliability](/reference/event-delivery-reliability).
+* `data.diff` is omitted on the first event for a load (create) and is never present on `load.status.changed`.

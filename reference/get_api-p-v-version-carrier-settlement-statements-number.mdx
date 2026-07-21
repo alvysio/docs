@@ -1,0 +1,104 @@
+---
+title: "Get carrier settlement statement"
+description: "Retrieve a single carrier settlement statement by its statement number from the Alvys Public API."
+openapi: "GET /api/p/v{version}/carrier-settlement-statements/{number}"
+---
+
+The Get Carrier Settlement Statement endpoint returns a single finalized carrier settlement statement by its statement number, including its per-trip breakdown, line items, payments, and totals.
+
+Only settled statements are returned. If the statement does not exist, or is deleted/failed, the endpoint responds with `404 Not Found`.
+
+This endpoint requires the `carrier:read` scope.
+
+### Request Parameters
+
+The following parameters are required in the URL path:
+
+| Parameter | Type | Required | Description                         |
+| ------------- | -------- | ------------ | --------------------------------------- |
+| version       | String   | Yes          | The version of the API being requested. |
+| number        | Number   | Yes          | The statement number to retrieve.        |
+
+### Example CURL Request
+
+Use the current API version number and replace the Authorization header value with your actual Bearer token:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/carrier-settlement-statements/1042' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ....'
+```
+
+### Response Parameters
+
+Returns a single statement object with the same shape as each item in the Search Carrier Settlement Statements response. Monetary values are objects of the form `{ "Amount": <number>, "Currency": <ISO 4217 numeric code, may be null> }`.
+
+| Parameter     | Type         | Description                                                                 |
+| ----------------- | ---------------- | ------------------------------------------------------------------------------- |
+| Number            | Number           | The statement number.                                                           |
+| Status            | String           | The statement status (e.g. `Processed`, `Paid`).                                |
+| StatementDate     | String (Date-Time) | The statement date.                                                           |
+| RemittanceDate    | String (Date-Time) | The scheduled remittance date. Null if not set.                               |
+| SubsidiaryId      | String           | The subsidiary the statement belongs to.                                        |
+| Payee             | Object           | Who gets paid: `Type` (`Carrier` or `FactoringCompany`), `Id`, `Name`, `McNumber`, `DotNumber`. |
+| RemitTo           | String           | The resolved remit-to name. Null if not set.                                    |
+| PaymentProvider   | String           | The payment provider (e.g. `Standard`, `TriumphPay`).                           |
+| NetAmount         | Money            | The statement net (payable) amount.                                             |
+| PaidAmount        | Money            | The amount paid so far.                                                         |
+| RemainingAmount   | Money            | The amount still outstanding.                                                   |
+| Trips             | Array of Objects | Per-trip breakdown, each with `TripId` (stable unique trip identifier, always present), `TripNumber`, `LoadNumber`, `Origin`, `Destination`, pickup/delivery + invoice fields, trip totals, and an `Items` array (`Description`, `Type`, `Amount`, `AccountingTag`). |
+| Payments          | Array of Objects | Recorded payments: `Id`, `Amount`, `PaymentDate`, `PaymentMethod`, `ReferenceNumber`, `CheckNumber`. |
+
+### Example Response
+
+```json
+{
+  "Number": 1042,
+  "Status": "Processed",
+  "StatementDate": "2026-06-15T12:00:00+00:00",
+  "RemittanceDate": "2026-06-20T00:00:00+00:00",
+  "SubsidiaryId": "a1b2c3d4-0000-0000-0000-000000000001",
+  "Payee": {
+    "Type": "FactoringCompany",
+    "Id": "f1a2b3c4-5555-6666-7777-888899990000",
+    "Name": "Factor LLC",
+    "McNumber": null,
+    "DotNumber": null
+  },
+  "RemitTo": "Factor LLC",
+  "PaymentProvider": "TriumphPay",
+  "NetAmount": { "Amount": 1150.00, "Currency": 840 },
+  "PaidAmount": { "Amount": 1150.00, "Currency": 840 },
+  "RemainingAmount": { "Amount": 0.00, "Currency": 840 },
+  "Trips": [
+    {
+      "TripId": "b2c3d4e5-1111-2222-3333-444455556666",
+      "TripNumber": "TRIP-1",
+      "LoadNumber": "L-55021",
+      "Origin": "Chicago, IL",
+      "Destination": "Atlanta, GA",
+      "NetAmount": { "Amount": 1150.00, "Currency": 840 },
+      "LineHaulAmount": { "Amount": 1000.00, "Currency": 840 },
+      "AccessorialsAmount": { "Amount": 150.00, "Currency": 840 },
+      "Items": [
+        { "Description": "Line Haul", "Type": "LineHaul", "Amount": { "Amount": 1000.00, "Currency": 840 }, "AccountingTag": "Carrier Rate" }
+      ]
+    }
+  ],
+  "Payments": [
+    {
+      "Id": "c3d4e5f6-2222-3333-4444-555566667777",
+      "Amount": { "Amount": 1150.00, "Currency": 840 },
+      "PaymentDate": "2026-06-21T00:00:00+00:00",
+      "PaymentMethod": "ACH",
+      "ReferenceNumber": "REF-9001",
+      "CheckNumber": null
+    }
+  ]
+}
+```
+
+<br />
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the Rate Limits section.

@@ -1,0 +1,73 @@
+---
+title: "Trip Events"
+description: "Webhook events for the Alvys trip lifecycle: trip.status.changed and trip.changed, including optional data.diff payloads."
+---
+
+Alvys emits webhook events for the trip lifecycle, so external systems stay in sync in real time instead of polling the Trips API.
+
+| Event | Fires when | Carries `data.diff` |
+| --- | --- | --- |
+| `trip.status.changed` | A trip's status transitions | No |
+| `trip.changed` | Any meaningful trip write (carrier, driver, stops, appointments, rates, …) | Yes (optional) |
+
+Subscribe to either or both when creating or updating a webhook (see [Webhook Lifecycle & Configuration](/reference/webhook-lifecycle-configuration)). The full list of valid event-type strings is returned by `GET /api/p/v1/webhooks/event-types`.
+
+## Status vs. changed
+
+`trip.status.changed` fires **only** on a status transition and never includes a `data.diff`.
+
+`trip.changed` fires on **every** meaningful write — including status changes — and can include an optional `data.diff` describing what changed. See [Change Diffs (data.diff)](/reference/change-diffs).
+
+<Info>
+    A single underlying write can emit **both** events — one `trip.status.changed` and one `trip.changed`. They are distinguished by the suffix on the event `id`: `-1` for the status event and `-0` for the changed event. Use `X-Alvys-Event-Id` for idempotency so the two are processed independently and duplicates are ignored.
+</Info>
+
+## Payload
+
+Trip events use the standard Alvys webhook [envelope](/reference/event-delivery-reliability#event-request-format). The `data.trip` object carries the **full current snapshot** of the trip — the same shape the Trips API returns from its `GET` endpoint.
+
+### `trip.status.changed`
+
+```json
+{
+  "id": "7be1220a-1c22-4f10-b8a1-2d3e4f5a6b7c-1",
+  "type": "trip.status.changed",
+  "timestamp": "2026-02-23T15:19:35.8794642+00:00",
+  "version": "v1",
+  "data": {
+    "trip": { "...": "full current Trip snapshot (matches GET /api/p/v1/trips)" }
+  }
+}
+```
+
+### `trip.changed`
+
+```json
+{
+  "id": "7be1220a-1c22-4f10-b8a1-2d3e4f5a6b7c-0",
+  "type": "trip.changed",
+  "timestamp": "2026-02-23T15:19:35.8794642+00:00",
+  "version": "v1",
+  "data": {
+    "trip": { "...": "full current Trip snapshot" },
+    "diff": {
+      "changes": [
+        { "kind": "CarrierChanged" },
+        { "kind": "AppointmentChanged", "target": { "type": "Stop", "id": "abc123" } },
+        { "kind": "StopReordered" }
+      ],
+      "previousAttributes": { "...": "previous values (opt-in)" }
+    }
+  }
+}
+```
+
+<Info>
+    Trip stop-scoped changes (`StopAddressChanged`, `AppointmentChanged`, `StopReordered`, …) carry a `target` of `{ "type": "Stop", "id": "<StopId>" }`, where `id` is the stable stop identity from the snapshot — never a positional index.
+</Info>
+
+## Notes
+
+* Because `data.trip` always carries the full snapshot, you can apply the current state directly without a follow-up `GET`. To react to only what changed, use [`data.diff`](/reference/change-diffs).
+* Delivery is **at-least-once** — deduplicate on `X-Alvys-Event-Id`. See [Event Delivery & Reliability](/reference/event-delivery-reliability).
+* `data.diff` is omitted on the first event for a trip (create) and is never present on `trip.status.changed`.

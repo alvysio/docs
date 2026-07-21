@@ -1,0 +1,148 @@
+---
+title: "Search driver settlement statements"
+description: "Search driver settlement statements in Alvys with paginated POST filters, including date range and driver type."
+openapi: "POST /api/p/v{version}/driver-settlement-statements/search"
+---
+
+The Search Driver Settlement Statements endpoint returns a paged list of finalized driver and owner-operator settlement statements (the "Statements" tab), each with its full breakdown of line items and totals. It mirrors the in-app "Statements List and Items" report and is intended for external reporting (e.g. building your own dashboards in Power BI).
+
+Only settled statements are returned: in-flight statements still being generated or reversed are excluded, and each returned statement carries a `Status` of `Processed` or `Failed` so you can filter downstream. Open and Draft statements are never returned.
+
+A statement that failed a downstream step (for example, an accounting sync) is still a finalized statement on the Statements tab, so it is returned here with a `Failed` status rather than hidden. This differs from carrier settlement statements, where `Failed` and `Deleted` are lifecycle statuses and such statements are excluded.
+
+This endpoint requires the `driver:read` scope.
+
+### Request Parameters
+
+The following parameter is required in the URL path:
+
+| Parameter | Type | Required | Description                         |
+| ------------- | -------- | ------------ | --------------------------------------- |
+| version       | String   | Yes          | The version of the API being requested. |
+
+### Request Body
+
+| Parameter              | Type         | Required | Description                                                                                                    |
+| -------------------------- | ---------------- | ------------ | ------------------------------------------------------------------------------------------------------------------ |
+| Page                       | Number           | Yes          | The page number for pagination (starts from 0).                                                                    |
+| PageSize                   | Number           | Yes          | The number of results per page. Must be greater than 0 and cannot exceed 100.                                      |
+| StatementDateRange         | Object           | Yes          | The inclusive statement-date window to filter on. Both bounds are treated as whole UTC calendar days.              |
+| StatementDateRange.Start   | String (Date-Time) | Yes        | Start of the range (inclusive).                                                                                    |
+| StatementDateRange.End     | String (Date-Time) | Yes        | End of the range (inclusive). Required - an open-ended range is rejected.                                          |
+| DriverType                 | String           | No           | Filter by driver type: `COMPANY`, `OWNER_OPERATOR`, or `CONTRACTOR` (case-insensitive; matches the value returned in each result's `Driver.Type` and the /drivers endpoint). Omit to include all. |
+| DriverId                   | String (UUID)    | No           | Filter to a single driver.                                                                                          |
+
+### Example CURL Request
+
+Use the current API version number and replace the Authorization header value with your actual Bearer token:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/driver-settlement-statements/search' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ....' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "Page": 0,
+  "PageSize": 50,
+  "StatementDateRange": {
+    "Start": "2026-06-01T00:00:00Z",
+    "End": "2026-06-30T00:00:00Z"
+  },
+  "DriverType": "OWNER_OPERATOR",
+  "DriverId": "2e17c4d3-202d-4f27-b2fa-711c57435c5b"
+}'
+```
+
+### Response Parameters
+
+The response is a paged envelope. Each item is a finalized statement. Monetary values are objects of the form `{ "Amount": <number>, "Currency": <ISO 4217 numeric code, may be null> }`.
+
+| Parameter            | Type         | Description                                                                 |
+| ------------------------ | ---------------- | ------------------------------------------------------------------------------- |
+| Page                     | Number           | The current page number.                                                        |
+| PageSize                 | Number           | The number of items per page.                                                   |
+| Total                    | Number           | The total number of matching statements across all pages.                       |
+| Items                    | Array of Objects | The statements on this page.                                                    |
+| Items[].Number           | Number           | The statement number.                                                           |
+| Items[].Status           | String           | `Processed` or `Failed`.                                                         |
+| Items[].StatementDate    | String           | The statement date (ISO `yyyy-MM-dd`).                                           |
+| Items[].PayPeriodId      | String           | The pay period identifier.                                                      |
+| Items[].PayPeriodTitle   | String           | The pay period display title.                                                   |
+| Items[].Driver           | Object           | Driver details: `Id`, `Name`, `Type` (`COMPANY`, `OWNER_OPERATOR`, or `CONTRACTOR`), `CompanyName` (owner operators), `SubsidiaryId`, `FleetName`. |
+| Items[].Totals           | Object           | Statement totals - `GrossIncome`, `NetIncome`, `LineHaul`, `Accessorials`, `Echecks`, `ServiceFee`, `DriverPayment`, `Deductions`, `Reimbursements`, `Credits`, `Escrow`, `Fuel`, `Tolls`, `Bonus`, `Shortfall`, `DailyPay`, `DailyPerDiem`, `StatementPerDiem`, `TripValue` (all Money), plus `NumberOfTrips`, `LoadedMiles`, `EmptyMiles`, `HoursWorked`. |
+| Items[].LineItems        | Array of Objects | The individual pay and deduction line items.                                    |
+| Items[].LineItems[].Category   | String     | The line-item type display name (e.g. "Per Trip", "Accessorial", "Fuel", "Deduction"). |
+| Items[].LineItems[].Title      | String     | The line-item title.                                                            |
+| Items[].LineItems[].PolicyName | String     | The originating pay-policy name. Null for statement-level and deduction items.  |
+| Items[].LineItems[].TripNumber | String     | The trip this item belongs to. Null for statement-level and deduction items.    |
+| Items[].LineItems[].LoadNumber | String     | The load this item belongs to. Null for statement-level and deduction items.    |
+| Items[].LineItems[].Amount     | Money      | The line-item amount.                                                           |
+| Items[].LineItems[].SubLines   | Array of Objects | Sub-lines: `Description`, `Quantity`, `Rate`, `Amount`.                    |
+
+### Example Response
+
+```json
+{
+  "Page": 0,
+  "PageSize": 50,
+  "Total": 1,
+  "Items": [
+    {
+      "Number": 10432,
+      "Status": "Processed",
+      "StatementDate": "2026-06-20",
+      "PayPeriodId": "5d2c1b7a-9f3e-4c8a-8b1d-1a2b3c4d5e6f",
+      "PayPeriodTitle": "Jun 16 - Jun 30, 2026",
+      "Driver": {
+        "Id": "2e17c4d3-202d-4f27-b2fa-711c57435c5b",
+        "Name": "John Carter",
+        "Type": "OWNER_OPERATOR",
+        "CompanyName": "Carter Trucking LLC",
+        "SubsidiaryId": "a1b2c3d4-0000-0000-0000-000000000001",
+        "FleetName": "West Fleet"
+      },
+      "Totals": {
+        "GrossIncome": { "Amount": 4200.00, "Currency": 840 },
+        "NetIncome": { "Amount": 3560.50, "Currency": 840 },
+        "LineHaul": { "Amount": 4000.00, "Currency": 840 },
+        "Accessorials": { "Amount": 200.00, "Currency": 840 },
+        "Deductions": { "Amount": 639.50, "Currency": 840 },
+        "Fuel": { "Amount": 400.00, "Currency": 840 },
+        "NumberOfTrips": 2,
+        "LoadedMiles": 1180.0,
+        "EmptyMiles": 95.0,
+        "HoursWorked": 0.0
+      },
+      "LineItems": [
+        {
+          "Category": "Per Trip",
+          "Title": "Line Haul",
+          "PolicyName": "OO 70% Line Haul",
+          "TripNumber": "TRIP-88213",
+          "LoadNumber": "L-55021",
+          "Amount": { "Amount": 2800.00, "Currency": 840 },
+          "SubLines": [
+            { "Description": "70% of $4,000.00", "Quantity": "1", "Rate": "0.70", "Amount": { "Amount": 2800.00, "Currency": 840 } }
+          ]
+        },
+        {
+          "Category": "Deduction",
+          "Title": "Fuel Advance",
+          "PolicyName": null,
+          "TripNumber": null,
+          "LoadNumber": null,
+          "Amount": { "Amount": -400.00, "Currency": 840 },
+          "SubLines": []
+        }
+      ]
+    }
+  ]
+}
+```
+
+<br />
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the Rate Limits section.
+
+This page is interactive, allowing you to try a request by completing the fields for the parameters below. As you fill out the parameters, the CURL command on the right side of the page will be automatically updated.
