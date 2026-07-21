@@ -713,6 +713,24 @@
             ]
           }
         ]
+      },
+      {
+        "product": "Internal SOPs",
+        "description": "Alvys-internal Implementation SOPs and playbooks — employee access only",
+        "icon": "lock",
+        "groups": [
+          {
+            "group": "Implementation SOPs",
+            "icon": "clipboard-list",
+            "pages": [
+              "internal-sops/overview",
+              "internal-sops/sops",
+              "internal-sops/templates",
+              "internal-sops/general-knowledge",
+              "internal-sops/databases"
+            ]
+          }
+        ]
       }
     ]
   },
