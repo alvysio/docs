@@ -11102,6 +11102,1115 @@
         ],
         "summary": "Record stop departure"
       }
+    },
+    "/api/p/v{version}/carriers/{carrierId}/status": {
+      "patch": {
+        "tags": [
+          "Carriers"
+        ],
+        "summary": "Set carrier status",
+        "parameters": [
+          {
+            "name": "carrierId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "API version (e.g., 1.0)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.0",
+              "example": "1.0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Carriers.CarrierStatusUpdateRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Carriers.CarrierStatusUpdateRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Carriers.CarrierStatusUpdateRequest"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Carriers.CarrierStatusUpdateRequest"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Precondition Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Public": []
+          }
+        ]
+      }
+    },
+    "/api/p/v{version}/carrier-settlement-statements/search": {
+      "post": {
+        "tags": [
+          "Carrier Settlement Statements"
+        ],
+        "summary": "Search carrier settlement statements",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "API version (e.g., 1.0)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.0",
+              "example": "1.0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Settlements.CarrierSettlementStatementSearchRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Settlements.CarrierSettlementStatementSearchRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Settlements.CarrierSettlementStatementSearchRequest"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Settlements.CarrierSettlementStatementSearchRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alvys.Helpers.PagedResponse1Alvys.Models.Settlements.CarrierSettlementStatementResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Public": []
+          }
+        ]
+      }
+    },
+    "/api/p/v{version}/carrier-settlement-statements/{number}": {
+      "get": {
+        "tags": [
+          "Carrier Settlement Statements"
+        ],
+        "summary": "Get carrier settlement statement",
+        "parameters": [
+          {
+            "name": "number",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "API version (e.g., 1.0)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.0",
+              "example": "1.0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alvys.Models.Settlements.CarrierSettlementStatementResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Public": []
+          }
+        ]
+      }
+    },
+    "/api/p/v{version}/driver-settlement-statements/search": {
+      "post": {
+        "tags": [
+          "Driver Settlement Statements"
+        ],
+        "summary": "Search driver settlement statements",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "API version (e.g., 1.0)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.0",
+              "example": "1.0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Settlements.DriverSettlementStatementSearchRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Settlements.DriverSettlementStatementSearchRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Settlements.DriverSettlementStatementSearchRequest"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Settlements.DriverSettlementStatementSearchRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alvys.Helpers.PagedResponse1Alvys.Models.Settlements.DriverSettlementStatementResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Public": []
+          }
+        ]
+      }
+    },
+    "/api/p/v{version}/driver-settlement-statements/{number}": {
+      "get": {
+        "tags": [
+          "Driver Settlement Statements"
+        ],
+        "summary": "Get driver settlement statement",
+        "parameters": [
+          {
+            "name": "number",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "API version (e.g., 1.0)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.0",
+              "example": "1.0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alvys.Models.Settlements.DriverSettlementStatementResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Public": []
+          }
+        ]
+      }
+    },
+    "/api/p/v{version}/trips/{tripId}/assign": {
+      "post": {
+        "tags": [
+          "Trips"
+        ],
+        "summary": "Assign trip",
+        "parameters": [
+          {
+            "name": "tripId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "API version (e.g., 1.0)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.0",
+              "example": "1.0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Trips.TripAssignmentRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Trips.TripAssignmentRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Trips.TripAssignmentRequest"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.Trips.TripAssignmentRequest"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alvys.Models.Trips.TripDetailsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Public": []
+          }
+        ]
+      }
+    },
+    "/api/p/v{version}/trips/{tripId}/dispatch": {
+      "post": {
+        "tags": [
+          "Trips"
+        ],
+        "summary": "Dispatch trip",
+        "parameters": [
+          {
+            "name": "tripId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "API version (e.g., 1.0)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.0",
+              "example": "1.0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alvys.Models.Trips.TripDetailsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Public": []
+          }
+        ]
+      }
+    },
+    "/api/p/v{version}/trips/{tripId}/check-calls": {
+      "get": {
+        "tags": [
+          "Trips"
+        ],
+        "summary": "List trip check calls",
+        "description": "Returns the check calls (driver status updates) logged on a trip, most recent first.",
+        "parameters": [
+          {
+            "name": "tripId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "API version (e.g., 2.0)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "2.0",
+              "example": "2.0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Alvys.Models.CheckCalls.Public.CheckCallResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Public": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Trips"
+        ],
+        "summary": "Log a trip check call",
+        "description": "Logs a check call (driver status update) on an in-progress trip. Only accepted while the trip is Covered, Dispatched, or In Transit.",
+        "parameters": [
+          {
+            "name": "tripId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "API version (e.g., 2.0)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "2.0",
+              "example": "2.0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.CheckCalls.Public.CheckCallCreateRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.CheckCalls.Public.CheckCallCreateRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.CheckCalls.Public.CheckCallCreateRequest"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Alvys.Models.CheckCalls.Public.CheckCallCreateRequest"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alvys.Models.CheckCalls.Public.CheckCallResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Public": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -19716,6 +20825,1066 @@
           }
         },
         "additionalProperties": false
+      },
+      "Alvys.Temperature": {
+        "required": [
+          "Value",
+          "Unit"
+        ],
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number",
+            "format": "double"
+          },
+          "Unit": {
+            "type": "string",
+            "enum": [
+              "Fahrenheit",
+              "Celsius",
+              "Kelvin"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Helpers.PagedResponse1Alvys.Models.Settlements.DriverSettlementStatementResponse": {
+        "required": [
+          "Items",
+          "Page",
+          "PageSize",
+          "Total"
+        ],
+        "type": "object",
+        "properties": {
+          "Page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Facets": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Alvys.Helpers.ResultSetFacetItem"
+              }
+            },
+            "nullable": true
+          },
+          "Total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Settlements.DriverSettlementStatementResponse"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Trips.PerHourWithOvertimeRateDto": {
+        "required": [
+          "BaseRate",
+          "LineItems",
+          "OtMultiplier",
+          "RateId",
+          "RateName",
+          "WeeklyOtThreshold"
+        ],
+        "type": "object",
+        "properties": {
+          "BaseRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "OtMultiplier": {
+            "type": "number",
+            "format": "double"
+          },
+          "WeeklyOtThreshold": {
+            "type": "number",
+            "format": "double"
+          },
+          "RateId": {
+            "type": "string"
+          },
+          "RateName": {
+            "type": "string"
+          },
+          "LineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Trips.LineItemDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Trips.TripAssignmentRequest": {
+        "required": [
+          "CarrierId",
+          "DispatcherId"
+        ],
+        "type": "object",
+        "properties": {
+          "CarrierId": {
+            "type": "string"
+          },
+          "DispatcherId": {
+            "type": "string"
+          },
+          "Driver1Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "Driver2Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "TruckId": {
+            "type": "string",
+            "nullable": true
+          },
+          "TrailerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "CarrierRate": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Trips.DailyMinimumPayRateDto": {
+        "required": [
+          "DailyRate",
+          "EndGraceHours",
+          "IncludeWaypoints",
+          "LineItems",
+          "RateId",
+          "RateName",
+          "StartGraceHours"
+        ],
+        "type": "object",
+        "properties": {
+          "DailyRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "StartGraceHours": {
+            "type": "number",
+            "format": "double"
+          },
+          "EndGraceHours": {
+            "type": "number",
+            "format": "double"
+          },
+          "IncludeWaypoints": {
+            "type": "boolean"
+          },
+          "RateId": {
+            "type": "string"
+          },
+          "RateName": {
+            "type": "string"
+          },
+          "LineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Trips.LineItemDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Settlements.DriverSettlementStatementResponse": {
+        "required": [
+          "Driver",
+          "LineItems",
+          "Number",
+          "PayPeriodId",
+          "PayPeriodTitle",
+          "StatementDate",
+          "Status",
+          "Totals"
+        ],
+        "type": "object",
+        "properties": {
+          "Number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Status": {
+            "type": "string"
+          },
+          "StatementDate": {
+            "type": "string"
+          },
+          "PayPeriodId": {
+            "type": "string"
+          },
+          "PayPeriodTitle": {
+            "type": "string"
+          },
+          "Driver": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Models.Settlements.DriverSettlementStatementResponseDriverDto"
+              }
+            ]
+          },
+          "Totals": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Models.Settlements.DriverSettlementStatementResponseTotalsDto"
+              }
+            ]
+          },
+          "LineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Settlements.DriverSettlementStatementResponseLineItemDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.StreetAddress": {
+        "type": "object",
+        "properties": {
+          "Street": {
+            "type": "string",
+            "nullable": true
+          },
+          "City": {
+            "type": "string",
+            "nullable": true
+          },
+          "State": {
+            "type": "string",
+            "nullable": true
+          },
+          "Zip": {
+            "type": "string",
+            "nullable": true
+          },
+          "Country": {
+            "type": "string",
+            "nullable": true
+          },
+          "Coordinates": {
+            "$ref": "#/components/schemas/Alvys.Models.Coordinates"
+          },
+          "TimeZoneId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Settlements.CarrierSettlementStatementResponseTripDto": {
+        "required": [
+          "AccessorialsAmount",
+          "Items",
+          "LineHaulAmount",
+          "LoadNumber",
+          "NetAmount",
+          "TripId",
+          "TripNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "TripId": {
+            "type": "string"
+          },
+          "TripNumber": {
+            "type": "string"
+          },
+          "LoadNumber": {
+            "type": "string"
+          },
+          "Origin": {
+            "type": "string",
+            "nullable": true
+          },
+          "Destination": {
+            "type": "string",
+            "nullable": true
+          },
+          "PickedUpAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "DeliveredAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "InvoiceNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "InvoiceDueDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "NetAmount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "LineHaulAmount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "AccessorialsAmount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "Items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Settlements.CarrierSettlementStatementResponseLineItemDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Settlements.CarrierSettlementStatementResponsePaymentDto": {
+        "required": [
+          "Amount",
+          "Id",
+          "PaymentDate"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "Amount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "PaymentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "PaymentMethod": {
+            "type": "string",
+            "nullable": true
+          },
+          "ReferenceNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "CheckNumber": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Settlements.DriverSettlementStatementResponseTotalsDto": {
+        "required": [
+          "Accessorials",
+          "Bonus",
+          "Credits",
+          "DailyPay",
+          "DailyPerDiem",
+          "Deductions",
+          "DriverPayment",
+          "Echecks",
+          "EmptyMiles",
+          "Escrow",
+          "Fuel",
+          "GrossIncome",
+          "HoursWorked",
+          "LineHaul",
+          "LoadedMiles",
+          "NetIncome",
+          "NumberOfTrips",
+          "Reimbursements",
+          "ServiceFee",
+          "Shortfall",
+          "StatementPerDiem",
+          "Tolls",
+          "TripValue"
+        ],
+        "type": "object",
+        "properties": {
+          "GrossIncome": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "NetIncome": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "LineHaul": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "Accessorials": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "Echecks": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "ServiceFee": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "DriverPayment": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "Deductions": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "Reimbursements": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "Credits": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "Escrow": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "Fuel": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "Tolls": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "Bonus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "Shortfall": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "DailyPay": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "DailyPerDiem": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "StatementPerDiem": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "TripValue": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "NumberOfTrips": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "LoadedMiles": {
+            "type": "number",
+            "format": "double"
+          },
+          "EmptyMiles": {
+            "type": "number",
+            "format": "double"
+          },
+          "HoursWorked": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.CheckCalls.Public.CheckCallCreateRequest": {
+        "required": [
+          "Description"
+        ],
+        "type": "object",
+        "properties": {
+          "Description": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string",
+            "description": "Free-text note for the check call (e.g. the driver's reply)."
+          },
+          "Activity": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true,
+            "description": "The activity reported (e.g. Driving, At Pickup)."
+          },
+          "DriverId": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true,
+            "description": "Id of the driver to attribute the check call to. Must be one of the trip's assigned drivers."
+          },
+          "Location": {
+            "$ref": "#/components/schemas/Alvys.Models.StreetAddress"
+          },
+          "SetpointTemperature": {
+            "$ref": "#/components/schemas/Alvys.Temperature"
+          },
+          "ReturnTemperature": {
+            "$ref": "#/components/schemas/Alvys.Temperature"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Settlements.DriverSettlementStatementResponseDriverDto": {
+        "required": [
+          "Id",
+          "Name",
+          "SubsidiaryId",
+          "Type"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "Name": {
+            "type": "string"
+          },
+          "Type": {
+            "type": "string"
+          },
+          "CompanyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubsidiaryId": {
+            "type": "string"
+          },
+          "FleetName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Settlements.DriverSettlementStatementSearchRequest": {
+        "required": [
+          "Page",
+          "PageSize",
+          "StatementDateRange"
+        ],
+        "type": "object",
+        "properties": {
+          "Page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "StatementDateRange": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Models.Period"
+              }
+            ]
+          },
+          "DriverType": {
+            "type": "string",
+            "nullable": true
+          },
+          "DriverId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Settlements.CarrierSettlementStatementResponseLineItemDto": {
+        "required": [
+          "AccountingTag",
+          "Amount",
+          "Description",
+          "Type"
+        ],
+        "type": "object",
+        "properties": {
+          "Description": {
+            "type": "string"
+          },
+          "Type": {
+            "type": "string"
+          },
+          "Amount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "AccountingTag": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Settlements.CarrierSettlementStatementSearchRequest": {
+        "required": [
+          "Page",
+          "PageSize",
+          "StatementDateRange"
+        ],
+        "type": "object",
+        "properties": {
+          "Page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "StatementDateRange": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Models.Period"
+              }
+            ]
+          },
+          "CarrierId": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubsidiaryId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Settlements.CarrierSettlementStatementResponsePayeeDto": {
+        "required": [
+          "Id",
+          "Name",
+          "Type"
+        ],
+        "type": "object",
+        "properties": {
+          "Type": {
+            "type": "string"
+          },
+          "Id": {
+            "type": "string"
+          },
+          "Name": {
+            "type": "string"
+          },
+          "McNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "DotNumber": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Settlements.DriverSettlementStatementResponseSubLineDto": {
+        "required": [
+          "Amount",
+          "Description",
+          "Quantity",
+          "Rate"
+        ],
+        "type": "object",
+        "properties": {
+          "Description": {
+            "type": "string"
+          },
+          "Quantity": {
+            "type": "string"
+          },
+          "Rate": {
+            "type": "string"
+          },
+          "Amount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.CheckCalls.Public.CheckCallResponse": {
+        "required": [
+          "Id",
+          "LoadNumber",
+          "Description",
+          "TripId"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "description": "Unique identifier of the check call."
+          },
+          "LoadNumber": {
+            "type": "string",
+            "description": "Load number the check call belongs to."
+          },
+          "Description": {
+            "type": "string",
+            "description": "Free-text note captured with the check call."
+          },
+          "Location": {
+            "$ref": "#/components/schemas/Alvys.Models.StreetAddress"
+          },
+          "CreatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "When the check call was recorded (UTC)."
+          },
+          "Activity": {
+            "type": "string",
+            "nullable": true,
+            "description": "The activity reported."
+          },
+          "ResponseType": {
+            "type": "string",
+            "nullable": true,
+            "description": "Categorization of the response (e.g. arrival, departure)."
+          },
+          "CreatedBy": {
+            "type": "string",
+            "nullable": true,
+            "description": "Name of the user or integration that logged the check call."
+          },
+          "DriverName": {
+            "type": "string",
+            "nullable": true,
+            "description": "Assigned driver's name, if known."
+          },
+          "TripId": {
+            "type": "string",
+            "description": "Id of the trip the check call belongs to."
+          },
+          "TripNumber": {
+            "type": "string",
+            "nullable": true,
+            "description": "Related trip number, if known."
+          },
+          "SetpointTemperature": {
+            "$ref": "#/components/schemas/Alvys.Temperature"
+          },
+          "ReturnTemperature": {
+            "$ref": "#/components/schemas/Alvys.Temperature"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Settlements.CarrierSettlementStatementResponse": {
+        "required": [
+          "NetAmount",
+          "Number",
+          "PaidAmount",
+          "Payee",
+          "PaymentProvider",
+          "Payments",
+          "RemainingAmount",
+          "StatementDate",
+          "Status",
+          "SubsidiaryId",
+          "Trips"
+        ],
+        "type": "object",
+        "properties": {
+          "Number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Status": {
+            "type": "string"
+          },
+          "StatementDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "RemittanceDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "SubsidiaryId": {
+            "type": "string"
+          },
+          "Payee": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Models.Settlements.CarrierSettlementStatementResponsePayeeDto"
+              }
+            ]
+          },
+          "RemitTo": {
+            "type": "string",
+            "nullable": true
+          },
+          "PaymentProvider": {
+            "type": "string"
+          },
+          "NetAmount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "PaidAmount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "RemainingAmount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "Trips": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Settlements.CarrierSettlementStatementResponseTripDto"
+            }
+          },
+          "Payments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Settlements.CarrierSettlementStatementResponsePaymentDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Trips.RestBreaksRateDto": {
+        "required": [
+          "EveryNthHour",
+          "LineItems",
+          "PerBreakRate",
+          "RateId",
+          "RateName"
+        ],
+        "type": "object",
+        "properties": {
+          "PerBreakRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "EveryNthHour": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "RateId": {
+            "type": "string"
+          },
+          "RateName": {
+            "type": "string"
+          },
+          "LineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Trips.LineItemDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Carriers.CarrierStatusUpdateRequest": {
+        "required": [
+          "Status"
+        ],
+        "type": "object",
+        "properties": {
+          "Status": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Helpers.PagedResponse1Alvys.Models.Settlements.CarrierSettlementStatementResponse": {
+        "required": [
+          "Items",
+          "Page",
+          "PageSize",
+          "Total"
+        ],
+        "type": "object",
+        "properties": {
+          "Page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Facets": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Alvys.Helpers.ResultSetFacetItem"
+              }
+            },
+            "nullable": true
+          },
+          "Total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Settlements.CarrierSettlementStatementResponse"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Alvys.Models.Settlements.DriverSettlementStatementResponseLineItemDto": {
+        "required": [
+          "Amount",
+          "Category",
+          "SubLines",
+          "Title"
+        ],
+        "type": "object",
+        "properties": {
+          "Category": {
+            "type": "string"
+          },
+          "Title": {
+            "type": "string"
+          },
+          "PolicyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "TripNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "LoadNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "Amount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Alvys.Money"
+              }
+            ]
+          },
+          "SubLines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alvys.Models.Settlements.DriverSettlementStatementResponseSubLineDto"
+            }
+          }
+        },
+        "additionalProperties": false
       }
     },
     "securitySchemes": {
@@ -19734,6 +21903,10 @@
   ],
   "tags": [
     {
+      "name": "Carrier Settlement Statements",
+      "description": "Search carrier settlement statements and retrieve a single statement by number."
+    },
+    {
       "name": "Carriers",
       "description": "Read carrier records, search carriers, and manage carrier documents."
     },
@@ -19748,6 +21921,10 @@
     {
       "name": "DispatchPreferences",
       "description": "Dispatch preferences endpoints for reading dispatch rules and preferences."
+    },
+    {
+      "name": "Driver Settlement Statements",
+      "description": "Search driver settlement statements and retrieve a single statement by number."
     },
     {
       "name": "Drivers",

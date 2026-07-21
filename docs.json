@@ -33,7 +33,9 @@
             "pages": [
               "docs/overview",
               "docs/getting-started",
-              "docs/authentication-1"
+              "docs/authentication-1",
+              "docs/public-roadmap",
+              "docs/need-more-support"
             ]
           },
           {
@@ -88,7 +90,10 @@
               "reference/get_api-p-v-version-carriers-carrierid-documents",
               "reference/get_api-p-v-version-carriers-id",
               "reference/post_api-p-v-version-carriers-carrierid-document",
-              "reference/post_api-p-v-version-carriers-search"
+              "reference/post_api-p-v-version-carriers-search",
+              "reference/patch_api-p-v-version-carriers-carrierid-status",
+              "reference/post_api-p-v-version-carrier-settlement-statements-search",
+              "reference/get_api-p-v-version-carrier-settlement-statements-number"
             ]
           },
           {
@@ -124,7 +129,9 @@
               "reference/get_api-p-v-version-drivers-id",
               "reference/post_api-p-v-version-drivers-driverid-document",
               "reference/post_api-p-v-version-drivers-events-search",
-              "reference/post_api-p-v-version-drivers-search"
+              "reference/post_api-p-v-version-drivers-search",
+              "reference/post_api-p-v-version-driver-settlement-statements-search",
+              "reference/get_api-p-v-version-driver-settlement-statements-number"
             ]
           },
           {
@@ -212,6 +219,10 @@
               "reference/get_api-p-v-version-trips-tripid-stops",
               "reference/get_api-p-v-version-trips-tripid-stops-stopid",
               "reference/post_api-p-v-version-trips-search",
+              "reference/post_api-p-v-version-trips-tripid-assign",
+              "reference/post_api-p-v-version-trips-tripid-dispatch",
+              "reference/get_api-p-v-version-trips-tripid-check-calls",
+              "reference/post_api-p-v-version-trips-tripid-check-calls",
               "reference/post_api-p-v-version-trips-tripid-document",
               "reference/put_api-p-v-version-trips-tripid-stops-stopid-appointment",
               "reference/put_api-p-v-version-trips-tripid-stops-stopid-arrival",
@@ -249,6 +260,8 @@
             "group": "Webhooks",
             "pages": [
               "reference/overview",
+              "reference/load-events",
+              "reference/trip-events",
               "reference/event-delivery-reliability",
               "reference/change-diffs",
               "reference/security-signature-verification",

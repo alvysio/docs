@@ -1,0 +1,95 @@
+---
+title: "Get driver settlement statement"
+description: "Retrieve a single driver settlement statement by its statement number from the Alvys Public API."
+openapi: "GET /api/p/v{version}/driver-settlement-statements/{number}"
+---
+
+The Get Driver Settlement Statement endpoint returns a single finalized driver or owner-operator settlement statement by its statement number, including its full breakdown of line items and totals.
+
+Only settled statements are returned. If the statement does not exist, or is still in-flight (being generated or reversed), the endpoint responds with `404 Not Found`. A statement whose `Status` is `Failed` is still returned.
+
+This endpoint requires the `driver:read` scope.
+
+### Request Parameters
+
+The following parameters are required in the URL path:
+
+| Parameter | Type | Required | Description                         |
+| ------------- | -------- | ------------ | --------------------------------------- |
+| version       | String   | Yes          | The version of the API being requested. |
+| number        | Number   | Yes          | The statement number to retrieve.        |
+
+### Example CURL Request
+
+Use the current API version number and replace the Authorization header value with your actual Bearer token:
+
+```bash
+curl --location 'https://integrations.alvys.com/api/p/v1/driver-settlement-statements/10432' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ....'
+```
+
+### Response Parameters
+
+Returns a single statement object with the same shape as each item in the Search Driver Settlement Statements response. Monetary values are objects of the form `{ "Amount": <number>, "Currency": <ISO 4217 numeric code, may be null> }`.
+
+| Parameter    | Type         | Description                                                                 |
+| ---------------- | ---------------- | ------------------------------------------------------------------------------- |
+| Number           | Number           | The statement number.                                                           |
+| Status           | String           | `Processed` or `Failed`.                                                         |
+| StatementDate    | String           | The statement date (ISO `yyyy-MM-dd`).                                           |
+| PayPeriodId      | String           | The pay period identifier.                                                      |
+| PayPeriodTitle   | String           | The pay period display title.                                                   |
+| Driver           | Object           | Driver details: `Id`, `Name`, `Type` (`COMPANY`, `OWNER_OPERATOR`, or `CONTRACTOR`), `CompanyName`, `SubsidiaryId`, `FleetName`. |
+| Totals           | Object           | Statement totals (gross/net income, line haul, accessorials, deductions, fuel, tolls, escrow, per-diem, trip/mile counts, etc.). |
+| LineItems        | Array of Objects | The individual pay and deduction line items, each with `Category`, `Title`, `PolicyName`, `TripNumber`, `LoadNumber`, `Amount`, and `SubLines`. |
+
+### Example Response
+
+```json
+{
+  "Number": 10432,
+  "Status": "Processed",
+  "StatementDate": "2026-06-20",
+  "PayPeriodId": "5d2c1b7a-9f3e-4c8a-8b1d-1a2b3c4d5e6f",
+  "PayPeriodTitle": "Jun 16 - Jun 30, 2026",
+  "Driver": {
+    "Id": "2e17c4d3-202d-4f27-b2fa-711c57435c5b",
+    "Name": "John Carter",
+    "Type": "OWNER_OPERATOR",
+    "CompanyName": "Carter Trucking LLC",
+    "SubsidiaryId": "a1b2c3d4-0000-0000-0000-000000000001",
+    "FleetName": "West Fleet"
+  },
+  "Totals": {
+    "GrossIncome": { "Amount": 4200.00, "Currency": 840 },
+    "NetIncome": { "Amount": 3560.50, "Currency": 840 },
+    "LineHaul": { "Amount": 4000.00, "Currency": 840 },
+    "Accessorials": { "Amount": 200.00, "Currency": 840 },
+    "Deductions": { "Amount": 639.50, "Currency": 840 },
+    "Fuel": { "Amount": 400.00, "Currency": 840 },
+    "NumberOfTrips": 2,
+    "LoadedMiles": 1180.0,
+    "EmptyMiles": 95.0,
+    "HoursWorked": 0.0
+  },
+  "LineItems": [
+    {
+      "Category": "Per Trip",
+      "Title": "Line Haul",
+      "PolicyName": "OO 70% Line Haul",
+      "TripNumber": "TRIP-88213",
+      "LoadNumber": "L-55021",
+      "Amount": { "Amount": 2800.00, "Currency": 840 },
+      "SubLines": [
+        { "Description": "70% of $4,000.00", "Quantity": "1", "Rate": "0.70", "Amount": { "Amount": 2800.00, "Currency": 840 } }
+      ]
+    }
+  ]
+}
+```
+
+<br />
+
+### Rate Limits
+
+All endpoints are subject to rate limits to protect the API from traffic spikes. For detailed information on rate limits, please refer to the Rate Limits section.
