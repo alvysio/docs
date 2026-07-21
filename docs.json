@@ -30,6 +30,7 @@
         "groups": [
           {
             "group": "Documentation",
+            "public": true,
             "pages": [
               "docs/overview",
               "docs/getting-started",
@@ -40,6 +41,7 @@
           },
           {
             "group": "API Features",
+            "public": true,
             "pages": [
               "docs/base-url",
               "docs/versioning",
@@ -51,6 +53,7 @@
           },
           {
             "group": "AI & Agents",
+            "public": true,
             "pages": [
               "docs/mcp",
               "docs/available-mcp-tools"
@@ -58,9 +61,11 @@
           },
           {
             "group": "Use Cases",
+            "public": true,
             "pages": [
               {
                 "group": "Connecting to Power BI",
+                "public": true,
                 "pages": [
                   "docs/connecting-power-bi-to-alvys-public-api-guide",
                   "docs/authentication-2",
@@ -79,6 +84,7 @@
         "groups": [
           {
             "group": "Getting Started",
+            "public": true,
             "pages": [
               "reference/authentication",
               "reference/tenders"
@@ -86,6 +92,7 @@
           },
           {
             "group": "Carriers",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-carriers-carrierid-documents",
               "reference/get_api-p-v-version-carriers-id",
@@ -98,6 +105,7 @@
           },
           {
             "group": "Customers",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-customers",
               "reference/post_api-p-v-version-customers",
@@ -108,6 +116,7 @@
           },
           {
             "group": "Deductions",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-deductions-id",
               "reference/post_api-p-v-version-deductions-once",
@@ -117,12 +126,14 @@
           },
           {
             "group": "Dispatch Preferences",
+            "public": true,
             "pages": [
               "reference/post_api-p-v-version-dispatchpreferences-search"
             ]
           },
           {
             "group": "Drivers",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-drivers",
               "reference/get_api-p-v-version-drivers-driverid-documents",
@@ -136,6 +147,7 @@
           },
           {
             "group": "Fuel",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-fuel-id",
               "reference/post_api-p-v-version-fuel-search"
@@ -143,6 +155,7 @@
           },
           {
             "group": "Invoices",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-invoices",
               "reference/post_api-p-v-version-invoices-carrier-invoice",
@@ -154,6 +167,7 @@
           },
           {
             "group": "Loads",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-loads",
               "reference/get_api-p-v-version-loads-loadnumber-documents",
@@ -167,6 +181,7 @@
           },
           {
             "group": "Locations",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-locations",
               "reference/post_api-p-v-version-locations-search"
@@ -174,6 +189,7 @@
           },
           {
             "group": "Maintenance",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-maintenance-id",
               "reference/post_api-p-v-version-maintenance-search"
@@ -181,6 +197,7 @@
           },
           {
             "group": "Tenders",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-tenders-tenderid",
               "reference/post_api-p-v-version-tenders",
@@ -195,6 +212,7 @@
           },
           {
             "group": "Tolls",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-tolls-id",
               "reference/post_api-p-v-version-tolls-search"
@@ -202,6 +220,7 @@
           },
           {
             "group": "Trailers",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-trailers",
               "reference/get_api-p-v-version-trailers-id",
@@ -213,6 +232,7 @@
           },
           {
             "group": "Trips",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-trips",
               "reference/get_api-p-v-version-trips-tripid-documents",
@@ -232,6 +252,7 @@
           },
           {
             "group": "Trucks",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-trucks",
               "reference/get_api-p-v-version-trucks-id",
@@ -243,6 +264,7 @@
           },
           {
             "group": "Users",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-users-list",
               "reference/post_api-p-v-version-users-search"
@@ -250,6 +272,7 @@
           },
           {
             "group": "Visibility",
+            "public": true,
             "pages": [
               "reference/get_api-p-v-version-visibility-inbound-loadnumber-history",
               "reference/get_api-p-v-version-visibility-outbound-loadnumber-history",
@@ -258,6 +281,7 @@
           },
           {
             "group": "Webhooks",
+            "public": true,
             "pages": [
               "reference/overview",
               "reference/load-events",
@@ -301,21 +325,25 @@
         "groups": [
           {
             "group": "Overview",
+            "public": true,
             "pages": [
               "help/index"
             ]
           },
           {
             "group": "Getting Started",
+            "public": true,
             "pages": [
               {
                 "group": "User Management",
+                "public": true,
                 "pages": [
                   "help/getting-started/how-to-set-up-multi-factor-authentication-mfa-in-alvys"
                 ]
               },
               {
                 "group": "Onboarding",
+                "public": true,
                 "pages": [
                   "help/getting-started/how-to-navigate-the-catalogs",
                   "help/getting-started/how-to-contact-alvys-support",
@@ -328,6 +356,7 @@
           },
           {
             "group": "Administration",
+            "public": true,
             "pages": [
               "help/administration/how-to-map-accessorials-for-edi",
               "help/administration/overview-of-user-permissions",
@@ -335,12 +364,14 @@
               "help/administration/how-to-manage-your-alvys-subscription",
               {
                 "group": "Subsidiaries",
+                "public": true,
                 "pages": [
                   "help/administration/how-to-set-up-offices-in-alvys"
                 ]
               },
               {
                 "group": "Users & permissions",
+                "public": true,
                 "pages": [
                   "help/administration/customer-account-manager-role-on-loads",
                   "help/administration/user-roles-permissions-collection",
@@ -368,18 +399,21 @@
           },
           {
             "group": "Integrations",
+            "public": true,
             "pages": [
               "help/integrations/twilio-new-integration",
               "help/integrations/alvys-api",
               "help/integrations/connecting-power-bi-to-alvys-public-api",
               {
                 "group": "General",
+                "public": true,
                 "pages": [
                   "help/integrations/11668808-connecting-power-bi-to-alvys-public-api"
                 ]
               },
               {
                 "group": "Brokerage",
+                "public": true,
                 "pages": [
                   "help/integrations/post-loads-to-dat-load-board",
                   "help/integrations/alvys-carrier-marketplace",
@@ -392,12 +426,14 @@
               },
               {
                 "group": "Maintenance",
+                "public": true,
                 "pages": [
                   "help/integrations/fleetrock-maintenance-integration"
                 ]
               },
               {
                 "group": "Fuel",
+                "public": true,
                 "pages": [
                   "help/integrations/bestpass-toll-integration",
                   "help/integrations/pilot-flying-j-fuel-integration",
@@ -415,6 +451,7 @@
               },
               {
                 "group": "ELD & Telematics",
+                "public": true,
                 "pages": [
                   "help/integrations/connecting-roadstar-to-alvys",
                   "help/integrations/connecting-samsara-to-alvys",
@@ -438,6 +475,7 @@
               },
               {
                 "group": "EDI & Visibility",
+                "public": true,
                 "pages": [
                   "help/integrations/how-to-configure-edi-auto-update-settings",
                   "help/integrations/how-to-enable-edi-tender-auto-acceptance-for-a-customer",
@@ -454,6 +492,7 @@
               },
               {
                 "group": "Accounting",
+                "public": true,
                 "pages": [
                   "help/integrations/how-to-configure-dimension-and-custom-field-mappings-for-sage-intacct",
                   "help/integrations/quickbooks-desktop-integration-collection",
@@ -492,6 +531,7 @@
               },
               {
                 "group": "Factoring & Payments",
+                "public": true,
                 "pages": [
                   "help/integrations/how-to-set-up-and-use-factoring-in-alvys",
                   "help/integrations/capital-depot-factoring-integration",
@@ -511,6 +551,7 @@
           },
           {
             "group": "What's New",
+            "public": true,
             "pages": [
               "help/what-s-new/march-2026-releases",
               "help/what-s-new/february-2026-releases",
@@ -523,10 +564,12 @@
           },
           {
             "group": "Reports & Analytics",
+            "public": true,
             "pages": [
               "help/reports-analytics/how-to-filter-drill-and-save-the-view-you-want",
               {
                 "group": "Custom reports",
+                "public": true,
                 "pages": [
                   "help/reports-analytics/custom-reports-guide-collection",
                   "help/reports-analytics/how-to-set-up-custom-reports",
@@ -537,6 +580,7 @@
               },
               {
                 "group": "Operational",
+                "public": true,
                 "pages": [
                   "help/reports-analytics/how-to-share-export-schedule-and-alert-on-a-dashboard",
                   "help/reports-analytics/saved-views",
@@ -546,6 +590,7 @@
               },
               {
                 "group": "Financial",
+                "public": true,
                 "pages": [
                   "help/reports-analytics/gross-pay-calculation-updates",
                   "help/reports-analytics/ifta-reports",
@@ -556,12 +601,14 @@
           },
           {
             "group": "Loads & Trips",
+            "public": true,
             "pages": [
               "help/loads-trips/alvys-load-board",
               "help/loads-trips/public-load-tracking",
               "help/loads-trips/optimize-split-trips-rearrange-stops",
               {
                 "group": "Statuses",
+                "public": true,
                 "pages": [
                   "help/loads-trips/how-to-mark-a-load-as-tonu",
                   "help/loads-trips/how-to-release-a-load-to-billing",
@@ -571,6 +618,7 @@
               },
               {
                 "group": "Create/Add",
+                "public": true,
                 "pages": [
                   "help/loads-trips/how-to-create-and-add-accessorials",
                   "help/loads-trips/how-to-clone-a-load",
@@ -586,6 +634,7 @@
               },
               {
                 "group": "Modify & change",
+                "public": true,
                 "pages": [
                   "help/loads-trips/how-to-lock-and-unlock-a-load-for-editing",
                   "help/loads-trips/how-to-collapse-and-expand-stops-on-a-load",
@@ -599,6 +648,7 @@
               },
               {
                 "group": "Dispatch",
+                "public": true,
                 "pages": [
                   "help/loads-trips/how-to-assign-two-carriers-to-the-same-load",
                   "help/loads-trips/2-owner-operators-cannot-be-assigned-to-a-trip",
@@ -617,6 +667,7 @@
               },
               {
                 "group": "Tenders",
+                "public": true,
                 "pages": [
                   "help/loads-trips/tender-documents-customer-rate-confirmation-v1",
                   "help/loads-trips/tenders",
@@ -627,9 +678,11 @@
           },
           {
             "group": "Accounting & Settlements",
+            "public": true,
             "pages": [
               {
                 "group": "Deductions/Advances/Escrow",
+                "public": true,
                 "pages": [
                   "help/accounting-settlements/how-to-issue-and-manage-e-checks-in-alvys",
                   "help/accounting-settlements/how-to-set-up-balance-based-deductions",
@@ -640,6 +693,7 @@
               },
               {
                 "group": "Invoicing",
+                "public": true,
                 "pages": [
                   "help/accounting-settlements/i-changed-the-invoicing-settings-but-it-s-not-reflected-on-the-load",
                   "help/accounting-settlements/batch-invoicing",
@@ -654,6 +708,7 @@
               },
               {
                 "group": "Driver settlements",
+                "public": true,
                 "pages": [
                   "help/accounting-settlements/linehaul-rate-types",
                   "help/accounting-settlements/driver-settlements-faq",
@@ -664,12 +719,14 @@
               },
               {
                 "group": "Fuel",
+                "public": true,
                 "pages": [
                   "help/accounting-settlements/managing-and-troubleshooting-ifta-reporting-in-alvys"
                 ]
               },
               {
                 "group": "Carrier settlements",
+                "public": true,
                 "pages": [
                   "help/accounting-settlements/carrier-settlements"
                 ]
@@ -678,9 +735,11 @@
           },
           {
             "group": "Assets & Fleet",
+            "public": true,
             "pages": [
               {
                 "group": "Drivers",
+                "public": true,
                 "pages": [
                   "help/assets-fleet/how-to-add-and-manage-fleets-in-alvys",
                   "help/assets-fleet/how-to-create-a-driver",
@@ -692,6 +751,7 @@
               },
               {
                 "group": "Trucks",
+                "public": true,
                 "pages": [
                   "help/assets-fleet/default-equipment",
                   "help/assets-fleet/how-to-add-a-trailer",
@@ -703,9 +763,11 @@
           },
           {
             "group": "Asset & Fleet",
+            "public": true,
             "pages": [
               {
                 "group": "Safety/Compliance",
+                "public": true,
                 "pages": [
                   "help/asset-fleet/how-to-verify-a-motor-carrier-in-alvys"
                 ]
