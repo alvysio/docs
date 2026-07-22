@@ -29,7 +29,7 @@ Scopes use the `{resource}:{action}` convention and match the [Public API scope 
 
 | Tool | Tier | Scope | Description |
 | --- | --- | --- | --- |
-| `trips_search` | Read | `trip:read` | Search trips by status, load number, or trip number. |
+| `trips_search` | Read | `trip:read` | Search trips by status, load number, trip number, and/or pickup/delivery date range (`pickupFrom`/`pickupTo`, `deliveryFrom`/`deliveryTo`, ISO-8601). At least one filter is required; a date range alone is sufficient. |
 | `trips_get_by_id` | Read | `trip:read` | Fetch a single trip including its ordered stops. |
 | `trips_update_stop_status` | Write | `stop:update` | Record arrival, departure, or appointment on a trip stop. |
 | `trips_assign` | Write | `trip:update` | Assign a carrier, driver, and equipment to a trip. |
@@ -56,7 +56,7 @@ Scopes use the `{resource}:{action}` convention and match the [Public API scope 
 
 | Tool | Tier | Scope | Description |
 | --- | --- | --- | --- |
-| `customers_search` | Read | `customer:read` | Search customers by status. |
+| `customers_search` | Read | `customer:read` | Search customers by status and/or record-creation date range (`createdFrom`/`createdTo`, ISO-8601). Results are ordered oldest-first by record-creation date. There is no name filter — page and match client-side. |
 | `customers_get_by_id` | Read | `customer:read` | Fetch a single customer including contacts and billing address. |
 | `customers_create` | Write | `customer:create` | Create a new customer. |
 
@@ -66,6 +66,7 @@ Scopes use the `{resource}:{action}` convention and match the [Public API scope 
 | --- | --- | --- | --- |
 | `trucks_search` | Read | `truck:read` | Search trucks (power units) by unit number or status. |
 | `trucks_get_by_id` | Read | `truck:read` | Fetch a single truck by id. |
+| `trucks_events_search` | Read | `truck:read` | Fetch truck events (maintenance, schedule, availability) for one or more trucks over a date range. Pass `truckIds[]` (Alvys truck ids, not unit numbers) and a `startDate`; `endDate` is optional. Returns a flat event list — an empty list means no events in the range. |
 | `trailers_search` | Read | `trailer:read` | Search trailers by unit number or status. |
 | `trailers_get_by_id` | Read | `trailer:read` | Fetch a single trailer by id. |
 
@@ -73,7 +74,7 @@ Scopes use the `{resource}:{action}` convention and match the [Public API scope 
 
 | Tool | Tier | Scope | Description |
 | --- | --- | --- | --- |
-| `invoices_search` | Read | `invoice:read` | Search invoices by customer, status, load number, or order number. |
+| `invoices_search` | Read | `invoice:read` | Search invoices by customer, status, load number, or order number, optionally narrowed by invoiced-date (`invoicedFrom`/`invoicedTo`) and/or paid-date (`paidFrom`/`paidTo`) ranges. At least one of `customerId`, `status`, `loadNumber`, or `orderNumber` is required — date ranges narrow results but do not count as the sole filter. `invoicedFrom`/`invoicedTo` filters on invoice-record creation date (includes `Draft`), so pair the range with a status filter for billed-amount questions. |
 | `invoices_get_by_id` | Read | `invoice:read` | Fetch a single invoice including line items. |
 | `fuel_transactions_search` | Read | `fuel:read` | Query fuel transactions by truck unit and/or date range. |
 | `invoices_record_carrier_payment` | Write | `invoice:update` | Record a payment to a carrier against a trip. When payments fully cover the carrier payable, the trip transitions to `Completed`. |
