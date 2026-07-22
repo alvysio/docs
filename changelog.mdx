@@ -4,6 +4,36 @@ description: "Release notes and updates for the Alvys Public API, webhooks, MCP 
 rss: true
 ---
 
+<Update label="July 22, 2026" description="MCP date-range filters, new trucks_events_search tool, escrow transaction type on driver settlement statements, user-token read access" tags={["Added", "Fixed", "MCP", "Invoices", "Trips", "Customers", "Trucks", "Driver Settlement Statements", "Authentication"]}>
+  ## MCP: date-range filters on search tools
+
+  * **Added** ISO-8601 date-range parameters to search tools, matching what the Public API already accepts. Ranges are inclusive of start, exclusive of end; end-without-start is rejected up front.
+    * `invoices_search` — new `invoicedFrom` / `invoicedTo` and `paidFrom` / `paidTo`. Date ranges narrow results but do not count as the required filter — you still need at least one of `customerId`, `status`, `loadNumber`, or `orderNumber`. `invoicedFrom` / `invoicedTo` filters on the invoice record's creation date, which includes `Draft` invoices; pair the range with a status filter (`Paid` and/or `AwaitingPayment`) when asking billed-amount questions like "how much did we invoice customer X this week".
+    * `trips_search` — new `pickupFrom` / `pickupTo` and `deliveryFrom` / `deliveryTo`. A date range **alone** is a sufficient filter (matches the underlying `/api/p/v1/trips/search` behavior).
+    * `customers_search` — new `createdFrom` / `createdTo`. Results are now explicitly ordered oldest-first by record-creation date; the previously incidental page order is guaranteed.
+
+  ## MCP: new `trucks_events_search` tool
+
+  * **Added** `trucks_events_search` (Read, `truck:read`) covering `POST /api/p/v1/trucks/events/search`. Pass `truckIds[]` (Alvys truck ids, not unit numbers) and a required `startDate` ISO-8601; `endDate` is optional. Returns a flat event list — empty when there are no events in the range (the underlying `404 Not Found` is surfaced as an empty list).
+
+  ## MCP: hidden write tools and CORS for browser clients
+
+  * **Changed** the advertised MCP tool list — write / destructive tools are pruned from `tools/list` at startup while write gating is off (currently disabled during beta), so agents no longer see 11 write tools they cannot invoke. Tool invocation is still live-gated; nothing about what is allowed changes, only what is listed.
+  * **Fixed** cross-origin discovery for browser-based MCP clients (e.g. MCP Inspector guided OAuth). The RFC 9728 protected-resource metadata endpoints and `/mcp` now answer CORS requests, expose `WWW-Authenticate` and `Mcp-Session-Id`, and no longer 401 on OPTIONS preflight.
+  * **Fixed** a permission-mapping asymmetry where a user token carrying only `ViewStatementListReport` was granted `carrier:read` / `driver:read` at the MCP edge but then rejected by the downstream Public API. The map now only issues a wire scope when the MCP-called endpoint actually accepts the underlying internal permission.
+
+  ## Public API + MCP: user-token access to read endpoints
+
+  * **Fixed** interactive (user-PKCE) tokens failing `load:read`, `stop:read`, `trip:read`, `visibility:read`, and `carrier:read` on the Public API and MCP for otherwise-privileged users. These endpoints were checking for internal permissions (`ViewLoads`, base `Carrier`) that no real user record carries. Any authenticated tenant user now passes the user-token half of those read checks, matching the in-app role gating. Machine-to-machine tokens are unchanged — they still require the corresponding OAuth scope. Every write endpoint keeps its real permission check.
+
+  ## `POST /api/p/v{version}/driver-settlement-statements/search` and `GET /api/p/v{version}/driver-settlement-statements/{number}`
+
+  * **Added** `TransactionType` on the response `LineItems[]`. Populated only when `Category` is `Escrow`; `null` for every other line item.
+    * `"Deposit"` — money moved **into** the driver's escrow account. Appears as a negative `Amount`.
+    * `"Withdrawal"` — money moved **out** of the escrow account. Appears as a positive `Amount`.
+  * Additive and non-breaking. Existing consumers see one new nullable field. Totals and every other field are unchanged. This is the only Public API surface that returns escrow line items today; `POST /api/p/v{version}/deductions/search` does not.
+</Update>
+
 <Update label="July 13, 2026" description="Carrier Payment Trip Status Fix (ACC-1677)" tags={["Fixed", "Invoices", "MCP"]}>
   Released with the [Week of July 6–13 platform fixes](https://app.notion.com/p/39ca5b0d388a812e9db2e30d7b9526aa).
 

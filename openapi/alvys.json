@@ -21877,6 +21877,15 @@
               }
             ]
           },
+          "TransactionType": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "Deposit",
+              "Withdrawal"
+            ],
+            "description": "Populated only when `Category` is `Escrow`; `null` for every other line item. `Deposit` means money moved into the driver's escrow account (negative `Amount`); `Withdrawal` means money moved out (positive `Amount`)."
+          },
           "SubLines": {
             "type": "array",
             "items": {
