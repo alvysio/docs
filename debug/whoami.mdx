@@ -1,0 +1,42 @@
+---
+title: "Who am I (debug)"
+sidebarTitle: "Who am I (debug)"
+noindex: true
+description: "Debug page that echoes the authenticated user object (claims, groups, personalization content) so you can validate what Mintlify received after login."
+hidden: true
+---
+
+export const Dump = ({ user }) => (
+  <pre style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+    {JSON.stringify(user ?? { note: "no user in scope — you are not authenticated" }, null, 2)}
+  </pre>
+);
+
+<Note>
+  Internal debug page. `noindex` \+ hidden from the sidebar. Reachable directly at `/debug/whoami`. Remove or gate it once authentication is validated.
+</Note>
+
+## Are you authenticated?
+
+<Check>
+  You are signed in — the raw claims below are populated.
+</Check>
+
+If the block below shows `no user in scope`, the auth handshake did not return a user object. For JWT, confirm the `host` claim exactly matches your docs domain and that your token/info endpoint includes `groups`.
+
+## Quick checks
+
+- **Groups:** {user?.groups?.length ? user.groups.join(", ") : "— none —"}
+- **Session expires at:** {user?.expiresAt ? new Date(user.expiresAt * 1000).toISOString() : "— none —"}
+- **Personalization content keys:** {user?.content ? Object.keys(user.content).join(", ") || "— empty object —" : "— none —"}
+- **API playground input keys:** {user?.apiPlaygroundInputs ? Object.keys(user.apiPlaygroundInputs).join(", ") || "— empty object —" : "— none —"}
+
+## Raw claims received
+
+<Dump user={user} />
+
+## How to read this
+
+- **`groups`** is what you filter pages on. Add `groups: ["..."]` to a page's frontmatter (or a nav group in `docs.json`) — a user must be in at least one listed group to view it; others get a 404.
+- **`content`** is your personalization payload — reference it in any page with `{user.content.fieldName}`.
+- Mintlify fails closed: if the configured claim is missing from the auth response, sign-in is blocked entirely. So a successful login with an empty `groups` array means your backend returned `groups: []`, not that Mintlify dropped it.
