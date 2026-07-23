@@ -4,6 +4,54 @@ description: "Release notes and updates for the Alvys Public API, webhooks, MCP 
 rss: true
 ---
 
+<Update label="July 23, 2026" description="MCP: strict arguments, 0-based paging, Public-API-aligned argument shapes" tags={["Changed", "Breaking", "MCP"]}>
+  The Alvys MCP server is now stricter about tool arguments and aligns paging and filter shapes with the Public API, so calls port 1:1 between the two. Two of these are **breaking** for anyone who scripted against the previous MCP facade.
+
+  <Warning>
+    **Breaking — paging is now 0-based.** Every search tool's `page` parameter defaults to `0` and is passed through to the Public API unchanged. If your agent or script currently sends `page=1` to fetch the first page, it now fetches the **second** page. Update callers to start at `page=0`. `page=-1` (or any negative value) is rejected with `[invalid_params]`.
+  </Warning>
+
+  <Warning>
+    **Breaking — unknown parameters are rejected.** The MCP SDK previously bound arguments by name and silently discarded unknown keys, so a misspelled or unsupported filter (e.g. `customers_search name="Colortech"`) returned confident, wrong results — the full unfiltered list — instead of an error. Every tool now validates argument keys against its advertised input schema before running, including nested keys inside date ranges and array elements, and returns a structured `[invalid_params]` error that names the rejected keys and the valid parameter list. Migrate callers that relied on unknown keys being silently ignored; the error message tells you exactly which keys to drop or rename.
+  </Warning>
+
+  ## What changed
+
+  * **0-based paging on every search tool.** `page` defaults to `0` and responses echo the request `page` back so agents can drive their own pager. `pageSize` still defaults to `25` (max `100`).
+  * **Strict argument validation.** Unknown keys — at the top level or nested inside a date-range object or array element — return `[invalid_params]` naming the offending keys and the tool's full valid-parameter list.
+  * **Array filters, matching the Public API.** Filters that map to `/search` array fields are now declared as arrays on the tool so you can pass one or many values in a single call.
+  * **Structured date-range objects.** Date-range filters are now single `{ start, end }` objects using the same parameter names the Public API uses.
+
+  ## Tools affected
+
+  | Tool | Parameters changed |
+  | --- | --- |
+  | `customers_search` | `status` (string) → `statuses` (array); `createdFrom` / `createdTo` → `createdDateRange` `{ start, end }`; `page` default `1` → `0` |
+  | `carriers_search` | `status` (string) → `status` (array); `mcNumber` → `mcNumbers` (array); `dotNumber` → `dotNumbers` (array); `page` default `1` → `0` |
+  | `loads_search` | `status` (string) → `status` (array); `loadNumber` → `loadNumbers` (array, max 50); `orderNumber` → `orderNumbers` (array, max 50); `page` default `1` → `0` |
+  | `trips_search` | `status` (string) → `status` (array); `loadNumber` → `loadNumbers` (array, max 50); `tripNumber` → `tripNumbers` (array, max 50); `pickupFrom` / `pickupTo` → `pickupDateRange` `{ start, end }`; `deliveryFrom` / `deliveryTo` → `deliveryDateRange` `{ start, end }`; `page` default `1` → `0` |
+  | `drivers_search` | `status` (string) → `status` (array); `page` default `1` → `0` |
+  | `drivers_events_search` | `driverId` (single) → `driverIds` (array; pass several for a fleet-wide query) |
+  | `trucks_search` | `unitNumber` → `truckNumber`; `status` (string) → `status` (array); `page` default `1` → `0` |
+  | `trailers_search` | `unitNumber` → `trailerNumber`; `status` (string) → `status` (array); `page` default `1` → `0` |
+  | `invoices_search` | `status` (string) → `status` (array); `loadNumber` → `loadNumbers` (array, max 50); `orderNumber` → `orderNumbers` (array, max 50); `invoicedFrom` / `invoicedTo` → `invoicedDateRange` `{ start, end }`; `paidFrom` / `paidTo` → `paidDateRange` `{ start, end }`; `page` default `1` → `0` |
+  | `fuel_transactions_search` | `truckId` → `truckNumber`; `from` / `to` → `transactionRange` `{ start, end }`; `page` default `1` → `0` |
+  | `tenders_search` | `status` (string) → `status` (array); `page` default `1` → `0` |
+  | `deductions_search` | `page` default `1` → `0` |
+
+  ## Migration
+
+  1. **Rename any renamed parameters.** In particular: `unitNumber` → `truckNumber` / `trailerNumber` (on `trucks_search` / `trailers_search`), `truckId` → `truckNumber` (on `fuel_transactions_search`), and singular `mcNumber` / `dotNumber` / `loadNumber` / `orderNumber` / `tripNumber` / `driverId` → their plural array forms on the search tools listed above.
+  2. **Wrap single-value filters in an array.** `status: "Active"` → `status: ["Active"]`, `mcNumber: "12345"` → `mcNumbers: ["12345"]`, and so on.
+  3. **Collapse date pairs into `{ start, end }` objects** using the new parameter names (`createdDateRange`, `pickupDateRange`, `deliveryDateRange`, `invoicedDateRange`, `paidDateRange`, `transactionRange`).
+  4. **Shift `page` down by one.** `page=1` (old first page) → `page=0`. If your code computes `page` from a UI index, subtract `1` at the call site.
+  5. **Drop any unrecognized keys.** If a call now returns `[invalid_params]`, the error message lists both the rejected keys and the valid parameter set — align on that list.
+
+  Guided prompts (`carrier_onboarding_v1`, `settlement_reconciliation_v1`) have been updated to reference the new parameter names. Read tool coverage, permissions, and endpoints are otherwise unchanged.
+
+  See [Available MCP Tools](/docs/available-mcp-tools#conventions) for the full conventions and an example `[invalid_params]` payload.
+</Update>
+
 <Update label="July 13, 2026" description="Carrier Payment Trip Status Fix (ACC-1677)" tags={["Fixed", "Invoices", "MCP"]}>
   Released with the [Week of July 6–13 platform fixes](https://app.notion.com/p/39ca5b0d388a812e9db2e30d7b9526aa).
 

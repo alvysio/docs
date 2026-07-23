@@ -18,18 +18,54 @@ Scopes use the `{resource}:{action}` convention and match the [Public API scope 
 
 ***
 
+## Conventions
+
+The MCP tool surface mirrors the Public API request/response shapes so calls port 1:1 between the two.
+
+**Paging.** All search tools accept `page` (0-based, default `0`) and `pageSize` (default `25`, max `100`). Responses echo the request `page` back so agents can drive their own pager. `page=-1` (or any negative value) is rejected with `[invalid_params]`.
+
+<Warning>
+  **Breaking (2026-07-23):** paging is now 0-based, matching the Public API. Callers that previously sent `page=1` to get the first page must now send `page=0`. See the [changelog](/changelog).
+</Warning>
+
+**Array filters.** Filters that map to `/search` array fields on the Public API (`statuses`, `status`, `loadNumbers`, `orderNumbers`, `mcNumbers`, `dotNumbers`, `tripNumbers`, `driverIds`, and so on) are declared as **arrays** on the tool. Pass one or many values in a single call.
+
+**Date ranges.** Date-range filters are objects: `{ start, end }` in ISO-8601 (e.g. `{ "start": "2026-06-01T00:00:00Z", "end": "2026-06-30T23:59:59Z" }`). The parameter names match the Public API — `createdDateRange`, `pickupDateRange`, `deliveryDateRange`, `invoicedDateRange`, `paidDateRange`, `transactionRange`. Legacy split-string parameters (`createdFrom` / `createdTo`, `pickupFrom` / `pickupTo`, etc.) are no longer accepted.
+
+**Strict arguments.** Unknown keys — misspellings, unsupported filters, or parameters that no longer exist — are **rejected** with `[invalid_params]`. The error message names the rejected keys and the valid parameter list so an agent can self-correct in one round trip. Nested keys inside a date range or array element are validated too.
+
+<Info>
+  Why: previously, the MCP SDK bound arguments by name and silently discarded unknown ones. `customers_search name="Colortech"` returned the full unfiltered customer list because `name` isn't a valid filter on that tool. That silent-drop behavior is gone — you now get an actionable error instead of a confidently-wrong result.
+</Info>
+
+Example rejection:
+
+```json
+{
+  "isError": true,
+  "content": [
+    {
+      "type": "text",
+      "text": "[invalid_params] Unknown parameter(s) for customers_search: 'name'. Valid parameters: createdDateRange, page, pageSize, statuses. Unknown parameters are rejected instead of silently ignored so a misspelled filter cannot return unfiltered results."
+    }
+  ]
+}
+```
+
+***
+
 ## Loads
 
 | Tool | Tier | Scope | Description |
 | --- | --- | --- | --- |
-| `loads_search` | Read | `load:read` | Search loads by status, load number, order number, and/or customer id. |
+| `loads_search` | Read | `load:read` | Search loads by `status`, `loadNumbers`, `orderNumbers`, and/or `customerId`. Provide at least one filter. |
 | `loads_get_by_id` | Read | `load:read` | Fetch a single load including stops, charges, and assignment. |
 
 ## Trips
 
 | Tool | Tier | Scope | Description |
 | --- | --- | --- | --- |
-| `trips_search` | Read | `trip:read` | Search trips by status, load number, or trip number. |
+| `trips_search` | Read | `trip:read` | Search trips by `status`, `loadNumbers`, `tripNumbers`, `pickupDateRange`, and/or `deliveryDateRange`. Provide at least one filter. |
 | `trips_get_by_id` | Read | `trip:read` | Fetch a single trip including its ordered stops. |
 | `trips_update_stop_status` | Write | `stop:update` | Record arrival, departure, or appointment on a trip stop. |
 | `trips_assign` | Write | `trip:update` | Assign a carrier, driver, and equipment to a trip. |
@@ -38,15 +74,15 @@ Scopes use the `{resource}:{action}` convention and match the [Public API scope 
 
 | Tool | Tier | Scope | Description |
 | --- | --- | --- | --- |
-| `drivers_search` | Read | `driver:read` | Search drivers by name or ELD duty status. |
+| `drivers_search` | Read | `driver:read` | Search drivers by `name` and/or ELD duty `status` (array). Provide at least one filter. |
 | `drivers_get_by_id` | Read | `driver:read` | Fetch a single driver record. |
-| `drivers_events_search` | Read | `driver:read` | Fetch a driver's ELD / duty event history over a date range. |
+| `drivers_events_search` | Read | `driver:read` | Fetch ELD / duty event history over a date range for one or more drivers (`driverIds` array). |
 
 ## Carriers
 
 | Tool | Tier | Scope | Description |
 | --- | --- | --- | --- |
-| `carriers_search` | Read | `carrier:read` | Search carriers by status, MC number, or DOT number. |
+| `carriers_search` | Read | `carrier:read` | Search carriers by `status`, `mcNumbers`, and/or `dotNumbers`. Provide at least one filter. |
 | `carriers_get_by_id` | Read | `carrier:read` | Fetch a single carrier including insurance and authority data. |
 | `carriers_documents_get` | Read | `carrier:read` | List documents on file for a carrier. |
 | `carriers_set_status` | Write | `carrier:update` | Change a carrier's status (e.g. activate after onboarding). |
@@ -56,7 +92,7 @@ Scopes use the `{resource}:{action}` convention and match the [Public API scope 
 
 | Tool | Tier | Scope | Description |
 | --- | --- | --- | --- |
-| `customers_search` | Read | `customer:read` | Search customers by status. |
+| `customers_search` | Read | `customer:read` | Search customers by `statuses` (array; defaults to Active, Inactive, Disabled) and/or `createdDateRange`. There is no `name` filter — match client-side. |
 | `customers_get_by_id` | Read | `customer:read` | Fetch a single customer including contacts and billing address. |
 | `customers_create` | Write | `customer:create` | Create a new customer. |
 
@@ -64,18 +100,18 @@ Scopes use the `{resource}:{action}` convention and match the [Public API scope 
 
 | Tool | Tier | Scope | Description |
 | --- | --- | --- | --- |
-| `trucks_search` | Read | `truck:read` | Search trucks (power units) by unit number or status. |
+| `trucks_search` | Read | `truck:read` | Search trucks (power units) by `truckNumber` and/or `status` (array). Provide at least one filter. |
 | `trucks_get_by_id` | Read | `truck:read` | Fetch a single truck by id. |
-| `trailers_search` | Read | `trailer:read` | Search trailers by unit number or status. |
+| `trailers_search` | Read | `trailer:read` | Search trailers by `trailerNumber` and/or `status` (array). Provide at least one filter. |
 | `trailers_get_by_id` | Read | `trailer:read` | Fetch a single trailer by id. |
 
 ## Invoices, Fuel & Payments
 
 | Tool | Tier | Scope | Description |
 | --- | --- | --- | --- |
-| `invoices_search` | Read | `invoice:read` | Search invoices by customer, status, load number, or order number. |
+| `invoices_search` | Read | `invoice:read` | Search invoices by `customerId`, `status`, `loadNumbers`, and/or `orderNumbers`, optionally narrowed by `invoicedDateRange` / `paidDateRange`. Provide at least one non-date filter — date ranges narrow results but do not count on their own. |
 | `invoices_get_by_id` | Read | `invoice:read` | Fetch a single invoice including line items. |
-| `fuel_transactions_search` | Read | `fuel:read` | Query fuel transactions by truck unit and/or date range. |
+| `fuel_transactions_search` | Read | `fuel:read` | Query fuel transactions by `truckNumber` and/or `transactionRange`. Provide at least one filter. |
 | `invoices_record_carrier_payment` | Write | `invoice:update` | Record a payment to a carrier against a trip. When payments fully cover the carrier payable, the trip transitions to `Completed`. |
 | `invoices_record_customer_payment` | Write | `invoice:update` | Record a payment received from a customer against a load. |
 | `invoices_record_financing` | Write | `invoice:update` | Record a factoring / financing transaction. |
@@ -91,14 +127,14 @@ Scopes use the `{resource}:{action}` convention and match the [Public API scope 
 
 | Tool | Tier | Scope | Description |
 | --- | --- | --- | --- |
-| `deductions_search` | Read | `deduction:read` | Search deductions for a driver, truck, or owner-operator. |
+| `deductions_search` | Read | `deduction:read` | Search deductions for a `driverId`, `truckId`, or `ownerOperatorId`. Provide at least one. Pass `includePaid=true` to also return paid deductions (default: open only). |
 | `deductions_get_by_id` | Read | `deduction:read` | Fetch a single deduction by id. |
 
 ## Tenders
 
 | Tool | Tier | Scope | Description |
 | --- | --- | --- | --- |
-| `tenders_search` | Read | `tender:read` | Search inbound tenders by status, load number, or shipment id. |
+| `tenders_search` | Read | `tender:read` | Search inbound tenders by `status` (array), `loadNumber`, and/or `shipmentId`. |
 | `tenders_get_by_id` | Read | `tender:read` | Fetch a single inbound tender. |
 | `tenders_create` | Write | `tender:create` | Create (ingest) a new inbound tender. |
 | `tenders_accept` | Write | `tender:update` | Accept an inbound tender, linking each stop to a company. |
@@ -114,6 +150,7 @@ Tool calls return a structured error when they cannot complete. Common cases:
 
 | Condition | What it means |
 | --- | --- |
+| **`invalid_params`** | The call carries an unknown parameter key or an out-of-range value (e.g. `page=-1`). The message names the rejected keys and the tool's valid parameter list — read it and retry with a corrected argument shape. |
 | **Missing scope** | Your token does not carry the tool's required permission. Add the scope in **Admin → API Access** and re-issue the token. |
 | **Write tool disabled** | The tool is a write/destructive action disabled during beta. |
 | **Rate limited** | You exceeded the per-token request limit. Back off and retry. |
