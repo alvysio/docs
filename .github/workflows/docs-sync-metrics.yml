@@ -1,0 +1,93 @@
+name: Docs-sync metrics labeler
+
+# Observability for the self-healing docs loop — SCA-5280.
+#
+# Classifies the Mintlify GitHub App's Public-API/MCP documentation-automation PRs so a Grafana
+# dashboard (grafana-github-datasource) can count them purely by label:
+#
+#   docs-sync             — this PR is a Mintlify "Public API Documentation Automation:" PR
+#                           (the population / denominator)
+#   docs-sync:manual-edit — a manual (non-mintlify[bot]) commit landed on it before merge
+#                           (the failure signal — the automation needed human help)
+#
+# All classification happens here at write-time; Grafana only ever READS these labels. This is
+# necessary because the GitHub datasource can filter PRs by label but cannot compute per-PR commit
+# authorship.
+#
+# Producer being observed: the Mintlify GitHub App (author `mintlify[bot]`, `mintlify/*` branches).
+# NOT the backend public-api-docs-sync.yml prototype.
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  # One run per PR; a newer commit supersedes an in-flight labeling run.
+  group: docs-sync-metrics-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  classify:
+    name: Classify Mintlify doc-automation PR
+    runs-on: ubuntu-latest
+    # Safe-off: act ONLY on the Mintlify App's Public-API/MCP automation PRs. Inert on everything
+    # else (human PRs, other Mintlify automations like "Custom automation:" / SEO / grammar).
+    # The title is Mintlify's fixed template for these PRs; the Bot-type + `mintlify` login prefix
+    # guards against a human spoofing the title, and tolerates both the `mintlify[bot]` (webhook)
+    # and `mintlify` (GraphQL) login forms.
+    if: >-
+      startsWith(github.event.pull_request.title, 'Public API Documentation Automation:') &&
+      github.event.pull_request.user.type == 'Bot' &&
+      startsWith(github.event.pull_request.user.login, 'mintlify')
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number }}
+      BOT_LOGIN: mintlify[bot]
+      SYNC_LABEL: docs-sync
+      MANUAL_LABEL: docs-sync:manual-edit
+    steps:
+      - name: Ensure labels exist
+        run: |
+          set -euo pipefail
+          gh label create "$SYNC_LABEL" --repo "$REPO" \
+            --color 1D76DB \
+            --description "Mintlify Public API / MCP doc-automation PR (SCA-5280)" 2>/dev/null || true
+          gh label create "$MANUAL_LABEL" --repo "$REPO" \
+            --color B60205 \
+            --description "Doc-automation PR received a manual (non-bot) commit" 2>/dev/null || true
+
+      - name: Tag as docs-sync
+        run: |
+          set -euo pipefail
+          gh pr edit "$PR" --repo "$REPO" --add-label "$SYNC_LABEL"
+
+      - name: Flag manual (non-bot) commits
+        run: |
+          set -euo pipefail
+          # A commit counts as automation if ANY of its authors is mintlify[bot] (covers co-authored
+          # commits). A commit is "manual" if it has no mintlify[bot] author. We match on both the
+          # GitHub login and the bot's noreply email so a commit still classifies correctly when the
+          # email does not resolve to a login.
+          manual_count="$(gh pr view "$PR" --repo "$REPO" --json commits --jq '
+            [ .commits[]
+              | select(
+                  ( [ .authors[]?
+                      | (.login == env.BOT_LOGIN)
+                        or (((.email // "") | contains("mintlify[bot]")))
+                    ] | any ) | not
+                )
+            ] | length')"
+          echo "Manual (non-bot) commits on PR #$PR: $manual_count"
+
+          if [ "$manual_count" -gt 0 ]; then
+            echo "→ manual edit detected; adding $MANUAL_LABEL"
+            gh pr edit "$PR" --repo "$REPO" --add-label "$MANUAL_LABEL"
+          else
+            echo "→ no manual edits; ensuring $MANUAL_LABEL is absent"
+            gh pr edit "$PR" --repo "$REPO" --remove-label "$MANUAL_LABEL" 2>/dev/null || true
+          fi
