@@ -2,10 +2,10 @@ name: Docs-sync metrics labeler
 
 # Observability for the self-healing docs loop — SCA-5280.
 #
-# Classifies the Mintlify GitHub App's Public-API/MCP documentation-automation PRs so a Grafana
-# dashboard (grafana-github-datasource) can count them purely by label:
+# Classifies PRs opened by the Mintlify GitHub App so a Grafana dashboard
+# (grafana-github-datasource) can count them purely by label:
 #
-#   docs-sync             — this PR is a Mintlify "Public API Documentation Automation:" PR
+#   docs-sync             — this PR was opened by the Mintlify automation
 #                           (the population / denominator)
 #   docs-sync:manual-edit — a manual (non-mintlify[bot]) commit landed on it before merge
 #                           (the failure signal — the automation needed human help)
@@ -34,13 +34,10 @@ jobs:
   classify:
     name: Classify Mintlify doc-automation PR
     runs-on: ubuntu-latest
-    # Safe-off: act ONLY on the Mintlify App's Public-API/MCP automation PRs. Inert on everything
-    # else (human PRs, other Mintlify automations like "Custom automation:" / SEO / grammar).
-    # The title is Mintlify's fixed template for these PRs; the Bot-type + `mintlify` login prefix
-    # guards against a human spoofing the title, and tolerates both the `mintlify[bot]` (webhook)
-    # and `mintlify` (GraphQL) login forms.
+    # Safe-off: act ONLY on PRs authored by the Mintlify GitHub App. Inert on human PRs.
+    # The Bot-type + `mintlify` login prefix identifies the app and tolerates both the
+    # `mintlify[bot]` (webhook payload) and `mintlify` (GraphQL) login forms.
     if: >-
-      startsWith(github.event.pull_request.title, 'Public API Documentation Automation:') &&
       github.event.pull_request.user.type == 'Bot' &&
       startsWith(github.event.pull_request.user.login, 'mintlify')
     env:
@@ -56,7 +53,7 @@ jobs:
           set -euo pipefail
           gh label create "$SYNC_LABEL" --repo "$REPO" \
             --color 1D76DB \
-            --description "Mintlify Public API / MCP doc-automation PR (SCA-5280)" 2>/dev/null || true
+            --description "PR opened by the Mintlify automation (SCA-5280)" 2>/dev/null || true
           gh label create "$MANUAL_LABEL" --repo "$REPO" \
             --color B60205 \
             --description "Doc-automation PR received a manual (non-bot) commit" 2>/dev/null || true
